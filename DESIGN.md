@@ -131,7 +131,7 @@ page that a resume check or a repo visit would contradict.
 
 | Budget | Target | Shipped |
 | --- | --- | --- |
-| HTML (index, incl. inline CSS/JS) | < 40 KB | ~33 KB |
+| HTML (index, incl. inline CSS/JS) | < 40 KB | 31.4 KB |
 | Fonts (4 × woff2, latin subsets) | < 220 KB | ~194 KB |
 | Hero image (720 webp, typical load) | < 50 KB | ~31 KB |
 | JavaScript | < 4 KB | ~2 KB |
