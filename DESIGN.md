@@ -324,3 +324,24 @@ epistemology, and that must be detectable.
 after implementation; it advances only on user-testing evidence. The
 public/attested dot semantics remain experimental and are expected to be
 replaced by the envelope's richer state model.
+
+## Fig. 02 — the bounds figure
+
+**Decision.** Inline the animated figure rather than link it, and assert its
+geometry at build time: overlap area must equal q to within 1e-9 in all eleven
+frames.
+
+**Why.** Inlining lets it inherit the site's tokens, so it obeys the theme
+toggle rather than only the OS preference. Asserting the geometry means a figure
+that lies about probability fails the build instead of looking fine.
+
+**Correction, 2026-08-21.** The first build guarded label overflow with an
+estimated 190px string width. Measured on the deployed page, the widest
+right-hand label renders at **207px**. The guard passed only because it happened
+to be conservative in the safe direction — an assertion built on a guessed
+constant is not an assertion. The layout now leaves margin against the measured
+value, and the first version's labels were in fact clipped in production before
+this was caught by measuring the deployed SVG rather than trusting the source.
+
+**What would make me revisit it.** A screen-reader user reporting that the
+`desc` does not carry the argument, or any frame failing the geometry assertion.

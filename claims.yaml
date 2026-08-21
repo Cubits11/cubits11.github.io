@@ -256,13 +256,13 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md"
       commit: null
       note: "Mutable link by design; the local-content trigger below detects edits."
-    last_reviewed: "2026-08-20"
+    last_reviewed: "2026-08-21"
     review_window_days: 120
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: DESIGN.md
-        sha256: "e18c0192eaa76344ad7c9b8724e509be036d82df01df52d33163853d96aa2cf3"
+        sha256: "05c79101582647a43fadd9df2ffe0c398dd77542e7aa17c44a635e8b92f02ff7"
         note: fires when DESIGN.md changes without a registry re-review
       - type: manual
         enforcement: manual
