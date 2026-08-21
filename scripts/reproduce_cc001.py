@@ -28,20 +28,23 @@ def main() -> int:
     commit = cc001["support"]["commit"]
     print(f"CC-001 bound commit: {commit}")
 
+    snippet = (
+        "from cc.kernel.strict import frechet_bounds\n"
+        f"expected = {EXPECTED!r}\n"
+        "for event, (lo, hi) in expected.items():\n"
+        "    b = frechet_bounds([0.10, 0.10], event=event)\n"
+        "    print(f'event={event}: lower={b.lower} upper={b.upper}')\n"
+        "    assert (b.lower, b.upper) == (lo, hi), f'MISMATCH: expected ({lo}, {hi})'\n"
+    )
     with tempfile.TemporaryDirectory() as tmp:
         repo = str(pathlib.Path(tmp) / "cc")
         run("git", "clone", "--quiet", "--filter=blob:none",
             "https://github.com/Cubits11/cc-framework.git", repo)
         run("git", "checkout", "--quiet", commit, cwd=repo)
         run(sys.executable, "-m", "pip", "install", "--quiet", "-e", repo)
-
-        from cc.kernel.strict import frechet_bounds  # installed just above
-        for event, (lo, hi) in EXPECTED.items():
-            b = frechet_bounds([0.10, 0.10], event=event)
-            print(f"event={event}: lower={b.lower} upper={b.upper}")
-            if (b.lower, b.upper) != (lo, hi):
-                print(f"MISMATCH: expected ({lo}, {hi})")
-                return 1
+        # A fresh interpreter, deliberately: editable-install path hooks only
+        # take effect for processes started after the install.
+        run(sys.executable, "-c", snippet)
 
     print("CC-001 REPRODUCED: clean clone at the bound commit returns the "
           "registry's recorded bounds.")
