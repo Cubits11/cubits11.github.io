@@ -1,0 +1,171 @@
+# Claim registry — cubits11.github.io
+# Source of truth for every technical claim the site renders with an evidence
+# marker. CI (scripts/verify_claims.py) checks on every push and weekly that:
+# required fields exist, support links resolve, commit bindings are reachable,
+# review dates are valid, and every claim id is rendered in /ledger/.
+#
+# Status vocabulary: untested | partially_supported | supported_within_scope |
+#                    inconclusive | contradicted | attested
+# (attested = owner-stated, dated, no public artifact — a provenance state,
+#  deliberately kept distinct from evidential statuses.)
+
+version: "0.1"
+last_owner_review: "2026-08-20"
+
+claims:
+  - id: CC-001
+    proposition: >
+      cc.kernel.strict.frechet_bounds computes Fréchet–Hoeffding endpoint
+      bounds for composed binary guardrail failure from declared marginals;
+      for marginals (0.10, 0.10) it returns [0.0, 0.10] for the AND event and
+      [0.10, 0.20] for OR.
+    scope: >
+      The kernel API at the bound commit, executed locally on 2026-08-20.
+      No claim about any deployed system.
+    support:
+      type: executed_quickstart
+      url: "https://github.com/Cubits11/cc-framework/commit/21f5ff6809a0a16987a39afe56be1e50251ff727"
+      commit: "21f5ff6809a0a16987a39afe56be1e50251ff727"
+      note: "Output recorded verbatim in /essays/when-marginals-are-not-enough/."
+    provenance: machine_generated_output_owner_executed
+    status: supported_within_scope
+    last_reviewed: "2026-08-20"
+    review_trigger: [kernel_change, default_branch_advance_beyond_binding]
+    non_claims:
+      - does not certify any stacked system as safe
+      - does not recover or estimate the unknown dependence
+      - does not select a point inside the returned interval
+
+  - id: CC-002
+    proposition: >
+      CC-Framework maintains a claim-boundary manifest mapping its public
+      claims to validation lanes, supporting files, and explicit non-claims.
+    scope: "The manifest file at the bound commit on the default branch."
+    support:
+      type: document
+      url: "https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md"
+      commit: "3e22c39df70d419e840529d87311974e9e544f54"
+    provenance: owner_authored_public_document
+    status: supported_within_scope
+    last_reviewed: "2026-08-20"
+    review_trigger: [manifest_moved_or_rewritten]
+    non_claims:
+      - the manifest's existence does not validate the claims it scopes
+
+  - id: GA-001
+    proposition: >
+      Ghost-Ark is a verifier and measurement harness for the provenance
+      limits of AI-governance receipts — a research artifact of the S2 Lab,
+      Penn State — whose stated thesis is that a receipt identifies an
+      execution only up to the kernel of its canonicalizer.
+    scope: "The repository README and thesis document at the bound commit."
+    support:
+      type: repository_readme_and_thesis
+      url: "https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md"
+      commit: "98c90d8296580f08dd8b6e38fdd2abd7039ec651"
+    provenance: lab_repository_public
+    status: supported_within_scope
+    last_reviewed: "2026-08-20"
+    review_trigger: [repo_reframed, thesis_document_changed]
+    non_claims:
+      - a verifying receipt does not establish that the governed action was
+        safe, authorized, or semantically correct
+      - not hardened for deployment; not post-quantum secure
+
+  - id: AS-001
+    proposition: >
+      Assay is an early-stage experiment in enclave-attested media processing
+      on AWS Nitro Enclaves, investigating which provenance claims a verifier
+      can and cannot derive from attestation.
+    scope: "Owner statement only; the artifact is private."
+    support:
+      type: none_public
+      url: null
+      commit: null
+    provenance: owner_attested
+    status: attested
+    last_reviewed: "2026-08-20"
+    review_trigger: [public_artifact_released]
+    non_claims:
+      - no public evidence is offered; nothing about completeness, security,
+        or provenance-chain origin is established
+      - attestation cannot establish a file's history prior to the first
+        attested operation
+
+  - id: GV-001
+    proposition: >
+      Ghost Visualizer is a seven-scene React/Vite visual essay ("Why AI
+      Safety Scores Lie") that computes marginals, OR composition,
+      Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from
+      deterministic sample rows, with an Evidence Mode for inspection.
+    scope: >
+      The repository at the bound commit. Runs locally; there is no hosted
+      deployment, so the site links source, not a live demo.
+    support:
+      type: repository_readme
+      url: "https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7"
+      commit: "3fbe3efc89b6328bac493e62a32571d8e380d4f7"
+    provenance: owner_repository_public
+    status: supported_within_scope
+    last_reviewed: "2026-08-20"
+    review_trigger: [hosted_deployment_added, repo_reframed]
+    non_claims:
+      - not an AI-safety certificate; no deployment-readiness claim
+
+  - id: BIO-001
+    proposition: >
+      B.S. Computer Science, Pennsylvania State University, May 2026, with a
+      minor in Cybersecurity; research supervised by Dr. Peng Liu (IST 496,
+      Aug–Dec 2025).
+    scope: "Biographical fact; owner-attested on this site."
+    support:
+      type: owner_document
+      url: null
+      commit: null
+      note: "Stated on resume; institutional verification available on request."
+    provenance: owner_attested
+    status: attested
+    last_reviewed: "2026-08-20"
+    review_trigger: [annual_review]
+    non_claims:
+      - no public registry link is provided; the site does not present this
+        as third-party verified
+
+  - id: CRED-001
+    proposition: >
+      Holds AWS Certified Cloud Practitioner and AWS Certified AI
+      Practitioner; SAA-C03 and Security — Specialty are in progress.
+    scope: "Owner-attested; verification IDs available on request."
+    support:
+      type: none_public
+      url: null
+      commit: null
+    provenance: owner_attested
+    status: attested
+    last_reviewed: "2026-08-20"
+    review_trigger: [cert_expiry, new_cert_earned]
+    non_claims:
+      - '"in progress" asserts intent and preparation, not partial credential'
+
+  - id: SITE-001
+    proposition: >
+      This site's palette token pairs were computed to pass WCAG AA contrast
+      (most AAA), and manual QA passes covered light/dark themes, desktop and
+      mobile layouts, keyboard focus, reduced motion, and no-JS rendering.
+    scope: >
+      Manual and scripted checks on 2026-08-20, recorded in DESIGN.md. No
+      instrumented field performance data exists — the site runs no analytics
+      by design.
+    support:
+      type: repository_document
+      url: "https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md"
+      commit: null
+      note: "Mutable link by design: the ledger reviews this claim on change."
+    provenance: owner_verified
+    status: supported_within_scope
+    last_reviewed: "2026-08-20"
+    review_trigger: [site_redesign, failing_ci]
+    non_claims:
+      - no field CLS/LCP/CrUX measurements are claimed
+      - '"zero third-party runtime requests" describes page code, not hosting
+        infrastructure (GitHub Pages, DNS, TLS remain dependencies)'

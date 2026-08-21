@@ -3,30 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pranav Bhave — Cloud Security × AI-Safety Infrastructure</title>
-<meta name="description" content="Pranav Bhave — cloud security and AI-safety infrastructure. Penn State CS. Builder of CC-Framework (dependence-aware guardrail composition), Ghost-Ark, and Assay. Machinery that keeps AI-safety claims honest.">
+<title>Pranav Bhave — AI Assurance Research</title>
+<meta name="description" content="Pranav Bhave — AI assurance research: statistical bounds on composed guardrails, receipt provenance, claim governance. Builder of CC-Framework and Ghost-Ark.">
 <link rel="canonical" href="https://cubits11.github.io/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Pranav Bhave — Cloud Security × AI-Safety Infrastructure">
-<meta property="og:description" content="Machinery that keeps AI-safety claims honest: bounds that admit unknown dependence, receipts that prove bytes rather than safety, and claims that expire.">
+<meta property="og:title" content="Pranav Bhave — AI Assurance Research">
+<meta property="og:description" content="Research software that exposes what an AI-assurance claim establishes, what it assumes, and where it must stop.">
 <meta property="og:url" content="https://cubits11.github.io/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pranav Bhave — name set in a serif typeface beside a framed outdoor portrait, with palette swatches sampled from the photograph">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F5F2EA">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121611">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161A18'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23A8C491' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <script>
-  /* theme boot — before first paint */
-  try { var t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
+  /* theme boot — before first paint; also aligns browser-chrome color with the stored choice */
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'dark' || t === 'light') {
+      document.documentElement.dataset.theme = t;
+      var ms = document.querySelectorAll('meta[name="theme-color"]');
+      for (var i = 0; i < ms.length; i++) ms[i].content = (t === 'dark' ? '#121611' : '#F5F2EA');
+    }
+  } catch (e) {}
 </script>
 <link rel="preload" href="/assets/fonts/fraunces-roman.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans-roman.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/fragment-mono.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/img/portrait-720.webp" as="image" type="image/webp" media="(min-width: 640px)">
+<link rel="preload" as="image" href="/assets/img/portrait-960.jpg"
+      imagesrcset="/assets/img/portrait-480.webp 480w, /assets/img/portrait-720.webp 720w, /assets/img/portrait-960.webp 960w"
+      imagesizes="(min-width: 900px) 38vw, 82vw">
 <style>
 /* ---------- fonts (self-hosted, latin subsets) ---------- */
 @font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
@@ -79,6 +90,7 @@ a{color:inherit}
 img{max-width:100%;height:auto;display:block}
 ::selection{background:var(--accent);color:var(--bg)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 .container{width:min(1160px,100% - 2*clamp(1.25rem,5vw,4rem));margin-inline:auto}
 .mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase}
@@ -102,7 +114,7 @@ img{max-width:100%;height:auto;display:block}
 .wordmark{font-family:var(--serif);font-style:italic;font-size:1.05rem;text-decoration:none;letter-spacing:0;margin-right:auto;white-space:nowrap}
 .site-nav{display:flex;gap:1.4rem;overflow-x:auto;scrollbar-width:none}
 .site-nav::-webkit-scrollbar{display:none}
-.site-nav a{text-decoration:none;color:var(--muted);transition:color .2s}
+.site-nav a{text-decoration:none;color:var(--muted);transition:color .2s;white-space:nowrap}
 .site-nav a:hover,.site-nav a:focus-visible{color:var(--ink)}
 .theme-toggle{
   appearance:none;border:1px solid var(--line-strong);background:transparent;color:var(--ink);
@@ -125,14 +137,19 @@ img{max-width:100%;height:auto;display:block}
 .hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(2.5rem,6vw,5rem);align-items:center}
 .kicker{color:var(--accent);display:flex;align-items:center;gap:.9rem;margin-bottom:1.6rem}
 .kicker::before{content:"";width:2.2rem;height:1px;background:var(--accent);flex:none}
-.hero h1{font-size:clamp(3.3rem,8.2vw,6.6rem);font-weight:540;letter-spacing:-0.022em}
+.hero h1{font-size:clamp(3.1rem,7.8vw,6.2rem);font-weight:540;letter-spacing:-0.022em}
+.prop{
+  font-size:clamp(1.12rem,1.75vw,1.34rem);line-height:1.6;color:var(--ink);
+  max-width:31em;margin-top:1.6rem;font-weight:500;
+}
 .lede{
-  font-size:clamp(1.06rem,1.5vw,1.22rem);line-height:1.72;color:var(--muted);
-  max-width:34em;margin-top:1.7rem;
+  font-size:clamp(.98rem,1.35vw,1.08rem);line-height:1.72;color:var(--muted);
+  max-width:36em;margin-top:.9rem;
 }
 .lede em{font-family:var(--serif);font-style:italic;font-size:1.06em;color:var(--ink);font-weight:480}
-.fact-row{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:2.1rem}
+.fact-row{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.9rem}
 .fact{border:1px solid var(--line-strong);border-radius:999px;padding:.42rem .85rem;color:var(--muted);white-space:nowrap}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.1rem}
 
 /* photo as object */
 .fig{border:1px solid var(--line-strong);background:var(--surface);padding:.85rem;max-width:26.5rem;justify-self:end;width:100%}
@@ -147,7 +164,7 @@ section{padding-block:clamp(4rem,9vh,7.5rem);scroll-margin-top:4.5rem}
 .sec-no{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;color:var(--accent)}
 .sec-head h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:500}
 .sec-rule{flex:1;height:1px;background:var(--line);transform:translateY(-.35rem)}
-.sec-intro{color:var(--muted);max-width:46em;margin:-1rem 0 2.6rem}
+.sec-intro{color:var(--muted);max-width:50em;margin:-1rem 0 2.6rem}
 
 /* evidence chips */
 .chips{display:flex;flex-wrap:wrap;gap:.5rem}
@@ -161,6 +178,7 @@ section{padding-block:clamp(4rem,9vh,7.5rem);scroll-margin-top:4.5rem}
 a.chip:hover,a.chip:focus-visible{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 9%, transparent)}
 .chip-attested{color:var(--muted);border-style:dashed}
 .chip-attested::before{background:transparent;border:1px solid var(--muted)}
+.chip-internal::before{border-radius:1px}
 
 /* work cards */
 .card{border:1px solid var(--line-strong);background:var(--surface);padding:clamp(1.5rem,3.5vw,2.6rem)}
@@ -176,13 +194,15 @@ a.chip:hover,a.chip:focus-visible{border-color:var(--accent);background:color-mi
 }
 .nonclaim .mono{color:var(--accent);display:block;margin-bottom:.5rem}
 .nonclaim p{color:var(--ink);font-size:.95rem;margin:0;line-height:1.6}
+.nc-line{border-left:2px solid var(--accent);padding:.15rem 0 .15rem 1rem;color:var(--ink);font-size:.95rem;max-width:52em}
+.nc-line .mono{color:var(--accent)}
 .card-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
 .index-list{margin-top:1.25rem;border-top:1px solid var(--line)}
 .index-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:baseline;padding:1.15rem .2rem;border-bottom:1px solid var(--line)}
 .index-item .name{font-family:var(--serif);font-size:1.15rem;font-weight:500;margin-right:.9rem}
 .index-item .desc{color:var(--muted);font-size:.95rem}
 
-/* method: five cards */
+/* method: five cards + envelope */
 .protocol{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem;margin-bottom:2.4rem}
 .pcard{border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1rem 1.25rem;min-height:9.5rem;display:flex;flex-direction:column;gap:.6rem}
 .pcard .mono{color:var(--accent)}
@@ -193,8 +213,16 @@ a.chip:hover,a.chip:focus-visible{border-color:var(--accent);background:color-mi
   font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--accent);
   border:1px solid var(--accent);border-radius:2px;padding:.3rem .5rem;opacity:.85;margin-right:.35rem;
 }
-.method-note{color:var(--muted);max-width:48em}
+.method-note{color:var(--muted);max-width:50em}
 .method-note em{font-family:var(--serif);font-style:italic;color:var(--ink)}
+.envelope{margin-top:3rem;border-top:1px solid var(--line);padding-top:2.2rem}
+.envelope-head{display:flex;align-items:baseline;gap:.9rem;margin-bottom:1.4rem}
+.envelope-head .mono{color:var(--accent)}
+.envelope-head h3{font-size:1.35rem}
+.env-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem 1.4rem}
+.env-item{border-top:1px solid var(--line-strong);padding-top:.7rem}
+.env-item .mono{color:var(--accent);display:block;margin-bottom:.3rem}
+.env-item p{color:var(--muted);font-size:.86rem;line-height:1.5;margin:0}
 
 /* research & training */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem)}
@@ -208,7 +236,8 @@ a.chip:hover,a.chip:focus-visible{border-color:var(--accent);background:color-mi
 /* contact */
 .contact-line{font-family:var(--serif);font-size:clamp(2rem,4.6vw,3.4rem);font-weight:500;line-height:1.18;max-width:18em}
 .contact-line em{font-style:italic;color:var(--accent)}
-.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.4rem}
+.contact-prop{color:var(--muted);max-width:42em;margin-top:1.4rem;font-size:1.05rem}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
 .btn{
   display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;cursor:pointer;
   font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
@@ -224,17 +253,19 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
 .colophon{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:2.5rem;color:var(--muted);font-size:.88rem}
 .colophon .mono{color:var(--accent);display:block;margin-bottom:.8rem}
 .legend{display:flex;flex-direction:column;gap:.55rem;font-size:.85rem}
-.legend span{display:flex;align-items:center;gap:.55rem}
-.dot{width:.42rem;height:.42rem;border-radius:50%;background:var(--accent);flex:none}
+.legend span{display:flex;align-items:flex-start;gap:.55rem}
+.dot{width:.42rem;height:.42rem;border-radius:50%;background:var(--accent);flex:none;margin-top:.45rem}
 .dot-hollow{background:transparent;border:1px solid var(--muted)}
-.foot-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:2.6rem;color:var(--muted)}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:2.2rem;color:var(--muted)}
+.foot-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:1.6rem;color:var(--muted)}
 
-/* ---------- motion ---------- */
-.reveal{opacity:1;transform:none}
+/* ---------- motion ----------
+   Content is visible by default. JS adds .pre only to below-fold elements
+   right before observing them, so a broken or throttled observer can never
+   hide content; a timeout failsafe reveals anything still pending. */
 @media (prefers-reduced-motion: no-preference){
-  .js .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
-  .js .reveal.in{opacity:1;transform:none}
-  .js .hero .reveal{transition-duration:.85s}
+  .reveal.pre{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+  .reveal.pre.in{opacity:1;transform:none}
 }
 
 /* ---------- responsive ---------- */
@@ -246,13 +277,18 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
   .protocol{grid-template-columns:repeat(2,1fr)}
   .pcard{min-height:8rem}
   .pcard-empty{grid-column:1/-1;min-height:6.5rem}
+  .env-grid{grid-template-columns:repeat(2,1fr)}
   .split{grid-template-columns:1fr}
   .colophon{grid-template-columns:1fr}
   .index-item{grid-template-columns:1fr}
 }
 @media (max-width: 560px){
-  .site-nav{display:none}
+  .site-head .container{gap:.9rem}
+  .wordmark{font-size:.95rem}
+  .site-nav{gap:.9rem}
+  .site-nav a{font-size:.62rem}
   .protocol{grid-template-columns:1fr 1fr}
+  .env-grid{grid-template-columns:1fr 1fr}
 }
 @media print{
   .site-head,.theme-toggle,body::after{display:none}
@@ -274,7 +310,7 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
       <a href="#research">Research</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
       <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
       <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
     </button>
@@ -287,16 +323,22 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
   <section class="hero" id="top">
     <div class="container hero-grid">
       <div>
-        <p class="kicker mono reveal">Philadelphia, PA · Cloud security × AI safety</p>
+        <p class="kicker mono reveal">AI assurance research · statistical bounds · provenance systems</p>
         <h1 class="reveal" style="--d:.06s">Pranav Bhave</h1>
-        <p class="lede reveal" style="--d:.12s">I build machinery that keeps AI-safety claims honest —
-          <em>bounds</em> that admit unknown dependence,
-          <em>receipts</em> that prove bytes rather than safety,
-          and <em>claims that expire</em> on schedule.</p>
+        <p class="prop reveal" style="--d:.1s">I build research software that exposes what an
+          AI-assurance claim establishes, what it assumes, and where it must stop.</p>
+        <p class="lede reveal" style="--d:.14s"><em>Bounds</em> that admit unknown dependence.
+          <em>Receipts</em> that prove bytes rather than safety.
+          <em>Claims</em> that return for review when their evidence changes.</p>
         <div class="fact-row mono reveal" style="--d:.18s">
           <span class="fact">Penn State — B.S. CS ’26</span>
           <span class="fact">Cybersecurity minor</span>
           <span class="fact">AWS CCP + AI Practitioner</span>
+          <span class="fact">Philadelphia, PA</span>
+        </div>
+        <div class="hero-cta reveal" style="--d:.22s">
+          <a class="btn btn-solid" href="/essays/when-marginals-are-not-enough/">Read the case study</a>
+          <a class="btn" href="/resume/">Résumé</a>
         </div>
       </div>
       <figure class="fig reveal" style="--d:.15s;margin:0">
@@ -328,51 +370,63 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
         <h2>Selected work</h2>
         <span class="sec-rule"></span>
       </header>
-      <p class="sec-intro reveal">Every entry says what it is — and what it refuses to claim.
-        Chips with a solid dot link to public evidence; <span class="mono" style="font-size:.68rem">attested</span> means stated on my responsibility, dated, with no public artifact yet.</p>
+      <p class="sec-intro reveal">Discipline, scoped: evidence markers apply to the technical
+        project claims below; biographical facts are owner-attested unless linked. Chips with a
+        solid dot open public evidence. <span class="mono" style="font-size:.68rem">Attested</span>
+        means stated on my responsibility, dated, with no public artifact yet. Exact bindings —
+        commit SHAs, review dates, non-claims — live in the
+        <a class="u" href="/ledger/">evidence ledger</a>.</p>
 
       <article class="card flagship reveal">
         <div>
           <p class="card-tag mono">Research framework · Python · MIT · 2025 — present</p>
           <h3>CC-Framework</h3>
-          <p>Evidence-bound AI assurance for composed guardrails. Stack two safety filters and their
-            failures correlate in ways point estimates hide; CC-Framework computes Fréchet–Hoeffding
-            bounds on stacked-system failure that stay honest about unknown dependence — then wraps
-            every result in claim envelopes, evidence roles, Merkle-logged receipts, and decay
-            semantics, so the evidence can never quietly say more than it knows.</p>
+          <p>Treats composed-guardrail failure as a partial-identification problem: individual
+            rail failure rates are known, their joint dependence is not. Given marginal evidence
+            and declared dependence assumptions, it computes sharp Fréchet–Hoeffding bounds on
+            stacked-system failure and records the boundary of the resulting claim — claim
+            envelopes, evidence roles, Merkle-logged receipts, decay semantics.</p>
           <div class="chips">
-            <a class="chip" href="https://github.com/Cubits11/cc-framework">Source ↗</a>
-            <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/main/docs/claims/CLAIM_BOUNDARY_MANIFEST.md">Claim-boundary manifest ↗</a>
+            <a class="chip" href="https://github.com/Cubits11/cc-framework">Inspect CC-Framework source ↗</a>
+            <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md">Claim-boundary manifest ↗</a>
+            <a class="chip chip-internal" href="/essays/when-marginals-are-not-enough/">Case study →</a>
             <a class="chip" href="https://github.com/Cubits11/cc-framework/tree/main/visual_identity/before_you_see_it">“Before You See It” — 15s film ↗</a>
           </div>
         </div>
         <aside class="nonclaim">
           <span class="mono">Non-claim</span>
-          <p>It does not certify a stacked system as safe. It computes what the available evidence
-            supports under stated dependence assumptions — nothing more. That restraint is the
-            product.</p>
+          <p>It is a research prototype, not a safety certificate or deployment-assurance
+            platform. It computes what the available evidence supports under stated dependence
+            assumptions, and is built to make accidental overstatement harder — not impossible.</p>
         </aside>
       </article>
 
       <div class="card-row">
         <article class="card reveal">
-          <p class="card-tag mono">PSU Cybersecurity Lab · AWS · in development</p>
+          <p class="card-tag mono">S2 Lab, Penn State · verification research · in development</p>
           <h3>Ghost-Ark</h3>
-          <p>An AWS-native evidence ark for bounded AI assurance — a transactional control plane for
-            AI agents. An ark is not just storage: it preserves what matters through chaos and
-            carries evidence across uncertainty.</p>
+          <p>A verifier and measurement harness for the provenance limits of AI-governance
+            receipts. Its research claim: a receipt identifies an execution only up to the kernel
+            of its canonicalizer — so receipt soundness does not persist over time even when the
+            receipt system never changes. Ghost-Ark makes canonicalization collisions, evidence
+            resolution, and receipt non-claims executable rather than implicit.</p>
+          <p class="nc-line"><span class="mono">Non-claim</span> — a verifying receipt does not
+            establish that the governed action was safe, authorized, or semantically correct.</p>
           <div class="chips">
-            <a class="chip" href="https://github.com/PSUCyberSecurityLab/ghost-ark">Source ↗</a>
+            <a class="chip" href="https://github.com/PSUCyberSecurityLab/ghost-ark">Inspect Ghost-Ark source ↗</a>
+            <a class="chip" href="https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md">Thesis &amp; falsifiers ↗</a>
           </div>
         </article>
         <article class="card reveal" style="--d:.08s">
-          <p class="card-tag mono">Media provenance · AWS Nitro Enclaves · in progress</p>
+          <p class="card-tag mono">Media provenance · AWS Nitro Enclaves · early stage</p>
           <h3>Assay</h3>
-          <p>Hardware-attested media provenance built on AWS Nitro Enclaves — an answer to “where
-            did this file come from?” that a verifier can check rather than take on faith. Early
-            and private; public artifacts when they can stand behind themselves.</p>
+          <p>An early-stage experiment in enclave-attested media processing: which processing and
+            provenance claims can a verifier actually derive from Nitro Enclave attestation — and
+            which can it not. The epistemic boundary is the project. Private while the answers are
+            unsettled; public artifacts when they can stand behind themselves.</p>
           <div class="chips">
-            <span class="chip chip-attested" title="Stated on my responsibility; no public artifact linked yet.">Attested · 2026-08</span>
+            <span class="chip chip-attested">Attested · 2026-08
+              <span class="sr-only">— stated on my responsibility; no public artifact linked yet</span></span>
           </div>
         </article>
       </div>
@@ -380,13 +434,15 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
       <div class="index-list reveal">
         <div class="index-item">
           <div><span class="name">Ghost Visualizer</span>
-            <span class="desc">Interactive demo of why isolated guardrail scores mislead once composition enters.</span></div>
-          <a class="chip" href="https://github.com/Cubits11/ghost-visualizer">Source ↗</a>
+            <span class="desc">A seven-scene visual essay, “Why AI Safety Scores Lie”: identical
+              marginal guardrail scores hiding shared misses, with computed bounds, endpoint
+              witnesses, and an inspectable receipt object. Runs locally; no hosted deployment yet.</span></div>
+          <a class="chip" href="https://github.com/Cubits11/ghost-visualizer">Inspect source ↗</a>
         </div>
         <div class="index-item">
           <div><span class="name">GCE — Guardrail Composability Explorer</span>
             <span class="desc">MVP demo built for AI-285: toggle guardrails and watch composed behavior diverge from intuition.</span></div>
-          <a class="chip" href="https://github.com/Cubits11/gce">Source ↗</a>
+          <a class="chip" href="https://github.com/Cubits11/gce">Inspect GCE source ↗</a>
         </div>
       </div>
     </div>
@@ -400,16 +456,41 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
         <h2>The five-card discipline</h2>
         <span class="sec-rule"></span>
       </header>
+      <p class="sec-intro reveal">One experimental protocol — E₁ — not a universal grammar. It
+        fits controlled tests; theorems, historical claims, and calibration problems need other
+        test designs. The general form is the claim envelope, below.</p>
       <div class="protocol">
         <div class="pcard reveal"><span class="mono">Claim</span><p>What I say the system does. Named first, in writing.</p></div>
         <div class="pcard reveal" style="--d:.05s"><span class="mono">Falsifier</span><p>The observation that would end the claim. If none exists, neither does the claim.</p></div>
         <div class="pcard reveal" style="--d:.1s"><span class="mono">Control</span><p>The comparison that could embarrass it — run on purpose.</p></div>
         <div class="pcard reveal" style="--d:.15s"><span class="mono">Non-claim</span><p>What this evidence will never support, stated before anyone asks.</p></div>
-        <div class="pcard pcard-empty reveal" style="--d:.2s"><span class="mono">Result</span><p>Empty until the world answers.</p><span class="stamp">Inconclusive — awaiting result</span></div>
+        <div class="pcard pcard-empty reveal" style="--d:.2s"><span class="mono">Result</span><p>No result has yet been observed.</p><span class="stamp">Status: untested</span></div>
       </div>
       <p class="method-note reveal">Lock the first four <em>before</em> the result slot fills, then let the result disagree.
-        <em>A story can start a question. It cannot finish an answer.</em> This page plays by the same
-        rules: claims link to public evidence where it exists — and say so plainly where it doesn’t.</p>
+        <em>A story can start a question. It cannot finish an answer.</em> Untested is not
+        inconclusive: inconclusive means evidence arrived and failed to discriminate; untested
+        means the world has not answered yet. This page keeps the two apart — and keeps its own
+        rules scoped, as declared above.</p>
+
+      <div class="envelope reveal">
+        <div class="envelope-head">
+          <span class="mono">Candidate C₁</span>
+          <h3>The claim envelope</h3>
+        </div>
+        <div class="env-grid">
+          <div class="env-item"><span class="mono">1 · Proposition</span><p>What exactly is asserted.</p></div>
+          <div class="env-item"><span class="mono">2 · Scope</span><p>Where it holds, and under which assumptions.</p></div>
+          <div class="env-item"><span class="mono">3 · Support</span><p>The evidence that bears on it, bound to immutable artifacts.</p></div>
+          <div class="env-item"><span class="mono">4 · Challenge</span><p>What would reduce confidence or force revision.</p></div>
+          <div class="env-item"><span class="mono">5 · Test design</span><p>Control, comparator, calibration, proof, benchmark, or adversary.</p></div>
+          <div class="env-item"><span class="mono">6 · Status</span><p>Untested · supported within scope · partial · inconclusive · contradicted.</p></div>
+          <div class="env-item"><span class="mono">7 · Boundary</span><p>What remains unestablished — the non-claims.</p></div>
+          <div class="env-item"><span class="mono">8 · Freshness</span><p>When, and on what trigger, it must be re-examined.</p></div>
+        </div>
+        <p class="method-note" style="margin-top:1.6rem">The <a class="u" href="/ledger/">evidence
+          ledger</a> implements the envelope's first fields for every technical claim on this
+          page: propositions, immutable commit bindings, statuses, review triggers, non-claims.</p>
+      </div>
     </div>
   </section>
 
@@ -449,8 +530,8 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
             <span class="when mono">Certified</span>
             <h3>AWS — Cloud Practitioner · AI Practitioner</h3>
             <p>Solutions Architect Associate (SAA-C03) and Security — Specialty in progress.</p>
-            <p class="cred-note">Certifications are marked attested: verification IDs are available
-              on request rather than published here.</p>
+            <p class="cred-note">Certifications are owner-attested here: verification IDs are
+              available on request rather than published.</p>
           </div>
         </div>
       </div>
@@ -466,12 +547,16 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
         <span class="sec-rule"></span>
       </header>
       <p class="contact-line reveal">Have a claim worth checking?<br>Bring it — <em>I’ll bring the falsifier.</em></p>
-      <div class="cta-row reveal" style="--d:.08s">
+      <p class="contact-prop reveal" style="--d:.05s">I’m looking for research and engineering work
+        where statistical assurance, provenance, and claim governance matter.</p>
+      <div class="cta-row reveal" style="--d:.1s">
         <a class="btn btn-solid" href="mailto:bhavepranavwork@gmail.com">Email me</a>
         <button class="btn" id="copyEmail" type="button" data-email="bhavepranavwork@gmail.com">Copy address</button>
+        <a class="btn" href="/resume/">Résumé</a>
         <a class="btn" href="https://github.com/Cubits11">GitHub ↗</a>
         <a class="btn" href="https://www.linkedin.com/in/pranav-bhave-2a328721a/">LinkedIn ↗</a>
       </div>
+      <span id="copyStatus" class="sr-only" role="status" aria-live="polite"></span>
     </div>
   </section>
 </main>
@@ -481,16 +566,24 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
     <div class="colophon">
       <div>
         <span class="mono">Colophon</span>
-        Hand-built static HTML, CSS, and about two kilobytes of JavaScript. No framework, no build
-        step, no analytics, no cookies. Set in Fraunces, Instrument Sans, and Fragment Mono,
-        self-hosted. The palette is sampled from Fig.&nbsp;01 above. Hosted on GitHub Pages.
-        Last verified 2026-08-20.
+        Hand-built static HTML, CSS, and about three kilobytes of JavaScript. No framework, no
+        client-side analytics, no cookies. Set in Fraunces, Instrument Sans, and Fragment Mono,
+        self-hosted. The palette is sampled from Fig.&nbsp;01 above. Hosted on GitHub Pages; CI
+        validates the claim registry on every push and weekly.
+        Last owner review: 2026-08-20 · claim ledger v0.1.
       </div>
       <div class="legend">
         <span class="mono" style="margin-bottom:0">Evidence legend</span>
-        <span><span class="dot"></span> solid dot — links to public evidence</span>
+        <span><span class="dot"></span> solid dot — opens public evidence</span>
         <span><span class="dot dot-hollow"></span> hollow dot — attested, on my responsibility</span>
+        <span style="color:var(--muted)">Markers cover technical project claims; biography is owner-attested unless linked.</span>
       </div>
+    </div>
+    <div class="foot-links mono">
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/essays/when-marginals-are-not-enough/">Case study</a>
+      <a class="u" href="/resume/">Résumé</a>
+      <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md">Design ledger ↗</a>
     </div>
     <div class="foot-base mono">
       <span>© <span id="yr">2026</span> Pranav Bhave</span>
@@ -502,55 +595,77 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
 <script>
 (function () {
   document.documentElement.classList.add('js');
-  document.body.classList.add('js');
 
-  /* theme toggle (view-transition when available) */
+  /* ---- theme toggle (view-transition when available) ---- */
   var root = document.documentElement;
   var meta = document.querySelectorAll('meta[name="theme-color"]');
-  function currentDark() {
+  var toggle = document.getElementById('themeToggle');
+  function isDark() {
     if (root.dataset.theme) return root.dataset.theme === 'dark';
     return matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function syncToggle() {
+    var dark = isDark();
+    toggle.setAttribute('aria-pressed', String(dark));
+    toggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
   }
   function apply(next) {
     root.dataset.theme = next;
     try { localStorage.setItem('theme', next); } catch (e) {}
     meta.forEach(function (m) { m.content = next === 'dark' ? '#121611' : '#F5F2EA'; });
+    syncToggle();
   }
-  document.getElementById('themeToggle').addEventListener('click', function () {
-    var next = currentDark() ? 'light' : 'dark';
+  toggle.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
     var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (document.startViewTransition && !reduced) {
       document.startViewTransition(function () { apply(next); });
     } else { apply(next); }
   });
+  syncToggle();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncToggle);
 
-  /* scroll reveals */
+  /* ---- reveals: enhancement only, never a dependency ----
+     Elements start visible. Below-fold elements get .pre (hidden) right
+     before being observed; above-fold elements play an entrance on the next
+     frames; a 4s failsafe reveals anything still pending. */
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var els = document.querySelectorAll('.reveal');
+  var els = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
   if (!reduced && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
+    var entrance = [];
     els.forEach(function (el) {
-      /* anything at or above the initial viewport reveals synchronously —
-         first paint must never wait on observer delivery */
-      if (el.getBoundingClientRect().top < innerHeight * 0.96) { el.classList.add('in'); }
+      el.classList.add('pre');
+      if (el.getBoundingClientRect().top < innerHeight * 0.96) { entrance.push(el); }
       else { io.observe(el); }
     });
-  } else {
-    els.forEach(function (el) { el.classList.add('in'); });
+    requestAnimationFrame(function () { requestAnimationFrame(function () {
+      entrance.forEach(function (el) { el.classList.add('in'); });
+    }); });
+    setTimeout(function () {
+      els.forEach(function (el) { el.classList.add('in'); });
+    }, 4000);
   }
 
-  /* copy email */
+  /* ---- copy email: announced, with failure path ---- */
   var btn = document.getElementById('copyEmail');
+  var status = document.getElementById('copyStatus');
   btn.addEventListener('click', function () {
-    navigator.clipboard.writeText(btn.dataset.email).then(function () {
-      var old = btn.textContent;
-      btn.textContent = 'Copied ✓';
-      setTimeout(function () { btn.textContent = old; }, 1600);
-    });
+    var done = function (ok) {
+      var old = 'Copy address';
+      btn.textContent = ok ? 'Copied ✓' : 'Copy failed — use the email link';
+      status.textContent = ok ? 'Email address copied to clipboard.'
+                              : 'Copying failed. Use the Email me link instead.';
+      setTimeout(function () { btn.textContent = old; }, ok ? 1600 : 3200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(btn.dataset.email).then(function () { done(true); },
+                                                           function () { done(false); });
+    } else { done(false); }
   });
 
   document.getElementById('yr').textContent = new Date().getFullYear();
@@ -560,17 +675,21 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Pranav Bhave",
-  "url": "https://cubits11.github.io/",
-  "image": "https://cubits11.github.io/assets/img/portrait-960.jpg",
-  "jobTitle": "Cloud Security & AI-Safety Infrastructure",
-  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Pennsylvania State University" },
-  "address": { "@type": "PostalAddress", "addressLocality": "Philadelphia", "addressRegion": "PA", "addressCountry": "US" },
-  "sameAs": [
-    "https://github.com/Cubits11",
-    "https://www.linkedin.com/in/pranav-bhave-2a328721a/"
-  ]
+  "@type": "ProfilePage",
+  "dateModified": "2026-08-20",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Pranav Bhave",
+    "url": "https://cubits11.github.io/",
+    "image": "https://cubits11.github.io/assets/img/portrait-960.jpg",
+    "jobTitle": "AI Assurance Researcher & Engineer",
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Pennsylvania State University" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Philadelphia", "addressRegion": "PA", "addressCountry": "US" },
+    "sameAs": [
+      "https://github.com/Cubits11",
+      "https://www.linkedin.com/in/pranav-bhave-2a328721a/"
+    ]
+  }
 }
 </script>
 </body>

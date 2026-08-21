@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Résumé — Pranav Bhave</title>
+<meta name="description" content="Pranav Bhave — résumé. AI assurance research and cloud security: CC-Framework, Ghost-Ark, Penn State CS '26, AWS certified.">
+<link rel="canonical" href="https://cubits11.github.io/resume/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161A18'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23A8C491' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<style>
+@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url('/assets/fonts/instrument-sans-roman.woff2') format('woff2');font-weight:400 700;font-display:swap}
+@font-face{font-family:'Fragment Mono';src:url('/assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-display:swap}
+:root{color-scheme:light;--bg:#F5F2EA;--surface:#FBF9F3;--ink:#161A18;--muted:#59625C;--accent:#435B33;--line:#DFD9C9;--line-strong:#C9C2AE;
+  --serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,Arial,sans-serif;--mono:'Fragment Mono',ui-monospace,Menlo,monospace}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#121611;--surface:#191E17;--ink:#ECE7DB;--muted:#A6AD9E;--accent:#A8C491;--line:#2B3227;--line-strong:#3C4436}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#121611;--surface:#191E17;--ink:#ECE7DB;--muted:#A6AD9E;--accent:#A8C491;--line:#2B3227;--line-strong:#3C4436}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+.container{width:min(760px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}
+.mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase}
+a{color:inherit}
+.u{text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+header.page{padding:4.5rem 0 2rem}
+.crumb{color:var(--accent);display:block;margin-bottom:1.4rem;text-decoration:none}
+h1{font-family:var(--serif);font-weight:520;font-size:clamp(2.4rem,6vw,3.6rem);line-height:1.05;margin:0 0 .6rem;letter-spacing:-.015em}
+.sub{color:var(--muted);max-width:40em}
+.contact-row{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:1.2rem;color:var(--muted)}
+.overview{border:1px solid var(--line-strong);background:var(--surface);padding:1.5rem;margin:2.2rem 0 0}
+.overview h2{margin-top:0}
+h2{font-family:var(--serif);font-weight:520;font-size:1.45rem;margin:2.6rem 0 .9rem;letter-spacing:-.01em}
+h3{font-family:var(--serif);font-weight:520;font-size:1.12rem;margin:0 0 .3rem}
+.entry{padding:1.1rem 0;border-top:1px solid var(--line)}
+.entry:last-of-type{border-bottom:1px solid var(--line)}
+.when{color:var(--muted);font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.35rem}
+p{margin:.3rem 0 .6rem;color:var(--muted)}
+ul{margin:.3rem 0 .4rem;padding-left:1.15rem;color:var(--muted)}
+li{margin:.25rem 0}
+.skills dt{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-top:.8rem}
+.skills dd{margin:0;color:var(--muted)}
+.note{color:var(--muted);font-size:.85rem;border-left:2px solid var(--accent);padding-left:1rem;margin:2.4rem 0}
+footer{border-top:1px solid var(--line);margin-top:3rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+@media print{
+  body{background:#fff;color:#000;font-size:.92rem}
+  .crumb,.note,footer{display:none}
+  header.page{padding:0 0 1rem}
+}
+</style>
+</head>
+<body>
+<header class="page">
+  <div class="container">
+    <a class="crumb mono" href="/">← Pranav Bhave</a>
+    <h1>Pranav Bhave</h1>
+    <p class="sub">Cloud security × AI-assurance research. I build research software that exposes
+      what an AI-assurance claim establishes, what it assumes, and where it must stop.</p>
+    <div class="contact-row mono">
+      <a class="u" href="mailto:bhavepranavwork@gmail.com">bhavepranavwork@gmail.com</a>
+      <a class="u" href="https://github.com/Cubits11">github.com/Cubits11</a>
+      <a class="u" href="https://www.linkedin.com/in/pranav-bhave-2a328721a/">LinkedIn</a>
+      <span>Philadelphia, PA</span>
+    </div>
+
+    <div class="overview" id="overview">
+      <h2 style="font-size:1.2rem">In ninety seconds</h2>
+      <p style="color:var(--ink)">Penn State CS ’26 (Cybersecurity minor), AWS CCP + AI
+        Practitioner. My research question: what do composed AI guardrails actually guarantee
+        when their joint behavior was never measured? My flagship,
+        <a class="u" href="https://github.com/Cubits11/cc-framework">CC-Framework</a>, answers
+        with Fréchet–Hoeffding bounds and claim governance — see the
+        <a class="u" href="/essays/when-marginals-are-not-enough/">five-minute case study</a>.
+        At Penn State's S2 Lab I build
+        <a class="u" href="https://github.com/PSUCyberSecurityLab/ghost-ark">Ghost-Ark</a>, a
+        verifier for the provenance limits of AI-governance receipts. Every claim on my site
+        carries its evidence or says it can't — the
+        <a class="u" href="/ledger/">evidence ledger</a> has the bindings.</p>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <h2>Research</h2>
+  <div class="entry">
+    <span class="when">Aug — Dec 2025 · Pennsylvania State University</span>
+    <h3>Independent research — LLM safety guardrail composition (IST 496)</h3>
+    <p>Supervised by Dr. Peng Liu. Reinforcement, interference, and dependence-driven failure in
+      composed LLM safety systems using probabilistic bounds and copula-family reasoning.
+      CC-Framework is the primary deliverable, with theorem notes, research memos, and
+      architecture documentation.</p>
+  </div>
+  <div class="entry">
+    <span class="when">Jan — May 2025 · Pennsylvania State University</span>
+    <h3>Research assistant — logic &amp; verification tooling</h3>
+    <p>Python CNF-conversion tooling for SAT-solving and logical-verification workflows;
+      evaluation of LLM-assisted formalization of natural-language logic — translation
+      reliability, ambiguity handling, verification-readiness.</p>
+  </div>
+
+  <h2>Selected projects</h2>
+  <div class="entry">
+    <span class="when">2025 — present · Python, statistics, reproducibility</span>
+    <h3>CC-Framework — dependence-aware AI assurance</h3>
+    <ul>
+      <li>Treats composed-guardrail failure as partial identification: computes sharp
+        Fréchet–Hoeffding bounds when rail marginals are known but joint dependence is not.</li>
+      <li>Wraps results in claim envelopes, evidence roles, Merkle-logged receipts, and decay
+        semantics; maintains an explicit claim-boundary manifest and non-claims.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <span class="when">In development · S2 Lab, Penn State · AWS, TypeScript</span>
+    <h3>Ghost-Ark — provenance limits of AI-governance receipts</h3>
+    <ul>
+      <li>Verifier and measurement harness testing how far receipts identify executions —
+        canonicalization kernels, collision corpora, and mechanically enforced non-claims.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <span class="when">Early stage · AWS Nitro Enclaves</span>
+    <h3>Assay — enclave-attested media processing (private)</h3>
+    <ul>
+      <li>Investigating which provenance claims a verifier can and cannot derive from Nitro
+        Enclave attestation.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <span class="when">2026 · React/Vite · security ML</span>
+    <h3>Ghost Visualizer · GCE · security-ML experiments</h3>
+    <ul>
+      <li>Seven-scene visual essay on why isolated guardrail scores mislead; computes bounds,
+        endpoint witnesses, and receipts from deterministic rows.</li>
+      <li>Intrusion-detection and ML-backdoor evaluation experiments: attack-success-rate and
+        false-negative-risk analysis.</li>
+    </ul>
+  </div>
+
+  <h2>Education &amp; certifications</h2>
+  <div class="entry">
+    <span class="when">May 2026 · University Park, PA</span>
+    <h3>Pennsylvania State University — B.S. Computer Science, minor in Cybersecurity</h3>
+    <p>Coursework: computer security, operating systems, data structures, algorithms,
+      statistical inference, theory of computation.</p>
+  </div>
+  <div class="entry">
+    <span class="when">Certified · in progress</span>
+    <h3>AWS Certified Cloud Practitioner · AWS Certified AI Practitioner</h3>
+    <p>SAA-C03 and Security — Specialty in progress. Verification IDs available on request.</p>
+  </div>
+
+  <h2>Skills</h2>
+  <dl class="skills">
+    <dt>Cloud / AWS</dt><dd>IAM, S3, VPC, EC2, CloudWatch, Lambda, API Gateway, AWS Budgets, Bedrock-oriented architecture, Terraform basics, Nitro Enclaves (research)</dd>
+    <dt>AI / ML security</dt><dd>Guardrail composition, safety-stack evaluation, threat modeling, privacy auditing, intrusion detection, backdoor evaluation, ASR analysis</dd>
+    <dt>Programming</dt><dd>Python, Java, C/C++, SQL, JavaScript/TypeScript; NumPy, Pandas, Scikit-learn, TensorFlow</dd>
+    <dt>Practice</dt><dd>Reproducible experiments, claim governance, technical writing, Git, Linux, React, Node.js</dd>
+  </dl>
+
+  <p class="note">Phone number deliberately omitted from the open web — email me and I’ll send
+    the full PDF résumé. Biographical claims on this page are owner-attested; see the
+    <a class="u" href="/ledger/">evidence ledger</a> for what that means here.</p>
+
+</main>
+
+<footer>
+  <div class="container">
+    <span class="mono">Last owner review: 2026-08-20 · <a class="u" href="/">← Back to the record</a></span>
+  </div>
+</footer>
+</body>
+</html>

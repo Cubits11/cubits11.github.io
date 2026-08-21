@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When Marginals Are Not Enough — Pranav Bhave</title>
+<meta name="description" content="A case study in bounded claims: two guardrails each fail 10% of the time. What does the stack fail? Independence says 1%. The honest answer is an interval — computed, witnessed, and scoped with CC-Framework.">
+<link rel="canonical" href="https://cubits11.github.io/essays/when-marginals-are-not-enough/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="When Marginals Are Not Enough">
+<meta property="og:description" content="Two guardrails each fail 10% of the time. Independence says the stack fails 1%. The honest answer is an interval.">
+<meta property="og:url" content="https://cubits11.github.io/essays/when-marginals-are-not-enough/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161A18'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23A8C491' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<style>
+@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url('/assets/fonts/instrument-sans-roman.woff2') format('woff2');font-weight:400 700;font-display:swap}
+@font-face{font-family:'Fragment Mono';src:url('/assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-display:swap}
+:root{color-scheme:light;--bg:#F5F2EA;--surface:#FBF9F3;--ink:#161A18;--muted:#59625C;--accent:#435B33;--line:#DFD9C9;--line-strong:#C9C2AE;
+  --serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,Arial,sans-serif;--mono:'Fragment Mono',ui-monospace,Menlo,monospace}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#121611;--surface:#191E17;--ink:#ECE7DB;--muted:#A6AD9E;--accent:#A8C491;--line:#2B3227;--line-strong:#3C4436}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#121611;--surface:#191E17;--ink:#ECE7DB;--muted:#A6AD9E;--accent:#A8C491;--line:#2B3227;--line-strong:#3C4436}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.04rem;line-height:1.72;-webkit-font-smoothing:antialiased}
+.container{width:min(720px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}
+.wide{width:min(880px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}
+.mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase}
+a{color:inherit}
+.u{text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+header.page{padding:4.5rem 0 2.8rem}
+.crumb{color:var(--accent);display:block;margin-bottom:1.4rem;text-decoration:none}
+.eyebrow{color:var(--accent);margin-bottom:1.1rem}
+h1{font-family:var(--serif);font-weight:520;font-size:clamp(2.4rem,6.5vw,4rem);line-height:1.04;margin:0 0 1.2rem;letter-spacing:-.018em}
+.standfirst{font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--muted);line-height:1.5;max-width:36em}
+h2{font-family:var(--serif);font-weight:520;font-size:1.6rem;line-height:1.2;margin:2.8rem 0 .9rem;letter-spacing:-.01em}
+p{margin:0 0 1.1em;color:var(--ink)}
+.q{color:var(--muted)}
+em{font-family:var(--serif);font-style:italic}
+figure{margin:2.2rem 0;border:1px solid var(--line-strong);background:var(--surface);padding:1.4rem}
+figcaption{margin-top:1rem;color:var(--muted);font-size:.85rem}
+pre{background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;margin:1.6rem 0;
+  font-family:var(--mono);font-size:.8rem;line-height:1.7;color:var(--ink)}
+pre .c{color:var(--muted)}
+code{font-family:var(--mono);font-size:.86em}
+.formula{font-family:var(--serif);font-size:1.15rem;text-align:center;margin:1.8rem 0;color:var(--ink)}
+.envelope{border:1px dashed var(--line-strong);background:var(--surface);padding:1.5rem;margin:3rem 0}
+.envelope h3{font-family:var(--serif);font-size:1.25rem;margin:0 0 1.1rem}
+.envelope dl{display:grid;grid-template-columns:8.5rem 1fr;gap:.5rem 1.2rem;margin:0;font-size:.92rem}
+.envelope dt{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding-top:.2rem}
+.envelope dd{margin:0;color:var(--muted)}
+.nonclaim{border-left:2px solid var(--accent);padding:1rem 1.2rem;background:color-mix(in srgb,var(--accent) 6%,transparent);margin:1.8rem 0}
+.nonclaim .mono{color:var(--accent);display:block;margin-bottom:.4rem}
+.nonclaim p{margin:0;font-size:.95rem}
+footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+@media (max-width:600px){.envelope dl{grid-template-columns:1fr}.envelope dt{padding-top:.5rem}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<header class="page">
+  <div class="container">
+    <a class="crumb mono" href="/">← Pranav Bhave</a>
+    <p class="eyebrow mono">Case study · CC-Framework · claim CC-001</p>
+    <h1>When marginals are not enough</h1>
+    <p class="standfirst">Two guardrails each fail ten percent of the time. What does the stack
+      fail? Independence says one percent. The honest answer is an interval — and the interval
+      has witnesses.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <h2>The sentence teams actually say</h2>
+  <p class="q">“Our input filter catches 90% of attacks. The policy judge also catches 90%.
+    Together, an attack has to slip both — so the stack fails about 1% of the time.”</p>
+  <p>That last step multiplied the two failure rates: 0.10 × 0.10 = 0.01. Multiplication is only
+    licensed by an assumption nobody stated: that the two guardrails fail
+    <em>independently</em>. Real guardrails are trained on similar data, prompted with similar
+    instructions, and blind in similar places. Their failures correlate — and the evaluation that
+    produced the two 90% scores says nothing about how much.</p>
+
+  <h2>What is actually known</h2>
+  <p>Each guardrail was measured alone, so the <em>marginal</em> failure rates are known:
+    p₁ = 0.10 and p₂ = 0.10. The quantity that decides whether the stack is safe is the
+    <em>joint</em> event — an attack that both guardrails miss at once. The joint distribution was
+    never measured. Everything about it, beyond what the marginals force, is assumption.</p>
+
+  <h2>The formal object</h2>
+  <p>This is a partial-identification problem, and it has a classical answer. Whatever the
+    dependence between the two failure events, the probability that both occur is pinned inside
+    the Fréchet–Hoeffding bounds:</p>
+  <p class="formula">max(0,&nbsp;p₁ + p₂ − 1) &nbsp;≤&nbsp; P(both fail) &nbsp;≤&nbsp; min(p₁,&nbsp;p₂)</p>
+  <p>The bounds are not a model. They are the entire set of possibilities consistent with the
+    evidence: no dependence structure can escape them, and — this is the part that makes them
+    sharp rather than merely safe — every point inside them is achieved by some dependence
+    structure.</p>
+
+  <h2>The bound, computed</h2>
+  <p>The numbers below are not typeset from theory; they are the recorded output of running
+    CC-Framework's kernel on this example, on 2026-08-20, at commit
+    <a class="u" href="https://github.com/Cubits11/cc-framework/commit/21f5ff6809a0a16987a39afe56be1e50251ff727"><code>21f5ff68</code></a>:</p>
+<pre><span class="c"># python — cc-framework @ 21f5ff68, 2026-08-20</span>
+&gt;&gt;&gt; from cc.kernel.strict import frechet_bounds
+&gt;&gt;&gt; frechet_bounds([0.10, 0.10], event="and")
+lower=0.0   upper=0.1
+&gt;&gt;&gt; frechet_bounds([0.10, 0.10], event="or")
+lower=0.1   upper=0.2
+&gt;&gt;&gt; 0.10 * 0.10          <span class="c"># the independence assumption, for comparison</span>
+0.010000000000000002</pre>
+
+  <figure aria-label="Number line from 0 to 20 percent showing the AND-event bound from 0 to 10 percent with the independence estimate at 1 percent, and the OR-event bound from 10 to 20 percent with the independence estimate at 19 percent">
+    <svg viewBox="0 0 640 210" role="img" style="width:100%;height:auto;display:block">
+      <style>
+        .ax{stroke:var(--line-strong);stroke-width:1}
+        .band{fill:var(--accent);opacity:.22}
+        .bandline{stroke:var(--accent);stroke-width:2}
+        .tick{stroke:var(--muted);stroke-width:1}
+        .lbl{font:11px 'Fragment Mono',monospace;fill:var(--muted);letter-spacing:.05em}
+        .lbl2{font:11px 'Fragment Mono',monospace;fill:var(--accent);letter-spacing:.05em}
+        .pt{fill:var(--ink)}
+      </style>
+      <!-- axis -->
+      <line class="ax" x1="40" y1="170" x2="600" y2="170"/>
+      <g>
+        <line class="tick" x1="40"  y1="170" x2="40"  y2="176"/><text class="lbl" x="40"  y="192" text-anchor="middle">0%</text>
+        <line class="tick" x1="180" y1="170" x2="180" y2="176"/><text class="lbl" x="180" y="192" text-anchor="middle">5%</text>
+        <line class="tick" x1="320" y1="170" x2="320" y2="176"/><text class="lbl" x="320" y="192" text-anchor="middle">10%</text>
+        <line class="tick" x1="460" y1="170" x2="460" y2="176"/><text class="lbl" x="460" y="192" text-anchor="middle">15%</text>
+        <line class="tick" x1="600" y1="170" x2="600" y2="176"/><text class="lbl" x="600" y="192" text-anchor="middle">20%</text>
+      </g>
+      <!-- AND band [0,10] -->
+      <rect class="band" x="40" y="52" width="280" height="26"/>
+      <line class="bandline" x1="40" y1="52" x2="40" y2="78"/>
+      <line class="bandline" x1="320" y1="52" x2="320" y2="78"/>
+      <text class="lbl2" x="40" y="42">AND — both fail: bound [0%, 10%]</text>
+      <circle class="pt" cx="68" cy="65" r="4"/>
+      <text class="lbl" x="80" y="69">independence says 1%</text>
+      <!-- OR band [10,20] -->
+      <rect class="band" x="320" y="118" width="280" height="26"/>
+      <line class="bandline" x1="320" y1="118" x2="320" y2="144"/>
+      <line class="bandline" x1="600" y1="118" x2="600" y2="144"/>
+      <text class="lbl2" x="320" y="108">OR — at least one fails: bound [10%, 20%]</text>
+      <circle class="pt" cx="572" cy="131" r="4"/>
+      <text class="lbl" x="560" y="135" text-anchor="end">independence says 19%</text>
+    </svg>
+    <figcaption>Both bands are the full set of values consistent with the measured marginals.
+      The dots are what the unstated independence assumption would report.</figcaption>
+  </figure>
+
+  <h2>What the width means</h2>
+  <p>The claim “the stack fails about 1%” sits at the optimistic end of a band that reaches 10%.
+    Nothing in the measured evidence rules out a true joint failure rate ten times worse than the
+    one being reported. And the upper endpoint is not a paranoid fiction: it is <em>witnessed</em>.
+    There is a concrete dependence structure — the two guardrails sharing their blind spot — under
+    which every attack that beats the first also beats the second, and the stack fails exactly
+    10% of the time. CC-Framework constructs these endpoint witnesses, which is what turns “the
+    bound is wide” from a complaint into a checkable object.</p>
+
+  <h2>What the framework records</h2>
+  <p>Around the arithmetic sits the part that makes this governance rather than trivia: the
+    result is wrapped with the assumptions it depends on. The bound above is a claim whose scope
+    is <em>“given these marginals, with dependence unknown.”</em> Declare more — a dependence
+    family, a correlation cap — and the interval tightens, but the claim's envelope now names the
+    assumption doing the work. The framework's evidence roles, receipts, and decay semantics
+    exist to keep that envelope attached as the number travels into slide decks.</p>
+
+  <div class="nonclaim">
+    <span class="mono">What this does not establish</span>
+    <p>No point inside the interval is selected — the true rate is not estimated. Nothing here
+      certifies the two-guardrail stack as safe at any rate. The computation is conditional on
+      the measured marginals being accurate for the deployment distribution; if the 90% scores
+      are wrong, the band is wrong. And this page demonstrates one kernel call at one commit —
+      not the validation of the framework as a whole.</p>
+  </div>
+
+  <h2>What evidence would change the conclusion</h2>
+  <p>Joint evaluation data — the same attacks run through both guardrails with outcomes recorded
+    per-pair — would replace the interval with an estimate and confidence region. A declared,
+    defensible dependence assumption would tighten the bound under that assumption's name. New
+    marginals would move both endpoints mechanically. And if the kernel changes, this page's
+    recorded output expires: claim <a class="u" href="/ledger/#CC-001"><code>CC-001</code></a> in
+    the evidence ledger carries exactly that review trigger.</p>
+
+  <div class="envelope">
+    <h3>The claim envelope for this page</h3>
+    <dl>
+      <dt>Proposition</dt><dd>For marginals (0.10, 0.10), the kernel returns AND-bounds [0.0, 0.10] and OR-bounds [0.10, 0.20]; independence would report 0.01 (AND).</dd>
+      <dt>Scope</dt><dd>cc.kernel.strict at commit 21f5ff68, executed locally 2026-08-20.</dd>
+      <dt>Support</dt><dd>Recorded interpreter output above; commit binding public.</dd>
+      <dt>Challenge</dt><dd>Re-run the quickstart at the bound commit and obtain different values.</dd>
+      <dt>Test design</dt><dd>Deterministic computation against the classical closed form: max(0, p₁+p₂−1) ≤ P ≤ min(p₁, p₂).</dd>
+      <dt>Status</dt><dd>Supported within scope.</dd>
+      <dt>Boundary</dt><dd>No safety certification; no dependence recovery; no point estimate.</dd>
+      <dt>Freshness</dt><dd>Reviewed 2026-08-20; expires on kernel change or when the default branch advances beyond the binding.</dd>
+    </dl>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wide">
+    <div class="foot-links mono">
+      <a class="u" href="https://github.com/Cubits11/cc-framework">CC-Framework source ↗</a>
+      <a class="u" href="https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md">Claim-boundary manifest ↗</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/">← Back to the record</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

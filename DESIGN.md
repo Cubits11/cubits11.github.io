@@ -40,11 +40,12 @@ page that a resume check or a repo visit would contradict.
 - **Options.** (a) Next.js/Astro with components. (b) A site builder.
   (c) One hand-written HTML file, inline CSS/JS, no dependencies.
 - **Choice.** (c).
-- **Why.** One page does not amortize a toolchain. Zero dependencies means
-  zero supply-chain surface, zero build breakage in five years, and
-  view-source that is itself a portfolio artifact. Total JS is ~2 KB; the
-  page works fully with JS disabled (reveals default to visible, theme
-  follows the OS).
+- **Why.** One page does not amortize a toolchain. No project-level
+  dependencies means a small supply-chain surface — not zero: GitHub Pages,
+  DNS, TLS, fonts, and browser behavior remain runtime dependencies — no
+  build breakage in five years, and view-source that is itself a portfolio
+  artifact. Total JS is ~3 KB; the page works fully with JS disabled
+  (reveals default to visible, theme follows the OS).
 - **Revisit if.** The site grows past ~3 pages or needs data-driven content;
   then Astro, not a SPA.
 
@@ -90,7 +91,7 @@ page that a resume check or a repo visit would contradict.
   Reduced-motion users get a fully static page — reveals are opt-in via a
   `.js` class, so no-JS and reduced-motion both degrade to visible content.
 - **Revisit if.** Any animation is noticeable on a mid-range phone's first
-  load, or CLS creeps above 0.
+  load, or any layout shift becomes visible in a pass.
 
 ### D6 — Photography treatment
 - **Options.** (a) Full-bleed hero background with text scrim. (b) Grayscale
@@ -131,12 +132,12 @@ page that a resume check or a repo visit would contradict.
 
 | Budget | Target | Shipped |
 | --- | --- | --- |
-| HTML (index, incl. inline CSS/JS) | < 40 KB | 31.4 KB |
+| HTML (index, incl. inline CSS/JS) | < 45 KB | 39.3 KB (v0.2) |
 | Fonts (4 × woff2, latin subsets) | < 220 KB | ~194 KB |
 | Hero image (720 webp, typical load) | < 50 KB | ~31 KB |
-| JavaScript | < 4 KB | ~2 KB |
-| Third-party requests | 0 | 0 |
-| CLS | 0 | dimensions + preload; verified visually |
+| JavaScript | < 4 KB | ~3 KB |
+| Third-party requests from page code | 0 | 0 (hosting infrastructure excluded) |
+| Layout shift | none visible | manual passes only — not instrumented |
 
 ## Verification log — 2026-08-20
 
@@ -150,9 +151,12 @@ page that a resume check or a repo visit would contradict.
 - **Reduced motion / no-JS:** reveals are additive (`.js` gate) — content
   visible without JavaScript; smooth-scroll disabled under reduced motion.
 - **Metadata:** portrait re-encoded via PIL (EXIF dropped); OG image
-  1200×630; JSON-LD Person; canonical URL.
+  1200×630; JSON-LD ProfilePage/Person; canonical URL; sitemap.
 - **Keyboard:** skip link, visible focus rings, all interactive elements
   reachable in order.
+- **Layout shift:** none observed during the documented manual desktop and
+  mobile passes. Instrumented CLS has not been recorded — the site runs no
+  analytics by design, so no field-performance numbers are claimed anywhere.
 
 ## Non-claims
 
@@ -160,4 +164,105 @@ This site does not claim: traffic (no analytics exist), endorsement by any
 institution named, verification of attested items (they are attested, dated,
 IDs on request), or security guarantees for linked repositories. Hosting
 headers are GitHub Pages defaults; no CSP is set — acceptable for a site with
-zero third-party code, revisit if that changes.
+zero third-party page code, revisit if that changes.
+
+---
+
+## Changelog — v0.2, 2026-08-20 · the audit corrections
+
+An external audit of v0.1 found the correct core defect: *the interface
+looked more epistemically disciplined than the underlying claim–evidence
+relationship actually was.* v0.2 closes that gap. Every item below is a
+truth correction or a mechanism that makes a previously rhetorical promise
+operational.
+
+**Truth corrections (P0)**
+- Ghost-Ark recast from "transactional control plane" (stale) to what its
+  repository actually is: a verifier and measurement harness for the
+  provenance limits of AI-governance receipts, with its non-claim displayed.
+- CC-Framework copy no longer says evidence "can never" overstate — no
+  claim-governance system can guarantee that. It now states the
+  partial-identification framing and carries "harder, not impossible."
+- "Inconclusive — awaiting result" was an epistemic category error:
+  inconclusive means evidence arrived and failed to discriminate; the empty
+  card is **untested**. Corrected, and the distinction is now taught in the
+  method note.
+- Assay's description narrowed: attestation cannot establish a file's
+  history prior to the first attested operation, and the copy now says so.
+- The discipline's scope is declared (Option B): evidence markers cover
+  technical project claims; biography is owner-attested unless linked.
+- "Interactive demo" no longer labels source code; Ghost Visualizer is
+  described as what it is — a local visual essay, source linked.
+- This ledger's own language de-absolutized: "CLS 0" → manual observation;
+  "zero supply-chain surface" → small project-level surface with named
+  runtime dependencies; README's "no pipeline, nothing to break" removed
+  (there is now deliberately a pipeline).
+
+**Mechanisms (P1)**
+- `claims.yaml`: a structured claim registry — proposition, scope, support
+  bound to immutable commits, provenance, status, review triggers,
+  non-claims. Rendered as the public evidence ledger (`/ledger/`).
+- CI (`.github/workflows/verify.yml`): registry shape, link liveness,
+  ledger coverage, and a freshness gate — claims past their review window
+  fail the weekly run. "Claims that return for review" is now a mechanism,
+  not a slogan.
+- Flagship case study (`/essays/when-marginals-are-not-enough/`) with the
+  kernel's actual recorded output at a bound commit, an endpoint-witness
+  explanation, explicit non-claims, and its own filled claim envelope.
+- Résumé page with a 90-second overview (phone deliberately withheld from
+  the open web).
+- Accessibility: attested state readable without hover (visible text +
+  screen-reader expansion), copy action announced via a live region with a
+  failure path, theme toggle exposes `aria-pressed` and a stateful label,
+  descriptive link labels, mobile navigation restored.
+- Hero restructured: plain-language proposition first, poetic thesis second
+  — first-contact decoding cost lowered without giving up the voice.
+- Reveal animations inverted: content is visible by default; hiding is
+  applied only just-before-observing, with a timeout failsafe. Enhancement,
+  never a dependency.
+- Metadata: ProfilePage structured data, `imagesrcset` preload, stored-theme
+  `theme-color` sync, sitemap, OG image alt.
+
+**Held (P2 — research program)**
+- The comprehension study (claim-bound vs control portfolio) is designed but
+  not run. Until it runs, this site claims only that the grammar exists —
+  not that it works on readers. That hypothesis stays open by design.
+
+---
+
+## Field artifact P₀ — the evidence-bound portfolio
+
+**Status:** experimental · **Version:** 0.2
+
+**Research object.** A personal portfolio that encodes claim status,
+evidence provenance, non-claims, and challenge conditions as persistent
+interface structures.
+
+**Hypothesis.** Making claim boundaries visible improves a visitor's
+ability to distinguish public availability, evidential support, owner
+attestation, test status, and explicit non-claims.
+
+**Primary failure discovered (v0.1).** A visually coherent evidence system
+can produce the impression of rigor even where the claim–support mapping is
+stale, mutable, underspecified, or selectively applied. v0.1 conflated
+visibility with support, attestation with evidential status, and unobserved
+results with inconclusive ones; two project descriptions had drifted from
+their repositories.
+
+**Candidate contribution.** The claim envelope — proposition, scope,
+support, challenge, test design, status, boundary, freshness — implemented
+in `claims.yaml`, rendered in `/ledger/`, enforced in CI.
+
+**Null hypothesis (alive).** The interface may improve aesthetic trust or
+memory without improving reasoning, evidence selection, or calibration.
+
+**Next experiment.** Compare this portfolio against a conventional control
+version on comprehension, evidence-selection, status-decoding, non-claim
+recall, and delayed transfer. Aesthetic preference measured separately from
+epistemic performance — a reader may love the design and misread the
+epistemology, and that must be detectable.
+
+**Canon decision.** Nothing is canonical. The claim envelope is Candidate
+after implementation; it advances only on user-testing evidence. The
+public/attested dot semantics remain experimental and are expected to be
+replaced by the envelope's richer state model.
