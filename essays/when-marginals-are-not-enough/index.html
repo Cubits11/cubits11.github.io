@@ -11,17 +11,17 @@
 <meta property="og:description" content="Two guardrails each fail 10% of the time. Independence says the stack fails 1%. The honest answer is an interval.">
 <meta property="og:url" content="https://cubits11.github.io/essays/when-marginals-are-not-enough/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161A18'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23A8C491' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
 <script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
 <style>
 @font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
 @font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
 @font-face{font-family:'Instrument Sans';src:url('/assets/fonts/instrument-sans-roman.woff2') format('woff2');font-weight:400 700;font-display:swap}
 @font-face{font-family:'Fragment Mono';src:url('/assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-display:swap}
-:root{color-scheme:light;--bg:#F5F2EA;--surface:#FBF9F3;--ink:#161A18;--muted:#59625C;--accent:#435B33;--line:#DFD9C9;--line-strong:#C9C2AE;
+:root{color-scheme:light;--bg:#F1EDE2;--surface:#F8F5EC;--ink:#14170F;--muted:#565E4E;--accent:#755A2C;--line:#DCD5C2;--line-strong:#C2BAA2;
   --serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,Arial,sans-serif;--mono:'Fragment Mono',ui-monospace,Menlo,monospace}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#121611;--surface:#191E17;--ink:#ECE7DB;--muted:#A6AD9E;--accent:#A8C491;--line:#2B3227;--line-strong:#3C4436}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#121611;--surface:#191E17;--ink:#ECE7DB;--muted:#A6AD9E;--accent:#A8C491;--line:#2B3227;--line-strong:#3C4436}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0B0F0A;--surface:#11150F;--ink:#EDE8DA;--muted:#9AA391;--accent:#C9A15E;--line:#232A20;--line-strong:#39422F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0B0F0A;--surface:#11150F;--ink:#EDE8DA;--muted:#9AA391;--accent:#C9A15E;--line:#232A20;--line-strong:#39422F}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.04rem;line-height:1.72;-webkit-font-smoothing:antialiased}
 .container{width:min(720px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}

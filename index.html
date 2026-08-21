@@ -8,27 +8,27 @@
 <link rel="canonical" href="https://cubits11.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Pranav Bhave — AI Assurance Research">
-<meta property="og:description" content="Research software that exposes what an AI-assurance claim establishes, what it assumes, and where it must stop.">
+<meta property="og:description" content="Research software that exposes what an AI-assurance claim establishes, what it assumes, and where it must stop. Audited in public; prosecuted weekly by its own CI.">
 <meta property="og:url" content="https://cubits11.github.io/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Pranav Bhave — name set in a serif typeface beside a framed outdoor portrait, with palette swatches sampled from the photograph">
+<meta property="og:image:alt" content="Pranav Bhave — name set in bone serif on an obsidian dossier card beside a framed outdoor portrait, with palette swatches sampled from the photograph">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F5F2EA">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121611">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161A18'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23A8C491' stroke-width='3'/%3E%3C/svg%3E">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <script>
-  /* theme boot — before first paint; also aligns browser-chrome color with the stored choice */
+  /* theme boot — before first paint; aligns browser-chrome color with the stored choice */
   try {
     var t = localStorage.getItem('theme');
     if (t === 'dark' || t === 'light') {
       document.documentElement.dataset.theme = t;
       var ms = document.querySelectorAll('meta[name="theme-color"]');
-      for (var i = 0; i < ms.length; i++) ms[i].content = (t === 'dark' ? '#121611' : '#F5F2EA');
+      for (var i = 0; i < ms.length; i++) ms[i].content = (t === 'dark' ? '#0B0F0A' : '#F1EDE2');
     }
   } catch (e) {}
 </script>
@@ -37,7 +37,7 @@
 <link rel="preload" href="/assets/fonts/fragment-mono.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="/assets/img/portrait-960.jpg"
       imagesrcset="/assets/img/portrait-480.webp 480w, /assets/img/portrait-720.webp 720w, /assets/img/portrait-960.webp 960w"
-      imagesizes="(min-width: 900px) 38vw, 82vw">
+      imagesizes="(min-width: 900px) 36vw, 82vw">
 <style>
 /* ---------- fonts (self-hosted, latin subsets) ---------- */
 @font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
@@ -45,12 +45,14 @@
 @font-face{font-family:'Instrument Sans';src:url('/assets/fonts/instrument-sans-roman.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Fragment Mono';src:url('/assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
-/* ---------- tokens: palette sampled from the photograph (Fig. 01) ---------- */
+/* ---------- tokens: v0.3 "the record" — dossier palette.
+   Greens and ink sampled from the photograph (Fig. 01); the gold is the
+   photograph's warm light sample (#D0A58A) deepened for signal duty. ---------- */
 :root{
   color-scheme:light;
-  --bg:#F5F2EA; --surface:#FBF9F3; --ink:#161A18; --muted:#59625C;
-  --accent:#435B33; --accent-soft:#5D7A47; --line:#DFD9C9; --line-strong:#C9C2AE;
-  --navy:#17293F; --noise-opacity:.05;
+  --bg:#F1EDE2; --surface:#F8F5EC; --ink:#14170F; --muted:#565E4E;
+  --gold:#755A2C; --sage:#435B33; --line:#DCD5C2; --line-strong:#C2BAA2;
+  --noise-opacity:.05;
   --serif:'Fraunces',Georgia,'Times New Roman',serif;
   --sans:'Instrument Sans',-apple-system,'Helvetica Neue',Arial,sans-serif;
   --mono:'Fragment Mono',ui-monospace,'SF Mono',Menlo,monospace;
@@ -58,16 +60,16 @@
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#121611; --surface:#191E17; --ink:#ECE7DB; --muted:#A6AD9E;
-  --accent:#A8C491; --accent-soft:#8CA878; --line:#2B3227; --line-strong:#3C4436;
-  --navy:#101A28; --noise-opacity:.07;
+  --bg:#0B0F0A; --surface:#11150F; --ink:#EDE8DA; --muted:#9AA391;
+  --gold:#C9A15E; --sage:#A8C491; --line:#232A20; --line-strong:#39422F;
+  --noise-opacity:.08;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --bg:#121611; --surface:#191E17; --ink:#ECE7DB; --muted:#A6AD9E;
-    --accent:#A8C491; --accent-soft:#8CA878; --line:#2B3227; --line-strong:#3C4436;
-    --navy:#101A28; --noise-opacity:.07;
+    --bg:#0B0F0A; --surface:#11150F; --ink:#EDE8DA; --muted:#9AA391;
+    --gold:#C9A15E; --sage:#A8C491; --line:#232A20; --line-strong:#39422F;
+    --noise-opacity:.08;
   }
 }
 
@@ -80,22 +82,21 @@ body{
   font-family:var(--sans);font-size:1.0625rem;line-height:1.68;
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
 }
-body::after{ /* paper grain */
+body::after{ /* grain */
   content:"";position:fixed;inset:0;z-index:9;pointer-events:none;opacity:var(--noise-opacity);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-h1,h2,h3{font-family:var(--serif);font-optical-sizing:auto;font-weight:520;line-height:1.06;margin:0;letter-spacing:-0.01em}
+h1,h2,h3{font-family:var(--serif);font-optical-sizing:auto;font-weight:530;line-height:1.06;margin:0;letter-spacing:-0.01em}
 p{margin:0 0 1em}
 a{color:inherit}
 img{max-width:100%;height:auto;display:block}
-::selection{background:var(--accent);color:var(--bg)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+::selection{background:var(--gold);color:var(--bg)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
-.container{width:min(1160px,100% - 2*clamp(1.25rem,5vw,4rem));margin-inline:auto}
+.container{width:min(1180px,100% - 2*clamp(1.25rem,5vw,4rem));margin-inline:auto}
 .mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase}
 
-/* underline animation for prose links */
 .u{ text-decoration:none;background-image:linear-gradient(currentColor,currentColor);
   background-repeat:no-repeat;background-position:0 100%;background-size:100% 1px;padding-bottom:1px}
 @media (prefers-reduced-motion: no-preference){
@@ -106,12 +107,12 @@ img{max-width:100%;height:auto;display:block}
 /* ---------- header ---------- */
 .site-head{
   position:fixed;inset:0 0 auto 0;z-index:20;
-  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  background:color-mix(in srgb, var(--bg) 84%, transparent);
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
 }
 .site-head .container{display:flex;align-items:center;gap:1.5rem;height:3.4rem}
-.wordmark{font-family:var(--serif);font-style:italic;font-size:1.05rem;text-decoration:none;letter-spacing:0;margin-right:auto;white-space:nowrap}
+.wordmark{font-family:var(--serif);font-style:italic;font-size:1.05rem;text-decoration:none;margin-right:auto;white-space:nowrap}
 .site-nav{display:flex;gap:1.4rem;overflow-x:auto;scrollbar-width:none}
 .site-nav::-webkit-scrollbar{display:none}
 .site-nav a{text-decoration:none;color:var(--muted);transition:color .2s;white-space:nowrap}
@@ -121,7 +122,7 @@ img{max-width:100%;height:auto;display:block}
   width:2rem;height:2rem;border-radius:50%;cursor:pointer;display:grid;place-items:center;flex:none;
   transition:border-color .2s, transform .3s var(--ease);
 }
-.theme-toggle:hover{border-color:var(--accent);transform:rotate(40deg)}
+.theme-toggle:hover{border-color:var(--gold);transform:rotate(40deg)}
 .theme-toggle svg{width:.95rem;height:.95rem;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
 :root:not([data-theme="dark"]) .moon-only{display:none}
 :root[data-theme="dark"] .sun-only{display:none}
@@ -132,27 +133,38 @@ img{max-width:100%;height:auto;display:block}
 .skip{position:absolute;left:-999px;top:0;z-index:30;background:var(--ink);color:var(--bg);padding:.6rem 1rem;font-family:var(--mono);font-size:.75rem}
 .skip:focus{left:0}
 
+/* classification bar */
+.class-bar{border-bottom:1px solid var(--line);margin-top:3.4rem}
+.class-bar .container{display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:space-between;padding-block:.55rem;color:var(--muted)}
+.class-bar b{color:var(--gold);font-weight:400}
+.class-bar a{text-decoration:none;color:var(--muted)}
+.class-bar a:hover,.class-bar a:focus-visible{color:var(--ink)}
+
 /* ---------- hero ---------- */
-.hero{padding-top:clamp(7rem,14vh,10.5rem);padding-bottom:clamp(4rem,8vh,7rem)}
+.hero{padding-top:clamp(4rem,9vh,7rem);padding-bottom:clamp(4rem,8vh,7rem)}
 .hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(2.5rem,6vw,5rem);align-items:center}
-.kicker{color:var(--accent);display:flex;align-items:center;gap:.9rem;margin-bottom:1.6rem}
-.kicker::before{content:"";width:2.2rem;height:1px;background:var(--accent);flex:none}
-.hero h1{font-size:clamp(3.1rem,7.8vw,6.2rem);font-weight:540;letter-spacing:-0.022em}
+.kicker{color:var(--gold);display:flex;align-items:center;gap:.9rem;margin-bottom:1.5rem}
+.kicker::before{content:"";width:2.2rem;height:1px;background:var(--gold);flex:none}
+.name{display:flex;flex-direction:column;text-transform:uppercase;
+  font-size:clamp(3.2rem,10.5vw,8.2rem);font-weight:560;line-height:.95;letter-spacing:-.018em}
 .prop{
   font-size:clamp(1.12rem,1.75vw,1.34rem);line-height:1.6;color:var(--ink);
-  max-width:31em;margin-top:1.6rem;font-weight:500;
+  max-width:31em;margin-top:1.8rem;font-weight:500;
 }
 .lede{
   font-size:clamp(.98rem,1.35vw,1.08rem);line-height:1.72;color:var(--muted);
   max-width:36em;margin-top:.9rem;
 }
 .lede em{font-family:var(--serif);font-style:italic;font-size:1.06em;color:var(--ink);font-weight:480}
-.fact-row{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.9rem}
+.fang{margin-top:1.5rem;color:var(--gold)}
+.fang a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+.fact-row{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.8rem}
 .fact{border:1px solid var(--line-strong);border-radius:999px;padding:.42rem .85rem;color:var(--muted);white-space:nowrap}
 .hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.1rem}
 
-/* photo as object */
-.fig{border:1px solid var(--line-strong);background:var(--surface);padding:.85rem;max-width:26.5rem;justify-self:end;width:100%}
+/* photo as dossier object */
+.fig{border:1px solid var(--line-strong);outline:1px solid color-mix(in srgb, var(--gold) 45%, transparent);outline-offset:6px;
+  background:var(--surface);padding:.85rem;max-width:26rem;justify-self:end;width:100%}
 .fig img{width:100%;aspect-ratio:4/5;object-fit:cover;background:#4b5b21 center/cover no-repeat}
 .fig-caption{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem .15rem .1rem;color:var(--muted)}
 .swatches{display:flex;gap:.4rem}
@@ -160,8 +172,10 @@ img{max-width:100%;height:auto;display:block}
 
 /* ---------- sections ---------- */
 section{padding-block:clamp(4rem,9vh,7.5rem);scroll-margin-top:4.5rem}
-.sec-head{display:flex;align-items:baseline;gap:1.1rem;margin-bottom:clamp(2rem,5vh,3.5rem)}
-.sec-no{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;color:var(--accent)}
+.sec-head{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:clamp(2rem,5vh,3.5rem)}
+.sec-no{font-family:var(--serif);font-size:clamp(3rem,6vw,5.2rem);font-weight:500;line-height:.8;
+  color:transparent;-webkit-text-stroke:1px var(--gold);opacity:.6;flex:none;transform:translateY(.35rem)}
+@supports not (-webkit-text-stroke: 1px black){.sec-no{color:var(--gold);opacity:.35}}
 .sec-head h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:500}
 .sec-rule{flex:1;height:1px;background:var(--line);transform:translateY(-.35rem)}
 .sec-intro{color:var(--muted);max-width:50em;margin:-1rem 0 2.6rem}
@@ -174,11 +188,12 @@ section{padding-block:clamp(4rem,9vh,7.5rem);scroll-margin-top:4.5rem}
   border:1px solid var(--line-strong);border-radius:999px;padding:.38rem .8rem;color:var(--ink);
   transition:border-color .2s, background-color .2s;
 }
-.chip::before{content:"";width:.42rem;height:.42rem;border-radius:50%;background:var(--accent);flex:none}
-a.chip:hover,a.chip:focus-visible{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 9%, transparent)}
+.chip::before{content:"";width:.42rem;height:.42rem;border-radius:50%;background:var(--sage);flex:none}
+a.chip:hover,a.chip:focus-visible{border-color:var(--sage);background:color-mix(in srgb, var(--sage) 10%, transparent)}
 .chip-attested{color:var(--muted);border-style:dashed}
 .chip-attested::before{background:transparent;border:1px solid var(--muted)}
-.chip-internal::before{border-radius:1px}
+.chip-internal::before{border-radius:1px;background:var(--gold)}
+a.chip-internal:hover,a.chip-internal:focus-visible{border-color:var(--gold);background:color-mix(in srgb, var(--gold) 10%, transparent)}
 
 /* work cards */
 .card{border:1px solid var(--line-strong);background:var(--surface);padding:clamp(1.5rem,3.5vw,2.6rem)}
@@ -189,39 +204,39 @@ a.chip:hover,a.chip:focus-visible{border-color:var(--accent);background:color-mi
 .card .chips{margin-top:1.4rem}
 .flagship{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:clamp(1.8rem,4vw,3.2rem)}
 .nonclaim{
-  border-left:2px solid var(--accent);padding:1rem 1.2rem;background:color-mix(in srgb, var(--accent) 6%, transparent);
+  border-left:2px solid var(--gold);padding:1rem 1.2rem;background:color-mix(in srgb, var(--gold) 7%, transparent);
   align-self:start;
 }
-.nonclaim .mono{color:var(--accent);display:block;margin-bottom:.5rem}
+.nonclaim .mono{color:var(--gold);display:block;margin-bottom:.5rem}
 .nonclaim p{color:var(--ink);font-size:.95rem;margin:0;line-height:1.6}
-.nc-line{border-left:2px solid var(--accent);padding:.15rem 0 .15rem 1rem;color:var(--ink);font-size:.95rem;max-width:52em}
-.nc-line .mono{color:var(--accent)}
+.nc-line{border-left:2px solid var(--gold);padding:.15rem 0 .15rem 1rem;color:var(--ink);font-size:.95rem;max-width:52em}
+.nc-line .mono{color:var(--gold)}
 .card-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
 .index-list{margin-top:1.25rem;border-top:1px solid var(--line)}
 .index-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:baseline;padding:1.15rem .2rem;border-bottom:1px solid var(--line)}
-.index-item .name{font-family:var(--serif);font-size:1.15rem;font-weight:500;margin-right:.9rem}
+.index-item .name-sm{font-family:var(--serif);font-size:1.15rem;font-weight:500;margin-right:.9rem}
 .index-item .desc{color:var(--muted);font-size:.95rem}
 
 /* method: five cards + envelope */
 .protocol{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem;margin-bottom:2.4rem}
 .pcard{border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1rem 1.25rem;min-height:9.5rem;display:flex;flex-direction:column;gap:.6rem}
-.pcard .mono{color:var(--accent)}
+.pcard .mono{color:var(--gold)}
 .pcard p{color:var(--muted);font-size:.88rem;line-height:1.55;margin:0}
 .pcard-empty{border-style:dashed;background:transparent}
 .pcard-empty .stamp{
   margin-top:auto;align-self:flex-end;transform:rotate(-4deg);transform-origin:center;
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--accent);
-  border:1px solid var(--accent);border-radius:2px;padding:.3rem .5rem;opacity:.85;margin-right:.35rem;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--gold);
+  border:1px solid var(--gold);border-radius:2px;padding:.3rem .5rem;opacity:.9;margin-right:.35rem;
 }
 .method-note{color:var(--muted);max-width:50em}
 .method-note em{font-family:var(--serif);font-style:italic;color:var(--ink)}
 .envelope{margin-top:3rem;border-top:1px solid var(--line);padding-top:2.2rem}
 .envelope-head{display:flex;align-items:baseline;gap:.9rem;margin-bottom:1.4rem}
-.envelope-head .mono{color:var(--accent)}
+.envelope-head .mono{color:var(--gold)}
 .envelope-head h3{font-size:1.35rem}
 .env-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem 1.4rem}
 .env-item{border-top:1px solid var(--line-strong);padding-top:.7rem}
-.env-item .mono{color:var(--accent);display:block;margin-bottom:.3rem}
+.env-item .mono{color:var(--gold);display:block;margin-bottom:.3rem}
 .env-item p{color:var(--muted);font-size:.86rem;line-height:1.5;margin:0}
 
 /* research & training */
@@ -235,34 +250,38 @@ a.chip:hover,a.chip:focus-visible{border-color:var(--accent);background:color-mi
 
 /* contact */
 .contact-line{font-family:var(--serif);font-size:clamp(2rem,4.6vw,3.4rem);font-weight:500;line-height:1.18;max-width:18em}
-.contact-line em{font-style:italic;color:var(--accent)}
+.contact-line em{font-style:italic;color:var(--gold)}
 .contact-prop{color:var(--muted);max-width:42em;margin-top:1.4rem;font-size:1.05rem}
 .cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
 .btn{
   display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;cursor:pointer;
   font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
   border:1px solid var(--ink);border-radius:999px;padding:.85rem 1.5rem;color:var(--ink);background:transparent;
-  transition:background-color .25s var(--ease), color .25s var(--ease);
+  transition:background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
 }
 .btn:hover,.btn:focus-visible{background:var(--ink);color:var(--bg)}
-.btn-solid{background:var(--ink);color:var(--bg)}
-.btn-solid:hover,.btn-solid:focus-visible{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.btn-solid{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.btn-solid:hover,.btn-solid:focus-visible{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 
 /* footer */
-footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
-.colophon{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:2.5rem;color:var(--muted);font-size:.88rem}
-.colophon .mono{color:var(--accent);display:block;margin-bottom:.8rem}
+footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
+.status-strip{border-bottom:1px solid var(--line)}
+.status-strip .container{display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:space-between;padding-block:.55rem;color:var(--muted)}
+.status-strip b{color:var(--gold);font-weight:400}
+.colophon{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:2.5rem;color:var(--muted);font-size:.88rem;padding-top:2.6rem}
+.colophon .mono{color:var(--gold);display:block;margin-bottom:.8rem}
 .legend{display:flex;flex-direction:column;gap:.55rem;font-size:.85rem}
 .legend span{display:flex;align-items:flex-start;gap:.55rem}
-.dot{width:.42rem;height:.42rem;border-radius:50%;background:var(--accent);flex:none;margin-top:.45rem}
+.dot{width:.42rem;height:.42rem;border-radius:50%;background:var(--sage);flex:none;margin-top:.45rem}
 .dot-hollow{background:transparent;border:1px solid var(--muted)}
+.dot-gold{background:var(--gold);border-radius:1px}
 .foot-links{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:2.2rem;color:var(--muted)}
 .foot-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:1.6rem;color:var(--muted)}
 
 /* ---------- motion ----------
-   Content is visible by default. JS adds .pre only to below-fold elements
-   right before observing them, so a broken or throttled observer can never
-   hide content; a timeout failsafe reveals anything still pending. */
+   Content is visible by default. JS adds .pre only just-before-observing,
+   so a broken or throttled observer can never hide content; a timeout
+   failsafe reveals anything still pending. */
 @media (prefers-reduced-motion: no-preference){
   .reveal.pre{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
   .reveal.pre.in{opacity:1;transform:none}
@@ -289,6 +308,7 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
   .site-nav a{font-size:.62rem}
   .protocol{grid-template-columns:1fr 1fr}
   .env-grid{grid-template-columns:1fr 1fr}
+  .sec-no{font-size:2.6rem}
 }
 @media print{
   .site-head,.theme-toggle,body::after{display:none}
@@ -317,6 +337,14 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
   </div>
 </header>
 
+<div class="class-bar mono" aria-label="Record status">
+  <div class="container">
+    <span><b>Public record</b> — every technical claim bound in the <a class="u" href="/ledger/">ledger</a></span>
+    <span>Registry <b>v0.2</b> · 8 claims</span>
+    <span>CI prosecution: <b>weekly</b> + every push</span>
+  </div>
+</div>
+
 <main id="main">
 
   <!-- ======================= HERO ======================= -->
@@ -324,38 +352,41 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
     <div class="container hero-grid">
       <div>
         <p class="kicker mono reveal">AI assurance research · statistical bounds · provenance systems</p>
-        <h1 class="reveal" style="--d:.06s">Pranav Bhave</h1>
+        <h1 class="name reveal" style="--d:.06s"><span>Pranav</span><span>Bhave</span></h1>
         <p class="prop reveal" style="--d:.1s">I build research software that exposes what an
           AI-assurance claim establishes, what it assumes, and where it must stop.</p>
         <p class="lede reveal" style="--d:.14s"><em>Bounds</em> that admit unknown dependence.
           <em>Receipts</em> that prove bytes rather than safety.
           <em>Claims</em> that return for review when their evidence changes.</p>
-        <div class="fact-row mono reveal" style="--d:.18s">
+        <p class="fang mono reveal" style="--d:.18s">Audited twice ·
+          <a href="/notes/noetic-log-001/">corrected in public</a> ·
+          <a href="https://github.com/Cubits11/cubits11.github.io/actions/workflows/verify.yml">prosecuted weekly by its own CI</a></p>
+        <div class="fact-row mono reveal" style="--d:.22s">
           <span class="fact">Penn State — B.S. CS ’26</span>
           <span class="fact">Cybersecurity minor</span>
           <span class="fact">AWS CCP + AI Practitioner</span>
           <span class="fact">Philadelphia, PA</span>
         </div>
-        <div class="hero-cta reveal" style="--d:.22s">
+        <div class="hero-cta reveal" style="--d:.26s">
           <a class="btn btn-solid" href="/essays/when-marginals-are-not-enough/">Read the case study</a>
           <a class="btn" href="/resume/">Résumé</a>
         </div>
       </div>
       <figure class="fig reveal" style="--d:.15s;margin:0">
         <picture>
-          <source type="image/webp" srcset="/assets/img/portrait-480.webp 480w, /assets/img/portrait-720.webp 720w, /assets/img/portrait-960.webp 960w" sizes="(min-width: 900px) 38vw, 82vw">
+          <source type="image/webp" srcset="/assets/img/portrait-480.webp 480w, /assets/img/portrait-720.webp 720w, /assets/img/portrait-960.webp 960w" sizes="(min-width: 900px) 36vw, 82vw">
           <img src="/assets/img/portrait-960.jpg" width="960" height="1200"
                alt="Pranav Bhave on a sunlit lawn in a navy polo and sunglasses, smiling, chin resting on his hand"
                fetchpriority="high" decoding="async"
                style="background-image:url('data:image/webp;base64,UklGRt4AAABXRUJQVlA4INIAAACwBQCdASoYAB4APt1YpU2opSOiN/qoARAbiWgAAFu0zrl2VsYxHqP8/9C+XHFScnYx14jHZbAA/ujOj3ubg9zrxCaT1x0J0iVOFxRmMPitCs+DohUj6KTatohSHQ928D0LsNfEtPBPhP2+gw3Qe28ss9rqCXgiy5+LTKM8ojzUR8gS+XA08ssH2GemE7LsiCjyYZEHb51UwdkZSRI31Sw3CKPMajkv3oz8IXzTGG3c6R970Hwa8DMUIJJiCkLhg0KIeCggKyvc6CQjhQB6CYuAAAA=');background-size:cover">
         </picture>
         <figcaption class="fig-caption mono">
-          <span>Fig. 01 — palette source</span>
+          <span>Fig. 01 — subject · palette source</span>
           <span class="swatches" aria-label="Colors sampled from this photograph">
             <span style="background:#161719" title="#161719 — polo"></span>
             <span style="background:#566326" title="#566326 — foliage"></span>
             <span style="background:#657033" title="#657033 — moss"></span>
-            <span style="background:#D0A58A" title="#D0A58A — light"></span>
+            <span style="background:#D0A58A" title="#D0A58A — light; deepened to the record's gold"></span>
           </span>
         </figcaption>
       </figure>
@@ -366,16 +397,17 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
   <section id="work">
     <div class="container">
       <header class="sec-head reveal">
-        <span class="sec-no">01</span>
+        <span class="sec-no" aria-hidden="true">01</span>
         <h2>Selected work</h2>
         <span class="sec-rule"></span>
       </header>
       <p class="sec-intro reveal">Discipline, scoped: evidence markers apply to the technical
         project claims below; biographical facts are owner-attested unless linked. Chips with a
         solid dot open public evidence. <span class="mono" style="font-size:.68rem">Attested</span>
-        means stated on my responsibility, dated, with no public artifact yet. Exact bindings —
-        commit SHAs, review dates, non-claims — live in the
-        <a class="u" href="/ledger/">evidence ledger</a>.</p>
+        means stated on my responsibility, dated, with no public artifact yet — provenance, not
+        proof. Exact bindings — commit SHAs, executable review triggers, non-claims — live in the
+        <a class="u" href="/ledger/">evidence ledger</a>, which is generated from the registry
+        and drift-checked in CI.</p>
 
       <article class="card flagship reveal">
         <div>
@@ -385,7 +417,8 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
             rail failure rates are known, their joint dependence is not. Given marginal evidence
             and declared dependence assumptions, it computes sharp Fréchet–Hoeffding bounds on
             stacked-system failure and records the boundary of the resulting claim — claim
-            envelopes, evidence roles, Merkle-logged receipts, decay semantics.</p>
+            envelopes, evidence roles, Merkle-logged receipts, decay semantics. Its flagship
+            computation is re-reproduced from a clean clone by this site's CI, weekly.</p>
           <div class="chips">
             <a class="chip" href="https://github.com/Cubits11/cc-framework">Inspect CC-Framework source ↗</a>
             <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md">Claim-boundary manifest ↗</a>
@@ -433,14 +466,14 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
 
       <div class="index-list reveal">
         <div class="index-item">
-          <div><span class="name">Ghost Visualizer</span>
+          <div><span class="name-sm">Ghost Visualizer</span>
             <span class="desc">A seven-scene visual essay, “Why AI Safety Scores Lie”: identical
               marginal guardrail scores hiding shared misses, with computed bounds, endpoint
               witnesses, and an inspectable receipt object. Runs locally; no hosted deployment yet.</span></div>
           <a class="chip" href="https://github.com/Cubits11/ghost-visualizer">Inspect source ↗</a>
         </div>
         <div class="index-item">
-          <div><span class="name">GCE — Guardrail Composability Explorer</span>
+          <div><span class="name-sm">GCE — Guardrail Composability Explorer</span>
             <span class="desc">MVP demo built for AI-285: toggle guardrails and watch composed behavior diverge from intuition.</span></div>
           <a class="chip" href="https://github.com/Cubits11/gce">Inspect GCE source ↗</a>
         </div>
@@ -452,7 +485,7 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
   <section id="method">
     <div class="container">
       <header class="sec-head reveal">
-        <span class="sec-no">02</span>
+        <span class="sec-no" aria-hidden="true">02</span>
         <h2>The five-card discipline</h2>
         <span class="sec-rule"></span>
       </header>
@@ -488,8 +521,10 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
           <div class="env-item"><span class="mono">8 · Freshness</span><p>When, and on what trigger, it must be re-examined.</p></div>
         </div>
         <p class="method-note" style="margin-top:1.6rem">The <a class="u" href="/ledger/">evidence
-          ledger</a> implements the envelope's first fields for every technical claim on this
-          page: propositions, immutable commit bindings, statuses, review triggers, non-claims.</p>
+          ledger</a> is generated from a registry that implements these fields — propositions,
+          separated provenance and status dimensions, immutable bindings, executable review
+          triggers that watch the bound evidence upstream, freshness windows, non-claims. Where a
+          trigger can't be executed by CI, the ledger says <em>manual</em>, plainly.</p>
       </div>
     </div>
   </section>
@@ -498,7 +533,7 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
   <section id="research">
     <div class="container">
       <header class="sec-head reveal">
-        <span class="sec-no">03</span>
+        <span class="sec-no" aria-hidden="true">03</span>
         <h2>Research &amp; training</h2>
         <span class="sec-rule"></span>
       </header>
@@ -542,13 +577,14 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
   <section id="contact">
     <div class="container">
       <header class="sec-head reveal">
-        <span class="sec-no">04</span>
+        <span class="sec-no" aria-hidden="true">04</span>
         <h2>Contact</h2>
         <span class="sec-rule"></span>
       </header>
       <p class="contact-line reveal">Have a claim worth checking?<br>Bring it — <em>I’ll bring the falsifier.</em></p>
-      <p class="contact-prop reveal" style="--d:.05s">I’m looking for research and engineering work
-        where statistical assurance, provenance, and claim governance matter.</p>
+      <p class="contact-prop reveal" style="--d:.05s">I’m looking for research, engineering, and
+        independent consulting work where statistical assurance, provenance, and claim governance
+        matter.</p>
       <div class="cta-row reveal" style="--d:.1s">
         <a class="btn btn-solid" href="mailto:bhavepranavwork@gmail.com">Email me</a>
         <button class="btn" id="copyEmail" type="button" data-email="bhavepranavwork@gmail.com">Copy address</button>
@@ -562,26 +598,36 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
 </main>
 
 <footer>
+  <div class="status-strip mono" aria-label="Ledger status">
+    <div class="container">
+      <span>Ledger <b>v0.2</b> — generated from claims.yaml, drift-checked</span>
+      <span>Triggers: <b>executable</b> where CI can watch, <b>manual</b> declared where it can't</span>
+      <span>Last owner review <b>2026-08-20</b></span>
+    </div>
+  </div>
   <div class="container">
     <div class="colophon">
       <div>
         <span class="mono">Colophon</span>
         Hand-built static HTML, CSS, and about three kilobytes of JavaScript. No framework, no
         client-side analytics, no cookies. Set in Fraunces, Instrument Sans, and Fragment Mono,
-        self-hosted. The palette is sampled from Fig.&nbsp;01 above. Hosted on GitHub Pages; CI
-        validates the claim registry on every push and weekly.
-        Last owner review: 2026-08-20 · claim ledger v0.1.
+        self-hosted. Palette sampled from Fig.&nbsp;01 — the gold is its warm light sample,
+        deepened for signal duty. Hosted on GitHub Pages; CI verifies the claim registry,
+        executes its review triggers, and re-reproduces CC-001 from a clean clone on every push
+        and weekly.
       </div>
       <div class="legend">
         <span class="mono" style="margin-bottom:0">Evidence legend</span>
         <span><span class="dot"></span> solid dot — opens public evidence</span>
         <span><span class="dot dot-hollow"></span> hollow dot — attested, on my responsibility</span>
+        <span><span class="dot dot-gold"></span> square dot — internal record</span>
         <span style="color:var(--muted)">Markers cover technical project claims; biography is owner-attested unless linked.</span>
       </div>
     </div>
     <div class="foot-links mono">
       <a class="u" href="/ledger/">Evidence ledger</a>
       <a class="u" href="/essays/when-marginals-are-not-enough/">Case study</a>
+      <a class="u" href="/notes/noetic-log-001/">Noetic log 001</a>
       <a class="u" href="/resume/">Résumé</a>
       <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md">Design ledger ↗</a>
     </div>
@@ -612,7 +658,7 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
   function apply(next) {
     root.dataset.theme = next;
     try { localStorage.setItem('theme', next); } catch (e) {}
-    meta.forEach(function (m) { m.content = next === 'dark' ? '#121611' : '#F5F2EA'; });
+    meta.forEach(function (m) { m.content = next === 'dark' ? '#0B0F0A' : '#F1EDE2'; });
     syncToggle();
   }
   toggle.addEventListener('click', function () {
@@ -625,10 +671,7 @@ footer{border-top:1px solid var(--line);padding:3rem 0 3.5rem;margin-top:2rem}
   syncToggle();
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncToggle);
 
-  /* ---- reveals: enhancement only, never a dependency ----
-     Elements start visible. Below-fold elements get .pre (hidden) right
-     before being observed; above-fold elements play an entrance on the next
-     frames; a 4s failsafe reveals anything still pending. */
+  /* ---- reveals: enhancement only, never a dependency ---- */
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var els = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
   if (!reduced && 'IntersectionObserver' in window) {

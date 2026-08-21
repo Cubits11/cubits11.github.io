@@ -1,45 +1,58 @@
 <!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: claims.yaml · renderer: scripts/generate_ledger.py
+     CI regenerates this page and fails on drift. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Evidence Ledger — Pranav Bhave</title>
-<meta name="description" content="The claim registry behind cubits11.github.io: every technical claim with its scope, immutable evidence binding, provenance, status, review triggers, and non-claims.">
+<meta name="description" content="The claim registry behind cubits11.github.io, generated from claims.yaml: every technical claim with its dimensions, immutable bindings, review triggers, and non-claims.">
 <link rel="canonical" href="https://cubits11.github.io/ledger/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161A18'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23F5F2EA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23A8C491' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
 <script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
 <style>
 @font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
 @font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
 @font-face{font-family:'Instrument Sans';src:url('/assets/fonts/instrument-sans-roman.woff2') format('woff2');font-weight:400 700;font-display:swap}
 @font-face{font-family:'Fragment Mono';src:url('/assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-display:swap}
-:root{color-scheme:light;--bg:#F5F2EA;--surface:#FBF9F3;--ink:#161A18;--muted:#59625C;--accent:#435B33;--line:#DFD9C9;--line-strong:#C9C2AE;
+:root{color-scheme:light;--bg:#F1EDE2;--surface:#F8F5EC;--ink:#14170F;--muted:#565E4E;--gold:#755A2C;--sage:#435B33;--line:#DCD5C2;--line-strong:#C2BAA2;
   --serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,Arial,sans-serif;--mono:'Fragment Mono',ui-monospace,Menlo,monospace}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#121611;--surface:#191E17;--ink:#ECE7DB;--muted:#A6AD9E;--accent:#A8C491;--line:#2B3227;--line-strong:#3C4436}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#121611;--surface:#191E17;--ink:#ECE7DB;--muted:#A6AD9E;--accent:#A8C491;--line:#2B3227;--line-strong:#3C4436}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0B0F0A;--surface:#11150F;--ink:#EDE8DA;--muted:#9AA391;--gold:#C9A15E;--sage:#A8C491;--line:#232A20;--line-strong:#39422F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0B0F0A;--surface:#11150F;--ink:#EDE8DA;--muted:#9AA391;--gold:#C9A15E;--sage:#A8C491;--line:#232A20;--line-strong:#39422F}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased}
-.container{width:min(880px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}
-.mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase}
+.container{width:min(920px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}
+.mono{font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;text-transform:uppercase}
 a{color:inherit}
 .u{text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
 header.page{padding:4.5rem 0 2.5rem;border-bottom:1px solid var(--line)}
-.crumb{color:var(--accent);display:block;margin-bottom:1.2rem;text-decoration:none}
+.crumb{color:var(--gold);display:block;margin-bottom:1.2rem;text-decoration:none}
 h1{font-family:var(--serif);font-weight:520;font-size:clamp(2.2rem,5.5vw,3.4rem);line-height:1.05;margin:0 0 1rem;letter-spacing:-.015em}
-.intro{color:var(--muted);max-width:44em}
+.intro{color:var(--muted);max-width:46em}
 .meta-row{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:1.4rem;color:var(--muted)}
 .claim{border:1px solid var(--line-strong);background:var(--surface);margin:1.4rem 0;padding:clamp(1.2rem,3vw,1.8rem)}
 .claim-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.9rem}
-.claim-id{color:var(--accent)}
-.status{border:1px solid var(--line-strong);border-radius:999px;padding:.28rem .7rem;color:var(--ink)}
-.status-attested{border-style:dashed;color:var(--muted)}
-.prop{font-family:var(--serif);font-size:1.12rem;line-height:1.5;margin:0 0 1rem;max-width:40em}
+.claim-id{color:var(--gold)}
+.status,.status-dim,.status-hot{border:1px solid var(--line-strong);border-radius:999px;padding:.28rem .7rem}
+.status{color:var(--ink)}
+.status-dim{color:var(--muted);border-style:dashed}
+.status-hot{color:var(--gold);border-color:var(--gold)}
+.prop{font-family:var(--serif);font-size:1.12rem;line-height:1.5;margin:0 0 1rem;max-width:42em}
 dl{display:grid;grid-template-columns:9.5rem 1fr;gap:.45rem 1.2rem;margin:0;font-size:.92rem}
-dt{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding-top:.15rem}
+dt{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);padding-top:.15rem}
 dd{margin:0;color:var(--muted);overflow-wrap:anywhere}
 dd code{font-family:var(--mono);font-size:.8em}
-ul.nc{margin:.1rem 0 0;padding-left:1.1rem}
-ul.nc li{margin:.2rem 0}
+.dims{display:flex;flex-wrap:wrap;gap:.4rem .9rem}
+.dim{display:inline-flex;gap:.45rem;align-items:baseline}
+.dim-k{font-family:var(--mono);font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--sage)}
+ul.nc,ul.trg{margin:.1rem 0 0;padding-left:1.1rem}
+ul.nc li,ul.trg li{margin:.2rem 0}
+ul.trg{list-style:none;padding-left:0}
+.tag{border:1px solid var(--line-strong);border-radius:2px;padding:.1rem .4rem;margin-right:.5rem;font-size:.58rem}
+.tag-exec{color:var(--sage);border-color:var(--sage)}
+.tag-manual{color:var(--muted);border-style:dashed}
+.note{font-size:.85rem}
 footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
 @media (max-width:600px){dl{grid-template-columns:1fr}dt{padding-top:.5rem}}
 @media print{body{background:#fff;color:#000}}
@@ -50,16 +63,20 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
   <div class="container">
     <a class="crumb mono" href="/">← Pranav Bhave</a>
     <h1>Evidence ledger</h1>
-    <p class="intro">Every technical claim the main page renders with an evidence marker, in
-      envelope form: proposition, scope, support bound to an immutable artifact where one exists,
-      provenance, status, review triggers, and non-claims. This page is rendered from
-      <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/claims.yaml">claims.yaml</a>,
-      and CI verifies the registry — link liveness, commit reachability, date validity, and
-      ledger coverage — on every push and weekly.</p>
+    <p class="intro">Every technical claim the site renders with an evidence marker, in envelope
+      form. This page is <strong>generated</strong> from
+      <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/claims.yaml">claims.yaml</a>
+      by <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/generate_ledger.py">generate_ledger.py</a>;
+      CI regenerates it and fails on drift, verifies commit↔URL bindings, executes the
+      executable review triggers against live evidence, and enforces each claim's freshness
+      window — on every push and weekly. Triggers marked
+      <span class="mono tag tag-manual" style="margin:0">manual</span> are honestly beyond
+      CI's reach.</p>
     <div class="meta-row mono">
-      <span>Ledger v0.1</span>
+      <span>Schema v0.2</span>
       <span>Last owner review: 2026-08-20</span>
       <span>8 claims</span>
+      <span><a class="u" href="https://github.com/Cubits11/cubits11.github.io/actions/workflows/verify.yml">CI runs ↗</a></span>
     </div>
   </div>
 </header>
@@ -67,132 +84,80 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
 <main class="container">
 
   <article class="claim" id="CC-001">
-    <div class="claim-head"><span class="mono claim-id">CC-001</span><span class="mono status">Supported within scope</span></div>
-    <p class="prop">cc.kernel.strict.frechet_bounds computes Fréchet–Hoeffding endpoint bounds for
-      composed binary guardrail failure from declared marginals; for marginals (0.10, 0.10) it
-      returns [0.0, 0.10] for the AND event and [0.10, 0.20] for OR.</p>
-    <dl>
-      <dt>Scope</dt><dd>The kernel API at the bound commit, executed locally on 2026-08-20. No claim about any deployed system.</dd>
-      <dt>Support</dt><dd>Executed quickstart — output recorded verbatim in the <a class="u" href="/essays/when-marginals-are-not-enough/">case study</a>.</dd>
-      <dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/cc-framework/commit/21f5ff6809a0a16987a39afe56be1e50251ff727"><code>cc-framework @ 21f5ff68</code></a></dd>
-      <dt>Provenance</dt><dd>Machine-generated output, owner-executed.</dd>
-      <dt>Reviewed</dt><dd>2026-08-20 · triggers: kernel change; default branch advances beyond binding</dd>
-      <dt>Non-claims</dt><dd><ul class="nc">
-        <li>Does not certify any stacked system as safe.</li>
-        <li>Does not recover or estimate the unknown dependence.</li>
-        <li>Does not select a point inside the returned interval.</li></ul></dd>
-    </dl>
+    <div class="claim-head">
+      <span class="mono claim-id">CC-001</span>
+      <span class="mono status">Supported within scope · Machine-generated, owner-executed</span>
+    </div>
+    <p class="prop">cc.kernel.strict.frechet_bounds computes Fréchet–Hoeffding endpoint bounds for composed binary guardrail failure from declared marginals; for marginals (0.10, 0.10) it returns [0.0, 0.10] for the AND event and [0.10, 0.20] for OR.</p>
+    <dl><dt>Scope</dt><dd>The kernel module at the bound commit. Reproduced from a clean clone (venv, pip install, execute, assert) on 2026-08-20, and re-reproduced by CI on every push and weekly. No claim about any deployed system.</dd><dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/cc-framework/commit/21f5ff6809a0a16987a39afe56be1e50251ff727"><code>Cubits11/cc-framework @ 21f5ff68</code></a><br><span class="note">Output recorded verbatim in /essays/when-marginals-are-not-enough/; continuously reproduced by scripts/reproduce_cc001.py in CI.</span></dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Machine-generated, owner-executed</span><span class="dim"><span class="dim-k">support role</span>Executed output</span><span class="dim"><span class="dim-k">maturity</span>Released</span></span></dd><dt>Reviewed</dt><dd>2026-08-20 · window 120 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when the kernel module on the default branch diverges from the bound revision</li><li><span class="mono tag tag-manual">manual</span> kernel semantics change outside the bound module file</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>does not certify any stacked system as safe</li><li>does not recover or estimate the unknown dependence</li><li>does not select a point inside the returned interval</li></ul></dd></dl>
   </article>
-
   <article class="claim" id="CC-002">
-    <div class="claim-head"><span class="mono claim-id">CC-002</span><span class="mono status">Supported within scope</span></div>
-    <p class="prop">CC-Framework maintains a claim-boundary manifest mapping its public claims to
-      validation lanes, supporting files, and explicit non-claims.</p>
-    <dl>
-      <dt>Scope</dt><dd>The manifest file at the bound commit on the default branch.</dd>
-      <dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md"><code>CLAIM_BOUNDARY_MANIFEST.md @ 3e22c39d</code></a></dd>
-      <dt>Provenance</dt><dd>Owner-authored public document.</dd>
-      <dt>Reviewed</dt><dd>2026-08-20 · trigger: manifest moved or rewritten</dd>
-      <dt>Non-claims</dt><dd><ul class="nc"><li>The manifest's existence does not validate the claims it scopes.</li></ul></dd>
-    </dl>
+    <div class="claim-head">
+      <span class="mono claim-id">CC-002</span>
+      <span class="mono status">Supported within scope · Owner-authored, public</span>
+    </div>
+    <p class="prop">CC-Framework maintains a claim-boundary manifest mapping its public claims to validation lanes, supporting files, and explicit non-claims.</p>
+    <dl><dt>Scope</dt><dd>The manifest file at the bound commit on the default branch.</dd><dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md"><code>CLAIM_BOUNDARY_MANIFEST.md @ 3e22c39d</code></a></dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Owner-authored, public</span><span class="dim"><span class="dim-k">support role</span>Document</span><span class="dim"><span class="dim-k">maturity</span>Released</span></span></dd><dt>Reviewed</dt><dd>2026-08-20 · window 120 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when the manifest on the default branch is rewritten or moved</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>the manifest&#x27;s existence does not validate the claims it scopes</li></ul></dd></dl>
   </article>
-
   <article class="claim" id="GA-001">
-    <div class="claim-head"><span class="mono claim-id">GA-001</span><span class="mono status">Supported within scope</span></div>
-    <p class="prop">Ghost-Ark is a verifier and measurement harness for the provenance limits of
-      AI-governance receipts — a research artifact of the S2 Lab, Penn State — whose stated thesis
-      is that a receipt identifies an execution only up to the kernel of its canonicalizer.</p>
-    <dl>
-      <dt>Scope</dt><dd>The repository README and thesis document at the bound commit.</dd>
-      <dt>Binding</dt><dd><a class="u" href="https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md"><code>00_THESIS.md @ 98c90d82</code></a></dd>
-      <dt>Provenance</dt><dd>Public lab repository.</dd>
-      <dt>Reviewed</dt><dd>2026-08-20 · triggers: repository reframed; thesis document changed</dd>
-      <dt>Non-claims</dt><dd><ul class="nc">
-        <li>A verifying receipt does not establish that the governed action was safe, authorized, or semantically correct.</li>
-        <li>Not hardened for deployment; not post-quantum secure.</li></ul></dd>
-    </dl>
+    <div class="claim-head">
+      <span class="mono claim-id">GA-001</span>
+      <span class="mono status">Supported within scope · Lab repository, public</span>
+    </div>
+    <p class="prop">Ghost-Ark is a verifier and measurement harness for the provenance limits of AI-governance receipts — a research artifact of the S2 Lab, Penn State — whose stated thesis is that a receipt identifies an execution only up to the kernel of its canonicalizer.</p>
+    <dl><dt>Scope</dt><dd>The repository README and thesis document at the bound commit.</dd><dt>Binding</dt><dd><a class="u" href="https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md"><code>00_THESIS.md @ 98c90d82</code></a></dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Lab repository, public</span><span class="dim"><span class="dim-k">support role</span>Document</span><span class="dim"><span class="dim-k">maturity</span>In development</span></span></dd><dt>Reviewed</dt><dd>2026-08-20 · window 120 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when the thesis document on the default branch changes</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>a verifying receipt does not establish that the governed action was safe, authorized, or semantically correct</li><li>not hardened for deployment; not post-quantum secure</li></ul></dd></dl>
   </article>
-
   <article class="claim" id="AS-001">
-    <div class="claim-head"><span class="mono claim-id">AS-001</span><span class="mono status status-attested">Attested</span></div>
-    <p class="prop">Assay is an early-stage experiment in enclave-attested media processing on AWS
-      Nitro Enclaves, investigating which provenance claims a verifier can and cannot derive from
-      attestation.</p>
-    <dl>
-      <dt>Scope</dt><dd>Owner statement only; the artifact is private.</dd>
-      <dt>Support</dt><dd>None public.</dd>
-      <dt>Provenance</dt><dd>Owner-attested.</dd>
-      <dt>Reviewed</dt><dd>2026-08-20 · trigger: public artifact released</dd>
-      <dt>Non-claims</dt><dd><ul class="nc">
-        <li>No public evidence is offered; nothing about completeness, security, or provenance-chain origin is established.</li>
-        <li>Attestation cannot establish a file's history prior to the first attested operation.</li></ul></dd>
-    </dl>
+    <div class="claim-head">
+      <span class="mono claim-id">AS-001</span>
+      <span class="mono status-dim">Publicly untested · Owner-attested</span>
+    </div>
+    <p class="prop">Assay is an early-stage experiment in enclave-attested media processing on AWS Nitro Enclaves, investigating which provenance claims a verifier can and cannot derive from attestation.</p>
+    <dl><dt>Scope</dt><dd>Owner statement only; the artifact is private.</dd><dt>Support</dt><dd>No public artifact yet, by declaration.</dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Private</span><span class="dim"><span class="dim-k">provenance</span>Owner-attested</span><span class="dim"><span class="dim-k">support role</span>None public</span><span class="dim"><span class="dim-k">maturity</span>Experimental</span></span></dd><dt>Reviewed</dt><dd>2026-08-20 · window 120 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-manual">manual</span> public artifact released</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>no public evidence is offered; nothing about completeness, security, or provenance-chain origin is established</li><li>attestation cannot establish a file&#x27;s history prior to the first attested operation</li></ul></dd></dl>
   </article>
-
   <article class="claim" id="GV-001">
-    <div class="claim-head"><span class="mono claim-id">GV-001</span><span class="mono status">Supported within scope</span></div>
-    <p class="prop">Ghost Visualizer is a seven-scene React/Vite visual essay (“Why AI Safety
-      Scores Lie”) that computes marginals, OR composition, Fréchet–Hoeffding bounds, endpoint
-      witnesses, and a receipt object from deterministic sample rows, with an Evidence Mode.</p>
-    <dl>
-      <dt>Scope</dt><dd>The repository at the bound commit. Runs locally; no hosted deployment, so the site links source, not a live demo.</dd>
-      <dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7"><code>ghost-visualizer @ 3fbe3efc</code></a></dd>
-      <dt>Provenance</dt><dd>Public owner repository.</dd>
-      <dt>Reviewed</dt><dd>2026-08-20 · triggers: hosted deployment added; repository reframed</dd>
-      <dt>Non-claims</dt><dd><ul class="nc"><li>Not an AI-safety certificate; no deployment-readiness claim.</li></ul></dd>
-    </dl>
+    <div class="claim-head">
+      <span class="mono claim-id">GV-001</span>
+      <span class="mono status">Supported within scope · Owner-authored, public</span>
+    </div>
+    <p class="prop">Ghost Visualizer is a seven-scene React/Vite visual essay (&quot;Why AI Safety Scores Lie&quot;) that computes marginals, OR composition, Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from deterministic sample rows, with an Evidence Mode for inspection.</p>
+    <dl><dt>Scope</dt><dd>The repository at the bound commit. Runs locally; there is no hosted deployment, so the site links source, not a live demo.</dd><dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7"><code>Cubits11/ghost-visualizer @ 3fbe3efc</code></a></dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Owner-authored, public</span><span class="dim"><span class="dim-k">support role</span>Repository README</span><span class="dim"><span class="dim-k">maturity</span>In development</span></span></dd><dt>Reviewed</dt><dd>2026-08-20 · window 120 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when the README on the default branch is reframed</li><li><span class="mono tag tag-manual">manual</span> hosted deployment added — the site may then link a live demo</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>not an AI-safety certificate; no deployment-readiness claim</li></ul></dd></dl>
   </article>
-
   <article class="claim" id="BIO-001">
-    <div class="claim-head"><span class="mono claim-id">BIO-001</span><span class="mono status status-attested">Attested</span></div>
-    <p class="prop">B.S. Computer Science, Pennsylvania State University, May 2026, with a minor
-      in Cybersecurity; research supervised by Dr. Peng Liu (IST 496, Aug–Dec 2025).</p>
-    <dl>
-      <dt>Scope</dt><dd>Biographical fact; owner-attested on this site.</dd>
-      <dt>Support</dt><dd>Stated on resume; institutional verification available on request.</dd>
-      <dt>Provenance</dt><dd>Owner-attested.</dd>
-      <dt>Reviewed</dt><dd>2026-08-20 · trigger: annual review</dd>
-      <dt>Non-claims</dt><dd><ul class="nc"><li>No public registry link is provided; the site does not present this as third-party verified.</li></ul></dd>
-    </dl>
+    <div class="claim-head">
+      <span class="mono claim-id">BIO-001</span>
+      <span class="mono status-dim">Publicly untested · Owner-attested</span>
+    </div>
+    <p class="prop">B.S. Computer Science, Pennsylvania State University, May 2026, with a minor in Cybersecurity; research supervised by Dr. Peng Liu (IST 496, Aug–Dec 2025).</p>
+    <dl><dt>Scope</dt><dd>Biographical fact. Owner-attested; publicly untested by design.</dd><dt>Support</dt><dd>Stated on resume; institutional verification available on request.</dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Private</span><span class="dim"><span class="dim-k">provenance</span>Owner-attested</span><span class="dim"><span class="dim-k">support role</span>None public</span><span class="dim"><span class="dim-k">maturity</span>Stable</span></span></dd><dt>Reviewed</dt><dd>2026-08-20 · window 365 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-manual">manual</span> annual review</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>no public registry link is provided; the site does not present this as third-party verified</li></ul></dd></dl>
   </article>
-
   <article class="claim" id="CRED-001">
-    <div class="claim-head"><span class="mono claim-id">CRED-001</span><span class="mono status status-attested">Attested</span></div>
-    <p class="prop">Holds AWS Certified Cloud Practitioner and AWS Certified AI Practitioner;
-      SAA-C03 and Security — Specialty are in progress.</p>
-    <dl>
-      <dt>Scope</dt><dd>Owner-attested; verification IDs available on request.</dd>
-      <dt>Provenance</dt><dd>Owner-attested.</dd>
-      <dt>Reviewed</dt><dd>2026-08-20 · triggers: certification expiry; new certification earned</dd>
-      <dt>Non-claims</dt><dd><ul class="nc"><li>“In progress” asserts intent and preparation, not partial credential.</li></ul></dd>
-    </dl>
+    <div class="claim-head">
+      <span class="mono claim-id">CRED-001</span>
+      <span class="mono status-dim">Publicly untested · Owner-attested</span>
+    </div>
+    <p class="prop">Holds AWS Certified Cloud Practitioner and AWS Certified AI Practitioner; SAA-C03 and Security — Specialty are in progress.</p>
+    <dl><dt>Scope</dt><dd>Owner-attested; verification IDs available on request.</dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Private</span><span class="dim"><span class="dim-k">provenance</span>Owner-attested</span><span class="dim"><span class="dim-k">support role</span>None public</span><span class="dim"><span class="dim-k">maturity</span>Stable</span></span></dd><dt>Reviewed</dt><dd>2026-08-20 · window 180 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-manual">manual</span> certification expiry or a new certification earned</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>&quot;in progress&quot; asserts intent and preparation, not partial credential</li></ul></dd></dl>
   </article>
-
   <article class="claim" id="SITE-001">
-    <div class="claim-head"><span class="mono claim-id">SITE-001</span><span class="mono status">Supported within scope</span></div>
-    <p class="prop">This site's palette token pairs were computed to pass WCAG AA contrast (most
-      AAA), and manual QA passes covered light/dark themes, desktop and mobile layouts, keyboard
-      focus, reduced motion, and no-JS rendering.</p>
-    <dl>
-      <dt>Scope</dt><dd>Manual and scripted checks on 2026-08-20, recorded in DESIGN.md. No instrumented field performance data exists — the site runs no analytics by design.</dd>
-      <dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md"><code>DESIGN.md</code></a> (mutable by design; this claim reviews on change)</dd>
-      <dt>Provenance</dt><dd>Owner-verified.</dd>
-      <dt>Reviewed</dt><dd>2026-08-20 · triggers: site redesign; failing CI</dd>
-      <dt>Non-claims</dt><dd><ul class="nc">
-        <li>No field CLS/LCP/CrUX measurements are claimed.</li>
-        <li>“Zero third-party runtime requests” describes page code, not hosting infrastructure — GitHub Pages, DNS, and TLS remain dependencies.</li></ul></dd>
-    </dl>
+    <div class="claim-head">
+      <span class="mono claim-id">SITE-001</span>
+      <span class="mono status">Supported within scope · Owner-verified</span>
+    </div>
+    <p class="prop">This site&#x27;s palette token pairs were computed to pass WCAG AA contrast (most AAA), and manual QA passes covered light/dark themes, desktop and mobile layouts, keyboard focus, reduced motion, and no-JS rendering, as recorded in DESIGN.md.</p>
+    <dl><dt>Scope</dt><dd>Manual and scripted checks recorded in DESIGN.md. No instrumented field performance data exists — the site runs no analytics by design.</dd><dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md"><code>DESIGN.md</code></a><br><span class="note">Mutable link by design; the local-content trigger below detects edits.</span></dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Owner-verified</span><span class="dim"><span class="dim-k">support role</span>Site document</span><span class="dim"><span class="dim-k">maturity</span>Released</span></span></dd><dt>Reviewed</dt><dd>2026-08-20 · window 120 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when DESIGN.md changes without a registry re-review</li><li><span class="mono tag tag-manual">manual</span> site redesign</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>no field CLS/LCP/CrUX measurements are claimed</li><li>&quot;zero third-party runtime requests&quot; describes page code, not hosting infrastructure (GitHub Pages, DNS, TLS remain dependencies)</li></ul></dd></dl>
   </article>
-
 </main>
 
 <footer>
   <div class="container">
-    <span class="mono">Statuses: untested · partially supported · supported within scope ·
-    inconclusive · contradicted — and attested, a provenance state, kept deliberately distinct.</span>
-    <p style="margin:.9rem 0 0">A claim whose review trigger fires does not become false; its
-    warrant becomes due for re-examination. Stale claims are re-reviewed or withdrawn, not
-    quietly left standing. <a class="u" href="/">← Back to the record</a></p>
+    <span class="mono">Evidential statuses: untested · partially supported · supported within
+    scope · inconclusive · contradicted. Provenance (incl. owner-attested) is a separate
+    dimension — an attested claim with no public artifact is publicly untested, and says so.</span>
+    <p style="margin:.9rem 0 0">A fired trigger or an expired window does not make a claim
+    false; it makes the claim's warrant due for re-examination. Stale claims are re-reviewed
+    or withdrawn, never quietly left standing.
+    <a class="u" href="/">← Back to the record</a></p>
   </div>
 </footer>
 </body>

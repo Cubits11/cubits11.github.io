@@ -27,7 +27,8 @@ page that a resume check or a repo visit would contradict.
 - **Choice.** (c). Solid-dot chips link to public artifacts; dashed,
   hollow-dot chips mark attested-only claims, dated. A legend sits in the
   footer. The five-card protocol from CC-Framework gets its own section, with
-  the result slot left empty and stamped inconclusive.
+  the result slot left empty and stamped **untested** — untested and
+  inconclusive are different states, and the stamp uses the correct one.
 - **Why.** It is the only option the subject's body of work argues for.
   Anyone can buy polish; a portfolio that refuses to overclaim *demonstrates*
   the discipline the projects sell. Gimmicks (b) decay within a trend cycle
@@ -43,7 +44,8 @@ page that a resume check or a repo visit would contradict.
 - **Why.** One page does not amortize a toolchain. No project-level
   dependencies means a small supply-chain surface — not zero: GitHub Pages,
   DNS, TLS, fonts, and browser behavior remain runtime dependencies — no
-  build breakage in five years, and view-source that is itself a portfolio
+  page build step to break (CI verifies the claim registry; it does not
+  build the pages), and view-source that is itself a portfolio
   artifact. Total JS is ~3 KB; the page works fully with JS disabled
   (reveals default to visible, theme follows the OS).
 - **Revisit if.** The site grows past ~3 pages or needs data-driven content;
@@ -99,7 +101,8 @@ page that a resume check or a repo visit would contradict.
   hairline frame on surface, mono caption, palette swatches.
 - **Choice.** (c), crop at x₀ = 407 of the 2000 px original (face upper
   third, hand and frame balanced). Metadata stripped on re-encode. WebP
-  480/720/960 + JPEG fallback, LQIP inline, explicit dimensions (CLS 0),
+  480/720/960 + JPEG fallback, LQIP inline, explicit dimensions (reserved
+  space reduces layout-shift risk; no instrumented score is claimed),
   `fetchpriority=high`.
 - **Why.** A framed figure with a caption treats the subject as evidence —
   "Fig. 01" — which is both the aesthetic and the argument. Scrimmed text on
@@ -132,7 +135,7 @@ page that a resume check or a repo visit would contradict.
 
 | Budget | Target | Shipped |
 | --- | --- | --- |
-| HTML (index, incl. inline CSS/JS) | < 45 KB | 39.3 KB (v0.2) |
+| HTML (index, incl. inline CSS/JS) | < 45 KB | 42.3 KB (v0.3) |
 | Fonts (4 × woff2, latin subsets) | < 220 KB | ~194 KB |
 | Hero image (720 webp, typical load) | < 50 KB | ~31 KB |
 | JavaScript | < 4 KB | ~3 KB |
@@ -227,6 +230,61 @@ operational.
 - The comprehension study (claim-bound vs control portfolio) is designed but
   not run. Until it runs, this site claims only that the grammar exists —
   not that it works on readers. That hypothesis stays open by design.
+
+---
+
+## Changelog — v0.3, 2026-08-20 · the claim engine and the record
+
+A second verification audit of the deployed v0.2 found five places where the
+site still *asserted* mechanics it did not *have* — mirroring called
+generation, liveness called binding, a timer called evidence-responsiveness,
+provenance collapsed into status, and this ledger's own leftover absolutes.
+All five are documented publicly in
+[Noetic Log 001](https://cubits11.github.io/notes/noetic-log-001/), and v0.3
+closes them with machinery rather than wording:
+
+**Engine (registry schema v0.2)**
+- `claims.yaml` now separates visibility, provenance, support role,
+  evidential status, and maturity. "Attested" is provenance only; an
+  owner-attested claim with no public artifact reads *publicly untested*.
+- `/ledger/` is **generated** by `scripts/generate_ledger.py`; CI
+  regenerates and fails on drift. Hand-editing the ledger breaks the build.
+- Binding means binding: the verifier requires each declared commit to be
+  embedded in its support URL.
+- Review triggers are typed and tagged `executable` or `manual`. Executable
+  triggers run in CI against live evidence: bound file at bound ref vs
+  default-branch HEAD (CC-001 kernel module, CC-002 manifest, GA-001 thesis,
+  GV-001 README) and a local content hash for DESIGN.md itself (SITE-001).
+  Manual triggers are displayed as manual instead of borrowing credibility.
+- `scripts/reproduce_cc001.py` re-runs the bound computation from a clean
+  clone in CI on every push and weekly — CC-001 is continuously reproduced,
+  not merely recorded.
+
+**D9 — v0.3 visual direction: "the record" (dossier)**
+- **Options.** (a) Keep the sunlit-paper luxury of v0.1–v0.2. (b) A louder
+  cinematic/WebGL direction. (c) A dossier: obsidian-first, bone text, a
+  gold signal color, oversized stacked nameplate, outlined section numerals,
+  classification and status strips, the photo double-framed as evidence.
+- **Choice.** (c). The commission asked for a bolder, more formidable
+  presence; the honest way to be formidable is to point the menace at
+  claims, not people — the "threat" is the standard, made visible.
+- **Palette provenance preserved.** Greens and ink remain the photograph's
+  samples; the gold is the photograph's warm light sample `#D0A58A`
+  deepened for signal duty (`#C9A15E` dark / `#755A2C` light — the light
+  value chosen to clear WCAG AA at 5.5:1). All token pairs re-verified AA;
+  most AAA.
+- **Revisit if.** The dossier furniture (bars, numerals, stamps) starts
+  outweighing the content it frames, or a reader-facing test shows the dark
+  default hurting first-contact comprehension.
+
+**Corrections in this ledger (found by the v0.2 audit)**
+- D1 "stamped inconclusive" → stamped **untested** (the page had been
+  corrected; this document hadn't — which is exactly the drift SITE-001's
+  local-hash trigger now detects).
+- D2 "no build breakage in five years" → no page build step to break; an
+  unverifiable prediction replaced with a checkable description.
+- D6 "(CLS 0)" → reserved space reduces layout-shift risk; no instrumented
+  score is claimed.
 
 ---
 

@@ -1,20 +1,30 @@
 #!/usr/bin/env python3
-"""Verify the claim registry (claims.yaml) against the rendered site.
+"""Verify the claim registry (claims.yaml) — schema v0.2.
 
 Checks, in order:
-  1. Registry shape — required fields present, status vocabulary respected.
-  2. Dates — parseable, not in the future.
-  3. Freshness — any claim whose last_reviewed is older than FRESHNESS_DAYS
-     fails the run: its warrant is due for re-examination, and the failure is
-     the review trigger (the weekly scheduled run turns this into a standing
-     freshness gate).
-  4. Ledger coverage — every claim id is rendered in ledger/index.html.
-  5. Support liveness — every http(s) support URL resolves (< 400).
+  1. Shape — required fields, dimension enums, trigger typing. "attested"
+     may never appear as an evidential status: it is provenance.
+  2. Binding consistency — when a claim declares a commit, the support URL
+     must embed exactly that commit (a resolving URL is not a binding;
+     a matching one is).
+  3. Freshness — each claim carries its own review window; a claim past it
+     fails the run. The weekly scheduled run turns this into a standing gate.
+  4. Executable review triggers —
+       remote_content_change: fetch the bound file at its bound ref and at
+         the default branch HEAD; if the content differs, the evidence has
+         changed and the claim's warrant is due — the run fails.
+       local_content_change: hash the named file in this checkout against
+         the recorded sha256; drift without a registry re-review fails.
+     Triggers marked manual are reported, honestly, as beyond CI's reach.
+  5. Support liveness — every public support URL resolves (< 400).
+  6. Ledger coverage — every claim id appears in ledger/index.html
+     (generation-drift itself is checked by generate_ledger.py --check).
 
 Exit code 0 = registry verified; 1 = at least one check failed.
 """
 
 import datetime as dt
+import hashlib
 import pathlib
 import re
 import sys
@@ -23,15 +33,21 @@ import urllib.request
 import yaml
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-FRESHNESS_DAYS = 120
-STATUSES = {
-    "untested", "partially_supported", "supported_within_scope",
-    "inconclusive", "contradicted", "attested",
+
+ENUMS = {
+    "visibility": {"public", "private"},
+    "provenance": {"machine_generated_owner_executed", "owner_authored",
+                   "lab_repository", "owner_attested", "owner_verified"},
+    "support_role": {"executed_output", "document", "repository_readme",
+                     "site_document", "none"},
+    "evidential_status": {"untested", "partially_supported",
+                          "supported_within_scope", "inconclusive",
+                          "contradicted"},
+    "maturity": {"experimental", "in_development", "released", "stable"},
 }
-REQUIRED = {
-    "id", "proposition", "scope", "support", "provenance",
-    "status", "last_reviewed", "review_trigger", "non_claims",
-}
+REQUIRED = {"id", "proposition", "scope", "dimensions", "support",
+            "last_reviewed", "review_window_days", "review_triggers",
+            "non_claims"}
 
 failures: list[str] = []
 
@@ -45,17 +61,80 @@ def ok(msg: str) -> None:
     print(f"ok    {msg}")
 
 
-def check_url(url: str, cid: str) -> None:
-    req = urllib.request.Request(url, method="GET", headers={
-        "User-Agent": "cubits11.github.io claim-registry verifier"
-    })
+def fetch(url: str) -> bytes:
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "cubits11.github.io claim-registry verifier"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        if resp.status >= 400:
+            raise RuntimeError(f"HTTP {resp.status}")
+        return resp.read()
+
+
+def check_dimensions(cid: str, dims: dict) -> None:
+    for key, allowed in ENUMS.items():
+        val = dims.get(key)
+        if val not in allowed:
+            fail(f"{cid}: dimensions.{key}={val!r} not in {sorted(allowed)}")
+    if dims.get("evidential_status") == "attested":
+        fail(f"{cid}: 'attested' used as evidential_status — it is provenance")
+
+
+def check_binding(cid: str, support: dict) -> None:
+    url, commit = support.get("url"), support.get("commit")
+    if commit and not url:
+        fail(f"{cid}: commit declared but no support URL")
+    if commit and url:
+        if commit in url:
+            ok(f"{cid}: support URL embeds the bound commit {commit[:8]}")
+        else:
+            fail(f"{cid}: support URL does not embed declared commit {commit[:8]}")
+
+
+def check_trigger(cid: str, trig: dict) -> None:
+    enforcement = trig.get("enforcement")
+    ttype = trig.get("type")
+    if enforcement == "manual":
+        ok(f"{cid}: manual trigger declared — {trig.get('event') or ttype}")
+        return
+    if enforcement != "executable":
+        fail(f"{cid}: trigger enforcement must be executable|manual, got {enforcement!r}")
+        return
+    if ttype == "remote_content_change":
+        repo, path, ref = trig.get("repo"), trig.get("path"), trig.get("bound_ref")
+        try:
+            bound = hashlib.sha256(fetch(
+                f"https://raw.githubusercontent.com/{repo}/{ref}/{path}")).hexdigest()
+            head = hashlib.sha256(fetch(
+                f"https://raw.githubusercontent.com/{repo}/HEAD/{path}")).hexdigest()
+        except Exception as exc:  # noqa: BLE001
+            fail(f"{cid}: trigger fetch failed for {repo}/{path} ({exc})")
+            return
+        if bound == head:
+            ok(f"{cid}: evidence unchanged — {repo}/{path} matches bound ref")
+        else:
+            fail(f"{cid}: TRIGGER FIRED — {repo}/{path} on the default branch "
+                 f"diverged from bound ref {str(ref)[:8]}; claim is due for re-review")
+    elif ttype == "local_content_change":
+        path, recorded = trig.get("path"), trig.get("sha256")
+        target = ROOT / str(path)
+        if not target.exists():
+            fail(f"{cid}: local trigger path missing: {path}")
+            return
+        actual = hashlib.sha256(target.read_bytes()).hexdigest()
+        if actual == recorded:
+            ok(f"{cid}: {path} matches recorded hash")
+        else:
+            fail(f"{cid}: TRIGGER FIRED — {path} changed without a registry "
+                 f"re-review (recorded {str(recorded)[:12]}, actual {actual[:12]})")
+    else:
+        fail(f"{cid}: unknown executable trigger type {ttype!r}")
+
+
+def check_url_liveness(cid: str, url: str) -> None:
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            if resp.status < 400:
-                ok(f"{cid}: support URL resolves ({resp.status}) {url}")
-            else:
-                fail(f"{cid}: support URL returned {resp.status}: {url}")
-    except Exception as exc:  # noqa: BLE001 - report every failure mode
+        fetch(url)
+        ok(f"{cid}: support URL resolves — {url}")
+    except Exception as exc:  # noqa: BLE001
         fail(f"{cid}: support URL unreachable ({exc}): {url}")
 
 
@@ -65,7 +144,7 @@ def main() -> int:
     if not claims:
         fail("registry contains no claims")
         return 1
-    ok(f"registry v{registry.get('version')} loaded with {len(claims)} claims")
+    ok(f"registry schema v{registry.get('version')} loaded with {len(claims)} claims")
 
     today = dt.date.today()
     ledger_html = (ROOT / "ledger" / "index.html").read_text()
@@ -76,41 +155,47 @@ def main() -> int:
         missing = REQUIRED - set(claim)
         if missing:
             fail(f"{cid}: missing fields {sorted(missing)}")
-        if claim.get("status") not in STATUSES:
-            fail(f"{cid}: unknown status {claim.get('status')!r}")
+            continue
 
-        raw = str(claim.get("last_reviewed", ""))
+        check_dimensions(cid, claim["dimensions"])
+
+        raw = str(claim["last_reviewed"])
+        window = int(claim["review_window_days"])
         try:
             reviewed = dt.date.fromisoformat(raw)
             if reviewed > today:
                 fail(f"{cid}: last_reviewed {reviewed} is in the future")
-            elif (today - reviewed).days > FRESHNESS_DAYS:
-                fail(f"{cid}: review due — last reviewed {reviewed}, "
-                     f"older than {FRESHNESS_DAYS} days")
+            elif (today - reviewed).days > window:
+                fail(f"{cid}: review due — last reviewed {reviewed}, window {window}d")
             else:
-                ok(f"{cid}: reviewed {reviewed} (fresh)")
+                ok(f"{cid}: reviewed {reviewed} (window {window}d, fresh)")
         except ValueError:
             fail(f"{cid}: unparseable last_reviewed {raw!r}")
 
-        if not re.search(rf'id="{re.escape(cid)}"', ledger_html):
-            fail(f"{cid}: not rendered in ledger/index.html")
-        else:
-            ok(f"{cid}: rendered in ledger")
+        support = claim.get("support") or {}
+        check_binding(cid, support)
+        for trig in claim["review_triggers"]:
+            check_trigger(cid, trig)
 
-        url = (claim.get("support") or {}).get("url")
+        url = support.get("url")
         if url:
-            check_url(url, cid)
-        elif claim.get("status") == "attested":
-            ok(f"{cid}: attested — no public support URL, by declaration")
+            check_url_liveness(cid, url)
+        elif claim["dimensions"].get("provenance") == "owner_attested":
+            ok(f"{cid}: owner-attested — no public support URL, by declaration")
         else:
             fail(f"{cid}: non-attested claim has no support URL")
+
+        if re.search(rf'id="{re.escape(cid)}"', ledger_html):
+            ok(f"{cid}: rendered in ledger")
+        else:
+            fail(f"{cid}: not rendered in ledger/index.html")
 
     print()
     if failures:
         print(f"{len(failures)} check(s) failed.")
         return 1
-    print("Registry verified: every claim shaped, fresh, rendered, and "
-          "its public support reachable.")
+    print("Registry verified: shaped, bound, fresh, triggers quiet, support "
+          "reachable, ledger covered.")
     return 0
 
 

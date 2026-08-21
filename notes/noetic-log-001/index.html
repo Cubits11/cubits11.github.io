@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noetic Log 001 — Pranav Bhave</title>
+<meta name="description" content="What v0.2 still pretended to implement: a public audit of this site's own claim machinery — five pretenses found, and what v0.3 does about each.">
+<link rel="canonical" href="https://cubits11.github.io/notes/noetic-log-001/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Noetic Log 001 — What v0.2 Still Pretended to Implement">
+<meta property="og:description" content="A visually coherent evidence system can produce the impression of rigor even where the claim–support mapping is stale, mutable, or selectively applied. Five pretenses, named and closed.">
+<meta property="og:url" content="https://cubits11.github.io/notes/noetic-log-001/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<style>
+@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url('/assets/fonts/instrument-sans-roman.woff2') format('woff2');font-weight:400 700;font-display:swap}
+@font-face{font-family:'Fragment Mono';src:url('/assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-display:swap}
+:root{color-scheme:light;--bg:#F1EDE2;--surface:#F8F5EC;--ink:#14170F;--muted:#565E4E;--gold:#755A2C;--sage:#435B33;--line:#DCD5C2;--line-strong:#C2BAA2;
+  --serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,Arial,sans-serif;--mono:'Fragment Mono',ui-monospace,Menlo,monospace}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0B0F0A;--surface:#11150F;--ink:#EDE8DA;--muted:#9AA391;--gold:#C9A15E;--sage:#A8C491;--line:#232A20;--line-strong:#39422F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0B0F0A;--surface:#11150F;--ink:#EDE8DA;--muted:#9AA391;--gold:#C9A15E;--sage:#A8C491;--line:#232A20;--line-strong:#39422F}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.04rem;line-height:1.72;-webkit-font-smoothing:antialiased}
+.container{width:min(720px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}
+.mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase}
+a{color:inherit}
+.u{text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+header.page{padding:4.5rem 0 2.6rem}
+.crumb{color:var(--gold);display:block;margin-bottom:1.4rem;text-decoration:none}
+.eyebrow{color:var(--gold);margin-bottom:1.1rem}
+h1{font-family:var(--serif);font-weight:520;font-size:clamp(2.3rem,6vw,3.7rem);line-height:1.05;margin:0 0 1.2rem;letter-spacing:-.018em}
+.standfirst{font-family:var(--serif);font-style:italic;font-size:1.22rem;color:var(--muted);line-height:1.5;max-width:36em}
+h2{font-family:var(--serif);font-weight:520;font-size:1.5rem;line-height:1.2;margin:2.6rem 0 .9rem;letter-spacing:-.01em}
+p{margin:0 0 1.1em}
+em{font-family:var(--serif);font-style:italic}
+.pretense{border:1px solid var(--line-strong);background:var(--surface);padding:1.4rem;margin:1.6rem 0}
+.pretense .mono{color:var(--gold);display:block;margin-bottom:.7rem}
+.pretense dl{display:grid;grid-template-columns:7rem 1fr;gap:.4rem 1.1rem;margin:0;font-size:.95rem}
+.pretense dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);padding-top:.2rem}
+.pretense dd{margin:0;color:var(--muted)}
+.finding{border-left:2px solid var(--gold);padding:1rem 1.2rem;background:color-mix(in srgb,var(--gold) 7%,transparent);margin:1.8rem 0}
+.finding .mono{color:var(--gold);display:block;margin-bottom:.4rem}
+.finding p{margin:0;font-size:1rem}
+ul{padding-left:1.15rem;color:var(--muted)}
+li{margin:.3rem 0}
+footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+@media (max-width:600px){.pretense dl{grid-template-columns:1fr}.pretense dt{padding-top:.5rem}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<header class="page">
+  <div class="container">
+    <a class="crumb mono" href="/">← Pranav Bhave</a>
+    <p class="eyebrow mono">Noetic log 001 · field artifact P₀ · 2026-08-20</p>
+    <h1>What v0.2 still pretended to implement</h1>
+    <p class="standfirst">A visually coherent evidence system can produce the impression of
+      rigor even where the claim–support mapping is stale, mutable, underspecified, or
+      selectively applied. This site did exactly that — twice. This log names the pretenses
+      and what closed them.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <h2>The finding class</h2>
+  <p>This site presents itself as evidence-bound: claims carry markers, markers carry links,
+    a ledger carries bindings. Two audits of the deployed site found the same defect class at
+    two depths: <em>the interface ran ahead of the verification architecture</em>. Version 0.1
+    had stale project descriptions behind confident chips. Version 0.2 fixed the copy and built
+    real machinery — and still asserted, in five places, mechanics it did not have. Interfaces
+    are cheap. Enforcement is not. The gap between them is exactly where overclaiming lives,
+    which is what makes it worth documenting on the site it happened to.</p>
+
+  <div class="pretense">
+    <span class="mono">Pretense 1 — "rendered from the registry"</span>
+    <dl>
+      <dt>Said</dt><dd>The ledger page claimed it was rendered from <code>claims.yaml</code>.</dd>
+      <dt>True</dt><dd>The ledger was hand-written to match the registry; CI only checked that each claim ID appeared somewhere in the HTML. Mirroring, not generation.</dd>
+      <dt>Now</dt><dd>The ledger is generated by <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/generate_ledger.py">generate_ledger.py</a>; CI regenerates it and fails on any drift. Editing the ledger by hand now breaks the build.</dd>
+    </dl>
+  </div>
+
+  <div class="pretense">
+    <span class="mono">Pretense 2 — "bound to immutable commits"</span>
+    <dl>
+      <dt>Said</dt><dd>Claims were "bound" to commit SHAs.</dd>
+      <dt>True</dt><dd>The verifier checked that support URLs resolved (HTTP &lt; 400). A resolving URL is liveness; it is not a binding — nothing compared the declared commit to the URL.</dd>
+      <dt>Now</dt><dd>The verifier requires the declared commit to appear inside the support URL, and the registry schema treats a commit without a matching URL as a failure.</dd>
+    </dl>
+  </div>
+
+  <div class="pretense">
+    <span class="mono">Pretense 3 — "claims return for review when their evidence changes"</span>
+    <dl>
+      <dt>Said</dt><dd>The hero promised event-responsive claim governance.</dd>
+      <dt>True</dt><dd>One global 120-day timer existed. Time-based review is real but it is not evidence-responsiveness; the named triggers (kernel change, manifest rewrite) were prose.</dd>
+      <dt>Now</dt><dd>Triggers are typed and tagged. <em>Executable</em> triggers run in CI: the bound file is fetched at its bound revision and at the default branch head, and divergence fails the build — the kernel module for CC-001, the manifest for CC-002, the thesis for GA-001, the README for GV-001, and this site's own DESIGN.md by local hash. Triggers CI cannot execute (certification expiry, a private artifact going public) are labeled <em>manual</em>, visibly, instead of borrowing the executable ones' credibility.</dd>
+    </dl>
+  </div>
+
+  <div class="pretense">
+    <span class="mono">Pretense 4 — attested-as-status</span>
+    <dl>
+      <dt>Said</dt><dd>The ledger correctly called "attested" a provenance state.</dd>
+      <dt>True</dt><dd>The schema then put <code>attested</code> in the same enum as untested/supported/contradicted — collapsing the exact distinction the site lectures about.</dd>
+      <dt>Now</dt><dd>Schema v0.2 separates visibility, provenance, support role, evidential status, and maturity. An owner-attested claim with no public artifact now reads what it is: <em>owner-attested · publicly untested</em>. That is less flattering and more true, which is the trade this site exists to make.</dd>
+    </dl>
+  </div>
+
+  <div class="pretense">
+    <span class="mono">Pretense 5 — measured-sounding language for unmeasured things</span>
+    <dl>
+      <dt>Said</dt><dd>The design ledger claimed "CLS 0," "zero supply-chain surface," "no pipeline, nothing to break," and — after the first correction pass — still said the empty result card was "stamped inconclusive."</dd>
+      <dt>True</dt><dd>Layout shift was never instrumented; the supply-chain surface is small, not zero; a pipeline now deliberately exists; and the card had already been corrected to <em>untested</em> — the ledger describing it hadn't.</dd>
+      <dt>Now</dt><dd>All four corrected in <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md">DESIGN.md</a>, and DESIGN.md itself is under a local-hash trigger: it can no longer change without the registry noticing.</dd>
+    </dl>
+  </div>
+
+  <div class="finding">
+    <span class="mono">Primary finding of field artifact P₀</span>
+    <p>Aesthetic coherence is an epistemic hazard: the better the evidence system looks, the
+      less anyone checks whether it runs. The countermeasure that worked here was not more
+      honesty in prose — v0.2's prose was already honest in intent — but moving every promise
+      into a place where it can mechanically fail: a generator that drifts, a binding that
+      mismatches, a trigger that fires, a hash that changes, a kernel that stops reproducing.</p>
+  </div>
+
+  <h2>What v0.3 still does not do</h2>
+  <ul>
+    <li>The main page's prose and chips are hand-written; only the ledger is generated. A
+      claim-component generator for every rendered surface remains future work.</li>
+    <li>Executable triggers watch single bound files. Semantics can change outside a watched
+      file; those triggers stay manual and say so.</li>
+    <li>Continuous reproduction covers CC-001 — one claim, one kernel call. It is the
+      template, not the coverage.</li>
+    <li>No field performance data exists and none is claimed; the site runs no analytics by
+      design.</li>
+    <li>The central hypothesis — that claim-bound interfaces improve a reader's comprehension,
+      calibration, or evidence-seeking — is untested. Untested, not inconclusive: no comparison
+      against a conventional control version has been run. The null stands until it is.</li>
+  </ul>
+
+  <p style="color:var(--muted)">The record improves by prosecution, not by polish. Findings
+    against this site are welcome — <a class="u" href="mailto:bhavepranavwork@gmail.com">bring
+    the falsifier</a>.</p>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="https://github.com/Cubits11/cubits11.github.io/actions/workflows/verify.yml">CI runs ↗</a>
+      <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md">Design ledger ↗</a>
+      <a class="u" href="/">← Back to the record</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

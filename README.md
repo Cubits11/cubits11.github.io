@@ -11,10 +11,15 @@ analytics, no cookies. Fonts (Fraunces, Instrument Sans, Fragment Mono) are
 self-hosted latin-subset woff2. The color system is sampled from the hero
 photograph — every design decision and its rationale is in `DESIGN.md`.
 
-The epistemic machinery is real, not rhetorical: `claims.yaml` is the
-registry of every technical claim the site renders with an evidence marker
-— proposition, scope, support bound to immutable commits, provenance,
-status, review triggers, non-claims. `/ledger/` renders it; CI enforces it.
+The epistemic machinery is real, not rhetorical: `claims.yaml` (schema
+v0.2) is the registry of every technical claim the site renders with an
+evidence marker — with visibility, provenance, support role, evidential
+status, and maturity as separate dimensions. `/ledger/` is **generated**
+from it and drift-checked in CI; commit↔URL bindings are validated;
+executable review triggers watch the bound evidence upstream and fail the
+build when it changes; and CC-001 is re-reproduced from a clean clone on
+every push and weekly. What v0.2 merely asserted is documented in
+[Noetic Log 001](https://cubits11.github.io/notes/noetic-log-001/).
 
 ## Run locally
 
@@ -35,15 +40,18 @@ weekly) — and collects report-only Lighthouse artifacts for the live site.
 ## Layout
 
 ```
-index.html                 the site (styles and script inline)
+index.html                  the site (styles and script inline)
 essays/when-marginals-are-not-enough/   flagship case study (real kernel output)
-ledger/                    evidence ledger, rendered from claims.yaml
-resume/                    web résumé with 90-second overview
-claims.yaml                claim registry — the source of truth
-scripts/verify_claims.py   registry verifier (runs in CI)
-404.html                   not-found page
-assets/                    self-hosted fonts, portrait derivatives, OG image
-DESIGN.md                  design-decision ledger + changelog + field-artifact notes
+ledger/                     evidence ledger — GENERATED from claims.yaml
+notes/noetic-log-001/       public audit log: what v0.2 pretended to implement
+resume/                     web résumé with 90-second overview
+claims.yaml                 claim registry (schema v0.2) — the source of truth
+scripts/generate_ledger.py  registry → ledger renderer (CI drift-checks it)
+scripts/verify_claims.py    registry verifier: bindings, triggers, freshness
+scripts/reproduce_cc001.py  clean-clone reproduction of the flagship claim
+404.html                    not-found page
+assets/                     self-hosted fonts, portrait derivatives, OG image
+DESIGN.md                   design-decision ledger + changelogs + field-artifact notes
 ```
 
 Content © Pranav Bhave. Code (HTML/CSS/JS) may be reused with attribution.

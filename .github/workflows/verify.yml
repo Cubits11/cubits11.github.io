@@ -4,8 +4,10 @@ on:
   push:
     branches: [main]
   schedule:
-    # Weekly freshness gate: a claim past its review window fails this run,
-    # which is the review trigger firing — see scripts/verify_claims.py.
+    # Weekly standing gate: freshness windows and executable review triggers
+    # both run here — a claim past its window, or whose bound evidence has
+    # changed upstream, fails this run. That failure IS the review trigger
+    # firing; the fix is a re-review (or withdrawal), never silence.
     - cron: "0 13 * * 1"
   workflow_dispatch:
 
@@ -19,7 +21,22 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install pyyaml
-      - run: python scripts/verify_claims.py
+      - name: Verify registry (shape, bindings, triggers, freshness, liveness)
+        run: python scripts/verify_claims.py
+      - name: Ledger is generated, not hand-edited (drift check)
+        run: python scripts/generate_ledger.py --check
+
+  reproduce:
+    name: Reproduce CC-001
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - name: Clean-clone the bound commit and re-run the kernel
+        run: python scripts/reproduce_cc001.py
 
   lighthouse:
     # Observation, not a gate: collects Lighthouse lab reports for the live

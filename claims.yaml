@@ -1,15 +1,30 @@
-# Claim registry — cubits11.github.io
-# Source of truth for every technical claim the site renders with an evidence
-# marker. CI (scripts/verify_claims.py) checks on every push and weekly that:
-# required fields exist, support links resolve, commit bindings are reachable,
-# review dates are valid, and every claim id is rendered in /ledger/.
+# Claim registry — cubits11.github.io · schema v0.2
 #
-# Status vocabulary: untested | partially_supported | supported_within_scope |
-#                    inconclusive | contradicted | attested
-# (attested = owner-stated, dated, no public artifact — a provenance state,
-#  deliberately kept distinct from evidential statuses.)
+# The source of truth for every technical claim the site renders with an
+# evidence marker. /ledger/ is GENERATED from this file by
+# scripts/generate_ledger.py; CI regenerates it and fails on drift, verifies
+# every field, checks commit↔URL binding consistency, executes the
+# executable review triggers, and enforces the freshness window — on every
+# push and weekly.
+#
+# Schema v0.2 separates the dimensions v0.1 conflated:
+#   visibility        public | private
+#   provenance        machine_generated_owner_executed | owner_authored |
+#                     lab_repository | owner_attested | owner_verified
+#   support_role      executed_output | document | repository_readme |
+#                     site_document | none
+#   evidential_status untested | partially_supported |
+#                     supported_within_scope | inconclusive | contradicted
+#   maturity          experimental | in_development | released | stable
+# "Attested" is a PROVENANCE value, never an evidential status. An
+# owner-attested claim with no public artifact is publicly untested — the
+# registry now says so explicitly.
+#
+# review_triggers carry an enforcement tag:
+#   executable — CI detects the event and fails the run when it fires
+#   manual     — declared honestly as human-checked; CI cannot detect it
 
-version: "0.1"
+version: "0.2"
 last_owner_review: "2026-08-20"
 
 claims:
@@ -17,20 +32,36 @@ claims:
     proposition: >
       cc.kernel.strict.frechet_bounds computes Fréchet–Hoeffding endpoint
       bounds for composed binary guardrail failure from declared marginals;
-      for marginals (0.10, 0.10) it returns [0.0, 0.10] for the AND event and
-      [0.10, 0.20] for OR.
+      for marginals (0.10, 0.10) it returns [0.0, 0.10] for the AND event
+      and [0.10, 0.20] for OR.
     scope: >
-      The kernel API at the bound commit, executed locally on 2026-08-20.
-      No claim about any deployed system.
+      The kernel module at the bound commit. Reproduced from a clean clone
+      (venv, pip install, execute, assert) on 2026-08-20, and re-reproduced
+      by CI on every push and weekly. No claim about any deployed system.
+    dimensions:
+      visibility: public
+      provenance: machine_generated_owner_executed
+      support_role: executed_output
+      evidential_status: supported_within_scope
+      maturity: released
     support:
-      type: executed_quickstart
       url: "https://github.com/Cubits11/cc-framework/commit/21f5ff6809a0a16987a39afe56be1e50251ff727"
       commit: "21f5ff6809a0a16987a39afe56be1e50251ff727"
-      note: "Output recorded verbatim in /essays/when-marginals-are-not-enough/."
-    provenance: machine_generated_output_owner_executed
-    status: supported_within_scope
+      note: >
+        Output recorded verbatim in /essays/when-marginals-are-not-enough/;
+        continuously reproduced by scripts/reproduce_cc001.py in CI.
     last_reviewed: "2026-08-20"
-    review_trigger: [kernel_change, default_branch_advance_beyond_binding]
+    review_window_days: 120
+    review_triggers:
+      - type: remote_content_change
+        enforcement: executable
+        repo: Cubits11/cc-framework
+        path: src/cc/kernel/strict.py
+        bound_ref: "21f5ff6809a0a16987a39afe56be1e50251ff727"
+        note: fires when the kernel module on the default branch diverges from the bound revision
+      - type: manual
+        enforcement: manual
+        event: kernel semantics change outside the bound module file
     non_claims:
       - does not certify any stacked system as safe
       - does not recover or estimate the unknown dependence
@@ -41,14 +72,25 @@ claims:
       CC-Framework maintains a claim-boundary manifest mapping its public
       claims to validation lanes, supporting files, and explicit non-claims.
     scope: "The manifest file at the bound commit on the default branch."
+    dimensions:
+      visibility: public
+      provenance: owner_authored
+      support_role: document
+      evidential_status: supported_within_scope
+      maturity: released
     support:
-      type: document
       url: "https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md"
       commit: "3e22c39df70d419e840529d87311974e9e544f54"
-    provenance: owner_authored_public_document
-    status: supported_within_scope
+      note: null
     last_reviewed: "2026-08-20"
-    review_trigger: [manifest_moved_or_rewritten]
+    review_window_days: 120
+    review_triggers:
+      - type: remote_content_change
+        enforcement: executable
+        repo: Cubits11/cc-framework
+        path: docs/claims/CLAIM_BOUNDARY_MANIFEST.md
+        bound_ref: "3e22c39df70d419e840529d87311974e9e544f54"
+        note: fires when the manifest on the default branch is rewritten or moved
     non_claims:
       - the manifest's existence does not validate the claims it scopes
 
@@ -59,14 +101,25 @@ claims:
       Penn State — whose stated thesis is that a receipt identifies an
       execution only up to the kernel of its canonicalizer.
     scope: "The repository README and thesis document at the bound commit."
+    dimensions:
+      visibility: public
+      provenance: lab_repository
+      support_role: document
+      evidential_status: supported_within_scope
+      maturity: in_development
     support:
-      type: repository_readme_and_thesis
       url: "https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md"
       commit: "98c90d8296580f08dd8b6e38fdd2abd7039ec651"
-    provenance: lab_repository_public
-    status: supported_within_scope
+      note: null
     last_reviewed: "2026-08-20"
-    review_trigger: [repo_reframed, thesis_document_changed]
+    review_window_days: 120
+    review_triggers:
+      - type: remote_content_change
+        enforcement: executable
+        repo: PSUCyberSecurityLab/ghost-ark
+        path: docs/research/00_THESIS.md
+        bound_ref: "98c90d8296580f08dd8b6e38fdd2abd7039ec651"
+        note: fires when the thesis document on the default branch changes
     non_claims:
       - a verifying receipt does not establish that the governed action was
         safe, authorized, or semantically correct
@@ -78,14 +131,22 @@ claims:
       on AWS Nitro Enclaves, investigating which provenance claims a verifier
       can and cannot derive from attestation.
     scope: "Owner statement only; the artifact is private."
+    dimensions:
+      visibility: private
+      provenance: owner_attested
+      support_role: none
+      evidential_status: untested
+      maturity: experimental
     support:
-      type: none_public
       url: null
       commit: null
-    provenance: owner_attested
-    status: attested
+      note: "No public artifact yet, by declaration."
     last_reviewed: "2026-08-20"
-    review_trigger: [public_artifact_released]
+    review_window_days: 120
+    review_triggers:
+      - type: manual
+        enforcement: manual
+        event: public artifact released
     non_claims:
       - no public evidence is offered; nothing about completeness, security,
         or provenance-chain origin is established
@@ -101,14 +162,28 @@ claims:
     scope: >
       The repository at the bound commit. Runs locally; there is no hosted
       deployment, so the site links source, not a live demo.
+    dimensions:
+      visibility: public
+      provenance: owner_authored
+      support_role: repository_readme
+      evidential_status: supported_within_scope
+      maturity: in_development
     support:
-      type: repository_readme
       url: "https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7"
       commit: "3fbe3efc89b6328bac493e62a32571d8e380d4f7"
-    provenance: owner_repository_public
-    status: supported_within_scope
+      note: null
     last_reviewed: "2026-08-20"
-    review_trigger: [hosted_deployment_added, repo_reframed]
+    review_window_days: 120
+    review_triggers:
+      - type: remote_content_change
+        enforcement: executable
+        repo: Cubits11/ghost-visualizer
+        path: README.md
+        bound_ref: "3fbe3efc89b6328bac493e62a32571d8e380d4f7"
+        note: fires when the README on the default branch is reframed
+      - type: manual
+        enforcement: manual
+        event: hosted deployment added — the site may then link a live demo
     non_claims:
       - not an AI-safety certificate; no deployment-readiness claim
 
@@ -117,16 +192,23 @@ claims:
       B.S. Computer Science, Pennsylvania State University, May 2026, with a
       minor in Cybersecurity; research supervised by Dr. Peng Liu (IST 496,
       Aug–Dec 2025).
-    scope: "Biographical fact; owner-attested on this site."
+    scope: "Biographical fact. Owner-attested; publicly untested by design."
+    dimensions:
+      visibility: private
+      provenance: owner_attested
+      support_role: none
+      evidential_status: untested
+      maturity: stable
     support:
-      type: owner_document
       url: null
       commit: null
       note: "Stated on resume; institutional verification available on request."
-    provenance: owner_attested
-    status: attested
     last_reviewed: "2026-08-20"
-    review_trigger: [annual_review]
+    review_window_days: 365
+    review_triggers:
+      - type: manual
+        enforcement: manual
+        event: annual review
     non_claims:
       - no public registry link is provided; the site does not present this
         as third-party verified
@@ -136,14 +218,22 @@ claims:
       Holds AWS Certified Cloud Practitioner and AWS Certified AI
       Practitioner; SAA-C03 and Security — Specialty are in progress.
     scope: "Owner-attested; verification IDs available on request."
+    dimensions:
+      visibility: private
+      provenance: owner_attested
+      support_role: none
+      evidential_status: untested
+      maturity: stable
     support:
-      type: none_public
       url: null
       commit: null
-    provenance: owner_attested
-    status: attested
+      note: null
     last_reviewed: "2026-08-20"
-    review_trigger: [cert_expiry, new_cert_earned]
+    review_window_days: 180
+    review_triggers:
+      - type: manual
+        enforcement: manual
+        event: certification expiry or a new certification earned
     non_claims:
       - '"in progress" asserts intent and preparation, not partial credential'
 
@@ -151,20 +241,32 @@ claims:
     proposition: >
       This site's palette token pairs were computed to pass WCAG AA contrast
       (most AAA), and manual QA passes covered light/dark themes, desktop and
-      mobile layouts, keyboard focus, reduced motion, and no-JS rendering.
+      mobile layouts, keyboard focus, reduced motion, and no-JS rendering,
+      as recorded in DESIGN.md.
     scope: >
-      Manual and scripted checks on 2026-08-20, recorded in DESIGN.md. No
-      instrumented field performance data exists — the site runs no analytics
-      by design.
+      Manual and scripted checks recorded in DESIGN.md. No instrumented
+      field performance data exists — the site runs no analytics by design.
+    dimensions:
+      visibility: public
+      provenance: owner_verified
+      support_role: site_document
+      evidential_status: supported_within_scope
+      maturity: released
     support:
-      type: repository_document
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md"
       commit: null
-      note: "Mutable link by design: the ledger reviews this claim on change."
-    provenance: owner_verified
-    status: supported_within_scope
+      note: "Mutable link by design; the local-content trigger below detects edits."
     last_reviewed: "2026-08-20"
-    review_trigger: [site_redesign, failing_ci]
+    review_window_days: 120
+    review_triggers:
+      - type: local_content_change
+        enforcement: executable
+        path: DESIGN.md
+        sha256: "e18c0192eaa76344ad7c9b8724e509be036d82df01df52d33163853d96aa2cf3"
+        note: fires when DESIGN.md changes without a registry re-review
+      - type: manual
+        enforcement: manual
+        event: site redesign
     non_claims:
       - no field CLS/LCP/CrUX measurements are claimed
       - '"zero third-party runtime requests" describes page code, not hosting
