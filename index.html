@@ -58,6 +58,9 @@
   --mono:'Fragment Mono',ui-monospace,'SF Mono',Menlo,monospace;
   --ease:cubic-bezier(.2,.7,.2,1);
 }
+.onramp{max-width:52ch;margin:1.05rem 0 0;font:400 clamp(1rem,1.6vw,1.12rem)/1.62 var(--sans);
+  color:var(--ink);border-left:2px solid var(--gold);padding-left:1rem}
+.onramp strong{font-weight:600}
 :root[data-theme="dark"]{
   color-scheme:dark;
   --bg:#0B0F0A; --surface:#11150F; --ink:#EDE8DA; --muted:#9AA391;
@@ -355,6 +358,10 @@ footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
         <h1 class="name reveal" style="--d:.06s"><span>Pranav</span><span>Bhave</span></h1>
         <p class="prop reveal" style="--d:.1s">I build research software that exposes what an
           AI-assurance claim establishes, what it assumes, and where it must stop.</p>
+        <p class="onramp reveal" style="--d:.12s">Two guardrails each fail 10% of the time. How
+          often do they fail together? The common answer is 1%. The evidence permits
+          <strong>anywhere from 0% to 10%</strong> — multiplying the two rates quietly chose one
+          world out of many, and never said so.</p>
         <p class="lede reveal" style="--d:.14s"><em>Bounds</em> that admit unknown dependence.
           <em>Receipts</em> that prove bytes rather than safety.
           <em>Claims</em> that return for review when their evidence changes.</p>
@@ -391,6 +398,56 @@ footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
         </figcaption>
       </figure>
     </div>
+  </section>
+
+  <section class="container" aria-label="The bounds argument in one figure">
+<figure class="bounds-fig reveal" style="--d:.1s">
+<style>
+.bounds-fig{margin:0 0 clamp(2rem,5vw,3.5rem);padding:clamp(1.1rem,3vw,1.9rem);
+  border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.bounds-fig svg{width:100%;height:auto;display:block}
+.bounds-fig .hsA{fill:var(--sage);opacity:.55}
+.bounds-fig .hsB{fill:var(--gold);opacity:.55}
+.bounds-fig .hsX{fill:var(--ink);opacity:.86}
+.bounds-fig .hunit{fill:var(--bg);stroke:var(--line-strong);stroke-width:1.25}
+.bounds-fig .hband{fill:var(--line-strong);opacity:.45}
+.bounds-fig .haxis{stroke:var(--line-strong);stroke-width:1.5}
+.bounds-fig .hdot{fill:var(--ink)}
+.bounds-fig .hindep{stroke:var(--gold);stroke-width:1.5;stroke-dasharray:3 3}
+.bounds-fig .hmono{font:12px var(--mono);fill:var(--muted)}
+.bounds-fig .hlbl{font:11px var(--mono);fill:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.bounds-fig .hink{font:12px var(--mono);fill:var(--ink)}
+.bounds-fig .hf{animation-duration:7.0s;animation-iteration-count:infinite;
+  animation-direction:alternate;animation-timing-function:steps(1,end);opacity:0}
+.hf0{animation-name:hk0}.hf1{animation-name:hk1}.hf2{animation-name:hk2}.hf3{animation-name:hk3}.hf4{animation-name:hk4}.hf5{animation-name:hk5}.hf6{animation-name:hk6}.hf7{animation-name:hk7}.hf8{animation-name:hk8}.hf9{animation-name:hk9}.hf10{animation-name:hk10}
+@keyframes hk0{0.000%,9.091%{opacity:1}9.101%,100%{opacity:0}}@keyframes hk1{0%,9.081%{opacity:0}9.091%,18.182%{opacity:1}18.192%,100%{opacity:0}}@keyframes hk2{0%,18.172%{opacity:0}18.182%,27.273%{opacity:1}27.283%,100%{opacity:0}}@keyframes hk3{0%,27.263%{opacity:0}27.273%,36.364%{opacity:1}36.374%,100%{opacity:0}}@keyframes hk4{0%,36.354%{opacity:0}36.364%,45.455%{opacity:1}45.465%,100%{opacity:0}}@keyframes hk5{0%,45.445%{opacity:0}45.455%,54.545%{opacity:1}54.555%,100%{opacity:0}}@keyframes hk6{0%,54.535%{opacity:0}54.545%,63.636%{opacity:1}63.646%,100%{opacity:0}}@keyframes hk7{0%,63.626%{opacity:0}63.636%,72.727%{opacity:1}72.737%,100%{opacity:0}}@keyframes hk8{0%,72.717%{opacity:0}72.727%,81.818%{opacity:1}81.828%,100%{opacity:0}}@keyframes hk9{0%,81.808%{opacity:0}81.818%,90.909%{opacity:1}90.919%,100%{opacity:0}}@keyframes hk10{0%,90.899%{opacity:0}90.909%,100.000%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.bounds-fig .hf{animation:none}.bounds-fig .hf1{opacity:1}}
+.bounds-caption{margin:.85rem 0 0;font:400 .82rem/1.55 var(--sans);color:var(--muted)}
+</style>
+<svg viewBox="0 0 900 300" role="img" aria-labelledby="bft bfd">
+<title id="bft">Two 10% failure rates permit anywhere from 0% to 10% joint failure</title>
+<desc id="bfd">A rectangle of area one represents the population. Two shaded strips each cover ten
+percent of it: one for each guardrail's failures. Their overlap is the joint failure probability.
+The strips slide so the overlap ranges from zero to ten percent while neither individual rate
+changes. A scale on the right marks where each overlap sits between 0% and 10%, with a dashed
+mark at 1% showing the single value that assuming independence selects.</desc>
+<text x="40" y="34" class="hlbl">The population — area = 1</text>
+<rect x="40" y="62" width="620" height="132" class="hunit"/>
+<rect x="686" y="150" width="10" height="160" class="hband"/>
+<line x1="691" y1="150" x2="691" y2="310" class="haxis"/>
+<text x="676" y="154" class="hink" text-anchor="end">10%</text>
+<text x="676" y="314" class="hink" text-anchor="end">0%</text>
+<text x="676" y="330" class="hmono" text-anchor="end">lower witness</text>
+<text x="676" y="138" class="hmono" text-anchor="end">upper witness</text>
+<line x1="680" y1="294.0" x2="704" y2="294.0" class="hindep"/>
+<text x="714" y="288.0" class="hmono">1% — what independence picks</text>
+<g class="hf hf0"><rect x="40.0" y="62" width="62.0" height="132" class="hsA"/><rect x="102.0" y="62" width="62.0" height="132" class="hsB"/><text x="40" y="220" class="hmono">π(q) = (0.80, 0.10, 0.10, 0.00)   ·   P(A) = P(B) = 10%</text><g transform="translate(0,160.0)"><circle cx="700" cy="150" r="5.5" class="hdot"/><text x="714" y="154" class="hmono">0%</text></g></g><g class="hf hf1"><rect x="40.0" y="62" width="62.0" height="132" class="hsA"/><rect x="95.8" y="62" width="62.0" height="132" class="hsB"/><rect x="95.8" y="62" width="6.2" height="132" class="hsX"/><text x="40" y="220" class="hmono">π(q) = (0.81, 0.09, 0.09, 0.01)   ·   P(A) = P(B) = 10%</text><g transform="translate(0,144.0)"><circle cx="700" cy="150" r="5.5" class="hdot"/><text x="714" y="154" class="hmono">1%</text></g></g><g class="hf hf2"><rect x="40.0" y="62" width="62.0" height="132" class="hsA"/><rect x="89.6" y="62" width="62.0" height="132" class="hsB"/><rect x="89.6" y="62" width="12.4" height="132" class="hsX"/><text x="40" y="220" class="hmono">π(q) = (0.82, 0.08, 0.08, 0.02)   ·   P(A) = P(B) = 10%</text><g transform="translate(0,128.0)"><circle cx="700" cy="150" r="5.5" class="hdot"/><text x="714" y="154" class="hmono">2%</text></g></g><g class="hf hf3"><rect x="40.0" y="62" width="62.0" height="132" class="hsA"/><rect x="83.4" y="62" width="62.0" height="132" class="hsB"/><rect x="83.4" y="62" width="18.6" height="132" class="hsX"/><text x="40" y="220" class="hmono">π(q) = (0.83, 0.07, 0.07, 0.03)   ·   P(A) = P(B) = 10%</text><g transform="translate(0,112.0)"><circle cx="700" cy="150" r="5.5" class="hdot"/><text x="714" y="154" class="hmono">3%</text></g></g><g class="hf hf4"><rect x="40.0" y="62" width="62.0" height="132" class="hsA"/><rect x="77.2" y="62" width="62.0" height="132" class="hsB"/><rect x="77.2" y="62" width="24.8" height="132" class="hsX"/><text x="40" y="220" class="hmono">π(q) = (0.84, 0.06, 0.06, 0.04)   ·   P(A) = P(B) = 10%</text><g transform="translate(0,96.0)"><circle cx="700" cy="150" r="5.5" class="hdot"/><text x="714" y="154" class="hmono">4%</text></g></g><g class="hf hf5"><rect x="40.0" y="62" width="62.0" height="132" class="hsA"/><rect x="71.0" y="62" width="62.0" height="132" class="hsB"/><rect x="71.0" y="62" width="31.0" height="132" class="hsX"/><text x="40" y="220" class="hmono">π(q) = (0.85, 0.05, 0.05, 0.05)   ·   P(A) = P(B) = 10%</text><g transform="translate(0,80.0)"><circle cx="700" cy="150" r="5.5" class="hdot"/><text x="714" y="154" class="hmono">5%</text></g></g><g class="hf hf6"><rect x="40.0" y="62" width="62.0" height="132" class="hsA"/><rect x="64.8" y="62" width="62.0" height="132" class="hsB"/><rect x="64.8" y="62" width="37.2" height="132" class="hsX"/><text x="40" y="220" class="hmono">π(q) = (0.86, 0.04, 0.04, 0.06)   ·   P(A) = P(B) = 10%</text><g transform="translate(0,64.0)"><circle cx="700" cy="150" r="5.5" class="hdot"/><text x="714" y="154" class="hmono">6%</text></g></g><g class="hf hf7"><rect x="40.0" y="62" width="62.0" height="132" class="hsA"/><rect x="58.6" y="62" width="62.0" height="132" class="hsB"/><rect x="58.6" y="62" width="43.4" height="132" class="hsX"/><text x="40" y="220" class="hmono">π(q) = (0.87, 0.03, 0.03, 0.07)   ·   P(A) = P(B) = 10%</text><g transform="translate(0,48.0)"><circle cx="700" cy="150" r="5.5" class="hdot"/><text x="714" y="154" class="hmono">7%</text></g></g><g class="hf hf8"><rect x="40.0" y="62" width="62.0" height="132" class="hsA"/><rect x="52.4" y="62" width="62.0" height="132" class="hsB"/><rect x="52.4" y="62" width="49.6" height="132" class="hsX"/><text x="40" y="220" class="hmono">π(q) = (0.88, 0.02, 0.02, 0.08)   ·   P(A) = P(B) = 10%</text><g transform="translate(0,32.0)"><circle cx="700" cy="150" r="5.5" class="hdot"/><text x="714" y="154" class="hmono">8%</text></g></g><g class="hf hf9"><rect x="40.0" y="62" width="62.0" height="132" class="hsA"/><rect x="46.2" y="62" width="62.0" height="132" class="hsB"/><rect x="46.2" y="62" width="55.8" height="132" class="hsX"/><text x="40" y="220" class="hmono">π(q) = (0.89, 0.01, 0.01, 0.09)   ·   P(A) = P(B) = 10%</text><g transform="translate(0,16.0)"><circle cx="700" cy="150" r="5.5" class="hdot"/><text x="714" y="154" class="hmono">9%</text></g></g><g class="hf hf10"><rect x="40.0" y="62" width="62.0" height="132" class="hsA"/><rect x="40.0" y="62" width="62.0" height="132" class="hsB"/><rect x="40.0" y="62" width="62.0" height="132" class="hsX"/><text x="40" y="220" class="hmono">π(q) = (0.90, 0.00, 0.00, 0.10)   ·   P(A) = P(B) = 10%</text><g transform="translate(0,0.0)"><circle cx="700" cy="150" r="5.5" class="hdot"/><text x="714" y="154" class="hmono">10%</text></g></g>
+</svg>
+<figcaption class="bounds-caption"><strong>Fig. 02 — the same two scores, every world they permit.</strong>
+Both guardrails fail 10% of the time in every frame. Only their overlap moves. Multiplying the two
+rates selects one frame out of all of them and reports it as the answer.
+<a href="/essays/when-marginals-are-not-enough/">The full argument →</a></figcaption>
+</figure>
   </section>
 
   <!-- ======================= WORK ======================= -->
@@ -497,9 +554,9 @@ footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
         <div class="pcard reveal" style="--d:.05s"><span class="mono">Falsifier</span><p>The observation that would end the claim. If none exists, neither does the claim.</p></div>
         <div class="pcard reveal" style="--d:.1s"><span class="mono">Control</span><p>The comparison that could embarrass it — run on purpose.</p></div>
         <div class="pcard reveal" style="--d:.15s"><span class="mono">Non-claim</span><p>What this evidence will never support, stated before anyone asks.</p></div>
-        <div class="pcard pcard-empty reveal" style="--d:.2s"><span class="mono">Result</span><p>No result has yet been observed.</p><span class="stamp">Status: untested</span></div>
+        <div class="pcard reveal" style="--d:.2s"><span class="mono">Result</span><p>Two distributions sharing <em>every</em> singleton and pairwise moment; three-way failure of 0% in one and 25% in the other. Measuring every pair does not identify the triple.</p><span class="stamp">Supported within scope — controlled synthetic · decision: Narrow</span></div>
       </div>
-      <p class="method-note reveal">Lock the first four <em>before</em> the result slot fills, then let the result disagree.
+      <p class="method-note reveal">Lock the first four <em>before</em> the result slot fills, then let the result disagree. The result above is E₁'s: it survived, and it narrowed the claim rather than widening it.
         <em>A story can start a question. It cannot finish an answer.</em> Untested is not
         inconclusive: inconclusive means evidence arrived and failed to discriminate; untested
         means the world has not answered yet. This page keeps the two apart — and keeps its own
