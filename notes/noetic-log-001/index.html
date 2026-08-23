@@ -160,6 +160,27 @@ footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;colo
     against this site are welcome — <a class="u" href="mailto:bhavepranavwork@gmail.com">bring
     the falsifier</a>.</p>
 
+  <h2>Addendum — 2026-08-23 (v0.4)</h2>
+  <p>Residuals from the list above that have since moved, dated here so this log stays a log
+    rather than being rewritten:</p>
+  <ul>
+    <li>The homepage's registry facts (claim count, last owner review) are now cross-checked by
+      <code>verify_claims.py</code> — a hand-written strip can no longer silently strand when
+      the registry grows.</li>
+    <li>Continuous reproduction now covers CC-004's endpoint witnesses as well as CC-001's
+      bounds, and reads its expected values from the registry instead of hard-coding them.</li>
+    <li>The module pages and the claim observatory joined the ledger as generated,
+      drift-checked surfaces.</li>
+    <li>One more instance of the finding class surfaced during the v0.4 audit: DESIGN.md
+      asserted a build-time geometry check on the bounds figure that the repository did not
+      contain. The checker now exists (<code>scripts/verify_figures.py</code>), runs in CI, and
+      the gap is recorded as a dated correction in DESIGN.md itself.</li>
+    <li>CC-001's "immutable binding" was found pinned to a commit stranded by an upstream
+      history rewrite — publicly resolvable only as a dangling GitHub object. It was re-bound
+      to reachable history with the kernel bytes verified identical, and the registry now
+      states the rule: support commits must be reachable from a protected ref.</li>
+  </ul>
+
 </main>
 
 <footer>

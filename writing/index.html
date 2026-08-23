@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing — Pranav Bhave</title>
+<meta name="description" content="Essays, field notes, and audit logs — each piece carrying its claim envelope where one applies.">
+<link rel="canonical" href="https://cubits11.github.io/writing/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Writing — Pranav Bhave">
+<meta property="og:description" content="Essays, field notes, and audit logs — each piece carrying its claim envelope where one applies.">
+<meta property="og:url" content="https://cubits11.github.io/writing/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+.container{width:min(880px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.7rem}
+header.page{padding:7.9rem 0 2.2rem}
+h1{font-weight:520;font-size:clamp(2.4rem,6vw,4rem);line-height:1.04;margin:0 0 1rem;letter-spacing:-.018em}
+.intro{color:var(--muted);max-width:46em}
+.piece{border-top:1px solid var(--line);padding:1.8rem 0}
+.piece:last-of-type{border-bottom:1px solid var(--line)}
+.piece .when{color:var(--muted);display:block;margin-bottom:.5rem}
+.piece h2{font-weight:520;font-size:clamp(1.4rem,3vw,1.9rem);margin:0 0 .6rem;letter-spacing:-.01em}
+.piece h2 a{text-decoration:none}
+.piece h2 a:hover,.piece h2 a:focus-visible{color:var(--gold)}
+.piece p{color:var(--muted);max-width:56em;margin:0 0 .9rem}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/modules/">Modules</a>
+      <a href="/observatory/">Observatory</a>
+      <a href="/ledger/">Ledger</a>
+      <a href="/writing/" aria-current="page">Writing</a>
+      <a href="/archive/">Archive</a>
+      <a href="/resume/">Résumé</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<header class="page">
+  <div class="container">
+    <h1>Writing</h1>
+    <p class="intro">Essays, field notes, and audit logs. Where a piece makes a technical claim,
+      it carries the claim's envelope and the <a class="u" href="/ledger/">ledger</a> carries its
+      binding; where it doesn't, it says so. The audit logs document this site's own failures —
+      they are the most load-bearing pieces here.</p>
+  </div>
+</header>
+<main class="container" id="main">
+
+  <article class="piece">
+    <span class="when mono">Essay · case study · claims CC-001 + CC-004 · reviewed 2026-08-23</span>
+    <h2><a href="/essays/when-marginals-are-not-enough/">When marginals are not enough</a></h2>
+    <p>Two guardrails each fail ten percent of the time. Independence says the stack fails one
+      percent; the evidence supports an interval ten times that wide — computed, witnessed at
+      both endpoints, and re-reproduced from a clean clone by CI.</p>
+    <a class="chip chip-internal" href="/essays/when-marginals-are-not-enough/">Read →</a>
+  </article>
+
+  <article class="piece">
+    <span class="when mono">Field note · audit log · 2026-08-20, addendum 2026-08-23</span>
+    <h2><a href="/notes/noetic-log-001/">Noetic log 001 — what v0.2 still pretended to implement</a></h2>
+    <p>A visually coherent evidence system can produce the impression of rigor even where the
+      claim–support mapping is stale. Five places this site asserted mechanics it did not have,
+      the machinery that closed them, and what still isn't closed.</p>
+    <a class="chip chip-internal" href="/notes/noetic-log-001/">Read →</a>
+  </article>
+
+  <article class="piece">
+    <span class="when mono">Reference · generated · always current</span>
+    <h2><a href="/modules/">The modules</a></h2>
+    <p>Six questions under one epistemic grammar — marginals, pairwise evidence, receipt kernels,
+      the attestation boundary, claim expiry, witnesses. Generated from the registry, so their
+      status lines cannot drift from the ledger's.</p>
+    <a class="chip chip-internal" href="/modules/">Browse →</a>
+  </article>
+
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/now/">Now</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/">← The record</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>

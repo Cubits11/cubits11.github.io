@@ -31,6 +31,8 @@ jobs:
         run: python scripts/generate_modules.py --check
       - name: Observatory is generated, not hand-edited (drift check)
         run: python scripts/generate_observatory.py --check
+      - name: Internal links resolve (pages, anchors, fragments)
+        run: python scripts/check_links.py
 
   reproduce:
     name: Reproduce CC-001
