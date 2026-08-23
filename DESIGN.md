@@ -477,7 +477,32 @@ What was actually verified this pass, and how:
 - **Module 004:** renders PLANNED stamps, the AS-001 envelope, and no
   fabricated sections.
 - **Contrast:** computed ratios recorded under D10.
-- **Not verified this pass, and therefore not claimed:** a full keyboard-only
-  traversal of the new pages, a screen-reader pass over the new SVG
-  descriptions, and print styles for the new routes. These are open QA items,
-  listed here instead of being absorbed into "QA passed."
+- **Not verified in the v0.4 pass, and therefore not claimed then:** a full
+  keyboard-only traversal of the new pages, a screen-reader pass over the new
+  SVG descriptions, and print styles for the new routes. These were listed as
+  open QA items instead of being absorbed into "QA passed."
+
+### Keyboard and screen-reader audit — 2026-08-23 (closing the v0.4 debt)
+
+Run in a browser against the local server, DOM-level and interactive:
+
+- **Keyboard operability — verified.** The feasible-worlds slider is a native
+  range input with a resolving accessible name and `aria-describedby` pointing
+  at the figure's `desc`; focusing it and stepping the value updates the live
+  output (q = 3% → 4% observed). Every nav link is a real `<a href>`
+  (keyboard-reachable), the theme toggle is a `<button>` exposing
+  `aria-pressed`, the skip link targets `#main` and the target exists,
+  and a `:focus-visible` outline rule is present. Across the six new pages
+  (observatory, now, writing, archive, noetic-log-002, module 005): exactly one
+  `h1` each, **no skipped heading levels**, skip link present on all.
+- **Screen-reader structure — verified statically.** No page carries a `title=`
+  attribute holding unique information (the hover-only concern is fully closed);
+  no image lacks `alt`; the observatory's decay-clock SVG is `aria-hidden` so a
+  screen reader receives the textual `reviewed … window` dates rather than a
+  bare ring; each capsule carries an `h2`; the three owner-attested capsules are
+  each visibly marked with an attested chip and a dashed neutral rail, and
+  maturity renders on every capsule.
+- **Still honestly owed:** a session with a real assistive technology
+  (VoiceOver / NVDA), which a DOM-and-keyboard audit approximates but does not
+  replace, and print styles for the new routes. The accessibility score in
+  Noetic Log 002 stays provisional until the AT session runs.
