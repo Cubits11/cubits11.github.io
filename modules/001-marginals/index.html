@@ -1,0 +1,180 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: modules.yaml + claims.yaml · renderer: scripts/generate_modules.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marginals — Modules — Pranav Bhave</title>
+<meta name="description" content="Do two measured failure rates determine how a stack of guardrails fails?">
+<link rel="canonical" href="https://cubits11.github.io/modules/001-marginals/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Marginals — Modules — Pranav Bhave">
+<meta property="og:description" content="Do two measured failure rates determine how a stack of guardrails fails?">
+<meta property="og:url" content="https://cubits11.github.io/modules/001-marginals/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+body{font-size:1.04rem;line-height:1.72}
+.container{width:min(760px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.7rem}
+header.page{padding:7.9rem 0 2.6rem}
+.eyebrow{color:var(--gold);margin-bottom:1.1rem;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;align-items:baseline}
+h1.q{font-weight:520;font-size:clamp(2rem,5.4vw,3.4rem);line-height:1.1;margin:0 0 1.2rem;letter-spacing:-.018em}
+.standfirst{font-family:var(--serif);font-style:italic;font-size:1.22rem;color:var(--muted);line-height:1.55;max-width:36em}
+.gsec{border-top:1px solid var(--line);padding:1.7rem 0 .4rem;margin-top:1.4rem}
+.gsec .glabel{display:flex;gap:.9rem;align-items:baseline;margin-bottom:.7rem}
+.gsec .gno{font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;color:var(--muted)}
+.gsec .gname{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold)}
+.gsec p{color:var(--ink);max-width:62ch}
+.gsec ul{margin:.2rem 0 1em;padding-left:1.15rem;color:var(--ink);max-width:62ch}
+.gsec li{margin:.35rem 0}
+.gsec pre{background:var(--surface);border:1px solid var(--line-strong);padding:1rem 1.1rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.7;color:var(--ink)}
+.vis-door{display:flex;flex-direction:column;gap:.4rem;text-decoration:none;border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1.2rem;max-width:34rem;transition:border-color .2s}
+.vis-door:hover,.vis-door:focus-visible{border-color:var(--evidence)}
+.vis-door .mono{color:var(--evidence)}
+.stamp-row{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.6rem 0 .4rem}
+.claim{border:1px solid var(--line-strong);background:var(--surface);margin:1rem 0;padding:clamp(1.1rem,3vw,1.5rem)}
+.claim-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.9rem}
+.claim-id{color:var(--gold);font-size:.68rem;font-weight:400;margin:0;letter-spacing:.09em}
+.prop{font-family:var(--serif);font-size:1.05rem;line-height:1.5;margin:0 0 1rem;max-width:42em}
+.claim dl{display:grid;grid-template-columns:9.5rem 1fr;gap:.45rem 1.2rem;margin:0;font-size:.9rem}
+.claim dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);padding-top:.15rem}
+.claim dd{margin:0;color:var(--muted);overflow-wrap:anywhere}
+.claim dd code{font-family:var(--mono);font-size:.8em}
+.dims{display:flex;flex-wrap:wrap;gap:.4rem .9rem}
+.dim{display:inline-flex;gap:.45rem;align-items:baseline}
+.dim-k{font-family:var(--mono);font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+ul.nc,ul.trg{margin:.1rem 0 0;padding-left:1.1rem}
+ul.trg{list-style:none;padding-left:0}
+.note{font-size:.85rem}
+.evd{display:flex;flex-direction:column;gap:.4rem;font-size:.95rem;color:var(--muted);max-width:62ch}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.85rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem;margin-bottom:1rem}
+.digest{overflow-wrap:anywhere}
+@media (max-width:600px){.claim dl{grid-template-columns:1fr}.claim dt{padding-top:.5rem}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/modules/" aria-current="page">Modules</a>
+      <a href="/observatory/">Observatory</a>
+      <a href="/ledger/">Ledger</a>
+      <a href="/writing/">Writing</a>
+      <a href="/archive/">Archive</a>
+      <a href="/resume/">R&eacute;sum&eacute;</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span>Module <b>001</b> of 006 — <a class="u" href="/modules/">all modules</a></span>
+    <span class="status">Current</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <p class="eyebrow mono"><span>Module 001 — Marginals</span></p>
+    <h1 class="q">Do two measured failure rates determine how a stack of guardrails fails?</h1>
+    <p class="standfirst">They do not. Fixed marginals leave the joint failure partially identified: two guardrails that each fail 10% of the time can fail together anywhere from 0% to 10%, and multiplying the rates silently selects one world — the independent one — from inside that range.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <section class="gsec">
+    <div class="glabel"><span class="gno">01</span><span class="gname">Observed / given</span></div>
+    <p>Each guardrail was measured alone: p₁ = 0.10 and p₂ = 0.10. The joint behavior — how often the same input beats both — was never measured. Everything about it beyond what the marginals force is assumption, not evidence.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">02</span><span class="gname">Visual experiment</span></div>
+    <a class="vis-door" href="/#worlds"><span class="mono">Open the experiment</span><span>The feasible-worlds instrument — drag the overlap yourself</span></a>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">03</span><span class="gname">Feasible worlds</span></div>
+    <p>Every joint distribution consistent with the two marginals is a feasible world. The Fréchet–Hoeffding inequalities pin the both-fail probability to [max(0, p₁+p₂−1), min(p₁, p₂)] = [0%, 10%], and the bounds are sharp: every value inside is achieved by some dependence structure, and both endpoints are achieved by explicit ones.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">04</span><span class="gname">Identification status</span></div>
+    <p>Partially identified. The evidence narrows the set of worlds; it does not select one. Independence is an assumption-world at 1% — one point inside a range ten times its own width.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">05</span><span class="gname">Result or bound</span></div>
+    <p>For marginals (0.10, 0.10) the kernel returns [0.0, 0.10] for the AND event and [0.10, 0.20] for OR — recorded verbatim in the flagship essay and re-reproduced from a clean clone by CI on every push and weekly.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">06</span><span class="gname">Witness / counterexample</span></div>
+    <p>Both endpoints carry constructive witnesses: a world where the two failure sets are disjoint (0%) and a world where the blind spots coincide exactly (10%). See module 006 for the machine-checked witness properties.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">07</span><span class="gname">Claim envelope</span></div>
+    
+  <article class="claim" id="CC-001">
+    <div class="claim-head">
+      <h2 class="mono claim-id">CC-001</h2>
+      <span class="mono status">Supported within scope · Machine-generated, owner-executed</span>
+    </div>
+    <p class="prop">cc.kernel.strict.frechet_bounds computes Fréchet–Hoeffding endpoint bounds for composed binary guardrail failure from declared marginals; for marginals (0.10, 0.10) it returns [0.0, 0.10] for the AND event and [0.10, 0.20] for OR.</p>
+    <dl><dt>Scope</dt><dd>The kernel module at the bound commit. Reproduced from a clean clone (venv, pip install, execute, assert) most recently on 2026-08-23, and re-reproduced by CI on every push and weekly. No claim about any deployed system.</dd><dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"><code>Cubits11/cc-framework @ 167aa1ee</code></a><br><span class="note">Output recorded verbatim in /essays/when-marginals-are-not-enough/; continuously reproduced by scripts/reproduce_cc001.py in CI. Re-bound 2026-08-23 from a commit stranded by an upstream history rewrite to a main-reachable commit; kernel file content verified byte-identical across both refs before re-binding.</span></dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Machine-generated, owner-executed</span><span class="dim"><span class="dim-k">support role</span>Executed output</span><span class="dim"><span class="dim-k">maturity</span>Released</span></span></dd><dt>Reviewed</dt><dd>2026-08-23 · window 120 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when the kernel module on the default branch diverges from the bound revision</li><li><span class="mono tag tag-manual">manual</span> kernel semantics change outside the bound module file</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>does not certify any stacked system as safe</li><li>does not recover or estimate the unknown dependence</li><li>does not select a point inside the returned interval</li></ul></dd></dl>
+  </article><p class="note" style="color:var(--muted)">Rendered from the same registry as the <a class="u" href="/ledger/">ledger</a> — one source, two views.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">08</span><span class="gname">Evidence</span></div>
+    <div class="evd"><span><a class="u" href="https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"><code>CC-001 @ 167aa1ee</code></a> — Machine-generated, owner-executed · reviewed 2026-08-23</span></div>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">09</span><span class="gname">Falsifier</span></div>
+    <p>A clean-clone reproduction at the bound commit returning different bounds fails CI (the reproduction script asserts the registry&#x27;s recorded values). The executable trigger on CC-001 fires if the kernel module on the default branch diverges from the binding.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">10</span><span class="gname">Non-claims</span></div>
+    <ul><li>does not certify any stacked system as safe</li><li>does not recover or estimate the unknown dependence</li><li>does not select a point inside the returned interval</li></ul>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">11</span><span class="gname">Reproducibility</span></div>
+    <pre>python scripts/reproduce_cc001.py — clones cc-framework at the bound commit, installs it, executes the kernel, asserts the registry&#x27;s structured expected values.</pre>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">12</span><span class="gname">Next unknown</span></div>
+    <p>If marginals underdetermine the stack, does measuring every PAIR close the gap? Module 002.</p>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/modules/">← All modules</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/observatory/">Observatory</a>
+      <a class="u" href="/">The record</a>
+    </div>
+    <span class="mono digest">Module identity sha256:9848eb13bea364f601b69d7a08ad29732c01a334a43df14fa1523bc037fcbef9 — the canonical registry entry; regenerate to verify.</span>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>

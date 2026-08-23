@@ -1,0 +1,334 @@
+# Module registry — cubits11.github.io · schema v0.1
+#
+# Six questions, one epistemic grammar. /modules/ and every module page are
+# GENERATED from this file by scripts/generate_modules.py; CI regenerates
+# them and fails on drift.
+#
+# Modules do not duplicate claim data. Each module names claim_ids; the
+# generator looks those claims up in claims.yaml and renders their envelopes
+# verbatim — status, bindings, triggers, and non-claims stay single-sourced.
+#
+# Validation (generate_modules.py --check and at generation time):
+#   * ids and slugs unique; every claim_id exists in claims.yaml
+#   * every looked-up binding commit is a well-formed 40-hex revision
+#   * a CURRENT module with a result section must cite at least one claim
+#     whose evidential_status is supported_within_scope
+#   * a PLANNED module may not carry a result/witness section, and its
+#     claims must be publicly untested — the page says NOT YET POPULATED
+#   * a module citing a claim of maturity `superseded` must itself be
+#     historical/superseded (current theory never leans on retired framing)
+#
+# status: current | planned | historical | superseded
+
+version: "0.1"
+
+modules:
+  - id: M-001
+    slug: 001-marginals
+    title: Marginals
+    question: >
+      Do two measured failure rates determine how a stack of guardrails
+      fails?
+    thesis: >
+      They do not. Fixed marginals leave the joint failure partially
+      identified: two guardrails that each fail 10% of the time can fail
+      together anywhere from 0% to 10%, and multiplying the rates silently
+      selects one world — the independent one — from inside that range.
+    status: current
+    claim_ids: [CC-001]
+    visualization:
+      label: The feasible-worlds instrument — drag the overlap yourself
+      href: /#worlds
+    sections:
+      observed: >
+        Each guardrail was measured alone: p₁ = 0.10 and p₂ = 0.10. The
+        joint behavior — how often the same input beats both — was never
+        measured. Everything about it beyond what the marginals force is
+        assumption, not evidence.
+      worlds: >
+        Every joint distribution consistent with the two marginals is a
+        feasible world. The Fréchet–Hoeffding inequalities pin the both-fail
+        probability to [max(0, p₁+p₂−1), min(p₁, p₂)] = [0%, 10%], and the
+        bounds are sharp: every value inside is achieved by some dependence
+        structure, and both endpoints are achieved by explicit ones.
+      identification: >
+        Partially identified. The evidence narrows the set of worlds; it
+        does not select one. Independence is an assumption-world at 1% —
+        one point inside a range ten times its own width.
+      result: >
+        For marginals (0.10, 0.10) the kernel returns [0.0, 0.10] for the
+        AND event and [0.10, 0.20] for OR — recorded verbatim in the
+        flagship essay and re-reproduced from a clean clone by CI on every
+        push and weekly.
+      witness: >
+        Both endpoints carry constructive witnesses: a world where the two
+        failure sets are disjoint (0%) and a world where the blind spots
+        coincide exactly (10%). See module 006 for the machine-checked
+        witness properties.
+      falsifier: >
+        A clean-clone reproduction at the bound commit returning different
+        bounds fails CI (the reproduction script asserts the registry's
+        recorded values). The executable trigger on CC-001 fires if the
+        kernel module on the default branch diverges from the binding.
+      reproducibility: >
+        python scripts/reproduce_cc001.py — clones cc-framework at the
+        bound commit, installs it, executes the kernel, asserts the
+        registry's structured expected values.
+      next: >
+        If marginals underdetermine the stack, does measuring every PAIR
+        close the gap? Module 002.
+    non_claims_extra: []
+
+  - id: M-002
+    slug: 002-pairwise-is-not-enough
+    title: Pairwise is not enough
+    question: >
+      If we measure every pair of guardrails, do we finally know how the
+      stack fails?
+    thesis: >
+      No. There exist distributions with identical singleton failure rates
+      and identical pairwise overlaps whose three-way failure probabilities
+      still differ — 0 in one, 0.25 in the other. Pairwise evidence narrows
+      the feasible set; it does not close it.
+    status: current
+    claim_ids: [CC-003]
+    visualization:
+      label: The parity construction, in the frozen E1 study
+      href: https://github.com/Cubits11/cc-framework/blob/ee61a710243c74ec49d5896167d0913327e6b5d3/docs/research/E1_DEPENDENCE_EVIDENCE_STUDY.md
+    sections:
+      observed: >
+        Three binary guardrails; every singleton failure rate is 0.5 and
+        every pairwise overlap is 0.25 — the complete first- and
+        second-order evidence, held identical by construction.
+      worlds: >
+        Two explicit distributions realize those moments: uniform
+        even-parity and uniform odd-parity. Under even parity the triple
+        failure never occurs; under odd parity it occurs with probability
+        0.25. All singleton and pairwise evidence leaves the interval
+        [0, 0.25] intact.
+      identification: >
+        Partially identified at every order tested. "We measured every
+        pair, so we know the stack" is false in general: the third moment
+        is not a function of the first two.
+      result: >
+        E1's recorded outcome, with its epistemic decision record: the
+        claim survived its controls and was narrowed, not widened —
+        decision: Narrow. The study also showed the product baseline is
+        neither reliably conservative nor reliably optimistic: it
+        understated a common-cause generator fourfold and invented risk
+        under a mutually exclusive one.
+      witness: >
+        The two parity distributions are the counterexample pair — each is
+        an explicit, checkable world, not an existence argument.
+      falsifier: >
+        The executable trigger on CC-003 fires if the frozen study document
+        changes on the default branch. Mathematically: exhibit a proof that
+        singleton + pairwise moments identify the triple in this class, and
+        the module's thesis dies.
+      reproducibility: >
+        The study is frozen with pinned artifacts in cc-framework
+        (docs/research/, artifact identity relocation-invariant); its
+        commands and manifest hashes are recorded in the repository.
+      next: >
+        If pairwise evidence cannot close the set, what evidence can — and
+        what does it cost to collect? That is E2's frozen question, on the
+        now page.
+    non_claims_extra:
+      - E1 is synthetic end to end; nothing here estimates how often real
+        guardrail stacks exhibit higher-order dependence.
+
+  - id: M-003
+    slug: 003-kernel-of-a-receipt
+    title: Kernel of a receipt
+    question: >
+      When a governance receipt verifies, what exactly has been identified?
+    thesis: >
+      An execution is identified only up to the kernel of the receipt
+      system's whole parse → canonicalize → digest pipeline. Receipt
+      soundness is a ternary relation — Sound(C, Σ, P) — between the
+      canonicalizer, the pathology alphabet, and the consumer set; it grows
+      fragile as pathologies are discovered and consumers widen, so
+      soundness does not persist by default.
+    status: current
+    claim_ids: [GA-001]
+    visualization:
+      label: "How a receipt loses a distinction — Ghost-Ark's kernel figure"
+      href: https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/README.md
+    sections:
+      observed: >
+        Receipts bind bytes: parse the artifact, canonicalize, digest,
+        sign. Distinct inputs that canonicalize identically are
+        indistinguishable to every downstream verifier — the kernel of the
+        pipeline, not of any single stage.
+      worlds: >
+        For one digest, the feasible set is every input in its kernel
+        class. Which distinctions the kernel destroys is measurable; who
+        needed those distinctions is a property of the consumer set, and it
+        changes after the receipt is issued.
+      identification: >
+        Identified up to the kernel; beyond it, underdetermined. The lab's
+        own falsifier ledger keeps score: F2 stands CONFIRMED (2026-08-12)
+        in its contracted form — a random sample of 64 real supply-chain
+        attestation payloads carried zero pathology classes, so the
+        collision claim reads "possible, not observed" — while F3
+        (consumer-relevant incidence) remains open and, in the repo's own
+        words, the most under-attacked of the five.
+      result: >
+        The thesis document at the bound commit states the ternary
+        soundness claim and its two consequences: the kernel is a property
+        of the whole pipeline (C1), and real canonicalizers — Ghost-Ark's
+        included — have unintended kernel members (C2), as existence
+        results.
+      witness: >
+        Constructed collision inputs demonstrate existence; the census and
+        mutation figures in the repository are drawn from a data manifest
+        so a figure cannot drift from the number it draws.
+      falsifier: >
+        The executable trigger on GA-001 fires if the thesis document
+        changes on the default branch. Empirically: an incidence
+        measurement showing consumer-relevant divergence in the wild would
+        move C2 from possible to prevalent — and its absence keeps the
+        claim contracted.
+      reproducibility: >
+        Ghost-Ark ships its verifier, collision corpora, and a standalone
+        kernel probe "for people who do not use Ghost-Ark and have no
+        reason to trust it."
+      next: >
+        Incidence, not existence: does any real consumer population
+        currently depend on a distinction some deployed canonicalizer
+        destroys?
+    non_claims_extra:
+      - This module reports a lab repository's stated thesis and evidence
+        state; the S2 Lab's own maturity ladder governs what each result is
+        entitled to claim.
+
+  - id: M-004
+    slug: 004-attestation-boundary
+    title: Attestation boundary
+    question: >
+      What can enclave attestation prove about a file's life before the
+      enclave first touched it?
+    thesis: >
+      Frozen conjecture: nothing, by itself. Attestation can bind what
+      happens from the first attested operation onward; everything earlier
+      lies outside the provenance claim unless independently established.
+      The boundary — not the pipeline — is the research object.
+    status: planned
+    claim_ids: [AS-001]
+    visualization: null
+    sections:
+      next: >
+        A public artifact whose provenance claims are stated together with
+        the attestation horizon that limits them — released only when it
+        can stand behind itself.
+    non_claims_extra:
+      - No public evidence exists yet, by declaration; this page will not
+        pretend otherwise.
+
+  - id: M-005
+    slug: 005-claims-expire
+    title: Claims expire
+    question: >
+      What happens to a claim when the world that supported it moves on?
+    thesis: >
+      Its warrant decays even though its words do not change. Freshness is
+      therefore part of a claim's structure: every claim in this site's
+      registry carries a review window and typed review triggers, and CI
+      fails the build when a window lapses or bound evidence diverges —
+      expiry is mechanical, not aspirational.
+    status: current
+    claim_ids: [SITE-002]
+    visualization:
+      label: The decay clocks, live on every capsule in the observatory
+      href: /observatory/
+    sections:
+      observed: >
+        Every registry claim records last_reviewed, review_window_days, and
+        its triggers — executable where CI can watch the bound evidence
+        (remote file at bound ref vs default-branch head; local file by
+        content hash), manual where it honestly cannot.
+      worlds: >
+        Between reviews, a claim's true support is unobserved: the bound
+        evidence may have moved, the world may have changed. The registry
+        treats that uncertainty as load-bearing — a stale claim is not
+        false, it is due: "a fired trigger or an expired window does not
+        make a claim false; it makes the claim's warrant due for
+        re-examination."
+      identification: >
+        The mechanism claim is directly checkable: the verifier source is
+        hash-bound (the executable trigger on SITE-002 fires if it changes
+        without a re-review), and the weekly CI run is public.
+      result: >
+        This machinery has already fired in practice: the site's own
+        DESIGN.md hash trigger detects every edit, and this redesign's
+        registry work re-reviewed five claims because their evidence or
+        wording had drifted — including one binding stranded by an upstream
+        history rewrite.
+      falsifier: >
+        A claim past its review window passing the weekly run, or a bound
+        file diverging without failure, falsifies the mechanism claim
+        directly — the CI history is public and would show it.
+      reproducibility: >
+        python scripts/verify_claims.py — runs the same checks locally
+        that CI runs on every push and weekly.
+      next: >
+        Semantic drift that leaves bytes unchanged: triggers watch files,
+        not meanings. Which review events can never be made executable?
+    non_claims_extra:
+      - Freshness is not truth — a green run verifies registry consistency
+        and quiet triggers, never the correctness of any claim's content.
+
+  - id: M-006
+    slug: 006-witnesses
+    title: Witnesses
+    question: >
+      Why believe an interval's endpoints are real rather than worst-case
+      rhetoric?
+    thesis: >
+      Because they are attained. For every identified interval the kernel
+      returns endpoint witness distributions — explicit feasible worlds
+      that satisfy the declared constraints and achieve the bounds. A wide
+      interval stops being a complaint and becomes a checkable object.
+    status: current
+    claim_ids: [CC-004]
+    visualization:
+      label: Both witnesses, live in the feasible-worlds instrument
+      href: /#worlds
+    sections:
+      observed: >
+        The same two marginals as module 001: p₁ = p₂ = 0.10, no dependence
+        evidence, both-fail query.
+      worlds: >
+        identify() returns the sharp interval [0.0, 0.10] and two
+        distributions over the four atoms (neither, A only, B only, both):
+        the lower witness (0.8, 0.1, 0.1, 0.0) separates the failures
+        entirely; the upper witness (0.9, 0, 0, 0.1) stacks them.
+      identification: >
+        Sharpness made concrete: no value outside the interval is
+        consistent with the evidence, and the endpoints are exhibited, not
+        merely bounded.
+      result: >
+        The reproduction script checks, from a clean clone at the bound
+        commit and to a tolerance of 1e-9, that each witness sums to one,
+        is nonnegative, satisfies both marginal constraints, and attains
+        its endpoint — in CI, on every push and weekly.
+      witness: >
+        The witnesses are the module. What is machine-checked is their
+        feasibility and attainment; what is not checked — and not claimed —
+        is that either world describes any deployed system.
+      falsifier: >
+        The witness stage of the reproduction fails if the kernel stops
+        returning feasible, endpoint-attaining solutions; the executable
+        trigger on CC-004 fires if the identification module diverges from
+        its binding.
+      reproducibility: >
+        python scripts/reproduce_cc001.py — the witness stage runs
+        identify() and asserts feasibility and attainment against the
+        registry's structured expected values.
+      next: >
+        Witnesses at scale: explicit atom enumeration grows as 2^m — how
+        far can witness-carrying identification be pushed before the atoms
+        themselves must be abstracted?
+    non_claims_extra:
+      - Endpoint witnesses are feasible mathematical worlds, not observed
+        systems; exhibiting them selects no point inside the interval.

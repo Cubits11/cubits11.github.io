@@ -440,3 +440,40 @@ claims:
       - no field CLS/LCP/CrUX measurements are claimed
       - '"zero third-party runtime requests" describes page code, not hosting
         infrastructure (GitHub Pages, DNS, TLS remain dependencies)'
+
+  - id: SITE-002
+    proposition: >
+      This site's claim registry is enforced in CI: verify_claims.py
+      validates schema and bindings, executes the executable review
+      triggers against live evidence, and fails the build when any claim
+      passes its freshness window — on every push and weekly.
+    scope: >
+      The verifier at the recorded content hash, and the public workflow
+      that runs it. The generated-page drift checks are separate steps in
+      the same workflow.
+    dimensions:
+      visibility: public
+      provenance: owner_verified
+      support_role: site_document
+      evidential_status: supported_within_scope
+      maturity: released
+    support:
+      url: "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py"
+      commit: null
+      note: "Mutable link by design; the local-content trigger below detects edits."
+    last_reviewed: "2026-08-23"
+    review_window_days: 120
+    review_triggers:
+      - type: local_content_change
+        enforcement: executable
+        path: scripts/verify_claims.py
+        sha256: "725e3f074edf7dfd24ef4b6d8b4eef07b440e6ebc377b55a6dece2f1385f924b"
+        note: fires when the verifier changes without a registry re-review
+      - type: manual
+        enforcement: manual
+        event: workflow triggers or cadence change
+    non_claims:
+      - a green run verifies registry consistency and quiet triggers, never
+        the truth of any claim's content
+      - triggers watch file content; semantic drift outside watched files
+        remains a manual review event, and the ledger says so

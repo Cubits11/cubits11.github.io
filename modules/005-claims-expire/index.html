@@ -1,0 +1,176 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: modules.yaml + claims.yaml · renderer: scripts/generate_modules.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claims expire — Modules — Pranav Bhave</title>
+<meta name="description" content="What happens to a claim when the world that supported it moves on?">
+<link rel="canonical" href="https://cubits11.github.io/modules/005-claims-expire/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Claims expire — Modules — Pranav Bhave">
+<meta property="og:description" content="What happens to a claim when the world that supported it moves on?">
+<meta property="og:url" content="https://cubits11.github.io/modules/005-claims-expire/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+body{font-size:1.04rem;line-height:1.72}
+.container{width:min(760px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.7rem}
+header.page{padding:7.9rem 0 2.6rem}
+.eyebrow{color:var(--gold);margin-bottom:1.1rem;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;align-items:baseline}
+h1.q{font-weight:520;font-size:clamp(2rem,5.4vw,3.4rem);line-height:1.1;margin:0 0 1.2rem;letter-spacing:-.018em}
+.standfirst{font-family:var(--serif);font-style:italic;font-size:1.22rem;color:var(--muted);line-height:1.55;max-width:36em}
+.gsec{border-top:1px solid var(--line);padding:1.7rem 0 .4rem;margin-top:1.4rem}
+.gsec .glabel{display:flex;gap:.9rem;align-items:baseline;margin-bottom:.7rem}
+.gsec .gno{font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;color:var(--muted)}
+.gsec .gname{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold)}
+.gsec p{color:var(--ink);max-width:62ch}
+.gsec ul{margin:.2rem 0 1em;padding-left:1.15rem;color:var(--ink);max-width:62ch}
+.gsec li{margin:.35rem 0}
+.gsec pre{background:var(--surface);border:1px solid var(--line-strong);padding:1rem 1.1rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.7;color:var(--ink)}
+.vis-door{display:flex;flex-direction:column;gap:.4rem;text-decoration:none;border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1.2rem;max-width:34rem;transition:border-color .2s}
+.vis-door:hover,.vis-door:focus-visible{border-color:var(--evidence)}
+.vis-door .mono{color:var(--evidence)}
+.stamp-row{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.6rem 0 .4rem}
+.claim{border:1px solid var(--line-strong);background:var(--surface);margin:1rem 0;padding:clamp(1.1rem,3vw,1.5rem)}
+.claim-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.9rem}
+.claim-id{color:var(--gold);font-size:.68rem;font-weight:400;margin:0;letter-spacing:.09em}
+.prop{font-family:var(--serif);font-size:1.05rem;line-height:1.5;margin:0 0 1rem;max-width:42em}
+.claim dl{display:grid;grid-template-columns:9.5rem 1fr;gap:.45rem 1.2rem;margin:0;font-size:.9rem}
+.claim dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);padding-top:.15rem}
+.claim dd{margin:0;color:var(--muted);overflow-wrap:anywhere}
+.claim dd code{font-family:var(--mono);font-size:.8em}
+.dims{display:flex;flex-wrap:wrap;gap:.4rem .9rem}
+.dim{display:inline-flex;gap:.45rem;align-items:baseline}
+.dim-k{font-family:var(--mono);font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+ul.nc,ul.trg{margin:.1rem 0 0;padding-left:1.1rem}
+ul.trg{list-style:none;padding-left:0}
+.note{font-size:.85rem}
+.evd{display:flex;flex-direction:column;gap:.4rem;font-size:.95rem;color:var(--muted);max-width:62ch}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.85rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem;margin-bottom:1rem}
+.digest{overflow-wrap:anywhere}
+@media (max-width:600px){.claim dl{grid-template-columns:1fr}.claim dt{padding-top:.5rem}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/modules/" aria-current="page">Modules</a>
+      <a href="/observatory/">Observatory</a>
+      <a href="/ledger/">Ledger</a>
+      <a href="/writing/">Writing</a>
+      <a href="/archive/">Archive</a>
+      <a href="/resume/">R&eacute;sum&eacute;</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span>Module <b>005</b> of 006 — <a class="u" href="/modules/">all modules</a></span>
+    <span class="status">Current</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <p class="eyebrow mono"><span>Module 005 — Claims expire</span></p>
+    <h1 class="q">What happens to a claim when the world that supported it moves on?</h1>
+    <p class="standfirst">Its warrant decays even though its words do not change. Freshness is therefore part of a claim&#x27;s structure: every claim in this site&#x27;s registry carries a review window and typed review triggers, and CI fails the build when a window lapses or bound evidence diverges — expiry is mechanical, not aspirational.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <section class="gsec">
+    <div class="glabel"><span class="gno">01</span><span class="gname">Observed / given</span></div>
+    <p>Every registry claim records last_reviewed, review_window_days, and its triggers — executable where CI can watch the bound evidence (remote file at bound ref vs default-branch head; local file by content hash), manual where it honestly cannot.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">02</span><span class="gname">Visual experiment</span></div>
+    <a class="vis-door" href="/observatory/"><span class="mono">Open the experiment</span><span>The decay clocks, live on every capsule in the observatory</span></a>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">03</span><span class="gname">Feasible worlds</span></div>
+    <p>Between reviews, a claim&#x27;s true support is unobserved: the bound evidence may have moved, the world may have changed. The registry treats that uncertainty as load-bearing — a stale claim is not false, it is due: &quot;a fired trigger or an expired window does not make a claim false; it makes the claim&#x27;s warrant due for re-examination.&quot;</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">04</span><span class="gname">Identification status</span></div>
+    <p>The mechanism claim is directly checkable: the verifier source is hash-bound (the executable trigger on SITE-002 fires if it changes without a re-review), and the weekly CI run is public.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">05</span><span class="gname">Result or bound</span></div>
+    <p>This machinery has already fired in practice: the site&#x27;s own DESIGN.md hash trigger detects every edit, and this redesign&#x27;s registry work re-reviewed five claims because their evidence or wording had drifted — including one binding stranded by an upstream history rewrite.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">07</span><span class="gname">Claim envelope</span></div>
+    
+  <article class="claim" id="SITE-002">
+    <div class="claim-head">
+      <h2 class="mono claim-id">SITE-002</h2>
+      <span class="mono status">Supported within scope · Owner-verified</span>
+    </div>
+    <p class="prop">This site&#x27;s claim registry is enforced in CI: verify_claims.py validates schema and bindings, executes the executable review triggers against live evidence, and fails the build when any claim passes its freshness window — on every push and weekly.</p>
+    <dl><dt>Scope</dt><dd>The verifier at the recorded content hash, and the public workflow that runs it. The generated-page drift checks are separate steps in the same workflow.</dd><dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py"><code>verify_claims.py</code></a><br><span class="note">Mutable link by design; the local-content trigger below detects edits.</span></dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Owner-verified</span><span class="dim"><span class="dim-k">support role</span>Site document</span><span class="dim"><span class="dim-k">maturity</span>Released</span></span></dd><dt>Reviewed</dt><dd>2026-08-23 · window 120 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when the verifier changes without a registry re-review</li><li><span class="mono tag tag-manual">manual</span> workflow triggers or cadence change</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>a green run verifies registry consistency and quiet triggers, never the truth of any claim&#x27;s content</li><li>triggers watch file content; semantic drift outside watched files remains a manual review event, and the ledger says so</li></ul></dd></dl>
+  </article><p class="note" style="color:var(--muted)">Rendered from the same registry as the <a class="u" href="/ledger/">ledger</a> — one source, two views.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">08</span><span class="gname">Evidence</span></div>
+    <div class="evd"><span><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py"><code>SITE-002</code></a> — Owner-verified · mutable link by design · reviewed 2026-08-23</span></div>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">09</span><span class="gname">Falsifier</span></div>
+    <p>A claim past its review window passing the weekly run, or a bound file diverging without failure, falsifies the mechanism claim directly — the CI history is public and would show it.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">10</span><span class="gname">Non-claims</span></div>
+    <ul><li>a green run verifies registry consistency and quiet triggers, never the truth of any claim&#x27;s content</li><li>triggers watch file content; semantic drift outside watched files remains a manual review event, and the ledger says so</li><li>Freshness is not truth — a green run verifies registry consistency and quiet triggers, never the correctness of any claim&#x27;s content.</li></ul>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">11</span><span class="gname">Reproducibility</span></div>
+    <pre>python scripts/verify_claims.py — runs the same checks locally that CI runs on every push and weekly.</pre>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">12</span><span class="gname">Next unknown</span></div>
+    <p>Semantic drift that leaves bytes unchanged: triggers watch files, not meanings. Which review events can never be made executable?</p>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/modules/">← All modules</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/observatory/">Observatory</a>
+      <a class="u" href="/">The record</a>
+    </div>
+    <span class="mono digest">Module identity sha256:585a057b595b93dceb57814e8033d891bafaf4f73503fd23a7ccaf0486cb356a — the canonical registry entry; regenerate to verify.</span>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>
