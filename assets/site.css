@@ -144,7 +144,7 @@ a.chip-internal:hover,a.chip-internal:focus-visible{border-color:var(--gold);bac
 .status{color:var(--ink)}
 .status-dim{color:var(--muted);border-style:dashed}
 .status-hot{color:var(--invalid);border-color:var(--invalid)}
-.status-plan{color:var(--review);border-color:var(--review);border-style:dashed}
+.status-plan{color:var(--muted);border-color:var(--line-strong);border-style:dashed}
 .tag{border:1px solid var(--line-strong);border-radius:2px;padding:.1rem .4rem;margin-right:.5rem;font-size:.58rem}
 .tag-exec{color:var(--evidence);border-color:var(--evidence)}
 .tag-manual{color:var(--muted);border-style:dashed}

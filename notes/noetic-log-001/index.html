@@ -177,8 +177,9 @@ footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;colo
       the gap is recorded as a dated correction in DESIGN.md itself.</li>
     <li>CC-001's "immutable binding" was found pinned to a commit stranded by an upstream
       history rewrite — publicly resolvable only as a dangling GitHub object. It was re-bound
-      to reachable history with the kernel bytes verified identical, and the registry now
-      states the rule: support commits must be reachable from a protected ref.</li>
+      to reachable history with the kernel bytes verified identical, and the rule is now
+      enforced: verify_claims.py checks every bound commit reachable from its repository's
+      default branch, one filtered clone per repo, in the same CI run.</li>
   </ul>
 
 </main>

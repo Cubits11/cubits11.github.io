@@ -29,7 +29,9 @@
 #                     hard-coding — so a proposition's numbers and the
 #                     executed assertion cannot silently diverge.
 #   Binding rule      support commits must be reachable from a protected ref
-#                     of their repository. (CC-001 was previously bound to a
+#                     of their repository — checked in CI by
+#                     verify_claims.py, one filtered clone per bound repo.
+#                     (CC-001 was previously bound to a
 #                     commit stranded by an upstream history rewrite; it
 #                     survived only as a dangling GitHub object. Re-bound
 #                     2026-08-23 with file content verified byte-identical.)
@@ -209,6 +211,47 @@ claims:
       - attainment does not select a point inside the interval or estimate
         the true dependence
 
+  - id: CC-005
+    proposition: >
+      CC-Framework's E2 — the shared-item empirical guardrail pilot — is
+      governed by a measurement contract frozen before any dataset was
+      inspected; no conforming dataset has been collected, so E2 is
+      untested, and the contract's conformance checks are executable.
+    scope: >
+      The frozen contract document at the bound commit. Freezing is a
+      discipline about how evidence will be gathered; it is not evidence.
+    dimensions:
+      visibility: public
+      provenance: owner_authored
+      support_role: document
+      evidential_status: supported_within_scope
+      maturity: released
+    support:
+      url: "https://github.com/Cubits11/cc-framework/blob/0b9450251b6988fa23d8e6e4fb556a08b05e652e/docs/research/E2_MEASUREMENT_CONTRACT.md"
+      commit: "0b9450251b6988fa23d8e6e4fb556a08b05e652e"
+      note: >
+        The claim is about the contract's existence and its frozen,
+        untested status — the exact state the contract's own header
+        declares.
+    last_reviewed: "2026-08-23"
+    review_window_days: 120
+    review_triggers:
+      - type: remote_content_change
+        enforcement: executable
+        repo: Cubits11/cc-framework
+        path: docs/research/E2_MEASUREMENT_CONTRACT.md
+        bound_ref: "0b9450251b6988fa23d8e6e4fb556a08b05e652e"
+        note: fires when the frozen contract on the default branch changes
+      - type: manual
+        enforcement: manual
+        event: a conforming dataset is collected — E2's status must be restated
+    non_claims:
+      - freezing a contract establishes discipline, not results; E2 remains
+        untested until conforming observations exist
+      - conformance is not a clean bill of health, and the contract says so
+      - '"we validated CC" is prohibited at every rung of the evidence
+        ladder'
+
   - id: GA-001
     proposition: >
       Ghost-Ark is a verifier and measurement harness for the provenance
@@ -295,8 +338,10 @@ claims:
     support:
       url: "https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7"
       commit: "3fbe3efc89b6328bac493e62a32571d8e380d4f7"
-      note: null
-    last_reviewed: "2026-08-20"
+      note: >
+        Re-reviewed 2026-08-23 when the public-readiness non-claim was
+        added; entry edits and review dates travel together.
+    last_reviewed: "2026-08-23"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
@@ -449,8 +494,9 @@ claims:
       passes its freshness window — on every push and weekly.
     scope: >
       The verifier at the recorded content hash, and the public workflow
-      that runs it. The generated-page drift checks are separate steps in
-      the same workflow.
+      that runs it. The generated-page and figure checks are separate
+      steps in the same workflow (ledger, modules, observatory, figure
+      geometry, internal links).
     dimensions:
       visibility: public
       provenance: owner_verified
@@ -467,7 +513,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: scripts/verify_claims.py
-        sha256: "725e3f074edf7dfd24ef4b6d8b4eef07b440e6ebc377b55a6dece2f1385f924b"
+        sha256: "a8d3a884a640efb6dc376ce56ae7ba590aa81f18f7339c034c6677b472a996bd"
         note: fires when the verifier changes without a registry re-review
       - type: manual
         enforcement: manual

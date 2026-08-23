@@ -170,9 +170,10 @@ modules:
         own falsifier ledger keeps score: F2 stands CONFIRMED (2026-08-12)
         in its contracted form — a random sample of 64 real supply-chain
         attestation payloads carried zero pathology classes, so the
-        collision claim reads "possible, not observed" — while F3
-        (consumer-relevant incidence) remains open and, in the repo's own
-        words, the most under-attacked of the five.
+        collision claim reads "possible, not observed" — while F3 (that
+        the consumer set is stable in practice, so antitonicity never
+        bites) remains open and, in the repo's own words, the most
+        under-attacked of the five.
       result: >
         The thesis document at the bound commit states the ternary
         soundness claim and its two consequences: the kernel is a property
@@ -209,8 +210,8 @@ modules:
       What can enclave attestation prove about a file's life before the
       enclave first touched it?
     thesis: >
-      Frozen conjecture: nothing, by itself. Attestation can bind what
-      happens from the first attested operation onward; everything earlier
+      The standing conjecture: nothing, by itself. Attestation can bind
+      what happens from the first attested operation onward; everything earlier
       lies outside the provenance claim unless independently established.
       The boundary — not the pipeline — is the research object.
     status: planned
@@ -259,11 +260,16 @@ modules:
         hash-bound (the executable trigger on SITE-002 fires if it changes
         without a re-review), and the weekly CI run is public.
       result: >
-        This machinery has already fired in practice: the site's own
-        DESIGN.md hash trigger detects every edit, and this redesign's
-        registry work re-reviewed five claims because their evidence or
-        wording had drifted — including one binding stranded by an upstream
-        history rewrite.
+        The mechanism is enforced, and its record is stated exactly: no
+        public run has yet shown a trigger firing red — every DESIGN.md
+        edit landed together with its re-review, which is the workflow
+        operating, not the alarm sounding. The v0.4 audit re-reviewed
+        three claims whose evidence or wording had drifted (CC-001,
+        GA-001, SITE-001), and the stranded CC-001 binding was found by
+        manual audit — a divergence class content-hash triggers are
+        structurally blind to, which is why bound commits are now also
+        checked reachable from their repository's default branch in the
+        same CI run.
       falsifier: >
         A claim past its review window passing the weekly run, or a bound
         file diverging without failure, falsifies the mechanism claim

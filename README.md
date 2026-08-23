@@ -5,8 +5,8 @@ claim governance. Live at [cubits11.github.io](https://cubits11.github.io/).
 
 ## Stack
 
-Hand-written HTML and CSS, ~3 KB of vanilla JavaScript (theme toggle,
-scroll reveals, copy-email). No framework, no build step for the pages, no
+Hand-written HTML and CSS, ~4.5 KB of vanilla JavaScript (theme toggle,
+the feasible-worlds slider, scroll reveals, copy-email). No framework, no build step for the pages, no
 analytics, no cookies. Fonts (Fraunces, Instrument Sans, Fragment Mono) are
 self-hosted latin-subset woff2. The color system is sampled from the hero
 photograph — every design decision and its rationale is in `DESIGN.md`.
@@ -17,7 +17,9 @@ evidence marker — with visibility, provenance, support role, evidential
 status, and maturity as separate dimensions, and structured expected values
 that the reproduction script reads instead of hard-coding. `/ledger/` is
 **generated** from it and drift-checked in CI; commit↔URL bindings are
-validated (and must point at ref-reachable commits); executable review
+validated and every bound commit is checked reachable from its
+repository's default branch (one filtered clone per repo — GitHub serves
+dangling objects, so a resolving URL proves nothing); executable review
 triggers watch the bound evidence upstream and fail the build when it
 changes; figure geometry is asserted by `scripts/verify_figures.py`; and
 CC-001 + CC-004 (bounds and endpoint witnesses) are re-reproduced from a

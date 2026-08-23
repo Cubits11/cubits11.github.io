@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://cubits11.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Pranav Bhave — AI Assurance Research">
-<meta property="og:description" content="Research software that exposes what an AI-assurance claim establishes, what it assumes, and where it must stop. Audited in public; prosecuted weekly by its own CI.">
+<meta property="og:description" content="Research software that exposes what an AI-assurance claim establishes, what it assumes, and where it must stop. Self-audited in public; prosecuted weekly by its own CI.">
 <meta property="og:url" content="https://cubits11.github.io/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -125,7 +125,7 @@ html:not(.js) .bounds-ctl{display:none}
 
 /* current question strip */
 .question-strip{border-block:1px solid var(--line);background:var(--surface);padding-block:clamp(2.6rem,6vh,4rem)}
-.question-strip .mono{color:var(--review)}
+.question-strip .mono{color:var(--gold)}
 .bigq{font-family:var(--serif);font-size:clamp(1.5rem,3.2vw,2.3rem);font-weight:500;line-height:1.25;max-width:24em;margin:.8rem 0 1rem;letter-spacing:-.01em}
 .question-strip p{color:var(--muted);max-width:52em}
 
@@ -171,8 +171,8 @@ html:not(.js) .bounds-ctl{display:none}
 
 <div class="class-bar mono">
   <div class="container">
-    <span><b>Public record</b> — every technical claim bound in the <a class="u" href="/ledger/">ledger</a></span>
-    <span>Registry <b>v0.3</b> · 12 claims</span>
+    <span><b>Public record</b> — every marked claim bound in the <a class="u" href="/ledger/">ledger</a></span>
+    <span>Registry <b>v0.3</b> · 13 claims</span>
     <span>CI prosecution: <b>weekly</b> + every push</span>
   </div>
 </div>
@@ -190,7 +190,7 @@ html:not(.js) .bounds-ctl{display:none}
         <p class="lede reveal" style="--d:.14s"><em>Bounds</em> that admit unknown dependence.
           <em>Receipts</em> that prove bytes rather than safety.
           <em>Claims</em> that return for review when their evidence changes.</p>
-        <p class="fang mono reveal" style="--d:.18s">Audited twice ·
+        <p class="fang mono reveal" style="--d:.18s">Self-audited twice ·
           <a href="/notes/noetic-log-001/">corrected in public</a> ·
           <a href="https://github.com/Cubits11/cubits11.github.io/actions/workflows/verify.yml">prosecuted weekly by its own CI</a></p>
         <div class="fact-row mono reveal" style="--d:.22s">
@@ -510,6 +510,10 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
         contract frozen in advance; no conforming dataset has been collected, so it is untested —
         and says so. The next artifact is a conforming observation set, or a documented failure
         to obtain one. <a class="u" href="/now/">What is moving right now →</a></p>
+      <div class="chips" style="margin-top:1.1rem">
+        <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/0b9450251b6988fa23d8e6e4fb556a08b05e652e/docs/research/E2_MEASUREMENT_CONTRACT.md">The frozen contract ↗</a>
+        <a class="chip chip-internal" href="/ledger/#CC-005">Claim CC-005 →</a>
+      </div>
     </div>
   </div>
 
@@ -595,7 +599,7 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
         <span><span class="dot"></span> solid cyan dot — opens public evidence</span>
         <span><span class="dot dot-hollow"></span> hollow dot — attested, on my responsibility</span>
         <span><span class="dot dot-gold"></span> gold square — internal record</span>
-        <span style="color:var(--muted)">Markers cover technical project claims; biography is owner-attested unless linked. Amber marks review due; red marks contradiction or expiry — neither appears decoratively.</span>
+        <span style="color:var(--muted)">Markers cover technical project claims; biography is owner-attested unless linked. Amber marks review due or a named assumption at work; red marks contradiction or expiry — neither appears decoratively.</span>
       </div>
     </div>
     <div class="foot-links mono">

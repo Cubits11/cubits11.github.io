@@ -303,7 +303,7 @@ def render_module(m: dict, claims_by_id: dict) -> str:
         planned_stamps = ('\n  <div class="stamp-row">'
                           '<span class="stamp stamp-untested">Status — planned</span>'
                           '<span class="stamp stamp-untested">Public evidence — none yet</span>'
-                          '<span class="stamp">Question — frozen</span>'
+                          '<span class="stamp">Question — stated</span>'
                           '<span class="stamp stamp-untested">Result — not yet populated</span>'
                           '</div>')
 

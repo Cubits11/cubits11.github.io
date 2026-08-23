@@ -6,7 +6,12 @@ Checks, in order:
      may never appear as an evidential status: it is provenance.
   2. Binding consistency — when a claim declares a commit, the support URL
      must embed exactly that commit (a resolving URL is not a binding;
-     a matching one is).
+     a matching one is), AND every bound commit must be reachable from its
+     repository's default branch. GitHub serves dangling objects for
+     years, so a resolving raw URL proves nothing about reachability —
+     CC-001 was once bound to a commit stranded by an upstream history
+     rewrite, and content-hash triggers were structurally blind to it.
+     One filtered bare clone per bound repository; merge-base decides.
   3. Freshness — each claim carries its own review window; a claim past it
      fails the run. The weekly scheduled run turns this into a standing gate.
      last_owner_review may never lag the newest per-claim review.
@@ -31,7 +36,9 @@ import datetime as dt
 import hashlib
 import pathlib
 import re
+import subprocess
 import sys
+import tempfile
 import urllib.request
 
 import yaml
@@ -135,6 +142,32 @@ def check_trigger(cid: str, trig: dict) -> None:
         fail(f"{cid}: unknown executable trigger type {ttype!r}")
 
 
+def check_reachability(bindings: dict[str, list[tuple[str, str]]]) -> None:
+    """Every bound commit must be an ancestor of its repo's default branch."""
+    for repo, entries in sorted(bindings.items()):
+        with tempfile.TemporaryDirectory() as tmp:
+            clone = str(pathlib.Path(tmp) / "probe")
+            try:
+                subprocess.run(
+                    ["git", "clone", "--quiet", "--bare", "--filter=tree:0",
+                     f"https://github.com/{repo}.git", clone],
+                    check=True, capture_output=True, timeout=120)
+            except Exception as exc:  # noqa: BLE001
+                fail(f"reachability probe clone failed for {repo} ({exc})")
+                continue
+            for cid, commit in entries:
+                result = subprocess.run(
+                    ["git", "-C", clone, "merge-base", "--is-ancestor",
+                     commit, "HEAD"], capture_output=True)
+                if result.returncode == 0:
+                    ok(f"{cid}: bound commit {commit[:8]} reachable from "
+                       f"{repo}'s default branch")
+                else:
+                    fail(f"{cid}: bound commit {commit[:8]} is NOT reachable "
+                         f"from {repo}'s default branch — a dangling binding "
+                         f"survives only as long as GitHub retains the object")
+
+
 def check_url_liveness(cid: str, url: str) -> None:
     try:
         fetch(url)
@@ -154,6 +187,17 @@ def main() -> int:
     today = dt.date.today()
     ledger_html = (ROOT / "ledger" / "index.html").read_text()
     index_html = (ROOT / "index.html").read_text()
+
+    bindings: dict[str, list[tuple[str, str]]] = {}
+    for claim in claims:
+        support = claim.get("support") or {}
+        url, commit = support.get("url"), support.get("commit")
+        if url and commit:
+            match = re.match(r"https://github\.com/([^/]+/[^/]+)/", str(url))
+            if match:
+                bindings.setdefault(match.group(1), []).append(
+                    (claim.get("id", "<missing id>"), str(commit)))
+    check_reachability(bindings)
 
     owner_review = str(registry.get("last_owner_review", ""))
     newest_claim_review = max(str(c.get("last_reviewed", "")) for c in claims)

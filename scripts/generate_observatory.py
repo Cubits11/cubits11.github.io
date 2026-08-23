@@ -64,8 +64,9 @@ def render_capsule(c: dict) -> str:
         for t in c.get("review_triggers", []))
     nc_n = len(c.get("non_claims", []))
     prop = re.sub(r"\s+", " ", str(c["proposition"]).strip())
+    attested = "" if url else " capsule-attested"
     return f'''
-  <article class="capsule" data-reviewed="{esc(c["last_reviewed"])}" data-window="{esc(c["review_window_days"])}">
+  <article class="capsule{attested}" data-reviewed="{esc(c["last_reviewed"])}" data-window="{esc(c["review_window_days"])}">
     <div class="cap-head">
       <h2 class="mono cap-id">{esc(c["id"])}</h2>
       <span class="mono {status_pill_class(d["evidential_status"])}">{esc(label(d["evidential_status"]))}</span>
@@ -74,7 +75,7 @@ def render_capsule(c: dict) -> str:
     <p class="cap-prop">{esc(prop)}</p>
     <div class="cap-slabs">{slab}</div>
     <div class="cap-meta mono">
-      <span>{esc(label(d["provenance"]))}</span>
+      <span>{esc(label(d["provenance"]))} · {esc(label(d["maturity"]))}</span>
       <span>reviewed {esc(c["last_reviewed"])} · window {esc(c["review_window_days"])}d<span class="clock-days"></span></span>
       <span class="cap-tags">{trig_tags}</span>
     </div>
@@ -150,6 +151,7 @@ h1{{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0
 .intro{{color:var(--muted);max-width:48em}}
 .field{{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:1.1rem;margin-top:2.2rem}}
 .capsule{{border:1px solid var(--line-strong);border-left:2px solid var(--evidence);background:var(--surface);padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.75rem}}
+.capsule-attested{{border-left-style:dashed;border-left-color:var(--line-strong)}}
 .cap-head{{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}}
 .cap-id{{color:var(--gold);font-size:.68rem;font-weight:400;margin:0;letter-spacing:.09em;margin-right:auto}}
 .cap-prop{{font-family:var(--serif);font-size:.98rem;line-height:1.5;margin:0;color:var(--ink)}}
@@ -213,11 +215,12 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
   <div class="container">
     <h1>Claim observatory</h1>
     <p class="intro">Every claim in this record, as a capsule: its proposition, its evidence
-      binding, its decay clock, and the boundary it will not cross. Cyan marks a public
-      evidence binding; a dashed chip is owner-attested and says so; the clock turns amber
-      when a review window is three-quarters spent and red when it lapses. There is no
-      aggregate score here and never will be — a quiet trigger is quiet, not "healthy",
-      and twelve envelopes do not average into one number.</p>
+      binding, its decay clock, and the boundary it will not cross. A solid cyan rail marks a
+      public evidence binding; capsules without one carry a dashed neutral rail and an
+      attested chip that says so; the clock turns amber when a review window is
+      three-quarters spent and red when it lapses. There is no aggregate score here and
+      never will be — a quiet trigger is quiet, not "healthy", and these envelopes do not
+      average into one number.</p>
   </div>
 </header>
 <main class="container" id="main">

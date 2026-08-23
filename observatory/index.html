@@ -30,6 +30,7 @@ h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 
 .intro{color:var(--muted);max-width:48em}
 .field{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:1.1rem;margin-top:2.2rem}
 .capsule{border:1px solid var(--line-strong);border-left:2px solid var(--evidence);background:var(--surface);padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.75rem}
+.capsule-attested{border-left-style:dashed;border-left-color:var(--line-strong)}
 .cap-head{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
 .cap-id{color:var(--gold);font-size:.68rem;font-weight:400;margin:0;letter-spacing:.09em;margin-right:auto}
 .cap-prop{font-family:var(--serif);font-size:.98rem;line-height:1.5;margin:0;color:var(--ink)}
@@ -86,18 +87,19 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
 <div class="class-bar mono">
   <div class="container">
     <span><b>Observatory</b> — the registry as one field · generated from claims.yaml</span>
-    <span>Schema v0.3 · 12 claims · 9 supported within scope · 3 publicly untested</span>
+    <span>Schema v0.3 · 13 claims · 10 supported within scope · 3 publicly untested</span>
   </div>
 </div>
 <header class="page">
   <div class="container">
     <h1>Claim observatory</h1>
     <p class="intro">Every claim in this record, as a capsule: its proposition, its evidence
-      binding, its decay clock, and the boundary it will not cross. Cyan marks a public
-      evidence binding; a dashed chip is owner-attested and says so; the clock turns amber
-      when a review window is three-quarters spent and red when it lapses. There is no
-      aggregate score here and never will be — a quiet trigger is quiet, not "healthy",
-      and twelve envelopes do not average into one number.</p>
+      binding, its decay clock, and the boundary it will not cross. A solid cyan rail marks a
+      public evidence binding; capsules without one carry a dashed neutral rail and an
+      attested chip that says so; the clock turns amber when a review window is
+      three-quarters spent and red when it lapses. There is no aggregate score here and
+      never will be — a quiet trigger is quiet, not "healthy", and these envelopes do not
+      average into one number.</p>
   </div>
 </header>
 <main class="container" id="main">
@@ -111,7 +113,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">cc.kernel.strict.frechet_bounds computes Fréchet–Hoeffding endpoint bounds for composed binary guardrail failure from declared marginals; for marginals (0.10, 0.10) it returns [0.0, 0.10] for the AND event and [0.10, 0.20] for OR.</p>
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6">cc-framework @ 167aa1ee ↗</a></div>
     <div class="cap-meta mono">
-      <span>Machine-generated, owner-executed</span>
+      <span>Machine-generated, owner-executed · Released</span>
       <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
@@ -129,7 +131,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">CC-Framework maintains a claim-boundary manifest mapping its public claims to validation lanes, supporting files, and explicit non-claims.</p>
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md">cc-framework @ 3e22c39d ↗</a></div>
     <div class="cap-meta mono">
-      <span>Owner-authored, public</span>
+      <span>Owner-authored, public · Released</span>
       <span>reviewed 2026-08-20 · window 120d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span></span>
     </div>
@@ -147,7 +149,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">CC-Framework&#x27;s E1 dependence-evidence study established constructively that distributions with identical singleton failure rates (0.5) and identical pairwise overlaps (0.25) can differ in three-way failure probability — 0 under even parity, 0.25 under odd parity — so measuring every pair does not identify a three-guardrail stack. E1 is synthetic; its recorded decision is Narrow.</p>
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/ee61a710243c74ec49d5896167d0913327e6b5d3/docs/research/E1_DEPENDENCE_EVIDENCE_STUDY.md">cc-framework @ ee61a710 ↗</a></div>
     <div class="cap-meta mono">
-      <span>Owner-authored, public</span>
+      <span>Owner-authored, public · Released</span>
       <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
@@ -165,13 +167,31 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">For marginals (0.10, 0.10) and the both-fail query, cc.kernel.strict identify() returns the sharp interval [0.0, 0.10] together with endpoint witness distributions that sum to one, are nonnegative, satisfy both marginal constraints, and attain each endpoint — verified to 1e-9 from a clean clone.</p>
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6">cc-framework @ 167aa1ee ↗</a></div>
     <div class="cap-meta mono">
-      <span>Machine-generated, owner-executed</span>
+      <span>Machine-generated, owner-executed · Released</span>
       <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#CC-004">open the envelope →</a>
       <a class="u" href="#wall-CC-004">2 non-claims</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+    <div class="cap-head">
+      <h2 class="mono cap-id">CC-005</h2>
+      <span class="mono status">Supported within scope</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">CC-Framework&#x27;s E2 — the shared-item empirical guardrail pilot — is governed by a measurement contract frozen before any dataset was inspected; no conforming dataset has been collected, so E2 is untested, and the contract&#x27;s conformance checks are executable.</p>
+    <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/0b9450251b6988fa23d8e6e4fb556a08b05e652e/docs/research/E2_MEASUREMENT_CONTRACT.md">cc-framework @ 0b945025 ↗</a></div>
+    <div class="cap-meta mono">
+      <span>Owner-authored, public · Released</span>
+      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#CC-005">open the envelope →</a>
+      <a class="u" href="#wall-CC-005">3 non-claims</a>
     </div>
   </article>
   <article class="capsule" data-reviewed="2026-08-23" data-window="120">
@@ -183,7 +203,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">Ghost-Ark is a verifier and measurement harness for the provenance limits of AI-governance receipts — a research artifact of the S2 Lab, Penn State — whose stated thesis is that receipt soundness is a ternary relation Sound(C, Σ, P): a receipt identifies an execution only up to the kernel of its whole parse → canonicalize → digest pipeline, so soundness does not persist by default as the pathology alphabet grows or the consumer set widens.</p>
     <div class="cap-slabs"><a class="chip" href="https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md">ghost-ark @ 98c90d82 ↗</a></div>
     <div class="cap-meta mono">
-      <span>Lab repository, public</span>
+      <span>Lab repository, public · In development</span>
       <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span></span>
     </div>
@@ -192,7 +212,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
       <a class="u" href="#wall-GA-001">3 non-claims</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-20" data-window="120">
+  <article class="capsule capsule-attested" data-reviewed="2026-08-20" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">AS-001</h2>
       <span class="mono status-dim">Publicly untested</span>
@@ -201,7 +221,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">Assay is an early-stage experiment in enclave-attested media processing on AWS Nitro Enclaves, investigating which provenance claims a verifier can and cannot derive from attestation.</p>
     <div class="cap-slabs"><span class="chip chip-attested">attested — no public artifact<span class="sr-only"> — stated on the owner's responsibility</span></span></div>
     <div class="cap-meta mono">
-      <span>Owner-attested</span>
+      <span>Owner-attested · Experimental</span>
       <span>reviewed 2026-08-20 · window 120d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-manual">manual</span></span>
     </div>
@@ -210,7 +230,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
       <a class="u" href="#wall-AS-001">2 non-claims</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-20" data-window="120">
+  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">GV-001</h2>
       <span class="mono status">Supported within scope</span>
@@ -219,8 +239,8 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">Ghost Visualizer is a seven-scene React/Vite visual essay (&quot;Why AI Safety Scores Lie&quot;) that computes marginals, OR composition, Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from deterministic sample rows, with an Evidence Mode for inspection.</p>
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7">ghost-visualizer @ 3fbe3efc ↗</a></div>
     <div class="cap-meta mono">
-      <span>Owner-authored, public</span>
-      <span>reviewed 2026-08-20 · window 120d<span class="clock-days"></span></span>
+      <span>Owner-authored, public · In development</span>
+      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
@@ -237,7 +257,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">GCE — the Guardrail Composability Explorer — is a coursework MVP demo (AI-285) for toggling guardrails and observing composed behavior. Its front-door composability-coefficient framing is superseded by CC-Framework&#x27;s dependence-aware partial identification, whose metric taxonomy classifies the older coefficient family as legacy/deprecated. GCE is preserved as intellectual lineage, not current theory.</p>
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/75e90c2f1f84fa89562ed4fe46f137e0be236476/docs/theory/metric_taxonomy.md">cc-framework @ 75e90c2f ↗</a></div>
     <div class="cap-meta mono">
-      <span>Owner-authored, public</span>
+      <span>Owner-authored, public · Superseded</span>
       <span>reviewed 2026-08-23 · window 365d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
@@ -246,7 +266,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
       <a class="u" href="#wall-GCE-001">2 non-claims</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-20" data-window="365">
+  <article class="capsule capsule-attested" data-reviewed="2026-08-20" data-window="365">
     <div class="cap-head">
       <h2 class="mono cap-id">BIO-001</h2>
       <span class="mono status-dim">Publicly untested</span>
@@ -255,7 +275,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">B.S. Computer Science, Pennsylvania State University, May 2026, with a minor in Cybersecurity; research supervised by Dr. Peng Liu (IST 496, Aug–Dec 2025).</p>
     <div class="cap-slabs"><span class="chip chip-attested">attested — no public artifact<span class="sr-only"> — stated on the owner's responsibility</span></span></div>
     <div class="cap-meta mono">
-      <span>Owner-attested</span>
+      <span>Owner-attested · Stable</span>
       <span>reviewed 2026-08-20 · window 365d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-manual">manual</span></span>
     </div>
@@ -264,7 +284,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
       <a class="u" href="#wall-BIO-001">1 non-claim</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-20" data-window="180">
+  <article class="capsule capsule-attested" data-reviewed="2026-08-20" data-window="180">
     <div class="cap-head">
       <h2 class="mono cap-id">CRED-001</h2>
       <span class="mono status-dim">Publicly untested</span>
@@ -273,7 +293,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">Holds AWS Certified Cloud Practitioner and AWS Certified AI Practitioner; SAA-C03 and Security — Specialty are in progress.</p>
     <div class="cap-slabs"><span class="chip chip-attested">attested — no public artifact<span class="sr-only"> — stated on the owner's responsibility</span></span></div>
     <div class="cap-meta mono">
-      <span>Owner-attested</span>
+      <span>Owner-attested · Stable</span>
       <span>reviewed 2026-08-20 · window 180d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-manual">manual</span></span>
     </div>
@@ -291,7 +311,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">This site&#x27;s palette token pairs were computed to pass WCAG AA contrast (most AAA), and manual QA passes covered light/dark themes, desktop and mobile layouts, keyboard focus, reduced motion, and no-JS rendering, as recorded in DESIGN.md.</p>
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md">bound document ↗</a></div>
     <div class="cap-meta mono">
-      <span>Owner-verified</span>
+      <span>Owner-verified · Released</span>
       <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
@@ -309,7 +329,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="cap-prop">This site&#x27;s claim registry is enforced in CI: verify_claims.py validates schema and bindings, executes the executable review triggers against live evidence, and fails the build when any claim passes its freshness window — on every push and weekly.</p>
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py">bound document ↗</a></div>
     <div class="cap-meta mono">
-      <span>Owner-verified</span>
+      <span>Owner-verified · Released</span>
       <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
@@ -325,7 +345,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="zone-intro">The outer boundary of the record: everything these claims refuse to
       support, collected in one place. A claim without a stated non-claim is a claim that has
       not found its edge yet.</p>
-    <div class="wall"><div class="wall-row" id="wall-CC-001"><span class="mono wall-id">CC-001</span><ul><li>does not certify any stacked system as safe</li><li>does not recover or estimate the unknown dependence</li><li>does not select a point inside the returned interval</li></ul></div><div class="wall-row" id="wall-CC-002"><span class="mono wall-id">CC-002</span><ul><li>the manifest&#x27;s existence does not validate the claims it scopes</li></ul></div><div class="wall-row" id="wall-CC-003"><span class="mono wall-id">CC-003</span><ul><li>the parity construction demonstrates possibility, not frequency, in real guardrail stacks — no claim of empirical prevalence</li><li>nothing here validates the framework&#x27;s practical or deployed value; &quot;we validated CC&quot; is prohibited at every rung of the repository&#x27;s evidence ladder</li><li>the product-baseline failure directions observed in E1 are properties of the tested generators, not universal constants</li></ul></div><div class="wall-row" id="wall-CC-004"><span class="mono wall-id">CC-004</span><ul><li>endpoint witnesses are feasible mathematical worlds, not observed systems</li><li>attainment does not select a point inside the interval or estimate the true dependence</li></ul></div><div class="wall-row" id="wall-GA-001"><span class="mono wall-id">GA-001</span><ul><li>a verifying receipt does not establish that the governed action was safe, authorized, or semantically correct</li><li>kernel collisions in real canonicalizers are demonstrated as possible, not as prevalent — the repository&#x27;s E12 sample found 0 of 64 real payloads carrying any pathology class</li><li>not hardened for deployment; not post-quantum secure</li></ul></div><div class="wall-row" id="wall-AS-001"><span class="mono wall-id">AS-001</span><ul><li>no public evidence is offered; nothing about completeness, security, or provenance-chain origin is established</li><li>attestation cannot establish a file&#x27;s history prior to the first attested operation</li></ul></div><div class="wall-row" id="wall-GV-001"><span class="mono wall-id">GV-001</span><ul><li>not an AI-safety certificate; no deployment-readiness claim</li><li>its own public-readiness review scores it for private serious-contact demo use; the site therefore links source rather than exhibiting its media as a flagship</li></ul></div><div class="wall-row" id="wall-GCE-001"><span class="mono wall-id">GCE-001</span><ul><li>supersession is a statement about theoretical framing, not about the correctness of GCE&#x27;s code or its value as coursework</li><li>no current-research claim is made by or for GCE</li></ul></div><div class="wall-row" id="wall-BIO-001"><span class="mono wall-id">BIO-001</span><ul><li>no public registry link is provided; the site does not present this as third-party verified</li></ul></div><div class="wall-row" id="wall-CRED-001"><span class="mono wall-id">CRED-001</span><ul><li>&quot;in progress&quot; asserts intent and preparation, not partial credential</li></ul></div><div class="wall-row" id="wall-SITE-001"><span class="mono wall-id">SITE-001</span><ul><li>no field CLS/LCP/CrUX measurements are claimed</li><li>&quot;zero third-party runtime requests&quot; describes page code, not hosting infrastructure (GitHub Pages, DNS, TLS remain dependencies)</li></ul></div><div class="wall-row" id="wall-SITE-002"><span class="mono wall-id">SITE-002</span><ul><li>a green run verifies registry consistency and quiet triggers, never the truth of any claim&#x27;s content</li><li>triggers watch file content; semantic drift outside watched files remains a manual review event, and the ledger says so</li></ul></div>
+    <div class="wall"><div class="wall-row" id="wall-CC-001"><span class="mono wall-id">CC-001</span><ul><li>does not certify any stacked system as safe</li><li>does not recover or estimate the unknown dependence</li><li>does not select a point inside the returned interval</li></ul></div><div class="wall-row" id="wall-CC-002"><span class="mono wall-id">CC-002</span><ul><li>the manifest&#x27;s existence does not validate the claims it scopes</li></ul></div><div class="wall-row" id="wall-CC-003"><span class="mono wall-id">CC-003</span><ul><li>the parity construction demonstrates possibility, not frequency, in real guardrail stacks — no claim of empirical prevalence</li><li>nothing here validates the framework&#x27;s practical or deployed value; &quot;we validated CC&quot; is prohibited at every rung of the repository&#x27;s evidence ladder</li><li>the product-baseline failure directions observed in E1 are properties of the tested generators, not universal constants</li></ul></div><div class="wall-row" id="wall-CC-004"><span class="mono wall-id">CC-004</span><ul><li>endpoint witnesses are feasible mathematical worlds, not observed systems</li><li>attainment does not select a point inside the interval or estimate the true dependence</li></ul></div><div class="wall-row" id="wall-CC-005"><span class="mono wall-id">CC-005</span><ul><li>freezing a contract establishes discipline, not results; E2 remains untested until conforming observations exist</li><li>conformance is not a clean bill of health, and the contract says so</li><li>&quot;we validated CC&quot; is prohibited at every rung of the evidence ladder</li></ul></div><div class="wall-row" id="wall-GA-001"><span class="mono wall-id">GA-001</span><ul><li>a verifying receipt does not establish that the governed action was safe, authorized, or semantically correct</li><li>kernel collisions in real canonicalizers are demonstrated as possible, not as prevalent — the repository&#x27;s E12 sample found 0 of 64 real payloads carrying any pathology class</li><li>not hardened for deployment; not post-quantum secure</li></ul></div><div class="wall-row" id="wall-AS-001"><span class="mono wall-id">AS-001</span><ul><li>no public evidence is offered; nothing about completeness, security, or provenance-chain origin is established</li><li>attestation cannot establish a file&#x27;s history prior to the first attested operation</li></ul></div><div class="wall-row" id="wall-GV-001"><span class="mono wall-id">GV-001</span><ul><li>not an AI-safety certificate; no deployment-readiness claim</li><li>its own public-readiness review scores it for private serious-contact demo use; the site therefore links source rather than exhibiting its media as a flagship</li></ul></div><div class="wall-row" id="wall-GCE-001"><span class="mono wall-id">GCE-001</span><ul><li>supersession is a statement about theoretical framing, not about the correctness of GCE&#x27;s code or its value as coursework</li><li>no current-research claim is made by or for GCE</li></ul></div><div class="wall-row" id="wall-BIO-001"><span class="mono wall-id">BIO-001</span><ul><li>no public registry link is provided; the site does not present this as third-party verified</li></ul></div><div class="wall-row" id="wall-CRED-001"><span class="mono wall-id">CRED-001</span><ul><li>&quot;in progress&quot; asserts intent and preparation, not partial credential</li></ul></div><div class="wall-row" id="wall-SITE-001"><span class="mono wall-id">SITE-001</span><ul><li>no field CLS/LCP/CrUX measurements are claimed</li><li>&quot;zero third-party runtime requests&quot; describes page code, not hosting infrastructure (GitHub Pages, DNS, TLS remain dependencies)</li></ul></div><div class="wall-row" id="wall-SITE-002"><span class="mono wall-id">SITE-002</span><ul><li>a green run verifies registry consistency and quiet triggers, never the truth of any claim&#x27;s content</li><li>triggers watch file content; semantic drift outside watched files remains a manual review event, and the ledger says so</li></ul></div>
     </div>
   </section>
 
@@ -346,7 +366,7 @@ python scripts/reproduce_cc001.py          # clean-clone kernel reproduction + w
     <p class="zone-intro">Last owner review: <span class="mono">2026-08-23</span>. These review
       events cannot be executed by CI, and the record says so instead of borrowing the
       executable triggers' credibility:</p>
-    <ul class="manual-list"><li><span class="mono">CC-001</span> — kernel semantics change outside the bound module file</li><li><span class="mono">CC-003</span> — E2 produces empirical results — the synthetic scoping here must be restated</li><li><span class="mono">CC-004</span> — witness API change outside the bound module file</li><li><span class="mono">AS-001</span> — public artifact released</li><li><span class="mono">GV-001</span> — hosted deployment added — the site may then link a live demo</li><li><span class="mono">GCE-001</span> — GCE repository resumed or reframed</li><li><span class="mono">BIO-001</span> — annual review</li><li><span class="mono">CRED-001</span> — certification expiry or a new certification earned</li><li><span class="mono">SITE-001</span> — site redesign</li><li><span class="mono">SITE-002</span> — workflow triggers or cadence change</li>
+    <ul class="manual-list"><li><span class="mono">CC-001</span> — kernel semantics change outside the bound module file</li><li><span class="mono">CC-003</span> — E2 produces empirical results — the synthetic scoping here must be restated</li><li><span class="mono">CC-004</span> — witness API change outside the bound module file</li><li><span class="mono">CC-005</span> — a conforming dataset is collected — E2&#x27;s status must be restated</li><li><span class="mono">AS-001</span> — public artifact released</li><li><span class="mono">GV-001</span> — hosted deployment added — the site may then link a live demo</li><li><span class="mono">GCE-001</span> — GCE repository resumed or reframed</li><li><span class="mono">BIO-001</span> — annual review</li><li><span class="mono">CRED-001</span> — certification expiry or a new certification earned</li><li><span class="mono">SITE-001</span> — site redesign</li><li><span class="mono">SITE-002</span> — workflow triggers or cadence change</li>
     </ul>
     <p class="zone-intro" style="margin-top:1.2rem">Related instrument, its own contract intact:
       <a class="u" href="https://github.com/Cubits11/cc-framework/tree/main/evidence-cards">CC-Framework's

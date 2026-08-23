@@ -235,6 +235,42 @@ cc-framework (for the port branch): `make test-kernel` unaffected-but-run;
 targeted `pytest` for the new manifest test; `make docs` if `docs/**` changed;
 `build_evidence_cards.py --check` if any manifest-referenced file changed.
 
+## Adversarial review outcome (Phase 16, 2026-08-23)
+
+An independent hostile reviewer was charged with proving the redesign
+creates an impression stronger than its evidence. Verdict: the numeric
+core survived intact — every recomputed value (all eleven frame
+geometries, E1's parity numbers, twelve WCAG ratios, byte budgets, poster
+text vs manifest, ghost-ark quotes at the bound commit) verified exactly.
+Twelve findings were reported; **all twelve were accepted and fixed**, no
+disagreements retained:
+
+- **P0** — module 005's Result slot inflated the machinery's track record
+  (five→three re-reviews; "already fired" with no public firing; the
+  stranded binding credited to triggers that were structurally blind to
+  it). Rewritten to the exact record.
+- **P1×3** — the ref-reachability rule was stated but unenforced (now
+  enforced: `verify_claims.py` clones each bound repo bare/filtered and
+  requires every bound commit to be an ancestor of the default branch);
+  the observatory painted its cyan evidence rail on attested capsules
+  (attested capsules now carry a dashed neutral rail, and maturity renders
+  on every capsule); the masthead over-promised coverage ("every technical
+  claim" → "every marked claim") and the E2 preregistration facts were the
+  most rhetorically valuable unbound claims on the page (now registered as
+  CC-005, chipped from the question strip and /now/).
+- **P2×4 / P3×4** — "Audited twice" → "Self-audited twice"; the amber
+  legend broadened to its real law and non-conforming amber uses recolored;
+  ghost-ark's F3 restored to its actual subject (consumer-set stability)
+  with the incidence gap attributed to the thesis; GV-001's edit got its
+  review-date bump; README's JS figure updated; "expires" → "comes due";
+  the planned module's "frozen" stamp downgraded to "stated"; capsules now
+  show maturity (GCE reads "Superseded" at scan level).
+
+The review's could-not-break list (16 attack lines, each checked rather
+than skipped) is retained verbatim in the session's review artifact and
+summarized here as the strongest available evidence that the remaining
+surface holds.
+
 ## Unresolved, carried forward
 
 - Which ref historically contained `21f5ff68` and GitHub's retention horizon —
