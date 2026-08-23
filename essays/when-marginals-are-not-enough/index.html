@@ -122,8 +122,11 @@ FrechetBoundResult(lower=0.1, upper=0.2, event='or', marginals=array([0.1, 0.1])
 &gt;&gt;&gt; 0.10 * 0.10          <span class="c"># the independence assumption, for comparison</span>
 0.010000000000000002</pre>
 
-  <figure aria-label="Number line from 0 to 20 percent showing the AND-event bound from 0 to 10 percent with the independence estimate at 1 percent, and the OR-event bound from 10 to 20 percent with the independence estimate at 19 percent">
-    <svg viewBox="0 0 640 210" role="img" style="width:100%;height:auto;display:block">
+  <figure>
+    <div class="fig-scroll">
+    <svg viewBox="0 0 640 210" role="img" aria-labelledby="nlt nld" style="width:100%;height:auto;display:block">
+      <title id="nlt">Number line of the two bounds and the independence estimates</title>
+      <desc id="nld">A number line from 0 to 20 percent. The AND-event bound spans 0 to 10 percent with the independence estimate marked at 1 percent; the OR-event bound spans 10 to 20 percent with the independence estimate at 19 percent. Both bands are the full sets of values consistent with the measured marginals.</desc>
       <style>
         .ax{stroke:var(--line-strong);stroke-width:1}
         .band{fill:var(--accent);opacity:.22}
@@ -157,6 +160,7 @@ FrechetBoundResult(lower=0.1, upper=0.2, event='or', marginals=array([0.1, 0.1])
       <circle class="pt" cx="572" cy="131" r="4"/>
       <text class="lbl" x="560" y="135" text-anchor="end">independence says 19%</text>
     </svg>
+    </div>
     <figcaption>Both bands are the full set of values consistent with the measured marginals.
       The dots are what the unstated independence assumption would report.</figcaption>
   </figure>

@@ -451,3 +451,33 @@ pinned to history-rewritten commits). Full reconnaissance and rationale:
   strips" residual is closed.
 - **Revisit if.** A route stays empty of evidence long enough to read as
   decoration; planned modules must say PLANNED on their face.
+
+## Verification log — 2026-08-23 (v0.4)
+
+What was actually verified this pass, and how:
+
+- **Gates (executed locally, all green):** `verify_claims.py` (12 claims —
+  shape, bindings, executable triggers against live evidence, freshness,
+  ledger coverage, homepage coherence); `generate_ledger.py --check`;
+  `generate_modules.py --check` (7 pages); `generate_observatory.py --check`;
+  `verify_figures.py` (Fig. 02's eleven frames + the essay number line, 1e-9);
+  `check_links.py` (284 internal references across 17 pages);
+  `reproduce_cc001.py` (clean GitHub clone at the bound commit — bounds and
+  witness feasibility/attainment reproduced).
+- **Browser pass (local server, Chromium):** desktop 1280×800 and a narrow
+  (~375 px) pane, structural; dark and light themes verified by computed
+  background and state tokens; fonts confirmed loaded via `document.fonts`;
+  no horizontal body overflow on index (measured, not eyeballed).
+- **Instrument:** slider drives the frames (q=0 → q=7 verified; exactly one
+  frame visible; output announces the world's name); no-JS default is the
+  lower-endpoint-witness frame by CSS.
+- **Observatory:** 12/12 decay clocks drawn with correct elapsed days
+  (0d for the 08-23 cohort, 3d for 08-20); no false review-due or expired
+  states.
+- **Module 004:** renders PLANNED stamps, the AS-001 envelope, and no
+  fabricated sections.
+- **Contrast:** computed ratios recorded under D10.
+- **Not verified this pass, and therefore not claimed:** a full keyboard-only
+  traversal of the new pages, a screen-reader pass over the new SVG
+  descriptions, and print styles for the new routes. These are open QA items,
+  listed here instead of being absorbed into "QA passed."

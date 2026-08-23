@@ -235,6 +235,7 @@ html:not(.js) .bounds-ctl{display:none}
       <strong>anywhere from 0% to 10%</strong> — multiplying the two rates quietly chose one
       world out of many, and never said so. Choose for yourself:</p>
 <figure class="bounds-fig reveal" style="--d:.1s" id="worlds">
+<div class="fig-scroll">
 <svg viewBox="0 0 900 268" role="img" aria-labelledby="bft bfd">
 <title id="bft">Two 10 percent failure rates permit anywhere from 0 to 10 percent joint failure</title>
 <desc id="bfd">A rectangle of area one represents the population. Two shaded strips each cover ten percent of it, one per guardrail. Their overlap is the probability both fail on the same input. The overlap can be set anywhere from zero to ten percent while neither individual rate ever changes. A vertical cyan scale marks the full supported interval from 0 to 10 percent, with a dashed amber mark at 1 percent — the single value that assuming independence selects. The zero-overlap and full-overlap positions are the lower and upper endpoint witnesses.</desc>
@@ -260,6 +261,7 @@ html:not(.js) .bounds-ctl{display:none}
 <g class="hf hf9"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="45.6" y="58" width="56.0" height="132" class="hsB"/><rect x="45.6" y="58" width="50.4" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.89, 0.01, 0.01, 0.09)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 9%   ·   P(at least one fails) = 11%   ·   one feasible world</text><circle cx="651" cy="71.2" r="5" class="hdot"/><text x="632" y="75.2" class="hink" text-anchor="end">9%</text></g>
 <g class="hf hf10"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="40.0" y="58" width="56.0" height="132" class="hsB"/><rect x="40.0" y="58" width="56.0" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.90, 0.00, 0.00, 0.10)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 10%   ·   P(at least one fails) = 10%   ·   the upper endpoint witness</text><circle cx="651" cy="58.0" r="5" class="hdot"/><text x="632" y="62.0" class="hink" text-anchor="end">10%</text></g>
 </svg>
+</div>
 <div class="bounds-ctl">
   <label class="mono" for="qslider">Drag the shared-miss overlap — both marginals stay pinned at 10%</label>
   <div class="bounds-ctl-row">
