@@ -100,14 +100,14 @@ footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;colo
 
   <h2>The bound, computed</h2>
   <p>The numbers below are not typeset from theory; they are the recorded output of running
-    CC-Framework's kernel on this example, on 2026-08-20, at commit
-    <a class="u" href="https://github.com/Cubits11/cc-framework/commit/21f5ff6809a0a16987a39afe56be1e50251ff727"><code>21f5ff68</code></a>:</p>
-<pre><span class="c"># python — cc-framework @ 21f5ff68, 2026-08-20</span>
+    CC-Framework's kernel on this example, on 2026-08-23, at commit
+    <a class="u" href="https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"><code>167aa1e</code></a>:</p>
+<pre><span class="c"># python — cc-framework @ 167aa1e, 2026-08-23 (interpreter echo, verbatim)</span>
 &gt;&gt;&gt; from cc.kernel.strict import frechet_bounds
 &gt;&gt;&gt; frechet_bounds([0.10, 0.10], event="and")
-lower=0.0   upper=0.1
+FrechetBoundResult(lower=0.0, upper=0.1, event='and', marginals=array([0.1, 0.1]), pairwise=(), lower_distribution=None, upper_distribution=None)
 &gt;&gt;&gt; frechet_bounds([0.10, 0.10], event="or")
-lower=0.1   upper=0.2
+FrechetBoundResult(lower=0.1, upper=0.2, event='or', marginals=array([0.1, 0.1]), pairwise=(), lower_distribution=None, upper_distribution=None)
 &gt;&gt;&gt; 0.10 * 0.10          <span class="c"># the independence assumption, for comparison</span>
 0.010000000000000002</pre>
 
@@ -156,8 +156,13 @@ lower=0.1   upper=0.2
     one being reported. And the upper endpoint is not a paranoid fiction: it is <em>witnessed</em>.
     There is a concrete dependence structure — the two guardrails sharing their blind spot — under
     which every attack that beats the first also beats the second, and the stack fails exactly
-    10% of the time. CC-Framework constructs these endpoint witnesses, which is what turns “the
-    bound is wide” from a complaint into a checkable object.</p>
+    10% of the time. CC-Framework constructs these endpoint witnesses: for this example the lower
+    witness separates the failures entirely — P(A&nbsp;only)&nbsp;=&nbsp;0.1,
+    P(B&nbsp;only)&nbsp;=&nbsp;0.1, P(both)&nbsp;=&nbsp;0 — and the upper witness stacks them —
+    P(both)&nbsp;=&nbsp;0.1. Both satisfy the measured marginals exactly; the reproduction that
+    checks feasibility and endpoint attainment to 1e-9 runs in CI as claim
+    <a class="u" href="/ledger/#CC-004"><code>CC-004</code></a>. That is what turns “the bound is
+    wide” from a complaint into a checkable object.</p>
 
   <h2>What the framework records</h2>
   <p>Around the arithmetic sits the part that makes this governance rather than trivia: the
@@ -188,13 +193,13 @@ lower=0.1   upper=0.2
     <h3>The claim envelope for this page</h3>
     <dl>
       <dt>Proposition</dt><dd>For marginals (0.10, 0.10), the kernel returns AND-bounds [0.0, 0.10] and OR-bounds [0.10, 0.20]; independence would report 0.01 (AND).</dd>
-      <dt>Scope</dt><dd>cc.kernel.strict at commit 21f5ff68, executed locally 2026-08-20.</dd>
+      <dt>Scope</dt><dd>cc.kernel.strict at commit 167aa1e, executed locally 2026-08-23.</dd>
       <dt>Support</dt><dd>Recorded interpreter output above; commit binding public.</dd>
       <dt>Challenge</dt><dd>Re-run the quickstart at the bound commit and obtain different values.</dd>
       <dt>Test design</dt><dd>Deterministic computation against the classical closed form: max(0, p₁+p₂−1) ≤ P ≤ min(p₁, p₂).</dd>
       <dt>Status</dt><dd>Supported within scope.</dd>
       <dt>Boundary</dt><dd>No safety certification; no dependence recovery; no point estimate.</dd>
-      <dt>Freshness</dt><dd>Reviewed 2026-08-20; expires on kernel change or when the default branch advances beyond the binding.</dd>
+      <dt>Freshness</dt><dd>Reviewed 2026-08-23; expires when the kernel module on the default branch diverges from the bound revision — the executable trigger on CC-001 watches exactly that.</dd>
     </dl>
   </div>
 

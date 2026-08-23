@@ -1,4 +1,4 @@
-# Claim registry — cubits11.github.io · schema v0.2
+# Claim registry — cubits11.github.io · schema v0.3
 #
 # The source of truth for every technical claim the site renders with an
 # evidence marker. /ledger/ is GENERATED from this file by
@@ -7,7 +7,7 @@
 # executable review triggers, and enforces the freshness window — on every
 # push and weekly.
 #
-# Schema v0.2 separates the dimensions v0.1 conflated:
+# Schema v0.2 separated the dimensions v0.1 conflated:
 #   visibility        public | private
 #   provenance        machine_generated_owner_executed | owner_authored |
 #                     lab_repository | owner_attested | owner_verified
@@ -18,14 +18,28 @@
 #   maturity          experimental | in_development | released | stable
 # "Attested" is a PROVENANCE value, never an evidential status. An
 # owner-attested claim with no public artifact is publicly untested — the
-# registry now says so explicitly.
+# registry says so explicitly.
+#
+# Schema v0.3 adds:
+#   maturity          + superseded — for archive-grade records of work whose
+#                     framing has been replaced; the claim then records the
+#                     succession, bound to the superseding document.
+#   expected          optional structured block of machine-readable expected
+#                     values that reproduction scripts READ instead of
+#                     hard-coding — so a proposition's numbers and the
+#                     executed assertion cannot silently diverge.
+#   Binding rule      support commits must be reachable from a protected ref
+#                     of their repository. (CC-001 was previously bound to a
+#                     commit stranded by an upstream history rewrite; it
+#                     survived only as a dangling GitHub object. Re-bound
+#                     2026-08-23 with file content verified byte-identical.)
 #
 # review_triggers carry an enforcement tag:
 #   executable — CI detects the event and fails the run when it fires
 #   manual     — declared honestly as human-checked; CI cannot detect it
 
-version: "0.2"
-last_owner_review: "2026-08-20"
+version: "0.3"
+last_owner_review: "2026-08-23"
 
 claims:
   - id: CC-001
@@ -36,8 +50,9 @@ claims:
       and [0.10, 0.20] for OR.
     scope: >
       The kernel module at the bound commit. Reproduced from a clean clone
-      (venv, pip install, execute, assert) on 2026-08-20, and re-reproduced
-      by CI on every push and weekly. No claim about any deployed system.
+      (venv, pip install, execute, assert) most recently on 2026-08-23, and
+      re-reproduced by CI on every push and weekly. No claim about any
+      deployed system.
     dimensions:
       visibility: public
       provenance: machine_generated_owner_executed
@@ -45,19 +60,28 @@ claims:
       evidential_status: supported_within_scope
       maturity: released
     support:
-      url: "https://github.com/Cubits11/cc-framework/commit/21f5ff6809a0a16987a39afe56be1e50251ff727"
-      commit: "21f5ff6809a0a16987a39afe56be1e50251ff727"
+      url: "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
+      commit: "167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
       note: >
         Output recorded verbatim in /essays/when-marginals-are-not-enough/;
         continuously reproduced by scripts/reproduce_cc001.py in CI.
-    last_reviewed: "2026-08-20"
+        Re-bound 2026-08-23 from a commit stranded by an upstream history
+        rewrite to a main-reachable commit; kernel file content verified
+        byte-identical across both refs before re-binding.
+    expected:
+      marginals: [0.10, 0.10]
+      bounds:
+        "and": [0.0, 0.1]
+        "or": [0.1, 0.2]
+      tolerance: 1.0e-9
+    last_reviewed: "2026-08-23"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
         enforcement: executable
         repo: Cubits11/cc-framework
         path: src/cc/kernel/strict.py
-        bound_ref: "21f5ff6809a0a16987a39afe56be1e50251ff727"
+        bound_ref: "167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
         note: fires when the kernel module on the default branch diverges from the bound revision
       - type: manual
         enforcement: manual
@@ -94,12 +118,106 @@ claims:
     non_claims:
       - the manifest's existence does not validate the claims it scopes
 
+  - id: CC-003
+    proposition: >
+      CC-Framework's E1 dependence-evidence study established constructively
+      that distributions with identical singleton failure rates (0.5) and
+      identical pairwise overlaps (0.25) can differ in three-way failure
+      probability — 0 under even parity, 0.25 under odd parity — so
+      measuring every pair does not identify a three-guardrail stack. E1 is
+      synthetic; its recorded decision is Narrow.
+    scope: >
+      The frozen study document at the bound commit. Controlled synthetic
+      generators only; no real guardrail was measured.
+    dimensions:
+      visibility: public
+      provenance: owner_authored
+      support_role: document
+      evidential_status: supported_within_scope
+      maturity: released
+    support:
+      url: "https://github.com/Cubits11/cc-framework/blob/ee61a710243c74ec49d5896167d0913327e6b5d3/docs/research/E1_DEPENDENCE_EVIDENCE_STUDY.md"
+      commit: "ee61a710243c74ec49d5896167d0913327e6b5d3"
+      note: >
+        The study's decision record (verdict: Narrow, standing objections,
+        corrections to its own first draft) lives beside it in the same
+        repository directory.
+    last_reviewed: "2026-08-23"
+    review_window_days: 120
+    review_triggers:
+      - type: remote_content_change
+        enforcement: executable
+        repo: Cubits11/cc-framework
+        path: docs/research/E1_DEPENDENCE_EVIDENCE_STUDY.md
+        bound_ref: "ee61a710243c74ec49d5896167d0913327e6b5d3"
+        note: fires when the frozen study document on the default branch changes
+      - type: manual
+        enforcement: manual
+        event: E2 produces empirical results — the synthetic scoping here must be restated
+    non_claims:
+      - the parity construction demonstrates possibility, not frequency, in
+        real guardrail stacks — no claim of empirical prevalence
+      - nothing here validates the framework's practical or deployed value;
+        "we validated CC" is prohibited at every rung of the repository's
+        evidence ladder
+      - the product-baseline failure directions observed in E1 are properties
+        of the tested generators, not universal constants
+
+  - id: CC-004
+    proposition: >
+      For marginals (0.10, 0.10) and the both-fail query, cc.kernel.strict
+      identify() returns the sharp interval [0.0, 0.10] together with
+      endpoint witness distributions that sum to one, are nonnegative,
+      satisfy both marginal constraints, and attain each endpoint — verified
+      to 1e-9 from a clean clone.
+    scope: >
+      The kernel identification module at the bound commit, re-verified by
+      CI on every push and weekly in the witness stage of
+      scripts/reproduce_cc001.py. No claim about any deployed system.
+    dimensions:
+      visibility: public
+      provenance: machine_generated_owner_executed
+      support_role: executed_output
+      evidential_status: supported_within_scope
+      maturity: released
+    support:
+      url: "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
+      commit: "167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
+      note: >
+        Shares CC-001's bound commit so a single clean-clone checkout
+        reproduces both claims; the reproduction script enforces that the
+        two bindings stay equal.
+    expected:
+      marginals: [0.10, 0.10]
+      interval: [0.0, 0.1]
+      tolerance: 1.0e-9
+    last_reviewed: "2026-08-23"
+    review_window_days: 120
+    review_triggers:
+      - type: remote_content_change
+        enforcement: executable
+        repo: Cubits11/cc-framework
+        path: src/cc/kernel/sensitivity.py
+        bound_ref: "167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
+        note: fires when the identification module on the default branch diverges from the bound revision
+      - type: manual
+        enforcement: manual
+        event: witness API change outside the bound module file
+    non_claims:
+      - endpoint witnesses are feasible mathematical worlds, not observed
+        systems
+      - attainment does not select a point inside the interval or estimate
+        the true dependence
+
   - id: GA-001
     proposition: >
       Ghost-Ark is a verifier and measurement harness for the provenance
       limits of AI-governance receipts — a research artifact of the S2 Lab,
-      Penn State — whose stated thesis is that a receipt identifies an
-      execution only up to the kernel of its canonicalizer.
+      Penn State — whose stated thesis is that receipt soundness is a
+      ternary relation Sound(C, Σ, P): a receipt identifies an execution
+      only up to the kernel of its whole parse → canonicalize → digest
+      pipeline, so soundness does not persist by default as the pathology
+      alphabet grows or the consumer set widens.
     scope: "The repository README and thesis document at the bound commit."
     dimensions:
       visibility: public
@@ -110,8 +228,11 @@ claims:
     support:
       url: "https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md"
       commit: "98c90d8296580f08dd8b6e38fdd2abd7039ec651"
-      note: null
-    last_reviewed: "2026-08-20"
+      note: >
+        Re-worded 2026-08-23 to track the bound thesis precisely: soundness
+        as a ternary relation, and the kernel as a property of the whole
+        pipeline rather than of the canonicalizer alone.
+    last_reviewed: "2026-08-23"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
@@ -123,6 +244,9 @@ claims:
     non_claims:
       - a verifying receipt does not establish that the governed action was
         safe, authorized, or semantically correct
+      - kernel collisions in real canonicalizers are demonstrated as
+        possible, not as prevalent — the repository's E12 sample found 0 of
+        64 real payloads carrying any pathology class
       - not hardened for deployment; not post-quantum secure
 
   - id: AS-001
@@ -186,6 +310,51 @@ claims:
         event: hosted deployment added — the site may then link a live demo
     non_claims:
       - not an AI-safety certificate; no deployment-readiness claim
+      - its own public-readiness review scores it for private serious-contact
+        demo use; the site therefore links source rather than exhibiting its
+        media as a flagship
+
+  - id: GCE-001
+    proposition: >
+      GCE — the Guardrail Composability Explorer — is a coursework MVP demo
+      (AI-285) for toggling guardrails and observing composed behavior. Its
+      front-door composability-coefficient framing is superseded by
+      CC-Framework's dependence-aware partial identification, whose metric
+      taxonomy classifies the older coefficient family as legacy/deprecated.
+      GCE is preserved as intellectual lineage, not current theory.
+    scope: >
+      The supersession record. It is bound to the superseding taxonomy
+      document, not to GCE's repository; GCE itself is linked from /archive/
+      as a historical artifact.
+    dimensions:
+      visibility: public
+      provenance: owner_authored
+      support_role: document
+      evidential_status: supported_within_scope
+      maturity: superseded
+    support:
+      url: "https://github.com/Cubits11/cc-framework/blob/75e90c2f1f84fa89562ed4fe46f137e0be236476/docs/theory/metric_taxonomy.md"
+      commit: "75e90c2f1f84fa89562ed4fe46f137e0be236476"
+      note: >
+        The taxonomy's Deprecated Name Mapping records the coefficient
+        family (cc_max, cc_rel, delta_add, delta_mult) as "Deprecated;
+        legacy formula preserved until v0.4."
+    last_reviewed: "2026-08-23"
+    review_window_days: 365
+    review_triggers:
+      - type: remote_content_change
+        enforcement: executable
+        repo: Cubits11/cc-framework
+        path: docs/theory/metric_taxonomy.md
+        bound_ref: "75e90c2f1f84fa89562ed4fe46f137e0be236476"
+        note: fires if the taxonomy recording the supersession is rewritten
+      - type: manual
+        enforcement: manual
+        event: GCE repository resumed or reframed
+    non_claims:
+      - supersession is a statement about theoretical framing, not about the
+        correctness of GCE's code or its value as coursework
+      - no current-research claim is made by or for GCE
 
   - id: BIO-001
     proposition: >

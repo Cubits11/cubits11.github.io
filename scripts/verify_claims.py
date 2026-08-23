@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the claim registry (claims.yaml) — schema v0.2.
+"""Verify the claim registry (claims.yaml) — schema v0.3.
 
 Checks, in order:
   1. Shape — required fields, dimension enums, trigger typing. "attested"
@@ -9,6 +9,7 @@ Checks, in order:
      a matching one is).
   3. Freshness — each claim carries its own review window; a claim past it
      fails the run. The weekly scheduled run turns this into a standing gate.
+     last_owner_review may never lag the newest per-claim review.
   4. Executable review triggers —
        remote_content_change: fetch the bound file at its bound ref and at
          the default branch HEAD; if the content differs, the evidence has
@@ -19,6 +20,9 @@ Checks, in order:
   5. Support liveness — every public support URL resolves (< 400).
   6. Ledger coverage — every claim id appears in ledger/index.html
      (generation-drift itself is checked by generate_ledger.py --check).
+  7. Homepage coherence — index.html must state the registry's actual claim
+     count and last owner review; hand-written strips may not silently
+     strand when the registry grows.
 
 Exit code 0 = registry verified; 1 = at least one check failed.
 """
@@ -43,7 +47,8 @@ ENUMS = {
     "evidential_status": {"untested", "partially_supported",
                           "supported_within_scope", "inconclusive",
                           "contradicted"},
-    "maturity": {"experimental", "in_development", "released", "stable"},
+    "maturity": {"experimental", "in_development", "released", "stable",
+                 "superseded"},
 }
 REQUIRED = {"id", "proposition", "scope", "dimensions", "support",
             "last_reviewed", "review_window_days", "review_triggers",
@@ -148,6 +153,22 @@ def main() -> int:
 
     today = dt.date.today()
     ledger_html = (ROOT / "ledger" / "index.html").read_text()
+    index_html = (ROOT / "index.html").read_text()
+
+    owner_review = str(registry.get("last_owner_review", ""))
+    newest_claim_review = max(str(c.get("last_reviewed", "")) for c in claims)
+    if owner_review < newest_claim_review:
+        fail(f"last_owner_review {owner_review} lags newest claim review "
+             f"{newest_claim_review}")
+    else:
+        ok(f"last_owner_review {owner_review} covers all claim reviews")
+
+    for needle, what in ((f"{len(claims)} claims", "claim count"),
+                         (owner_review, "last owner review date")):
+        if needle in index_html:
+            ok(f"index.html states the registry's {what} ({needle})")
+        else:
+            fail(f"index.html does not state the registry's {what} ({needle!r})")
 
     for claim in claims:
         cid = claim.get("id", "<missing id>")
