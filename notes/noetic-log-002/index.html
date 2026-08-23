@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noetic Log 002 — Pranav Bhave</title>
+<meta name="description" content="The v0.4 observatory shipping record, rated without anesthesia — and a lookback contract due 2026-09-23 with its conclusions pre-registered, including the unflattering one.">
+<link rel="canonical" href="https://cubits11.github.io/notes/noetic-log-002/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Noetic Log 002 — The Observatory Ships, and Gets Graded">
+<meta property="og:description" content="Owner-rated across eight dimensions, adversarially informed, no anesthesia: instrument-grade scaffolding around a research program that has not yet produced its first empirical result. Lookback due 2026-09-23.">
+<meta property="og:url" content="https://cubits11.github.io/notes/noetic-log-002/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+body{font-size:1.04rem;line-height:1.72}
+.container{width:min(760px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.7rem}
+header.page{padding:7.9rem 0 2.6rem}
+.eyebrow{color:var(--gold);margin-bottom:1.1rem}
+h1{font-family:var(--serif);font-weight:520;font-size:clamp(2.3rem,6vw,3.7rem);line-height:1.05;margin:0 0 1.2rem;letter-spacing:-.018em}
+.standfirst{font-family:var(--serif);font-style:italic;font-size:1.22rem;color:var(--muted);line-height:1.5;max-width:36em}
+h2{font-family:var(--serif);font-weight:520;font-size:1.5rem;line-height:1.2;margin:2.6rem 0 .9rem;letter-spacing:-.01em}
+p{margin:0 0 1.1em}
+em{font-family:var(--serif);font-style:italic}
+.rating{border:1px solid var(--line-strong);background:var(--surface);margin:1.6rem 0;overflow-x:auto}
+.rating table{border-collapse:collapse;width:100%;min-width:560px;font-size:.92rem}
+.rating th{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);text-align:left;padding:.9rem 1.1rem .5rem;border-bottom:1px solid var(--line)}
+.rating td{padding:.65rem 1.1rem;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+.rating tr:last-child td{border-bottom:none}
+.rating td.dim{color:var(--ink);white-space:nowrap}
+.rating td.score{font-family:var(--mono);font-size:.8rem;color:var(--ink);white-space:nowrap}
+.verdict{border-left:2px solid var(--invalid);padding:1rem 1.2rem;background:color-mix(in srgb,var(--invalid) 6%,transparent);margin:1.8rem 0}
+.verdict .mono{color:var(--invalid);display:block;margin-bottom:.4rem}
+.verdict p{margin:0;font-size:1rem;color:var(--ink)}
+.contract{border:1px dashed var(--line-strong);background:var(--surface);padding:1.5rem;margin:2.2rem 0}
+.contract .mono{color:var(--review);display:block;margin-bottom:.8rem}
+ol{padding-left:1.2rem;color:var(--muted)}
+ol li{margin:.55rem 0}
+ul{padding-left:1.15rem;color:var(--muted)}
+li{margin:.3rem 0}
+.nonclaim{margin:1.8rem 0}
+footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/modules/">Modules</a>
+      <a href="/observatory/">Observatory</a>
+      <a href="/ledger/">Ledger</a>
+      <a href="/writing/">Writing</a>
+      <a href="/archive/">Archive</a>
+      <a href="/resume/">Résumé</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<header class="page">
+  <div class="container">
+    <p class="eyebrow mono">Noetic log 002 · shipping record + rating · 2026-08-23 · lookback due 2026-09-23</p>
+    <h1>The observatory ships, and gets graded</h1>
+    <p class="standfirst">Version 0.4 went live today. This entry records what shipped, rates it
+      without anesthesia, and signs a lookback contract: on 2026-09-23 this page's questions get
+      answered against evidence, and the most unflattering possible conclusion is pre-registered
+      below so it cannot be dodged later.</p>
+  </div>
+</header>
+
+<main class="container" id="main">
+
+  <h2>What shipped</h2>
+  <p>The record became an observatory: a thirteen-claim registry (schema v0.3) rendered three
+    ways (<a class="u" href="/ledger/">ledger</a>, <a class="u" href="/observatory/">capsule
+    field</a>, <a class="u" href="/modules/">six modules</a> under one grammar), an interactive
+    feasible-worlds instrument whose geometry is asserted in CI to 1e-9, clean-clone
+    reproduction of bounds and endpoint witnesses, and a new gate that clones every bound
+    repository to prove each pinned commit is reachable from its default branch — because one
+    binding was found stranded in rewritten history, and byte-watching triggers were
+    structurally blind to it. An independent hostile review filed twelve findings; all twelve
+    were fixed before shipping, one of them a factually false sentence in the module that
+    lectures about expiry. <a class="u" href="/notes/noetic-log-001/">Log 001</a> carries the
+    lineage of this failure class.</p>
+
+  <h2>The rating — owner-judged, adversarially informed, no anesthesia</h2>
+  <p>Scores are the owner's judgments after the hostile review, not measurements. Each row
+    names why the score is not higher, which is the only interesting column.</p>
+
+  <div class="rating">
+    <table>
+      <thead><tr><th>Dimension</th><th>Score</th><th>Why not higher</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">Mathematical faithfulness</td><td class="score">9.5 / 10</td>
+          <td>Every displayed number is machine-checked or commit-bound. Docked: the only
+            arithmetic on the site is a two-guardrail toy — flawless, and small.</td></tr>
+        <tr><td class="dim">Evidence realism</td><td class="score">9 / 10</td>
+          <td>Bindings, reproduction, reachability, freshness are all real and enforced.
+            Docked: the strongest empirical fact on display is an absence — E2 is frozen and
+            untested. The governance outruns the science it governs.</td></tr>
+        <tr><td class="dim">Epistemic severity</td><td class="score">9 / 10</td>
+          <td>Thirteen envelopes, non-claims walls, planned pages that claim nothing. Docked:
+            severity held for numbers and slipped in narration — the P0 finding was prose
+            inflating the machinery's own track record, caught by a hired adversary, not by
+            the machinery.</td></tr>
+        <tr><td class="dim">Semantic visual language</td><td class="score">8.5 / 10</td>
+          <td>Cyan/amber/red now mean one thing each, and green means nothing. Docked: the
+            color law shipped violated in three places and needed the hostile review to become
+            coherent; light-mode amber and gold remain confusable, mitigated only by the
+            never-color-alone rule.</td></tr>
+        <tr><td class="dim">Visual hierarchy &amp; elegance</td><td class="score">8 / 10</td>
+          <td>The type system carries real authority. Docked: the front page was restructured
+            more than shortened; six nav routes, three doors, and two strips compete for the
+            same first click; the six module pages are template-uniform to the edge of
+            monotony.</td></tr>
+        <tr><td class="dim">Accessibility</td><td class="score">7 / 10 (provisional)</td>
+          <td>Structure is right — skip links, SVG descriptions that carry the argument,
+            reduced-motion neutrality, no hover-only information, computed AA contrast. Docked
+            hard: no keyboard-only traversal and no screen-reader pass has been run. Computed
+            accessibility is a hypothesis about lived accessibility.</td></tr>
+        <tr><td class="dim">Cold-viewer comprehension</td><td class="score">6.5 / 10</td>
+          <td>The instrument teaches by dragging, which is the site's best pedagogy. Docked:
+            the vocabulary wall is real — "partial identification," "witnesses," "envelopes"
+            above the fold — and the central hypothesis that any of this grammar helps a
+            reader is untested with the null alive. A 90-second visitor may leave impressed
+            and uninformed, which is this site's named failure mode.</td></tr>
+        <tr><td class="dim">Research threat surface</td><td class="score">5 / 10</td>
+          <td>The brutal row. What the site proves today: discipline about a toy example, one
+            synthetic study, and its own governance. Zero real guardrails measured. A hostile
+            reader's fair summary — "an exoskeleton that has not yet lifted anything real" —
+            currently stands, and nothing on this page rebuts it. Only E2 data can.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="verdict">
+    <span class="mono">The brutal line</span>
+    <p>Instrument-grade scaffolding around a research program that has not yet produced its
+      first empirical result. The scaffolding is genuinely rare. It is still scaffolding, and
+      thirty days from now the only question that matters is whether something real got
+      lifted.</p>
+  </div>
+
+  <h2>What would make this instrument dangerous</h2>
+  <p>Dangerous in the only sense this record endorses: menace pointed at claims, never at
+    people. The site's machinery — envelopes, bounds, witnesses, expiry — currently prosecutes
+    only its own claims. The move that turns it from a portfolio into a threat to overclaiming
+    is to point it outward: take published AI-safety numbers from the wild, compute what their
+    stated evidence actually licenses under the Fréchet bounds, and publish the interval next
+    to the headline number with witnesses at both ends — a claim autopsy, powered by exactly
+    the E2-style measurement this program has frozen but not yet run. The standard, made
+    visible, applied where it stings. That requires E2 to exist first, which is why the
+    lookback below has teeth.</p>
+
+  <div class="contract">
+    <span class="mono">The lookback contract — due 2026-09-23</span>
+    <p style="color:var(--muted)">On or after that date, answer each question against evidence
+      that exists outside this page. Anyone can run this checklist; none of it requires
+      trusting the owner.</p>
+    <ol>
+      <li><strong>Did the standing gate stand?</strong> The weekly verify runs (five expected
+        by then) are public in the Actions history. Any red run, and what fired.</li>
+      <li><strong>Did E2 move?</strong> Either a conforming observation set exists, or a
+        documented failure-to-obtain exists. If neither, the "next artifact" promise on
+        <a class="u" href="/now/">/now/</a> is thirty days stale and this entry says so.</li>
+      <li><strong>Were the open QA items closed?</strong> Keyboard-only and screen-reader
+        passes were disclosed as not-run at ship time. After thirty days, an open disclosure
+        becomes a broken promise; the accessibility score above drops to 5 until they run.</li>
+      <li><strong>Did any external falsifier arrive?</strong> Corrections, issues, or mail
+        against any claim — and what the registry did about them.</li>
+      <li><strong>Do any decay clocks show amber?</strong> None should before December; amber
+        earlier means a review was triggered, and the ledger must show the re-review.</li>
+      <li><strong>Did the claim count move for the right reason?</strong> New claims should
+        arrive because evidence arrived — not because surfaces multiplied.</li>
+    </ol>
+    <p style="color:var(--muted);margin:1rem 0 0"><strong style="color:var(--ink)">Pre-registered
+      conclusion if nothing moved:</strong> the observatory spent its first month documenting
+      stasis beautifully — an instrument without an experiment — and the research-threat score
+      falls from 5 to 3. That sentence is written now, while it can still be falsified by
+      work.</p>
+  </div>
+
+  <div class="nonclaim nc-line"><span class="mono">Non-claims</span> — the scores above are
+    owner-attested judgments, not measurements; no reader study exists and none is implied.
+    This entry is hand-written and carries no evidence markers; the linked gates and Actions
+    history are the checkable parts.</div>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/notes/noetic-log-001/">Log 001</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="https://github.com/Cubits11/cubits11.github.io/actions/workflows/verify.yml">CI runs ↗</a>
+      <a class="u" href="/">← Back to the record</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>
