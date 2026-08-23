@@ -21,6 +21,9 @@ page that a resume check or a repo visit would contradict.
 ## Decision ledger
 
 ### D1 — Distinctive signature: evidence semantics in the UI
+*(Superseded in part — v0.3 filled the result slot with E₁'s verdict and the
+correct stamp reads "Supported within scope — controlled synthetic · decision:
+Narrow"; the empty-slot description below is the v0.1–v0.2 state, preserved.)*
 - **Options.** (a) Pure visual polish, no concept. (b) Interactive gimmick
   (3D, WebGL, cursor effects). (c) An epistemic contract: every claim visibly
   linked to public evidence, or visibly marked `attested`.
@@ -67,6 +70,10 @@ page that a resume check or a repo visit would contradict.
   with more images, or a language beyond latin coverage is needed.
 
 ### D4 — Color: sampled from the photograph, receipts shown
+*(Superseded in part — the hex values below are the v0.1–v0.2 palette; v0.3
+deepened the field and ink (see D9) and v0.4 added the semantic state layer
+(see D10). The provenance story — palette sampled from Fig. 01 — survives all
+three versions.)*
 - **Options.** (a) Fashion-neutral gray/black. (b) An arbitrary brand hue.
   (c) Palette quantized from the hero photograph (median-cut, 10 colors),
   hand-tuned for contrast, with the sampled hexes displayed under the photo.
@@ -133,12 +140,17 @@ page that a resume check or a repo visit would contradict.
 
 ## Budgets
 
-| Budget | Target | Shipped |
+Measured 2026-08-23 (v0.4). The v0.3 row values had themselves gone stale —
+index had grown to ~53 KB by 2026-08-21 while this table still said 42.3 KB —
+which is why the table now records its measurement date.
+
+| Budget | Target | Shipped (v0.4, measured 2026-08-23) |
 | --- | --- | --- |
-| HTML (index, incl. inline CSS/JS) | < 45 KB | 42.3 KB (v0.3) |
+| HTML (index, incl. inline CSS/JS) | < 55 KB | 48.6 KB |
+| Shared stylesheet (assets/site.css) | < 20 KB | 16.1 KB |
 | Fonts (4 × woff2, latin subsets) | < 220 KB | ~194 KB |
 | Hero image (720 webp, typical load) | < 50 KB | ~31 KB |
-| JavaScript | < 4 KB | ~3 KB |
+| JavaScript (index, inline, incl. theme boot) | < 6 KB | 4.5 KB |
 | Third-party requests from page code | 0 | 0 (hosting infrastructure excluded) |
 | Layout shift | none visible | manual passes only — not instrumented |
 
@@ -345,3 +357,97 @@ this was caught by measuring the deployed SVG rather than trusting the source.
 
 **What would make me revisit it.** A screen-reader user reporting that the
 `desc` does not carry the argument, or any frame failing the geometry assertion.
+
+**Correction, 2026-08-23.** The paragraph above claimed the geometry was
+"asserted at build time" — and no such checker existed anywhere in this
+repository. The assertion lived in an authoring script that was never
+committed; the repo contained only its output. That is precisely the
+"asserted mechanics it did not have" class that the v0.3 changelog documents
+correcting, recurring in the document that documents it. The mechanism now
+exists: `scripts/verify_figures.py` parses the committed frames and asserts —
+to 1e-9 — pinned marginals, overlap-equals-q, atom-vector coherence, axis
+linearity, and the 1% independence tick, plus the essay number-line's bands
+and dots; `verify.yml` runs it on every push and weekly. The sentence became
+true the day the checker was committed, and not before.
+
+---
+
+## Changelog — v0.4, 2026-08-23 · the observatory
+
+The redesign that turned a five-page record into an evidence observatory:
+modules, an observatory view, writing/archive/now surfaces, and a shared
+design system. Registry schema v0.3 (maturity gains `superseded`; structured
+`expected` blocks; the reachable-ref binding rule after CC-001 was found
+pinned to history-rewritten commits). Full reconnaissance and rationale:
+`docs/site-system/AUDIT.md`.
+
+### D10 — Design system: one stylesheet, semantic state colors
+- **Options.** (a) Keep per-page inline CSS (six diverging token copies had
+  already accumulated, with the signal color named `--gold` on three pages
+  and `--accent` on three others). (b) A build step compiling per-page CSS.
+  (c) One shared `assets/site.css` carrying tokens and epistemic primitives;
+  pages keep only page-specific layout inline.
+- **Choice.** (c). This supersedes part of D2 ("one hand-written HTML file,
+  inline CSS") under D2's own revisit clause — the site grew past three
+  pages. The generator idiom stays; no framework arrives.
+- **State palette.** Ported from CC-Framework's claim-observatory color law
+  ("Cyan/white light marks evidence and replayable structure. Amber marks
+  required review. Red is reserved for expiration/invalidation."):
+  `--evidence` cyan (dark `#7FC4CF`, light `#175F6B`), `--review` amber
+  (dark `#E9A23B` — the film's lure amber — light `#7E4E12`), `--invalid`
+  red (dark `#E4796F`, light `#993127`). Unknown/inactive stays graphite
+  (`--muted`). Green carries no semantic duty anywhere. Gold remains the
+  identity accent only. Evidence chips' solid dot moved from sage to cyan;
+  the 404 stamp moved to `--invalid` (a falsified claim is the one place red
+  is earned).
+- **Measured.** Contrast computed 2026-08-23 (WCAG relative luminance), on
+  field/surface respectively — dark: evidence 9.84/9.40, review 8.92/8.52,
+  invalid 6.68/6.38; light: evidence 6.22/6.68, review 6.01/6.45, invalid
+  6.36/6.82. All ≥ 4.5:1 (AA); most ≥ 6.
+- **Rule.** No state is ever encoded by color alone — every colored state
+  pairs with a label, a shape (dot/square/dash), or both.
+- **Revisit if.** Light-mode review-amber (`#7E4E12`) proves confusable with
+  light-mode gold (`#755A2C`) in practice; the pairing rule is the current
+  mitigation.
+
+### D11 — Fig. 02 becomes an instrument: user-driven, never autoplaying
+- **Options.** (a) Keep the 7-second infinite autoplay loop. (b) Add a pause
+  button to satisfy WCAG 2.2.2. (c) Replace autoplay with a slider: the
+  visitor drags the shared-miss overlap q through all eleven worlds while
+  both marginals stay visibly pinned.
+- **Choice.** (c). Moving the world is the argument; a viewer who chooses q
+  feels the underdetermination that a loop merely displays. Each position
+  reports P(both fail), P(at least one fails), and the world's name — the
+  endpoints are labeled as witnesses, q=1% as "the world independence
+  assumes."
+- **Default state.** The previous reduced-motion fallback showed the 1%
+  frame — the independence world, the exact world the figure exists to
+  de-privilege. The static/no-JS/initial state is now the lower endpoint
+  witness with the full supported interval always drawn on the cyan axis;
+  the independence tick is amber (an assumption calling for attention, not
+  an answer).
+- **Accessibility.** Native range input (keyboard-operable), described by
+  the SVG's long `desc`; no animation, so nothing to pause; the SVG scrolls
+  inside an `overflow-x` guard on narrow screens.
+- **Revisit if.** Anyone reads the slider as *estimating* the true
+  dependence — the readout names each position as one feasible world to
+  prevent exactly that.
+
+### D12 — Information architecture: the observatory routes
+- **Choice.** Primary navigation becomes Modules · Observatory · Ledger ·
+  Writing · Archive · Résumé, on every page. New routes: `/modules/` (six
+  generated module pages under one epistemic grammar), `/observatory/`
+  (the registry rendered as one field of capsules, bindings, non-claims,
+  decay clocks), `/writing/`, `/archive/` (intellectual lineage with
+  succession records — GCE moves here under claim GCE-001), `/now/`. Every
+  pre-v0.4 URL keeps resolving unchanged; nothing moved, so no redirects.
+- **Why.** The homepage was carrying every role at once. The mission of the
+  redesign is to make hidden epistemic structure visible; structure needs
+  places.
+- **Generated, drift-checked.** Modules and the observatory follow the
+  ledger's idiom: registry → deterministic renderer → `--check` in CI. The
+  homepage's registry facts (claim count, last owner review) are now
+  cross-checked by `verify_claims.py` — the noetic log's "hand-written
+  strips" residual is closed.
+- **Revisit if.** A route stays empty of evidence long enough to read as
+  decoration; planned modules must say PLANNED on their face.

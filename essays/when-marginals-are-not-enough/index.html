@@ -11,25 +11,19 @@
 <meta property="og:description" content="Two guardrails each fail 10% of the time. Independence says the stack fails 1%. The honest answer is an interval.">
 <meta property="og:url" content="https://cubits11.github.io/essays/when-marginals-are-not-enough/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
-<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
 <style>
-@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
-@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
-@font-face{font-family:'Instrument Sans';src:url('/assets/fonts/instrument-sans-roman.woff2') format('woff2');font-weight:400 700;font-display:swap}
-@font-face{font-family:'Fragment Mono';src:url('/assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-display:swap}
-:root{color-scheme:light;--bg:#F1EDE2;--surface:#F8F5EC;--ink:#14170F;--muted:#565E4E;--accent:#755A2C;--line:#DCD5C2;--line-strong:#C2BAA2;
-  --serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,Arial,sans-serif;--mono:'Fragment Mono',ui-monospace,Menlo,monospace}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#0B0F0A;--surface:#11150F;--ink:#EDE8DA;--muted:#9AA391;--accent:#C9A15E;--line:#232A20;--line-strong:#39422F}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0B0F0A;--surface:#11150F;--ink:#EDE8DA;--muted:#9AA391;--accent:#C9A15E;--line:#232A20;--line-strong:#39422F}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.04rem;line-height:1.72;-webkit-font-smoothing:antialiased}
-.container{width:min(720px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}
+body{font-size:1.04rem;line-height:1.72}
+.container{width:min(720px,100% - 2*clamp(1.25rem,5vw,3rem))}
 .wide{width:min(880px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}
-.mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase}
-a{color:inherit}
-.u{text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
-header.page{padding:4.5rem 0 2.8rem}
+.mono{font-size:.7rem}
+header.page{padding:7.9rem 0 2.8rem}
 .crumb{color:var(--accent);display:block;margin-bottom:1.4rem;text-decoration:none}
 .eyebrow{color:var(--accent);margin-bottom:1.1rem}
 h1{font-family:var(--serif);font-weight:520;font-size:clamp(2.4rem,6.5vw,4rem);line-height:1.04;margin:0 0 1.2rem;letter-spacing:-.018em}
@@ -60,10 +54,27 @@ footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;colo
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/modules/">Modules</a>
+      <a href="/observatory/">Observatory</a>
+      <a href="/ledger/">Ledger</a>
+      <a href="/writing/">Writing</a>
+      <a href="/archive/">Archive</a>
+      <a href="/resume/">Résumé</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
 <header class="page">
   <div class="container">
-    <a class="crumb mono" href="/">← Pranav Bhave</a>
-    <p class="eyebrow mono">Case study · CC-Framework · claim CC-001</p>
+    <p class="eyebrow mono">Case study · CC-Framework · claims CC-001 + CC-004</p>
     <h1>When marginals are not enough</h1>
     <p class="standfirst">Two guardrails each fail ten percent of the time. What does the stack
       fail? Independence says one percent. The honest answer is an interval — and the interval
@@ -71,7 +82,7 @@ footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;colo
   </div>
 </header>
 
-<main class="container">
+<main class="container" id="main">
 
   <h2>The sentence teams actually say</h2>
   <p class="q">“Our input filter catches 90% of attacks. The policy judge also catches 90%.
@@ -215,5 +226,17 @@ FrechetBoundResult(lower=0.1, upper=0.2, event='or', marginals=array([0.1, 0.1])
     </div>
   </div>
 </footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
 </body>
 </html>

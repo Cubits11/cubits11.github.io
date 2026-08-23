@@ -37,6 +37,7 @@ LABELS = {
     "in_development": "In development",
     "released": "Released",
     "stable": "Stable",
+    "superseded": "Superseded",
 }
 
 
@@ -98,7 +99,7 @@ def render_claim(c: dict) -> str:
     return f'''
   <article class="claim" id="{esc(c["id"])}">
     <div class="claim-head">
-      <span class="mono claim-id">{esc(c["id"])}</span>
+      <h2 class="mono claim-id">{esc(c["id"])}</h2>
       <span class="mono {status_cls}">{esc(label(d["evidential_status"]))} · {esc(label(d["provenance"]))}</span>
     </div>
     <p class="prop">{esc(c["proposition"])}</p>
@@ -122,35 +123,29 @@ def render(registry: dict) -> str:
 <title>Evidence Ledger — Pranav Bhave</title>
 <meta name="description" content="The claim registry behind cubits11.github.io, generated from claims.yaml: every technical claim with its dimensions, immutable bindings, review triggers, and non-claims.">
 <link rel="canonical" href="https://cubits11.github.io/ledger/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Evidence Ledger — Pranav Bhave">
+<meta property="og:description" content="Every technical claim this site renders, in envelope form: dimensions, immutable bindings, executable review triggers, freshness windows, non-claims.">
+<meta property="og:url" content="https://cubits11.github.io/ledger/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
-<script>try{{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}}catch(e){{}}</script>
+<script>try{{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){{document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}}}catch(e){{}}</script>
+<link rel="stylesheet" href="/assets/site.css">
 <style>
-@font-face{{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}}
-@font-face{{font-family:'Fraunces';src:url('/assets/fonts/fraunces-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap}}
-@font-face{{font-family:'Instrument Sans';src:url('/assets/fonts/instrument-sans-roman.woff2') format('woff2');font-weight:400 700;font-display:swap}}
-@font-face{{font-family:'Fragment Mono';src:url('/assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-display:swap}}
-:root{{color-scheme:light;--bg:#F1EDE2;--surface:#F8F5EC;--ink:#14170F;--muted:#565E4E;--gold:#755A2C;--sage:#435B33;--line:#DCD5C2;--line-strong:#C2BAA2;
-  --serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',-apple-system,Arial,sans-serif;--mono:'Fragment Mono',ui-monospace,Menlo,monospace}}
-:root[data-theme="dark"]{{color-scheme:dark;--bg:#0B0F0A;--surface:#11150F;--ink:#EDE8DA;--muted:#9AA391;--gold:#C9A15E;--sage:#A8C491;--line:#232A20;--line-strong:#39422F}}
-@media (prefers-color-scheme: dark){{:root:not([data-theme="light"]){{color-scheme:dark;--bg:#0B0F0A;--surface:#11150F;--ink:#EDE8DA;--muted:#9AA391;--gold:#C9A15E;--sage:#A8C491;--line:#232A20;--line-strong:#39422F}}}}
-*{{box-sizing:border-box}}
-body{{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased}}
-.container{{width:min(920px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}}
-.mono{{font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;text-transform:uppercase}}
-a{{color:inherit}}
-.u{{text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}}
-header.page{{padding:4.5rem 0 2.5rem;border-bottom:1px solid var(--line)}}
-.crumb{{color:var(--gold);display:block;margin-bottom:1.2rem;text-decoration:none}}
-h1{{font-family:var(--serif);font-weight:520;font-size:clamp(2.2rem,5.5vw,3.4rem);line-height:1.05;margin:0 0 1rem;letter-spacing:-.015em}}
+body{{font-size:1rem;line-height:1.65}}
+.container{{width:min(920px,100% - 2*clamp(1.25rem,5vw,3rem))}}
+.mono{{font-size:.68rem}}
+header.page{{padding:7.9rem 0 2.5rem;border-bottom:1px solid var(--line)}}
+h1{{font-size:clamp(2.2rem,5.5vw,3.4rem);line-height:1.05;margin:0 0 1rem;letter-spacing:-.015em;font-weight:520}}
 .intro{{color:var(--muted);max-width:46em}}
 .meta-row{{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:1.4rem;color:var(--muted)}}
 .claim{{border:1px solid var(--line-strong);background:var(--surface);margin:1.4rem 0;padding:clamp(1.2rem,3vw,1.8rem)}}
 .claim-head{{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.9rem}}
-.claim-id{{color:var(--gold)}}
-.status,.status-dim,.status-hot{{border:1px solid var(--line-strong);border-radius:999px;padding:.28rem .7rem}}
-.status{{color:var(--ink)}}
-.status-dim{{color:var(--muted);border-style:dashed}}
-.status-hot{{color:var(--gold);border-color:var(--gold)}}
+.claim-id{{color:var(--gold);font-size:.68rem;font-weight:400;margin:0;line-height:inherit;letter-spacing:.09em}}
 .prop{{font-family:var(--serif);font-size:1.12rem;line-height:1.5;margin:0 0 1rem;max-width:42em}}
 dl{{display:grid;grid-template-columns:9.5rem 1fr;gap:.45rem 1.2rem;margin:0;font-size:.92rem}}
 dt{{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);padding-top:.15rem}}
@@ -158,13 +153,10 @@ dd{{margin:0;color:var(--muted);overflow-wrap:anywhere}}
 dd code{{font-family:var(--mono);font-size:.8em}}
 .dims{{display:flex;flex-wrap:wrap;gap:.4rem .9rem}}
 .dim{{display:inline-flex;gap:.45rem;align-items:baseline}}
-.dim-k{{font-family:var(--mono);font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--sage)}}
+.dim-k{{font-family:var(--mono);font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}}
 ul.nc,ul.trg{{margin:.1rem 0 0;padding-left:1.1rem}}
 ul.nc li,ul.trg li{{margin:.2rem 0}}
 ul.trg{{list-style:none;padding-left:0}}
-.tag{{border:1px solid var(--line-strong);border-radius:2px;padding:.1rem .4rem;margin-right:.5rem;font-size:.58rem}}
-.tag-exec{{color:var(--sage);border-color:var(--sage)}}
-.tag-manual{{color:var(--muted);border-style:dashed}}
 .note{{font-size:.85rem}}
 footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}}
 @media (max-width:600px){{dl{{grid-template-columns:1fr}}dt{{padding-top:.5rem}}}}
@@ -172,9 +164,26 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/modules/">Modules</a>
+      <a href="/observatory/">Observatory</a>
+      <a href="/ledger/" aria-current="page">Ledger</a>
+      <a href="/writing/">Writing</a>
+      <a href="/archive/">Archive</a>
+      <a href="/resume/">R&eacute;sum&eacute;</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
 <header class="page">
   <div class="container">
-    <a class="crumb mono" href="/">← Pranav Bhave</a>
     <h1>Evidence ledger</h1>
     <p class="intro">Every technical claim the site renders with an evidence marker, in envelope
       form. This page is <strong>generated</strong> from
@@ -194,7 +203,7 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
   </div>
 </header>
 
-<main class="container">
+<main class="container" id="main">
 {claims_html}
 </main>
 
@@ -209,6 +218,18 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
     <a class="u" href="/">← Back to the record</a></p>
   </div>
 </footer>
+<script>
+(function(){{
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){{if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}}
+  function sync(){{var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}}
+  function apply(n){{root.dataset.theme=n;try{{localStorage.setItem('theme',n)}}catch(e){{}}meta.forEach(function(m){{m.content=n==='dark'?'#0B0F0A':'#F1EDE2'}});sync()}}
+  toggle.addEventListener('click',function(){{var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){{document.startViewTransition(function(){{apply(n)}})}}else{{apply(n)}}}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+}})();
+</script>
 </body>
 </html>
 '''

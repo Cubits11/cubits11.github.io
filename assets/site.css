@@ -1,0 +1,274 @@
+/* ==========================================================================
+   cubits11.github.io — shared design system (v0.4 "the observatory")
+   Single source for tokens and epistemic primitives. Pages keep only
+   page-specific layout inline. Decision record: DESIGN.md D10–D12.
+
+   Palette semantics (ported from cc-framework's Claim Observatory color law):
+     field/ink      — carbon and bone, sampled from the photograph (Fig. 01)
+     --gold         — identity accent (the photograph's warm light, deepened)
+     --evidence     — spectral cyan: public evidence, replayable structure,
+                      supported bindings
+     --review       — amber: review required, assumptions doing work,
+                      freshness warnings
+     --invalid      — red: contradiction, invalidation, expiration
+     --muted        — graphite: unknown, inactive, context
+   Green carries no semantic duty. No state is ever encoded by color alone.
+   All pairs computed ≥ 4.5:1 (AA) on both field and surface; see DESIGN.md.
+   ========================================================================== */
+
+/* ---------- fonts (self-hosted, latin subsets) ---------- */
+@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Instrument Sans';src:url('/assets/fonts/instrument-sans-roman.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Fragment Mono';src:url('/assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+/* ---------- tokens ---------- */
+:root{
+  color-scheme:light;
+  --bg:#F1EDE2; --surface:#F8F5EC; --ink:#14170F; --muted:#565E4E;
+  --gold:#755A2C; --sage:#435B33; --line:#DCD5C2; --line-strong:#C2BAA2;
+  --evidence:#175F6B; --review:#7E4E12; --invalid:#993127;
+  --accent:var(--gold);
+  --noise-opacity:.05;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Instrument Sans',-apple-system,'Helvetica Neue',Arial,sans-serif;
+  --mono:'Fragment Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0B0F0A; --surface:#11150F; --ink:#EDE8DA; --muted:#9AA391;
+  --gold:#C9A15E; --sage:#A8C491; --line:#232A20; --line-strong:#39422F;
+  --evidence:#7FC4CF; --review:#E9A23B; --invalid:#E4796F;
+  --noise-opacity:.08;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0B0F0A; --surface:#11150F; --ink:#EDE8DA; --muted:#9AA391;
+    --gold:#C9A15E; --sage:#A8C491; --line:#232A20; --line-strong:#39422F;
+    --evidence:#7FC4CF; --review:#E9A23B; --invalid:#E4796F;
+    --noise-opacity:.08;
+  }
+}
+
+/* ---------- base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:1.0625rem;line-height:1.68;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+h1,h2,h3{font-family:var(--serif);font-optical-sizing:auto;font-weight:530;line-height:1.06;margin:0;letter-spacing:-0.01em}
+p{margin:0 0 1em}
+a{color:inherit}
+img{max-width:100%;height:auto;display:block}
+::selection{background:var(--gold);color:var(--bg)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+.container{width:min(1180px,100% - 2*clamp(1.25rem,5vw,4rem));margin-inline:auto}
+.container-prose{width:min(720px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}
+.container-wide{width:min(920px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}
+.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase}
+
+.u{text-decoration:none;background-image:linear-gradient(currentColor,currentColor);
+  background-repeat:no-repeat;background-position:0 100%;background-size:100% 1px;padding-bottom:1px}
+@media (prefers-reduced-motion: no-preference){
+  .u{background-size:0 1px;transition:background-size .35s var(--ease)}
+  .u:hover,.u:focus-visible{background-size:100% 1px}
+}
+
+/* ---------- header / nav ---------- */
+.site-head{
+  position:fixed;inset:0 0 auto 0;z-index:20;
+  background:color-mix(in srgb, var(--bg) 84%, transparent);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.site-head .container{display:flex;align-items:center;gap:1.5rem;height:3.4rem}
+.wordmark{font-family:var(--serif);font-style:italic;font-size:1.05rem;text-decoration:none;margin-right:auto;white-space:nowrap}
+.site-nav{display:flex;gap:1.4rem;overflow-x:auto;scrollbar-width:none}
+.site-nav::-webkit-scrollbar{display:none}
+.site-nav a{text-decoration:none;color:var(--muted);transition:color .2s;white-space:nowrap}
+.site-nav a:hover,.site-nav a:focus-visible{color:var(--ink)}
+.site-nav a[aria-current="page"]{color:var(--ink);border-bottom:1px solid var(--gold)}
+.theme-toggle{
+  appearance:none;border:1px solid var(--line-strong);background:transparent;color:var(--ink);
+  width:2rem;height:2rem;border-radius:50%;cursor:pointer;display:grid;place-items:center;flex:none;
+  transition:border-color .2s, transform .3s var(--ease);
+}
+.theme-toggle:hover{border-color:var(--gold);transform:rotate(40deg)}
+.theme-toggle svg{width:.95rem;height:.95rem;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+:root:not([data-theme="dark"]) .moon-only{display:none}
+:root[data-theme="dark"] .sun-only{display:none}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .sun-only{display:none}
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .moon-only{display:initial}
+}
+.skip{position:absolute;left:-999px;top:0;z-index:30;background:var(--ink);color:var(--bg);padding:.6rem 1rem;font-family:var(--mono);font-size:.75rem}
+.skip:focus{left:0}
+
+/* ---------- record strips ---------- */
+.class-bar{border-bottom:1px solid var(--line);margin-top:3.4rem}
+.class-bar .container{display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:space-between;padding-block:.55rem;color:var(--muted)}
+.class-bar b{color:var(--gold);font-weight:400}
+.class-bar a{text-decoration:none;color:var(--muted)}
+.class-bar a:hover,.class-bar a:focus-visible{color:var(--ink)}
+.status-strip{border-bottom:1px solid var(--line)}
+.status-strip .container{display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:space-between;padding-block:.55rem;color:var(--muted)}
+.status-strip b{color:var(--gold);font-weight:400}
+
+/* ---------- evidence chips ----------
+   solid cyan dot = opens public evidence · dashed hollow = owner-attested ·
+   gold square = internal record. Never color alone: the dot shape and the
+   chip text carry the state too. */
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{
+  display:inline-flex;align-items:center;gap:.45rem;text-decoration:none;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;
+  border:1px solid var(--line-strong);border-radius:999px;padding:.38rem .8rem;color:var(--ink);
+  transition:border-color .2s, background-color .2s;
+}
+.chip::before{content:"";width:.42rem;height:.42rem;border-radius:50%;background:var(--evidence);flex:none}
+a.chip:hover,a.chip:focus-visible{border-color:var(--evidence);background:color-mix(in srgb, var(--evidence) 10%, transparent)}
+.chip-attested{color:var(--muted);border-style:dashed}
+.chip-attested::before{background:transparent;border:1px solid var(--muted)}
+.chip-internal::before{border-radius:1px;background:var(--gold)}
+a.chip-internal:hover,a.chip-internal:focus-visible{border-color:var(--gold);background:color-mix(in srgb, var(--gold) 10%, transparent)}
+
+/* ---------- status pills (ledger, modules, observatory) ---------- */
+.status,.status-dim,.status-hot,.status-plan{border:1px solid var(--line-strong);border-radius:999px;padding:.28rem .7rem}
+.status{color:var(--ink)}
+.status-dim{color:var(--muted);border-style:dashed}
+.status-hot{color:var(--invalid);border-color:var(--invalid)}
+.status-plan{color:var(--review);border-color:var(--review);border-style:dashed}
+.tag{border:1px solid var(--line-strong);border-radius:2px;padding:.1rem .4rem;margin-right:.5rem;font-size:.58rem}
+.tag-exec{color:var(--evidence);border-color:var(--evidence)}
+.tag-manual{color:var(--muted);border-style:dashed}
+
+/* ---------- the stamp ---------- */
+.stamp{
+  display:inline-block;margin-top:auto;align-self:flex-end;transform:rotate(-4deg);transform-origin:center;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+  border:1px solid var(--gold);border-radius:2px;padding:.3rem .5rem;opacity:.9;margin-right:.35rem;
+}
+.stamp-untested{color:var(--muted);border-color:var(--muted);border-style:dashed}
+.stamp-review{color:var(--review);border-color:var(--review)}
+.stamp-invalid{color:var(--invalid);border-color:var(--invalid)}
+
+/* ---------- non-claim furniture ---------- */
+.nonclaim{
+  border-left:2px solid var(--gold);padding:1rem 1.2rem;background:color-mix(in srgb, var(--gold) 7%, transparent);
+  align-self:start;
+}
+.nonclaim .mono{color:var(--gold);display:block;margin-bottom:.5rem}
+.nonclaim p{color:var(--ink);font-size:.95rem;margin:0;line-height:1.6}
+.nc-line{border-left:2px solid var(--gold);padding:.15rem 0 .15rem 1rem;color:var(--ink);font-size:.95rem;max-width:52em}
+.nc-line .mono{color:var(--gold)}
+
+/* ---------- cards / lists / doors ---------- */
+.card{border:1px solid var(--line-strong);background:var(--surface);padding:clamp(1.5rem,3.5vw,2.6rem)}
+.card + .card,.card-row{margin-top:1.25rem}
+.card-tag{color:var(--muted);margin-bottom:1rem}
+.card h3{font-size:clamp(1.55rem,2.6vw,2.1rem);margin-bottom:.9rem}
+.card p{color:var(--muted);max-width:56em}
+.card .chips{margin-top:1.4rem}
+.card-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.index-list{margin-top:1.25rem;border-top:1px solid var(--line)}
+.index-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:baseline;padding:1.15rem .2rem;border-bottom:1px solid var(--line)}
+.index-item .name-sm{font-family:var(--serif);font-size:1.15rem;font-weight:500;margin-right:.9rem}
+.index-item .desc{color:var(--muted);font-size:.95rem}
+.doors{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:clamp(1.6rem,4vh,2.6rem)}
+.door{
+  display:flex;flex-direction:column;gap:.55rem;text-decoration:none;
+  border:1px solid var(--line-strong);background:var(--surface);padding:1.3rem 1.4rem 1.5rem;
+  transition:border-color .2s, background-color .2s;
+}
+.door:hover,.door:focus-visible{border-color:var(--gold)}
+.door .mono{color:var(--gold)}
+.door strong{font-family:var(--serif);font-weight:520;font-size:1.3rem;letter-spacing:-.01em}
+.door span.desc{color:var(--muted);font-size:.92rem;line-height:1.55}
+
+/* ---------- sections ---------- */
+section{padding-block:clamp(4rem,9vh,7.5rem);scroll-margin-top:4.5rem}
+.sec-head{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:clamp(2rem,5vh,3.5rem)}
+.sec-no{font-family:var(--serif);font-size:clamp(3rem,6vw,5.2rem);font-weight:500;line-height:.8;
+  color:transparent;-webkit-text-stroke:1px var(--gold);opacity:.6;flex:none;transform:translateY(.35rem)}
+@supports not (-webkit-text-stroke: 1px black){.sec-no{color:var(--gold);opacity:.35}}
+.sec-head h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:500}
+.sec-rule{flex:1;height:1px;background:var(--line);transform:translateY(-.35rem)}
+.sec-intro{color:var(--muted);max-width:50em;margin:-1rem 0 2.6rem}
+
+/* ---------- envelope grid ---------- */
+.envelope{margin-top:3rem;border-top:1px solid var(--line);padding-top:2.2rem}
+.envelope-head{display:flex;align-items:baseline;gap:.9rem;margin-bottom:1.4rem}
+.envelope-head .mono{color:var(--gold)}
+.envelope-head h3{font-size:1.35rem}
+.env-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem 1.4rem}
+.env-item{border-top:1px solid var(--line-strong);padding-top:.7rem}
+.env-item .mono{color:var(--gold);display:block;margin-bottom:.3rem}
+.env-item p{color:var(--muted);font-size:.86rem;line-height:1.5;margin:0}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;cursor:pointer;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--ink);border-radius:999px;padding:.85rem 1.5rem;color:var(--ink);background:transparent;
+  transition:background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--bg)}
+.btn-solid{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.btn-solid:hover,.btn-solid:focus-visible{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+
+/* ---------- figure scroll guard (320px legibility) ---------- */
+.fig-scroll{overflow-x:auto}
+.fig-scroll > svg{min-width:640px}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
+.colophon{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:2.5rem;color:var(--muted);font-size:.88rem;padding-top:2.6rem}
+.colophon .mono{color:var(--gold);display:block;margin-bottom:.8rem}
+.legend{display:flex;flex-direction:column;gap:.55rem;font-size:.85rem}
+.legend span{display:flex;align-items:flex-start;gap:.55rem}
+.dot{width:.42rem;height:.42rem;border-radius:50%;background:var(--evidence);flex:none;margin-top:.45rem}
+.dot-hollow{background:transparent;border:1px solid var(--muted)}
+.dot-gold{background:var(--gold);border-radius:1px}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:2.2rem;color:var(--muted)}
+.foot-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:1.6rem;color:var(--muted)}
+
+/* ---------- motion ----------
+   Content is visible by default. JS adds .pre only just-before-observing,
+   so a broken or throttled observer can never hide content; a timeout
+   failsafe reveals anything still pending. Every animation is gated on
+   prefers-reduced-motion. Motion verbs only: reveal, constrain, compare,
+   collapse, lock, expire — nothing decorative. */
+@media (prefers-reduced-motion: no-preference){
+  .reveal.pre{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+  .reveal.pre.in{opacity:1;transform:none}
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px){
+  .card-row{grid-template-columns:1fr}
+  .doors{grid-template-columns:1fr}
+  .env-grid{grid-template-columns:repeat(2,1fr)}
+  .colophon{grid-template-columns:1fr}
+  .index-item{grid-template-columns:1fr}
+}
+@media (max-width: 560px){
+  .site-head .container{gap:.9rem}
+  .wordmark{font-size:.95rem}
+  .site-nav{gap:.9rem}
+  .site-nav a{font-size:.62rem}
+  .env-grid{grid-template-columns:1fr 1fr}
+  .sec-no{font-size:2.6rem}
+}
+@media print{
+  .site-head,.theme-toggle{display:none}
+  body{background:#fff;color:#000}
+  section{padding-block:2rem}
+  .reveal{opacity:1 !important;transform:none !important}
+}

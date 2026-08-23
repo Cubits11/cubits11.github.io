@@ -6,30 +6,25 @@
 <title>404 — Pranav Bhave</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
-<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
 <style>
-@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
-@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
-@font-face{font-family:'Fragment Mono';src:url('/assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-display:swap}
-:root{color-scheme:light;--bg:#F1EDE2;--ink:#14170F;--muted:#565E4E;--accent:#755A2C;--line:#C2BAA2}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#0B0F0A;--ink:#EDE8DA;--muted:#9AA391;--accent:#C9A15E;--line:#39422F}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0B0F0A;--ink:#EDE8DA;--muted:#9AA391;--accent:#C9A15E;--line:#39422F}}
-*{box-sizing:border-box}
-body{margin:0;min-height:100svh;display:grid;place-items:center;background:var(--bg);color:var(--ink);font-family:'Fraunces',Georgia,serif;text-align:center;padding:2rem}
-.mono{font-family:'Fragment Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
-.stamp{display:inline-block;border:1px solid var(--accent);color:var(--accent);border-radius:2px;padding:.4rem .7rem;transform:rotate(-4deg);margin-bottom:2rem}
+body{min-height:100svh;display:grid;place-items:center;font-family:var(--serif);text-align:center;padding:2rem;font-size:1rem}
+.stamp404{display:inline-block;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--invalid);color:var(--invalid);border-radius:2px;padding:.4rem .7rem;transform:rotate(-4deg);margin-bottom:2rem}
 h1{font-size:clamp(2.6rem,7vw,4.5rem);font-weight:520;margin:0 0 1rem;letter-spacing:-.02em}
 p{color:var(--muted);font-style:italic;font-size:1.15rem;margin:0 0 2.5rem}
-a{color:var(--ink);font-family:'Fragment Mono',ui-monospace,monospace;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);border-radius:999px;padding:.8rem 1.4rem;transition:background .25s,color .25s}
-a:hover,a:focus-visible{background:var(--ink);color:var(--bg)}
+a.home{color:var(--ink);font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);border-radius:999px;padding:.8rem 1.4rem;transition:background .25s,color .25s}
+a.home:hover,a.home:focus-visible{background:var(--ink);color:var(--bg)}
 </style>
 </head>
 <body>
 <div>
-  <span class="mono stamp">404 — no evidence at this path</span>
+  <span class="stamp404">404 — no evidence at this path</span>
   <h1>Claim falsified.</h1>
   <p>The claim that a page lives here has met its falsifier.</p>
-  <a href="/">← Back to the record</a>
+  <a class="home" href="/">← Back to the record</a>
 </div>
 </body>
 </html>

@@ -38,126 +38,27 @@
 <link rel="preload" as="image" href="/assets/img/portrait-960.jpg"
       imagesrcset="/assets/img/portrait-480.webp 480w, /assets/img/portrait-720.webp 720w, /assets/img/portrait-960.webp 960w"
       imagesizes="(min-width: 900px) 36vw, 82vw">
+<link rel="stylesheet" href="/assets/site.css">
 <style>
-/* ---------- fonts (self-hosted, latin subsets) ---------- */
-@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Fraunces';src:url('/assets/fonts/fraunces-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Instrument Sans';src:url('/assets/fonts/instrument-sans-roman.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Fragment Mono';src:url('/assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-
-/* ---------- tokens: v0.3 "the record" — dossier palette.
-   Greens and ink sampled from the photograph (Fig. 01); the gold is the
-   photograph's warm light sample (#D0A58A) deepened for signal duty. ---------- */
-:root{
-  color-scheme:light;
-  --bg:#F1EDE2; --surface:#F8F5EC; --ink:#14170F; --muted:#565E4E;
-  --gold:#755A2C; --sage:#435B33; --line:#DCD5C2; --line-strong:#C2BAA2;
-  --noise-opacity:.05;
-  --serif:'Fraunces',Georgia,'Times New Roman',serif;
-  --sans:'Instrument Sans',-apple-system,'Helvetica Neue',Arial,sans-serif;
-  --mono:'Fragment Mono',ui-monospace,'SF Mono',Menlo,monospace;
-  --ease:cubic-bezier(.2,.7,.2,1);
-}
-.onramp{max-width:52ch;margin:1.05rem 0 0;font:400 clamp(1rem,1.6vw,1.12rem)/1.62 var(--sans);
-  color:var(--ink);border-left:2px solid var(--gold);padding-left:1rem}
-.onramp strong{font-weight:600}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --bg:#0B0F0A; --surface:#11150F; --ink:#EDE8DA; --muted:#9AA391;
-  --gold:#C9A15E; --sage:#A8C491; --line:#232A20; --line-strong:#39422F;
-  --noise-opacity:.08;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --bg:#0B0F0A; --surface:#11150F; --ink:#EDE8DA; --muted:#9AA391;
-    --gold:#C9A15E; --sage:#A8C491; --line:#232A20; --line-strong:#39422F;
-    --noise-opacity:.08;
-  }
-}
-
-/* ---------- base ---------- */
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
-body{
-  margin:0;background:var(--bg);color:var(--ink);
-  font-family:var(--sans);font-size:1.0625rem;line-height:1.68;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-}
+/* ---------- page-specific: the record's front page ---------- */
 body::after{ /* grain */
   content:"";position:fixed;inset:0;z-index:9;pointer-events:none;opacity:var(--noise-opacity);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-h1,h2,h3{font-family:var(--serif);font-optical-sizing:auto;font-weight:530;line-height:1.06;margin:0;letter-spacing:-0.01em}
-p{margin:0 0 1em}
-a{color:inherit}
-img{max-width:100%;height:auto;display:block}
-::selection{background:var(--gold);color:var(--bg)}
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media print{body::after{display:none}}
 
-.container{width:min(1180px,100% - 2*clamp(1.25rem,5vw,4rem));margin-inline:auto}
-.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase}
-
-.u{ text-decoration:none;background-image:linear-gradient(currentColor,currentColor);
-  background-repeat:no-repeat;background-position:0 100%;background-size:100% 1px;padding-bottom:1px}
-@media (prefers-reduced-motion: no-preference){
-  .u{background-size:0 1px;transition:background-size .35s var(--ease)}
-  .u:hover,.u:focus-visible{background-size:100% 1px}
-}
-
-/* ---------- header ---------- */
-.site-head{
-  position:fixed;inset:0 0 auto 0;z-index:20;
-  background:color-mix(in srgb, var(--bg) 84%, transparent);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
-}
-.site-head .container{display:flex;align-items:center;gap:1.5rem;height:3.4rem}
-.wordmark{font-family:var(--serif);font-style:italic;font-size:1.05rem;text-decoration:none;margin-right:auto;white-space:nowrap}
-.site-nav{display:flex;gap:1.4rem;overflow-x:auto;scrollbar-width:none}
-.site-nav::-webkit-scrollbar{display:none}
-.site-nav a{text-decoration:none;color:var(--muted);transition:color .2s;white-space:nowrap}
-.site-nav a:hover,.site-nav a:focus-visible{color:var(--ink)}
-.theme-toggle{
-  appearance:none;border:1px solid var(--line-strong);background:transparent;color:var(--ink);
-  width:2rem;height:2rem;border-radius:50%;cursor:pointer;display:grid;place-items:center;flex:none;
-  transition:border-color .2s, transform .3s var(--ease);
-}
-.theme-toggle:hover{border-color:var(--gold);transform:rotate(40deg)}
-.theme-toggle svg{width:.95rem;height:.95rem;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
-:root:not([data-theme="dark"]) .moon-only{display:none}
-:root[data-theme="dark"] .sun-only{display:none}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]):not([data-theme="dark"]) .sun-only{display:none}
-  :root:not([data-theme="light"]):not([data-theme="dark"]) .moon-only{display:initial}
-}
-.skip{position:absolute;left:-999px;top:0;z-index:30;background:var(--ink);color:var(--bg);padding:.6rem 1rem;font-family:var(--mono);font-size:.75rem}
-.skip:focus{left:0}
-
-/* classification bar */
-.class-bar{border-bottom:1px solid var(--line);margin-top:3.4rem}
-.class-bar .container{display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:space-between;padding-block:.55rem;color:var(--muted)}
-.class-bar b{color:var(--gold);font-weight:400}
-.class-bar a{text-decoration:none;color:var(--muted)}
-.class-bar a:hover,.class-bar a:focus-visible{color:var(--ink)}
-
-/* ---------- hero ---------- */
-.hero{padding-top:clamp(4rem,9vh,7rem);padding-bottom:clamp(4rem,8vh,7rem)}
+/* hero */
+.hero{padding-top:clamp(4rem,9vh,7rem);padding-bottom:clamp(3rem,6vh,5rem)}
 .hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(2.5rem,6vw,5rem);align-items:center}
 .kicker{color:var(--gold);display:flex;align-items:center;gap:.9rem;margin-bottom:1.5rem}
 .kicker::before{content:"";width:2.2rem;height:1px;background:var(--gold);flex:none}
 .name{display:flex;flex-direction:column;text-transform:uppercase;
   font-size:clamp(3.2rem,10.5vw,8.2rem);font-weight:560;line-height:.95;letter-spacing:-.018em}
-.prop{
-  font-size:clamp(1.12rem,1.75vw,1.34rem);line-height:1.6;color:var(--ink);
-  max-width:31em;margin-top:1.8rem;font-weight:500;
-}
-.lede{
-  font-size:clamp(.98rem,1.35vw,1.08rem);line-height:1.72;color:var(--muted);
-  max-width:36em;margin-top:.9rem;
-}
+.prop{font-size:clamp(1.12rem,1.75vw,1.34rem);line-height:1.6;color:var(--ink);max-width:31em;margin-top:1.8rem;font-weight:500}
+.onramp{max-width:52ch;margin:1.05rem 0 0;font:400 clamp(1rem,1.6vw,1.12rem)/1.62 var(--sans);
+  color:var(--ink);border-left:2px solid var(--gold);padding-left:1rem}
+.onramp strong{font-weight:600}
+.lede{font-size:clamp(.98rem,1.35vw,1.08rem);line-height:1.72;color:var(--muted);max-width:36em;margin-top:.9rem}
 .lede em{font-family:var(--serif);font-style:italic;font-size:1.06em;color:var(--ink);font-weight:480}
 .fang{margin-top:1.5rem;color:var(--gold)}
 .fang a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
@@ -169,78 +70,49 @@ img{max-width:100%;height:auto;display:block}
 .fig{border:1px solid var(--line-strong);outline:1px solid color-mix(in srgb, var(--gold) 45%, transparent);outline-offset:6px;
   background:var(--surface);padding:.85rem;max-width:26rem;justify-self:end;width:100%}
 .fig img{width:100%;aspect-ratio:4/5;object-fit:cover;background:#4b5b21 center/cover no-repeat}
-.fig-caption{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem .15rem .1rem;color:var(--muted)}
+.fig-caption{display:flex;flex-direction:column;gap:.35rem;padding:.8rem .15rem .1rem;color:var(--muted)}
+.fig-caption-row{display:flex;align-items:center;justify-content:space-between;gap:1rem}
 .swatches{display:flex;gap:.4rem}
 .swatches span{width:.85rem;height:.85rem;border-radius:50%;border:1px solid rgba(0,0,0,.25);display:block}
+.swatch-hexes{font-size:.6rem;letter-spacing:.06em}
 
-/* ---------- sections ---------- */
-section{padding-block:clamp(4rem,9vh,7.5rem);scroll-margin-top:4.5rem}
-.sec-head{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:clamp(2rem,5vh,3.5rem)}
-.sec-no{font-family:var(--serif);font-size:clamp(3rem,6vw,5.2rem);font-weight:500;line-height:.8;
-  color:transparent;-webkit-text-stroke:1px var(--gold);opacity:.6;flex:none;transform:translateY(.35rem)}
-@supports not (-webkit-text-stroke: 1px black){.sec-no{color:var(--gold);opacity:.35}}
-.sec-head h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:500}
-.sec-rule{flex:1;height:1px;background:var(--line);transform:translateY(-.35rem)}
-.sec-intro{color:var(--muted);max-width:50em;margin:-1rem 0 2.6rem}
+/* the feasible-worlds instrument (CC-VIS-001) */
+.bounds-fig{margin:0 0 clamp(2rem,5vw,3.5rem);padding:clamp(1.1rem,3vw,1.9rem);
+  border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.bounds-fig svg{width:100%;height:auto;display:block}
+.bounds-fig .hsA{fill:var(--sage);opacity:.6}
+.bounds-fig .hsB{fill:var(--gold);opacity:.6}
+.bounds-fig .hsX{fill:var(--ink);opacity:.88}
+.bounds-fig .hunit{fill:var(--bg);stroke:var(--line-strong);stroke-width:1.25}
+.bounds-fig .hband{fill:var(--evidence);opacity:.3}
+.bounds-fig .haxis{stroke:var(--evidence);stroke-width:1.5}
+.bounds-fig .hdot{fill:var(--evidence)}
+.bounds-fig .hindep{stroke:var(--review);stroke-width:1.5;stroke-dasharray:3 3}
+.bounds-fig .hmono{font:12px var(--mono);fill:var(--muted)}
+.bounds-fig .hink{font:12px var(--mono);fill:var(--ink)}
+.bounds-fig .hlbl{font:11px var(--mono);fill:var(--muted);letter-spacing:.07em;text-transform:uppercase}
+.bounds-fig .hf{opacity:0}
+.bounds-fig .hf.on{opacity:1}
+html:not(.js) .bounds-fig .hf0{opacity:1} /* no-JS world: the lower endpoint witness, interval always on the axis */
+.bounds-ctl{margin-top:1rem;display:flex;flex-direction:column;gap:.5rem}
+html:not(.js) .bounds-ctl{display:none}
+.bounds-ctl label{color:var(--muted)}
+.bounds-ctl-row{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.bounds-ctl input[type=range]{flex:1;min-width:200px;accent-color:var(--evidence)}
+.bounds-ctl output{color:var(--ink)}
+.bounds-caption{margin:.9rem 0 0;font:400 .85rem/1.6 var(--sans);color:var(--muted);max-width:62ch}
+.bounds-caption strong{color:var(--ink);font-weight:600}
 
-/* evidence chips */
-.chips{display:flex;flex-wrap:wrap;gap:.5rem}
-.chip{
-  display:inline-flex;align-items:center;gap:.45rem;text-decoration:none;
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;
-  border:1px solid var(--line-strong);border-radius:999px;padding:.38rem .8rem;color:var(--ink);
-  transition:border-color .2s, background-color .2s;
-}
-.chip::before{content:"";width:.42rem;height:.42rem;border-radius:50%;background:var(--sage);flex:none}
-a.chip:hover,a.chip:focus-visible{border-color:var(--sage);background:color-mix(in srgb, var(--sage) 10%, transparent)}
-.chip-attested{color:var(--muted);border-style:dashed}
-.chip-attested::before{background:transparent;border:1px solid var(--muted)}
-.chip-internal::before{border-radius:1px;background:var(--gold)}
-a.chip-internal:hover,a.chip-internal:focus-visible{border-color:var(--gold);background:color-mix(in srgb, var(--gold) 10%, transparent)}
-
-/* work cards */
-.card{border:1px solid var(--line-strong);background:var(--surface);padding:clamp(1.5rem,3.5vw,2.6rem)}
-.card + .card,.card-row{margin-top:1.25rem}
-.card-tag{color:var(--muted);margin-bottom:1rem}
-.card h3{font-size:clamp(1.55rem,2.6vw,2.1rem);margin-bottom:.9rem}
-.card p{color:var(--muted);max-width:56em}
-.card .chips{margin-top:1.4rem}
-.flagship{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:clamp(1.8rem,4vw,3.2rem)}
-.nonclaim{
-  border-left:2px solid var(--gold);padding:1rem 1.2rem;background:color-mix(in srgb, var(--gold) 7%, transparent);
-  align-self:start;
-}
-.nonclaim .mono{color:var(--gold);display:block;margin-bottom:.5rem}
-.nonclaim p{color:var(--ink);font-size:.95rem;margin:0;line-height:1.6}
-.nc-line{border-left:2px solid var(--gold);padding:.15rem 0 .15rem 1rem;color:var(--ink);font-size:.95rem;max-width:52em}
-.nc-line .mono{color:var(--gold)}
-.card-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-.index-list{margin-top:1.25rem;border-top:1px solid var(--line)}
-.index-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:baseline;padding:1.15rem .2rem;border-bottom:1px solid var(--line)}
-.index-item .name-sm{font-family:var(--serif);font-size:1.15rem;font-weight:500;margin-right:.9rem}
-.index-item .desc{color:var(--muted);font-size:.95rem}
-
-/* method: five cards + envelope */
+/* five-card protocol */
 .protocol{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem;margin-bottom:2.4rem}
 .pcard{border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1rem 1.25rem;min-height:9.5rem;display:flex;flex-direction:column;gap:.6rem}
 .pcard .mono{color:var(--gold)}
 .pcard p{color:var(--muted);font-size:.88rem;line-height:1.55;margin:0}
-.pcard-empty{border-style:dashed;background:transparent}
-.pcard-empty .stamp{
-  margin-top:auto;align-self:flex-end;transform:rotate(-4deg);transform-origin:center;
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--gold);
-  border:1px solid var(--gold);border-radius:2px;padding:.3rem .5rem;opacity:.9;margin-right:.35rem;
-}
 .method-note{color:var(--muted);max-width:50em}
 .method-note em{font-family:var(--serif);font-style:italic;color:var(--ink)}
-.envelope{margin-top:3rem;border-top:1px solid var(--line);padding-top:2.2rem}
-.envelope-head{display:flex;align-items:baseline;gap:.9rem;margin-bottom:1.4rem}
-.envelope-head .mono{color:var(--gold)}
-.envelope-head h3{font-size:1.35rem}
-.env-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem 1.4rem}
-.env-item{border-top:1px solid var(--line-strong);padding-top:.7rem}
-.env-item .mono{color:var(--gold);display:block;margin-bottom:.3rem}
-.env-item p{color:var(--muted);font-size:.86rem;line-height:1.5;margin:0}
+
+/* flagship split */
+.flagship{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:clamp(1.8rem,4vw,3.2rem)}
 
 /* research & training */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem)}
@@ -251,73 +123,28 @@ a.chip-internal:hover,a.chip-internal:focus-visible{border-color:var(--gold);bac
 .entry p{color:var(--muted);font-size:.97rem;margin:0}
 .cred-note{color:var(--muted);font-size:.85rem;margin-top:1.2rem;max-width:36em}
 
+/* current question strip */
+.question-strip{border-block:1px solid var(--line);background:var(--surface);padding-block:clamp(2.6rem,6vh,4rem)}
+.question-strip .mono{color:var(--review)}
+.bigq{font-family:var(--serif);font-size:clamp(1.5rem,3.2vw,2.3rem);font-weight:500;line-height:1.25;max-width:24em;margin:.8rem 0 1rem;letter-spacing:-.01em}
+.question-strip p{color:var(--muted);max-width:52em}
+
 /* contact */
 .contact-line{font-family:var(--serif);font-size:clamp(2rem,4.6vw,3.4rem);font-weight:500;line-height:1.18;max-width:18em}
 .contact-line em{font-style:italic;color:var(--gold)}
 .contact-prop{color:var(--muted);max-width:42em;margin-top:1.4rem;font-size:1.05rem}
 .cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
-.btn{
-  display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;cursor:pointer;
-  font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
-  border:1px solid var(--ink);border-radius:999px;padding:.85rem 1.5rem;color:var(--ink);background:transparent;
-  transition:background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
-}
-.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--bg)}
-.btn-solid{background:var(--gold);border-color:var(--gold);color:var(--bg)}
-.btn-solid:hover,.btn-solid:focus-visible{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 
-/* footer */
-footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
-.status-strip{border-bottom:1px solid var(--line)}
-.status-strip .container{display:flex;flex-wrap:wrap;gap:.4rem 2rem;justify-content:space-between;padding-block:.55rem;color:var(--muted)}
-.status-strip b{color:var(--gold);font-weight:400}
-.colophon{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:2.5rem;color:var(--muted);font-size:.88rem;padding-top:2.6rem}
-.colophon .mono{color:var(--gold);display:block;margin-bottom:.8rem}
-.legend{display:flex;flex-direction:column;gap:.55rem;font-size:.85rem}
-.legend span{display:flex;align-items:flex-start;gap:.55rem}
-.dot{width:.42rem;height:.42rem;border-radius:50%;background:var(--sage);flex:none;margin-top:.45rem}
-.dot-hollow{background:transparent;border:1px solid var(--muted)}
-.dot-gold{background:var(--gold);border-radius:1px}
-.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:2.2rem;color:var(--muted)}
-.foot-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;margin-top:1.6rem;color:var(--muted)}
-
-/* ---------- motion ----------
-   Content is visible by default. JS adds .pre only just-before-observing,
-   so a broken or throttled observer can never hide content; a timeout
-   failsafe reveals anything still pending. */
-@media (prefers-reduced-motion: no-preference){
-  .reveal.pre{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
-  .reveal.pre.in{opacity:1;transform:none}
-}
-
-/* ---------- responsive ---------- */
 @media (max-width: 900px){
   .hero-grid{grid-template-columns:1fr}
   .fig{justify-self:start;max-width:24rem}
   .flagship{grid-template-columns:1fr}
-  .card-row{grid-template-columns:1fr}
   .protocol{grid-template-columns:repeat(2,1fr)}
   .pcard{min-height:8rem}
-  .pcard-empty{grid-column:1/-1;min-height:6.5rem}
-  .env-grid{grid-template-columns:repeat(2,1fr)}
   .split{grid-template-columns:1fr}
-  .colophon{grid-template-columns:1fr}
-  .index-item{grid-template-columns:1fr}
 }
 @media (max-width: 560px){
-  .site-head .container{gap:.9rem}
-  .wordmark{font-size:.95rem}
-  .site-nav{gap:.9rem}
-  .site-nav a{font-size:.62rem}
   .protocol{grid-template-columns:1fr 1fr}
-  .env-grid{grid-template-columns:1fr 1fr}
-  .sec-no{font-size:2.6rem}
-}
-@media print{
-  .site-head,.theme-toggle,body::after{display:none}
-  body{background:#fff;color:#000}
-  section{padding-block:2rem}
-  .reveal{opacity:1 !important;transform:none !important}
 }
 </style>
 </head>
@@ -326,12 +153,14 @@ footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
 
 <header class="site-head">
   <div class="container">
-    <a class="wordmark" href="#top">Pranav Bhave</a>
-    <nav class="site-nav mono" aria-label="Sections">
-      <a href="#work">Work</a>
-      <a href="#method">Method</a>
-      <a href="#research">Research</a>
-      <a href="#contact">Contact</a>
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/modules/">Modules</a>
+      <a href="/observatory/">Observatory</a>
+      <a href="/ledger/">Ledger</a>
+      <a href="/writing/">Writing</a>
+      <a href="/archive/">Archive</a>
+      <a href="/resume/">Résumé</a>
     </nav>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
       <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
@@ -340,7 +169,7 @@ footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
   </div>
 </header>
 
-<div class="class-bar mono" aria-label="Record status">
+<div class="class-bar mono">
   <div class="container">
     <span><b>Public record</b> — every technical claim bound in the <a class="u" href="/ledger/">ledger</a></span>
     <span>Registry <b>v0.3</b> · 11 claims</span>
@@ -358,10 +187,6 @@ footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
         <h1 class="name reveal" style="--d:.06s"><span>Pranav</span><span>Bhave</span></h1>
         <p class="prop reveal" style="--d:.1s">I build research software that exposes what an
           AI-assurance claim establishes, what it assumes, and where it must stop.</p>
-        <p class="onramp reveal" style="--d:.12s">Two guardrails each fail 10% of the time. How
-          often do they fail together? The common answer is 1%. The evidence permits
-          <strong>anywhere from 0% to 10%</strong> — multiplying the two rates quietly chose one
-          world out of many, and never said so.</p>
         <p class="lede reveal" style="--d:.14s"><em>Bounds</em> that admit unknown dependence.
           <em>Receipts</em> that prove bytes rather than safety.
           <em>Claims</em> that return for review when their evidence changes.</p>
@@ -375,7 +200,7 @@ footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
           <span class="fact">Philadelphia, PA</span>
         </div>
         <div class="hero-cta reveal" style="--d:.26s">
-          <a class="btn btn-solid" href="/essays/when-marginals-are-not-enough/">Read the case study</a>
+          <a class="btn btn-solid" href="/essays/when-marginals-are-not-enough/">Read the flagship case</a>
           <a class="btn" href="/resume/">Résumé</a>
         </div>
       </div>
@@ -388,46 +213,31 @@ footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
                style="background-image:url('data:image/webp;base64,UklGRt4AAABXRUJQVlA4INIAAACwBQCdASoYAB4APt1YpU2opSOiN/qoARAbiWgAAFu0zrl2VsYxHqP8/9C+XHFScnYx14jHZbAA/ujOj3ubg9zrxCaT1x0J0iVOFxRmMPitCs+DohUj6KTatohSHQ928D0LsNfEtPBPhP2+gw3Qe28ss9rqCXgiy5+LTKM8ojzUR8gS+XA08ssH2GemE7LsiCjyYZEHb51UwdkZSRI31Sw3CKPMajkv3oz8IXzTGG3c6R970Hwa8DMUIJJiCkLhg0KIeCggKyvc6CQjhQB6CYuAAAA=');background-size:cover">
         </picture>
         <figcaption class="fig-caption mono">
-          <span>Fig. 01 — subject · palette source</span>
-          <span class="swatches" aria-label="Colors sampled from this photograph">
-            <span style="background:#161719" title="#161719 — polo"></span>
-            <span style="background:#566326" title="#566326 — foliage"></span>
-            <span style="background:#657033" title="#657033 — moss"></span>
-            <span style="background:#D0A58A" title="#D0A58A — light; deepened to the record's gold"></span>
-          </span>
+          <div class="fig-caption-row">
+            <span>Fig. 01 — subject · palette source</span>
+            <span class="swatches" aria-hidden="true">
+              <span style="background:#161719"></span>
+              <span style="background:#566326"></span>
+              <span style="background:#657033"></span>
+              <span style="background:#D0A58A"></span>
+            </span>
+          </div>
+          <span class="swatch-hexes">Sampled: #161719 polo · #566326 foliage · #657033 moss · #D0A58A light → the record’s gold</span>
         </figcaption>
       </figure>
     </div>
   </section>
 
-  <section class="container" aria-label="The bounds argument in one figure">
-<figure class="bounds-fig reveal" style="--d:.1s">
-<style>
-.bounds-fig{margin:0 0 clamp(2rem,5vw,3.5rem);padding:clamp(1.1rem,3vw,1.9rem);
-  border:1px solid var(--line);border-radius:4px;background:var(--surface)}
-.bounds-fig svg{width:100%;height:auto;display:block}
-.bounds-fig .hsA{fill:var(--sage);opacity:.6}
-.bounds-fig .hsB{fill:var(--gold);opacity:.6}
-.bounds-fig .hsX{fill:var(--ink);opacity:.88}
-.bounds-fig .hunit{fill:var(--bg);stroke:var(--line-strong);stroke-width:1.25}
-.bounds-fig .hband{fill:var(--line-strong);opacity:.4}
-.bounds-fig .haxis{stroke:var(--line-strong);stroke-width:1.5}
-.bounds-fig .hdot{fill:var(--ink)}
-.bounds-fig .hindep{stroke:var(--gold);stroke-width:1.5;stroke-dasharray:3 3}
-.bounds-fig .hmono{font:12px var(--mono);fill:var(--muted)}
-.bounds-fig .hink{font:12px var(--mono);fill:var(--ink)}
-.bounds-fig .hlbl{font:11px var(--mono);fill:var(--muted);letter-spacing:.07em;text-transform:uppercase}
-.bounds-fig .hf{animation-duration:7.0s;animation-iteration-count:infinite;
-  animation-direction:alternate;animation-timing-function:steps(1,end);opacity:0}
-.hf0{animation-name:hk0}.hf1{animation-name:hk1}.hf2{animation-name:hk2}.hf3{animation-name:hk3}.hf4{animation-name:hk4}.hf5{animation-name:hk5}.hf6{animation-name:hk6}.hf7{animation-name:hk7}.hf8{animation-name:hk8}.hf9{animation-name:hk9}.hf10{animation-name:hk10}
-@keyframes hk0{0.000%,9.091%{opacity:1}9.101%,100%{opacity:0}}@keyframes hk1{0%,9.081%{opacity:0}9.091%,18.182%{opacity:1}18.192%,100%{opacity:0}}@keyframes hk2{0%,18.172%{opacity:0}18.182%,27.273%{opacity:1}27.283%,100%{opacity:0}}@keyframes hk3{0%,27.263%{opacity:0}27.273%,36.364%{opacity:1}36.374%,100%{opacity:0}}@keyframes hk4{0%,36.354%{opacity:0}36.364%,45.455%{opacity:1}45.465%,100%{opacity:0}}@keyframes hk5{0%,45.445%{opacity:0}45.455%,54.545%{opacity:1}54.555%,100%{opacity:0}}@keyframes hk6{0%,54.535%{opacity:0}54.545%,63.636%{opacity:1}63.646%,100%{opacity:0}}@keyframes hk7{0%,63.626%{opacity:0}63.636%,72.727%{opacity:1}72.737%,100%{opacity:0}}@keyframes hk8{0%,72.717%{opacity:0}72.727%,81.818%{opacity:1}81.828%,100%{opacity:0}}@keyframes hk9{0%,81.808%{opacity:0}81.818%,90.909%{opacity:1}90.919%,100%{opacity:0}}@keyframes hk10{0%,90.899%{opacity:0}90.909%,100.000%{opacity:1}}
-@media (prefers-reduced-motion:reduce){.bounds-fig .hf{animation:none}.bounds-fig .hf1{opacity:1}}
-.bounds-caption{margin:.9rem 0 0;font:400 .85rem/1.6 var(--sans);color:var(--muted);max-width:62ch}
-.bounds-caption strong{color:var(--ink);font-weight:600}
-</style>
+  <!-- ============ THE FEASIBLE-WORLDS INSTRUMENT (CC-VIS-001) ============ -->
+  <section class="container" aria-label="The feasible-worlds instrument" style="padding-block:0">
+    <p class="onramp reveal" style="margin-bottom:1.4rem">Two guardrails each fail 10% of the time. How
+      often do they fail together? The common answer is 1%. The evidence permits
+      <strong>anywhere from 0% to 10%</strong> — multiplying the two rates quietly chose one
+      world out of many, and never said so. Choose for yourself:</p>
+<figure class="bounds-fig reveal" style="--d:.1s" id="worlds">
 <svg viewBox="0 0 900 268" role="img" aria-labelledby="bft bfd">
 <title id="bft">Two 10 percent failure rates permit anywhere from 0 to 10 percent joint failure</title>
-<desc id="bfd">A rectangle of area one represents the population. Two shaded strips each cover ten percent of it, one per guardrail. Their overlap is the probability both fail on the same input. Across the frames the overlap sweeps from zero to ten percent while neither individual rate ever changes. A vertical scale marks where each overlap falls between 0 and 10 percent, with a dashed mark at 1 percent — the single value that assuming independence selects.</desc>
+<desc id="bfd">A rectangle of area one represents the population. Two shaded strips each cover ten percent of it, one per guardrail. Their overlap is the probability both fail on the same input. The overlap can be set anywhere from zero to ten percent while neither individual rate ever changes. A vertical cyan scale marks the full supported interval from 0 to 10 percent, with a dashed amber mark at 1 percent — the single value that assuming independence selects. The zero-overlap and full-overlap positions are the lower and upper endpoint witnesses.</desc>
 <text x="40" y="32" class="hlbl">The population — area = 1</text>
 <rect x="40" y="58" width="560" height="132" class="hunit"/>
 <rect x="646" y="58" width="10" height="132" class="hband"/>
@@ -438,30 +248,70 @@ footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
 <text x="668" y="209" class="hmono">lower witness</text>
 <line x1="638" y1="176.8" x2="662" y2="176.8" class="hindep"/>
 <text x="668" y="170.8" class="hmono">1% — what independence picks</text>
-<g class="hf hf0"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="96.0" y="58" width="56.0" height="132" class="hsB"/><text x="40" y="214" class="hmono">π(q) = (0.80, 0.10, 0.10, 0.00)   ·   P(A) = P(B) = 10% in every frame</text><circle cx="651" cy="190.0" r="5" class="hdot"/><text x="632" y="194.0" class="hink" text-anchor="end">0%</text></g><g class="hf hf1"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="90.4" y="58" width="56.0" height="132" class="hsB"/><rect x="90.4" y="58" width="5.6" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.81, 0.09, 0.09, 0.01)   ·   P(A) = P(B) = 10% in every frame</text><circle cx="651" cy="176.8" r="5" class="hdot"/><text x="632" y="180.8" class="hink" text-anchor="end">1%</text></g><g class="hf hf2"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="84.8" y="58" width="56.0" height="132" class="hsB"/><rect x="84.8" y="58" width="11.2" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.82, 0.08, 0.08, 0.02)   ·   P(A) = P(B) = 10% in every frame</text><circle cx="651" cy="163.6" r="5" class="hdot"/><text x="632" y="167.6" class="hink" text-anchor="end">2%</text></g><g class="hf hf3"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="79.2" y="58" width="56.0" height="132" class="hsB"/><rect x="79.2" y="58" width="16.8" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.83, 0.07, 0.07, 0.03)   ·   P(A) = P(B) = 10% in every frame</text><circle cx="651" cy="150.4" r="5" class="hdot"/><text x="632" y="154.4" class="hink" text-anchor="end">3%</text></g><g class="hf hf4"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="73.6" y="58" width="56.0" height="132" class="hsB"/><rect x="73.6" y="58" width="22.4" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.84, 0.06, 0.06, 0.04)   ·   P(A) = P(B) = 10% in every frame</text><circle cx="651" cy="137.2" r="5" class="hdot"/><text x="632" y="141.2" class="hink" text-anchor="end">4%</text></g><g class="hf hf5"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="68.0" y="58" width="56.0" height="132" class="hsB"/><rect x="68.0" y="58" width="28.0" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.85, 0.05, 0.05, 0.05)   ·   P(A) = P(B) = 10% in every frame</text><circle cx="651" cy="124.0" r="5" class="hdot"/><text x="632" y="128.0" class="hink" text-anchor="end">5%</text></g><g class="hf hf6"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="62.4" y="58" width="56.0" height="132" class="hsB"/><rect x="62.4" y="58" width="33.6" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.86, 0.04, 0.04, 0.06)   ·   P(A) = P(B) = 10% in every frame</text><circle cx="651" cy="110.8" r="5" class="hdot"/><text x="632" y="114.8" class="hink" text-anchor="end">6%</text></g><g class="hf hf7"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="56.8" y="58" width="56.0" height="132" class="hsB"/><rect x="56.8" y="58" width="39.2" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.87, 0.03, 0.03, 0.07)   ·   P(A) = P(B) = 10% in every frame</text><circle cx="651" cy="97.6" r="5" class="hdot"/><text x="632" y="101.6" class="hink" text-anchor="end">7%</text></g><g class="hf hf8"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="51.2" y="58" width="56.0" height="132" class="hsB"/><rect x="51.2" y="58" width="44.8" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.88, 0.02, 0.02, 0.08)   ·   P(A) = P(B) = 10% in every frame</text><circle cx="651" cy="84.4" r="5" class="hdot"/><text x="632" y="88.4" class="hink" text-anchor="end">8%</text></g><g class="hf hf9"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="45.6" y="58" width="56.0" height="132" class="hsB"/><rect x="45.6" y="58" width="50.4" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.89, 0.01, 0.01, 0.09)   ·   P(A) = P(B) = 10% in every frame</text><circle cx="651" cy="71.2" r="5" class="hdot"/><text x="632" y="75.2" class="hink" text-anchor="end">9%</text></g><g class="hf hf10"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="40.0" y="58" width="56.0" height="132" class="hsB"/><rect x="40.0" y="58" width="56.0" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.90, 0.00, 0.00, 0.10)   ·   P(A) = P(B) = 10% in every frame</text><circle cx="651" cy="58.0" r="5" class="hdot"/><text x="632" y="62.0" class="hink" text-anchor="end">10%</text></g>
+<g class="hf hf0"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="96.0" y="58" width="56.0" height="132" class="hsB"/><text x="40" y="214" class="hmono">π(q) = (0.80, 0.10, 0.10, 0.00)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 0%   ·   P(at least one fails) = 20%   ·   the lower endpoint witness</text><circle cx="651" cy="190.0" r="5" class="hdot"/><text x="632" y="194.0" class="hink" text-anchor="end">0%</text></g>
+<g class="hf hf1"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="90.4" y="58" width="56.0" height="132" class="hsB"/><rect x="90.4" y="58" width="5.6" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.81, 0.09, 0.09, 0.01)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 1%   ·   P(at least one fails) = 19%   ·   the world independence assumes</text><circle cx="651" cy="176.8" r="5" class="hdot"/><text x="632" y="180.8" class="hink" text-anchor="end">1%</text></g>
+<g class="hf hf2"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="84.8" y="58" width="56.0" height="132" class="hsB"/><rect x="84.8" y="58" width="11.2" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.82, 0.08, 0.08, 0.02)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 2%   ·   P(at least one fails) = 18%   ·   one feasible world</text><circle cx="651" cy="163.6" r="5" class="hdot"/><text x="632" y="167.6" class="hink" text-anchor="end">2%</text></g>
+<g class="hf hf3"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="79.2" y="58" width="56.0" height="132" class="hsB"/><rect x="79.2" y="58" width="16.8" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.83, 0.07, 0.07, 0.03)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 3%   ·   P(at least one fails) = 17%   ·   one feasible world</text><circle cx="651" cy="150.4" r="5" class="hdot"/><text x="632" y="154.4" class="hink" text-anchor="end">3%</text></g>
+<g class="hf hf4"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="73.6" y="58" width="56.0" height="132" class="hsB"/><rect x="73.6" y="58" width="22.4" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.84, 0.06, 0.06, 0.04)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 4%   ·   P(at least one fails) = 16%   ·   one feasible world</text><circle cx="651" cy="137.2" r="5" class="hdot"/><text x="632" y="141.2" class="hink" text-anchor="end">4%</text></g>
+<g class="hf hf5"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="68.0" y="58" width="56.0" height="132" class="hsB"/><rect x="68.0" y="58" width="28.0" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.85, 0.05, 0.05, 0.05)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 5%   ·   P(at least one fails) = 15%   ·   one feasible world</text><circle cx="651" cy="124.0" r="5" class="hdot"/><text x="632" y="128.0" class="hink" text-anchor="end">5%</text></g>
+<g class="hf hf6"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="62.4" y="58" width="56.0" height="132" class="hsB"/><rect x="62.4" y="58" width="33.6" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.86, 0.04, 0.04, 0.06)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 6%   ·   P(at least one fails) = 14%   ·   one feasible world</text><circle cx="651" cy="110.8" r="5" class="hdot"/><text x="632" y="114.8" class="hink" text-anchor="end">6%</text></g>
+<g class="hf hf7"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="56.8" y="58" width="56.0" height="132" class="hsB"/><rect x="56.8" y="58" width="39.2" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.87, 0.03, 0.03, 0.07)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 7%   ·   P(at least one fails) = 13%   ·   one feasible world</text><circle cx="651" cy="97.6" r="5" class="hdot"/><text x="632" y="101.6" class="hink" text-anchor="end">7%</text></g>
+<g class="hf hf8"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="51.2" y="58" width="56.0" height="132" class="hsB"/><rect x="51.2" y="58" width="44.8" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.88, 0.02, 0.02, 0.08)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 8%   ·   P(at least one fails) = 12%   ·   one feasible world</text><circle cx="651" cy="84.4" r="5" class="hdot"/><text x="632" y="88.4" class="hink" text-anchor="end">8%</text></g>
+<g class="hf hf9"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="45.6" y="58" width="56.0" height="132" class="hsB"/><rect x="45.6" y="58" width="50.4" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.89, 0.01, 0.01, 0.09)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 9%   ·   P(at least one fails) = 11%   ·   one feasible world</text><circle cx="651" cy="71.2" r="5" class="hdot"/><text x="632" y="75.2" class="hink" text-anchor="end">9%</text></g>
+<g class="hf hf10"><rect x="40.0" y="58" width="56.0" height="132" class="hsA"/><rect x="40.0" y="58" width="56.0" height="132" class="hsB"/><rect x="40.0" y="58" width="56.0" height="132" class="hsX"/><text x="40" y="214" class="hmono">π(q) = (0.90, 0.00, 0.00, 0.10)   ·   P(A) = P(B) = 10% in every frame</text><text x="40" y="236" class="hmono">P(both fail) = 10%   ·   P(at least one fails) = 10%   ·   the upper endpoint witness</text><circle cx="651" cy="58.0" r="5" class="hdot"/><text x="632" y="62.0" class="hink" text-anchor="end">10%</text></g>
 </svg>
+<div class="bounds-ctl">
+  <label class="mono" for="qslider">Drag the shared-miss overlap — both marginals stay pinned at 10%</label>
+  <div class="bounds-ctl-row">
+    <input type="range" id="qslider" min="0" max="10" step="1" value="0" aria-describedby="bfd">
+    <output class="mono" id="qout">q = 0% — the lower endpoint witness</output>
+  </div>
+</div>
 <figcaption class="bounds-caption"><strong>Fig. 02 — the same two scores, every world they permit.</strong>
-Both guardrails fail 10% of the time in every frame. Only their overlap moves. Multiplying the two
-rates selects one frame out of all of them and reports it as the answer.
+Both guardrails fail 10% of the time in every position. Only the overlap moves. The cyan scale is
+the full supported interval; independence is the amber tick — one named assumption-world, not the
+answer. The endpoint worlds are witnessed, and the geometry of every frame is asserted in CI.
 <a href="/essays/when-marginals-are-not-enough/">The full argument →</a></figcaption>
 </figure>
+
+    <nav class="doors reveal" aria-label="Three doors">
+      <a class="door" href="/modules/">
+        <span class="mono">Door 01 — Modules</span>
+        <strong>Six questions, one grammar</strong>
+        <span class="desc">Each module takes one question to its current evidence boundary:
+          claim, worlds, witnesses, non-claims, next unknown.</span>
+      </a>
+      <a class="door" href="/ledger/">
+        <span class="mono">Door 02 — Ledger</span>
+        <strong>Every claim, in envelope form</strong>
+        <span class="desc">Generated from the registry, bound to commits, drift-checked and
+          prosecuted by CI — weekly and on every push.</span>
+      </a>
+      <a class="door" href="/essays/when-marginals-are-not-enough/">
+        <span class="mono">Door 03 — Flagship case</span>
+        <strong>When marginals are not enough</strong>
+        <span class="desc">The 10%-and-10% argument in full, with the kernel’s recorded output
+          and both endpoint witnesses.</span>
+      </a>
+    </nav>
   </section>
 
-  <!-- ======================= WORK ======================= -->
+  <!-- ======================= CURRENT PROGRAMS ======================= -->
   <section id="work">
     <div class="container">
       <header class="sec-head reveal">
         <span class="sec-no" aria-hidden="true">01</span>
-        <h2>Selected work</h2>
+        <h2>Current programs</h2>
         <span class="sec-rule"></span>
       </header>
-      <p class="sec-intro reveal">Discipline, scoped: evidence markers apply to the technical
-        project claims below; biographical facts are owner-attested unless linked. Chips with a
-        solid dot open public evidence. <span class="mono" style="font-size:.68rem">Attested</span>
-        means stated on my responsibility, dated, with no public artifact yet — provenance, not
-        proof. Exact bindings — commit SHAs, executable review triggers, non-claims — live in the
-        <a class="u" href="/ledger/">evidence ledger</a>, which is generated from the registry
-        and drift-checked in CI.</p>
+      <p class="sec-intro reveal">Three programs, and no more. Evidence markers apply to the
+        technical project claims below; biographical facts are owner-attested unless linked.
+        Chips with a solid dot open public evidence.
+        <span class="mono" style="font-size:.68rem">Attested</span> means stated on my
+        responsibility, dated, with no public artifact yet — provenance, not proof. Exact
+        bindings — commit SHAs, executable review triggers, non-claims — live in the
+        <a class="u" href="/ledger/">evidence ledger</a>. Everything older or superseded is in
+        the <a class="u" href="/archive/">archive</a>, with its succession recorded.</p>
 
       <article class="card flagship reveal">
         <div>
@@ -470,14 +320,15 @@ rates selects one frame out of all of them and reports it as the answer.
           <p>Treats composed-guardrail failure as a partial-identification problem: individual
             rail failure rates are known, their joint dependence is not. Given marginal evidence
             and declared dependence assumptions, it computes sharp Fréchet–Hoeffding bounds on
-            stacked-system failure and records the boundary of the resulting claim — claim
-            envelopes, evidence roles, Merkle-logged receipts, decay semantics. Its flagship
-            computation is re-reproduced from a clean clone by this site's CI, weekly.</p>
+            stacked-system failure with endpoint witnesses, and records the boundary of the
+            resulting claim — claim envelopes, evidence roles, receipts, decay semantics. Its
+            flagship computation and witnesses are re-reproduced from a clean clone by this
+            site's CI, weekly.</p>
           <div class="chips">
             <a class="chip" href="https://github.com/Cubits11/cc-framework">Inspect CC-Framework source ↗</a>
             <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md">Claim-boundary manifest ↗</a>
             <a class="chip chip-internal" href="/essays/when-marginals-are-not-enough/">Case study →</a>
-            <a class="chip" href="https://github.com/Cubits11/cc-framework/tree/main/visual_identity/before_you_see_it">“Before You See It” — 15s film ↗</a>
+            <a class="chip" href="https://github.com/Cubits11/cc-framework/tree/549295b2e7521fe1e49153105dfe6563ad4f4903/visual_identity/before_you_see_it">“Before You See It” — 15s film ↗</a>
           </div>
         </div>
         <aside class="nonclaim">
@@ -493,10 +344,11 @@ rates selects one frame out of all of them and reports it as the answer.
           <p class="card-tag mono">S2 Lab, Penn State · verification research · in development</p>
           <h3>Ghost-Ark</h3>
           <p>A verifier and measurement harness for the provenance limits of AI-governance
-            receipts. Its research claim: a receipt identifies an execution only up to the kernel
-            of its canonicalizer — so receipt soundness does not persist over time even when the
-            receipt system never changes. Ghost-Ark makes canonicalization collisions, evidence
-            resolution, and receipt non-claims executable rather than implicit.</p>
+            receipts. Its research claim: receipt soundness is a ternary relation —
+            <em>Sound(C,&nbsp;Σ,&nbsp;P)</em> — and a receipt identifies an execution only up to
+            the kernel of its whole parse&nbsp;→&nbsp;canonicalize&nbsp;→&nbsp;digest pipeline,
+            so soundness does not persist by default as pathologies and consumers grow. Collisions
+            are demonstrated as possible, not measured as prevalent — and the repo says so.</p>
           <p class="nc-line"><span class="mono">Non-claim</span> — a verifying receipt does not
             establish that the governed action was safe, authorized, or semantically correct.</p>
           <div class="chips">
@@ -505,15 +357,20 @@ rates selects one frame out of all of them and reports it as the answer.
           </div>
         </article>
         <article class="card reveal" style="--d:.08s">
-          <p class="card-tag mono">Media provenance · AWS Nitro Enclaves · early stage</p>
-          <h3>Assay</h3>
-          <p>An early-stage experiment in enclave-attested media processing: which processing and
-            provenance claims can a verifier actually derive from Nitro Enclave attestation — and
-            which can it not. The epistemic boundary is the project. Private while the answers are
-            unsettled; public artifacts when they can stand behind themselves.</p>
+          <p class="card-tag mono">Field artifact P₀ · evidence-bound interfaces · experimental</p>
+          <h3>The record itself</h3>
+          <p>This site is the third program: a claim registry rendered into a generated ledger,
+            bound to immutable commits, watched by executable review triggers, re-reproduced from
+            clean clones in CI. The claim observatory renders the registry as one field of
+            capsules, bindings, and decay clocks. The central hypothesis — that claim-bound
+            interfaces improve a reader's comprehension or calibration — is untested; the control
+            study is designed, not run.</p>
+          <p class="nc-line"><span class="mono">Non-claim</span> — aesthetic coherence is not
+            epistemic reliability; what this interface does to readers is an open question.</p>
           <div class="chips">
-            <span class="chip chip-attested">Attested · 2026-08
-              <span class="sr-only">— stated on my responsibility; no public artifact linked yet</span></span>
+            <a class="chip chip-internal" href="/observatory/">Claim observatory →</a>
+            <a class="chip" href="https://github.com/Cubits11/cubits11.github.io/blob/main/claims.yaml">Inspect the registry ↗</a>
+            <a class="chip chip-internal" href="/notes/noetic-log-001/">The self-audit →</a>
           </div>
         </article>
       </div>
@@ -523,13 +380,26 @@ rates selects one frame out of all of them and reports it as the answer.
           <div><span class="name-sm">Ghost Visualizer</span>
             <span class="desc">A seven-scene visual essay, “Why AI Safety Scores Lie”: identical
               marginal guardrail scores hiding shared misses, with computed bounds, endpoint
-              witnesses, and an inspectable receipt object. Runs locally; no hosted deployment yet.</span></div>
+              witnesses, and an inspectable receipt object. Runs locally; no hosted deployment
+              yet — and its own readiness review scopes it to private demos, so this stays a
+              source link.</span></div>
           <a class="chip" href="https://github.com/Cubits11/ghost-visualizer">Inspect source ↗</a>
         </div>
         <div class="index-item">
-          <div><span class="name-sm">GCE — Guardrail Composability Explorer</span>
-            <span class="desc">MVP demo built for AI-285: toggle guardrails and watch composed behavior diverge from intuition.</span></div>
-          <a class="chip" href="https://github.com/Cubits11/gce">Inspect GCE source ↗</a>
+          <div><span class="name-sm">Assay</span>
+            <span class="desc">Early-stage, private: enclave-attested media processing on AWS
+              Nitro Enclaves — which provenance claims can a verifier actually derive from
+              attestation, and which can it not. Attestation cannot establish a file's history
+              prior to the first attested operation; the boundary is the project.</span></div>
+          <span class="chip chip-attested">Attested · 2026-08
+            <span class="sr-only">— stated on my responsibility; no public artifact linked yet</span></span>
+        </div>
+        <div class="index-item">
+          <div><span class="name-sm">Earlier work</span>
+            <span class="desc">GCE and the superseded guardrail-composition line are preserved in
+              the archive as intellectual lineage, each with what it explored, what was wrong,
+              and what replaced it.</span></div>
+          <a class="chip chip-internal" href="/archive/">Enter the archive →</a>
         </div>
       </div>
     </div>
@@ -553,7 +423,8 @@ rates selects one frame out of all of them and reports it as the answer.
         <div class="pcard reveal" style="--d:.15s"><span class="mono">Non-claim</span><p>What this evidence will never support, stated before anyone asks.</p></div>
         <div class="pcard reveal" style="--d:.2s"><span class="mono">Result</span><p>Two distributions sharing <em>every</em> singleton and pairwise moment; three-way failure of 0% in one and 25% in the other. Measuring every pair does not identify the triple.</p><span class="stamp">Supported within scope — controlled synthetic · decision: Narrow</span></div>
       </div>
-      <p class="method-note reveal">Lock the first four <em>before</em> the result slot fills, then let the result disagree. The result above is E₁'s: it survived, and it narrowed the claim rather than widening it.
+      <p class="method-note reveal">Lock the first four <em>before</em> the result slot fills, then let the result disagree. The result above is E₁'s: it survived, and it narrowed the claim rather than widening it — claim
+        <a class="u" href="/ledger/#CC-003"><code style="font-family:var(--mono);font-size:.85em">CC-003</code></a> binds it.
         <em>A story can start a question. It cannot finish an answer.</em> Untested is not
         inconclusive: inconclusive means evidence arrived and failed to discriminate; untested
         means the world has not answered yet. This page keeps the two apart — and keeps its own
@@ -627,11 +498,56 @@ rates selects one frame out of all of them and reports it as the answer.
     </div>
   </section>
 
+  <!-- ======================= CURRENT QUESTION ======================= -->
+  <div class="question-strip">
+    <div class="container reveal">
+      <span class="mono">The current question · frozen before any dataset was inspected</span>
+      <p class="bigq">Can dependence evidence be measured at feasible cost — before it has to be
+        assumed?</p>
+      <p>E2, the first empirical rung of the evidence ladder, is a shared-item measurement
+        contract frozen in advance; no conforming dataset has been collected, so it is untested —
+        and says so. The next artifact is a conforming observation set, or a documented failure
+        to obtain one. <a class="u" href="/now/">What is moving right now →</a></p>
+    </div>
+  </div>
+
+  <!-- ======================= WRITING ======================= -->
+  <section id="writing">
+    <div class="container">
+      <header class="sec-head reveal">
+        <span class="sec-no" aria-hidden="true">04</span>
+        <h2>Writing</h2>
+        <span class="sec-rule"></span>
+      </header>
+      <div class="index-list reveal">
+        <div class="index-item">
+          <div><span class="name-sm">When marginals are not enough</span>
+            <span class="desc">The flagship case: two 10% guardrails, the interval the evidence
+              actually supports, and the witnesses at both ends — with the kernel's recorded
+              output at a bound commit.</span></div>
+          <a class="chip chip-internal" href="/essays/when-marginals-are-not-enough/">Read →</a>
+        </div>
+        <div class="index-item">
+          <div><span class="name-sm">Noetic log 001 — what v0.2 still pretended to implement</span>
+            <span class="desc">The public self-audit: five places this site asserted mechanics it
+              did not have, and the machinery that closed them.</span></div>
+          <a class="chip chip-internal" href="/notes/noetic-log-001/">Read →</a>
+        </div>
+        <div class="index-item">
+          <div><span class="name-sm">All writing</span>
+            <span class="desc">Essays, field notes, and audit logs, with each piece's claim
+              envelope where one applies.</span></div>
+          <a class="chip chip-internal" href="/writing/">Index →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ======================= CONTACT ======================= -->
   <section id="contact">
     <div class="container">
       <header class="sec-head reveal">
-        <span class="sec-no" aria-hidden="true">04</span>
+        <span class="sec-no" aria-hidden="true">05</span>
         <h2>Contact</h2>
         <span class="sec-rule"></span>
       </header>
@@ -652,7 +568,7 @@ rates selects one frame out of all of them and reports it as the answer.
 </main>
 
 <footer>
-  <div class="status-strip mono" aria-label="Ledger status">
+  <div class="status-strip mono">
     <div class="container">
       <span>Ledger <b>v0.3</b> — generated from claims.yaml, drift-checked</span>
       <span>Triggers: <b>executable</b> where CI can watch, <b>manual</b> declared where it can't</span>
@@ -663,26 +579,30 @@ rates selects one frame out of all of them and reports it as the answer.
     <div class="colophon">
       <div>
         <span class="mono">Colophon</span>
-        Hand-built static HTML, CSS, and about three kilobytes of JavaScript. No framework, no
-        client-side analytics, no cookies. Set in Fraunces, Instrument Sans, and Fragment Mono,
-        self-hosted. Palette sampled from Fig.&nbsp;01 — the gold is its warm light sample,
-        deepened for signal duty. Hosted on GitHub Pages; CI verifies the claim registry,
-        executes its review triggers, and re-reproduces CC-001 from a clean clone on every push
-        and weekly.
+        Hand-built static HTML and CSS on a shared design-system stylesheet, with about four
+        kilobytes of JavaScript. No framework, no client-side analytics, no cookies. Set in
+        Fraunces, Instrument Sans, and Fragment Mono, self-hosted. Field and ink sampled from
+        Fig.&nbsp;01; the state colors — evidence cyan, review amber, invalidation red — are
+        ported from CC-Framework's claim-observatory color law. Hosted on GitHub Pages; CI
+        verifies the claim registry, executes its review triggers, asserts Fig.&nbsp;02's
+        geometry, and re-reproduces CC-001 and CC-004 from a clean clone on every push and
+        weekly.
       </div>
       <div class="legend">
         <span class="mono" style="margin-bottom:0">Evidence legend</span>
-        <span><span class="dot"></span> solid dot — opens public evidence</span>
+        <span><span class="dot"></span> solid cyan dot — opens public evidence</span>
         <span><span class="dot dot-hollow"></span> hollow dot — attested, on my responsibility</span>
-        <span><span class="dot dot-gold"></span> square dot — internal record</span>
-        <span style="color:var(--muted)">Markers cover technical project claims; biography is owner-attested unless linked.</span>
+        <span><span class="dot dot-gold"></span> gold square — internal record</span>
+        <span style="color:var(--muted)">Markers cover technical project claims; biography is owner-attested unless linked. Amber marks review due; red marks contradiction or expiry — neither appears decoratively.</span>
       </div>
     </div>
     <div class="foot-links mono">
+      <a class="u" href="/modules/">Modules</a>
+      <a class="u" href="/observatory/">Observatory</a>
       <a class="u" href="/ledger/">Evidence ledger</a>
-      <a class="u" href="/essays/when-marginals-are-not-enough/">Case study</a>
-      <a class="u" href="/notes/noetic-log-001/">Noetic log 001</a>
-      <a class="u" href="/resume/">Résumé</a>
+      <a class="u" href="/writing/">Writing</a>
+      <a class="u" href="/archive/">Archive</a>
+      <a class="u" href="/now/">Now</a>
       <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md">Design ledger ↗</a>
     </div>
     <div class="foot-base mono">
@@ -724,6 +644,28 @@ rates selects one frame out of all of them and reports it as the answer.
   });
   syncToggle();
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncToggle);
+
+  /* ---- the feasible-worlds instrument: user-driven, no autoplay ---- */
+  var slider = document.getElementById('qslider');
+  var qout = document.getElementById('qout');
+  var frames = [];
+  for (var q = 0; q <= 10; q++) frames.push(document.querySelector('.hf' + q));
+  var worldName = function (q) {
+    if (q === 0) return 'the lower endpoint witness';
+    if (q === 1) return 'the world independence assumes';
+    if (q === 10) return 'the upper endpoint witness';
+    return 'one feasible world';
+  };
+  function showWorld(q) {
+    frames.forEach(function (f, i) {
+      if (f) f.classList.toggle('on', i === q);
+    });
+    qout.textContent = 'q = ' + q + '% — ' + worldName(q);
+  }
+  if (slider && qout) {
+    slider.addEventListener('input', function () { showWorld(Number(slider.value)); });
+    showWorld(Number(slider.value));
+  }
 
   /* ---- reveals: enhancement only, never a dependency ---- */
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -773,7 +715,7 @@ rates selects one frame out of all of them and reports it as the answer.
 {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
-  "dateModified": "2026-08-20",
+  "dateModified": "2026-08-23",
   "mainEntity": {
     "@type": "Person",
     "name": "Pranav Bhave",
