@@ -252,6 +252,50 @@ claims:
       - '"we validated CC" is prohibited at every rung of the evidence
         ladder'
 
+  - id: CC-006
+    proposition: >
+      CC-Framework's E2 measurement pipeline was rehearsed end to end on three
+      synthetic guardrail mechanisms: 66 observation rows conform to the frozen
+      E2 schema with zero validator violations, the pre-registered negative
+      controls behave (the common-cause control attains pA(1-pA) to 1e-9), and
+      the finding records the result as a null at n=22 with a quantified cost
+      for real E2 (~1097 shared items for epsilon=0.05). E2 itself is not run.
+    scope: >
+      The dry-run finding document at the bound commit. Synthetic toy
+      mechanisms only; not deployed guardrails, not a real population, not E2.
+    dimensions:
+      visibility: public
+      provenance: owner_authored
+      support_role: document
+      evidential_status: supported_within_scope
+      maturity: in_development
+    support:
+      url: "https://github.com/Cubits11/cc-framework/blob/327f0684f49768531594d593902ed8907fc717af/docs/research/E2_DRYRUN_FINDING.md"
+      commit: "327f0684f49768531594d593902ed8907fc717af"
+      note: >
+        The finding is backed by the committed harness, frozen corpus, and a
+        reference observation set under experiments/e2_dryrun/, guarded by
+        tests/unit/research/test_e2_dryrun.py in the same repository.
+    last_reviewed: "2026-08-23"
+    review_window_days: 120
+    review_triggers:
+      - type: remote_content_change
+        enforcement: executable
+        repo: Cubits11/cc-framework
+        path: docs/research/E2_DRYRUN_FINDING.md
+        bound_ref: "327f0684f49768531594d593902ed8907fc717af"
+        note: fires when the dry-run finding on the default branch changes
+      - type: manual
+        enforcement: manual
+        event: real E2 data is collected — this claim is superseded by an E2 result
+    non_claims:
+      - this is not E2 and does not move E2 off untested; the mechanisms are
+        toy filters in the repository, not deployed guardrails
+      - the observed dependence is a null at this scale, not evidence of
+        independence or of any real-guardrail dependence
+      - validating the instrument establishes nothing about the safety,
+        representativeness, or deployment behavior of any real system
+
   - id: GA-001
     proposition: >
       Ghost-Ark is a verifier and measurement harness for the provenance
