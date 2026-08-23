@@ -1,0 +1,396 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: claims.yaml · renderer: scripts/generate_observatory.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claim Observatory — Pranav Bhave</title>
+<meta name="description" content="The claim registry as one field: capsules, evidence bindings, decay clocks, and the non-claims wall — every boundary visible, no aggregate score anywhere.">
+<link rel="canonical" href="https://cubits11.github.io/observatory/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Claim Observatory — Pranav Bhave">
+<meta property="og:description" content="The claim registry as one field: capsules, evidence bindings, decay clocks, and the non-claims wall — every boundary visible, no aggregate score anywhere.">
+<meta property="og:url" content="https://cubits11.github.io/observatory/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+body{font-size:1rem;line-height:1.65}
+.container{width:min(1060px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.68rem}
+header.page{padding:7.9rem 0 2.4rem}
+h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 0 1rem;letter-spacing:-.018em}
+.intro{color:var(--muted);max-width:48em}
+.field{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:1.1rem;margin-top:2.2rem}
+.capsule{border:1px solid var(--line-strong);border-left:2px solid var(--evidence);background:var(--surface);padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.75rem}
+.cap-head{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.cap-id{color:var(--gold);font-size:.68rem;font-weight:400;margin:0;letter-spacing:.09em;margin-right:auto}
+.cap-prop{font-family:var(--serif);font-size:.98rem;line-height:1.5;margin:0;color:var(--ink)}
+.cap-slabs{display:flex;flex-wrap:wrap;gap:.5rem}
+.cap-meta{display:flex;flex-direction:column;gap:.3rem;color:var(--muted)}
+.cap-tags{display:flex;gap:.4rem}
+.cap-foot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:.7rem;margin-top:auto;color:var(--muted)}
+.clock{width:1.5rem;height:1.5rem;flex:none}
+.clock svg{width:100%;height:100%;transform:rotate(-90deg)}
+.clock-track{fill:none;stroke:var(--line);stroke-width:3}
+.clock-arc{fill:none;stroke:var(--ink);stroke-width:3;stroke-dasharray:97.39;stroke-dashoffset:97.39}
+.capsule.review-due .clock-arc{stroke:var(--review)}
+.capsule.expired .clock-arc{stroke:var(--invalid)}
+.capsule.expired{border-left-color:var(--invalid)}
+.clock-days{color:var(--muted)}
+html:not(.js) .clock{display:none}
+.zone{margin-top:4rem;border-top:1px solid var(--line);padding-top:2rem}
+.zone h2{font-weight:520;font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 .6rem;letter-spacing:-.01em}
+.zone .zone-intro{color:var(--muted);max-width:46em}
+.wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
+.wall-row{display:grid;grid-template-columns:6.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
+.wall-row:last-child{border-bottom:none}
+.wall-id{color:var(--gold)}
+.wall-row ul{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.wall-row li{margin:.25rem 0}
+.replay pre{background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.4rem 0 0}
+.manual-list{margin:1.2rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.manual-list li{margin:.35rem 0}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+@media (max-width:600px){.wall-row{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/modules/">Modules</a>
+      <a href="/observatory/" aria-current="page">Observatory</a>
+      <a href="/ledger/">Ledger</a>
+      <a href="/writing/">Writing</a>
+      <a href="/archive/">Archive</a>
+      <a href="/resume/">R&eacute;sum&eacute;</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>Observatory</b> — the registry as one field · generated from claims.yaml</span>
+    <span>Schema v0.3 · 12 claims · 9 supported within scope · 3 publicly untested</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <h1>Claim observatory</h1>
+    <p class="intro">Every claim in this record, as a capsule: its proposition, its evidence
+      binding, its decay clock, and the boundary it will not cross. Cyan marks a public
+      evidence binding; a dashed chip is owner-attested and says so; the clock turns amber
+      when a review window is three-quarters spent and red when it lapses. There is no
+      aggregate score here and never will be — a quiet trigger is quiet, not "healthy",
+      and twelve envelopes do not average into one number.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <div class="field">
+  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+    <div class="cap-head">
+      <h2 class="mono cap-id">CC-001</h2>
+      <span class="mono status">Supported within scope</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">cc.kernel.strict.frechet_bounds computes Fréchet–Hoeffding endpoint bounds for composed binary guardrail failure from declared marginals; for marginals (0.10, 0.10) it returns [0.0, 0.10] for the AND event and [0.10, 0.20] for OR.</p>
+    <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6">cc-framework @ 167aa1ee ↗</a></div>
+    <div class="cap-meta mono">
+      <span>Machine-generated, owner-executed</span>
+      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#CC-001">open the envelope →</a>
+      <a class="u" href="#wall-CC-001">3 non-claims</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-20" data-window="120">
+    <div class="cap-head">
+      <h2 class="mono cap-id">CC-002</h2>
+      <span class="mono status">Supported within scope</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">CC-Framework maintains a claim-boundary manifest mapping its public claims to validation lanes, supporting files, and explicit non-claims.</p>
+    <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md">cc-framework @ 3e22c39d ↗</a></div>
+    <div class="cap-meta mono">
+      <span>Owner-authored, public</span>
+      <span>reviewed 2026-08-20 · window 120d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-exec">executable</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#CC-002">open the envelope →</a>
+      <a class="u" href="#wall-CC-002">1 non-claim</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+    <div class="cap-head">
+      <h2 class="mono cap-id">CC-003</h2>
+      <span class="mono status">Supported within scope</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">CC-Framework&#x27;s E1 dependence-evidence study established constructively that distributions with identical singleton failure rates (0.5) and identical pairwise overlaps (0.25) can differ in three-way failure probability — 0 under even parity, 0.25 under odd parity — so measuring every pair does not identify a three-guardrail stack. E1 is synthetic; its recorded decision is Narrow.</p>
+    <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/ee61a710243c74ec49d5896167d0913327e6b5d3/docs/research/E1_DEPENDENCE_EVIDENCE_STUDY.md">cc-framework @ ee61a710 ↗</a></div>
+    <div class="cap-meta mono">
+      <span>Owner-authored, public</span>
+      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#CC-003">open the envelope →</a>
+      <a class="u" href="#wall-CC-003">3 non-claims</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+    <div class="cap-head">
+      <h2 class="mono cap-id">CC-004</h2>
+      <span class="mono status">Supported within scope</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">For marginals (0.10, 0.10) and the both-fail query, cc.kernel.strict identify() returns the sharp interval [0.0, 0.10] together with endpoint witness distributions that sum to one, are nonnegative, satisfy both marginal constraints, and attain each endpoint — verified to 1e-9 from a clean clone.</p>
+    <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6">cc-framework @ 167aa1ee ↗</a></div>
+    <div class="cap-meta mono">
+      <span>Machine-generated, owner-executed</span>
+      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#CC-004">open the envelope →</a>
+      <a class="u" href="#wall-CC-004">2 non-claims</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+    <div class="cap-head">
+      <h2 class="mono cap-id">GA-001</h2>
+      <span class="mono status">Supported within scope</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">Ghost-Ark is a verifier and measurement harness for the provenance limits of AI-governance receipts — a research artifact of the S2 Lab, Penn State — whose stated thesis is that receipt soundness is a ternary relation Sound(C, Σ, P): a receipt identifies an execution only up to the kernel of its whole parse → canonicalize → digest pipeline, so soundness does not persist by default as the pathology alphabet grows or the consumer set widens.</p>
+    <div class="cap-slabs"><a class="chip" href="https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md">ghost-ark @ 98c90d82 ↗</a></div>
+    <div class="cap-meta mono">
+      <span>Lab repository, public</span>
+      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-exec">executable</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#GA-001">open the envelope →</a>
+      <a class="u" href="#wall-GA-001">3 non-claims</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-20" data-window="120">
+    <div class="cap-head">
+      <h2 class="mono cap-id">AS-001</h2>
+      <span class="mono status-dim">Publicly untested</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">Assay is an early-stage experiment in enclave-attested media processing on AWS Nitro Enclaves, investigating which provenance claims a verifier can and cannot derive from attestation.</p>
+    <div class="cap-slabs"><span class="chip chip-attested">attested — no public artifact<span class="sr-only"> — stated on the owner's responsibility</span></span></div>
+    <div class="cap-meta mono">
+      <span>Owner-attested</span>
+      <span>reviewed 2026-08-20 · window 120d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#AS-001">open the envelope →</a>
+      <a class="u" href="#wall-AS-001">2 non-claims</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-20" data-window="120">
+    <div class="cap-head">
+      <h2 class="mono cap-id">GV-001</h2>
+      <span class="mono status">Supported within scope</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">Ghost Visualizer is a seven-scene React/Vite visual essay (&quot;Why AI Safety Scores Lie&quot;) that computes marginals, OR composition, Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from deterministic sample rows, with an Evidence Mode for inspection.</p>
+    <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7">ghost-visualizer @ 3fbe3efc ↗</a></div>
+    <div class="cap-meta mono">
+      <span>Owner-authored, public</span>
+      <span>reviewed 2026-08-20 · window 120d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#GV-001">open the envelope →</a>
+      <a class="u" href="#wall-GV-001">2 non-claims</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-23" data-window="365">
+    <div class="cap-head">
+      <h2 class="mono cap-id">GCE-001</h2>
+      <span class="mono status">Supported within scope</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">GCE — the Guardrail Composability Explorer — is a coursework MVP demo (AI-285) for toggling guardrails and observing composed behavior. Its front-door composability-coefficient framing is superseded by CC-Framework&#x27;s dependence-aware partial identification, whose metric taxonomy classifies the older coefficient family as legacy/deprecated. GCE is preserved as intellectual lineage, not current theory.</p>
+    <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/75e90c2f1f84fa89562ed4fe46f137e0be236476/docs/theory/metric_taxonomy.md">cc-framework @ 75e90c2f ↗</a></div>
+    <div class="cap-meta mono">
+      <span>Owner-authored, public</span>
+      <span>reviewed 2026-08-23 · window 365d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#GCE-001">open the envelope →</a>
+      <a class="u" href="#wall-GCE-001">2 non-claims</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-20" data-window="365">
+    <div class="cap-head">
+      <h2 class="mono cap-id">BIO-001</h2>
+      <span class="mono status-dim">Publicly untested</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">B.S. Computer Science, Pennsylvania State University, May 2026, with a minor in Cybersecurity; research supervised by Dr. Peng Liu (IST 496, Aug–Dec 2025).</p>
+    <div class="cap-slabs"><span class="chip chip-attested">attested — no public artifact<span class="sr-only"> — stated on the owner's responsibility</span></span></div>
+    <div class="cap-meta mono">
+      <span>Owner-attested</span>
+      <span>reviewed 2026-08-20 · window 365d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#BIO-001">open the envelope →</a>
+      <a class="u" href="#wall-BIO-001">1 non-claim</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-20" data-window="180">
+    <div class="cap-head">
+      <h2 class="mono cap-id">CRED-001</h2>
+      <span class="mono status-dim">Publicly untested</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">Holds AWS Certified Cloud Practitioner and AWS Certified AI Practitioner; SAA-C03 and Security — Specialty are in progress.</p>
+    <div class="cap-slabs"><span class="chip chip-attested">attested — no public artifact<span class="sr-only"> — stated on the owner's responsibility</span></span></div>
+    <div class="cap-meta mono">
+      <span>Owner-attested</span>
+      <span>reviewed 2026-08-20 · window 180d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#CRED-001">open the envelope →</a>
+      <a class="u" href="#wall-CRED-001">1 non-claim</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+    <div class="cap-head">
+      <h2 class="mono cap-id">SITE-001</h2>
+      <span class="mono status">Supported within scope</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">This site&#x27;s palette token pairs were computed to pass WCAG AA contrast (most AAA), and manual QA passes covered light/dark themes, desktop and mobile layouts, keyboard focus, reduced motion, and no-JS rendering, as recorded in DESIGN.md.</p>
+    <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md">bound document ↗</a></div>
+    <div class="cap-meta mono">
+      <span>Owner-verified</span>
+      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#SITE-001">open the envelope →</a>
+      <a class="u" href="#wall-SITE-001">2 non-claims</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+    <div class="cap-head">
+      <h2 class="mono cap-id">SITE-002</h2>
+      <span class="mono status">Supported within scope</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">This site&#x27;s claim registry is enforced in CI: verify_claims.py validates schema and bindings, executes the executable review triggers against live evidence, and fails the build when any claim passes its freshness window — on every push and weekly.</p>
+    <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py">bound document ↗</a></div>
+    <div class="cap-meta mono">
+      <span>Owner-verified</span>
+      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#SITE-002">open the envelope →</a>
+      <a class="u" href="#wall-SITE-002">2 non-claims</a>
+    </div>
+  </article>
+  </div>
+
+  <section class="zone" id="wall" aria-labelledby="wall-h">
+    <h2 id="wall-h">The non-claims wall</h2>
+    <p class="zone-intro">The outer boundary of the record: everything these claims refuse to
+      support, collected in one place. A claim without a stated non-claim is a claim that has
+      not found its edge yet.</p>
+    <div class="wall"><div class="wall-row" id="wall-CC-001"><span class="mono wall-id">CC-001</span><ul><li>does not certify any stacked system as safe</li><li>does not recover or estimate the unknown dependence</li><li>does not select a point inside the returned interval</li></ul></div><div class="wall-row" id="wall-CC-002"><span class="mono wall-id">CC-002</span><ul><li>the manifest&#x27;s existence does not validate the claims it scopes</li></ul></div><div class="wall-row" id="wall-CC-003"><span class="mono wall-id">CC-003</span><ul><li>the parity construction demonstrates possibility, not frequency, in real guardrail stacks — no claim of empirical prevalence</li><li>nothing here validates the framework&#x27;s practical or deployed value; &quot;we validated CC&quot; is prohibited at every rung of the repository&#x27;s evidence ladder</li><li>the product-baseline failure directions observed in E1 are properties of the tested generators, not universal constants</li></ul></div><div class="wall-row" id="wall-CC-004"><span class="mono wall-id">CC-004</span><ul><li>endpoint witnesses are feasible mathematical worlds, not observed systems</li><li>attainment does not select a point inside the interval or estimate the true dependence</li></ul></div><div class="wall-row" id="wall-GA-001"><span class="mono wall-id">GA-001</span><ul><li>a verifying receipt does not establish that the governed action was safe, authorized, or semantically correct</li><li>kernel collisions in real canonicalizers are demonstrated as possible, not as prevalent — the repository&#x27;s E12 sample found 0 of 64 real payloads carrying any pathology class</li><li>not hardened for deployment; not post-quantum secure</li></ul></div><div class="wall-row" id="wall-AS-001"><span class="mono wall-id">AS-001</span><ul><li>no public evidence is offered; nothing about completeness, security, or provenance-chain origin is established</li><li>attestation cannot establish a file&#x27;s history prior to the first attested operation</li></ul></div><div class="wall-row" id="wall-GV-001"><span class="mono wall-id">GV-001</span><ul><li>not an AI-safety certificate; no deployment-readiness claim</li><li>its own public-readiness review scores it for private serious-contact demo use; the site therefore links source rather than exhibiting its media as a flagship</li></ul></div><div class="wall-row" id="wall-GCE-001"><span class="mono wall-id">GCE-001</span><ul><li>supersession is a statement about theoretical framing, not about the correctness of GCE&#x27;s code or its value as coursework</li><li>no current-research claim is made by or for GCE</li></ul></div><div class="wall-row" id="wall-BIO-001"><span class="mono wall-id">BIO-001</span><ul><li>no public registry link is provided; the site does not present this as third-party verified</li></ul></div><div class="wall-row" id="wall-CRED-001"><span class="mono wall-id">CRED-001</span><ul><li>&quot;in progress&quot; asserts intent and preparation, not partial credential</li></ul></div><div class="wall-row" id="wall-SITE-001"><span class="mono wall-id">SITE-001</span><ul><li>no field CLS/LCP/CrUX measurements are claimed</li><li>&quot;zero third-party runtime requests&quot; describes page code, not hosting infrastructure (GitHub Pages, DNS, TLS remain dependencies)</li></ul></div><div class="wall-row" id="wall-SITE-002"><span class="mono wall-id">SITE-002</span><ul><li>a green run verifies registry consistency and quiet triggers, never the truth of any claim&#x27;s content</li><li>triggers watch file content; semantic drift outside watched files remains a manual review event, and the ledger says so</li></ul></div>
+    </div>
+  </section>
+
+  <section class="zone replay" aria-labelledby="replay-h">
+    <h2 id="replay-h">Replay manifest</h2>
+    <p class="zone-intro">The exact commands that re-verify this record from a clean checkout.
+      CI runs them on every push and weekly; nothing here requires trusting this page.</p>
+    <pre>python scripts/verify_claims.py            # shape, bindings, triggers, freshness, coverage
+python scripts/generate_ledger.py --check  # the ledger is generated, not hand-edited
+python scripts/generate_modules.py --check # module pages match their registry
+python scripts/generate_observatory.py --check  # this page matches the registry
+python scripts/verify_figures.py           # figure geometry, asserted to 1e-9
+python scripts/reproduce_cc001.py          # clean-clone kernel reproduction + witnesses</pre>
+  </section>
+
+  <section class="zone" aria-labelledby="human-h">
+    <h2 id="human-h">Human review</h2>
+    <p class="zone-intro">Last owner review: <span class="mono">2026-08-23</span>. These review
+      events cannot be executed by CI, and the record says so instead of borrowing the
+      executable triggers' credibility:</p>
+    <ul class="manual-list"><li><span class="mono">CC-001</span> — kernel semantics change outside the bound module file</li><li><span class="mono">CC-003</span> — E2 produces empirical results — the synthetic scoping here must be restated</li><li><span class="mono">CC-004</span> — witness API change outside the bound module file</li><li><span class="mono">AS-001</span> — public artifact released</li><li><span class="mono">GV-001</span> — hosted deployment added — the site may then link a live demo</li><li><span class="mono">GCE-001</span> — GCE repository resumed or reframed</li><li><span class="mono">BIO-001</span> — annual review</li><li><span class="mono">CRED-001</span> — certification expiry or a new certification earned</li><li><span class="mono">SITE-001</span> — site redesign</li><li><span class="mono">SITE-002</span> — workflow triggers or cadence change</li>
+    </ul>
+    <p class="zone-intro" style="margin-top:1.2rem">Related instrument, its own contract intact:
+      <a class="u" href="https://github.com/Cubits11/cc-framework/tree/main/evidence-cards">CC-Framework's
+      evidence cards ↗</a> — their manifest forbids aggregate scores and forbids rendering
+      "not-run" as passing, pending, or healthy, so this observatory links them rather than
+      re-plotting them.</p>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/modules/">Modules</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/">← The record</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(toggle){
+    var isDark=function(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches};
+    var sync=function(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')};
+    var apply=function(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()};
+    toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+    sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+  }
+  /* decay clocks: drawn from the same registry fields the text already shows */
+  var C=2*Math.PI*15.5;
+  document.querySelectorAll('.capsule').forEach(function(cap){
+    var reviewed=new Date(cap.dataset.reviewed+'T00:00:00Z');
+    var windowDays=Number(cap.dataset.window);
+    if(!windowDays||isNaN(reviewed))return;
+    var days=Math.floor((Date.now()-reviewed.getTime())/86400000);
+    var pct=Math.min(Math.max(days/windowDays,0),1);
+    var arc=cap.querySelector('.clock-arc');
+    if(arc)arc.style.strokeDashoffset=String(C*(1-pct));
+    var out=cap.querySelector('.clock-days');
+    if(out)out.textContent=' · '+days+'d elapsed';
+    if(days>windowDays)cap.classList.add('expired');
+    else if(pct>=0.75)cap.classList.add('review-due');
+  });
+})();
+</script>
+</body>
+</html>
