@@ -452,7 +452,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "64243b414f379777f8da2e1b741f03a27c526e3ed529d086e38f6f81a21d2b9f"
+        sha256: "be832219151c7a06eaacebafb4514b2df08b8789492409ae86958e75760792eb"
         note: fires when the census changes without a claim re-review
       - type: manual
         enforcement: manual
@@ -479,6 +479,86 @@ claims:
       - does not claim the unmeasured joint statistics would reveal dependence; measuring instead of assuming is the point
       - does not audit the quality of any per-system evaluation beyond the fields each row records
       - does not cover artifacts outside the documented bounded search or after the stated date
+
+  - id: MC-002
+    proposition: >
+      On the 170-prompt per-item subset publicly released with BELLS's
+      2025 misuse-detection evaluation (pinned commit below), the five
+      specialized supervisors — Lakera Guard, Prompt Guard, LangKit,
+      NeMo Guardrails, LLM Guard — jointly catch 73 of the 82 prompts
+      labelled harmful and jointly miss 9 (11.0%), while the product of
+      their individual miss rates is 3.5%: the observed joint miss on
+      this subset is about three times what independent misses would
+      predict. The same union flags 19 of the 50 benign prompts.
+    scope: >
+      Exactly the released file at the bound commit: 170 of the
+      evaluation's 990 non-adversarial prompts (the study's ~4,165
+      adversarial prompts have no per-item release), selected by the
+      authors under an unstated rule. Counting arithmetic only, at the
+      vendors' released binary verdicts; no population estimate, no
+      uncertainty interval, and no claim about any system's true rates
+      is offered or licensed. Computed by
+      scripts/reanalyze_bells_subset.py from scripts/mjgd_reference.py;
+      the expected block below is what CI re-asserts against the
+      downloaded, hash-verified file.
+    dimensions:
+      visibility: public
+      provenance: machine_generated_owner_executed
+      support_role: executed_output
+      evidential_status: supported_within_scope
+      maturity: experimental
+    support:
+      url: "https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv"
+      commit: "507566c5a4606c8e3dec0bd59a5c5fde62594951"
+      note: >
+        The upstream repository declares no license, so the file is
+        cited and hash-verified (sha256 791dd4b0a168f2eb5831b308083a49
+        2e83200a9fa82585643c739023b03f57c3, asserted by the
+        reproduction script), never redistributed from this record.
+    expected:
+      n_prompts: 170
+      n_harmful: 82
+      per_guard_catches:
+        lakera_guard: 52
+        prompt_guard: 5
+        langkit: 25
+        nemo: 70
+        llm_guard: 0
+      union_detection: 73
+      all_miss: 9
+      n_benign: 50
+      benign_union_flagged: 19
+    last_reviewed: "2026-08-27"
+    review_window_days: 60
+    review_triggers:
+      - type: remote_content_change
+        enforcement: executable
+        repo: CentreSecuriteIA/bells_leaderboard
+        path: data/non_adversarial_prompts.csv
+        bound_ref: "507566c5a4606c8e3dec0bd59a5c5fde62594951"
+        note: fires when the released subset on the default branch changes
+      - type: manual
+        enforcement: manual
+        event: >
+          the authors release the full per-item dataset, state the
+          subset's selection rule, or correct the released verdicts
+    falsifier:
+      condition: >
+        Recomputing from the bound, hash-verified file yields any count
+        different from the expected block, or the file at the pinned
+        ref no longer matches the recorded sha256, or the released
+        columns are shown not to be the labelled systems' verdicts.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not substitute a different subset, column set, or harm-level filter to preserve the numbers
+      - do not fold borderline prompts into either denominator after seeing the results
+      - do not recast this subset arithmetic as a population estimate, with or without an interval, if the primary counts are challenged
+      - do not cite the three-times-independence ratio without the selection caveat that scopes it
+    non_claims:
+      - the subset is author-selected with an unstated rule — nothing here estimates any system's true rate, and no confidence interval is offered because the sampled population is undefined
+      - not a ranking or endorsement of any vendor; the released verdicts are at unstated default configurations
+      - says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release
+      - the three-times-independence ratio describes this subset's arithmetic, not a general law of guardrail dependence
 
   - id: GA-001
     proposition: >

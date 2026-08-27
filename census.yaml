@@ -164,6 +164,15 @@ census:
         evaluates image-platform safety classifiers and therefore fails
         frozen domain criterion 5 — recorded prominently under
         exclusions. LlamaFirewall added from the snowball hop.
+    - date: "2026-08-27"
+      change: >
+        Demonstration computed on the one public per-item substrate:
+        union, all-miss, and residual coverage for the five specialized
+        supervisors in BELLS 2025's released 170-prompt subset,
+        registered as claim MC-002 (file bound by commit and sha256,
+        reproduction script in CI) and rendered on the disclosure page.
+        Census counts are unchanged — MC-002 is this record's own
+        computation, not something the examined artifact printed.
 
 benchmarks:
   - id: openai-holistic-2022
@@ -1149,7 +1158,11 @@ benchmarks:
     notes: >
       The leaderboard site (centresecuriteia.github.io/bells_leaderboard)
       predates the paper's arXiv posting; adversarial split counts were
-      read once and are held loosely — corrections invited.
+      read once and are held loosely — corrections invited. The joint
+      statistics this release makes computable have now been computed:
+      claim MC-002 in this record's ledger binds the file by commit and
+      hash and registers union 73/82, all-miss 9/82 for the five
+      specialized supervisors, with the selection caveats stated.
 
   - id: bells-o-2026
     status: examined

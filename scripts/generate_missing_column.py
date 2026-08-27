@@ -703,6 +703,12 @@ DISCLOSURE_CSS = '''
 .disc-list strong{display:block;margin-bottom:.2rem}
 .disc-list p{margin:0;color:var(--muted);font-size:.92rem}
 .tmpl pre{background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.76rem;line-height:1.75;color:var(--ink);margin:1.2rem 0 0}
+table.census-table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line-strong);margin-top:1.2rem}
+table.census-table th,table.census-table td{border-bottom:1px solid var(--line);padding:.7rem .9rem;text-align:left;font-variant-numeric:tabular-nums}
+table.census-table thead th{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
+table.census-table tbody th{font-weight:520}
+tr.demo-union th,tr.demo-union td{color:var(--evidence);border-top:1px solid var(--line-strong)}
+tr.demo-allmiss th,tr.demo-allmiss td{color:var(--invalid)}
 .precond{border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem;color:var(--muted);font-size:.92rem}
 .precond strong{color:var(--ink)}
 .ask{border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem}
@@ -831,6 +837,70 @@ python scripts/mjgd_reference.py --test         # the disclosure arithmetic, tes
 </main>''' + PAGE_FOOT
 
 
+def render_demonstration() -> str:
+    """The row, demonstrated — rendered from MC-002's expected block in
+    claims.yaml, the same block the reproduction script asserts, so the
+    page and the executed computation cannot diverge."""
+    import yaml
+    registry = yaml.safe_load((ROOT / "claims.yaml").read_text())
+    mc = next((c for c in registry["claims"] if c["id"] == "MC-002"), None)
+    if mc is None:
+        return ""
+    e = mc["expected"]
+    n = e["n_harmful"]
+    guards = {"lakera_guard": "Lakera Guard", "prompt_guard": "Prompt Guard",
+              "langkit": "LangKit", "nemo": "NeMo Guardrails",
+              "llm_guard": "LLM Guard"}
+    product = 1.0
+    for key in guards:
+        product *= (n - e["per_guard_catches"][key]) / n
+    ratio = (e["all_miss"] / n) / product
+    rows = "".join(
+        f'<tr><th scope="row">{esc(name)}</th>'
+        f'<td>{e["per_guard_catches"][key] / n:.1%} '
+        f'({e["per_guard_catches"][key]} / {n})</td></tr>'
+        for key, name in guards.items())
+    return f'''
+  <section class="zone" id="demonstration" aria-labelledby="demo-h">
+    <h2 id="demo-h">The row, demonstrated on public data</h2>
+    <p class="zone-intro">One evaluation in the <a class="u" href="/missing-column/">census</a>
+      released per-item verdicts: BELLS's 2025 misuse-detection study published 170 prompts
+      with eleven systems' decisions as columns. That release is the only public substrate on
+      which this page's arithmetic can run at all — so here it is, run, for the five
+      specialized supervisors in that file:</p>
+    <div class="fig-scroll">
+    <table class="census-table demo-table">
+      <caption class="sr-only">The minimum joint disclosure computed on the released
+        BELLS subset: per-guard catch rates, union, and all-miss over {n} harmful
+        prompts.</caption>
+      <thead><tr><th scope="col">System</th><th scope="col">Catch rate, {n} harmful prompts</th></tr></thead>
+      <tbody>
+        {rows}
+        <tr class="demo-union"><th scope="row">Any guard — union</th>
+          <td>{e["union_detection"] / n:.1%} ({e["union_detection"]} / {n})</td></tr>
+        <tr class="demo-allmiss"><th scope="row">No guard — all-miss</th>
+          <td>{e["all_miss"] / n:.1%} ({e["all_miss"]} / {n})</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="zone-intro" style="margin-top:1.1rem">The product of the five individual miss
+      rates — the all-miss that independent misses would predict — is {product:.1%}. The
+      observed all-miss is {e["all_miss"] / n:.1%}: about {ratio:.1f}× the independence
+      prediction, on this subset. The union also flags {e["benign_union_flagged"]} of the
+      {e["n_benign"]} benign prompts — the cost column an OR-stack must publish beside its
+      catch column.</p>
+    <div class="precond"><strong>Scope, stated before anyone asks:</strong> the released 170
+      prompts are an author-selected subset (of 990 non-adversarial prompts; the study's
+      ~4,165 adversarial prompts have no per-item release) under an unstated selection rule —
+      so these are counting facts about exactly that file, not estimates of any system's true
+      rate, and no interval is offered because the sampled population is undefined. The full
+      envelope, falsifier, and forbidden rescues:
+      <a class="u" href="/ledger/#MC-002">claim MC-002</a>. Reproduce it:
+      <span class="mono">python scripts/reanalyze_bells_subset.py</span> — the file is
+      hash-verified before a single count is taken.</div>
+  </section>'''
+
+
 def render_disclosure(data: dict) -> str:
     census = data["census"]
     counts = verify_census.compute_counts(data)
@@ -945,6 +1015,8 @@ Errors/timeouts: <n>, scored as <policy>.'''
       missingness is scored by a stated policy. Absent those, a union number is not
       evidence about the stack.</div>
   </section>
+
+  {render_demonstration()}
 
   <section class="zone" id="ask" aria-labelledby="ask-h">
     <h2 id="ask-h">The ask, for benchmark authors</h2>

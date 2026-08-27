@@ -89,6 +89,12 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
 .disc-list strong{display:block;margin-bottom:.2rem}
 .disc-list p{margin:0;color:var(--muted);font-size:.92rem}
 .tmpl pre{background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.76rem;line-height:1.75;color:var(--ink);margin:1.2rem 0 0}
+table.census-table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line-strong);margin-top:1.2rem}
+table.census-table th,table.census-table td{border-bottom:1px solid var(--line);padding:.7rem .9rem;text-align:left;font-variant-numeric:tabular-nums}
+table.census-table thead th{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
+table.census-table tbody th{font-weight:520}
+tr.demo-union th,tr.demo-union td{color:var(--evidence);border-top:1px solid var(--line-strong)}
+tr.demo-allmiss th,tr.demo-allmiss td{color:var(--invalid)}
 .precond{border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem;color:var(--muted);font-size:.92rem}
 .precond strong{color:var(--ink)}
 .ask{border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem}
@@ -183,6 +189,46 @@ Errors/timeouts: &lt;n&gt;, scored as &lt;policy&gt;.</pre>
       every item (or the gating is declared as the object of measurement); and
       missingness is scored by a stated policy. Absent those, a union number is not
       evidence about the stack.</div>
+  </section>
+
+  
+  <section class="zone" id="demonstration" aria-labelledby="demo-h">
+    <h2 id="demo-h">The row, demonstrated on public data</h2>
+    <p class="zone-intro">One evaluation in the <a class="u" href="/missing-column/">census</a>
+      released per-item verdicts: BELLS's 2025 misuse-detection study published 170 prompts
+      with eleven systems' decisions as columns. That release is the only public substrate on
+      which this page's arithmetic can run at all — so here it is, run, for the five
+      specialized supervisors in that file:</p>
+    <div class="fig-scroll">
+    <table class="census-table demo-table">
+      <caption class="sr-only">The minimum joint disclosure computed on the released
+        BELLS subset: per-guard catch rates, union, and all-miss over 82 harmful
+        prompts.</caption>
+      <thead><tr><th scope="col">System</th><th scope="col">Catch rate, 82 harmful prompts</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Lakera Guard</th><td>63.4% (52 / 82)</td></tr><tr><th scope="row">Prompt Guard</th><td>6.1% (5 / 82)</td></tr><tr><th scope="row">LangKit</th><td>30.5% (25 / 82)</td></tr><tr><th scope="row">NeMo Guardrails</th><td>85.4% (70 / 82)</td></tr><tr><th scope="row">LLM Guard</th><td>0.0% (0 / 82)</td></tr>
+        <tr class="demo-union"><th scope="row">Any guard — union</th>
+          <td>89.0% (73 / 82)</td></tr>
+        <tr class="demo-allmiss"><th scope="row">No guard — all-miss</th>
+          <td>11.0% (9 / 82)</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="zone-intro" style="margin-top:1.1rem">The product of the five individual miss
+      rates — the all-miss that independent misses would predict — is 3.5%. The
+      observed all-miss is 11.0%: about 3.1× the independence
+      prediction, on this subset. The union also flags 19 of the
+      50 benign prompts — the cost column an OR-stack must publish beside its
+      catch column.</p>
+    <div class="precond"><strong>Scope, stated before anyone asks:</strong> the released 170
+      prompts are an author-selected subset (of 990 non-adversarial prompts; the study's
+      ~4,165 adversarial prompts have no per-item release) under an unstated selection rule —
+      so these are counting facts about exactly that file, not estimates of any system's true
+      rate, and no interval is offered because the sampled population is undefined. The full
+      envelope, falsifier, and forbidden rescues:
+      <a class="u" href="/ledger/#MC-002">claim MC-002</a>. Reproduce it:
+      <span class="mono">python scripts/reanalyze_bells_subset.py</span> — the file is
+      hash-verified before a single count is taken.</div>
   </section>
 
   <section class="zone" id="ask" aria-labelledby="ask-h">
