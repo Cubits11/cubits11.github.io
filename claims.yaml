@@ -49,7 +49,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-08-24"
+last_owner_review: "2026-08-27"
 
 claims:
   - id: CC-001
@@ -412,6 +412,74 @@ claims:
       - this does not establish that dependence-aware evidence changes real deployment decisions, is generally useful, or justifies its cost
       - this is not a customer-demand, payment, adoption, safety, or certification claim
 
+  - id: MC-001
+    proposition: >
+      As of 2026-08-27, among 19 public guardrail evaluations meeting the
+      Missing Column Census's frozen inclusion criteria (v1), 13 establish
+      comparable per-system results on a shared item set, and 4 publish at
+      least one item-level joint statistic for a combination of the
+      systems they evaluate — and none of those printed joint statistics
+      covers a commercial guardrail API.
+    scope: >
+      A census claim about public reporting, bounded by the documented
+      search protocol frozen in census.yaml before examination began. It
+      covers the artifacts that search found, not everything in
+      existence; it says nothing about how well any evaluated system or
+      stack performs, and nothing about what the unmeasured joint
+      statistics would show. N, M, and K are recomputed mechanically from
+      census.yaml by scripts/verify_census.py; this envelope's expected
+      block is cross-checked against that computation in CI.
+    dimensions:
+      visibility: public
+      provenance: owner_authored
+      support_role: site_document
+      evidential_status: supported_within_scope
+      maturity: experimental
+    support:
+      url: "https://github.com/Cubits11/cubits11.github.io/blob/main/census.yaml"
+      commit: null
+      note: >
+        Mutable link by design; the local-content trigger below detects
+        edits, and every row in the file binds to its own primary source
+        with passages, dates, and a correction history.
+    expected:
+      n_examined: 19
+      m_comparable: 13
+      k_present: 4
+    last_reviewed: "2026-08-27"
+    review_window_days: 60
+    review_triggers:
+      - type: local_content_change
+        enforcement: executable
+        path: census.yaml
+        sha256: "64243b414f379777f8da2e1b741f03a27c526e3ed529d086e38f6f81a21d2b9f"
+        note: fires when the census changes without a claim re-review
+      - type: manual
+        enforcement: manual
+        event: >
+          a new qualifying evaluation is published or reported, an author
+          corrects a row, or a benchmark publishes a previously absent
+          joint statistic
+    falsifier:
+      condition: >
+        A qualifying public evaluation meeting criteria v1 and published
+        on or before 2026-08-27 is shown to have been missed by the
+        documented search, or an examined row is shown to misreport its
+        source such that recomputed N, M, or K differ from the stated
+        19/13/4, or a printed joint statistic covering a commercial
+        guardrail API is found in an included artifact.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not reinterpret "joint statistic" or "commercial" after a counterexample appears in order to keep the stated counts
+      - do not reclassify an examined row without recording the change and its reason in the census correction history
+      - do not treat the bounded-search disclaimer as license to ignore a demonstrated miss — a miss rejects these counts and the corrected census states new ones
+      - do not cite readership, links, or reuse of the census as evidence of its accuracy
+    non_claims:
+      - does not claim any evaluated guardrail stack performs poorly; an unfilled column is a reporting fact, not a performance finding
+      - does not claim the unmeasured joint statistics would reveal dependence; measuring instead of assuming is the point
+      - does not audit the quality of any per-system evaluation beyond the fields each row records
+      - does not cover artifacts outside the documented bounded search or after the stated date
+
   - id: GA-001
     proposition: >
       Ghost-Ark is a verifier and measurement harness for the provenance
@@ -679,13 +747,13 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md"
       commit: null
       note: "Mutable link by design; the local-content trigger below detects edits."
-    last_reviewed: "2026-08-24"
+    last_reviewed: "2026-08-27"
     review_window_days: 120
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: DESIGN.md
-        sha256: "e59ca748d1b8df4f3991f8c4da9f858ea6ad3728fdaf799af7086ee483e5b604"
+        sha256: "8b032da5a5d07d7a0d7fd6d25db93c0aaf688990bb4196f156302d7cddba49d2"
         note: fires when DESIGN.md changes without a registry re-review
       - type: manual
         enforcement: manual
@@ -725,13 +793,13 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py"
       commit: null
       note: "Mutable link by design; the local-content trigger below detects edits."
-    last_reviewed: "2026-08-24"
+    last_reviewed: "2026-08-27"
     review_window_days: 120
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: scripts/verify_claims.py
-        sha256: "86645455d204d4d6c3612528f5e81337c00d672bf0851396f1672ca1c5232ded"
+        sha256: "9215b38b84da830b938ccf41d6acaae495c6dc80404803cafb606778a73123dd"
         note: fires when the verifier changes without a registry re-review
       - type: manual
         enforcement: manual

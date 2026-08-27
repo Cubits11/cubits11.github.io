@@ -197,7 +197,23 @@ def check_reachability(bindings: dict[str, list[tuple[str, str]]]) -> None:
                          f"survives only as long as GitHub retains the object")
 
 
+SELF_BLOB = "https://github.com/Cubits11/cubits11.github.io/blob/main/"
+
+
 def check_url_liveness(cid: str, url: str) -> None:
+    # A binding into this repository's own main branch is satisfied by the
+    # file existing in the working tree: the claim and the file land on
+    # main in the same push, so before that push the remote URL cannot
+    # resolve yet and after it the remote content IS this file. Checking
+    # the local tree is the invariant that holds at every point.
+    if str(url).startswith(SELF_BLOB):
+        rel = str(url)[len(SELF_BLOB):]
+        if (ROOT / rel).is_file():
+            ok(f"{cid}: support path exists in this repository — {rel}")
+        else:
+            fail(f"{cid}: support URL names {rel}, which does not exist "
+                 f"in this repository")
+        return
     try:
         fetch(url)
         ok(f"{cid}: support URL resolves — {url}")

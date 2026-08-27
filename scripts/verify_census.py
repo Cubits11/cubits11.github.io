@@ -273,6 +273,26 @@ def main() -> int:
         check_exclusion(row, seen)
     counts = compute_counts(data)
 
+    # Claim coherence: if the registry carries the census claim, its
+    # expected counts must equal what this file actually computes — the
+    # public envelope can never drift from the census arithmetic.
+    claims_path = ROOT / "claims.yaml"
+    if claims_path.exists():
+        registry = yaml.safe_load(claims_path.read_text())
+        mc = next((c for c in registry.get("claims", [])
+                   if c.get("id") == "MC-001"), None)
+        if mc is not None:
+            expected = mc.get("expected") or {}
+            stated = (expected.get("n_examined"), expected.get("m_comparable"),
+                      expected.get("k_present"))
+            actual = (counts["N"], counts["M"], counts["K"])
+            if stated != actual:
+                fail(f"MC-001 expected N/M/K {stated} but census computes "
+                     f"{actual} — re-review the claim or fix the census")
+            else:
+                ok(f"MC-001 expected counts match the census (N/M/K "
+                   f"{actual[0]}/{actual[1]}/{actual[2]})")
+
     if "--counts" in sys.argv:
         print(json.dumps(counts, indent=2, sort_keys=True))
 
