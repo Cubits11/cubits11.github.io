@@ -17,12 +17,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # full history: sitemap lastmod values are asserted against git
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install pyyaml
       - name: Verify registry (shape, bindings, triggers, freshness, liveness)
         run: python scripts/verify_claims.py
+      - name: Verify census (frozen criteria, row shape, mechanical counts)
+        run: python scripts/verify_census.py
       - name: Ledger is generated, not hand-edited (drift check)
         run: python scripts/generate_ledger.py --check
       - name: Figures cannot lie (geometry assertions)
@@ -31,6 +36,12 @@ jobs:
         run: python scripts/generate_modules.py --check
       - name: Observatory is generated, not hand-edited (drift check)
         run: python scripts/generate_observatory.py --check
+      - name: Missing Column pages are generated, not hand-edited (drift check)
+        run: python scripts/generate_missing_column.py --check
+      - name: Sitemap matches pages, lastmod matches history (drift check)
+        run: python scripts/generate_sitemap.py --check
+      - name: Disclosure arithmetic holds its identities
+        run: python scripts/mjgd_reference.py --test
       - name: Internal links resolve (pages, anchors, fragments)
         run: python scripts/check_links.py
 

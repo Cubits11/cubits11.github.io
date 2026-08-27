@@ -14,8 +14,10 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Pranav Bhave — name set in bone serif on an obsidian dossier card beside a framed outdoor portrait, with palette swatches sampled from the photograph">
+<meta property="og:site_name" content="Cubits11">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="robots" content="max-image-preview:large">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
@@ -58,6 +60,19 @@ body::after{ /* grain */
 .onramp{max-width:52ch;margin:1.05rem 0 0;font:400 clamp(1rem,1.6vw,1.12rem)/1.62 var(--sans);
   color:var(--ink);border-left:2px solid var(--gold);padding-left:1rem}
 .onramp strong{font-weight:600}
+
+/* the missing column — campaign strip */
+.mc-strip{border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:clamp(1.3rem,3vw,1.9rem);margin:0 0 3.2rem}
+.mc-title{font-weight:520;font-size:clamp(1.35rem,2.6vw,1.8rem);line-height:1.25;letter-spacing:-.01em;margin:.2rem 0 1.1rem;max-width:30em}
+.mc-motif{border-collapse:collapse;width:100%;background:var(--bg)}
+.mc-motif th,.mc-motif td{border:1px solid var(--line);padding:.55rem .8rem;text-align:center;font-variant-numeric:tabular-nums}
+.mc-motif th{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
+.mc-motif td{font-family:var(--serif);font-size:1.2rem}
+.mc-motif th.mc-stack{color:var(--gold)}
+.mc-motif td.mc-missing{border:1px dashed var(--review)}
+.mc-motif td.mc-missing .mono{color:var(--review);font-size:.64rem;letter-spacing:.06em}
+.mc-line{color:var(--muted);font-size:.95rem;max-width:52em;margin:1rem 0 0}
+.mc-strip .cta-row{margin-top:1.2rem}
 .lede{font-size:clamp(.98rem,1.35vw,1.08rem);line-height:1.72;color:var(--muted);max-width:36em;margin-top:.9rem}
 .lede em{font-family:var(--serif);font-style:italic;font-size:1.06em;color:var(--ink);font-weight:480}
 .fang{margin-top:1.5rem;color:var(--gold)}
@@ -225,6 +240,31 @@ html:not(.js) .bounds-ctl{display:none}
           <span class="swatch-hexes">Sampled: #161719 polo · #566326 foliage · #657033 moss · #D0A58A light → the record’s gold</span>
         </figcaption>
       </figure>
+    </div>
+  </section>
+
+  <!-- ================= THE MISSING COLUMN — campaign strip ================= -->
+  <section class="container" id="missing-column" aria-labelledby="mc-h" style="padding-block:0">
+    <div class="mc-strip reveal">
+      <p class="kicker mono">The Missing Column — a source-bound census</p>
+      <h2 id="mc-h" class="mc-title">Teams deploy guardrails in stacks. Public evaluations
+        report them one at a time.</h2>
+      <div class="fig-scroll">
+      <table class="mc-motif">
+        <caption class="sr-only">Illustrative: four guardrails with individual catch
+          rates, and an unreported final column for the joint result of the stack.</caption>
+        <thead><tr><th scope="col">Guard A</th><th scope="col">Guard B</th><th scope="col">Guard C</th><th scope="col">Guard D</th><th scope="col" class="mc-stack">THE STACK</th></tr></thead>
+        <tbody><tr><td>91%</td><td>88%</td><td>94%</td><td>86%</td><td class="mc-missing"><span class="mono">not reported</span></td></tr></tbody>
+      </table>
+      </div>
+      <p class="mc-line">Illustrative numbers; the gap is the point. The individual columns
+        do not determine the last one — and I track which public evaluations publish it, in
+        a census whose criteria were frozen before the search and whose headline is
+        generated from a file anyone can mechanically make false.</p>
+      <div class="cta-row">
+        <a class="btn btn-solid" href="/missing-column/">Inspect the census</a>
+        <a class="btn" href="/missing-column/disclosure/">Publish the missing row</a>
+      </div>
     </div>
   </section>
 
@@ -722,8 +762,17 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Cubits11",
+  "alternateName": ["Pranav Bhave", "cubits11.github.io"],
+  "url": "https://cubits11.github.io/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "ProfilePage",
-  "dateModified": "2026-08-23",
+  "dateModified": "2026-08-27",
   "mainEntity": {
     "@type": "Person",
     "name": "Pranav Bhave",

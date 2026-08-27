@@ -1,0 +1,382 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: census.yaml · renderer: scripts/generate_missing_column.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Missing Column — what guardrail evaluations leave unmeasured</title>
+<meta name="description" content="Teams deploy AI guardrails in stacks; public evaluations usually compare them one at a time. A source-bound census of which evaluations publish the joint result — union detection, the all-miss rate — that a deployed stack actually needs.">
+<link rel="canonical" href="https://cubits11.github.io/missing-column/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Missing Column — what guardrail evaluations leave unmeasured">
+<meta property="og:description" content="Teams deploy AI guardrails in stacks; public evaluations usually compare them one at a time. A source-bound census of which evaluations publish the joint result — union detection, the all-miss rate — that a deployed stack actually needs.">
+<meta property="og:url" content="https://cubits11.github.io/missing-column/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+body{font-size:1rem;line-height:1.65}
+.container{width:min(1060px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.68rem}
+header.page{padding:7.9rem 0 2.2rem}
+h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 0 1rem;letter-spacing:-.018em}
+.intro{color:var(--muted);max-width:48em}
+.zone{margin-top:4rem;border-top:1px solid var(--line);padding-top:2rem}
+.zone h2{font-weight:520;font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 .6rem;letter-spacing:-.01em}
+.zone .zone-intro{color:var(--muted);max-width:46em}
+.zone h3{font-weight:520;margin:1.6rem 0 .5rem}
+.fig-scroll{overflow-x:auto}
+.wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
+.wall-row{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
+.wall-row:last-child{border-bottom:none}
+.wall-id{color:var(--gold);overflow-wrap:anywhere}
+.manual-list{margin:1.2rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.manual-list li{margin:.35rem 0}
+.ur-title{margin:0 0 .3rem}
+.ur-note{margin:0;color:var(--muted);font-size:.92rem}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+
+.class-bar span b{color:var(--ink)}
+.motif-fig{margin:2.6rem 0 0}
+table.motif,table.census-table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line-strong)}
+table.motif th,table.motif td{border:1px solid var(--line);padding:.8rem 1rem;text-align:center;font-variant-numeric:tabular-nums}
+table.motif th{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
+table.motif td{font-family:var(--serif);font-size:1.5rem}
+th.motif-stack{color:var(--gold)!important}
+td.motif-missing{background:transparent;border:1px dashed var(--review);color:var(--review)}
+td.motif-missing .mono{color:var(--review);font-size:.68rem;letter-spacing:.06em}
+.motif-caption,.rc-caption{margin-top:.9rem;color:var(--muted);font-size:.92rem;max-width:52em}
+.motif-caption strong,.rc-caption strong{color:var(--ink)}
+.mc-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+.headline{border:1px solid var(--line-strong);border-left:2px solid var(--evidence);background:var(--surface);padding:1.4rem 1.6rem;margin-top:1.8rem}
+.headline-held{border-left:2px dashed var(--line-strong)}
+.head-kicker{color:var(--gold);letter-spacing:.08em;text-transform:uppercase}
+.head-prop{font-family:var(--serif);font-size:1.18rem;line-height:1.55;margin:.6rem 0 .5rem}
+.head-scope{color:var(--muted)}
+.head-note,.headline-held p:last-child{color:var(--muted);font-size:.92rem;margin:.5rem 0 0}
+.crit-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.4rem}
+.crit-h{color:var(--gold);letter-spacing:.08em;text-transform:uppercase;font-size:.64rem;margin:0 0 .5rem;font-weight:400}
+.crit-list{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.crit-list li{margin:.35rem 0}
+.crit-key{display:block;color:var(--ink);font-size:.62rem;letter-spacing:.06em}
+.crit-note{color:var(--muted);font-size:.92rem;margin:.3rem 0 0}
+.protocol{margin-top:1.6rem;border:1px solid var(--line);background:var(--surface);padding:.9rem 1.1rem}
+.protocol summary{cursor:pointer;color:var(--muted)}
+table.census-table th,table.census-table td{border-bottom:1px solid var(--line);padding:.75rem .9rem;text-align:left;vertical-align:top}
+table.census-table thead th{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
+table.census-table tbody th{font-weight:520}
+.census-table .u{overflow-wrap:anywhere}
+.stack-cell .mono{letter-spacing:.05em}
+.state-present{color:var(--evidence)}
+.state-absent{color:var(--review)}
+.state-ambiguous{color:var(--muted)}
+.tri{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em}
+.tri-yes{color:var(--evidence)}
+.tri-no{color:var(--review)}
+.tri-unstated,.tri-mixed{color:var(--muted)}
+.tri-ev{display:block;color:var(--muted);font-size:.8rem;margin-top:.15rem}
+.census-row{border:1px solid var(--line-strong);background:var(--surface);padding:1.3rem 1.5rem;margin-top:1.2rem}
+.claim-head{display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap}
+.claim-id{color:var(--gold);font-size:.72rem;font-weight:400;margin:0;letter-spacing:.09em}
+.census-row .prop{font-family:var(--serif);font-size:1.02rem;line-height:1.55;margin:.5rem 0 .9rem}
+.census-row dl{display:grid;grid-template-columns:14rem 1fr;gap:.4rem 1.2rem;margin:0;font-size:.92rem}
+.census-row dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:.2rem}
+.census-row dd{margin:0;color:var(--ink)}
+ul.nc{margin:.1rem 0 0;padding-left:1.1rem;color:var(--muted)}
+ul.nc li{margin:.2rem 0}
+.rc-fig{margin:1.8rem 0 0}
+.rc-fig svg,.motif-fig svg{width:100%;min-width:560px;height:auto;display:block}
+.rcA{fill:var(--evidence);opacity:.55}
+.rcM{fill:var(--review);opacity:.75}
+.rcB{fill:var(--evidence);opacity:.55}
+.rcX{fill:var(--invalid);opacity:.8}
+.hmono,.rung-name{font-family:var(--mono);font-size:12px;fill:var(--muted)}
+.correct-route{margin-top:1.8rem;border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:1.2rem 1.4rem}
+@media (max-width:700px){.crit-grid{grid-template-columns:1fr}.census-row dl{grid-template-columns:1fr}.census-row dt{padding-top:.5rem}}
+
+@media (max-width:600px){.wall-row{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/modules/">Modules</a>
+      <a href="/observatory/">Observatory</a>
+      <a href="/ledger/">Ledger</a>
+      <a href="/writing/">Writing</a>
+      <a href="/archive/">Archive</a>
+      <a href="/resume/">R&eacute;sum&eacute;</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>The Missing Column</b> — a source-bound census · generated from <a class="u" href="https://cubits11.github.io/census.yaml">census.yaml</a></span>
+    <span>4 under examination · no count claimed yet</span>
+    <span>criteria v1 frozen 2026-08-27</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <h1>The missing column</h1>
+    <p class="intro">Teams deploy guardrails in stacks. Public evaluations usually compare
+      them one at a time. This record tracks whether they publish the joint result needed
+      to say what the stack does — and its own headline is generated from a source file
+      that anyone can mechanically make false.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  
+<figure class="motif-fig" id="motif">
+  <div class="fig-scroll">
+  <table class="motif">
+    <caption class="sr-only">An illustrative benchmark table: four guardrails
+      with individual catch rates, and a final column for the joint result of
+      the deployed stack, which is not reported.</caption>
+    <thead>
+      <tr>
+        <th scope="col">Guard A</th>
+        <th scope="col">Guard B</th>
+        <th scope="col">Guard C</th>
+        <th scope="col">Guard D</th>
+        <th scope="col" class="motif-stack">THE STACK</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>91%</td>
+        <td>88%</td>
+        <td>94%</td>
+        <td>86%</td>
+        <td class="motif-missing"><span class="mono">not reported</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <figcaption class="motif-caption"><strong>The missing column.</strong> Illustrative —
+    the shape of the reporting gap, not any specific evaluation's numbers. Four
+    individual catch rates on one attack set say almost nothing about the fifth
+    cell: the joint result of deploying all four. The census below records which
+    public evaluations fill that cell and which leave it empty.</figcaption>
+</figure>
+  <div class="mc-cta">
+    <a class="btn btn-solid" href="#census">Inspect the census</a>
+    <a class="btn" href="/missing-column/disclosure/">Publish the missing row</a>
+    <a class="btn" href="#corrections">Correct this record</a>
+  </div>
+
+  <section class="zone" id="why" aria-labelledby="why-h">
+    <h2 id="why-h">Why the last cell cannot be inferred</h2>
+    <p class="zone-intro">Per-system rates do not determine the stack's rate. Two guards
+      that each miss 10% of attacks can jointly miss anywhere from 0% to 10% — the
+      individual columns are compatible with every world in that interval, and
+      multiplying the rates silently assumes the one world where the guards' failures
+      are independent. The <a class="u" href="/#worlds">front-page instrument</a> lets you
+      move through those worlds with both marginals pinned;
+      <a class="u" href="/essays/when-marginals-are-not-enough/">the flagship essay</a>
+      carries the full argument with witnessed endpoints, and
+      <a class="u" href="/modules/002-pairwise-is-not-enough/">module 002</a> shows that
+      even pairwise numbers cannot rescue the inference. What resolves it is not more
+      per-system precision. It is one more column, measured on the same items.</p>
+  </section>
+
+  <section class="zone" id="residual-zone" aria-labelledby="rz-h">
+    <h2 id="rz-h">What the second guard actually adds</h2>
+    <p class="zone-intro">The question a stack deployment is really asking: among the
+      items the first guard missed, what does the second catch? That is residual
+      coverage, and no set of per-guard columns contains it.</p>
+    
+<figure class="rc-fig" id="residual">
+  <div class="fig-scroll">
+  <svg viewBox="0 0 700 394" role="img" aria-labelledby="rcft rcfd">
+  <title id="rcft">Identical individual rates, different residual coverage</title>
+  <desc id="rcfd">Two panels, each showing an illustrative attack set of one
+thousand items. In both, guard A catches nine hundred and misses one hundred.
+The one hundred missed items are magnified into a second strip showing what
+guard B catches among them. In world one, B catches ninety of the hundred and
+ten reach production. In world two, B catches only twenty of the same hundred
+and eighty reach production. Guard B's overall rate is the same in both
+worlds; only the overlap of the two guards' misses differs, and per-guard
+rates do not report it.</desc>
+
+<g class="rc-panel" data-world="i">
+<text x="40" y="54" class="hmono">World i — the world independence assumes</text>
+<rect x="40" y="64" width="504" height="26" class="rcA"/>
+<rect x="544" y="64" width="56" height="26" class="rcM"/>
+<text x="40" y="108" class="hmono">A catches 900 of 1,000 · misses 100</text>
+<text x="40" y="140" class="hmono">the 100 A missed, magnified ↓</text>
+<rect x="40" y="152" width="504" height="26" class="rcB"/>
+<rect x="544" y="152" width="56" height="26" class="rcX"/>
+<text x="40" y="196" class="hmono">B catches 90 of the 100 A missed · 10 reach production</text>
+</g>
+<g class="rc-panel" data-world="ii">
+<text x="40" y="224" class="hmono">World ii — a correlated-miss world — same marginals</text>
+<rect x="40" y="234" width="504" height="26" class="rcA"/>
+<rect x="544" y="234" width="56" height="26" class="rcM"/>
+<text x="40" y="278" class="hmono">A catches 900 of 1,000 · misses 100</text>
+<text x="40" y="310" class="hmono">the 100 A missed, magnified ↓</text>
+<rect x="40" y="322" width="112" height="26" class="rcB"/>
+<rect x="152" y="322" width="448" height="26" class="rcX"/>
+<text x="40" y="366" class="hmono">B catches 20 of the 100 A missed · 80 reach production</text>
+</g>
+  </svg>
+  </div>
+  <figcaption class="rc-caption"><strong>What does the second guard catch among what
+    the first missed?</strong> Illustrative. Both worlds keep every per-guard rate
+    identical; only the overlap of misses moves. The stack's residual — what reaches
+    production — differs by a factor of 8. No table of per-guard columns
+    distinguishes these worlds; the missing column does. This figure asserts its own
+    geometry in CI and is not evidence about any real guardrail pair.</figcaption>
+</figure>
+  </section>
+
+  <section class="zone" id="census" aria-labelledby="census-h">
+    <h2 id="census-h">The census</h2>
+    <p class="zone-intro">Every row binds to its primary source and records the same
+      fields; the classification enum is fixed; the counts are recomputed from the file
+      by <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_census.py">verify_census.py</a>
+      on every push. Criteria were frozen before the search began.</p>
+    
+    <div class="crit-grid">
+      <div>
+        <h3 class="mono crit-h">Inclusion — all must hold</h3>
+        <ul class="crit-list"><li><span class="mono crit-key">public_access</span>publicly accessible without payme t at a stable URL</li><li><span class="mono crit-key">multi_system</span>evaluates two or more disti ct, separately attributable guardrail, safeguard, or moderatio systems — commercial APIs, ope -source guard models, or models deployed as safeguards arou d a LLM</li><li><span class="mono crit-key">per_system_results</span>reports separately attributable per-system qua titative results</li><li><span class="mono crit-key">common_setting</span>uses a commo or purportedly commo evaluatio setti g — the same dataset or prompt set claimed for all systems</li><li><span class="mono crit-key">domain</span>targets safety or harm detectio , jailbreak or prompt-i jectio detectio , co te t moderatio , policy e forceme t, or PII detectio arou d LLM systems</li><li><span class="mono crit-key">method_detail</span>provides e ough methodological detail to classify its joi t-statistic status</li></ul>
+      </div>
+      <div>
+        <h3 class="mono crit-h">Excluded by rule</h3>
+        <ul class="crit-list"><li>base-LLM safety leaderboards: a model&#x27;s ow refusal behavior is ot a separately deployed guardrail system</li><li>{&#x27;si gle-system evaluatio s&#x27;: &#x27; othi g to combi e&#x27;}</li><li>marketi g pages without measureme ts</li><li>compariso s o ly across differe t datasets, tasks, or populatio s with o purported commo setti g</li></ul>
+        <h3 class="mono crit-h" style="margin-top:1.2rem">Not a joint statistic</h3>
+        <p class="crit-note">Prose recomme di g that systems be combi ed (&quot;defe se i depth&quot;, &quot;use multiple providers&quot;) is a deployme t recomme datio , ot a measured joi t statistic. A average across systems is ot a joi t statistic. A multi-model e semble i side o e product cou ts o ly if the artifact reports it as a combi atio of separately attributed systems.</p>
+      </div>
+    </div>
+    <details class="protocol">
+      <summary class="mono">The bounded search protocol — executed 2026-08-27</summary>
+      <p class="crit-note">This ce sus claims coverage of the artifacts fou d by the docume ted search below — ot of everythi g i existe ce. A qualifyi g artifact the search missed is a sta di g falsifier of a y &quot;amo g N&quot; stateme t a d is added, with the miss recorded i the revisio history.</p>
+      <p class="mono crit-h" style="margin-top:.9rem">Fixed query list</p>
+      <ul class="crit-list"><li>LLM guardrail benchmark comparison</li><li>guardrails benchmark providers</li><li>jailbreak detection benchmark comparison providers</li><li>content moderation API comparison benchmark LLM</li><li>prompt injection detection benchmark comparison</li><li>LLM safeguard evaluation multiple providers</li><li>guard model comparison Llama Guard ShieldGemma benchmark</li><li>moderation endpoint comparison OpenAI Perspective</li><li>guardrail evaluation 2026</li></ul>
+      <p class="crit-note" style="margin-top:.7rem">Snowball: one hop from the references of included artifacts ·
+        Budget: up to ~18 ca didate artifacts exami ed i the froze pass; ca didates surfaced but ot exami ed are listed u der u exami ed_ca didates a d excluded from every cou t</p>
+    </details>
+    
+    <div class="headline headline-held">
+      <p class="mono head-kicker">No count is claimed yet</p>
+      <p>The criteria are frozen and the starting rows are under primary-source
+        examination. This page renders its headline from
+        <a class="u" href="https://cubits11.github.io/census.yaml">census.yaml</a> when rows are
+        classified — until then it states only that the census exists. A census
+        about missing reporting does not get to assert numbers it has not
+        earned.</p>
+    </div>
+    
+    <div class="headline-nonclaims" style="margin-top:2rem">
+      <h3 class="mono crit-h">What this census does not claim</h3>
+      <ul class="crit-list">
+        <li>It does not claim any evaluated stack performs poorly — an empty column is a
+          reporting fact, not a performance finding.</li>
+        <li>It does not claim the unmeasured joint statistics would reveal dependence;
+          measuring instead of assuming is the entire point.</li>
+        <li>It does not audit the quality of any per-system evaluation beyond the fields
+          each row records.</li>
+        <li>It covers the artifacts found by the documented bounded search — not
+          everything in existence. A qualifying artifact it missed falsifies the "among
+          N" statement and is added on discovery.</li>
+      </ul>
+    </div>
+  </section>
+  
+  <section class="zone" id="under-review" aria-labelledby="ur-h">
+    <h2 id="ur-h">Under examination</h2>
+    <p class="zone-intro">Named and sourced, not yet classified. These rows count toward
+      nothing — a census about reporting standards does not get to count rows it has
+      not finished reading.</p>
+    <div class="wall"><div class="wall-row"><span class="mono wall-id">ml6-guardrail-benchmark</span><div><p class="ur-title">Inside AI guardrails: a benchmark on enterprise LLM security — <a class="u" href="https://www.ml6.eu/en/blog/inside-ai-guardrails-a-benchmark-on-enterprise-llm-security">source ↗</a></p><p class="ur-note">Under primary-source examination. Not yet classified; excluded from all counts until examined.</p></div></div><div class="wall-row"><span class="mono wall-id">truefoundry-guardrail-benchmark</span><div><p class="ur-title">Benchmarking LLM guardrail providers — <a class="u" href="https://www.truefoundry.com/blog/benchmarking-llm-guardrail-providers">source ↗</a></p><p class="ur-note">Under primary-source examination. Not yet classified; excluded from all counts until examined.</p></div></div><div class="wall-row"><span class="mono wall-id">bells-cesia</span><div><p class="ur-title">BELLS — benchmarks for the evaluation of LLM safeguards (CeSIA) — <a class="u" href="https://arxiv.org/abs/2606.20668">source ↗</a></p><p class="ur-note">Under primary-source examination. The arXiv identifier above is a working reference and is itself being verified; the row will bind to whatever the primary source actually is, and split into multiple rows if the framework paper and a successor evaluation are distinct artifacts.</p></div></div><div class="wall-row"><span class="mono wall-id">multimodal-safeguard-benchmark</span><div><p class="ur-title">Multimodal safeguard benchmark (working name; acronym unresolved) — <span class="mono">no source bound yet</span></p><p class="ur-note">Under primary-source examination. Previously cited from memory as &quot;MSBench&quot; with two pairwise ensemble rows; neither the name nor the ensemble rows are trusted until the primary source is located and read. If no such artifact exists, this row is removed and the removal recorded in the revision history.</p></div></div>
+    </div>
+  </section>
+  
+
+  <section class="zone" id="standard" aria-labelledby="std-h">
+    <h2 id="std-h">The missing row, specified</h2>
+    <p class="zone-intro">The fix is small enough to paste into a results table: union
+      detection and the all-miss rate over the same items, with the denominator and
+      event definition that make them meaningful. The
+      <a class="u" href="/missing-column/disclosure/">Minimum Joint Guardrail
+      Disclosure</a> page carries the exact template, its preconditions, and a tested
+      reference implementation.</p>
+  </section>
+  
+  <section class="zone" id="corrections" aria-labelledby="corr-h">
+    <h2 id="corr-h">Corrections and revision history</h2>
+    <p class="zone-intro">Changes to this census are recorded here, in the page they
+      change — not only in a repository log. Row-level corrections
+      (0 recorded) live inside each row above.</p>
+    <ul class="manual-list"><li><span class="mono">2026-08-27</span> — Ce sus established. Criteria v1 froze before the bou ded search; the four starti g cases e tered as u der_review pe di g primary-source exami atio .</li></ul>
+    <div class="correct-route">
+      <h3 class="mono crit-h">Correct this record</h3>
+      <p class="zone-intro">If a row misreads its source, a supposedly absent statistic
+        exists, or a qualifying evaluation is missing:
+        <a class="u" href="https://github.com/Cubits11/cubits11.github.io/issues">open an
+        issue ↗</a> or write to
+        <a class="u" href="mailto:bhavepranavwork@gmail.com">bhavepranavwork@gmail.com</a>.
+        A confirmed correction updates the row, the counts, and this history — being
+        corrected is the mechanism working, and correction credit is recorded in the row.</p>
+      <p class="zone-intro" style="margin-top:.8rem"><strong>Benchmark authors:</strong> if you
+        retained one decision per item per system, the
+        <a class="u" href="/missing-column/disclosure/">minimum joint disclosure</a> is one
+        table away — and this census reclassifies your row to
+        <span class="mono">present</span> the day you publish it.</p>
+    </div>
+  </section>
+
+  <section class="zone replay" aria-labelledby="replay-h">
+    <h2 id="replay-h">Replay manifest</h2>
+    <p class="zone-intro">The exact commands that re-verify this census from a clean
+      checkout. Nothing on this page requires trusting this page.</p>
+    <pre style="background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.4rem 0 0">python scripts/verify_census.py --counts        # row shape + N/M/K recomputed from census.yaml
+python scripts/generate_missing_column.py --check  # this page matches the census file
+python scripts/verify_figures.py                # figure geometry, asserted to 1e-9
+python scripts/mjgd_reference.py --test         # the disclosure arithmetic, tested</pre>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/missing-column/">The Missing Column</a>
+      <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/">← The record</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>

@@ -162,9 +162,101 @@ def check_essay_numberline() -> None:
            "1% and 19% on a linear scale")
 
 
+def check_missing_column() -> None:
+    """The campaign figures state illustrative numbers; assert the drawn
+    geometry matches them, the printed readouts match them, and the motif's
+    missing cell actually stays missing."""
+    path = ROOT / "missing-column" / "index.html"
+    if not path.exists():
+        fail("missing-column: page not generated")
+        return
+    html = path.read_text()
+    x0, w = 40.0, 560.0
+    total, a_catch = 1000, 900
+    a_miss = total - a_catch
+    worlds = {"i": (90, 10), "ii": (20, 80)}
+
+    before = len(failures)
+    panels = re.findall(r'<g class="rc-panel" data-world="(i{1,2})">(.*?)</g>',
+                        html, re.S)
+    if sorted(p for p, _ in panels) != ["i", "ii"]:
+        fail(f"missing-column: expected residual panels i and ii, "
+             f"found {[p for p, _ in panels]}")
+        return
+    for wid, body in panels:
+        b_catch, all_miss = worlds[wid]
+        rects = {cls: (float(x), float(width)) for x, width, cls in re.findall(
+            r'<rect x="([\d.]+)" y="[\d.]+" width="([\d.]+)" height="26" '
+            r'class="(rc[AMBX])"/>', body)}
+        for cls in ("rcA", "rcM", "rcB", "rcX"):
+            if cls not in rects:
+                fail(f"missing-column world {wid}: segment {cls} missing")
+        if len(rects) < 4:
+            continue
+        if not close(rects["rcA"][1] / w, a_catch / total):
+            fail(f"missing-column world {wid}: A-caught width "
+                 f"{rects['rcA'][1] / w} != {a_catch / total}")
+        if not close(rects["rcM"][0], x0 + rects["rcA"][1]) or \
+                not close(rects["rcM"][1] / w, a_miss / total):
+            fail(f"missing-column world {wid}: A-missed segment misplaced")
+        if not close(rects["rcB"][1] / w, b_catch / a_miss):
+            fail(f"missing-column world {wid}: B-residual width "
+                 f"{rects['rcB'][1] / w} != {b_catch / a_miss}")
+        if not close(rects["rcX"][0], x0 + rects["rcB"][1]) or \
+                not close(rects["rcX"][1] / w, all_miss / a_miss):
+            fail(f"missing-column world {wid}: all-miss segment misplaced")
+        if f"A catches {a_catch:,} of {total:,} · misses {a_miss}" not in body:
+            fail(f"missing-column world {wid}: marginal readout wrong or missing")
+        if f"B catches {b_catch} of the {a_miss} A missed · {all_miss} reach production" not in body:
+            fail(f"missing-column world {wid}: residual readout wrong or missing")
+    ratio = worlds["ii"][1] / worlds["i"][1]
+    if ratio != int(ratio) or f"factor of {int(ratio)}" not in html:
+        fail(f"missing-column: caption factor does not match "
+             f"{worlds['ii'][1]}/{worlds['i'][1]}")
+
+    cell = re.search(r'<td class="motif-missing">(.*?)</td>', html, re.S)
+    if not cell:
+        fail("missing-column: the motif's missing cell is missing")
+    elif re.search(r"\d", cell.group(1)):
+        fail("missing-column: the motif's missing cell contains a number — "
+             "the whole point is that it must not")
+    if len(failures) == before:
+        ok("missing column: residual panels match their stated counts in "
+           "both worlds, and the missing cell holds no number")
+
+
+def check_disclosure_ladder() -> None:
+    path = ROOT / "missing-column" / "disclosure" / "index.html"
+    if not path.exists():
+        fail("disclosure: page not generated")
+        return
+    html = path.read_text()
+    before = len(failures)
+    expected = ["1 · Per-guard marginals", "2 · Pairwise intersections",
+                "3 · Union and all-miss", "4 · Per-item release"]
+    rungs = re.findall(
+        r'<rect x="([\d.]+)" y="([\d.]+)" width="[\d.]+" height="[\d.]+" '
+        r'class="rung"/><text[^>]*class="rung-name">([^<]+)</text>', html)
+    if [name for _, _, name in rungs] != expected:
+        fail(f"disclosure: ladder rungs {[n for _, _, n in rungs]} != "
+             f"{expected}")
+    else:
+        xs = [float(x) for x, _, _ in rungs]
+        ys = [float(y) for _, y, _ in rungs]
+        if not all(b > a for a, b in zip(xs, xs[1:])):
+            fail("disclosure: ladder does not step rightward")
+        if not all(b < a for a, b in zip(ys, ys[1:])):
+            fail("disclosure: ladder does not step upward — stronger "
+                 "disclosure must sit higher")
+    if len(failures) == before:
+        ok("disclosure ladder: four rungs, correct order, ascending")
+
+
 def main() -> int:
     check_fig02()
     check_essay_numberline()
+    check_missing_column()
+    check_disclosure_ladder()
     print()
     if failures:
         print(f"{len(failures)} geometry assertion(s) failed.")

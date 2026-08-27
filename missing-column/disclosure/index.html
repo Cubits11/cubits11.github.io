@@ -1,0 +1,210 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: census.yaml · renderer: scripts/generate_missing_column.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimum Joint Guardrail Disclosure — the missing row, specified</title>
+<meta name="description" content="A reporting standard small enough to paste into a results table: what an evaluation of stacked guardrails must publish — union detection, all-miss rate, denominator, event definition, same-item confirmation — before anyone can say what the stack does.">
+<link rel="canonical" href="https://cubits11.github.io/missing-column/disclosure/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Minimum Joint Guardrail Disclosure — the missing row, specified">
+<meta property="og:description" content="A reporting standard small enough to paste into a results table: what an evaluation of stacked guardrails must publish — union detection, all-miss rate, denominator, event definition, same-item confirmation — before anyone can say what the stack does.">
+<meta property="og:url" content="https://cubits11.github.io/missing-column/disclosure/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+body{font-size:1rem;line-height:1.65}
+.container{width:min(1060px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.68rem}
+header.page{padding:7.9rem 0 2.2rem}
+h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 0 1rem;letter-spacing:-.018em}
+.intro{color:var(--muted);max-width:48em}
+.zone{margin-top:4rem;border-top:1px solid var(--line);padding-top:2rem}
+.zone h2{font-weight:520;font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 .6rem;letter-spacing:-.01em}
+.zone .zone-intro{color:var(--muted);max-width:46em}
+.zone h3{font-weight:520;margin:1.6rem 0 .5rem}
+.fig-scroll{overflow-x:auto}
+.wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
+.wall-row{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
+.wall-row:last-child{border-bottom:none}
+.wall-id{color:var(--gold);overflow-wrap:anywhere}
+.manual-list{margin:1.2rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.manual-list li{margin:.35rem 0}
+.ur-title{margin:0 0 .3rem}
+.ur-note{margin:0;color:var(--muted);font-size:.92rem}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+
+.ladder-fig{margin:2.2rem 0 0}
+.ladder-fig svg{width:100%;min-width:560px;height:auto;display:block}
+.rung{fill:var(--surface);stroke:var(--line-strong)}
+.rung-name{fill:var(--gold);font-size:11px;letter-spacing:.04em}
+.rung-sub{margin:0;font-family:var(--sans);font-size:10.5px;line-height:1.35;color:var(--muted)}
+.rc-caption{margin-top:.9rem;color:var(--muted);font-size:.92rem;max-width:52em}
+.rc-caption strong{color:var(--ink)}
+.fig-scroll{overflow-x:auto}
+.disc-list{margin:1.4rem 0 0;padding-left:0;list-style:none;counter-reset:disc}
+.disc-list li{counter-increment:disc;border:1px solid var(--line);border-left:2px solid var(--evidence);background:var(--surface);padding:.9rem 1.1rem;margin:.6rem 0}
+.disc-list li::before{content:counter(disc,decimal-leading-zero);font-family:var(--mono);color:var(--gold);font-size:.66rem;letter-spacing:.08em;display:block;margin-bottom:.3rem}
+.disc-list strong{display:block;margin-bottom:.2rem}
+.disc-list p{margin:0;color:var(--muted);font-size:.92rem}
+.tmpl pre{background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.76rem;line-height:1.75;color:var(--ink);margin:1.2rem 0 0}
+.precond{border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem;color:var(--muted);font-size:.92rem}
+.precond strong{color:var(--ink)}
+.ask{border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem}
+.ask p{margin:0;color:var(--muted);font-size:.95rem}
+.crit-h{color:var(--gold);letter-spacing:.08em;text-transform:uppercase;font-size:.64rem;margin:0 0 .5rem;font-weight:400}
+
+@media (max-width:600px){.wall-row{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/modules/">Modules</a>
+      <a href="/observatory/">Observatory</a>
+      <a href="/ledger/">Ledger</a>
+      <a href="/writing/">Writing</a>
+      <a href="/archive/">Archive</a>
+      <a href="/resume/">R&eacute;sum&eacute;</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>Minimum Joint Guardrail Disclosure</b> — working name, v0 draft</span>
+    <span>maintained beside the <a class="u" href="/missing-column/">census</a> · criteria v1 frozen 2026-08-27</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <h1>The missing row, specified</h1>
+    <p class="intro">"Publish the stack" compresses to one table row — union detection and
+      all-miss over the same items — but the row is only meaningful with its denominator,
+      event definition, and alignment conditions attached. This page is the exact
+      specification: fourteen components, a paste-in template, and a tested reference
+      implementation. It is a draft standard maintained by one person, adopted so far by
+      nobody; the census records the day that changes.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  
+<figure class="ladder-fig" id="ladder">
+  <div class="fig-scroll">
+  <svg viewBox="0 0 660 260" role="img" aria-labelledby="ldt ldd">
+  <title id="ldt">The minimum joint disclosure, as four ascending steps</title>
+  <desc id="ldd">Four ascending steps. Step one: per-guard marginals — each
+guard alone, on the same items, with a stated denominator. Step two: pairwise
+intersections — where two guards' catches and misses overlap. Step three:
+union and all-miss — what any guard catches and what reaches production. Step
+four: per-item release — one row per item, from which every earlier statistic
+can be recomputed.</desc>
+  <rect x="40" y="218" width="140" height="36" class="rung"/><text x="50" y="235" class="rung-name">1 · Per-guard marginals</text><foreignObject x="50" y="240" width="122" height="66"><p xmlns="http://www.w3.org/1999/xhtml" class="rung-sub">each guard alone, same items, stated denominator</p></foreignObject><rect x="190" y="174" width="140" height="36" class="rung"/><text x="200" y="191" class="rung-name">2 · Pairwise intersections</text><foreignObject x="200" y="196" width="122" height="66"><p xmlns="http://www.w3.org/1999/xhtml" class="rung-sub">where two guards&#x27; catches and misses overlap</p></foreignObject><rect x="340" y="130" width="140" height="36" class="rung"/><text x="350" y="147" class="rung-name">3 · Union and all-miss</text><foreignObject x="350" y="152" width="122" height="66"><p xmlns="http://www.w3.org/1999/xhtml" class="rung-sub">what any guard catches; what reaches production</p></foreignObject><rect x="490" y="86" width="140" height="36" class="rung"/><text x="500" y="103" class="rung-name">4 · Per-item release</text><foreignObject x="500" y="108" width="122" height="66"><p xmlns="http://www.w3.org/1999/xhtml" class="rung-sub">one row per item — every statistic above recomputable</p></foreignObject>
+  </svg>
+  </div>
+  <figcaption class="rc-caption"><strong>The disclosure ladder.</strong> Each step up
+    reports strictly more of the joint structure. Step 3 is the campaign's ask — one
+    union row and one all-miss row beside the marginals every evaluation already
+    prints. Step 4 makes every other step recomputable by anyone.</figcaption>
+</figure>
+
+  <section class="zone" id="components" aria-labelledby="comp-h">
+    <h2 id="comp-h">The fourteen components</h2>
+    <p class="zone-intro">Components 1–6 make the marginals interpretable; most careful
+      evaluations already publish them. Components 7–9 are the missing column. 10–13
+      make it trustworthy. 14 makes it reproducible.</p>
+    <ol class="disc-list"><li><strong>Population and denominator</strong><p>What set of items, how many, and where they came from. Every joint statistic below is a fraction of this set.</p></li><li><strong>Event definition</strong><p>What counts as a positive — the thing a guard should catch — stated once, identically, for every system.</p></li><li><strong>Per-guard configuration</strong><p>Version, threshold, and settings for each guard. A threshold moved between guards silently changes what a comparison means.</p></li><li><strong>Same-items confirmation</strong><p>An explicit statement that every guard was evaluated on the same items. Same benchmark name is not the same item set.</p></li><li><strong>Full exposure</strong><p>Every guard saw every applicable item. If an earlier guard&#x27;s block gated later guards, say so — gated and ungated numbers answer different questions.</p></li><li><strong>Per-guard counts</strong><p>Catches among positives and false positives among negatives, as counts with denominators, not only as rates.</p></li><li><strong>Union detection</strong><p>Items caught by at least one guard, among positives. The stack&#x27;s headline number, and unrecoverable from the marginals.</p></li><li><strong>All-miss rate</strong><p>Items caught by no guard, among positives — what reaches production. Equals 100% minus union detection; publish it anyway, it is the number a deployer actually needs.</p></li><li><strong>Residual coverage</strong><p>For each added guard: what it catches among the items the preceding set missed. This is the measured value of adding the guard.</p></li><li><strong>Intersections</strong><p>Pairwise (and higher-order, where feasible) overlaps of catches or misses. Pairwise alone does not determine the higher-order structure; it still constrains it.</p></li><li><strong>Uncertainty</strong><p>Intervals for the joint statistics, not only the marginals. A union estimate without uncertainty invites overreading.</p></li><li><strong>Missingness</strong><p>Errors, refusals, and timeouts, and how each was scored. A timeout scored as a catch is a decision, not an accident.</p></li><li><strong>Order semantics</strong><p>For sequential stacks: the order, and what a block at stage k means for the stages after it.</p></li><li><strong>Per-item release</strong><p>One row per item with each guard&#x27;s decision, when license and safety permit. This single artifact makes every statistic above recomputable by anyone.</p></li></ol>
+  </section>
+
+  <section class="zone tmpl" id="template" aria-labelledby="tmpl-h">
+    <h2 id="tmpl-h">The paste-in row</h2>
+    <p class="zone-intro">For a results table that already lists per-guard rates, the
+      minimum viable disclosure is two added rows and three lines of caption:</p>
+    <pre>| System                  | Catch rate on the positive set |
+|-------------------------|--------------------------------|
+| Guard A (version, thr.) | 91.0%  (910 / 1,000)           |
+| Guard B (version, thr.) | 88.0%  (880 / 1,000)           |
+| Any guard — union       | __._%  (___ / 1,000)           |
+| No guard — all-miss     | __._%  (___ / 1,000)           |
+
+Denominator: 1,000 positives, defined as &lt;event definition&gt;.
+Every guard scored every item independently (no gating).
+Errors/timeouts: &lt;n&gt;, scored as &lt;policy&gt;.</pre>
+    <div class="precond"><strong>The row is meaningful only if:</strong> the denominator and
+      event definition are stated; every guard scored the same items; every guard scored
+      every item (or the gating is declared as the object of measurement); and
+      missingness is scored by a stated policy. Absent those, a union number is not
+      evidence about the stack.</div>
+  </section>
+
+  <section class="zone" id="ask" aria-labelledby="ask-h">
+    <h2 id="ask-h">The ask, for benchmark authors</h2>
+    <div class="ask"><p>You evaluated multiple guardrails on a common benchmark. Did you
+      retain one binary decision per item for every system? If so, would you consider
+      publishing the union detection rate and the corresponding all-miss rate, together
+      with the denominator and event definition? Those two rows let readers evaluate the
+      deployed stack without assuming independence — and I will gladly supply the
+      calculation or a small reporting patch:
+      <a class="u" href="mailto:bhavepranavwork@gmail.com">bhavepranavwork@gmail.com</a>.</p></div>
+  </section>
+
+  <section class="zone" id="reference" aria-labelledby="ref-h">
+    <h2 id="ref-h">Reference implementation</h2>
+    <p class="zone-intro"><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/mjgd_reference.py">scripts/mjgd_reference.py</a>
+      computes every component above from one decision per item per guard — union,
+      all-miss, residual coverage in stack order, and pairwise intersections — and
+      asserts its own identities (union + all-miss = denominator; residual coverage
+      telescopes to the union; intersections respect their feasibility bounds) against
+      synthetic fixtures in CI. It is ~a hundred lines, and it is the entire cost of the
+      disclosure when per-item decisions were retained.</p>
+    <p class="zone-intro" style="margin-top:.8rem">What this page does not claim: that any
+      organization has adopted this standard; that the missing statistics, once measured,
+      would show strong dependence; or that disclosure alone makes a stack safe. The
+      <a class="u" href="/missing-column/">census</a> tracks the first; measurement — not
+      assumption — settles the second; nothing settles the third.</p>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/missing-column/">The Missing Column</a>
+      <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/">← The record</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>

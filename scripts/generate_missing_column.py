@@ -1,0 +1,943 @@
+#!/usr/bin/env python3
+"""Generate /missing-column/ and /missing-column/disclosure/ from census.yaml.
+
+The Missing Column is a campaign about reporting, so its own reporting is
+generated: the census table, the headline counts, the criteria, and the
+correction history all render from census.yaml through this script.
+Hand-editing the pages breaks the build; hand-typing a count is impossible
+because the only arithmetic lives in verify_census.compute_counts, which
+this renderer imports.
+
+Fail-closed rendering: while any starting row is under_review and no row
+is examined, the page says exactly that and claims no number. The headline
+proposition appears only when N > 0, filled from the census's own
+template.
+
+The two figures are drawn from named constants and re-derived by
+scripts/verify_figures.py — the illustrative numbers cannot drift from the
+geometry that draws them.
+
+CI runs `generate_missing_column.py --check` and fails on drift.
+"""
+
+import pathlib
+import re
+import sys
+
+import generate_ledger as ledger
+import verify_census
+
+esc = ledger.esc
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+
+SITE = "https://cubits11.github.io"
+
+# ---------------------------------------------------------------- figures
+# Illustrative constants for the residual-coverage figure. verify_figures.py
+# re-derives every drawn width and printed count from these same numbers —
+# stated in the caption as illustrative, never as observations.
+RC_TOTAL = 1000          # illustrative attack set
+RC_A_CATCH = 900         # guard A catches 900 → misses 100
+RC_WORLDS = {            # among the 100 A missed: what B catches / what slips
+    "i": {"b_catch": 90, "all_miss": 10,
+          "name": "the world independence assumes"},
+    "ii": {"b_catch": 20, "all_miss": 80,
+           "name": "a correlated-miss world — same marginals"},
+}
+RC_X0, RC_W = 40.0, 560.0   # strip origin and width, SVG units
+
+LADDER_RUNGS = [
+    ("1 · Per-guard marginals",
+     "each guard alone, same items, stated denominator"),
+    ("2 · Pairwise intersections",
+     "where two guards' catches and misses overlap"),
+    ("3 · Union and all-miss",
+     "what any guard catches; what reaches production"),
+    ("4 · Per-item release",
+     "one row per item — every statistic above recomputable"),
+]
+
+
+def render_motif() -> str:
+    """The campaign mark: a real table whose last column is not filled in."""
+    return '''
+<figure class="motif-fig" id="motif">
+  <div class="fig-scroll">
+  <table class="motif">
+    <caption class="sr-only">An illustrative benchmark table: four guardrails
+      with individual catch rates, and a final column for the joint result of
+      the deployed stack, which is not reported.</caption>
+    <thead>
+      <tr>
+        <th scope="col">Guard A</th>
+        <th scope="col">Guard B</th>
+        <th scope="col">Guard C</th>
+        <th scope="col">Guard D</th>
+        <th scope="col" class="motif-stack">THE STACK</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>91%</td>
+        <td>88%</td>
+        <td>94%</td>
+        <td>86%</td>
+        <td class="motif-missing"><span class="mono">not reported</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <figcaption class="motif-caption"><strong>The missing column.</strong> Illustrative —
+    the shape of the reporting gap, not any specific evaluation's numbers. Four
+    individual catch rates on one attack set say almost nothing about the fifth
+    cell: the joint result of deploying all four. The census below records which
+    public evaluations fill that cell and which leave it empty.</figcaption>
+</figure>'''
+
+
+def render_residual_fig() -> str:
+    """Two worlds with identical marginals and different residual coverage."""
+    panels = []
+    a_w = RC_W * RC_A_CATCH / RC_TOTAL
+    m_x = RC_X0 + a_w
+    m_w = RC_W - a_w
+    a_miss = RC_TOTAL - RC_A_CATCH
+    y = 64
+    for wid in ("i", "ii"):
+        w = RC_WORLDS[wid]
+        b_w = RC_W * w["b_catch"] / a_miss
+        x_x = RC_X0 + b_w
+        x_w = RC_W - b_w
+        panels.append(f'''
+<g class="rc-panel" data-world="{wid}">
+<text x="{RC_X0:g}" y="{y - 10}" class="hmono">World {wid} — {esc(w["name"])}</text>
+<rect x="{RC_X0:g}" y="{y}" width="{a_w:g}" height="26" class="rcA"/>
+<rect x="{m_x:g}" y="{y}" width="{m_w:g}" height="26" class="rcM"/>
+<text x="{RC_X0:g}" y="{y + 44}" class="hmono">A catches {RC_A_CATCH:,} of {RC_TOTAL:,} · misses {a_miss}</text>
+<text x="{RC_X0:g}" y="{y + 76}" class="hmono">the {a_miss} A missed, magnified ↓</text>
+<rect x="{RC_X0:g}" y="{y + 88}" width="{b_w:g}" height="26" class="rcB"/>
+<rect x="{x_x:g}" y="{y + 88}" width="{x_w:g}" height="26" class="rcX"/>
+<text x="{RC_X0:g}" y="{y + 132}" class="hmono">B catches {w["b_catch"]} of the {a_miss} A missed · {w["all_miss"]} reach production</text>
+</g>''')
+        y += 170
+    return f'''
+<figure class="rc-fig" id="residual">
+  <div class="fig-scroll">
+  <svg viewBox="0 0 700 {y - 10}" role="img" aria-labelledby="rcft rcfd">
+  <title id="rcft">Identical individual rates, different residual coverage</title>
+  <desc id="rcfd">Two panels, each showing an illustrative attack set of one
+thousand items. In both, guard A catches nine hundred and misses one hundred.
+The one hundred missed items are magnified into a second strip showing what
+guard B catches among them. In world one, B catches ninety of the hundred and
+ten reach production. In world two, B catches only twenty of the same hundred
+and eighty reach production. Guard B's overall rate is the same in both
+worlds; only the overlap of the two guards' misses differs, and per-guard
+rates do not report it.</desc>
+{"".join(panels)}
+  </svg>
+  </div>
+  <figcaption class="rc-caption"><strong>What does the second guard catch among what
+    the first missed?</strong> Illustrative. Both worlds keep every per-guard rate
+    identical; only the overlap of misses moves. The stack's residual — what reaches
+    production — differs by a factor of {RC_WORLDS["ii"]["all_miss"] // RC_WORLDS["i"]["all_miss"]}. No table of per-guard columns
+    distinguishes these worlds; the missing column does. This figure asserts its own
+    geometry in CI and is not evidence about any real guardrail pair.</figcaption>
+</figure>'''
+
+
+def render_ladder_fig() -> str:
+    """The disclosure ladder — four rungs from marginals to per-item release."""
+    rungs = []
+    x0, step_w, step_h = 40, 150, 44
+    base_y = 218
+    for i, (name, sub) in enumerate(LADDER_RUNGS):
+        x = x0 + i * step_w
+        y = base_y - i * step_h
+        rungs.append(
+            f'<rect x="{x}" y="{y}" width="{step_w - 10}" height="{step_h - 8}" '
+            f'class="rung"/>'
+            f'<text x="{x + 10}" y="{y + 17}" class="rung-name">{esc(name)}</text>'
+            f'<foreignObject x="{x + 10}" y="{y + 22}" width="{step_w - 28}" height="66">'
+            f'<p xmlns="http://www.w3.org/1999/xhtml" class="rung-sub">{esc(sub)}</p>'
+            f'</foreignObject>')
+    return f'''
+<figure class="ladder-fig" id="ladder">
+  <div class="fig-scroll">
+  <svg viewBox="0 0 660 260" role="img" aria-labelledby="ldt ldd">
+  <title id="ldt">The minimum joint disclosure, as four ascending steps</title>
+  <desc id="ldd">Four ascending steps. Step one: per-guard marginals — each
+guard alone, on the same items, with a stated denominator. Step two: pairwise
+intersections — where two guards' catches and misses overlap. Step three:
+union and all-miss — what any guard catches and what reaches production. Step
+four: per-item release — one row per item, from which every earlier statistic
+can be recomputed.</desc>
+  {"".join(rungs)}
+  </svg>
+  </div>
+  <figcaption class="rc-caption"><strong>The disclosure ladder.</strong> Each step up
+    reports strictly more of the joint structure. Step 3 is the campaign's ask — one
+    union row and one all-miss row beside the marginals every evaluation already
+    prints. Step 4 makes every other step recomputable by anyone.</figcaption>
+</figure>'''
+
+
+# ---------------------------------------------------------------- census
+LABELS = {
+    "PRESENT": ("present", "state-present"),
+    "ABSENT": ("not published", "state-absent"),
+    "AMBIGUOUS": ("ambiguous", "state-ambiguous"),
+    "NOT_COMPARABLE": ("not comparable", "state-ambiguous"),
+}
+SCOPE_LABELS = {
+    "printed_full_stack": "full stack, printed",
+    "printed_pairwise_only": "pairwise only, printed",
+    "computable_via_item_release": "computable — per-item outcomes released",
+    "none": "",
+}
+
+
+def tri(row: dict, field: str) -> str:
+    cell = row.get(field)
+    return cell.get("value", "unstated") if isinstance(cell, dict) else "unstated"
+
+
+def tri_cell(row: dict, field: str) -> str:
+    cell = row.get(field) or {}
+    value = esc(cell.get("value", "unstated"))
+    evidence = esc(cell.get("evidence", ""))
+    return (f'<span class="tri tri-{value}">{value}</span>'
+            f'<span class="tri-ev">{evidence}</span>')
+
+
+def render_headline(census: dict, counts: dict) -> str:
+    if counts["N"] == 0:
+        return f'''
+    <div class="headline headline-held">
+      <p class="mono head-kicker">No count is claimed yet</p>
+      <p>The criteria are frozen and the starting rows are under primary-source
+        examination. This page renders its headline from
+        <a class="u" href="{SITE}/census.yaml">census.yaml</a> when rows are
+        classified — until then it states only that the census exists. A census
+        about missing reporting does not get to assert numbers it has not
+        earned.</p>
+    </div>'''
+    proposition = census["proposition_template"].format(
+        as_of=census["frozen_as_of"], N=counts["N"], M=counts["M"],
+        K=counts["K"], criteria_version=census["criteria_version"])
+    proposition = re.sub(r"\s+", " ", proposition.strip())
+    scopes = counts["present_by_scope"]
+    scope_bits = []
+    for key in ("printed_full_stack", "printed_pairwise_only",
+                "computable_via_item_release"):
+        if scopes.get(key):
+            scope_bits.append(f'{scopes[key]} {SCOPE_LABELS[key]}')
+    scope_line = (" · ".join(scope_bits)) if scope_bits else "—"
+    return f'''
+    <div class="headline">
+      <p class="mono head-kicker">The census result — regenerated from the source file</p>
+      <p class="head-prop">{esc(proposition)}</p>
+      <p class="mono head-scope">The {counts["K"]} split{"s" if counts["K"] == 1 else ""} as: {esc(scope_line)}.</p>
+      <p class="head-note">A qualifying artifact this search missed, or a row shown to be
+        misclassified, changes these numbers — the criteria and the correction route are
+        below, and every change lands in the revision history.</p>
+    </div>'''
+
+
+def render_criteria(census: dict) -> str:
+    items = "".join(
+        f'<li><span class="mono crit-key">{esc(c["key"])}</span>'
+        f'{esc(re.sub(r"[ \\n]+", " ", str(c["text"]).strip()))}</li>'
+        for c in census["inclusion_criteria"])
+    exclusions = "".join(
+        f"<li>{esc(re.sub(r'[ \\n]+', ' ', str(x).strip()))}</li>"
+        for x in census["exclusion_rules"])
+    protocol = census["search_protocol"]
+    queries = "".join(f"<li>{esc(q)}</li>" for q in protocol["queries"])
+    return f'''
+    <div class="crit-grid">
+      <div>
+        <h3 class="mono crit-h">Inclusion — all must hold</h3>
+        <ul class="crit-list">{items}</ul>
+      </div>
+      <div>
+        <h3 class="mono crit-h">Excluded by rule</h3>
+        <ul class="crit-list">{exclusions}</ul>
+        <h3 class="mono crit-h" style="margin-top:1.2rem">Not a joint statistic</h3>
+        <p class="crit-note">{esc(re.sub(r"[ \\n]+", " ", str(census["non_criteria_note"]).strip()))}</p>
+      </div>
+    </div>
+    <details class="protocol">
+      <summary class="mono">The bounded search protocol — executed {esc(protocol["executed"])}</summary>
+      <p class="crit-note">{esc(re.sub(r"[ \\n]+", " ", str(protocol["bounded"]).strip()))}</p>
+      <p class="mono crit-h" style="margin-top:.9rem">Fixed query list</p>
+      <ul class="crit-list">{queries}</ul>
+      <p class="crit-note" style="margin-top:.7rem">Snowball: {esc(protocol["snowball"])} ·
+        Budget: {esc(re.sub(r"[ \\n]+", " ", str(protocol["budget"]).strip()))}</p>
+    </details>'''
+
+
+def render_census_table(examined: list) -> str:
+    if not examined:
+        return ""
+    rows = []
+    for r in examined:
+        cls, pill = LABELS[r["classification"]]
+        scope = SCOPE_LABELS.get(r.get("joint_scope", "none"), "")
+        scope_html = f'<span class="tri-ev">{esc(scope)}</span>' if scope else ""
+        same_items = tri(r, "same_items_for_all_systems")
+        rows.append(f'''
+      <tr>
+        <th scope="row"><a class="u" href="#{esc(r["id"])}">{esc(r["title"])}</a>
+          <span class="tri-ev">{esc(r["authors_or_org"])} · {esc(r["publication_date"])}</span></th>
+        <td>{esc(str(r["n_systems"]))}</td>
+        <td>{esc(str(r["n_items"]))}</td>
+        <td><span class="tri tri-{esc(same_items)}">{esc(same_items)}</span></td>
+        <td class="stack-cell"><span class="mono {pill}">{esc(cls)}</span>{scope_html}</td>
+      </tr>''')
+    return f'''
+    <div class="fig-scroll">
+    <table class="census-table">
+      <caption class="sr-only">The census: each public guardrail evaluation
+        examined, with its joint-statistic status in the final column.</caption>
+      <thead>
+        <tr>
+          <th scope="col">Artifact</th>
+          <th scope="col">Systems</th>
+          <th scope="col">Items</th>
+          <th scope="col">Same items</th>
+          <th scope="col" class="motif-stack">THE STACK</th>
+        </tr>
+      </thead>
+      <tbody>{"".join(rows)}
+      </tbody>
+    </table>
+    </div>'''
+
+
+DETAIL_FIELDS = [
+    ("task", "Task"),
+    ("dataset_population", "Population"),
+    ("per_system_metrics", "Per-system results"),
+    ("joint_statistic_evidence", "Joint statistic"),
+    ("classification_reason", "Why this classification"),
+]
+DETAIL_TRIS = [
+    ("same_items_for_all_systems", "Same items for all systems"),
+    ("same_event_definition", "Same event definition"),
+    ("thresholds_comparable", "Thresholds comparable"),
+    ("all_systems_saw_all_items", "All systems saw all items"),
+    ("item_level_outcomes_released", "Per-item outcomes released"),
+    ("union_detection_reported", "Union detection reported"),
+    ("all_miss_rate_reported", "All-miss rate reported"),
+    ("pairwise_intersections_reported", "Pairwise intersections reported"),
+    ("residual_coverage_reported", "Residual coverage reported"),
+    ("uncertainty_reported", "Joint uncertainty reported"),
+]
+
+
+def render_row_details(examined: list) -> str:
+    blocks = []
+    for r in examined:
+        cls, pill = LABELS[r["classification"]]
+        dl = []
+        for field, label_text in DETAIL_FIELDS:
+            value = re.sub(r"\s+", " ", str(r[field]).strip())
+            dl.append(f"<dt>{esc(label_text)}</dt><dd>{esc(value)}</dd>")
+        for field, label_text in DETAIL_TRIS:
+            dl.append(f"<dt>{esc(label_text)}</dt><dd>{tri_cell(r, field)}</dd>")
+        systems = ", ".join(str(s) for s in r["systems"])
+        dl.append(f"<dt>Systems</dt><dd>{esc(systems)}</dd>")
+        prose = r.get("combination_prose")
+        if prose:
+            dl.append("<dt>Combination prose</dt>"
+                      f"<dd>“{esc(prose['quote'])}” — {esc(prose['location'])}. "
+                      "A recommendation to combine is recorded here because it "
+                      "is not a measured joint statistic.</dd>")
+        passages = "".join(f"<li>{esc(p)}</li>" for p in r["source_passages"])
+        dl.append(f'<dt>Source passages</dt><dd><ul class="nc">{passages}</ul></dd>')
+        corrections = r.get("correction_history") or []
+        if corrections:
+            citems = "".join(
+                f'<li><span class="mono">{esc(c["date"])}</span> — {esc(c["change"])}</li>'
+                for c in corrections)
+            dl.append(f'<dt>Corrections</dt><dd><ul class="nc">{citems}</ul></dd>')
+        else:
+            dl.append("<dt>Corrections</dt><dd>none recorded yet — the row "
+                      "invites them</dd>")
+        dl.append(f'<dt>Checked</dt><dd>{esc(r["last_checked"])}</dd>')
+        archived = (f' · <a class="u" href="{esc(r["archived_url"])}">archived copy ↗</a>'
+                    if r.get("archived_url") else "")
+        blocks.append(f'''
+    <article class="claim census-row" id="{esc(r["id"])}">
+      <div class="claim-head">
+        <h3 class="mono claim-id">{esc(r["id"])}</h3>
+        <span class="mono {pill}">{esc(cls)}</span>
+      </div>
+      <p class="prop">{esc(r["title"])} — {esc(r["authors_or_org"])},
+        {esc(r["publication_date"])} ·
+        <a class="u" href="{esc(r["primary_url"])}">primary source ↗</a>{archived}</p>
+      <dl>{"".join(dl)}</dl>
+    </article>''')
+    return "".join(blocks)
+
+
+def render_under_review(rows: list) -> str:
+    if not rows:
+        return ""
+    items = []
+    for r in rows:
+        link = (f'<a class="u" href="{esc(r["primary_url"])}">source ↗</a>'
+                if r.get("primary_url") else
+                '<span class="mono">no source bound yet</span>')
+        note = re.sub(r"\s+", " ", str(r.get("notes", "")).strip())
+        items.append(
+            f'<div class="wall-row"><span class="mono wall-id">{esc(r["id"])}</span>'
+            f'<div><p class="ur-title">{esc(r["title"])} — {link}</p>'
+            f'<p class="ur-note">{esc(note)}</p></div></div>')
+    return f'''
+  <section class="zone" id="under-review" aria-labelledby="ur-h">
+    <h2 id="ur-h">Under examination</h2>
+    <p class="zone-intro">Named and sourced, not yet classified. These rows count toward
+      nothing — a census about reporting standards does not get to count rows it has
+      not finished reading.</p>
+    <div class="wall">{"".join(items)}
+    </div>
+  </section>'''
+
+
+def render_exclusions(data: dict) -> str:
+    exclusions = data.get("exclusions") or []
+    unexamined = data.get("unexamined_candidates") or []
+    if not exclusions and not unexamined:
+        return ""
+    body = []
+    if exclusions:
+        rows = "".join(
+            f'<div class="wall-row"><span class="mono wall-id">{esc(r["id"])}</span>'
+            f'<div><p class="ur-title">{esc(r["title"])}'
+            + (f' — <a class="u" href="{esc(r["primary_url"])}">source ↗</a>'
+               if r.get("primary_url") else "")
+            + f'</p><p class="ur-note">Excluded: {esc(re.sub(r"[ \\n]+", " ", str(r["reason"]).strip()))}</p></div></div>'
+            for r in exclusions)
+        body.append(f'<h3 class="mono crit-h">Examined and excluded</h3>'
+                    f'<div class="wall">{rows}</div>')
+    if unexamined:
+        rows = "".join(
+            f'<li>{esc(c.get("title", c.get("url", "?")))}'
+            + (f' — <a class="u" href="{esc(c["url"])}">source ↗</a>'
+               if c.get("url") else "") + "</li>"
+            for c in unexamined)
+        body.append('<h3 class="mono crit-h" style="margin-top:1.4rem">Surfaced, not examined'
+                    '</h3><p class="zone-intro">Candidates the bounded search found but did '
+                    'not examine. They are listed so the bound is visible, and they count '
+                    f'toward nothing.</p><ul class="crit-list">{rows}</ul>')
+    return f'''
+  <section class="zone" id="exclusions" aria-labelledby="ex-h">
+    <h2 id="ex-h">The boundary of the search</h2>
+    {"".join(body)}
+  </section>'''
+
+
+def render_revisions(census: dict, examined: list) -> str:
+    entries = []
+    for e in census["revision_history"]:
+        entries.append(f'<li><span class="mono">{esc(e["date"])}</span> — '
+                       f'{esc(re.sub(r"[ \\n]+", " ", str(e["change"]).strip()))}</li>')
+    row_corrections = sum(len(r.get("correction_history") or []) for r in examined)
+    return f'''
+  <section class="zone" id="corrections" aria-labelledby="corr-h">
+    <h2 id="corr-h">Corrections and revision history</h2>
+    <p class="zone-intro">Changes to this census are recorded here, in the page they
+      change — not only in a repository log. Row-level corrections
+      ({row_corrections} recorded) live inside each row above.</p>
+    <ul class="manual-list">{"".join(entries)}</ul>
+    <div class="correct-route">
+      <h3 class="mono crit-h">Correct this record</h3>
+      <p class="zone-intro">If a row misreads its source, a supposedly absent statistic
+        exists, or a qualifying evaluation is missing:
+        <a class="u" href="https://github.com/Cubits11/cubits11.github.io/issues">open an
+        issue ↗</a> or write to
+        <a class="u" href="mailto:bhavepranavwork@gmail.com">bhavepranavwork@gmail.com</a>.
+        A confirmed correction updates the row, the counts, and this history — being
+        corrected is the mechanism working, and correction credit is recorded in the row.</p>
+      <p class="zone-intro" style="margin-top:.8rem"><strong>Benchmark authors:</strong> if you
+        retained one decision per item per system, the
+        <a class="u" href="/missing-column/disclosure/">minimum joint disclosure</a> is one
+        table away — and this census reclassifies your row to
+        <span class="mono">present</span> the day you publish it.</p>
+    </div>
+  </section>'''
+
+
+# ---------------------------------------------------------------- chrome
+def page_head(title: str, desc: str, path: str, extra_css: str,
+              jsonld: str = "") -> str:
+    return f'''<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: census.yaml · renderer: scripts/generate_missing_column.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{esc(title)}</title>
+<meta name="description" content="{esc(desc)}">
+<link rel="canonical" href="{SITE}{path}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(desc)}">
+<meta property="og:url" content="{SITE}{path}">
+<meta property="og:image" content="{SITE}/assets/img/og-missing-column.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{SITE}/assets/img/og-missing-column.png">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){{document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}}}catch(e){{}}</script>
+<link rel="stylesheet" href="/assets/site.css">{jsonld}
+<style>
+body{{font-size:1rem;line-height:1.65}}
+.container{{width:min(1060px,100% - 2*clamp(1.25rem,5vw,3rem))}}
+.mono{{font-size:.68rem}}
+header.page{{padding:7.9rem 0 2.2rem}}
+h1{{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 0 1rem;letter-spacing:-.018em}}
+.intro{{color:var(--muted);max-width:48em}}
+.zone{{margin-top:4rem;border-top:1px solid var(--line);padding-top:2rem}}
+.zone h2{{font-weight:520;font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 .6rem;letter-spacing:-.01em}}
+.zone .zone-intro{{color:var(--muted);max-width:46em}}
+.zone h3{{font-weight:520;margin:1.6rem 0 .5rem}}
+.fig-scroll{{overflow-x:auto}}
+.wall{{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}}
+.wall-row{{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}}
+.wall-row:last-child{{border-bottom:none}}
+.wall-id{{color:var(--gold);overflow-wrap:anywhere}}
+.manual-list{{margin:1.2rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}}
+.manual-list li{{margin:.35rem 0}}
+.ur-title{{margin:0 0 .3rem}}
+.ur-note{{margin:0;color:var(--muted);font-size:.92rem}}
+footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}}
+.foot-links{{display:flex;flex-wrap:wrap;gap:1.4rem}}
+{extra_css}
+@media (max-width:600px){{.wall-row{{grid-template-columns:1fr}}}}
+@media print{{body{{background:#fff;color:#000}}}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/modules/">Modules</a>
+      <a href="/observatory/">Observatory</a>
+      <a href="/ledger/">Ledger</a>
+      <a href="/writing/">Writing</a>
+      <a href="/archive/">Archive</a>
+      <a href="/resume/">R&eacute;sum&eacute;</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>'''
+
+
+PAGE_FOOT = '''
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/missing-column/">The Missing Column</a>
+      <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/">← The record</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>
+'''
+
+LANDING_CSS = '''
+.class-bar span b{color:var(--ink)}
+.motif-fig{margin:2.6rem 0 0}
+table.motif,table.census-table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line-strong)}
+table.motif th,table.motif td{border:1px solid var(--line);padding:.8rem 1rem;text-align:center;font-variant-numeric:tabular-nums}
+table.motif th{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
+table.motif td{font-family:var(--serif);font-size:1.5rem}
+th.motif-stack{color:var(--gold)!important}
+td.motif-missing{background:transparent;border:1px dashed var(--review);color:var(--review)}
+td.motif-missing .mono{color:var(--review);font-size:.68rem;letter-spacing:.06em}
+.motif-caption,.rc-caption{margin-top:.9rem;color:var(--muted);font-size:.92rem;max-width:52em}
+.motif-caption strong,.rc-caption strong{color:var(--ink)}
+.mc-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+.headline{border:1px solid var(--line-strong);border-left:2px solid var(--evidence);background:var(--surface);padding:1.4rem 1.6rem;margin-top:1.8rem}
+.headline-held{border-left:2px dashed var(--line-strong)}
+.head-kicker{color:var(--gold);letter-spacing:.08em;text-transform:uppercase}
+.head-prop{font-family:var(--serif);font-size:1.18rem;line-height:1.55;margin:.6rem 0 .5rem}
+.head-scope{color:var(--muted)}
+.head-note,.headline-held p:last-child{color:var(--muted);font-size:.92rem;margin:.5rem 0 0}
+.crit-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.4rem}
+.crit-h{color:var(--gold);letter-spacing:.08em;text-transform:uppercase;font-size:.64rem;margin:0 0 .5rem;font-weight:400}
+.crit-list{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.crit-list li{margin:.35rem 0}
+.crit-key{display:block;color:var(--ink);font-size:.62rem;letter-spacing:.06em}
+.crit-note{color:var(--muted);font-size:.92rem;margin:.3rem 0 0}
+.protocol{margin-top:1.6rem;border:1px solid var(--line);background:var(--surface);padding:.9rem 1.1rem}
+.protocol summary{cursor:pointer;color:var(--muted)}
+table.census-table th,table.census-table td{border-bottom:1px solid var(--line);padding:.75rem .9rem;text-align:left;vertical-align:top}
+table.census-table thead th{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
+table.census-table tbody th{font-weight:520}
+.census-table .u{overflow-wrap:anywhere}
+.stack-cell .mono{letter-spacing:.05em}
+.state-present{color:var(--evidence)}
+.state-absent{color:var(--review)}
+.state-ambiguous{color:var(--muted)}
+.tri{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em}
+.tri-yes{color:var(--evidence)}
+.tri-no{color:var(--review)}
+.tri-unstated,.tri-mixed{color:var(--muted)}
+.tri-ev{display:block;color:var(--muted);font-size:.8rem;margin-top:.15rem}
+.census-row{border:1px solid var(--line-strong);background:var(--surface);padding:1.3rem 1.5rem;margin-top:1.2rem}
+.claim-head{display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap}
+.claim-id{color:var(--gold);font-size:.72rem;font-weight:400;margin:0;letter-spacing:.09em}
+.census-row .prop{font-family:var(--serif);font-size:1.02rem;line-height:1.55;margin:.5rem 0 .9rem}
+.census-row dl{display:grid;grid-template-columns:14rem 1fr;gap:.4rem 1.2rem;margin:0;font-size:.92rem}
+.census-row dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:.2rem}
+.census-row dd{margin:0;color:var(--ink)}
+ul.nc{margin:.1rem 0 0;padding-left:1.1rem;color:var(--muted)}
+ul.nc li{margin:.2rem 0}
+.rc-fig{margin:1.8rem 0 0}
+.rc-fig svg,.motif-fig svg{width:100%;min-width:560px;height:auto;display:block}
+.rcA{fill:var(--evidence);opacity:.55}
+.rcM{fill:var(--review);opacity:.75}
+.rcB{fill:var(--evidence);opacity:.55}
+.rcX{fill:var(--invalid);opacity:.8}
+.hmono,.rung-name{font-family:var(--mono);font-size:12px;fill:var(--muted)}
+.correct-route{margin-top:1.8rem;border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:1.2rem 1.4rem}
+@media (max-width:700px){.crit-grid{grid-template-columns:1fr}.census-row dl{grid-template-columns:1fr}.census-row dt{padding-top:.5rem}}
+'''
+
+DISCLOSURE_CSS = '''
+.ladder-fig{margin:2.2rem 0 0}
+.ladder-fig svg{width:100%;min-width:560px;height:auto;display:block}
+.rung{fill:var(--surface);stroke:var(--line-strong)}
+.rung-name{fill:var(--gold);font-size:11px;letter-spacing:.04em}
+.rung-sub{margin:0;font-family:var(--sans);font-size:10.5px;line-height:1.35;color:var(--muted)}
+.rc-caption{margin-top:.9rem;color:var(--muted);font-size:.92rem;max-width:52em}
+.rc-caption strong{color:var(--ink)}
+.fig-scroll{overflow-x:auto}
+.disc-list{margin:1.4rem 0 0;padding-left:0;list-style:none;counter-reset:disc}
+.disc-list li{counter-increment:disc;border:1px solid var(--line);border-left:2px solid var(--evidence);background:var(--surface);padding:.9rem 1.1rem;margin:.6rem 0}
+.disc-list li::before{content:counter(disc,decimal-leading-zero);font-family:var(--mono);color:var(--gold);font-size:.66rem;letter-spacing:.08em;display:block;margin-bottom:.3rem}
+.disc-list strong{display:block;margin-bottom:.2rem}
+.disc-list p{margin:0;color:var(--muted);font-size:.92rem}
+.tmpl pre{background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.76rem;line-height:1.75;color:var(--ink);margin:1.2rem 0 0}
+.precond{border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem;color:var(--muted);font-size:.92rem}
+.precond strong{color:var(--ink)}
+.ask{border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem}
+.ask p{margin:0;color:var(--muted);font-size:.95rem}
+.crit-h{color:var(--gold);letter-spacing:.08em;text-transform:uppercase;font-size:.64rem;margin:0 0 .5rem;font-weight:400}
+'''
+
+
+def render_landing(data: dict) -> str:
+    census = data["census"]
+    counts = verify_census.compute_counts(data)
+    rows = data.get("benchmarks") or []
+    examined = [r for r in rows if r["status"] == "examined"]
+    under_review = [r for r in rows if r["status"] == "under_review"]
+    title = "The Missing Column — what guardrail evaluations leave unmeasured"
+    desc = ("Teams deploy AI guardrails in stacks; public evaluations usually "
+            "compare them one at a time. A source-bound census of which "
+            "evaluations publish the joint result — union detection, the "
+            "all-miss rate — that a deployed stack actually needs.")
+    count_bar = (f"{counts['N']} examined · {counts['M']} comparable · "
+                 f"{counts['K']} report the stack" if counts["N"]
+                 else f"{counts['under_review']} under examination · no count claimed yet")
+    census_zone_rows = ""
+    if examined:
+        census_zone_rows = (render_census_table(examined)
+                            + render_row_details(examined))
+    head = page_head(title, desc, "/missing-column/", LANDING_CSS)
+    return head + f'''
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>The Missing Column</b> — a source-bound census · generated from <a class="u" href="{SITE}/census.yaml">census.yaml</a></span>
+    <span>{esc(count_bar)}</span>
+    <span>criteria v{esc(census["criteria_version"])} frozen {esc(census["frozen_as_of"])}</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <h1>The missing column</h1>
+    <p class="intro">Teams deploy guardrails in stacks. Public evaluations usually compare
+      them one at a time. This record tracks whether they publish the joint result needed
+      to say what the stack does — and its own headline is generated from a source file
+      that anyone can mechanically make false.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  {render_motif()}
+  <div class="mc-cta">
+    <a class="btn btn-solid" href="#census">Inspect the census</a>
+    <a class="btn" href="/missing-column/disclosure/">Publish the missing row</a>
+    <a class="btn" href="#corrections">Correct this record</a>
+  </div>
+
+  <section class="zone" id="why" aria-labelledby="why-h">
+    <h2 id="why-h">Why the last cell cannot be inferred</h2>
+    <p class="zone-intro">Per-system rates do not determine the stack's rate. Two guards
+      that each miss 10% of attacks can jointly miss anywhere from 0% to 10% — the
+      individual columns are compatible with every world in that interval, and
+      multiplying the rates silently assumes the one world where the guards' failures
+      are independent. The <a class="u" href="/#worlds">front-page instrument</a> lets you
+      move through those worlds with both marginals pinned;
+      <a class="u" href="/essays/when-marginals-are-not-enough/">the flagship essay</a>
+      carries the full argument with witnessed endpoints, and
+      <a class="u" href="/modules/002-pairwise-is-not-enough/">module 002</a> shows that
+      even pairwise numbers cannot rescue the inference. What resolves it is not more
+      per-system precision. It is one more column, measured on the same items.</p>
+  </section>
+
+  <section class="zone" id="residual-zone" aria-labelledby="rz-h">
+    <h2 id="rz-h">What the second guard actually adds</h2>
+    <p class="zone-intro">The question a stack deployment is really asking: among the
+      items the first guard missed, what does the second catch? That is residual
+      coverage, and no set of per-guard columns contains it.</p>
+    {render_residual_fig()}
+  </section>
+
+  <section class="zone" id="census" aria-labelledby="census-h">
+    <h2 id="census-h">The census</h2>
+    <p class="zone-intro">Every row binds to its primary source and records the same
+      fields; the classification enum is fixed; the counts are recomputed from the file
+      by <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_census.py">verify_census.py</a>
+      on every push. Criteria were frozen before the search began.</p>
+    {render_criteria(census)}
+    {render_headline(census, counts)}
+    {census_zone_rows}
+    <div class="headline-nonclaims" style="margin-top:2rem">
+      <h3 class="mono crit-h">What this census does not claim</h3>
+      <ul class="crit-list">
+        <li>It does not claim any evaluated stack performs poorly — an empty column is a
+          reporting fact, not a performance finding.</li>
+        <li>It does not claim the unmeasured joint statistics would reveal dependence;
+          measuring instead of assuming is the entire point.</li>
+        <li>It does not audit the quality of any per-system evaluation beyond the fields
+          each row records.</li>
+        <li>It covers the artifacts found by the documented bounded search — not
+          everything in existence. A qualifying artifact it missed falsifies the "among
+          N" statement and is added on discovery.</li>
+      </ul>
+    </div>
+  </section>
+  {render_under_review(under_review)}
+  {render_exclusions(data)}
+
+  <section class="zone" id="standard" aria-labelledby="std-h">
+    <h2 id="std-h">The missing row, specified</h2>
+    <p class="zone-intro">The fix is small enough to paste into a results table: union
+      detection and the all-miss rate over the same items, with the denominator and
+      event definition that make them meaningful. The
+      <a class="u" href="/missing-column/disclosure/">Minimum Joint Guardrail
+      Disclosure</a> page carries the exact template, its preconditions, and a tested
+      reference implementation.</p>
+  </section>
+  {render_revisions(census, examined)}
+
+  <section class="zone replay" aria-labelledby="replay-h">
+    <h2 id="replay-h">Replay manifest</h2>
+    <p class="zone-intro">The exact commands that re-verify this census from a clean
+      checkout. Nothing on this page requires trusting this page.</p>
+    <pre style="background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.4rem 0 0">python scripts/verify_census.py --counts        # row shape + N/M/K recomputed from census.yaml
+python scripts/generate_missing_column.py --check  # this page matches the census file
+python scripts/verify_figures.py                # figure geometry, asserted to 1e-9
+python scripts/mjgd_reference.py --test         # the disclosure arithmetic, tested</pre>
+  </section>
+</main>''' + PAGE_FOOT
+
+
+def render_disclosure(data: dict) -> str:
+    census = data["census"]
+    counts = verify_census.compute_counts(data)
+    title = "Minimum Joint Guardrail Disclosure — the missing row, specified"
+    desc = ("A reporting standard small enough to paste into a results table: "
+            "what an evaluation of stacked guardrails must publish — union "
+            "detection, all-miss rate, denominator, event definition, "
+            "same-item confirmation — before anyone can say what the stack "
+            "does.")
+    items = [
+        ("Population and denominator",
+         "What set of items, how many, and where they came from. Every joint "
+         "statistic below is a fraction of this set."),
+        ("Event definition",
+         "What counts as a positive — the thing a guard should catch — stated "
+         "once, identically, for every system."),
+        ("Per-guard configuration",
+         "Version, threshold, and settings for each guard. A threshold moved "
+         "between guards silently changes what a comparison means."),
+        ("Same-items confirmation",
+         "An explicit statement that every guard was evaluated on the same "
+         "items. Same benchmark name is not the same item set."),
+        ("Full exposure",
+         "Every guard saw every applicable item. If an earlier guard's block "
+         "gated later guards, say so — gated and ungated numbers answer "
+         "different questions."),
+        ("Per-guard counts",
+         "Catches among positives and false positives among negatives, as "
+         "counts with denominators, not only as rates."),
+        ("Union detection",
+         "Items caught by at least one guard, among positives. The stack's "
+         "headline number, and unrecoverable from the marginals."),
+        ("All-miss rate",
+         "Items caught by no guard, among positives — what reaches production. "
+         "Equals 100% minus union detection; publish it anyway, it is the "
+         "number a deployer actually needs."),
+        ("Residual coverage",
+         "For each added guard: what it catches among the items the preceding "
+         "set missed. This is the measured value of adding the guard."),
+        ("Intersections",
+         "Pairwise (and higher-order, where feasible) overlaps of catches or "
+         "misses. Pairwise alone does not determine the higher-order "
+         "structure; it still constrains it."),
+        ("Uncertainty",
+         "Intervals for the joint statistics, not only the marginals. A union "
+         "estimate without uncertainty invites overreading."),
+        ("Missingness",
+         "Errors, refusals, and timeouts, and how each was scored. A timeout "
+         "scored as a catch is a decision, not an accident."),
+        ("Order semantics",
+         "For sequential stacks: the order, and what a block at stage k means "
+         "for the stages after it."),
+        ("Per-item release",
+         "One row per item with each guard's decision, when license and "
+         "safety permit. This single artifact makes every statistic above "
+         "recomputable by anyone."),
+    ]
+    items_html = "".join(
+        f"<li><strong>{esc(name)}</strong><p>{esc(text)}</p></li>"
+        for name, text in items)
+    template = '''| System                  | Catch rate on the positive set |
+|-------------------------|--------------------------------|
+| Guard A (version, thr.) | 91.0%  (910 / 1,000)           |
+| Guard B (version, thr.) | 88.0%  (880 / 1,000)           |
+| Any guard — union       | __._%  (___ / 1,000)           |
+| No guard — all-miss     | __._%  (___ / 1,000)           |
+
+Denominator: 1,000 positives, defined as <event definition>.
+Every guard scored every item independently (no gating).
+Errors/timeouts: <n>, scored as <policy>.'''
+    head = page_head(title, desc, "/missing-column/disclosure/", DISCLOSURE_CSS)
+    return head + f'''
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>Minimum Joint Guardrail Disclosure</b> — working name, v0 draft</span>
+    <span>maintained beside the <a class="u" href="/missing-column/">census</a> · criteria v{esc(census["criteria_version"])} frozen {esc(census["frozen_as_of"])}</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <h1>The missing row, specified</h1>
+    <p class="intro">"Publish the stack" compresses to one table row — union detection and
+      all-miss over the same items — but the row is only meaningful with its denominator,
+      event definition, and alignment conditions attached. This page is the exact
+      specification: fourteen components, a paste-in template, and a tested reference
+      implementation. It is a draft standard maintained by one person, adopted so far by
+      nobody; the census records the day that changes.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  {render_ladder_fig()}
+
+  <section class="zone" id="components" aria-labelledby="comp-h">
+    <h2 id="comp-h">The fourteen components</h2>
+    <p class="zone-intro">Components 1–6 make the marginals interpretable; most careful
+      evaluations already publish them. Components 7–9 are the missing column. 10–13
+      make it trustworthy. 14 makes it reproducible.</p>
+    <ol class="disc-list">{items_html}</ol>
+  </section>
+
+  <section class="zone tmpl" id="template" aria-labelledby="tmpl-h">
+    <h2 id="tmpl-h">The paste-in row</h2>
+    <p class="zone-intro">For a results table that already lists per-guard rates, the
+      minimum viable disclosure is two added rows and three lines of caption:</p>
+    <pre>{esc(template)}</pre>
+    <div class="precond"><strong>The row is meaningful only if:</strong> the denominator and
+      event definition are stated; every guard scored the same items; every guard scored
+      every item (or the gating is declared as the object of measurement); and
+      missingness is scored by a stated policy. Absent those, a union number is not
+      evidence about the stack.</div>
+  </section>
+
+  <section class="zone" id="ask" aria-labelledby="ask-h">
+    <h2 id="ask-h">The ask, for benchmark authors</h2>
+    <div class="ask"><p>You evaluated multiple guardrails on a common benchmark. Did you
+      retain one binary decision per item for every system? If so, would you consider
+      publishing the union detection rate and the corresponding all-miss rate, together
+      with the denominator and event definition? Those two rows let readers evaluate the
+      deployed stack without assuming independence — and I will gladly supply the
+      calculation or a small reporting patch:
+      <a class="u" href="mailto:bhavepranavwork@gmail.com">bhavepranavwork@gmail.com</a>.</p></div>
+  </section>
+
+  <section class="zone" id="reference" aria-labelledby="ref-h">
+    <h2 id="ref-h">Reference implementation</h2>
+    <p class="zone-intro"><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/mjgd_reference.py">scripts/mjgd_reference.py</a>
+      computes every component above from one decision per item per guard — union,
+      all-miss, residual coverage in stack order, and pairwise intersections — and
+      asserts its own identities (union + all-miss = denominator; residual coverage
+      telescopes to the union; intersections respect their feasibility bounds) against
+      synthetic fixtures in CI. It is ~a hundred lines, and it is the entire cost of the
+      disclosure when per-item decisions were retained.</p>
+    <p class="zone-intro" style="margin-top:.8rem">What this page does not claim: that any
+      organization has adopted this standard; that the missing statistics, once measured,
+      would show strong dependence; or that disclosure alone makes a stack safe. The
+      <a class="u" href="/missing-column/">census</a> tracks the first; measurement — not
+      assumption — settles the second; nothing settles the third.</p>
+  </section>
+</main>''' + PAGE_FOOT
+
+
+def main() -> int:
+    data = verify_census.load()
+    outputs = {
+        ROOT / "missing-column" / "index.html": render_landing(data),
+        ROOT / "missing-column" / "disclosure" / "index.html":
+            render_disclosure(data),
+    }
+    if "--check" in sys.argv:
+        for target, out in outputs.items():
+            current = target.read_text() if target.exists() else ""
+            if current != out:
+                rel = target.relative_to(ROOT)
+                print(f"DRIFT: {rel} does not match what census.yaml generates.")
+                print("Run: python scripts/generate_missing_column.py")
+                return 1
+        print(f"ok    {len(outputs)} missing-column pages match the census "
+              f"(generated, no drift)")
+        return 0
+    for target, out in outputs.items():
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(out)
+        print(f"wrote {target.relative_to(ROOT)} ({len(out)} bytes) from census.yaml")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
