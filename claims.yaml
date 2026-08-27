@@ -753,7 +753,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: DESIGN.md
-        sha256: "8b032da5a5d07d7a0d7fd6d25db93c0aaf688990bb4196f156302d7cddba49d2"
+        sha256: "4108f5743baf4ffcf6721058b27a2b9f9a19a3275e33cab7cfe6a349b3dd3fa3"
         note: fires when DESIGN.md changes without a registry re-review
       - type: manual
         enforcement: manual

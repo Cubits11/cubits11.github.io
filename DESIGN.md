@@ -610,8 +610,18 @@ falsifiable object, or the campaign has no business sitting on this site.
   NOT_COMPARABLE with fully-affirmed comparability, future dates,
   missing passages), figure gate (skewed residual geometry, a number
   planted in the missing cell).
+- **Browser pass (local server, the app's Browser pane):** homepage
+  verified at desktop (dark) and 375 px mobile (dark) including the new
+  strip; /missing-column/ verified at desktop in dark and light and at
+  mobile (headline block, census table, motif — after a density fix so
+  all five columns fit a 375 px viewport with the amber cell visible);
+  /missing-column/disclosure/ verified at desktop light. Limitation,
+  recorded honestly: the pane's screenshot capture went stale after
+  programmatic scrolls in this session, so the residual-coverage figure
+  and ladder below the fold were verified by DOM geometry, computed
+  styles (correct light/dark token resolution on every figure class),
+  and the CI geometry assertions rather than by pixels; a human pass
+  over those two figures remains owed.
 - **Not verified in this pass, and therefore not claimed:** an AT
   session (still owed from v0.4), print styles for the new routes, and
-  browser QA of the new pages beyond structural checks — recorded here
-  the day of the change; browser passes follow in this same working
-  session and are logged below when they run.
+  the two below-the-fold campaign figures as rendered pixels (above).
