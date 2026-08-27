@@ -124,7 +124,22 @@ def validate(modules: list[dict], claims_by_id: dict) -> None:
                         f"{c['dimensions'].get('evidential_status')!r}, not untested")
 
 
-def head(title: str, description: str, canonical: str) -> str:
+def breadcrumb_jsonld(*trail: tuple) -> str:
+    items = []
+    for i, (name, url) in enumerate(trail, start=1):
+        item = {"@type": "ListItem", "position": i, "name": name}
+        if url:
+            item["item"] = f"https://cubits11.github.io{url}"
+        items.append(item)
+    payload = json.dumps({"@context": "https://schema.org",
+                          "@type": "BreadcrumbList",
+                          "itemListElement": items}, indent=2,
+                         ensure_ascii=False)
+    return f'\n<script type="application/ld+json">\n{payload}\n</script>'
+
+
+def head(title: str, description: str, canonical: str,
+         jsonld: str = "") -> str:
     return f'''<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
@@ -135,13 +150,15 @@ def head(title: str, description: str, canonical: str) -> str:
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:url" content="{esc(canonical)}">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta property="og:site_name" content="Cubits11">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="robots" content="max-image-preview:large">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
 <script>try{{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){{document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}}}catch(e){{}}</script>
-<link rel="stylesheet" href="/assets/site.css">'''
+<link rel="stylesheet" href="/assets/site.css">{jsonld}'''
 
 
 SITE_HEAD = '''<a class="skip" href="#main">Skip to content</a>
@@ -313,6 +330,8 @@ def render_module(m: dict, claims_by_id: dict) -> str:
                    else "status")
     title = f"{m['title']} — Modules — Pranav Bhave"
     desc = re.sub(r"\s+", " ", str(m["question"]).strip())
+    crumbs = breadcrumb_jsonld(("The record", "/"), ("Modules", "/modules/"),
+                               (m["title"], None))
 
     return f'''<!doctype html>
 <!-- GENERATED FILE — do not edit by hand.
@@ -320,7 +339,7 @@ def render_module(m: dict, claims_by_id: dict) -> str:
      CI regenerates this page and fails on drift. -->
 <html lang="en">
 <head>
-{head(title, desc, canonical)}
+{head(title, desc, canonical, crumbs)}
 {MODULE_CSS}
 </head>
 <body>
@@ -383,7 +402,8 @@ def render_index(modules: list[dict], claims_by_id: dict) -> str:
      CI regenerates this page and fails on drift. -->
 <html lang="en">
 <head>
-{head(title, desc, "https://cubits11.github.io/modules/")}
+{head(title, desc, "https://cubits11.github.io/modules/",
+      breadcrumb_jsonld(("The record", "/"), ("Modules", None)))}
 <style>
 body{{font-size:1.04rem;line-height:1.7}}
 .container{{width:min(880px,100% - 2*clamp(1.25rem,5vw,3rem))}}

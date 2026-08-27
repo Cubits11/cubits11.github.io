@@ -20,6 +20,7 @@ geometry that draws them.
 CI runs `generate_missing_column.py --check` and fails on drift.
 """
 
+import json
 import pathlib
 import re
 import sys
@@ -470,6 +471,56 @@ def render_revisions(census: dict, examined: list) -> str:
 
 
 # ---------------------------------------------------------------- chrome
+def jsonld_script(obj: dict) -> str:
+    return ('\n<script type="application/ld+json">\n'
+            + json.dumps(obj, indent=2, ensure_ascii=False)
+            + "\n</script>")
+
+
+def breadcrumbs(*trail: tuple) -> str:
+    items = []
+    for i, (name, url) in enumerate(trail, start=1):
+        item = {"@type": "ListItem", "position": i, "name": name}
+        if url:
+            item["item"] = SITE + url
+        items.append(item)
+    return jsonld_script({"@context": "https://schema.org",
+                          "@type": "BreadcrumbList",
+                          "itemListElement": items})
+
+
+def census_dataset_jsonld(census: dict) -> str:
+    modified = max(e["date"] for e in census["revision_history"])
+    return jsonld_script({
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "The Missing Column Census",
+        "description": (
+            "A source-bound census of public evaluations that compare two or "
+            "more LLM guardrail, safeguard, or moderation systems, recording "
+            "whether each reports any item-level joint statistic for the "
+            "combined stack (union detection, all-miss rate, pairwise "
+            "intersections, residual coverage, or released per-item "
+            "outcomes) or only per-system marginals. Inclusion criteria were "
+            "frozen before the search; every row binds to its primary "
+            "source; counts are recomputed mechanically from the file."),
+        "url": f"{SITE}/missing-column/",
+        "sameAs": "https://github.com/Cubits11/cubits11.github.io/blob/main/census.yaml",
+        "isAccessibleForFree": True,
+        "creator": {"@type": "Person", "name": "Pranav Bhave",
+                    "url": f"{SITE}/"},
+        "dateModified": str(modified),
+        "keywords": ["LLM guardrails", "AI safety evaluation",
+                     "content moderation benchmarks", "jailbreak detection",
+                     "joint failure statistics", "reporting standards"],
+        "distribution": [{
+            "@type": "DataDownload",
+            "encodingFormat": "application/yaml",
+            "contentUrl": f"{SITE}/census.yaml",
+        }],
+    })
+
+
 def page_head(title: str, desc: str, path: str, extra_css: str,
               jsonld: str = "") -> str:
     return f'''<!doctype html>
@@ -491,8 +542,11 @@ def page_head(title: str, desc: str, path: str, extra_css: str,
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta property="og:site_name" content="Cubits11">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{SITE}/assets/img/og-missing-column.png">
+<meta name="twitter:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta name="robots" content="max-image-preview:large">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
@@ -662,7 +716,7 @@ def render_landing(data: dict) -> str:
     rows = data.get("benchmarks") or []
     examined = [r for r in rows if r["status"] == "examined"]
     under_review = [r for r in rows if r["status"] == "under_review"]
-    title = "The Missing Column — what guardrail evaluations leave unmeasured"
+    title = "The Missing Column: what guardrail evaluations leave unmeasured — Pranav Bhave"
     desc = ("Teams deploy AI guardrails in stacks; public evaluations usually "
             "compare them one at a time. A source-bound census of which "
             "evaluations publish the joint result — union detection, the "
@@ -674,7 +728,10 @@ def render_landing(data: dict) -> str:
     if examined:
         census_zone_rows = (render_census_table(examined)
                             + render_row_details(examined))
-    head = page_head(title, desc, "/missing-column/", LANDING_CSS)
+    jsonld = (census_dataset_jsonld(census)
+              + breadcrumbs(("The record", "/"),
+                            ("The Missing Column", None)))
+    head = page_head(title, desc, "/missing-column/", LANDING_CSS, jsonld)
     return head + f'''
 <div class="class-bar mono">
   <div class="container">
@@ -776,7 +833,7 @@ python scripts/mjgd_reference.py --test         # the disclosure arithmetic, tes
 def render_disclosure(data: dict) -> str:
     census = data["census"]
     counts = verify_census.compute_counts(data)
-    title = "Minimum Joint Guardrail Disclosure — the missing row, specified"
+    title = "Minimum Joint Guardrail Disclosure — Pranav Bhave"
     desc = ("A reporting standard small enough to paste into a results table: "
             "what an evaluation of stacked guardrails must publish — union "
             "detection, all-miss rate, denominator, event definition, "
@@ -843,7 +900,10 @@ def render_disclosure(data: dict) -> str:
 Denominator: 1,000 positives, defined as <event definition>.
 Every guard scored every item independently (no gating).
 Errors/timeouts: <n>, scored as <policy>.'''
-    head = page_head(title, desc, "/missing-column/disclosure/", DISCLOSURE_CSS)
+    head = page_head(title, desc, "/missing-column/disclosure/", DISCLOSURE_CSS,
+                     breadcrumbs(("The record", "/"),
+                                 ("The Missing Column", "/missing-column/"),
+                                 ("Minimum disclosure", None)))
     return head + f'''
 <div class="class-bar mono">
   <div class="container">
