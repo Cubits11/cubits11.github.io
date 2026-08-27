@@ -1,4 +1,4 @@
-# Claim registry — cubits11.github.io · schema v0.3
+# Claim registry — cubits11.github.io · schema v0.4
 #
 # The source of truth for every technical claim the site renders with an
 # evidence marker. /ledger/ is GENERATED from this file by
@@ -20,7 +20,7 @@
 # owner-attested claim with no public artifact is publicly untested — the
 # registry says so explicitly.
 #
-# Schema v0.3 adds:
+# Schema v0.3 added:
 #   maturity          + superseded — for archive-grade records of work whose
 #                     framing has been replaced; the claim then records the
 #                     succession, bound to the superseding document.
@@ -39,9 +39,17 @@
 # review_triggers carry an enforcement tag:
 #   executable — CI detects the event and fails the run when it fires
 #   manual     — declared honestly as human-checked; CI cannot detect it
+#
+# Schema v0.4 adds the smallest durable challenge record:
+#   falsifier.condition    the condition that defeats the proposition as stated
+#   falsifier.consequence  NARROW | REJECT | HOLD, fixed before that condition
+#                           is evaluated
+#   forbidden_rescues      post-falsification reinterpretations that cannot be
+#                           used to keep the proposition standing; [] is an
+#                           explicit finding that no meaningful rescue applies
 
-version: "0.3"
-last_owner_review: "2026-08-23"
+version: "0.4"
+last_owner_review: "2026-08-24"
 
 claims:
   - id: CC-001
@@ -76,7 +84,7 @@ claims:
         "and": [0.0, 0.1]
         "or": [0.1, 0.2]
       tolerance: 1.0e-9
-    last_reviewed: "2026-08-23"
+    last_reviewed: "2026-08-24"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
@@ -88,6 +96,15 @@ claims:
       - type: manual
         enforcement: manual
         event: kernel semantics change outside the bound module file
+    falsifier:
+      condition: >
+        A clean-clone execution of the bound module on marginals (0.10,
+        0.10) returns AND or OR bounds other than the recorded endpoints,
+        beyond the stated tolerance.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not substitute a different input, revision, or numerical tolerance after the failure
+      - do not treat a passing wrapper or test harness as evidence for the stated outputs if direct execution disagrees
     non_claims:
       - does not certify any stacked system as safe
       - does not recover or estimate the unknown dependence
@@ -108,7 +125,7 @@ claims:
       url: "https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md"
       commit: "3e22c39df70d419e840529d87311974e9e544f54"
       note: null
-    last_reviewed: "2026-08-20"
+    last_reviewed: "2026-08-24"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
@@ -117,6 +134,14 @@ claims:
         path: docs/claims/CLAIM_BOUNDARY_MANIFEST.md
         bound_ref: "3e22c39df70d419e840529d87311974e9e544f54"
         note: fires when the manifest on the default branch is rewritten or moved
+    falsifier:
+      condition: >
+        The bound manifest no longer maps its public claims to validation
+        lanes, supporting files, and explicit non-claims as stated.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not call partial or undocumented mappings complete manifest coverage
+      - do not substitute a different, unbound checklist or README after the manifest fails this condition
     non_claims:
       - the manifest's existence does not validate the claims it scopes
 
@@ -144,7 +169,7 @@ claims:
         The study's decision record (verdict: Narrow, standing objections,
         corrections to its own first draft) lives beside it in the same
         repository directory.
-    last_reviewed: "2026-08-23"
+    last_reviewed: "2026-08-24"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
@@ -156,6 +181,16 @@ claims:
       - type: manual
         enforcement: manual
         event: E2 produces empirical results — the synthetic scoping here must be restated
+    falsifier:
+      condition: >
+        The frozen E1 construction fails to retain the stated equal singleton
+        and pairwise values while yielding the stated different three-way
+        probabilities (0 under even parity and 0.25 under odd parity), or
+        the bound study does not record the stated Narrow decision.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not switch to different marginals, overlaps, or generators after failure and call it the same construction
+      - do not turn failure of the concrete construction into a generic possibility claim without a new, stated construction
     non_claims:
       - the parity construction demonstrates possibility, not frequency, in
         real guardrail stacks — no claim of empirical prevalence
@@ -193,7 +228,7 @@ claims:
       marginals: [0.10, 0.10]
       interval: [0.0, 0.1]
       tolerance: 1.0e-9
-    last_reviewed: "2026-08-23"
+    last_reviewed: "2026-08-24"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
@@ -205,6 +240,15 @@ claims:
       - type: manual
         enforcement: manual
         event: witness API change outside the bound module file
+    falsifier:
+      condition: >
+        Bound identify() execution fails any stated interval, witness
+        feasibility constraint, marginal constraint, or endpoint-attainment
+        assertion at the declared tolerance.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not replace a failed endpoint witness with an interior distribution or a loose approximate candidate
+      - do not waive a failed sum, nonnegativity, marginal, or attainment constraint by changing the tolerance after the outcome
     non_claims:
       - endpoint witnesses are feasible mathematical worlds, not observed
         systems
@@ -233,7 +277,7 @@ claims:
         The claim is about the contract's existence and its frozen,
         untested status — the exact state the contract's own header
         declares.
-    last_reviewed: "2026-08-23"
+    last_reviewed: "2026-08-24"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
@@ -245,6 +289,18 @@ claims:
       - type: manual
         enforcement: manual
         event: a conforming dataset is collected — E2's status must be restated
+    falsifier:
+      condition: >
+        Evidence shows that an eligible E2 dataset was inspected, selected
+        against, or analyzed before the contract was frozen, or that the
+        stated executable conformance checks do not exist, or that a
+        conforming dataset has been collected while the claim remains marked
+        untested.
+      consequence: NARROW
+    forbidden_rescues:
+      - do not relabel pre-freeze exposure as “not inspection” after learning its outcomes
+      - do not reissue a changed contract after data inspection and call it preregistered
+      - do not cite the synthetic rehearsal as a conforming empirical dataset
     non_claims:
       - freezing a contract establishes discipline, not results; E2 remains
         untested until conforming observations exist
@@ -276,7 +332,7 @@ claims:
         The finding is backed by the committed harness, frozen corpus, and a
         reference observation set under experiments/e2_dryrun/, guarded by
         tests/unit/research/test_e2_dryrun.py in the same repository.
-    last_reviewed: "2026-08-23"
+    last_reviewed: "2026-08-24"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
@@ -288,6 +344,16 @@ claims:
       - type: manual
         enforcement: manual
         event: real E2 data is collected — this claim is superseded by an E2 result
+    falsifier:
+      condition: >
+        Replaying the bound dry-run artifacts fails to reproduce the stated
+        66 conforming rows, zero validator violations, negative-control
+        behavior, or the recorded n=22 null and cost calculation, or shows
+        that a real E2 run was represented as the synthetic rehearsal.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not substitute a repaired corpus, changed mechanism, or updated harness for the bound dry run
+      - do not report a partial replay or a result under changed criteria as confirmation of the original rehearsal
     non_claims:
       - this is not E2 and does not move E2 off untested; the mechanisms are
         toy filters in the repository, not deployed guardrails
@@ -295,6 +361,56 @@ claims:
         independence or of any real-guardrail dependence
       - validating the instrument establishes nothing about the safety,
         representativeness, or deployment behavior of any real system
+
+  - id: REL-001
+    proposition: >
+      HYPOTHESIS — Among English-reading professionals who made or materially
+      prepared a go/hold recommendation for an AI-based system in paid work
+      during the prior 12 months, an E2-derived dependence-aware uncertainty
+      presentation will increase HOLD decisions by at least 15 percentage
+      points relative to a stipulated-independence presentation of the same
+      evidence.
+    scope: >
+      A preregistered, simulated practitioner decision task. It is untested,
+      has no participant data, and cannot activate until the first real
+      conforming E2 result clears its frozen evidence, legal, privacy, and
+      ethics gates. It is not a claim about actual deployments, customer value,
+      safety, or general practitioner behavior.
+    dimensions:
+      visibility: public
+      provenance: owner_attested
+      support_role: none
+      evidential_status: untested
+      maturity: experimental
+    support:
+      url: null
+      commit: null
+      note: >
+        The protocol is operationalized and held for public binding with its
+        research revision. No participant result or public study artifact is
+        yet offered as support.
+    last_reviewed: "2026-08-24"
+    review_window_days: 30
+    review_triggers:
+      - type: manual
+        enforcement: manual
+        event: a public protocol revision is bound, a real E2 result activates or prevents activation, or participant recruitment begins
+    falsifier:
+      condition: >
+        After exactly 360 randomized eligible practitioners and a passing
+        missingness gate, the upper endpoint of the frozen two-sided 95%
+        Newcombe/Wilson interval for the Condition-B minus Condition-A HOLD
+        risk difference is below +15 percentage points.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not redefine success as engagement, aesthetics, confidence, perceived sophistication, comprehension, reading time, qualitative enthusiasm, or another secondary outcome
+      - do not change the 15-point threshold, E2 study or pair, task threshold, primary outcome, interval method, sample target, stopping rule, or exclusions after outcomes are known
+      - do not use a post-hoc subgroup, relaxed eligibility screen, missingness filter, top-up, or rerun to rescue an unfavorable primary result
+      - do not generalize a simulated task result to actual deployment, broad practitioner relevance, customer value, adoption, or safety
+    non_claims:
+      - no practitioner decision, E2-derived participant packet, consent record, recruitment, or study outcome exists yet
+      - this does not establish that dependence-aware evidence changes real deployment decisions, is generally useful, or justifies its cost
+      - this is not a customer-demand, payment, adoption, safety, or certification claim
 
   - id: GA-001
     proposition: >
@@ -319,7 +435,7 @@ claims:
         Re-worded 2026-08-23 to track the bound thesis precisely: soundness
         as a ternary relation, and the kernel as a property of the whole
         pipeline rather than of the canonicalizer alone.
-    last_reviewed: "2026-08-23"
+    last_reviewed: "2026-08-24"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
@@ -328,6 +444,16 @@ claims:
         path: docs/research/00_THESIS.md
         bound_ref: "98c90d8296580f08dd8b6e38fdd2abd7039ec651"
         note: fires when the thesis document on the default branch changes
+    falsifier:
+      condition: >
+        A source-level review of the bound thesis shows that it does not
+        state soundness as a ternary relation over the whole parse →
+        canonicalize → digest pipeline, or does not identify Ghost-Ark as
+        the stated S2 Lab research artifact.
+      consequence: NARROW
+    forbidden_rescues:
+      - do not replace a whole-pipeline claim with a canonicalizer-only claim after the condition fires
+      - do not treat verifier acceptance or a pathology-free sample as evidence of semantic safety, authorization, or correctness
     non_claims:
       - a verifying receipt does not establish that the governed action was
         safe, authorized, or semantically correct
@@ -352,12 +478,21 @@ claims:
       url: null
       commit: null
       note: "No public artifact yet, by declaration."
-    last_reviewed: "2026-08-20"
+    last_reviewed: "2026-08-24"
     review_window_days: 120
     review_triggers:
       - type: manual
         enforcement: manual
         event: public artifact released
+    falsifier:
+      condition: >
+        The owner determines that the private project no longer uses AWS
+        Nitro Enclaves for media processing or no longer investigates the
+        stated limits of attestation-derived provenance claims.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not describe an off-enclave or merely adjacent component as enclave-attested media processing
+      - do not treat an unreleased prototype as public support for completeness, security, or provenance-chain claims
     non_claims:
       - no public evidence is offered; nothing about completeness, security,
         or provenance-chain origin is established
@@ -385,7 +520,7 @@ claims:
       note: >
         Re-reviewed 2026-08-23 when the public-readiness non-claim was
         added; entry edits and review dates travel together.
-    last_reviewed: "2026-08-23"
+    last_reviewed: "2026-08-24"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
@@ -397,6 +532,15 @@ claims:
       - type: manual
         enforcement: manual
         event: hosted deployment added — the site may then link a live demo
+    falsifier:
+      condition: >
+        A local run from the bound revision lacks the stated seven scenes,
+        deterministic sample-row computations, or Evidence Mode for
+        inspection.
+      consequence: NARROW
+    forbidden_rescues:
+      - do not count hard-coded or mocked screenshots as deterministic computations
+      - do not recast a local-only source project as a hosted interactive demo
     non_claims:
       - not an AI-safety certificate; no deployment-readiness claim
       - its own public-readiness review scores it for private serious-contact
@@ -428,7 +572,7 @@ claims:
         The taxonomy's Deprecated Name Mapping records the coefficient
         family (cc_max, cc_rel, delta_add, delta_mult) as "Deprecated;
         legacy formula preserved until v0.4."
-    last_reviewed: "2026-08-23"
+    last_reviewed: "2026-08-24"
     review_window_days: 365
     review_triggers:
       - type: remote_content_change
@@ -440,6 +584,15 @@ claims:
       - type: manual
         enforcement: manual
         event: GCE repository resumed or reframed
+    falsifier:
+      condition: >
+        The bound superseding taxonomy no longer classifies the coefficient
+        family as deprecated legacy, or no longer supports the stated
+        dependence-aware supersession.
+      consequence: NARROW
+    forbidden_rescues:
+      - do not treat the existence of legacy code or UI as evidence that its framing remains current theory
+      - do not substitute a generic preference for newer methods for a recorded theoretical supersession
     non_claims:
       - supersession is a statement about theoretical framing, not about the
         correctness of GCE's code or its value as coursework
@@ -461,12 +614,18 @@ claims:
       url: null
       commit: null
       note: "Stated on resume; institutional verification available on request."
-    last_reviewed: "2026-08-20"
+    last_reviewed: "2026-08-24"
     review_window_days: 365
     review_triggers:
       - type: manual
         enforcement: manual
         event: annual review
+    falsifier:
+      condition: >
+        An institutional record or owner correction contradicts the named
+        degree, minor, completion date, or supervision period.
+      consequence: REJECT
+    forbidden_rescues: []
     non_claims:
       - no public registry link is provided; the site does not present this
         as third-party verified
@@ -486,12 +645,18 @@ claims:
       url: null
       commit: null
       note: null
-    last_reviewed: "2026-08-20"
+    last_reviewed: "2026-08-24"
     review_window_days: 180
     review_triggers:
       - type: manual
         enforcement: manual
         event: certification expiry or a new certification earned
+    falsifier:
+      condition: >
+        A credential record or owner correction contradicts any stated held
+        or in-progress certification status.
+      consequence: NARROW
+    forbidden_rescues: []
     non_claims:
       - '"in progress" asserts intent and preparation, not partial credential'
 
@@ -514,7 +679,7 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md"
       commit: null
       note: "Mutable link by design; the local-content trigger below detects edits."
-    last_reviewed: "2026-08-23"
+    last_reviewed: "2026-08-24"
     review_window_days: 120
     review_triggers:
       - type: local_content_change
@@ -525,6 +690,15 @@ claims:
       - type: manual
         enforcement: manual
         event: site redesign
+    falsifier:
+      condition: >
+        Recomputing the listed palette pairs under WCAG contrast rules finds
+        any claimed AA pass absent, or the recorded QA does not include the
+        stated rendering, mode, and interaction checks.
+      consequence: NARROW
+    forbidden_rescues:
+      - do not replace a failed palette pair with another color pairing or viewport and retain the original claim
+      - do not treat visual preference or casual inspection as a substitute for WCAG computation or the listed QA checks
     non_claims:
       - no field CLS/LCP/CrUX measurements are claimed
       - '"zero third-party runtime requests" describes page code, not hosting
@@ -551,17 +725,27 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py"
       commit: null
       note: "Mutable link by design; the local-content trigger below detects edits."
-    last_reviewed: "2026-08-23"
+    last_reviewed: "2026-08-24"
     review_window_days: 120
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: scripts/verify_claims.py
-        sha256: "a8d3a884a640efb6dc376ce56ae7ba590aa81f18f7339c034c6677b472a996bd"
+        sha256: "86645455d204d4d6c3612528f5e81337c00d672bf0851396f1672ca1c5232ded"
         note: fires when the verifier changes without a registry re-review
       - type: manual
         enforcement: manual
         event: workflow triggers or cadence change
+    falsifier:
+      condition: >
+        A controlled violation of a required registry field, bound-evidence
+        trigger, or review window reaches a successful named CI workflow, or
+        the workflow no longer runs on pushes to main and weekly.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not cite a normal green run as evidence that violations are rejected
+      - do not count a manual review or a generated-page drift check as automatic schema, trigger, or freshness enforcement
+      - do not treat a warning-only or report-only job as a build failure
     non_claims:
       - a green run verifies registry consistency and quiet triggers, never
         the truth of any claim's content

@@ -4,7 +4,8 @@
 The registry is the single source of truth; this renderer is deterministic
 (no timestamps beyond registry fields, stable ordering). CI runs
 `generate_ledger.py --check` and fails when the committed ledger drifts from
-what the registry generates.
+what the registry generates. Every envelope renders its falsifier and any
+forbidden rescues alongside its non-claims.
 """
 
 import html
@@ -81,6 +82,18 @@ def render_claim(c: dict) -> str:
         )
         for t in c.get("review_triggers", [])
     )
+    falsifier = c["falsifier"]
+    rescues = c["forbidden_rescues"]
+    rescue_items = "".join(f"<li>{esc(rescue)}</li>" for rescue in rescues)
+    forbidden_rescues = (
+        f'<ul class="nc rescues">{rescue_items}</ul>' if rescues else
+        '<p class="empty-list"><code>[]</code> — no meaningful post-falsification '
+        'rescue is declared.</p>'
+    )
+    falsifier_html = (
+        f'{esc(falsifier["condition"])}<br><span class="note"><span class="mono">'
+        f'CONSEQUENCE</span> {esc(falsifier["consequence"])}</span>'
+    )
     non_claims = "".join(f"<li>{esc(n)}</li>" for n in c.get("non_claims", []))
     rows = [
         ("Scope", esc(c["scope"])),
@@ -93,6 +106,8 @@ def render_claim(c: dict) -> str:
         ("Dimensions", f'<span class="dims">{dims}</span>'),
         ("Reviewed", f'{esc(c["last_reviewed"])} · window {esc(c["review_window_days"])} days'),
         ("Triggers", f'<ul class="trg">{triggers}</ul>'),
+        ("Falsifier", falsifier_html),
+        ("Forbidden rescues", forbidden_rescues),
         ("Non-claims", f'<ul class="nc">{non_claims}</ul>'),
     ]
     dl = "".join(f"<dt>{k}</dt><dd>{v}</dd>" for k, v in rows)
@@ -121,11 +136,11 @@ def render(registry: dict) -> str:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Evidence Ledger — Pranav Bhave</title>
-<meta name="description" content="The claim registry behind cubits11.github.io, generated from claims.yaml: every technical claim with its dimensions, immutable bindings, review triggers, and non-claims.">
+<meta name="description" content="The claim registry behind cubits11.github.io, generated from claims.yaml: every technical claim with its dimensions, immutable bindings, falsifier, forbidden rescues, review triggers, and non-claims.">
 <link rel="canonical" href="https://cubits11.github.io/ledger/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Evidence Ledger — Pranav Bhave">
-<meta property="og:description" content="Every technical claim this site renders, in envelope form: dimensions, immutable bindings, executable review triggers, freshness windows, non-claims.">
+<meta property="og:description" content="Every technical claim this site renders, in envelope form: dimensions, immutable bindings, falsifiers, forbidden rescues, executable review triggers, freshness windows, non-claims.">
 <meta property="og:url" content="https://cubits11.github.io/ledger/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -158,6 +173,7 @@ ul.nc,ul.trg{{margin:.1rem 0 0;padding-left:1.1rem}}
 ul.nc li,ul.trg li{{margin:.2rem 0}}
 ul.trg{{list-style:none;padding-left:0}}
 .note{{font-size:.85rem}}
+.empty-list{{margin:.1rem 0 0}}
 footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}}
 @media (max-width:600px){{dl{{grid-template-columns:1fr}}dt{{padding-top:.5rem}}}}
 @media print{{body{{background:#fff;color:#000}}}}
@@ -191,7 +207,9 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
       by <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/generate_ledger.py">generate_ledger.py</a>;
       CI regenerates it and fails on drift, verifies commit↔URL bindings, executes the
       executable review triggers against live evidence, and enforces each claim's freshness
-      window — on every push and weekly. Triggers marked
+      window — on every push and weekly. Each envelope also fixes the condition that would
+      defeat its proposition, the consequence, and the post-falsification rescues it will not
+      accept. Triggers marked
       <span class="mono tag tag-manual" style="margin:0">manual</span> are honestly beyond
       CI's reach.</p>
     <div class="meta-row mono">

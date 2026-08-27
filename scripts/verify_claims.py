@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Verify the claim registry (claims.yaml) — schema v0.3.
+"""Verify the claim registry (claims.yaml) — schema v0.4.
 
 Checks, in order:
-  1. Shape — required fields, dimension enums, trigger typing. "attested"
-     may never appear as an evidential status: it is provenance.
+  1. Shape — required fields, dimension enums, trigger typing, and the
+     public challenge record: every claim has a non-empty falsifier condition,
+     a fixed NARROW|REJECT|HOLD consequence, and a typed forbidden_rescues
+     list (an explicit [] is valid). "attested" may never appear as an
+     evidential status: it is provenance.
   2. Binding consistency — when a claim declares a commit, the support URL
      must embed exactly that commit (a resolving URL is not a binding;
      a matching one is), AND every bound commit must be reachable from its
@@ -59,7 +62,8 @@ ENUMS = {
 }
 REQUIRED = {"id", "proposition", "scope", "dimensions", "support",
             "last_reviewed", "review_window_days", "review_triggers",
-            "non_claims"}
+            "falsifier", "forbidden_rescues", "non_claims"}
+FALSIFIER_CONSEQUENCES = {"NARROW", "REJECT", "HOLD"}
 
 failures: list[str] = []
 
@@ -89,6 +93,31 @@ def check_dimensions(cid: str, dims: dict) -> None:
             fail(f"{cid}: dimensions.{key}={val!r} not in {sorted(allowed)}")
     if dims.get("evidential_status") == "attested":
         fail(f"{cid}: 'attested' used as evidential_status — it is provenance")
+
+
+def check_falsifier(cid: str, falsifier) -> None:
+    if not isinstance(falsifier, dict):
+        fail(f"{cid}: falsifier must be a mapping with condition and consequence")
+        return
+    missing = {"condition", "consequence"} - set(falsifier)
+    if missing:
+        fail(f"{cid}: falsifier missing fields {sorted(missing)}")
+    condition = falsifier.get("condition")
+    if not isinstance(condition, str) or not condition.strip():
+        fail(f"{cid}: falsifier.condition must be a non-empty string")
+    consequence = falsifier.get("consequence")
+    if consequence not in FALSIFIER_CONSEQUENCES:
+        fail(f"{cid}: falsifier.consequence={consequence!r} not in "
+             f"{sorted(FALSIFIER_CONSEQUENCES)}")
+
+
+def check_forbidden_rescues(cid: str, rescues) -> None:
+    if not isinstance(rescues, list):
+        fail(f"{cid}: forbidden_rescues must be an array; use [] when none apply")
+        return
+    for index, rescue in enumerate(rescues):
+        if not isinstance(rescue, str) or not rescue.strip():
+            fail(f"{cid}: forbidden_rescues[{index}] must be a non-empty string")
 
 
 def check_binding(cid: str, support: dict) -> None:
@@ -223,6 +252,8 @@ def main() -> int:
             continue
 
         check_dimensions(cid, claim["dimensions"])
+        check_falsifier(cid, claim["falsifier"])
+        check_forbidden_rescues(cid, claim["forbidden_rescues"])
 
         raw = str(claim["last_reviewed"])
         window = int(claim["review_window_days"])
@@ -259,8 +290,9 @@ def main() -> int:
     if failures:
         print(f"{len(failures)} check(s) failed.")
         return 1
-    print("Registry verified: shaped, bound, fresh, triggers quiet, support "
-          "reachable, ledger covered.")
+    print("Registry verified: shaped, falsifiers and forbidden rescues "
+          "declared, bound, fresh, triggers quiet, support reachable, "
+          "ledger covered.")
     return 0
 
 

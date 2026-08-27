@@ -14,7 +14,8 @@ NOT-YET-POPULATED stamps, which is a feature.
 
 Claim data is never duplicated here: modules cite claim_ids and the
 generator embeds the ledger's own claim rendering, so status, bindings,
-triggers, and non-claims stay single-sourced in claims.yaml.
+triggers, falsifiers, forbidden rescues, and non-claims stay single-sourced
+in claims.yaml.
 
 Validation (also under --check):
   * unique ids/slugs; every claim_id exists

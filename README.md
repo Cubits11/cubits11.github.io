@@ -12,10 +12,12 @@ self-hosted latin-subset woff2. The color system is sampled from the hero
 photograph — every design decision and its rationale is in `DESIGN.md`.
 
 The epistemic machinery is real, not rhetorical: `claims.yaml` (schema
-v0.3) is the registry of every technical claim the site renders with an
+v0.4) is the registry of every technical claim the site renders with an
 evidence marker — with visibility, provenance, support role, evidential
-status, and maturity as separate dimensions, and structured expected values
-that the reproduction script reads instead of hard-coding. `/ledger/` is
+status, and maturity as separate dimensions; a required falsifier condition
+with a fixed `NARROW`/`REJECT`/`HOLD` consequence; a required
+`forbidden_rescues` list (explicit `[]` when none applies); and structured
+expected values that the reproduction script reads instead of hard-coding. `/ledger/` is
 **generated** from it and drift-checked in CI; commit↔URL bindings are
 validated and every bound commit is checked reachable from its
 repository's default branch (one filtered clone per repo — GitHub serves
@@ -39,7 +41,7 @@ Then open http://localhost:4173.
 
 Push to `main`; GitHub Pages serves the repository root (`.nojekyll`
 disables Jekyll). CI (`.github/workflows/verify.yml`) then verifies the
-claim registry — field shape, support-link liveness, ledger coverage, and a
+claim registry — field shape (including falsifiers and forbidden rescues), support-link liveness, ledger coverage, and a
 freshness gate that fails when a claim passes its review window (also run
 weekly) — and collects report-only Lighthouse artifacts for the live site.
 
@@ -54,7 +56,7 @@ ledger/                     evidence ledger — GENERATED from claims.yaml
 writing/  archive/  now/    writing index · intellectual lineage · current work
 notes/noetic-log-001/       public audit log: what v0.2 pretended to implement
 resume/                     web résumé with 90-second overview
-claims.yaml                 claim registry (schema v0.3) — the source of truth
+claims.yaml                 claim registry (schema v0.4) — the source of truth
 modules.yaml                module registry — questions, status, bindings
 scripts/generate_ledger.py  registry → ledger renderer (CI drift-checks it)
 scripts/generate_modules.py module registry → module pages (CI drift-checks)

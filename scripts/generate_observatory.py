@@ -13,6 +13,8 @@ translated into accessible 2D web primitives:
                     past expiry); the dates are always present as text, so
                     no-JS and screen-reader users lose nothing
   non-claims wall — every non-claim in the registry, one explicit boundary
+  falsifier wall — every defeat condition, fixed consequence, and forbidden
+                    post-falsification rescue in the registry
   replay manifest — the exact commands that re-verify this record
   human review    — what stays manual, said plainly
 
@@ -47,6 +49,7 @@ def status_pill_class(status: str) -> str:
 def render_capsule(c: dict) -> str:
     d = c["dimensions"]
     sup = c.get("support") or {}
+    falsifier = c["falsifier"]
     url, commit = sup.get("url"), sup.get("commit")
     if url and commit:
         slab = (f'<a class="chip" href="{esc(url)}">'
@@ -63,6 +66,7 @@ def render_capsule(c: dict) -> str:
         f'{esc(t.get("enforcement", "manual"))}</span>'
         for t in c.get("review_triggers", []))
     nc_n = len(c.get("non_claims", []))
+    rescue_n = len(c["forbidden_rescues"])
     prop = re.sub(r"\s+", " ", str(c["proposition"]).strip())
     attested = "" if url else " capsule-attested"
     return f'''
@@ -77,10 +81,12 @@ def render_capsule(c: dict) -> str:
     <div class="cap-meta mono">
       <span>{esc(label(d["provenance"]))} · {esc(label(d["maturity"]))}</span>
       <span>reviewed {esc(c["last_reviewed"])} · window {esc(c["review_window_days"])}d<span class="clock-days"></span></span>
+      <span>falsifier consequence: {esc(falsifier["consequence"])} · {rescue_n} forbidden rescue{"s" if rescue_n != 1 else ""}</span>
       <span class="cap-tags">{trig_tags}</span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#{esc(c["id"])}">open the envelope →</a>
+      <a class="u" href="#challenge-{esc(c["id"])}">falsifier → {esc(falsifier["consequence"])}</a>
       <a class="u" href="#wall-{esc(c["id"])}">{nc_n} non-claim{"s" if nc_n != 1 else ""}</a>
     </div>
   </article>'''
@@ -93,6 +99,30 @@ def render_wall(claims: list[dict]) -> str:
         rows.append(f'<div class="wall-row" id="wall-{esc(c["id"])}">'
                     f'<span class="mono wall-id">{esc(c["id"])}</span>'
                     f'<ul>{items}</ul></div>')
+    return "".join(rows)
+
+
+def render_challenge_wall(claims: list[dict]) -> str:
+    rows = []
+    for c in claims:
+        falsifier = c["falsifier"]
+        rescues = c["forbidden_rescues"]
+        if rescues:
+            rescues_html = "".join(f"<li>{esc(rescue)}</li>" for rescue in rescues)
+            rescues_html = f'<ul>{rescues_html}</ul>'
+        else:
+            rescues_html = ('<p class="empty-rescues"><code>[]</code> — no meaningful '
+                            'post-falsification rescue is declared.</p>')
+        rows.append(
+            f'<div class="wall-row challenge-row" id="challenge-{esc(c["id"])}">'
+            f'<span class="mono wall-id">{esc(c["id"])}</span>'
+            f'<div class="challenge-content">'
+            f'<p><span class="mono challenge-label">Falsifier</span>{esc(falsifier["condition"])}</p>'
+            f'<p><span class="mono challenge-label">Consequence</span>'
+            f'<span class="challenge-consequence mono">{esc(falsifier["consequence"])}</span></p>'
+            f'<p class="mono challenge-label rescue-label">Forbidden rescues</p>{rescues_html}'
+            f'</div></div>'
+        )
     return "".join(rows)
 
 
@@ -109,6 +139,7 @@ def render(registry: dict) -> str:
                              for k, v in sorted(by_status.items()))
     capsules = "".join(render_capsule(c) for c in claims)
     wall = render_wall(claims)
+    challenge_wall = render_challenge_wall(claims)
     manual_events = []
     for c in claims:
         for t in c.get("review_triggers", []):
@@ -117,7 +148,7 @@ def render(registry: dict) -> str:
                                      f'{esc(t.get("event") or t.get("type"))}</li>')
     title = "Claim Observatory — Pranav Bhave"
     desc = ("The claim registry as one field: capsules, evidence bindings, decay "
-            "clocks, and the non-claims wall — every boundary visible, no "
+            "clocks, non-claims, falsifiers, and forbidden rescues — every boundary visible, no "
             "aggregate score anywhere.")
     return f'''<!doctype html>
 <!-- GENERATED FILE — do not edit by hand.
@@ -177,6 +208,12 @@ html:not(.js) .clock{{display:none}}
 .wall-id{{color:var(--gold)}}
 .wall-row ul{{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}}
 .wall-row li{{margin:.25rem 0}}
+.challenge-content{{color:var(--muted)}}
+.challenge-content p{{margin:0 0 .55rem;font-size:.92rem}}
+.challenge-label{{display:block;color:var(--gold);font-size:.61rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem}}
+.challenge-consequence{{color:var(--ink);letter-spacing:.06em}}
+.rescue-label{{margin-top:.8rem!important}}
+.empty-rescues{{margin:0!important;font-size:.92rem}}
 .replay pre{{background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.4rem 0 0}}
 .manual-list{{margin:1.2rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}}
 .manual-list li{{margin:.35rem 0}}
@@ -215,7 +252,8 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
   <div class="container">
     <h1>Claim observatory</h1>
     <p class="intro">Every claim in this record, as a capsule: its proposition, its evidence
-      binding, its decay clock, and the boundary it will not cross. A solid cyan rail marks a
+      binding, its decay clock, the boundary it will not cross, and the condition that would
+      defeat it. A solid cyan rail marks a
       public evidence binding; capsules without one carry a dashed neutral rail and an
       attested chip that says so; the clock turns amber when a review window is
       three-quarters spent and red when it lapses. There is no aggregate score here and
@@ -233,6 +271,16 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
       support, collected in one place. A claim without a stated non-claim is a claim that has
       not found its edge yet.</p>
     <div class="wall">{wall}
+    </div>
+  </section>
+
+  <section class="zone" id="challenges" aria-labelledby="challenges-h">
+    <h2 id="challenges-h">Falsifiers and forbidden rescues</h2>
+    <p class="zone-intro">A falsifier can otherwise be evaded by changing the proposition after
+      observing the result. Each record fixes its defeat condition and consequence in advance,
+      then lists the reinterpretations that cannot keep it standing. An explicit <code>[]</code>
+      means no meaningful post-falsification rescue applies.</p>
+    <div class="wall">{challenge_wall}
     </div>
   </section>
 

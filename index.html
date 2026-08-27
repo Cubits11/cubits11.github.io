@@ -172,7 +172,7 @@ html:not(.js) .bounds-ctl{display:none}
 <div class="class-bar mono">
   <div class="container">
     <span><b>Public record</b> — every marked claim bound in the <a class="u" href="/ledger/">ledger</a></span>
-    <span>Registry <b>v0.3</b> · 14 claims</span>
+    <span>Registry <b>v0.4</b> · 15 claims</span>
     <span>CI prosecution: <b>weekly</b> + every push</span>
   </div>
 </div>
@@ -311,7 +311,8 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
         Chips with a solid dot open public evidence.
         <span class="mono" style="font-size:.68rem">Attested</span> means stated on my
         responsibility, dated, with no public artifact yet — provenance, not proof. Exact
-        bindings — commit SHAs, executable review triggers, non-claims — live in the
+        bindings — commit SHAs, executable review triggers, falsifiers, forbidden rescues,
+        non-claims — live in the
         <a class="u" href="/ledger/">evidence ledger</a>. Everything older or superseded is in
         the <a class="u" href="/archive/">archive</a>, with its succession recorded.</p>
 
@@ -441,16 +442,17 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
           <div class="env-item"><span class="mono">1 · Proposition</span><p>What exactly is asserted.</p></div>
           <div class="env-item"><span class="mono">2 · Scope</span><p>Where it holds, and under which assumptions.</p></div>
           <div class="env-item"><span class="mono">3 · Support</span><p>The evidence that bears on it, bound to immutable artifacts.</p></div>
-          <div class="env-item"><span class="mono">4 · Challenge</span><p>What would reduce confidence or force revision.</p></div>
+          <div class="env-item"><span class="mono">4 · Falsifier</span><p>The condition that defeats the proposition, with its fixed consequence.</p></div>
           <div class="env-item"><span class="mono">5 · Test design</span><p>Control, comparator, calibration, proof, benchmark, or adversary.</p></div>
           <div class="env-item"><span class="mono">6 · Status</span><p>Untested · supported within scope · partial · inconclusive · contradicted.</p></div>
-          <div class="env-item"><span class="mono">7 · Boundary</span><p>What remains unestablished — the non-claims.</p></div>
+          <div class="env-item"><span class="mono">7 · Boundaries</span><p>What remains unestablished — and the post-falsification rescues the claim cannot use.</p></div>
           <div class="env-item"><span class="mono">8 · Freshness</span><p>When, and on what trigger, it must be re-examined.</p></div>
         </div>
         <p class="method-note" style="margin-top:1.6rem">The <a class="u" href="/ledger/">evidence
           ledger</a> is generated from a registry that implements these fields — propositions,
-          separated provenance and status dimensions, immutable bindings, executable review
-          triggers that watch the bound evidence upstream, freshness windows, non-claims. Where a
+          separated provenance and status dimensions, immutable bindings, falsifier conditions
+          with fixed consequences, forbidden rescues, executable review triggers that watch the
+          bound evidence upstream, freshness windows, non-claims. Where a
           trigger can't be executed by CI, the ledger says <em>manual</em>, plainly.</p>
       </div>
     </div>
@@ -576,9 +578,9 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
 <footer>
   <div class="status-strip mono">
     <div class="container">
-      <span>Ledger <b>v0.3</b> — generated from claims.yaml, drift-checked</span>
+      <span>Ledger <b>v0.4</b> — generated from claims.yaml, drift-checked</span>
       <span>Triggers: <b>executable</b> where CI can watch, <b>manual</b> declared where it can't</span>
-      <span>Last owner review <b>2026-08-23</b></span>
+      <span>Last owner review <b>2026-08-24</b></span>
     </div>
   </div>
   <div class="container">

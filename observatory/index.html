@@ -7,11 +7,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Claim Observatory — Pranav Bhave</title>
-<meta name="description" content="The claim registry as one field: capsules, evidence bindings, decay clocks, and the non-claims wall — every boundary visible, no aggregate score anywhere.">
+<meta name="description" content="The claim registry as one field: capsules, evidence bindings, decay clocks, non-claims, falsifiers, and forbidden rescues — every boundary visible, no aggregate score anywhere.">
 <link rel="canonical" href="https://cubits11.github.io/observatory/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Claim Observatory — Pranav Bhave">
-<meta property="og:description" content="The claim registry as one field: capsules, evidence bindings, decay clocks, and the non-claims wall — every boundary visible, no aggregate score anywhere.">
+<meta property="og:description" content="The claim registry as one field: capsules, evidence bindings, decay clocks, non-claims, falsifiers, and forbidden rescues — every boundary visible, no aggregate score anywhere.">
 <meta property="og:url" content="https://cubits11.github.io/observatory/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -56,6 +56,12 @@ html:not(.js) .clock{display:none}
 .wall-id{color:var(--gold)}
 .wall-row ul{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
 .wall-row li{margin:.25rem 0}
+.challenge-content{color:var(--muted)}
+.challenge-content p{margin:0 0 .55rem;font-size:.92rem}
+.challenge-label{display:block;color:var(--gold);font-size:.61rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem}
+.challenge-consequence{color:var(--ink);letter-spacing:.06em}
+.rescue-label{margin-top:.8rem!important}
+.empty-rescues{margin:0!important;font-size:.92rem}
 .replay pre{background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.4rem 0 0}
 .manual-list{margin:1.2rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
 .manual-list li{margin:.35rem 0}
@@ -87,14 +93,15 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
 <div class="class-bar mono">
   <div class="container">
     <span><b>Observatory</b> — the registry as one field · generated from claims.yaml</span>
-    <span>Schema v0.3 · 14 claims · 11 supported within scope · 3 publicly untested</span>
+    <span>Schema v0.4 · 15 claims · 11 supported within scope · 4 publicly untested</span>
   </div>
 </div>
 <header class="page">
   <div class="container">
     <h1>Claim observatory</h1>
     <p class="intro">Every claim in this record, as a capsule: its proposition, its evidence
-      binding, its decay clock, and the boundary it will not cross. A solid cyan rail marks a
+      binding, its decay clock, the boundary it will not cross, and the condition that would
+      defeat it. A solid cyan rail marks a
       public evidence binding; capsules without one carry a dashed neutral rail and an
       attested chip that says so; the clock turns amber when a review window is
       three-quarters spent and red when it lapses. There is no aggregate score here and
@@ -104,7 +111,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
 </header>
 <main class="container" id="main">
   <div class="field">
-  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+  <article class="capsule" data-reviewed="2026-08-24" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">CC-001</h2>
       <span class="mono status">Supported within scope</span>
@@ -114,15 +121,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6">cc-framework @ 167aa1ee ↗</a></div>
     <div class="cap-meta mono">
       <span>Machine-generated, owner-executed · Released</span>
-      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 120d<span class="clock-days"></span></span>
+      <span>falsifier consequence: REJECT · 2 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#CC-001">open the envelope →</a>
+      <a class="u" href="#challenge-CC-001">falsifier → REJECT</a>
       <a class="u" href="#wall-CC-001">3 non-claims</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-20" data-window="120">
+  <article class="capsule" data-reviewed="2026-08-24" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">CC-002</h2>
       <span class="mono status">Supported within scope</span>
@@ -132,15 +141,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md">cc-framework @ 3e22c39d ↗</a></div>
     <div class="cap-meta mono">
       <span>Owner-authored, public · Released</span>
-      <span>reviewed 2026-08-20 · window 120d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 120d<span class="clock-days"></span></span>
+      <span>falsifier consequence: REJECT · 2 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#CC-002">open the envelope →</a>
+      <a class="u" href="#challenge-CC-002">falsifier → REJECT</a>
       <a class="u" href="#wall-CC-002">1 non-claim</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+  <article class="capsule" data-reviewed="2026-08-24" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">CC-003</h2>
       <span class="mono status">Supported within scope</span>
@@ -150,15 +161,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/ee61a710243c74ec49d5896167d0913327e6b5d3/docs/research/E1_DEPENDENCE_EVIDENCE_STUDY.md">cc-framework @ ee61a710 ↗</a></div>
     <div class="cap-meta mono">
       <span>Owner-authored, public · Released</span>
-      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 120d<span class="clock-days"></span></span>
+      <span>falsifier consequence: REJECT · 2 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#CC-003">open the envelope →</a>
+      <a class="u" href="#challenge-CC-003">falsifier → REJECT</a>
       <a class="u" href="#wall-CC-003">3 non-claims</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+  <article class="capsule" data-reviewed="2026-08-24" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">CC-004</h2>
       <span class="mono status">Supported within scope</span>
@@ -168,15 +181,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6">cc-framework @ 167aa1ee ↗</a></div>
     <div class="cap-meta mono">
       <span>Machine-generated, owner-executed · Released</span>
-      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 120d<span class="clock-days"></span></span>
+      <span>falsifier consequence: REJECT · 2 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#CC-004">open the envelope →</a>
+      <a class="u" href="#challenge-CC-004">falsifier → REJECT</a>
       <a class="u" href="#wall-CC-004">2 non-claims</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+  <article class="capsule" data-reviewed="2026-08-24" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">CC-005</h2>
       <span class="mono status">Supported within scope</span>
@@ -186,15 +201,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/0b9450251b6988fa23d8e6e4fb556a08b05e652e/docs/research/E2_MEASUREMENT_CONTRACT.md">cc-framework @ 0b945025 ↗</a></div>
     <div class="cap-meta mono">
       <span>Owner-authored, public · Released</span>
-      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 120d<span class="clock-days"></span></span>
+      <span>falsifier consequence: NARROW · 3 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#CC-005">open the envelope →</a>
+      <a class="u" href="#challenge-CC-005">falsifier → NARROW</a>
       <a class="u" href="#wall-CC-005">3 non-claims</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+  <article class="capsule" data-reviewed="2026-08-24" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">CC-006</h2>
       <span class="mono status">Supported within scope</span>
@@ -204,15 +221,37 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/327f0684f49768531594d593902ed8907fc717af/docs/research/E2_DRYRUN_FINDING.md">cc-framework @ 327f0684 ↗</a></div>
     <div class="cap-meta mono">
       <span>Owner-authored, public · In development</span>
-      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 120d<span class="clock-days"></span></span>
+      <span>falsifier consequence: REJECT · 2 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#CC-006">open the envelope →</a>
+      <a class="u" href="#challenge-CC-006">falsifier → REJECT</a>
       <a class="u" href="#wall-CC-006">3 non-claims</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+  <article class="capsule capsule-attested" data-reviewed="2026-08-24" data-window="30">
+    <div class="cap-head">
+      <h2 class="mono cap-id">REL-001</h2>
+      <span class="mono status-dim">Publicly untested</span>
+      <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
+    </div>
+    <p class="cap-prop">HYPOTHESIS — Among English-reading professionals who made or materially prepared a go/hold recommendation for an AI-based system in paid work during the prior 12 months, an E2-derived dependence-aware uncertainty presentation will increase HOLD decisions by at least 15 percentage points relative to a stipulated-independence presentation of the same evidence.</p>
+    <div class="cap-slabs"><span class="chip chip-attested">attested — no public artifact<span class="sr-only"> — stated on the owner's responsibility</span></span></div>
+    <div class="cap-meta mono">
+      <span>Owner-attested · Experimental</span>
+      <span>reviewed 2026-08-24 · window 30d<span class="clock-days"></span></span>
+      <span>falsifier consequence: REJECT · 4 forbidden rescues</span>
+      <span class="cap-tags"><span class="mono tag tag-manual">manual</span></span>
+    </div>
+    <div class="cap-foot mono">
+      <a class="u" href="/ledger/#REL-001">open the envelope →</a>
+      <a class="u" href="#challenge-REL-001">falsifier → REJECT</a>
+      <a class="u" href="#wall-REL-001">3 non-claims</a>
+    </div>
+  </article>
+  <article class="capsule" data-reviewed="2026-08-24" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">GA-001</h2>
       <span class="mono status">Supported within scope</span>
@@ -222,15 +261,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><a class="chip" href="https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md">ghost-ark @ 98c90d82 ↗</a></div>
     <div class="cap-meta mono">
       <span>Lab repository, public · In development</span>
-      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 120d<span class="clock-days"></span></span>
+      <span>falsifier consequence: NARROW · 2 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#GA-001">open the envelope →</a>
+      <a class="u" href="#challenge-GA-001">falsifier → NARROW</a>
       <a class="u" href="#wall-GA-001">3 non-claims</a>
     </div>
   </article>
-  <article class="capsule capsule-attested" data-reviewed="2026-08-20" data-window="120">
+  <article class="capsule capsule-attested" data-reviewed="2026-08-24" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">AS-001</h2>
       <span class="mono status-dim">Publicly untested</span>
@@ -240,15 +281,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><span class="chip chip-attested">attested — no public artifact<span class="sr-only"> — stated on the owner's responsibility</span></span></div>
     <div class="cap-meta mono">
       <span>Owner-attested · Experimental</span>
-      <span>reviewed 2026-08-20 · window 120d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 120d<span class="clock-days"></span></span>
+      <span>falsifier consequence: REJECT · 2 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#AS-001">open the envelope →</a>
+      <a class="u" href="#challenge-AS-001">falsifier → REJECT</a>
       <a class="u" href="#wall-AS-001">2 non-claims</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+  <article class="capsule" data-reviewed="2026-08-24" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">GV-001</h2>
       <span class="mono status">Supported within scope</span>
@@ -258,15 +301,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7">ghost-visualizer @ 3fbe3efc ↗</a></div>
     <div class="cap-meta mono">
       <span>Owner-authored, public · In development</span>
-      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 120d<span class="clock-days"></span></span>
+      <span>falsifier consequence: NARROW · 2 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#GV-001">open the envelope →</a>
+      <a class="u" href="#challenge-GV-001">falsifier → NARROW</a>
       <a class="u" href="#wall-GV-001">2 non-claims</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-23" data-window="365">
+  <article class="capsule" data-reviewed="2026-08-24" data-window="365">
     <div class="cap-head">
       <h2 class="mono cap-id">GCE-001</h2>
       <span class="mono status">Supported within scope</span>
@@ -276,15 +321,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cc-framework/blob/75e90c2f1f84fa89562ed4fe46f137e0be236476/docs/theory/metric_taxonomy.md">cc-framework @ 75e90c2f ↗</a></div>
     <div class="cap-meta mono">
       <span>Owner-authored, public · Superseded</span>
-      <span>reviewed 2026-08-23 · window 365d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 365d<span class="clock-days"></span></span>
+      <span>falsifier consequence: NARROW · 2 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#GCE-001">open the envelope →</a>
+      <a class="u" href="#challenge-GCE-001">falsifier → NARROW</a>
       <a class="u" href="#wall-GCE-001">2 non-claims</a>
     </div>
   </article>
-  <article class="capsule capsule-attested" data-reviewed="2026-08-20" data-window="365">
+  <article class="capsule capsule-attested" data-reviewed="2026-08-24" data-window="365">
     <div class="cap-head">
       <h2 class="mono cap-id">BIO-001</h2>
       <span class="mono status-dim">Publicly untested</span>
@@ -294,15 +341,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><span class="chip chip-attested">attested — no public artifact<span class="sr-only"> — stated on the owner's responsibility</span></span></div>
     <div class="cap-meta mono">
       <span>Owner-attested · Stable</span>
-      <span>reviewed 2026-08-20 · window 365d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 365d<span class="clock-days"></span></span>
+      <span>falsifier consequence: REJECT · 0 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#BIO-001">open the envelope →</a>
+      <a class="u" href="#challenge-BIO-001">falsifier → REJECT</a>
       <a class="u" href="#wall-BIO-001">1 non-claim</a>
     </div>
   </article>
-  <article class="capsule capsule-attested" data-reviewed="2026-08-20" data-window="180">
+  <article class="capsule capsule-attested" data-reviewed="2026-08-24" data-window="180">
     <div class="cap-head">
       <h2 class="mono cap-id">CRED-001</h2>
       <span class="mono status-dim">Publicly untested</span>
@@ -312,15 +361,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><span class="chip chip-attested">attested — no public artifact<span class="sr-only"> — stated on the owner's responsibility</span></span></div>
     <div class="cap-meta mono">
       <span>Owner-attested · Stable</span>
-      <span>reviewed 2026-08-20 · window 180d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 180d<span class="clock-days"></span></span>
+      <span>falsifier consequence: NARROW · 0 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#CRED-001">open the envelope →</a>
+      <a class="u" href="#challenge-CRED-001">falsifier → NARROW</a>
       <a class="u" href="#wall-CRED-001">1 non-claim</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+  <article class="capsule" data-reviewed="2026-08-24" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">SITE-001</h2>
       <span class="mono status">Supported within scope</span>
@@ -330,15 +381,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md">bound document ↗</a></div>
     <div class="cap-meta mono">
       <span>Owner-verified · Released</span>
-      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 120d<span class="clock-days"></span></span>
+      <span>falsifier consequence: NARROW · 2 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#SITE-001">open the envelope →</a>
+      <a class="u" href="#challenge-SITE-001">falsifier → NARROW</a>
       <a class="u" href="#wall-SITE-001">2 non-claims</a>
     </div>
   </article>
-  <article class="capsule" data-reviewed="2026-08-23" data-window="120">
+  <article class="capsule" data-reviewed="2026-08-24" data-window="120">
     <div class="cap-head">
       <h2 class="mono cap-id">SITE-002</h2>
       <span class="mono status">Supported within scope</span>
@@ -348,11 +401,13 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="cap-slabs"><a class="chip" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py">bound document ↗</a></div>
     <div class="cap-meta mono">
       <span>Owner-verified · Released</span>
-      <span>reviewed 2026-08-23 · window 120d<span class="clock-days"></span></span>
+      <span>reviewed 2026-08-24 · window 120d<span class="clock-days"></span></span>
+      <span>falsifier consequence: REJECT · 3 forbidden rescues</span>
       <span class="cap-tags"><span class="mono tag tag-exec">executable</span><span class="mono tag tag-manual">manual</span></span>
     </div>
     <div class="cap-foot mono">
       <a class="u" href="/ledger/#SITE-002">open the envelope →</a>
+      <a class="u" href="#challenge-SITE-002">falsifier → REJECT</a>
       <a class="u" href="#wall-SITE-002">2 non-claims</a>
     </div>
   </article>
@@ -363,7 +418,17 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="zone-intro">The outer boundary of the record: everything these claims refuse to
       support, collected in one place. A claim without a stated non-claim is a claim that has
       not found its edge yet.</p>
-    <div class="wall"><div class="wall-row" id="wall-CC-001"><span class="mono wall-id">CC-001</span><ul><li>does not certify any stacked system as safe</li><li>does not recover or estimate the unknown dependence</li><li>does not select a point inside the returned interval</li></ul></div><div class="wall-row" id="wall-CC-002"><span class="mono wall-id">CC-002</span><ul><li>the manifest&#x27;s existence does not validate the claims it scopes</li></ul></div><div class="wall-row" id="wall-CC-003"><span class="mono wall-id">CC-003</span><ul><li>the parity construction demonstrates possibility, not frequency, in real guardrail stacks — no claim of empirical prevalence</li><li>nothing here validates the framework&#x27;s practical or deployed value; &quot;we validated CC&quot; is prohibited at every rung of the repository&#x27;s evidence ladder</li><li>the product-baseline failure directions observed in E1 are properties of the tested generators, not universal constants</li></ul></div><div class="wall-row" id="wall-CC-004"><span class="mono wall-id">CC-004</span><ul><li>endpoint witnesses are feasible mathematical worlds, not observed systems</li><li>attainment does not select a point inside the interval or estimate the true dependence</li></ul></div><div class="wall-row" id="wall-CC-005"><span class="mono wall-id">CC-005</span><ul><li>freezing a contract establishes discipline, not results; E2 remains untested until conforming observations exist</li><li>conformance is not a clean bill of health, and the contract says so</li><li>&quot;we validated CC&quot; is prohibited at every rung of the evidence ladder</li></ul></div><div class="wall-row" id="wall-CC-006"><span class="mono wall-id">CC-006</span><ul><li>this is not E2 and does not move E2 off untested; the mechanisms are toy filters in the repository, not deployed guardrails</li><li>the observed dependence is a null at this scale, not evidence of independence or of any real-guardrail dependence</li><li>validating the instrument establishes nothing about the safety, representativeness, or deployment behavior of any real system</li></ul></div><div class="wall-row" id="wall-GA-001"><span class="mono wall-id">GA-001</span><ul><li>a verifying receipt does not establish that the governed action was safe, authorized, or semantically correct</li><li>kernel collisions in real canonicalizers are demonstrated as possible, not as prevalent — the repository&#x27;s E12 sample found 0 of 64 real payloads carrying any pathology class</li><li>not hardened for deployment; not post-quantum secure</li></ul></div><div class="wall-row" id="wall-AS-001"><span class="mono wall-id">AS-001</span><ul><li>no public evidence is offered; nothing about completeness, security, or provenance-chain origin is established</li><li>attestation cannot establish a file&#x27;s history prior to the first attested operation</li></ul></div><div class="wall-row" id="wall-GV-001"><span class="mono wall-id">GV-001</span><ul><li>not an AI-safety certificate; no deployment-readiness claim</li><li>its own public-readiness review scores it for private serious-contact demo use; the site therefore links source rather than exhibiting its media as a flagship</li></ul></div><div class="wall-row" id="wall-GCE-001"><span class="mono wall-id">GCE-001</span><ul><li>supersession is a statement about theoretical framing, not about the correctness of GCE&#x27;s code or its value as coursework</li><li>no current-research claim is made by or for GCE</li></ul></div><div class="wall-row" id="wall-BIO-001"><span class="mono wall-id">BIO-001</span><ul><li>no public registry link is provided; the site does not present this as third-party verified</li></ul></div><div class="wall-row" id="wall-CRED-001"><span class="mono wall-id">CRED-001</span><ul><li>&quot;in progress&quot; asserts intent and preparation, not partial credential</li></ul></div><div class="wall-row" id="wall-SITE-001"><span class="mono wall-id">SITE-001</span><ul><li>no field CLS/LCP/CrUX measurements are claimed</li><li>&quot;zero third-party runtime requests&quot; describes page code, not hosting infrastructure (GitHub Pages, DNS, TLS remain dependencies)</li></ul></div><div class="wall-row" id="wall-SITE-002"><span class="mono wall-id">SITE-002</span><ul><li>a green run verifies registry consistency and quiet triggers, never the truth of any claim&#x27;s content</li><li>triggers watch file content; semantic drift outside watched files remains a manual review event, and the ledger says so</li></ul></div>
+    <div class="wall"><div class="wall-row" id="wall-CC-001"><span class="mono wall-id">CC-001</span><ul><li>does not certify any stacked system as safe</li><li>does not recover or estimate the unknown dependence</li><li>does not select a point inside the returned interval</li></ul></div><div class="wall-row" id="wall-CC-002"><span class="mono wall-id">CC-002</span><ul><li>the manifest&#x27;s existence does not validate the claims it scopes</li></ul></div><div class="wall-row" id="wall-CC-003"><span class="mono wall-id">CC-003</span><ul><li>the parity construction demonstrates possibility, not frequency, in real guardrail stacks — no claim of empirical prevalence</li><li>nothing here validates the framework&#x27;s practical or deployed value; &quot;we validated CC&quot; is prohibited at every rung of the repository&#x27;s evidence ladder</li><li>the product-baseline failure directions observed in E1 are properties of the tested generators, not universal constants</li></ul></div><div class="wall-row" id="wall-CC-004"><span class="mono wall-id">CC-004</span><ul><li>endpoint witnesses are feasible mathematical worlds, not observed systems</li><li>attainment does not select a point inside the interval or estimate the true dependence</li></ul></div><div class="wall-row" id="wall-CC-005"><span class="mono wall-id">CC-005</span><ul><li>freezing a contract establishes discipline, not results; E2 remains untested until conforming observations exist</li><li>conformance is not a clean bill of health, and the contract says so</li><li>&quot;we validated CC&quot; is prohibited at every rung of the evidence ladder</li></ul></div><div class="wall-row" id="wall-CC-006"><span class="mono wall-id">CC-006</span><ul><li>this is not E2 and does not move E2 off untested; the mechanisms are toy filters in the repository, not deployed guardrails</li><li>the observed dependence is a null at this scale, not evidence of independence or of any real-guardrail dependence</li><li>validating the instrument establishes nothing about the safety, representativeness, or deployment behavior of any real system</li></ul></div><div class="wall-row" id="wall-REL-001"><span class="mono wall-id">REL-001</span><ul><li>no practitioner decision, E2-derived participant packet, consent record, recruitment, or study outcome exists yet</li><li>this does not establish that dependence-aware evidence changes real deployment decisions, is generally useful, or justifies its cost</li><li>this is not a customer-demand, payment, adoption, safety, or certification claim</li></ul></div><div class="wall-row" id="wall-GA-001"><span class="mono wall-id">GA-001</span><ul><li>a verifying receipt does not establish that the governed action was safe, authorized, or semantically correct</li><li>kernel collisions in real canonicalizers are demonstrated as possible, not as prevalent — the repository&#x27;s E12 sample found 0 of 64 real payloads carrying any pathology class</li><li>not hardened for deployment; not post-quantum secure</li></ul></div><div class="wall-row" id="wall-AS-001"><span class="mono wall-id">AS-001</span><ul><li>no public evidence is offered; nothing about completeness, security, or provenance-chain origin is established</li><li>attestation cannot establish a file&#x27;s history prior to the first attested operation</li></ul></div><div class="wall-row" id="wall-GV-001"><span class="mono wall-id">GV-001</span><ul><li>not an AI-safety certificate; no deployment-readiness claim</li><li>its own public-readiness review scores it for private serious-contact demo use; the site therefore links source rather than exhibiting its media as a flagship</li></ul></div><div class="wall-row" id="wall-GCE-001"><span class="mono wall-id">GCE-001</span><ul><li>supersession is a statement about theoretical framing, not about the correctness of GCE&#x27;s code or its value as coursework</li><li>no current-research claim is made by or for GCE</li></ul></div><div class="wall-row" id="wall-BIO-001"><span class="mono wall-id">BIO-001</span><ul><li>no public registry link is provided; the site does not present this as third-party verified</li></ul></div><div class="wall-row" id="wall-CRED-001"><span class="mono wall-id">CRED-001</span><ul><li>&quot;in progress&quot; asserts intent and preparation, not partial credential</li></ul></div><div class="wall-row" id="wall-SITE-001"><span class="mono wall-id">SITE-001</span><ul><li>no field CLS/LCP/CrUX measurements are claimed</li><li>&quot;zero third-party runtime requests&quot; describes page code, not hosting infrastructure (GitHub Pages, DNS, TLS remain dependencies)</li></ul></div><div class="wall-row" id="wall-SITE-002"><span class="mono wall-id">SITE-002</span><ul><li>a green run verifies registry consistency and quiet triggers, never the truth of any claim&#x27;s content</li><li>triggers watch file content; semantic drift outside watched files remains a manual review event, and the ledger says so</li></ul></div>
+    </div>
+  </section>
+
+  <section class="zone" id="challenges" aria-labelledby="challenges-h">
+    <h2 id="challenges-h">Falsifiers and forbidden rescues</h2>
+    <p class="zone-intro">A falsifier can otherwise be evaded by changing the proposition after
+      observing the result. Each record fixes its defeat condition and consequence in advance,
+      then lists the reinterpretations that cannot keep it standing. An explicit <code>[]</code>
+      means no meaningful post-falsification rescue applies.</p>
+    <div class="wall"><div class="wall-row challenge-row" id="challenge-CC-001"><span class="mono wall-id">CC-001</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>A clean-clone execution of the bound module on marginals (0.10, 0.10) returns AND or OR bounds other than the recorded endpoints, beyond the stated tolerance.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">REJECT</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not substitute a different input, revision, or numerical tolerance after the failure</li><li>do not treat a passing wrapper or test harness as evidence for the stated outputs if direct execution disagrees</li></ul></div></div><div class="wall-row challenge-row" id="challenge-CC-002"><span class="mono wall-id">CC-002</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>The bound manifest no longer maps its public claims to validation lanes, supporting files, and explicit non-claims as stated.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">REJECT</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not call partial or undocumented mappings complete manifest coverage</li><li>do not substitute a different, unbound checklist or README after the manifest fails this condition</li></ul></div></div><div class="wall-row challenge-row" id="challenge-CC-003"><span class="mono wall-id">CC-003</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>The frozen E1 construction fails to retain the stated equal singleton and pairwise values while yielding the stated different three-way probabilities (0 under even parity and 0.25 under odd parity), or the bound study does not record the stated Narrow decision.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">REJECT</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not switch to different marginals, overlaps, or generators after failure and call it the same construction</li><li>do not turn failure of the concrete construction into a generic possibility claim without a new, stated construction</li></ul></div></div><div class="wall-row challenge-row" id="challenge-CC-004"><span class="mono wall-id">CC-004</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>Bound identify() execution fails any stated interval, witness feasibility constraint, marginal constraint, or endpoint-attainment assertion at the declared tolerance.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">REJECT</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not replace a failed endpoint witness with an interior distribution or a loose approximate candidate</li><li>do not waive a failed sum, nonnegativity, marginal, or attainment constraint by changing the tolerance after the outcome</li></ul></div></div><div class="wall-row challenge-row" id="challenge-CC-005"><span class="mono wall-id">CC-005</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>Evidence shows that an eligible E2 dataset was inspected, selected against, or analyzed before the contract was frozen, or that the stated executable conformance checks do not exist, or that a conforming dataset has been collected while the claim remains marked untested.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">NARROW</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not relabel pre-freeze exposure as “not inspection” after learning its outcomes</li><li>do not reissue a changed contract after data inspection and call it preregistered</li><li>do not cite the synthetic rehearsal as a conforming empirical dataset</li></ul></div></div><div class="wall-row challenge-row" id="challenge-CC-006"><span class="mono wall-id">CC-006</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>Replaying the bound dry-run artifacts fails to reproduce the stated 66 conforming rows, zero validator violations, negative-control behavior, or the recorded n=22 null and cost calculation, or shows that a real E2 run was represented as the synthetic rehearsal.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">REJECT</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not substitute a repaired corpus, changed mechanism, or updated harness for the bound dry run</li><li>do not report a partial replay or a result under changed criteria as confirmation of the original rehearsal</li></ul></div></div><div class="wall-row challenge-row" id="challenge-REL-001"><span class="mono wall-id">REL-001</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>After exactly 360 randomized eligible practitioners and a passing missingness gate, the upper endpoint of the frozen two-sided 95% Newcombe/Wilson interval for the Condition-B minus Condition-A HOLD risk difference is below +15 percentage points.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">REJECT</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not redefine success as engagement, aesthetics, confidence, perceived sophistication, comprehension, reading time, qualitative enthusiasm, or another secondary outcome</li><li>do not change the 15-point threshold, E2 study or pair, task threshold, primary outcome, interval method, sample target, stopping rule, or exclusions after outcomes are known</li><li>do not use a post-hoc subgroup, relaxed eligibility screen, missingness filter, top-up, or rerun to rescue an unfavorable primary result</li><li>do not generalize a simulated task result to actual deployment, broad practitioner relevance, customer value, adoption, or safety</li></ul></div></div><div class="wall-row challenge-row" id="challenge-GA-001"><span class="mono wall-id">GA-001</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>A source-level review of the bound thesis shows that it does not state soundness as a ternary relation over the whole parse → canonicalize → digest pipeline, or does not identify Ghost-Ark as the stated S2 Lab research artifact.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">NARROW</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not replace a whole-pipeline claim with a canonicalizer-only claim after the condition fires</li><li>do not treat verifier acceptance or a pathology-free sample as evidence of semantic safety, authorization, or correctness</li></ul></div></div><div class="wall-row challenge-row" id="challenge-AS-001"><span class="mono wall-id">AS-001</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>The owner determines that the private project no longer uses AWS Nitro Enclaves for media processing or no longer investigates the stated limits of attestation-derived provenance claims.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">REJECT</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not describe an off-enclave or merely adjacent component as enclave-attested media processing</li><li>do not treat an unreleased prototype as public support for completeness, security, or provenance-chain claims</li></ul></div></div><div class="wall-row challenge-row" id="challenge-GV-001"><span class="mono wall-id">GV-001</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>A local run from the bound revision lacks the stated seven scenes, deterministic sample-row computations, or Evidence Mode for inspection.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">NARROW</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not count hard-coded or mocked screenshots as deterministic computations</li><li>do not recast a local-only source project as a hosted interactive demo</li></ul></div></div><div class="wall-row challenge-row" id="challenge-GCE-001"><span class="mono wall-id">GCE-001</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>The bound superseding taxonomy no longer classifies the coefficient family as deprecated legacy, or no longer supports the stated dependence-aware supersession.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">NARROW</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not treat the existence of legacy code or UI as evidence that its framing remains current theory</li><li>do not substitute a generic preference for newer methods for a recorded theoretical supersession</li></ul></div></div><div class="wall-row challenge-row" id="challenge-BIO-001"><span class="mono wall-id">BIO-001</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>An institutional record or owner correction contradicts the named degree, minor, completion date, or supervision period.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">REJECT</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><p class="empty-rescues"><code>[]</code> — no meaningful post-falsification rescue is declared.</p></div></div><div class="wall-row challenge-row" id="challenge-CRED-001"><span class="mono wall-id">CRED-001</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>A credential record or owner correction contradicts any stated held or in-progress certification status.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">NARROW</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><p class="empty-rescues"><code>[]</code> — no meaningful post-falsification rescue is declared.</p></div></div><div class="wall-row challenge-row" id="challenge-SITE-001"><span class="mono wall-id">SITE-001</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>Recomputing the listed palette pairs under WCAG contrast rules finds any claimed AA pass absent, or the recorded QA does not include the stated rendering, mode, and interaction checks.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">NARROW</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not replace a failed palette pair with another color pairing or viewport and retain the original claim</li><li>do not treat visual preference or casual inspection as a substitute for WCAG computation or the listed QA checks</li></ul></div></div><div class="wall-row challenge-row" id="challenge-SITE-002"><span class="mono wall-id">SITE-002</span><div class="challenge-content"><p><span class="mono challenge-label">Falsifier</span>A controlled violation of a required registry field, bound-evidence trigger, or review window reaches a successful named CI workflow, or the workflow no longer runs on pushes to main and weekly.</p><p><span class="mono challenge-label">Consequence</span><span class="challenge-consequence mono">REJECT</span></p><p class="mono challenge-label rescue-label">Forbidden rescues</p><ul><li>do not cite a normal green run as evidence that violations are rejected</li><li>do not count a manual review or a generated-page drift check as automatic schema, trigger, or freshness enforcement</li><li>do not treat a warning-only or report-only job as a build failure</li></ul></div></div>
     </div>
   </section>
 
@@ -381,10 +446,10 @@ python scripts/reproduce_cc001.py          # clean-clone kernel reproduction + w
 
   <section class="zone" aria-labelledby="human-h">
     <h2 id="human-h">Human review</h2>
-    <p class="zone-intro">Last owner review: <span class="mono">2026-08-23</span>. These review
+    <p class="zone-intro">Last owner review: <span class="mono">2026-08-24</span>. These review
       events cannot be executed by CI, and the record says so instead of borrowing the
       executable triggers' credibility:</p>
-    <ul class="manual-list"><li><span class="mono">CC-001</span> — kernel semantics change outside the bound module file</li><li><span class="mono">CC-003</span> — E2 produces empirical results — the synthetic scoping here must be restated</li><li><span class="mono">CC-004</span> — witness API change outside the bound module file</li><li><span class="mono">CC-005</span> — a conforming dataset is collected — E2&#x27;s status must be restated</li><li><span class="mono">CC-006</span> — real E2 data is collected — this claim is superseded by an E2 result</li><li><span class="mono">AS-001</span> — public artifact released</li><li><span class="mono">GV-001</span> — hosted deployment added — the site may then link a live demo</li><li><span class="mono">GCE-001</span> — GCE repository resumed or reframed</li><li><span class="mono">BIO-001</span> — annual review</li><li><span class="mono">CRED-001</span> — certification expiry or a new certification earned</li><li><span class="mono">SITE-001</span> — site redesign</li><li><span class="mono">SITE-002</span> — workflow triggers or cadence change</li>
+    <ul class="manual-list"><li><span class="mono">CC-001</span> — kernel semantics change outside the bound module file</li><li><span class="mono">CC-003</span> — E2 produces empirical results — the synthetic scoping here must be restated</li><li><span class="mono">CC-004</span> — witness API change outside the bound module file</li><li><span class="mono">CC-005</span> — a conforming dataset is collected — E2&#x27;s status must be restated</li><li><span class="mono">CC-006</span> — real E2 data is collected — this claim is superseded by an E2 result</li><li><span class="mono">REL-001</span> — a public protocol revision is bound, a real E2 result activates or prevents activation, or participant recruitment begins</li><li><span class="mono">AS-001</span> — public artifact released</li><li><span class="mono">GV-001</span> — hosted deployment added — the site may then link a live demo</li><li><span class="mono">GCE-001</span> — GCE repository resumed or reframed</li><li><span class="mono">BIO-001</span> — annual review</li><li><span class="mono">CRED-001</span> — certification expiry or a new certification earned</li><li><span class="mono">SITE-001</span> — site redesign</li><li><span class="mono">SITE-002</span> — workflow triggers or cadence change</li>
     </ul>
     <p class="zone-intro" style="margin-top:1.2rem">Related instrument, its own contract intact:
       <a class="u" href="https://github.com/Cubits11/cc-framework/tree/main/evidence-cards">CC-Framework's
