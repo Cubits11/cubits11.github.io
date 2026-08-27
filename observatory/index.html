@@ -479,10 +479,15 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p class="zone-intro">The exact commands that re-verify this record from a clean checkout.
       CI runs them on every push and weekly; nothing here requires trusting this page.</p>
     <pre>python scripts/verify_claims.py            # shape, bindings, triggers, freshness, coverage
+python scripts/verify_census.py            # census rows, N/M/K recomputed, MC-001 coherence
 python scripts/generate_ledger.py --check  # the ledger is generated, not hand-edited
 python scripts/generate_modules.py --check # module pages match their registry
 python scripts/generate_observatory.py --check  # this page matches the registry
+python scripts/generate_missing_column.py --check  # campaign pages match the census
+python scripts/generate_sitemap.py --check # sitemap lastmod matches git history
 python scripts/verify_figures.py           # figure geometry, asserted to 1e-9
+python scripts/mjgd_reference.py --test    # disclosure arithmetic identities
+python scripts/reanalyze_bells_subset.py   # MC-002 recomputed from the hash-bound release
 python scripts/reproduce_cc001.py          # clean-clone kernel reproduction + witnesses</pre>
   </section>
 
