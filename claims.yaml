@@ -419,8 +419,7 @@ claims:
       comparable per-system results on a shared item set, and 4 publish at
       least one item-level joint statistic for a combination of the
       systems they evaluate or release per-item outcomes that make one
-      directly computable — and none of the printed joint statistics
-      among them covers a commercial guardrail API.
+      directly computable.
     scope: >
       A census claim about public reporting, bounded by the documented
       search protocol frozen in census.yaml before examination began. It
@@ -429,7 +428,21 @@ claims:
       stack performs, and nothing about what the unmeasured joint
       statistics would show. N, M, and K are recomputed mechanically from
       census.yaml by scripts/verify_census.py; this envelope's expected
-      block is cross-checked against that computation in CI.
+      block is cross-checked against that computation in CI. The frozen
+      phrase "separately attributable" did not specify whether a product
+      or model name must be printed: the primary count treats systems a
+      source distinguishes and reports consistently as separately
+      attributable even when anonymized; the declared named-products-only
+      sensitivity excludes Unit42 and mechanically yields N/M/K = 18/12/4.
+      A drafted further clause — that
+      no printed joint statistic among the four covers a commercial
+      guardrail API — was withdrawn before publication when same-day
+      adversarial review produced a live counterexample under one
+      defensible reading (WAInjectBench's printed ensemble includes GPT-4o
+      prompted as a detector); this claim's forbidden rescues bar narrowing
+      "commercial" after the fact, so the clause was dropped rather than
+      reinterpreted, and the event is recorded in the census revision
+      history.
     dimensions:
       visibility: public
       provenance: owner_authored
@@ -453,7 +466,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "93953a1f45246a48398cee01668f8f45f1e822ce27c37e2590e751d2da1ff70a"
+        sha256: "ab9ae644b2402b9488980214ea0a3d4e31289d145deec32809ebdac3b526a392"
         note: fires when the census changes without a claim re-review
       - type: manual
         enforcement: manual
@@ -467,11 +480,10 @@ claims:
         on or before 2026-08-27 is shown to have been missed by the
         documented search, or an examined row is shown to misreport its
         source such that recomputed N, M, or K differ from the stated
-        19/13/4, or a printed joint statistic covering a commercial
-        guardrail API is found in an included artifact.
+        19/13/4.
       consequence: REJECT
     forbidden_rescues:
-      - do not reinterpret "joint statistic" or "commercial" after a counterexample appears in order to keep the stated counts
+      - do not reinterpret "joint statistic" after a counterexample appears in order to keep the stated counts
       - do not reclassify an examined row without recording the change and its reason in the census correction history
       - do not treat the bounded-search disclaimer as license to ignore a demonstrated miss — a miss rejects these counts and the corrected census states new ones
       - do not cite readership, links, or reuse of the census as evidence of its accuracy

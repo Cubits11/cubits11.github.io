@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the Missing Column Census (census.yaml) — census schema v1.
+"""Verify the Missing Column Census (census.yaml) — census schema v2.
 
 The census's public headline is an N/M/K statement. This verifier makes
 that statement mechanical rather than rhetorical:
@@ -15,6 +15,9 @@ that statement mechanical rather than rhetorical:
   3. Counts — N, M, and K are recomputed from the rows. Anything the site
      prints comes from compute_counts(); there is no hand-typed headline
      number anywhere.
+  4. Interpretation sensitivities — any stricter defensible reading that
+     changes the census is declared as named row exclusions whose alternate
+     N/M/K values this verifier independently recomputes.
 
 Rows with status under_review are excluded from every count and must say
 so in their rendering. generate_missing_column.py imports this module so
@@ -22,8 +25,10 @@ the page and the verifier can never disagree about arithmetic.
 """
 
 import datetime
+import hashlib
 import json
 import pathlib
+import subprocess
 import sys
 
 import yaml
@@ -34,6 +39,11 @@ CLASSIFICATIONS = {"PRESENT", "ABSENT", "AMBIGUOUS", "NOT_COMPARABLE"}
 JOINT_SCOPES = {"printed_full_stack", "printed_partial_stack",
                 "computable_via_item_release", "none"}
 TRI_STATE = {"yes", "no", "unstated", "mixed"}
+CENSUS_SCHEMA_VERSION = 2
+CRITERIA_CANONICALIZATION = (
+    "JSON UTF-8; sort_keys=true; separators=(',', ':'); ensure_ascii=false; "
+    "inclusion_criteria only"
+)
 
 TRI_FIELDS = [
     "same_items_for_all_systems",
@@ -105,10 +115,14 @@ def check_census_block(census: dict) -> None:
     required = {"id", "schema_version", "criteria_version", "frozen_as_of",
                 "maintainer", "question", "proposition_template",
                 "inclusion_criteria", "exclusion_rules", "non_criteria_note",
+                "frozen_criteria_lock", "interpretation_sensitivities",
                 "search_protocol", "revision_history"}
     missing = required - set(census)
     if missing:
         fail(f"census block missing fields {sorted(missing)}")
+    if census.get("schema_version") != CENSUS_SCHEMA_VERSION:
+        fail(f"census.schema_version must be {CENSUS_SCHEMA_VERSION} for "
+             "the current verifier")
     parse_date(census.get("frozen_as_of"), "census.frozen_as_of")
     criteria = census.get("inclusion_criteria") or []
     if not isinstance(criteria, list) or len(criteria) < 3:
@@ -130,6 +144,88 @@ def check_census_block(census: dict) -> None:
                   "snowball", "budget"):
         if field not in protocol:
             fail(f"census.search_protocol missing {field!r}")
+    for name in ("exclusion_rules", "queries"):
+        seq = (census.get(name) if name == "exclusion_rules"
+               else protocol.get(name)) or []
+        for i, item in enumerate(seq):
+            if not isinstance(item, str) or not item.strip():
+                fail(f"census.{name}[{i}] must be a non-empty string — an "
+                     f"unquoted 'key: value' scalar parses as a mapping and "
+                     f"renders as a dict on the public page")
+    if not isinstance(census.get("interpretation_sensitivities"), list):
+        fail("census.interpretation_sensitivities must be a list — use [] "
+             "when no alternate reading changes a count")
+
+
+def criteria_digest(criteria: list) -> str:
+    """Hash literal criterion values independently of YAML formatting."""
+    canonical = json.dumps(criteria, sort_keys=True, separators=(",", ":"),
+                           ensure_ascii=False).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+
+
+def check_frozen_criteria_lock(census: dict) -> None:
+    """Prove the literal v1 criteria still match the pre-search commit.
+
+    The lock protects wording, not interpretation: later sensitivities are
+    deliberately recorded elsewhere and cannot be smuggled into the frozen
+    criterion text. Both the current digest and the historical file at the
+    declared immutable commit must agree.
+    """
+    lock = census.get("frozen_criteria_lock")
+    if not isinstance(lock, dict):
+        fail("census.frozen_criteria_lock must be a mapping")
+        return
+    source_commit = lock.get("source_commit")
+    declared = lock.get("sha256")
+    if not isinstance(source_commit, str) or len(source_commit) != 40 \
+            or any(ch not in "0123456789abcdef" for ch in source_commit):
+        fail("census.frozen_criteria_lock.source_commit must be a full lowercase "
+             "Git SHA-1")
+        return
+    if lock.get("canonicalization") != CRITERIA_CANONICALIZATION:
+        fail("census.frozen_criteria_lock.canonicalization does not name the "
+             "verifier's fixed canonical form")
+        return
+    if not isinstance(declared, str) or len(declared) != 64 \
+            or any(ch not in "0123456789abcdef" for ch in declared):
+        fail("census.frozen_criteria_lock.sha256 must be a lowercase SHA-256")
+        return
+    criteria = census.get("inclusion_criteria")
+    if not isinstance(criteria, list):
+        return  # shape failure already reported above
+    current = criteria_digest(criteria)
+    if current != declared:
+        fail("census.frozen_criteria_lock: current inclusion_criteria hash "
+             f"{current[:12]} does not match declared {declared[:12]}")
+    try:
+        result = subprocess.run(
+            ["git", "show", f"{source_commit}:census.yaml"], cwd=ROOT,
+            capture_output=True, text=True, check=False)
+    except OSError as exc:
+        fail(f"census.frozen_criteria_lock: cannot invoke git show ({exc})")
+        return
+    if result.returncode != 0:
+        fail("census.frozen_criteria_lock: source commit is unavailable — "
+             "full git history is required to verify a frozen criterion")
+        return
+    try:
+        snapshot = yaml.safe_load(result.stdout) or {}
+        frozen = snapshot["census"]["inclusion_criteria"]
+    except (KeyError, TypeError, yaml.YAMLError) as exc:
+        fail(f"census.frozen_criteria_lock: cannot read criteria at "
+             f"{source_commit[:12]} ({exc})")
+        return
+    if not isinstance(frozen, list):
+        fail("census.frozen_criteria_lock: source commit has no criteria list")
+        return
+    historical = criteria_digest(frozen)
+    if historical != declared:
+        fail("census.frozen_criteria_lock: source commit criteria hash "
+             f"{historical[:12]} does not match declared {declared[:12]}")
+    elif current == declared:
+        ok(f"frozen criteria lock: v1 wording matches {source_commit[:12]} "
+           f"(sha256 {declared[:12]})")
 
 
 def check_row(row: dict, seen_ids: set) -> None:
@@ -224,11 +320,18 @@ def check_exclusion(row: dict, seen_ids: set) -> None:
     parse_date(row.get("last_checked"), f"exclusions.{rid}.last_checked")
 
 
-def compute_counts(data: dict) -> dict:
+def compute_counts(data: dict, excluded_ids: set[str] | None = None) -> dict:
     """The one arithmetic in the census. The page renders these numbers
-    and no others; hand-typing an N, M, or K anywhere is drift."""
+    and no others; hand-typing an N, M, or K anywhere is drift.
+
+    ``excluded_ids`` exists only for declared interpretation sensitivities:
+    it lets the verifier re-run the exact same arithmetic under a visible,
+    named stricter reading instead of leaving a competing count in prose.
+    """
+    excluded_ids = excluded_ids or set()
     rows = data.get("benchmarks") or []
-    examined = [r for r in rows if r.get("status") == "examined"]
+    examined = [r for r in rows if r.get("status") == "examined"
+                and r.get("id") not in excluded_ids]
     under_review = [r for r in rows if r.get("status") == "under_review"]
 
     def tri(row, field):
@@ -259,6 +362,73 @@ def compute_counts(data: dict) -> dict:
     }
 
 
+def check_interpretation_sensitivities(data: dict) -> None:
+    """Verify disclosed alternate readings rather than trusting their prose.
+
+    A sensitivity may only remove named, examined rows. It cannot alter a
+    row's evidence or classification behind the reader's back; if a different
+    interpretation needs different field values, it deserves a separately
+    reviewed census revision instead.
+    """
+    census = data.get("census") or {}
+    sensitivities = census.get("interpretation_sensitivities")
+    if not isinstance(sensitivities, list):
+        return  # check_census_block already reports the shape failure
+    examined_ids = {str(r.get("id")) for r in data.get("benchmarks") or []
+                    if r.get("status") == "examined"}
+    seen: set[str] = set()
+    keys = ("n_examined", "m_comparable", "k_present")
+    for i, item in enumerate(sensitivities):
+        where = f"census.interpretation_sensitivities[{i}]"
+        if not isinstance(item, dict):
+            fail(f"{where} must be a mapping")
+            continue
+        sid = item.get("id")
+        if not isinstance(sid, str) or not sid.strip():
+            fail(f"{where}.id must be a non-empty string")
+            sid = f"<invalid-{i}>"
+        elif sid in seen:
+            fail(f"{where}.id={sid!r} duplicates an earlier sensitivity")
+        seen.add(sid)
+        for field in ("label", "premise"):
+            if not isinstance(item.get(field), str) or not item[field].strip():
+                fail(f"{where}.{field} must be a non-empty string")
+        excluded = item.get("exclude_benchmark_ids")
+        if not isinstance(excluded, list) or not excluded:
+            fail(f"{where}.exclude_benchmark_ids must name at least one "
+                 "examined row")
+            continue
+        if any(not isinstance(rid, str) or not rid.strip() for rid in excluded):
+            fail(f"{where}.exclude_benchmark_ids must contain non-empty strings")
+            continue
+        if len(set(excluded)) != len(excluded):
+            fail(f"{where}.exclude_benchmark_ids repeats a row id")
+            continue
+        unknown = sorted(set(excluded) - examined_ids)
+        if unknown:
+            fail(f"{where}.exclude_benchmark_ids names non-examined row(s) "
+                 f"{unknown}")
+            continue
+        expected = item.get("expected")
+        if not isinstance(expected, dict):
+            fail(f"{where}.expected must state N/M/K")
+            continue
+        if any(not isinstance(expected.get(k), int) or isinstance(expected.get(k), bool)
+               for k in keys):
+            fail(f"{where}.expected must give integer n_examined, "
+                 "m_comparable, and k_present")
+            continue
+        counts = compute_counts(data, set(excluded))
+        actual = (counts["N"], counts["M"], counts["K"])
+        stated = tuple(expected[k] for k in keys)
+        if stated != actual:
+            fail(f"{where} expected N/M/K {stated} but named exclusions "
+                 f"compute {actual}")
+        else:
+            ok(f"sensitivity {sid}: named exclusions reproduce N/M/K "
+               f"{actual[0]}/{actual[1]}/{actual[2]}")
+
+
 def load() -> dict:
     return yaml.safe_load((ROOT / "census.yaml").read_text())
 
@@ -266,11 +436,13 @@ def load() -> dict:
 def main() -> int:
     data = load()
     check_census_block(data.get("census") or {})
+    check_frozen_criteria_lock(data.get("census") or {})
     seen: set = set()
     for row in data.get("benchmarks") or []:
         check_row(row, seen)
     for row in data.get("exclusions") or []:
         check_exclusion(row, seen)
+    check_interpretation_sensitivities(data)
     counts = compute_counts(data)
 
     # Claim coherence: if the registry carries the census claim, its

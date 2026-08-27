@@ -244,13 +244,14 @@ def render_headline(census: dict, counts: dict) -> str:
     </div>'''
 
 
-def render_criteria(census: dict) -> str:
+def render_criteria(data: dict) -> str:
+    census = data["census"]
     items = "".join(
         f'<li><span class="mono crit-key">{esc(c["key"])}</span>'
-        f'{esc(re.sub(r"[ \\n]+", " ", str(c["text"]).strip()))}</li>'
+        f'{esc(re.sub(r"\s+", " ", str(c["text"]).strip()))}</li>'
         for c in census["inclusion_criteria"])
     exclusions = "".join(
-        f"<li>{esc(re.sub(r'[ \\n]+', ' ', str(x).strip()))}</li>"
+        f"<li>{esc(re.sub(r'\s+', ' ', str(x).strip()))}</li>"
         for x in census["exclusion_rules"])
     protocol = census["search_protocol"]
     queries = "".join(f"<li>{esc(q)}</li>" for q in protocol["queries"])
@@ -264,17 +265,64 @@ def render_criteria(census: dict) -> str:
         <h3 class="mono crit-h">Excluded by rule</h3>
         <ul class="crit-list">{exclusions}</ul>
         <h3 class="mono crit-h" style="margin-top:1.2rem">Not a joint statistic</h3>
-        <p class="crit-note">{esc(re.sub(r"[ \\n]+", " ", str(census["non_criteria_note"]).strip()))}</p>
+        <p class="crit-note">{esc(re.sub(r"\s+", " ", str(census["non_criteria_note"]).strip()))}</p>
       </div>
     </div>
     <details class="protocol">
       <summary class="mono">The bounded search protocol — executed {esc(protocol["executed"])}</summary>
-      <p class="crit-note">{esc(re.sub(r"[ \\n]+", " ", str(protocol["bounded"]).strip()))}</p>
+      <p class="crit-note">{esc(re.sub(r"\s+", " ", str(protocol["bounded"]).strip()))}</p>
       <p class="mono crit-h" style="margin-top:.9rem">Fixed query list</p>
       <ul class="crit-list">{queries}</ul>
       <p class="crit-note" style="margin-top:.7rem">Snowball: {esc(protocol["snowball"])} ·
-        Budget: {esc(re.sub(r"[ \\n]+", " ", str(protocol["budget"]).strip()))}</p>
+        Budget: {esc(re.sub(r"\s+", " ", str(protocol["budget"]).strip()))}</p>
     </details>'''
+
+
+def render_interpretation_sensitivities(data: dict, primary: dict) -> str:
+    """Render alternate readings beside, never inside, the primary result.
+
+    Counts are recomputed here rather than copied from a declared expected
+    block. The verifier separately asserts that block, so this view makes the
+    counterfactual legible while CI protects both paths.
+    """
+    sensitivities = data["census"].get("interpretation_sensitivities") or []
+    if not sensitivities:
+        return ""
+    lock = data["census"].get("frozen_criteria_lock") or {}
+    source_commit = str(lock.get("source_commit", ""))
+    lock_html = ""
+    if source_commit:
+        lock_html = f'''
+      <p class="mono crit-note">Frozen-wording lock: the literal inclusion criteria match
+        <a class="u" href="https://github.com/Cubits11/cubits11.github.io/commit/{esc(source_commit)}">{esc(source_commit[:12])}</a>
+        · sha256 {esc(str(lock.get("sha256", ""))[:12])} · checked by
+        <span class="mono">verify_census.py</span>.</p>'''
+    rows_by_id = {str(r.get("id")): r for r in data.get("benchmarks") or []}
+    rows = []
+    for sensitivity in sensitivities:
+        alternative = verify_census.compute_counts(
+            data, set(sensitivity["exclude_benchmark_ids"]))
+        excluded = []
+        for row_id in sensitivity["exclude_benchmark_ids"]:
+            row = rows_by_id.get(row_id, {})
+            excluded.append(
+                f'<a class="u" href="#{esc(row_id)}">{esc(row_id)}</a>'
+                if row else esc(row_id))
+        rows.append(
+            f'<li><span class="mono crit-key">{esc(sensitivity["label"])}</span>'
+            f'{esc(re.sub(r"\s+", " ", str(sensitivity["premise"]).strip()))} '
+            f'Excludes {", ".join(excluded)}. '
+            f'<span class="mono">counterfactual N/M/K = '
+            f'{alternative["N"]}/{alternative["M"]}/{alternative["K"]}; '
+            f'primary = {primary["N"]}/{primary["M"]}/{primary["K"]}</span></li>')
+    return f'''
+    <aside class="sensitivity" id="sensitivity" aria-labelledby="sensitivity-h">
+      <h3 class="mono crit-h" id="sensitivity-h">Interpretive sensitivity</h3>
+      <p class="crit-note">The primary result above is unchanged. This is a declared
+        post-freeze counterfactual, not a retroactive rewrite of the criteria.</p>
+{lock_html}
+      <ul class="crit-list">{"".join(rows)}</ul>
+    </aside>'''
 
 
 def render_census_table(examined: list) -> str:
@@ -418,7 +466,7 @@ def render_exclusions(data: dict) -> str:
             f'<div><p class="ur-title">{esc(r["title"])}'
             + (f' — <a class="u" href="{esc(r["primary_url"])}">source ↗</a>'
                if r.get("primary_url") else "")
-            + f'</p><p class="ur-note">Excluded: {esc(re.sub(r"[ \\n]+", " ", str(r["reason"]).strip()))}</p></div></div>'
+            + f'</p><p class="ur-note">Excluded: {esc(re.sub(r"\s+", " ", str(r["reason"]).strip()))}</p></div></div>'
             for r in exclusions)
         body.append(f'<h3 class="mono crit-h">Examined and excluded</h3>'
                     f'<div class="wall">{rows}</div>')
@@ -443,7 +491,7 @@ def render_revisions(census: dict, examined: list) -> str:
     entries = []
     for e in census["revision_history"]:
         entries.append(f'<li><span class="mono">{esc(e["date"])}</span> — '
-                       f'{esc(re.sub(r"[ \\n]+", " ", str(e["change"]).strip()))}</li>')
+                       f'{esc(re.sub(r"\s+", " ", str(e["change"]).strip()))}</li>')
     row_corrections = sum(len(r.get("correction_history") or []) for r in examined)
     return f'''
   <section class="zone" id="corrections" aria-labelledby="corr-h">
@@ -646,6 +694,8 @@ td.motif-missing .mono{color:var(--review);font-size:.68rem;letter-spacing:.06em
 .head-prop{font-family:var(--serif);font-size:1.18rem;line-height:1.55;margin:.6rem 0 .5rem}
 .head-scope{color:var(--muted)}
 .head-note,.headline-held p:last-child{color:var(--muted);font-size:.92rem;margin:.5rem 0 0}
+.sensitivity{border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:1.15rem 1.35rem;margin-top:1.2rem;scroll-margin-top:5.5rem}
+.sensitivity .crit-note{margin:.35rem 0 .7rem}
 .crit-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.4rem}
 .crit-h{color:var(--gold);letter-spacing:.08em;text-transform:uppercase;font-size:.64rem;margin:0 0 .5rem;font-weight:400}
 .crit-list{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
@@ -731,7 +781,7 @@ def render_landing(data: dict) -> str:
     releases = counts["present_by_scope"].get("computable_via_item_release", 0)
     release_note = f" ({releases} via data release)" if releases else ""
     count_bar = (f"{counts['N']} examined · {counts['M']} comparable · "
-                 f"{counts['K']} report the stack{release_note}" if counts["N"]
+                 f"{counts['K']} report any joint result{release_note}" if counts["N"]
                  else f"{counts['under_review']} under examination · no count claimed yet")
     census_zone_rows = ""
     if examined:
@@ -795,8 +845,9 @@ def render_landing(data: dict) -> str:
       fields; the classification enum is fixed; the counts are recomputed from the file
       by <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_census.py">verify_census.py</a>
       on every push. Criteria were frozen before the search began.</p>
-    {render_criteria(census)}
+    {render_criteria(data)}
     {render_headline(census, counts)}
+{render_interpretation_sensitivities(data, counts)}
     {census_zone_rows}
     <div class="headline-nonclaims" style="margin-top:2rem">
       <h3 class="mono crit-h">What this census does not claim</h3>
@@ -867,9 +918,9 @@ def render_demonstration() -> str:
     <h2 id="demo-h">The row, demonstrated on public data</h2>
     <p class="zone-intro">One evaluation in the <a class="u" href="/missing-column/">census</a>
       released per-item verdicts: BELLS's 2025 misuse-detection study published 170 prompts
-      with eleven systems' decisions as columns. That release is the only public substrate on
-      which this page's arithmetic can run at all — so here it is, run, for the five
-      specialized supervisors in that file:</p>
+      with eleven systems' decisions as columns. That release is the only per-item outcome
+      release the census's bounded search found — so here is this page's arithmetic, run on it, for
+      the five specialized supervisors in that file:</p>
     <div class="fig-scroll">
     <table class="census-table demo-table">
       <caption class="sr-only">The minimum joint disclosure computed on the released

@@ -1,4 +1,4 @@
-# Missing Column Census — cubits11.github.io · census schema v1
+# Missing Column Census — cubits11.github.io · census schema v2
 #
 # The source of truth for the public claim that guardrail evaluations
 # publish per-system results without the joint statistic a deployed stack
@@ -57,10 +57,16 @@
 #   K — examined rows classified PRESENT
 #   K is always displayed with its joint_scope split. "None" is never used
 #   in public copy when K > 0.
+#
+# Interpretation sensitivities:
+#   Frozen criteria sometimes contain a word whose strictest defensible
+#   reading changes a count. Those readings are not quietly folded into
+#   the headline or passed off as pre-freeze wording: each is declared as
+#   a row exclusion with a mechanically asserted N/M/K alternative.
 
 census:
   id: MC-CENSUS-001
-  schema_version: 1
+  schema_version: 2
   criteria_version: 1
   frozen_as_of: "2026-08-27"
   maintainer: Pranav Bhave
@@ -103,7 +109,7 @@ census:
     - >
       base-LLM safety leaderboards: a model's own refusal behavior is not a
       separately deployed guardrail system
-    - single-system evaluations: nothing to combine
+    - "single-system evaluations: nothing to combine"
     - marketing pages without measurements
     - >
       comparisons only across different datasets, tasks, or populations
@@ -114,6 +120,29 @@ census:
     joint statistic. An average across systems is not a joint statistic.
     A multi-model ensemble inside one product counts only if the artifact
     reports it as a combination of separately attributed systems.
+  frozen_criteria_lock:
+    source_commit: "1524143e1d0cbe43efaf481b4acb1920cdeb0576"
+    canonicalization: "JSON UTF-8; sort_keys=true; separators=(',', ':'); ensure_ascii=false; inclusion_criteria only"
+    sha256: "f3315adceb3d0c535c2fd30a77d76bc70c50f4fbd41de19f17ec6f835cb9d512"
+    note: >
+      Added during pre-publication adversarial review to prove that the
+      literal v1 inclusion wording has not been rewritten. It does not
+      claim that any later interpretive sensitivity was present at freeze.
+  interpretation_sensitivities:
+    - id: named-products-only
+      label: "Named-products-only reading"
+      premise: >
+        The frozen multi-system criterion says "separately attributable"
+        but does not specify whether a product or model name is required.
+        The primary count treats a system as separately attributable when
+        its source distinguishes and reports it consistently, even if it is
+        anonymized. This post-freeze, stricter sensitivity requires a named
+        product instead.
+      exclude_benchmark_ids: ["unit42-genai-platform-2025"]
+      expected:
+        n_examined: 18
+        m_comparable: 12
+        k_present: 4
   search_protocol:
     executed: "2026-08-27"
     bounded: >
@@ -167,13 +196,38 @@ census:
         exclusions. LlamaFirewall added from the snowball hop.
     - date: "2026-08-27"
       change: >
-        Demonstration computed on the one public per-item substrate:
-        union, all-miss, and residual coverage for the five specialized
-        supervisors in BELLS 2025's released 170-prompt subset,
+        Demonstration computed on the one per-item outcome release found
+        by the bounded search: union, all-miss, and residual coverage for
+        the five specialized supervisors in BELLS 2025's released 170-prompt subset,
         registered as claim MC-002 (file bound by commit and sha256,
         reproduction script in CI) and rendered on the disclosure page.
         Census counts are unchanged — MC-002 is this record's own
         computation, not something the examined artifact printed.
+    - date: "2026-08-27"
+      change: >
+        Fresh-context adversarial verification, run same day and before
+        anything was published, independently reproduced N/M/K = 19/13/4
+        and every MC-002 count, then found: (1) the wainjectbench-2025
+        reason line falsely called its ensemble members "academic and
+        open-source" — Ensemble-I includes GPT-4o-Prompt, a commercial
+        closed API; the row is corrected, and claim MC-001's
+        commercial-API clause is withdrawn rather than reinterpreted,
+        exactly as its forbidden rescues require. (2) A generator bug
+        was deleting the letter "n" from the rendered criteria and
+        exclusion notes on the public page (a malformed regex character
+        class) — fixed, with the second exclusion rule's YAML typing
+        corrected and the verifier extended to type-check exclusion
+        rules. (3) The frozen phrase "separately attributable" had not
+        said whether a product name was required. Rather than calling a
+        post-review clarification pre-frozen, the record now exposes both
+        readings: the primary treatment counts consistently distinguished,
+        anonymized systems as separately attributable; the
+        named-products-only sensitivity excludes unit42 and mechanically
+        yields N/M/K = 18/12/4. Census schema v2
+        carries that executed sensitivity and a frozen-wording lock;
+        criteria v1 itself is unchanged. (4) The IBM row's same-items
+        evidence is marked as paraphrase. The primary counts remain
+        N=19, M=13, K=4.
 
 benchmarks:
   - id: openai-holistic-2022
@@ -740,7 +794,11 @@ benchmarks:
     systems: ["Random Forest", "BERT", "DeBERTa", "GPT2", "ProtectAI v2", "Llama-Guard 2", "LangKit Injection Detection", "SmoothLLM", "Perplexity Threshold", "OpenAI Moderation", "Azure AI Content Safety", "NeMo-inspired Input Rail", "LangKit Proactive Defence", "Vicuna-13b refusal", "Granite Guardian 3.0"]
     same_items_for_all_systems:
       value: "yes"
-      evidence: "same prompts evaluated across all defenses (stated method)"
+      evidence: >
+        paraphrase, not quotation: the method evaluates each defense over
+        the same in-distribution and out-of-distribution pools (single
+        shared pool design; the paper does not print the words "same
+        prompts")
     same_event_definition:
       value: "yes"
       evidence: "malicious/benign against common labels"
@@ -791,7 +849,12 @@ benchmarks:
       - "conclusion — 'Currently, there is no one-size-fits-all solution'"
     contact_route: "giulio.zizzo2@ibm.com; GitHub issues on IBM/Adversarial-Prompt-Evaluation"
     last_checked: "2026-08-27"
-    correction_history: []
+    correction_history:
+      - date: "2026-08-27"
+        change: >
+          Adversarial verification flagged that the same-items evidence
+          read like a quotation; reworded to say plainly it is a
+          paraphrase of the shared-pool design.
     notes: null
 
   - id: neuraltrust-2025
@@ -1062,18 +1125,33 @@ benchmarks:
     classification_reason: >
       Per-platform input-filter catch rates near 53%, 91%, and 92% on the
       same 123 jailbreaks practically beg for a union row; the article
-      never computes one. Platforms are anonymized — distinct and
-      separately reported, but not attributable to named products.
+      never computes one. Platforms are anonymized but separately reported
+      as three distinct systems. The census publishes a stricter
+      named-products-only sensitivity instead of silently treating
+      anonymization as immaterial.
     source_passages:
+      - "Guardrail Providers on the Market — platforms anonymized as Platform 1, Platform 2, and Platform 3"
       - "Tables 1-2 — benign/jailbreak block counts per platform"
       - "Table 6 — model alignment vs output guardrail blocking"
       - "method — same prompts, all safety filters enabled per platform"
     contact_route: "Unit 42 contact page"
     last_checked: "2026-08-27"
-    correction_history: []
+    correction_history:
+      - date: "2026-08-27"
+        change: >
+          Fresh-context adversarial review identified anonymization as a
+          material interpretive boundary. The frozen criterion's phrase
+          "separately attributable" did not specify whether names were
+          required, so the record does not rewrite that clarification into
+          the freeze: it reports the primary treatment and a
+          named-products-only sensitivity that removes this row and
+          mechanically yields N/M/K = 18/12/4.
     notes: >
-      Anonymization limits attribution; recorded because the joint-statistic
-      question applies regardless of naming.
+      Anonymization limits vendor attribution. The source calls these
+      Platform 1, Platform 2, and Platform 3 to avoid provider bias, then
+      reports each platform separately. The census's visible
+      named-products-only sensitivity shows the count impact of rejecting
+      this row.
 
   - id: bells-misuse-2025
     status: examined
@@ -1306,14 +1384,26 @@ benchmarks:
     classification_reason: >
       The cleanest printed union in the census: OR-ensembles over all base
       detectors of each modality, with both TPR and FPR reported on shared
-      items. Members are academic and open-source detectors; no commercial
-      guardrail products are in the union.
+      items. Members are mostly academic and open-weights detectors — but
+      not entirely: Ensemble-I includes GPT-4o-Prompt, a closed commercial
+      API prompted as a detector, and Ensemble-T's PromptArmor runs on
+      GPT-4o. No purpose-built commercial guardrail product appears in
+      either union.
     source_passages:
       - "Sec. 5.3 — 'if any detector flags the sample as malicious, the ensemble classifies it as malicious'"
       - "Tables 5-7 — TPR/FPR including Ensemble-T and Ensemble-I rows"
     contact_route: "yinuo.liu@duke.edu and coauthors (printed); GitHub issues"
     last_checked: "2026-08-27"
-    correction_history: []
+    correction_history:
+      - date: "2026-08-27"
+        change: >
+          Adversarial verification (same day, pre-publication) caught the
+          reason line claiming the ensemble members were "academic and
+          open-source detectors" — false: Ensemble-I includes
+          GPT-4o-Prompt, a commercial closed API, and PromptArmor uses
+          GPT-4o. Corrected; this correction also withdrew a
+          commercial-API clause from claim MC-001, per that claim's own
+          forbidden rescues.
     notes: >
       Scope is web-agent prompt injection, not general moderation.
 
