@@ -72,9 +72,10 @@ census:
   proposition_template: >
     As of {as_of}, among {N} public guardrail evaluations meeting the
     frozen inclusion criteria (v{criteria_version}), {M} establish
-    comparable per-system results on a shared item set, and {K} publish at
-    least one item-level joint statistic for a combination of the systems
-    they evaluate.
+    comparable per-system results on a shared item set, and {K} publish
+    at least one item-level joint statistic for a combination of the
+    systems they evaluate or release per-item outcomes that make one
+    directly computable.
   inclusion_criteria:
     - key: public_access
       text: publicly accessible without payment at a stable URL

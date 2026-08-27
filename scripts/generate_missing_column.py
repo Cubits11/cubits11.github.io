@@ -728,8 +728,10 @@ def render_landing(data: dict) -> str:
             "compare them one at a time. A source-bound census of which "
             "evaluations publish the joint result — union detection, the "
             "all-miss rate — that a deployed stack actually needs.")
+    releases = counts["present_by_scope"].get("computable_via_item_release", 0)
+    release_note = f" ({releases} via data release)" if releases else ""
     count_bar = (f"{counts['N']} examined · {counts['M']} comparable · "
-                 f"{counts['K']} report the stack" if counts["N"]
+                 f"{counts['K']} report the stack{release_note}" if counts["N"]
                  else f"{counts['under_review']} under examination · no count claimed yet")
     census_zone_rows = ""
     if examined:

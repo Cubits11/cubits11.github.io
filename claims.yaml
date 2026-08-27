@@ -418,8 +418,9 @@ claims:
       Missing Column Census's frozen inclusion criteria (v1), 13 establish
       comparable per-system results on a shared item set, and 4 publish at
       least one item-level joint statistic for a combination of the
-      systems they evaluate — and none of those printed joint statistics
-      covers a commercial guardrail API.
+      systems they evaluate or release per-item outcomes that make one
+      directly computable — and none of the printed joint statistics
+      among them covers a commercial guardrail API.
     scope: >
       A census claim about public reporting, bounded by the documented
       search protocol frozen in census.yaml before examination began. It
@@ -452,7 +453,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "be832219151c7a06eaacebafb4514b2df08b8789492409ae86958e75760792eb"
+        sha256: "93953a1f45246a48398cee01668f8f45f1e822ce27c37e2590e751d2da1ff70a"
         note: fires when the census changes without a claim re-review
       - type: manual
         enforcement: manual
