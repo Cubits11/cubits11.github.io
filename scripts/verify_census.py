@@ -31,7 +31,7 @@ import yaml
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 CLASSIFICATIONS = {"PRESENT", "ABSENT", "AMBIGUOUS", "NOT_COMPARABLE"}
-JOINT_SCOPES = {"printed_full_stack", "printed_pairwise_only",
+JOINT_SCOPES = {"printed_full_stack", "printed_partial_stack",
                 "computable_via_item_release", "none"}
 TRI_STATE = {"yes", "no", "unstated", "mixed"}
 
@@ -159,7 +159,12 @@ def check_row(row: dict, seen_ids: set) -> None:
     # ---- examined rows ----
     if url is None:
         fail(f"{rid}: examined rows require a primary_url")
-    parse_date(row["publication_date"], f"{rid}.publication_date")
+    pub = str(row["publication_date"]).strip()
+    if not pub:
+        fail(f"{rid}: publication_date must be non-empty (free text allowed; "
+             f"blogs rarely print ISO dates)")
+    elif len(pub) == 10 and pub[4] == "-" and pub[7] == "-":
+        parse_date(pub, f"{rid}.publication_date")
     values = {f: tri_value(row, f, rid) for f in TRI_FIELDS}
     classification = row["classification"]
     if classification not in CLASSIFICATIONS:

@@ -21,11 +21,12 @@
 #   PRESENT        — reports at least one item-level joint statistic over
 #                    two or more of the evaluated systems (union detection,
 #                    all-miss rate, pairwise intersection of misses or
-#                    catches, residual coverage, or an ensemble-of-guards
-#                    row), or releases per-item outcomes from which such a
-#                    statistic is directly computable.
-#   ABSENT         — establishes comparable per-system results but reports
-#                    no joint statistic and releases no per-item outcomes.
+#                    catches, residual coverage, or a measured
+#                    ensemble-of-guards result), or releases per-item
+#                    outcomes from which such a statistic is directly
+#                    computable.
+#   ABSENT         — reports separately attributable per-system results but
+#                    no joint statistic, and releases no per-item outcomes.
 #   AMBIGUOUS      — examined, but the public record does not determine
 #                    whether a joint statistic is reported or computable;
 #                    the row states exactly what would resolve it.
@@ -35,14 +36,18 @@
 #                    published marginals would not be meaningful.
 #
 # joint_scope (for PRESENT rows; "none" otherwise):
-#   printed_full_stack          — a joint statistic over all evaluated
-#                                 systems appears in the artifact
-#   printed_pairwise_only       — printed joint statistics cover only
-#                                 pairs (or proper subsets), never the
-#                                 full evaluated set
-#   computable_via_item_release — per-item outcomes are public, so any
-#                                 joint statistic is computable even if
-#                                 none is printed
+#   printed_full_stack          — a printed joint statistic covers every
+#                                 system evaluated in the comparison, or
+#                                 every system of an explicitly stated
+#                                 track or modality
+#   printed_partial_stack       — a printed joint statistic covers two or
+#                                 more but not all evaluated systems
+#                                 (pairwise combinations land here; the
+#                                 members are named in the evidence)
+#   computable_via_item_release — per-item outcomes are public, so joint
+#                                 statistics are computable even where none
+#                                 is printed; the coverage of the release
+#                                 is stated in the reason
 #
 # Headline counts, recomputed by verify_census.py and the generator:
 #   N — examined rows (all classifications)
@@ -50,8 +55,8 @@
 #       same_event_definition: yes (comparable per-system results on a
 #       shared item set)
 #   K — examined rows classified PRESENT
-#   K is further split by joint_scope wherever it is displayed. "None" is
-#   never used in public copy when K > 0.
+#   K is always displayed with its joint_scope split. "None" is never used
+#   in public copy when K > 0.
 
 census:
   id: MC-CENSUS-001
@@ -142,54 +147,1469 @@ census:
         Census established. Criteria v1 frozen before the bounded search;
         the four starting cases entered as under_review pending
         primary-source examination.
+    - date: "2026-08-27"
+      change: >
+        First examination pass completed: 19 rows examined (one over the
+        ~18 budget estimate, recorded here), 9 candidates excluded by
+        rule, 15 surfaced candidates left unexamined. Pre-publication
+        schema clarifications, made before any count was public: the
+        ABSENT definition no longer presupposes comparability (that axis
+        is counted by M); joint_scope value printed_pairwise_only
+        generalized to printed_partial_stack. Corrections to the starting
+        brief: the single BELLS row split into three artifacts (2024
+        framework — excluded as a framework paper; 2025 misuse-detection
+        evaluation; 2026 BELLS-O), and the artifact remembered as
+        "MSBench with two pairwise ensemble rows" is actually UnsafeBench
+        (arXiv 2405.03486), which prints six OR-ensemble rows but
+        evaluates image-platform safety classifiers and therefore fails
+        frozen domain criterion 5 — recorded prominently under
+        exclusions. LlamaFirewall added from the snowball hop.
 
 benchmarks:
-  - id: ml6-guardrail-benchmark
-    status: under_review
-    title: "Inside AI guardrails: a benchmark on enterprise LLM security"
-    authors_or_org: ML6
-    primary_url: "https://www.ml6.eu/en/blog/inside-ai-guardrails-a-benchmark-on-enterprise-llm-security"
+  - id: openai-holistic-2022
+    status: examined
+    title: "A Holistic Approach to Undesired Content Detection in the Real World"
+    authors_or_org: "Markov, Zhang, Agarwal, Eloundou, Lee, Adler, Jiang, Weng — OpenAI"
+    publication_date: "2022-08-05"
+    primary_url: "https://arxiv.org/abs/2208.03274"
+    task: "undesired-content detection and moderation taxonomy (hate, sexual, violence, self-harm)"
+    dataset_population: >
+      OpenAI's public evaluation set plus external test sets scored by both
+      systems: Jigsaw (5,000), TweetEval (2,970 hate / 860 offensive),
+      Stormfront (478), Reddit (5,000).
+    n_items: "~14,300 across external sets"
+    n_systems: 2
+    systems: ["OpenAI moderation model", "Perspective API"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "both systems scored on the same external datasets (Table 3)"
+    same_event_definition:
+      value: "yes"
+      evidence: "AUPRC computed against common labels per dataset (Table 3)"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "AUPRC is threshold-free; operating thresholds not compared"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "both scored per dataset; no gating design"
+    per_system_metrics: "AUPRC per category and dataset — Table 3 (e.g. 0.9703 vs 0.8709 on sexual content)"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "evaluation dataset released (github.com/openai/moderation-api-release); per-item Perspective outputs not released"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "no overlap analysis anywhere in the paper"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found in results tables or text"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition anywhere"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "systems evaluated independently"
+    uncertainty_reported:
+      value: "unstated"
+      evidence: "not recorded in this examination"
+    raw_data_available: "evaluation dataset at github.com/openai/moderation-api-release"
+    code_available: "no"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      The minimal qualifying case — exactly two systems on shared external
+      sets — and still no error-overlap or joint statistic; its released
+      evaluation set became the de-facto shared test bed later papers
+      reuse.
+    source_passages:
+      - "Table 3 — AUPRC, OpenAI model vs Perspective API across datasets"
+      - "released data: github.com/openai/moderation-api-release"
+    contact_route: "GitHub issues on openai/moderation-api-release; authors at OpenAI (no emails printed)"
     last_checked: "2026-08-27"
+    correction_history: []
     notes: >
-      Under primary-source examination. Not yet classified; excluded from
-      all counts until examined.
+      Published 2022 (AAAI-23 oral) — the earliest included artifact.
 
-  - id: truefoundry-guardrail-benchmark
-    status: under_review
-    title: "Benchmarking LLM guardrail providers"
-    authors_or_org: TrueFoundry
-    primary_url: "https://www.truefoundry.com/blog/benchmarking-llm-guardrail-providers"
+  - id: llama-guard-2023
+    status: examined
+    title: "Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations"
+    authors_or_org: "Inan et al. — Meta GenAI"
+    publication_date: "2023-12-07"
+    primary_url: "https://arxiv.org/abs/2312.06674"
+    task: "prompt and response safety classification (moderation)"
+    dataset_population: >
+      Meta's internal test set (3,497) plus OpenAI Moderation Evaluation
+      (1,680) and ToxicChat (10,000).
+    n_items: "15,177 across three test sets"
+    n_systems: 4
+    systems: ["Llama Guard", "OpenAI Moderation API", "Perspective API", "Azure AI Content Safety (binary comparison only)"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "shared public test sets; Azure excluded from AUPRC because it returns no scores"
+    same_event_definition:
+      value: "yes"
+      evidence: "per-API outputs binarized to a common unsafe verdict ('1-vs-all', '1-vs-benign' adaptations stated)"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "AUPRC used for scoreable systems; per-API adaptation described, no calibration"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "each scored per test set; no gating"
+    per_system_metrics: "AUPRC per test set — Table 2 (Llama Guard 0.945 internal-prompt vs OpenAI API 0.764, Perspective 0.728); adaptability in Table 4"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "model and code at github.com/facebookresearch/PurpleLlama; no per-item comparison outputs"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "no error-overlap analysis anywhere"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition anywhere"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "systems evaluated independently"
+    uncertainty_reported:
+      value: "unstated"
+      evidence: "not recorded in this examination"
+    raw_data_available: "no"
+    code_available: "https://github.com/facebookresearch/PurpleLlama"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      The foundational guard-versus-API comparison inherited by nearly all
+      later guard papers, with no overlap analysis — the reporting pattern
+      the rest of this census keeps finding starts here.
+    source_passages:
+      - "Table 2 — AUPRC: Llama Guard vs OpenAI Moderation API vs Perspective API on three test sets"
+      - "baseline handling — 'Overall binary classification for APIs'"
+    contact_route: "Meta PurpleLlama GitHub issues; arXiv submission contact (Hakan Inan)"
     last_checked: "2026-08-27"
-    notes: >
-      Under primary-source examination. Not yet classified; excluded from
-      all counts until examined.
+    correction_history: []
+    notes: null
 
-  - id: bells-cesia
-    status: under_review
-    title: "BELLS — benchmarks for the evaluation of LLM safeguards (CeSIA)"
-    authors_or_org: "CeSIA — Centre pour la Sécurité de l'IA"
+  - id: aegis-2024
+    status: examined
+    title: "AEGIS: Online Adaptive AI Content Safety Moderation with Ensemble of LLM Experts"
+    authors_or_org: "Ghosh, Varshney, Galinkin, Parisien — NVIDIA"
+    publication_date: "2024-04-09"
+    primary_url: "https://arxiv.org/abs/2404.05993"
+    task: "content safety moderation of prompts and responses"
+    dataset_population: >
+      AegisSafetyTest (1,199), OpenAI Moderation dataset (1,680),
+      ToxicChat, SimpleSafetyTests (100).
+    n_items: "~4,000 across four test sets"
+    n_systems: 8
+    systems: ["LlamaGuardBase", "NeMo43B", "OpenAI Moderation API", "Perspective API", "GPT-4", "LlamaGuardDefensive (authors')", "LlamaGuardPermissive (authors')", "NeMo43B-Defensive (authors')"]
+    same_items_for_all_systems:
+      value: "mixed"
+      evidence: "shared test sets in Tables 3-4, but Perspective/GPT-4 SimpleSafetyTests numbers are quoted from the source paper rather than re-run"
+    same_event_definition:
+      value: "yes"
+      evidence: "safe/unsafe verdicts against common labels per test set"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "AUPRC plus F1 at unstated operating points"
+    all_systems_saw_all_items:
+      value: "mixed"
+      evidence: "authors' systems and main baselines re-run; some baseline cells quoted from prior work"
+    per_system_metrics: "AUPRC and F1 per dataset (Table 3); accuracy on SimpleSafetyTests (Table 4)"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "dataset release announced as intent (~26k annotations); no per-system predictions published"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "no error-overlap or confusion analysis between systems"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "the measured combination is per-item routing, not sequential gating"
+    uncertainty_reported:
+      value: "mixed"
+      evidence: "Figure 3 averages over 20 trials; no CIs on Table 3 metrics"
+    raw_data_available: "no (release announced as intent)"
+    code_available: "no"
+    combination_prose: null
+    joint_statistic_evidence: >
+      Section 5 with Figures 2-3: an Exponential Weights learner routes
+      each item to one of three named experts (LlamaGuardDefensive,
+      LlamaGuardPermissive, NeMo43B-Defensive); the figures print the
+      learner's cumulative-regret trajectory on the OpenAI Moderation
+      stream, measured one prompt at a time.
+    joint_scope: printed_partial_stack
+    classification: PRESENT
+    classification_reason: >
+      A measured ensemble-of-guards result exists — but it is a routing
+      ensemble over the authors' own three experts (3 of the 8 compared
+      systems), printed as cumulative regret relative to the best expert
+      in hindsight. Verified against the v2 full text: the figures plot
+      the algorithm's curves only, not per-expert error traces. No union,
+      all-miss, or overlap statistic between independent systems appears
+      anywhere.
+    source_passages:
+      - "Section 5 — 'Deploy safety LLM models AegisSafetyExperts as ensemble'"
+      - "Figure 2 caption — 'Aegis learns to choose the best expert over the time horizon'"
+      - "Figure 3 — 'EW with perturbation averaged over 20 trials'"
+      - "Table 3 — per-system AUPRC/F1 on shared test sets"
+    contact_route: "shaonag@nvidia.com; prasoonv@nvidia.com; egalinkin@nvidia.com; cparisien@nvidia.com"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: >
+      The narrowest PRESENT in the census: the joint statistic answers
+      "how well does routing pick the best of my own three experts", not
+      "what does a stack of independent guards jointly miss".
+
+  - id: wildguard-2024
+    status: examined
+    title: "WildGuard: Open One-Stop Moderation Tools for Safety Risks, Jailbreaks, and Refusals of LLMs"
+    authors_or_org: "Han, Rao, Ettinger, Jiang, Lin, Lambert, Choi, Dziri — Allen Institute for AI / UW / SNU"
+    publication_date: "2024-06-26"
+    primary_url: "https://arxiv.org/abs/2406.18495"
+    task: "prompt harmfulness, response harmfulness, and refusal detection; jailbreak filtering"
+    dataset_population: >
+      WildGuardTest (5,299 human-annotated items) plus ten public
+      benchmarks (ToxicChat, OpenAI Moderation, AegisSafetyTest,
+      SimpleSafetyTests, HarmBench prompt/response, SafeRLHF, BeaverTails,
+      XSTest-Resp).
+    n_items: "5,299 new + ten public benchmarks"
+    n_systems: 14
+    systems: ["WildGuard", "Llama-Guard", "Llama-Guard 2", "Aegis-Guard-Defensive", "Aegis-Guard-Permissive", "MD-Judge v0.1", "HarmBench-Llama", "HarmBench-Mistral", "BeaverDam-7B", "LibrAI-LongFormer-harm", "LibrAI-LongFormer-ref", "OpenAI Moderation API", "GPT-4 (gpt-4-0125-preview)", "keyword-based refusal detector"]
+    same_items_for_all_systems:
+      value: "mixed"
+      evidence: "same test sets within each task, but the baseline subset differs by task capability (Tables 2-4)"
+    same_event_definition:
+      value: "yes"
+      evidence: "per-task F1 against common labels"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "F1 at native decision rules"
+    all_systems_saw_all_items:
+      value: "mixed"
+      evidence: "not all baselines evaluated on all tasks"
+    per_system_metrics: "F1 per benchmark (Tables 3-4); XSTest-Resp F1 (Table 2); ASR/RTA with guards as jailbreak filters (Table 6)"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "WildGuardTest data released (huggingface.co/datasets/allenai/wildguardmix); baseline per-item predictions not released"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "each guard evaluated in isolation"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "no stacked configuration measured"
+    uncertainty_reported:
+      value: "unstated"
+      evidence: "not recorded in this examination"
+    raw_data_available: "https://huggingface.co/datasets/allenai/wildguardmix"
+    code_available: "https://github.com/allenai/wildguard"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      Thirteen baselines on shared test sets, aggregate scores only; the
+      released test data would let anyone compute the joint column by
+      re-running the guards, but the paper neither computes nor releases
+      it.
+    source_passages:
+      - "Abstract — comparison against ten strong existing open-source moderation models"
+      - "Table 3 — F1 across public prompt/response-harm benchmarks"
+      - "Table 4 — F1 on WildGuardTest including the adversarial split"
+    contact_route: "wade3han@snu.ac.kr; nouhad@allenai.org; kavelrao@cs.washington.edu"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: null
+
+  - id: lakera-pint-2024
+    status: examined
+    title: "PINT Benchmark (Prompt Injection Test)"
+    authors_or_org: "Lakera AI"
+    publication_date: "2024-04 (scores updated through 2025-08)"
+    primary_url: "https://github.com/lakeraai/pint-benchmark"
+    task: "prompt-injection and jailbreak detection against hard negatives and benign text"
+    dataset_population: >
+      4,314 items (3,016 English, 1,298 non-English; 5.2% injections,
+      0.9% jailbreaks, 20.9% hard negatives, ~73% benign chats and
+      documents); a blend of public and proprietary data, not fully
+      released.
+    n_items: 4314
+    n_systems: 8
+    systems: ["Lakera Guard", "AWS Bedrock Guardrails", "Azure AI Prompt Shield", "protectai/deberta-v3-base-prompt-injection-v2", "Llama Prompt Guard 2 86M", "Google Model Armor", "Aporia Guardrails", "Llama Prompt Guard"]
+    same_items_for_all_systems:
+      value: "mixed"
+      evidence: "same named benchmark, but scoreboard runs are dated months apart and the dataset is deliberately versioned (Goodhart-resistance)"
+    same_event_definition:
+      value: "yes"
+      evidence: "single PINT accuracy score against the benchmark's labels"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "vendor defaults; single score per system"
+    all_systems_saw_all_items:
+      value: "unstated"
+      evidence: "per-run dataset version not printed per row"
+    per_system_metrics: "single PINT score (accuracy-style %) per system with test date — README scoreboard"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "proprietary blend; per-system outputs not released"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "scoreboard is single-system rows only"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "no stacked configuration measured"
+    uncertainty_reported:
+      value: "no"
+      evidence: "point scores only on the scoreboard"
+    raw_data_available: "no (partly proprietary by design)"
+    code_available: "https://github.com/lakeraai/pint-benchmark"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      Vendor-maintained scoreboard of single-system scores; proprietary
+      items and vendor-run scoring make third-party joint statistics
+      impossible without Lakera's cooperation.
+    source_passages:
+      - "README scoreboard — Lakera Guard 95.22% (2025-05-02) through Llama Prompt Guard 61.82%"
+      - "blog — dataset 'a blend of public and proprietary data'"
+    contact_route: "GitHub issues on lakeraai/pint-benchmark"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: >
+      Vendor-run: the maintaining vendor's product tops its own
+      scoreboard; runs are evaluated by Lakera rather than self-served.
+
+  - id: shieldgemma-2024
+    status: examined
+    title: "ShieldGemma: Generative AI Content Moderation Based on Gemma"
+    authors_or_org: "ShieldGemma Team — Google"
+    publication_date: "2024-07-31"
+    primary_url: "https://arxiv.org/abs/2407.21772"
+    task: "safety content moderation of user input and model output"
+    dataset_population: >
+      Internal ShieldGemma Prompt (4,500) and Response (4,500) sets plus
+      OpenAI Moderation (1,680) and ToxicChat (10,000).
+    n_items: "~20,680 across four sets"
+    n_systems: 7
+    systems: ["ShieldGemma 2B", "ShieldGemma 9B", "ShieldGemma 27B", "LlamaGuard", "WildGuard", "GPT-4", "OpenAI Moderation API"]
+    same_items_for_all_systems:
+      value: "mixed"
+      evidence: "Table 1 coverage varies by baseline — not all baselines evaluated on all datasets"
+    same_event_definition:
+      value: "yes"
+      evidence: "binary safety verdicts against common labels per dataset"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "Optimal F1 and AU-PRC; per-system operating points differ by construction"
+    all_systems_saw_all_items:
+      value: "mixed"
+      evidence: "as above — coverage varies by baseline"
+    per_system_metrics: "Optimal F1 and AU-PRC (Table 1); per-harm-type AU-PRC (Figure 3)"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "aggregate metrics only; models on HuggingFace/Kaggle; test-data release unstated"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "no overlap analysis"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "no stacked configuration measured"
+    uncertainty_reported:
+      value: "unstated"
+      evidence: "not recorded in this examination"
+    raw_data_available: "no"
+    code_available: "models released; evaluation harness not found"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      Marginals only; the limitations section recommends client-side
+      threshold tuning, not layered guards, and no combination is
+      measured.
+    source_passages:
+      - "Table 1 — Optimal F1 / AU-PRC vs LlamaGuard, WildGuard, GPT-4, OpenAI Mod API"
+      - "Abstract — '+10.8% higher average AU-PRC compared to LlamaGuard1'"
+    contact_route: "shieldgemma-team@google.com"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: null
+
+  - id: upenn-multilingual-2024
+    status: examined
+    title: "Benchmarking LLM Guardrails in Handling Multilingual Toxicity"
+    authors_or_org: "Yang, Dan, Roth, Lee — University of Pennsylvania / Microsoft"
+    publication_date: "2024-10-29"
+    primary_url: "https://arxiv.org/abs/2410.22153"
+    task: "multilingual toxicity and safety detection plus jailbreak robustness"
+    dataset_population: >
+      ~13,000 items across seven datasets (ToxicChat 1,000; Aegis 1,199;
+      Moderation 1,680; RTP-LX 999; PTP 5,000; MultiJail 315; XSafety
+      2,800) in ten-plus languages.
+    n_items: "~13,000"
+    n_systems: 4
+    systems: ["LlamaGuard-2", "LlamaGuard-3", "Aegis-Defensive", "MD-Judge"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "same items per dataset for every guardrail (Table 2 structure)"
+    same_event_definition:
+      value: "yes"
+      evidence: "common toxicity/safety labels per dataset"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "F1 at native decision rules"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "all four guards scored per dataset; no gating"
+    per_system_metrics: "F1 per dataset and language (Table 2); FPR on Aegis"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "no repository stated"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "no overlap analysis"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "guards evaluated independently"
+    uncertainty_reported:
+      value: "unstated"
+      evidence: "not recorded in this examination"
+    raw_data_available: "no"
+    code_available: "no"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      Four open guard models, fully shared items, marginals only — a
+      clean instance of the pattern on a multilingual axis.
+    source_passages:
+      - "Table 2 — Moderation dataset F1 drops to 28.54-73.12 multilingual"
+      - "conclusion — 'guardrails are still ineffective at handling multilingual toxicity'"
+    contact_route: "yangy96@seas.upenn.edu; sohamdan@microsoft.com; danr@seas.upenn.edu; lee@seas.upenn.edu"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: null
+
+  - id: guardbench-2024
+    status: examined
+    title: "GuardBench: A Large-Scale Benchmark for Guardrail Models"
+    authors_or_org: "Elias Bassani, Ignacio Sanchez — European Commission Joint Research Centre"
+    publication_date: "2024-11 (EMNLP 2024 main)"
+    primary_url: "https://aclanthology.org/2024.emnlp-main.1022/"
+    task: "safe/unsafe classification of prompts and conversation utterances"
+    dataset_population: >
+      40 datasets (Table 1), including PromptsDE/FR/IT/ES (30,852 each),
+      UnsafeQA (22,180), BeaverTails-330k test (11,088), Toxic Chat
+      (5,083).
+    n_items: "40 datasets; six figures of items in total"
+    n_systems: 13
+    systems: ["Llama Guard", "Llama Guard 2", "Llama Guard Defensive", "Llama Guard Permissive", "MD-Judge", "Toxic Chat T5", "ToxiGen HateBERT", "ToxiGen RoBERTa", "Detoxify Original", "Detoxify Unbiased", "Detoxify Multilingual", "Mistral-7B-Instruct v0.2", "Mistral with refined policy"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "one automated pipeline runs every model over identical datasets (Sec. 3.5)"
+    same_event_definition:
+      value: "yes"
+      evidence: "safe/unsafe per dataset, common labels"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "F1/recall at native decision rules"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "pipeline design; no gating"
+    per_system_metrics: "F1 (and recall for all-unsafe datasets) per model per dataset — Table 3"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "no prediction dumps; the library re-run 'saves the moderation outcomes' locally (Sec. 3.5)"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "no overlap analysis"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "models evaluated independently"
+    uncertainty_reported:
+      value: "unstated"
+      evidence: "not recorded in this examination"
+    raw_data_available: "via the released pipeline (re-run required)"
+    code_available: "https://github.com/AmenRa/guardbench"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      Thirteen guards, forty datasets, one harness — and every published
+      number is a marginal. The released pipeline makes the joint column
+      one re-run away, which the paper does not take.
+    source_passages:
+      - "Sec. 1 — 'comparing 13 models on 40 prompts and conversations safety datasets'"
+      - "Table 3 — per-model F1/Recall"
+      - "Sec. 3.5 — library 'saves the moderation outcomes in the specified output directory'"
+    contact_route: "elias.bassani@ec.europa.eu; ignacio.sanchez@ec.europa.eu; GitHub AmenRa/guardbench"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: >
+      The companion HuggingFace leaderboard extends the comparison to
+      newer guards; no commercial APIs (stated limitation).
+
+  - id: ibm-adversarial-prompt-2025
+    status: examined
+    title: "Adversarial Prompt Evaluation: Systematic Benchmarking of Guardrails Against Prompt Input Attacks on LLMs"
+    authors_or_org: "Zizzo et al. — IBM Research (NeurIPS 2024 Safe GenAI workshop)"
+    publication_date: "2025-02-21"
+    primary_url: "https://arxiv.org/abs/2502.15427"
+    task: "jailbreak and adversarial prompt detection (input guardrails)"
+    dataset_population: >
+      11,387 in-distribution items (9,543 benign / 1,844 malicious) plus
+      10,703 out-of-distribution items, drawn from 27 datasets.
+    n_items: 22090
+    n_systems: 15
+    systems: ["Random Forest", "BERT", "DeBERTa", "GPT2", "ProtectAI v2", "Llama-Guard 2", "LangKit Injection Detection", "SmoothLLM", "Perplexity Threshold", "OpenAI Moderation", "Azure AI Content Safety", "NeMo-inspired Input Rail", "LangKit Proactive Defence", "Vicuna-13b refusal", "Granite Guardian 3.0"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "same prompts evaluated across all defenses (stated method)"
+    same_event_definition:
+      value: "yes"
+      evidence: "malicious/benign against common labels"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "AUC plus point metrics at native rules"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "single-defense evaluation over the full pools; no gating"
+    per_system_metrics: "AUC, accuracy, F1, recall, precision — Table 2 (in-distribution), Table 3 (out-of-distribution)"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "code released (github.com/IBM/Adversarial-Prompt-Evaluation); per-item outcomes not published"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "single-defense evaluation only"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "no stacked configuration measured"
+    uncertainty_reported:
+      value: "unstated"
+      evidence: "not recorded in this examination"
+    raw_data_available: "via released code (re-run required)"
+    code_available: "https://github.com/IBM/Adversarial-Prompt-Evaluation"
+    combination_prose:
+      quote: "Off-loading the detection of all such vectors to one guardrail is a significant challenge"
+      location: "discussion/conclusion"
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      Fifteen defenses on identical prompt pools with released code — the
+      census's clearest one-re-run-away case — and the paper that says no
+      single guardrail suffices still publishes no statistic about more
+      than one.
+    source_passages:
+      - "Table 2 — DeBERTa 0.996 AUC vs ProtectAI v2 0.569 AUC (in-distribution)"
+      - "Table 3 — Perplexity 0.824 AUC / 0.001 F1 (out-of-distribution collapse)"
+      - "conclusion — 'Currently, there is no one-size-fits-all solution'"
+    contact_route: "giulio.zizzo2@ibm.com; GitHub issues on IBM/Adversarial-Prompt-Evaluation"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: null
+
+  - id: neuraltrust-2025
+    status: examined
+    title: "Benchmarking Jailbreak Detection Solutions for LLMs"
+    authors_or_org: "Ayoub El Qadi — NeuralTrust"
+    publication_date: "2025-04-30"
+    primary_url: "https://neuraltrust.ai/blog/benchmarking-jailbreak-detection-solutions-for-llms"
+    task: "jailbreak detection (prompt classification)"
+    dataset_population: >
+      A private set of 400 prompts (200/200) and a public set of ~600
+      (JailbreakBench JBB-Behaviors 200 plus GuardrailsAI detect-jailbreak
+      100 jailbreak / 300 benign).
+    n_items: "~1,000 across two sets"
+    n_systems: 3
+    systems: ["Amazon Bedrock Guardrails", "Azure jailbreak detection", "NeuralTrust"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "same items per dataset across all three systems"
+    same_event_definition:
+      value: "yes"
+      evidence: "jailbreak/benign against common labels"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "vendor defaults"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "all three scored per set; no gating"
+    per_system_metrics: "accuracy, F1, execution time per system per dataset (in-post tables)"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "no data or outputs released; private set unpublished"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "no overlap analysis"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "no stacked configuration measured"
+    uncertainty_reported:
+      value: "no"
+      evidence: "point metrics only"
+    raw_data_available: "no"
+    code_available: "no"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      Three commercial systems on shared sets, marginals only; the
+      vendor's own product wins, by the largest margin on its own private
+      set — provenance recorded, joint statistics absent either way.
+    source_passages:
+      - "results table — NeuralTrust 0.908 acc / 0.897 F1 (private) vs Bedrock 0.615 / 0.296"
+      - "public-set table — Azure 0.610 acc / 0.510 F1"
+    contact_route: "neuraltrust.ai/contact"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: "Vendor-run benchmark; caveat recorded in the reason."
+
+  - id: llamafirewall-2025
+    status: examined
+    title: "LlamaFirewall: An open source guardrail system for building secure AI agents"
+    authors_or_org: "Chennabasappa et al. — Meta"
+    publication_date: "2025-05-06"
+    primary_url: "https://arxiv.org/abs/2505.03574"
+    task: "agent security guardrails: prompt-injection detection and agent-alignment checking"
+    dataset_population: >
+      AgentDojo: 97 tasks × static traces from ten language models × two
+      conditions (benign and injected) ≈ 1,940 traces; CodeShield is
+      evaluated separately on CyberSecEval3-derived code completions.
+    n_items: "~1,940 AgentDojo traces"
+    n_systems: 2
+    systems: ["PromptGuard 2 86M", "AlignmentCheck (Llama 4 Maverick)"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "both components scored on the same AgentDojo traces; each monitors its role's messages within the shared traces"
+    same_event_definition:
+      value: "yes"
+      evidence: "attack success (ASR) and utility on the same task suite"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "components at their shipped operating points"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "both run over the full trace set; the combined row composes them"
+    per_system_metrics: "ASR and utility per configuration — baseline .1763, PromptGuard .0753, AlignmentCheck .0289 (Sec. 4.3.2 table)"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "framework code released; per-trace outcomes not published"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "no overlap decomposition beyond the combined row"
+    union_detection_reported:
+      value: "no"
+      evidence: "the combined row reports residual attack success, not a union-of-catches statistic as such"
+    all_miss_rate_reported:
+      value: "yes"
+      evidence: "Combined (PromptGuard + AlignmentCheck) ASR .0175 is the fraction of attacks succeeding past both layers — an all-miss statistic on the attack set"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "component-vs-combined printed; per-layer residual attribution not decomposed"
+    sequential_gating_modeled:
+      value: "unstated"
+      evidence: "combined deployment semantics stated as both active; per-stage gating not separately analyzed"
+    uncertainty_reported:
+      value: "no"
+      evidence: "point estimates only; no confidence intervals"
+    raw_data_available: "no"
+    code_available: "https://github.com/meta-llama/PurpleLlama/tree/main/LlamaFirewall"
+    combination_prose: null
+    joint_statistic_evidence: >
+      Section 4.3.2 table: rows for baseline, each component alone, and
+      "Combined (PromptGuard + AlignmentCheck)" — ASR .0175 and utility
+      .4268 on the same AgentDojo traces.
+    joint_scope: printed_full_stack
+    classification: PRESENT
+    classification_reason: >
+      A genuinely printed stacked row — both evaluated components combined
+      on the same items, with the stack's residual attack success beside
+      each component's. Scope caveats: both components are the same
+      vendor's, from the framework under evaluation; CodeShield (the third
+      framework component) is evaluated on a different dataset and is not
+      in the combined row; no uncertainty is reported.
+    source_passages:
+      - "Sec. 4.3.2 table — 'Combined (PromptGuard + AlignmentCheck)' ASR .0175, utility .4268"
+      - "'combined setup using both PromptGuard 2 86M and AlignmentCheck powered with Llama 4 Maverick'"
+    contact_route: "Meta PurpleLlama GitHub issues"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: >
+      Added from the snowball hop. The only census row printing a
+      full-stack all-miss-type statistic — and it is a single vendor
+      measuring its own two components.
+
+  - id: circleguardbench-2025
+    status: examined
+    title: "CircleGuardBench"
+    authors_or_org: "White Circle AI"
+    publication_date: "2025-05-07"
+    primary_url: "https://huggingface.co/blog/whitecircle/circleguardbench"
+    task: "harmful-content blocking, jailbreak resistance, false positives, and runtime across 17 harm categories"
+    dataset_population: >
+      Public split gated behind a license at
+      huggingface.co/datasets/whitecircle-ai/circleguardbench_public; item
+      count not stated in the announcement or repo pages examined.
+    n_items: "unstated in examined pages"
+    n_systems: "at least 7 named"
+    systems: ["White Circle guard models (2)", "Llama Guard", "OpenAI Moderation", "Google Moderation API", "GPT-4o-mini judges (CoT/strict)", "ShieldGemma", "PromptGuard"]
+    same_items_for_all_systems:
+      value: "unstated"
+      evidence: "a single harness implies common items; not explicitly confirmed in examined pages"
+    same_event_definition:
+      value: "unstated"
+      evidence: "leaderboard macro-averages across metric types; per-metric event definitions not examined"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "not addressed in examined pages"
+    all_systems_saw_all_items:
+      value: "unstated"
+      evidence: "not addressed in examined pages"
+    per_system_metrics: "accuracy, recall, precision, F1, error ratio, avg runtime, and an 'integral score' — leaderboard tables"
+    item_level_outcomes_released:
+      value: "unstated"
+      evidence: "not found in examined pages; dataset gated"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "leaderboard is single-system rows"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "no stacked configuration found"
+    uncertainty_reported:
+      value: "unstated"
+      evidence: "not addressed in examined pages"
+    raw_data_available: "gated public split on HuggingFace"
+    code_available: "GitHub whitecircle/circle-guard-bench"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      No joint statistic appears on the leaderboard or announcement; many
+      comparability fields remain unstated (recorded as such), so this row
+      counts in N but not in M.
+    source_passages:
+      - "blog — integral score combines 'accuracy and runtime performance'"
+      - "repo — 17 harm categories; leaderboard with macro-average metrics"
+    contact_route: "hello@whitecircle.ai; GitHub whitecircle/circle-guard-bench"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: >
+      Vendor-run leaderboard (the vendor's own models top it); the
+      leaderboard app was not fully machine-readable in this pass.
+
+  - id: unit42-genai-platform-2025
+    status: examined
+    title: "How Good Are the LLM Guardrails on the Market? A Comparative Study on the Effectiveness of LLM Content Filtering Across Major GenAI Platforms"
+    authors_or_org: "Huang, Bray, Rao, Ji, Hu — Palo Alto Networks Unit 42"
+    publication_date: "2025-06-02"
+    primary_url: "https://unit42.paloaltonetworks.com/comparing-llm-guardrails-across-genai-platforms/"
+    task: "platform-level content-filter effectiveness: jailbreak blocking and benign false positives"
+    dataset_population: >
+      1,123 prompts — 1,000 benign from four public datasets plus 123
+      JailbreakBench-derived jailbreak prompts — run against each
+      platform's filters over the same underlying model.
+    n_items: 1123
+    n_systems: 3
+    systems: ["Platform 1 (anonymized)", "Platform 2 (anonymized)", "Platform 3 (anonymized)"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "ran each platform's content filters on the same prompts"
+    same_event_definition:
+      value: "yes"
+      evidence: "block/pass against common benign/jailbreak ground truth"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "platform default filter configurations"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "full prompt set per platform"
+    per_system_metrics: "false-positive and false-negative counts and block percentages per platform — Tables 1-6"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "no data or outputs released"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "no overlap or Venn analysis"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "platforms evaluated independently"
+    uncertainty_reported:
+      value: "no"
+      evidence: "raw counts only"
+    raw_data_available: "no"
+    code_available: "no"
+    combination_prose:
+      quote: "output guardrails play a crucial complementary role by capturing additional harmful outputs"
+      location: "conclusion (refers to output filters complementing model alignment, not combining vendors)"
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      Per-platform input-filter catch rates near 53%, 91%, and 92% on the
+      same 123 jailbreaks practically beg for a union row; the article
+      never computes one. Platforms are anonymized — distinct and
+      separately reported, but not attributable to named products.
+    source_passages:
+      - "Tables 1-2 — benign/jailbreak block counts per platform"
+      - "Table 6 — model alignment vs output guardrail blocking"
+      - "method — same prompts, all safety filters enabled per platform"
+    contact_route: "Unit 42 contact page"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: >
+      Anonymization limits attribution; recorded because the joint-statistic
+      question applies regardless of naming.
+
+  - id: bells-misuse-2025
+    status: examined
+    title: "The bitter lesson of misuse detection (BELLS evaluation and leaderboard)"
+    authors_or_org: "Mariaccia, Segerie, Dorn — CeSIA"
+    publication_date: "2025-07-08"
+    primary_url: "https://arxiv.org/abs/2507.06282"
+    archived_url: "https://web.archive.org/web/20250710161637/https://arxiv.org/abs/2507.06282"
+    task: "harmful-prompt and jailbreak detection: specialized supervisors versus generalist LLMs on a harm-severity by adversarial-sophistication grid"
+    dataset_population: >
+      Non-adversarial: 990 prompts (330 benign / 330 borderline / 330
+      harmful across 11 harm categories). Adversarial: ~4,165 prompts
+      (narrative, syntactic, and PAIR-generated families; exact splits
+      read from one pass of the paper body). Sources include
+      JailbreakBench, HH-RLHF.
+    n_items: "~5,155"
+    n_systems: 12
+    systems: ["Lakera Guard", "LLM Guard (Protect AI)", "NeMo Guardrails", "LangKit", "Prompt Guard", "Llama-Guard 4 12B (supplementary)", "GPT-4", "Claude 3.5 Sonnet", "Gemini 1.5 Pro", "Mistral Large", "DeepSeek V3", "Grok 2"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "established by table structure and by released per-item CSVs whose rows carry one prompt with all systems' verdicts as columns; not stated as a sentence"
+    same_event_definition:
+      value: "yes"
+      evidence: "common harm taxonomy and harm-level labels across systems"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "vendor defaults, binary verdicts, no calibration"
+    all_systems_saw_all_items:
+      value: "mixed"
+      evidence: "unstated globally; verified on the released per-item subset where every row has all systems' verdicts"
+    per_system_metrics: "detection rate, adversarial detection rate, FPR, BELLS score with intervals (Table 1); per-harm-category detection (Table 2)"
+    item_level_outcomes_released:
+      value: "mixed"
+      evidence: >
+        partial release: bells_leaderboard repo data/
+        non_adversarial_prompts.csv holds 170 prompts with 11 systems'
+        binary verdicts as columns (plus 8 adversarial prompts) — about
+        3.5% of the population; the full dataset is available only by
+        contacting the authors (Appendix 0.C).
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "not reported anywhere; computable from the released subset"
+    union_detection_reported:
+      value: "no"
+      evidence: "not reported"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "not reported"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "not reported"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "no stacked configuration measured"
+    uncertainty_reported:
+      value: "yes"
+      evidence: "interval bounds on BELLS scores and rates (Table 1); method under-specified"
+    raw_data_available: "https://github.com/CentreSecuriteIA/bells_leaderboard (per-item subset in data/); full set by author contact"
+    code_available: "leaderboard repository above"
+    combination_prose:
+      quote: "combining multiple LLMs or using voting mechanisms"
+      location: "leaderboard site FAQ (a voting scaffold is mentioned, unmeasured)"
+    joint_statistic_evidence: >
+      No joint statistic is printed. The released per-item verdict columns
+      (170 non-adversarial + 8 adversarial prompts, 11 systems) make
+      union, all-miss, and every intersection directly computable on that
+      subset.
+    joint_scope: computable_via_item_release
+    classification: PRESENT
+    classification_reason: >
+      PRESENT solely through the partial per-item release: joint
+      statistics are computable on the released ~3.5% subset (178 items,
+      all-systems columns), which is a real but small exception — nothing
+      joint is printed, and the headline population's outcomes remain
+      unreleased. The subset sizes are stated wherever this row is cited.
+    source_passages:
+      - "Table 1 — 11 systems, BELLS score with intervals (marginals)"
+      - "Appendix 0.C — 'raw data at our leaderboard GitHub repository'"
+      - "data/non_adversarial_prompts.csv header — per-system verdict columns"
+    contact_route: "dataset by contacting the authors (Appendix 0.C); GitHub issues on CentreSecuriteIA/bells_leaderboard; cesia.org contact"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: >
+      The leaderboard site (centresecuriteia.github.io/bells_leaderboard)
+      predates the paper's arXiv posting; adversarial split counts were
+      read once and are held loosely — corrections invited.
+
+  - id: bells-o-2026
+    status: examined
+    title: "BELLS-O: Evaluating the Operational Trade-offs of LLM Supervision Systems"
+    authors_or_org: "Waibl (Univ. Graz; SPAR), Michalak (SPAR), Mariaccia (CeSIA)"
+    publication_date: "2026-06-12"
     primary_url: "https://arxiv.org/abs/2606.20668"
+    archived_url: "https://web.archive.org/web/20260731225012/https://arxiv.org/abs/2606.20668"
+    task: "operational comparison (detection, FPR, latency, cost) of specialized guardrails and frontier LLMs used as supervisors: content moderation and jailbreak detection"
+    dataset_population: >
+      Content moderation input: 1,400 samples (100 per 11 harm categories
+      plus 300 benign). Content moderation output: 1,300 synthetic pairs.
+      Jailbreak: 6,406 samples from 720 base prompts across 13 jailbreak
+      families, plus four external sets.
+    n_items: "9,106 core (+4 external sets)"
+    n_systems: 28
+    systems: ["Qwen3Guard-Gen-8B", "PolyGuard-Qwen", "PolyGuard-Ministral", "Granite-Guardian-3.3-8B", "WildGuard", "Lakera Guard", "GPT-OSS-Safeguard-20B", "LionGuard-2", "Llama-3.1-Nemotron-Safety-Guard-8B-v3", "XGuard", "ThinkGuard", "OpenAI Omni-Moderation", "AWS Bedrock Guardrail", "VirtueGuard-Text-Lite", "Llama-Guard-4-12B", "ShieldGemma-27B", "ShieldGemma-2B", "GPT-5.2", "GPT-5.4", "GPT-5-Nano", "GPT-OSS-120B", "Claude Sonnet 4.5", "Claude Sonnet 4.6", "Claude Haiku 4.5", "Grok-4.1-Fast", "Gemini-2.5-Flash", "Mistral-Large-2512", "Ministral-3B-2512"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "'on identical input/output and adversarial workloads' under a single evaluation harness"
+    same_event_definition:
+      value: "yes"
+      evidence: "per-system result mappers binarize each vendor's output to the common verdict"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "vendor defaults through the mappers; no calibration"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "one evaluation pass per supervisor over the workloads; no gating"
+    per_system_metrics: "detection rate, FPR, latency, and cost per supervisor — Tables 8-10 (Appendix C.2); per-category Tables 13-14; Pareto frontier Figure 2"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: >
+        the harness writes one JSON per prompt when a user runs it, but
+        the authors' own per-item outcomes are not published — repo tree
+        has no results directory (225 paths checked) and the leaderboard
+        ships aggregate metrics JSONs only.
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "every table row is a single supervisor"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found; the Pareto frontier is over individual systems"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "closest is per-dataset minima (detection dropping below 34.2%), which is a marginal"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "single-supervisor evaluation by design"
+    uncertainty_reported:
+      value: "mixed"
+      evidence: "one evaluation pass per supervisor (stated limitation) — no detection CIs; leaderboard JSON carries latency CIs only"
+    raw_data_available: "datasets gated at huggingface.co/centrepourlasecuriteia; aggregate metrics in the leaderboard space files"
+    code_available: "https://github.com/CentreSecuriteIA/BELLS-O (PolyForm Noncommercial 1.0.0)"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      The largest and most recent supervisor comparison found — exactly
+      28 systems from 17 providers on identical workloads under one
+      harness — and every published number is per-supervisor. Per-item
+      outcomes exist privately by construction (the harness's own output
+      format), so a release would flip this row to computable.
+    source_passages:
+      - "introduction — 'We instrument 28 supervisors from 17 providers'"
+      - "Tables 8-10, Appendix C.2 — detection/FPR/latency/cost leaderboards (marginals)"
+      - "Appendix G — 'one evaluation pass per supervisor'"
+    contact_route: "hadrien [at] cesia [dot] org (printed); GitHub issues on CentreSecuriteIA/BELLS-O"
     last_checked: "2026-08-27"
+    correction_history: []
     notes: >
-      Under primary-source examination. The arXiv identifier above is a
-      working reference and is itself being verified; the row will bind to
-      whatever the primary source actually is, and split into multiple rows
-      if the framework paper and a successor evaluation are distinct
-      artifacts.
+      The starting brief's "28 guardrails from 17 providers" is confirmed
+      on counts but mislabeled: roughly 11 of the 28 are frontier LLMs
+      repurposed as supervisors, not guardrail products. The systems list
+      here is assembled from the paper's own Tables 8-10 in one reading
+      pass and is held loosely — the paper's stated count (28 from 17) is
+      the verified fact; name-level corrections are invited.
 
-  - id: multimodal-safeguard-benchmark
-    status: under_review
-    title: "Multimodal safeguard benchmark (working name; acronym unresolved)"
-    authors_or_org: null
-    primary_url: null
+  - id: wainjectbench-2025
+    status: examined
+    title: "WAInjectBench: Benchmarking Prompt Injection Detections for Web Agents"
+    authors_or_org: "Liu, Xu, Wang, Jia, Gong — Duke University"
+    publication_date: "2025-10-01"
+    primary_url: "https://arxiv.org/abs/2510.01354"
+    task: "prompt-injection detection for web agents, text and image modalities"
+    dataset_population: >
+      Text: 991 malicious segments (601 with explicit instructions) plus
+      2,707 benign. Image: 2,022 malicious plus 948 benign.
+    n_items: "6,668 across both modalities"
+    n_systems: 12
+    systems: ["KAD", "PromptArmor", "Embedding-T", "PromptGuard", "DataSentinel", "Ensemble-T", "GPT-4o-Prompt", "LLaVA-1.5-7B-Prompt", "JailGuard", "Embedding-I", "LLaVA-1.5-7B-FT", "Ensemble-I"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "all detectors of a modality run on the same malicious and benign sets (Tables 5-7)"
+    same_event_definition:
+      value: "yes"
+      evidence: "malicious/benign against common labels per modality"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "detectors at native decision rules"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "full per-modality sets for every detector; no gating"
+    per_system_metrics: "TPR per attack category and FPR per benign category, per detector — Tables 5-7"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "datasets and code released (github.com/Norrrrrrr-lyn/WAInjectBench); per-item result files not identified — outcomes reproducible by re-run"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "no pairwise decomposition; ensemble rows only"
+    union_detection_reported:
+      value: "yes"
+      evidence: "Ensemble-T and Ensemble-I rows are OR-rule unions over all base detectors of the modality — TPR in Tables 5-6, FPR in Table 7"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "not framed or reported as an all-miss rate (the union TPR's complement covers the member set, unstated)"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "parallel OR-rule, not sequential"
+    uncertainty_reported:
+      value: "unstated"
+      evidence: "not recorded in this examination"
+    raw_data_available: "https://github.com/Norrrrrrr-lyn/WAInjectBench"
+    code_available: "https://github.com/Norrrrrrr-lyn/WAInjectBench"
+    combination_prose: null
+    joint_statistic_evidence: >
+      Section 5.3 ("if any detector flags the sample as malicious, the
+      ensemble classifies it as malicious") with Ensemble-T and Ensemble-I
+      rows in Tables 5-7, covering all base detectors of each modality;
+      verified against the full text.
+    joint_scope: printed_full_stack
+    classification: PRESENT
+    classification_reason: >
+      The cleanest printed union in the census: OR-ensembles over all base
+      detectors of each modality, with both TPR and FPR reported on shared
+      items. Members are academic and open-source detectors; no commercial
+      guardrail products are in the union.
+    source_passages:
+      - "Sec. 5.3 — 'if any detector flags the sample as malicious, the ensemble classifies it as malicious'"
+      - "Tables 5-7 — TPR/FPR including Ensemble-T and Ensemble-I rows"
+    contact_route: "yinuo.liu@duke.edu and coauthors (printed); GitHub issues"
     last_checked: "2026-08-27"
+    correction_history: []
     notes: >
-      Under primary-source examination. Previously cited from memory as
-      "MSBench" with two pairwise ensemble rows; neither the name nor the
-      ensemble rows are trusted until the primary source is located and
-      read. If no such artifact exists, this row is removed and the
-      removal recorded in the revision history.
+      Scope is web-agent prompt injection, not general moderation.
 
-exclusions: []
+  - id: domyn-open-guards-2026
+    status: examined
+    title: "Benchmarking Open-Source Safety Guard Models: A Comprehensive Evaluation"
+    authors_or_org: "Harsh, Sarmah, Pasquali — Domyn"
+    publication_date: "2026-04-10"
+    primary_url: "https://arxiv.org/abs/2605.28830"
+    task: "harmful-content detection across eight NIST-mapped safety subcategories"
+    dataset_population: >
+      79,331 items filtered from HarmBench (103), StrongREJECT (154),
+      RealToxicityPrompts (67,521), and BeaverTails (11,553).
+    n_items: 79331
+    n_systems: 14
+    systems: ["Qwen Guard 4B", "Nemotron Safety 8B", "WildGuard 7B", "MD-Judge 7B", "Granite Guardian 8B", "DynaGuard 8B", "DuoGuard 0.5B", "Llama Guard 12B", "ShieldGemma 2B", "GPT-OSS Safeguard 20B", "GuardReasoner 3B", "EthicalEye 270M", "PoliteGuard 110M", "MetaHateBERT 110M"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "same filtered pool for all fourteen models (evaluation design)"
+    same_event_definition:
+      value: "yes"
+      evidence: "harmful/not-harmful against common labels"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "native decision rules; recall emphasized as the safety metric"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "full pool per model; no gating"
+    per_system_metrics: "recall, precision, F1, accuracy overall (Sec. 4.2 ranked table) plus per-category breakdowns (Sec. 4.4)"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "no code repository or output release found"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "no overlap analysis"
+    union_detection_reported:
+      value: "no"
+      evidence: "none found"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "none found"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "no such decomposition"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "models evaluated independently"
+    uncertainty_reported:
+      value: "unstated"
+      evidence: "not recorded in this examination"
+    raw_data_available: "no"
+    code_available: "no"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      The largest same-items open-guard comparison found — fourteen
+      models on 79,331 shared items — and every published number is a
+      marginal.
+    source_passages:
+      - "overall table — Qwen Guard recall 0.8397 through MetaHateBERT recall 0.1579"
+      - "'Recall is the critical metric for safety applications'"
+    contact_route: "reeturaj.harsh@domyn.com; bhaskarjit.sarmah@domyn.com; stefano.pasquali@domyn.com"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: null
 
-unexamined_candidates: []
+  - id: truefoundry-2026
+    status: examined
+    title: "Benchmarking LLM Guardrail Providers: A Data-Driven Comparison"
+    authors_or_org: "Kashish Kumar — TrueFoundry"
+    publication_date: "printed 2026-05-19; a Wayback capture of the same URL exists from 2026-03-13, so the printed date is unreliable"
+    primary_url: "https://www.truefoundry.com/blog/benchmarking-llm-guardrail-providers"
+    archived_url: "https://web.archive.org/web/20260313043347/https://www.truefoundry.com/blog/benchmarking-llm-guardrail-providers"
+    task: "PII detection, content moderation, and prompt-injection detection through the TrueFoundry AI Gateway"
+    dataset_population: >
+      Three hand-curated, category-balanced sets of 400 samples each
+      (~50/50 positive/negative), one per task; not released.
+    n_items: "1,200 (400 per task)"
+    n_systems: 5
+    systems: ["Azure PII (PII table only)", "OpenAI Moderation omni-moderation-latest", "Azure Content Safety", "PromptFoo", "Pangea (prompt-injection table only)"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "'evaluated against identical datasets through the TrueFoundry AI Gateway' — within each task; only the content-moderation table has multiple systems"
+    same_event_definition:
+      value: "no"
+      evidence: "'Each sample carries per-provider ground truth labels (expected_triggers)' — providers are scored against different label sets"
+    thresholds_comparable:
+      value: "unstated"
+      evidence: "provider default configurations via the gateway"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "identical items within each task's table"
+    per_system_metrics: "precision, recall, F1, accuracy, Wilson 95% CI, latency — one table per task"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "no data, code, or raw results linked"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "nowhere"
+    union_detection_reported:
+      value: "no"
+      evidence: "nowhere"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "nowhere"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "nowhere"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "gateway supports input and output stages, but no stacked configuration is measured"
+    uncertainty_reported:
+      value: "yes"
+      evidence: "Wilson 95% CI column in every results table"
+    raw_data_available: "no"
+    code_available: "no"
+    combination_prose:
+      quote: "or combine multiple providers for defense-in-depth"
+      location: "Key Takeaways bullet"
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: NOT_COMPARABLE
+    classification_reason: >
+      Identical items but per-provider ground truth: each provider is
+      scored against its own expected_triggers labels, so the
+      cross-provider ranking is not a same-event comparison and a union
+      or all-miss statistic over these marginals would be ill-defined.
+      The blog recommends combining providers for defense in depth
+      without measuring any combination.
+    source_passages:
+      - "'Evaluation Methodology' — 'evaluated against identical datasets through the TrueFoundry AI Gateway'"
+      - "'Design decisions' — 'Each sample carries per-provider ground truth labels (expected_triggers)'"
+      - "'Provider Comparison Results' — content moderation table (3 systems)"
+      - "'Key Takeaways' — 'combine multiple providers for defense-in-depth'"
+    contact_route: "TrueFoundry site forms (no author email printed)"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: >
+      Only the content-moderation table compares multiple systems (3);
+      the PII and prompt-injection tables are single-provider.
+
+  - id: ml6-2026
+    status: examined
+    title: "Inside AI Guardrails: a benchmark on enterprise LLM security"
+    authors_or_org: "Cristóbal Sendín — ML6 (contributors Vrancken, Wehkamp, Van Der Burght)"
+    publication_date: "2026-06-22 (updated 2026-06-24)"
+    primary_url: "https://www.ml6.eu/en/blog/inside-ai-guardrails-a-benchmark-on-enterprise-llm-security"
+    task: "Dutch-language security filtering (prompt injection, policy bypass, safety) by enterprise guardrail APIs"
+    dataset_population: >
+      Approximately 80,000 curated Dutch prompts, 63/37 benign/harmful,
+      built from internal red-teaming and enterprise interaction
+      patterns; not released.
+    n_items: "~80,000 (approximate, as stated)"
+    n_systems: 4
+    systems: ["AWS Bedrock Guardrails", "Azure (Content Safety + Prompt Shield, reported as one row)", "Cisco AI Defense", "Google Cloud Model Armor"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: "implied rather than formally stated: one dataset, and the latency section reports each provider's processing time for 'the full dataset'"
+    same_event_definition:
+      value: "yes"
+      evidence: "one benign/harmful ground truth from the 63/37 split; no per-provider labels"
+    thresholds_comparable:
+      value: "no"
+      evidence: "'default or near-default security configurations'; no calibration; false-positive rates span 6.9%-15.5%"
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: "each provider processed the full dataset (latency section)"
+    per_system_metrics: "precision, recall, F1, false-positive %, false-negative % (Table 1); recall-vs-FPR scatter (Figure 1); wall-clock processing time"
+    item_level_outcomes_released:
+      value: "no"
+      evidence: "no repository, data, or per-prompt outputs"
+    pairwise_intersections_reported:
+      value: "no"
+      evidence: "nowhere"
+    union_detection_reported:
+      value: "no"
+      evidence: "nowhere"
+    all_miss_rate_reported:
+      value: "no"
+      evidence: "nowhere"
+    residual_coverage_reported:
+      value: "no"
+      evidence: "nowhere"
+    sequential_gating_modeled:
+      value: "no"
+      evidence: "providers evaluated independently"
+    uncertainty_reported:
+      value: "no"
+      evidence: "no confidence intervals or error bars anywhere"
+    raw_data_available: "no"
+    code_available: "no"
+    combination_prose: null
+    joint_statistic_evidence: "none found"
+    joint_scope: none
+    classification: ABSENT
+    classification_reason: >
+      Four enterprise providers, one ~80,000-prompt dataset, marginals
+      only — and the Azure row is itself an undisclosed two-component
+      stack (Content Safety plus Prompt Shield reported as one number,
+      combination rule unstated): a stack reported as a marginal.
+    source_passages:
+      - "Table 1 — four provider rows (AWS, Azure, Cisco, Google), marginals only"
+      - "'How did we compare the four providers?' — 'approximately 80,000 Dutch prompts'"
+      - "'How fast are these guardrails in practice?' — 'processing times for the full dataset'"
+      - "Executive summary — 'Cisco AI Defense achieved the best F1-score (0.845)'"
+    contact_route: "https://www.ml6.eu/en/contact (no author emails printed)"
+    last_checked: "2026-08-27"
+    correction_history: []
+    notes: >
+      No Wayback snapshot existed as of 2026-08-27 (availability API and
+      CDX both empty) — the page should be archived before it is cited
+      further. An earlier working assumption that ML6's harness
+      "necessarily computed" the union was wrong and is rejected: nothing
+      in the post shows per-item retention or any union computation.
+
+exclusions:
+  - id: unsafebench-2024
+    title: "UnsafeBench: Benchmarking Image Safety Classifiers on Real-World and AI-Generated Images (Qu et al., CISPA — arXiv 2405.03486)"
+    primary_url: "https://arxiv.org/abs/2405.03486"
+    reason: >
+      Fails frozen domain criterion 5: it evaluates image safety
+      classifiers guarding image-generation platforms, not guardrails
+      around LLM systems. Recorded loudly rather than quietly, because it
+      is the strongest joint-statistic reporter the search found anywhere:
+      Tables 5 and 12 print six OR-rule ensemble rows (four pairwise, one
+      three-way, one five-way over the conventional classifiers,
+      'the image is unsafe if any classifier in the ensemble reports it'),
+      as F1, with no all-miss or overlap decomposition. A census with a
+      broader multimodal-moderation domain would count it PRESENT. This is
+      also the artifact previously misremembered as "MSBench with two
+      pairwise ensemble rows" — the acronym was wrong and the ensemble
+      count is six, not two.
+    last_checked: "2026-08-27"
+  - id: bells-framework-2024
+    title: "BELLS: A Framework Towards Future Proof Benchmarks for the Evaluation of LLM Safeguards (arXiv 2406.01364)"
+    primary_url: "https://arxiv.org/abs/2406.01364"
+    reason: >
+      Framework and position paper: reviews safeguards narratively and
+      instantiates one MACHIAVELLI-based detector baseline, but contains
+      no separately attributable multi-system evaluation — fails criteria
+      2 and 3. The empirical BELLS artifacts are separate rows above.
+    last_checked: "2026-08-27"
+  - id: jailbreakbench
+    title: "JailbreakBench"
+    primary_url: "https://github.com/JailbreakBench/jailbreakbench"
+    reason: >
+      Scores attack success against target LLMs with generic defenses —
+      base-model robustness, not separately attributable guard systems.
+    last_checked: "2026-08-27"
+  - id: galileo-platforms-roundup-2026
+    title: "5 Best AI Guardrails Platforms Compared in 2026 (Galileo blog)"
+    primary_url: "https://galileo.ai/blog/best-ai-guardrails-platforms"
+    reason: "marketing round-up; no common-dataset measurements evident"
+    last_checked: "2026-08-27"
+  - id: wavespeed-moderation-roundup-2026
+    title: "Best AI Content Moderation APIs and Tools in 2026 (WaveSpeed)"
+    primary_url: "https://wavespeed.ai/blog/posts/best-ai-content-moderation-apis-tools-2026/"
+    reason: "marketing listicle; no measurements"
+    last_checked: "2026-08-27"
+  - id: estha-moderation-roundup
+    title: "12 Best AI Content Moderation APIs Compared (Estha)"
+    primary_url: "https://estha.ai"
+    reason: "feature comparison; no measured common evaluation"
+    last_checked: "2026-08-27"
+  - id: evolink-moderation-roundup
+    title: "Best Content Moderation APIs Compared for Developers (Evolink)"
+    primary_url: "https://evolink.ai/blog/best-content-moderation-api"
+    reason: "marketing listicle; no measurements"
+    last_checked: "2026-08-27"
+  - id: openrouter-compare-guard-models
+    title: "OpenRouter model comparison pages (e.g. Gemma vs Llama Guard)"
+    primary_url: "https://openrouter.ai"
+    reason: "spec-sheet comparison; no evaluation"
+    last_checked: "2026-08-27"
+  - id: general-llm-leaderboards
+    title: "General LLM leaderboards surfaced by the queries (benchlm.ai, iternal.ai)"
+    primary_url: "https://benchlm.ai"
+    reason: "base-LLM benchmarks, not guardrail systems"
+    last_checked: "2026-08-27"
+
+unexamined_candidates:
+  - title: "OpenGuardrails (claims comparison vs Qwen3Guard, LlamaFirewall, PromptGuard 2, OpenAI Moderation)"
+    url: "https://arxiv.org/abs/2510.19169"
+  - title: "Qwen3Guard Technical Report"
+    url: "https://arxiv.org/abs/2510.14276"
+  - title: "Granite Guardian (plus IBM blog on topping GuardBench)"
+    url: "https://arxiv.org/abs/2412.07724"
+  - title: "OneShield (IBM)"
+    url: "https://arxiv.org/abs/2507.21170"
+  - title: "GuardReasoner-Omni"
+    url: "https://arxiv.org/abs/2602.03328"
+  - title: "SafePyramid"
+    url: "https://arxiv.org/abs/2606.29887"
+  - title: "Prompt Injection Detection is Regime-Dependent: A Deployment-Aware Evaluation"
+    url: "https://arxiv.org/abs/2605.26999"
+  - title: "GuardNet (ensemble strategies for injection/jailbreak detection — title suggests possible joint statistics)"
+    url: "https://arxiv.org/abs/2606.05566"
+  - title: "Evaluating the Robustness of LLM Safety Guardrails Against Adversarial Attacks"
+    url: "https://arxiv.org/abs/2511.22047"
+  - title: "SALAD-Bench / MD-Judge"
+    url: "https://arxiv.org/abs/2402.05044"
+  - title: "JailDAM (VLM jailbreak detection with multiple baselines)"
+    url: "https://arxiv.org/abs/2504.03770"
+  - title: "AI Safety Directory: OpenAI Moderation API vs Azure AI Content Safety (2026) — provenance of its numbers unclear"
+    url: "https://aisecurityandsafety.org/en/compare/openai-moderation-api-vs-azure-ai-content-safety/"
+  - title: "Lakera: Assessing GenAI Security Solutions in the Wild with PINT (event page)"
+    url: "https://www.lakera.ai/event/assessing-genai-security-solutions-in-the-wild-with-pint"
+  - title: "Maxim: Complete AI Guardrails Implementation Guide for 2026 (mentions Bifrost's five integrated guardrail providers)"
+    url: "https://www.getmaxim.ai/articles/the-complete-ai-guardrails-implementation-guide-for-2026/"
+  - title: "GuardBench leaderboard (extends the paper's comparison to newer guards)"
+    url: "https://huggingface.co/spaces/AmenRa/guardbench-leaderboard"

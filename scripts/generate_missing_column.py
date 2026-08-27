@@ -190,8 +190,8 @@ LABELS = {
     "NOT_COMPARABLE": ("not comparable", "state-ambiguous"),
 }
 SCOPE_LABELS = {
-    "printed_full_stack": "full stack, printed",
-    "printed_pairwise_only": "pairwise only, printed",
+    "printed_full_stack": "printed — covers the evaluated stack",
+    "printed_partial_stack": "printed — covers part of the evaluated set",
     "computable_via_item_release": "computable — per-item outcomes released",
     "none": "",
 }
@@ -228,7 +228,7 @@ def render_headline(census: dict, counts: dict) -> str:
     proposition = re.sub(r"\s+", " ", proposition.strip())
     scopes = counts["present_by_scope"]
     scope_bits = []
-    for key in ("printed_full_stack", "printed_pairwise_only",
+    for key in ("printed_full_stack", "printed_partial_stack",
                 "computable_via_item_release"):
         if scopes.get(key):
             scope_bits.append(f'{scopes[key]} {SCOPE_LABELS[key]}')
