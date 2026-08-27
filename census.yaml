@@ -1,0 +1,195 @@
+# Missing Column Census — cubits11.github.io · census schema v1
+#
+# The source of truth for the public claim that guardrail evaluations
+# publish per-system results without the joint statistic a deployed stack
+# needs. /missing-column/ is GENERATED from this file by
+# scripts/generate_missing_column.py; scripts/verify_census.py checks the
+# shape of every row and recomputes the headline counts. The headline is
+# whatever this file supports — never the other way around.
+#
+# The census is itself a claim, so it follows the registry's discipline:
+# criteria frozen BEFORE the search, every row bound to its primary source,
+# ambiguity recorded as AMBIGUOUS rather than resolved by preference, and a
+# correction history that lives in the artifact it corrects.
+#
+# Row lifecycle:
+#   under_review — named, sourced, not yet classified; excluded from every
+#                  count and rendered in a separate "under examination" zone
+#   examined     — fully classified against the frozen criteria; counted
+#
+# Classification (exactly one per examined row):
+#   PRESENT        — reports at least one item-level joint statistic over
+#                    two or more of the evaluated systems (union detection,
+#                    all-miss rate, pairwise intersection of misses or
+#                    catches, residual coverage, or an ensemble-of-guards
+#                    row), or releases per-item outcomes from which such a
+#                    statistic is directly computable.
+#   ABSENT         — establishes comparable per-system results but reports
+#                    no joint statistic and releases no per-item outcomes.
+#   AMBIGUOUS      — examined, but the public record does not determine
+#                    whether a joint statistic is reported or computable;
+#                    the row states exactly what would resolve it.
+#   NOT_COMPARABLE — comparability is claimed or implied by the artifact
+#                    but fails on inspection (different items, events,
+#                    thresholds, or gating), so a joint statistic over the
+#                    published marginals would not be meaningful.
+#
+# joint_scope (for PRESENT rows; "none" otherwise):
+#   printed_full_stack          — a joint statistic over all evaluated
+#                                 systems appears in the artifact
+#   printed_pairwise_only       — printed joint statistics cover only
+#                                 pairs (or proper subsets), never the
+#                                 full evaluated set
+#   computable_via_item_release — per-item outcomes are public, so any
+#                                 joint statistic is computable even if
+#                                 none is printed
+#
+# Headline counts, recomputed by verify_census.py and the generator:
+#   N — examined rows (all classifications)
+#   M — examined rows with same_items_for_all_systems: yes AND
+#       same_event_definition: yes (comparable per-system results on a
+#       shared item set)
+#   K — examined rows classified PRESENT
+#   K is further split by joint_scope wherever it is displayed. "None" is
+#   never used in public copy when K > 0.
+
+census:
+  id: MC-CENSUS-001
+  schema_version: 1
+  criteria_version: 1
+  frozen_as_of: "2026-08-27"
+  maintainer: Pranav Bhave
+  question: >
+    Teams deploy guardrails in stacks. Public evaluations usually compare
+    them one at a time. Which public evaluations report the joint result —
+    what the stack catches, and what slips past every layer — rather than
+    only per-system marginals?
+  proposition_template: >
+    As of {as_of}, among {N} public guardrail evaluations meeting the
+    frozen inclusion criteria (v{criteria_version}), {M} establish
+    comparable per-system results on a shared item set, and {K} publish at
+    least one item-level joint statistic for a combination of the systems
+    they evaluate.
+  inclusion_criteria:
+    - key: public_access
+      text: publicly accessible without payment at a stable URL
+    - key: multi_system
+      text: >
+        evaluates two or more distinct, separately attributable guardrail,
+        safeguard, or moderation systems — commercial APIs, open-source
+        guard models, or models deployed as safeguards around an LLM
+    - key: per_system_results
+      text: reports separately attributable per-system quantitative results
+    - key: common_setting
+      text: >
+        uses a common or purportedly common evaluation setting — the same
+        dataset or prompt set claimed for all systems
+    - key: domain
+      text: >
+        targets safety or harm detection, jailbreak or prompt-injection
+        detection, content moderation, policy enforcement, or PII
+        detection around LLM systems
+    - key: method_detail
+      text: >
+        provides enough methodological detail to classify its
+        joint-statistic status
+  exclusion_rules:
+    - >
+      base-LLM safety leaderboards: a model's own refusal behavior is not a
+      separately deployed guardrail system
+    - single-system evaluations: nothing to combine
+    - marketing pages without measurements
+    - >
+      comparisons only across different datasets, tasks, or populations
+      with no purported common setting
+  non_criteria_note: >
+    Prose recommending that systems be combined ("defense in depth", "use
+    multiple providers") is a deployment recommendation, not a measured
+    joint statistic. An average across systems is not a joint statistic.
+    A multi-model ensemble inside one product counts only if the artifact
+    reports it as a combination of separately attributed systems.
+  search_protocol:
+    executed: "2026-08-27"
+    bounded: >
+      This census claims coverage of the artifacts found by the documented
+      search below — not of everything in existence. A qualifying artifact
+      the search missed is a standing falsifier of any "among N" statement
+      and is added, with the miss recorded in the revision history.
+    starting_cases:
+      - ML6 enterprise guardrail benchmark (blog)
+      - TrueFoundry guardrail provider benchmark (blog)
+      - BELLS (CeSIA) — framework paper, successor evaluation, leaderboard
+      - the multimodal safeguard benchmark previously cited as "MSBench"
+        (acronym unverified at freeze time; resolved during examination)
+    queries:
+      - LLM guardrail benchmark comparison
+      - guardrails benchmark providers
+      - jailbreak detection benchmark comparison providers
+      - content moderation API comparison benchmark LLM
+      - prompt injection detection benchmark comparison
+      - LLM safeguard evaluation multiple providers
+      - guard model comparison Llama Guard ShieldGemma benchmark
+      - moderation endpoint comparison OpenAI Perspective
+      - guardrail evaluation 2026
+    snowball: one hop from the references of included artifacts
+    budget: >
+      up to ~18 candidate artifacts examined in the frozen pass;
+      candidates surfaced but not examined are listed under
+      unexamined_candidates and excluded from every count
+  revision_history:
+    - date: "2026-08-27"
+      change: >
+        Census established. Criteria v1 frozen before the bounded search;
+        the four starting cases entered as under_review pending
+        primary-source examination.
+
+benchmarks:
+  - id: ml6-guardrail-benchmark
+    status: under_review
+    title: "Inside AI guardrails: a benchmark on enterprise LLM security"
+    authors_or_org: ML6
+    primary_url: "https://www.ml6.eu/en/blog/inside-ai-guardrails-a-benchmark-on-enterprise-llm-security"
+    last_checked: "2026-08-27"
+    notes: >
+      Under primary-source examination. Not yet classified; excluded from
+      all counts until examined.
+
+  - id: truefoundry-guardrail-benchmark
+    status: under_review
+    title: "Benchmarking LLM guardrail providers"
+    authors_or_org: TrueFoundry
+    primary_url: "https://www.truefoundry.com/blog/benchmarking-llm-guardrail-providers"
+    last_checked: "2026-08-27"
+    notes: >
+      Under primary-source examination. Not yet classified; excluded from
+      all counts until examined.
+
+  - id: bells-cesia
+    status: under_review
+    title: "BELLS — benchmarks for the evaluation of LLM safeguards (CeSIA)"
+    authors_or_org: "CeSIA — Centre pour la Sécurité de l'IA"
+    primary_url: "https://arxiv.org/abs/2606.20668"
+    last_checked: "2026-08-27"
+    notes: >
+      Under primary-source examination. The arXiv identifier above is a
+      working reference and is itself being verified; the row will bind to
+      whatever the primary source actually is, and split into multiple rows
+      if the framework paper and a successor evaluation are distinct
+      artifacts.
+
+  - id: multimodal-safeguard-benchmark
+    status: under_review
+    title: "Multimodal safeguard benchmark (working name; acronym unresolved)"
+    authors_or_org: null
+    primary_url: null
+    last_checked: "2026-08-27"
+    notes: >
+      Under primary-source examination. Previously cited from memory as
+      "MSBench" with two pairwise ensemble rows; neither the name nor the
+      ensemble rows are trusted until the primary source is located and
+      read. If no such artifact exists, this row is removed and the
+      removal recorded in the revision history.
+
+exclusions: []
+
+unexamined_candidates: []
