@@ -60,6 +60,15 @@ ENUMS = {
     "maturity": {"experimental", "in_development", "released", "stable",
                  "superseded"},
 }
+# Rights travel with evidence. A claim bound to someone else's artifact must
+# record what may be done with it, because "we cited it" and "we may build a
+# commercial derivative of it" are different permissions and the difference is
+# invisible six months later. UNKNOWN and QUARANTINED are terminal states: they
+# are allowed to exist, and they are not allowed to flow anywhere.
+COMMERCIAL_REUSE = {"permitted", "noncommercial_only", "permission_required",
+                    "facts_only", "unknown", "quarantined"}
+FIRST_PARTY = ("github.com/Cubits11/", "cubits11.github.io")
+
 REQUIRED = {"id", "proposition", "scope", "dimensions", "support",
             "last_reviewed", "review_window_days", "review_triggers",
             "falsifier", "forbidden_rescues", "non_claims"}
@@ -95,6 +104,32 @@ def check_dimensions(cid: str, dims: dict) -> None:
         fail(f"{cid}: 'attested' used as evidential_status — it is provenance")
     if dims.get("visibility") != "public":
         fail(f"{cid}: claims.yaml is public-only; private records must not be tracked here")
+
+
+def check_support_rights(cid: str, support: dict) -> None:
+    """Third-party evidence must declare its licence and reuse state.
+
+    First-party artifacts (this site, this owner's repositories) inherit the
+    owner's rights and are exempt. Everything else is somebody else's work,
+    and a registry that binds to it without recording the terms is one
+    refactor away from a licence violation it cannot detect.
+    """
+    url = str((support or {}).get("url") or "")
+    if not url or any(fp in url for fp in FIRST_PARTY):
+        return
+    licence = support.get("license")
+    reuse = support.get("commercial_reuse")
+    if not isinstance(licence, str) or not licence.strip():
+        fail(f"{cid}: third-party support must record support.license "
+             f"(use 'none declared' when the source states none) — {url}")
+    if reuse not in COMMERCIAL_REUSE:
+        fail(f"{cid}: support.commercial_reuse={reuse!r} not in "
+             f"{sorted(COMMERCIAL_REUSE)}")
+    elif reuse in ("unknown", "quarantined"):
+        ok(f"{cid}: rights {reuse} — evidence usable for analysis, barred "
+           f"from any derivative until resolved")
+    else:
+        ok(f"{cid}: third-party rights recorded ({licence}, {reuse})")
 
 
 def check_falsifier(cid: str, falsifier) -> None:
@@ -270,6 +305,7 @@ def main() -> int:
             continue
 
         check_dimensions(cid, claim["dimensions"])
+        check_support_rights(cid, claim.get("support") or {})
         check_falsifier(cid, claim["falsifier"])
         check_forbidden_rescues(cid, claim["forbidden_rescues"])
 

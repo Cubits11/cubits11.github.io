@@ -539,6 +539,13 @@ claims:
       maturity: experimental
     support:
       url: "https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv"
+      license: "none declared upstream"
+      commercial_reuse: facts_only
+      rights_note: >
+        The upstream repository states no licence. Only counts derived from the
+        hash-verified file are used; the file itself is cited, never redistributed.
+        Facts are not the licensable part, and nothing further may be built on it
+        without the authors’ permission.
       commit: "507566c5a4606c8e3dec0bd59a5c5fde62594951"
       note: >
         The upstream repository declares no license, so the file is
@@ -758,6 +765,12 @@ claims:
       maturity: experimental
     support:
       url: "https://academy.claude.com/tutorials/the-ai-fluency-index"
+      license: "CC BY-NC-SA 4.0 (c) 2025 Rick Dakan, Joseph Feller, Anthropic PBC"
+      commercial_reuse: noncommercial_only
+      rights_note: >
+        Studied, cited, and analysed under the licence. NonCommercial and
+        ShareAlike both bind: the behaviour taxonomy may not be repackaged into any
+        paid curriculum, certification, or commercial derivative without permission.
       commit: null
       note: >
         The published summary. Figures transcribed into
@@ -824,6 +837,12 @@ claims:
       maturity: in_development
     support:
       url: "https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md"
+      license: "unstated"
+      commercial_reuse: unknown
+      rights_note: >
+        Penn State S2 Lab repository with no licence found. Read-only by the
+        owner’s standing boundary in any case. UNKNOWN is terminal: cite and
+        analyse, build nothing on it, until the lab states terms.
       commit: "98c90d8296580f08dd8b6e38fdd2abd7039ec651"
       note: >
         Re-worded 2026-08-23 to track the bound thesis precisely: soundness
@@ -1026,7 +1045,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: scripts/verify_claims.py
-        sha256: "3a98e23ab5d72df0adc9eb9ef585cfe6cdb67f9d58f0e5d43f151fbbe3812817"
+        sha256: "f388a0093251ea8e782c9774ea86e0becdced1676e4e145d7d64e7c75d9dc656"
         note: fires when the verifier changes without a registry re-review
       - type: manual
         enforcement: manual

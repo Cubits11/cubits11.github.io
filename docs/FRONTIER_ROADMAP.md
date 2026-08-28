@@ -173,6 +173,40 @@ justified by "more data is better": it is the arm that moves the estimand from
 an interval of width `min_i p_i − max(0, Σp_i − (k−1))` to a point, under the
 static conditions stated above.
 
+## 1c. What the durable asset actually is
+
+NR-001 left a hypothesis standing that turns out to answer a strategic question,
+not just a measurement one: **every witness an assurance apparatus can scale is
+invariant to which agent performed the act.** A green test, a resolved citation,
+a commit, a matching hash — each is equally producible by a model, at falling
+cost. Witnesses are therefore not a moat. Anything whose value is "we emit
+receipts" is absorbed the moment receipt-emission gets cheaper, which is
+continuously.
+
+What is not agent-invariant is **the record of having been wrong in public and
+having said so, with dates and causes**. A model produces a receipt in a second;
+it cannot produce a history in which specific claims were killed by specific
+evidence on specific days, because the asset is not the text — it is that the
+text was published *before* the correction and survived it.
+
+This programme has been accumulating that record without naming it: the census
+revision history, the withdrawn "commercial guardrail API" clause (refused as a
+rescue rather than narrowed), the M ladder replacing a flattering single number,
+the invented-data correction, NR-001 dropping a whole research direction, and a
+bound floored to 29 rather than rounded to 30.
+
+It compounds, no better model produces it faster, faking it defeats the thing it
+certifies, and it is what anyone evaluating an assessor actually needs. The
+deliverable it implies is small: **a public, dated, mechanically-generated page
+of what this programme got wrong and what killed it.** That is the one artifact
+here a well-resourced lab cannot replicate by Tuesday.
+
+Rule that follows: a correction is never quietly edited into place. It is
+recorded with its date, its cause, and what it cost — in `census.yaml`'s
+revision history, in `docs/NEGATIVE-RESULTS.md`, or in a claim's correction
+history. Losing a correction destroys more value than the correction itself
+cost.
+
 ## 2. The competing explanations
 
 The wager is a three-way test, not a thesis to confirm.
@@ -249,7 +283,12 @@ in `.github/workflows/verify.yml`.
 8. **Freshness has teeth.** A claim past its review window fails CI. That
    failure *is* the trigger firing; the fix is re-review or withdrawal, never
    an extended window.
-9. **External claims trail internal evidence.** Nothing is said in public
+9. **Rights travel with evidence.** Any claim bound to a third party's
+   artifact records its licence and a `commercial_reuse` state.
+   `unknown` and `quarantined` are terminal: such evidence may be cited and
+   analysed and may not flow into any derivative. *CI: `check_support_rights`
+   in `verify_claims.py`.*
+10. **External claims trail internal evidence.** Nothing is said in public
    that the repository cannot already reproduce on a clean clone.
 
 ## 5. Explicit non-goals for the next 90 days
