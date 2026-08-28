@@ -51,6 +51,19 @@
 #
 # Headline counts, recomputed by verify_census.py and the generator:
 #   N — examined rows (all classifications)
+#   M is a stratum, not a verdict, and is always displayed as a ladder:
+#       shared_basis                        — same items + same event
+#       threshold_not_contradicted          — the above, minus rows whose
+#                                             source says thresholds are not
+#                                             comparable
+#       threshold_documented_full_exposure  — the above, restricted to rows
+#                                             that document matched operating
+#                                             thresholds AND full exposure
+#   The strongest rung is the one an operator actually needs; printing only
+#   the weakest invites the reader to assume the strongest. Both further
+#   rungs are computed by verify_census.compute_counts from existing row
+#   fields — no new adjudication, no re-reading of any source.
+#
 #   M — examined rows with same_items_for_all_systems: yes AND
 #       same_event_definition: yes (comparable per-system results on a
 #       shared item set)
@@ -78,10 +91,12 @@ census:
   proposition_template: >
     As of {as_of}, among {N} public guardrail evaluations meeting the
     frozen inclusion criteria (v{criteria_version}), {M} establish
-    comparable per-system results on a shared item set, and {K} publish
-    at least one item-level joint statistic for a combination of the
-    systems they evaluate or release per-item outcomes that make one
-    directly computable.
+    comparable per-system results on a shared item set — comparable in the
+    frozen sense of shared items and a shared event definition, which is
+    weaker than matched operating thresholds — and {K} publish at least
+    one item-level joint statistic for a combination of the systems they
+    evaluate or release per-item outcomes that make one directly
+    computable.
   inclusion_criteria:
     - key: public_access
       text: publicly accessible without payment at a stable URL
@@ -229,6 +244,21 @@ census:
         evidence is marked as paraphrase. The primary counts remain
         N=19, M=13, K=4.
 
+    - date: "2026-08-28"
+      change: >
+        M ontology correction, made before any merge to main. The single
+        number M was doing work it had not earned: the frozen criteria
+        define "comparable" as shared items plus a shared event definition
+        only, but a reader meets that word expecting matched operating
+        thresholds and full exposure. compute_counts now derives an M
+        ladder mechanically from fields already recorded on every row —
+        13 shared basis, 12 with no stated threshold mismatch (ML6 states
+        the mismatch), 0 documenting matched thresholds with full exposure
+        — and the page renders all three rungs. The proposition template
+        gained an inline gloss saying which reading M uses. No row's
+        evidence or classification changed; this is a weakening of what
+        the headline implies, not a rescue of it. The strongest rung being
+        0 is the honest headline result and is now printed as such.
 benchmarks:
   - id: openai-holistic-2022
     status: examined

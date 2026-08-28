@@ -341,6 +341,17 @@ def compute_counts(data: dict, excluded_ids: set[str] | None = None) -> dict:
     comparable = [r for r in examined
                   if tri(r, "same_items_for_all_systems") == "yes"
                   and tri(r, "same_event_definition") == "yes"]
+    # M is a stratum, not a verdict. "Comparable" in the frozen criteria means
+    # only shared items and a shared event definition; it says nothing about
+    # whether the systems were compared at documented, matched operating
+    # thresholds, or whether every system saw every item. Reporting M as a
+    # single number lets a reader assume the stronger reading, so the census
+    # publishes the whole ladder and the page renders all three rungs.
+    threshold_not_contradicted = [r for r in comparable
+                                  if tri(r, "thresholds_comparable") != "no"]
+    threshold_documented = [r for r in threshold_not_contradicted
+                            if tri(r, "thresholds_comparable") == "yes"
+                            and tri(r, "all_systems_saw_all_items") == "yes"]
     present = [r for r in examined if r.get("classification") == "PRESENT"]
     by_classification: dict = {}
     for r in examined:
@@ -353,6 +364,11 @@ def compute_counts(data: dict, excluded_ids: set[str] | None = None) -> dict:
     return {
         "N": len(examined),
         "M": len(comparable),
+        "M_strata": {
+            "shared_basis": len(comparable),
+            "threshold_not_contradicted": len(threshold_not_contradicted),
+            "threshold_documented_full_exposure": len(threshold_documented),
+        },
         "K": len(present),
         "by_classification": by_classification,
         "present_by_scope": by_scope,
@@ -464,6 +480,23 @@ def main() -> int:
             else:
                 ok(f"MC-001 expected counts match the census (N/M/K "
                    f"{actual[0]}/{actual[1]}/{actual[2]})")
+            # The M ladder is part of the envelope: a claim that prints one
+            # M must also state what the stricter readings of "comparable"
+            # yield, or the strongest reading is silently implied.
+            stated_strata = expected.get("m_strata")
+            if not isinstance(stated_strata, dict):
+                fail("MC-001 expected must carry an m_strata block "
+                     "(shared_basis, threshold_not_contradicted, "
+                     "threshold_documented_full_exposure)")
+            elif stated_strata != counts["M_strata"]:
+                fail(f"MC-001 expected m_strata {stated_strata} but census "
+                     f"computes {counts['M_strata']}")
+            else:
+                fail_free = counts["M_strata"]
+                ok(f"MC-001 M ladder matches the census "
+                   f"({fail_free['shared_basis']}/"
+                   f"{fail_free['threshold_not_contradicted']}/"
+                   f"{fail_free['threshold_documented_full_exposure']})")
 
     if "--counts" in sys.argv:
         print(json.dumps(counts, indent=2, sort_keys=True))
@@ -477,6 +510,11 @@ def main() -> int:
        f"· {counts['excluded']} excluded · {counts['unexamined']} unexamined")
     ok(f"counts recomputed: N={counts['N']} M={counts['M']} K={counts['K']} "
        f"(scopes {counts['present_by_scope'] or '—'})")
+    strata = counts["M_strata"]
+    ok(f"M ladder: {strata['shared_basis']} shared basis · "
+       f"{strata['threshold_not_contradicted']} no stated threshold mismatch · "
+       f"{strata['threshold_documented_full_exposure']} documented matched "
+       f"thresholds with full exposure")
     print("Census verified: criteria frozen, rows shaped, classifications "
           "consistent, counts mechanical.")
     return 0

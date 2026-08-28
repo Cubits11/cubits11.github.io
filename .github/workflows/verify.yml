@@ -3,6 +3,11 @@ name: verify
 on:
   push:
     branches: [main]
+  # Every proposed change is gated, not only what already landed. The
+  # campaign's own standard — publish the stack, not the flattering column —
+  # applies to its CI: a branch that has never run these checks is not
+  # reviewable, and "it passed on main" says nothing about the PR.
+  pull_request:
   schedule:
     # Weekly standing gate: freshness windows and executable review triggers
     # both run here — a claim past its window, or whose bound evidence has
@@ -58,6 +63,26 @@ jobs:
       - run: pip install pyyaml
       - name: Clean-clone the bound commit and re-run the kernel
         run: python scripts/reproduce_cc001.py
+
+  deployed:
+    # Post-deploy gate. A repo that verifies on a checkout has proved only
+    # that the repo is coherent; it has not proved a reader can reach the
+    # pages or that the served HTML carries the numbers CI checked. Runs
+    # after a push to main (Pages deploys asynchronously, so this measures
+    # the previous revision on push and the settled site weekly) and on the
+    # weekly schedule.
+    name: Deployed site smoke
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
+    needs: claims
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - name: Every route serves, and the live counts match the census
+        run: python scripts/smoke_deployed.py
 
   lighthouse:
     # Observation, not a gate: collects Lighthouse lab reports for the live

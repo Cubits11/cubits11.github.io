@@ -49,7 +49,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-08-27"
+last_owner_review: "2026-08-28"
 
 claims:
   - id: CC-001
@@ -428,7 +428,15 @@ claims:
       stack performs, and nothing about what the unmeasured joint
       statistics would show. N, M, and K are recomputed mechanically from
       census.yaml by scripts/verify_census.py; this envelope's expected
-      block is cross-checked against that computation in CI. The frozen
+      block is cross-checked against that computation in CI. "Comparable"
+      is used here in the frozen criteria's sense — shared items and a
+      shared event definition — which is weaker than matched operating
+      thresholds and full exposure, so M is published as a ladder rather
+      than a single number: 13 on the shared basis, 12 once the one row
+      that states a threshold mismatch (ML6) is removed, and 0 that
+      document matched operating thresholds together with full exposure.
+      Nothing here asserts that the 13 are interchangeable at a common
+      operating point; the opposite is the finding. The frozen
       phrase "separately attributable" did not specify whether a product
       or model name must be printed: the primary count treats systems a
       source distinguishes and reports consistently as separately
@@ -460,13 +468,19 @@ claims:
       n_examined: 19
       m_comparable: 13
       k_present: 4
-    last_reviewed: "2026-08-27"
+      # The M ladder. Printing one M lets a reader assume the strongest
+      # reading of "comparable"; all three rungs are cross-checked in CI.
+      m_strata:
+        shared_basis: 13
+        threshold_not_contradicted: 12
+        threshold_documented_full_exposure: 0
+    last_reviewed: "2026-08-28"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "ab9ae644b2402b9488980214ea0a3d4e31289d145deec32809ebdac3b526a392"
+        sha256: "80c530da058b30dc6d7b816c94d21c7beadcecadd5670466e47b3e339c80c8a6"
         note: fires when the census changes without a claim re-review
       - type: manual
         enforcement: manual

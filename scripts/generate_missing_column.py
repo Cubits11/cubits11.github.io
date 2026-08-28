@@ -238,6 +238,10 @@ def render_headline(census: dict, counts: dict) -> str:
       <p class="mono head-kicker">The census result — regenerated from the source file</p>
       <p class="head-prop">{esc(proposition)}</p>
       <p class="mono head-scope">The {counts["K"]} split{"s" if counts["K"] == 1 else ""} as: {esc(scope_line)}.</p>
+      <p class="mono head-scope">The {counts["M"]} is a ladder, not a verdict — {counts["M_strata"]["shared_basis"]} share
+        items and an event definition · {counts["M_strata"]["threshold_not_contradicted"]} once the row that states a
+        threshold mismatch is removed · {counts["M_strata"]["threshold_documented_full_exposure"]} document matched
+        operating thresholds together with full exposure.</p>
       <p class="head-note">A qualifying artifact this search missed, or a row shown to be
         misclassified, changes these numbers — the criteria and the correction route are
         below, and every change lands in the revision history.</p>
@@ -780,7 +784,9 @@ def render_landing(data: dict) -> str:
             "all-miss rate — that a deployed stack actually needs.")
     releases = counts["present_by_scope"].get("computable_via_item_release", 0)
     release_note = f" ({releases} via data release)" if releases else ""
-    count_bar = (f"{counts['N']} examined · {counts['M']} comparable · "
+    count_bar = (f"{counts['N']} examined · {counts['M']} comparable on shared "
+                 f"items ({counts['M_strata']['threshold_documented_full_exposure']} "
+                 f"at documented matched thresholds) · "
                  f"{counts['K']} report any joint result{release_note}" if counts["N"]
                  else f"{counts['under_review']} under examination · no count claimed yet")
     census_zone_rows = ""
