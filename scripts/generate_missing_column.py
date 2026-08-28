@@ -611,6 +611,7 @@ def page_head(title: str, desc: str, path: str, extra_css: str,
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
 <script>try{{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){{document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}}}catch(e){{}}</script>
 <link rel="stylesheet" href="/assets/site.css">{jsonld}
+<script defer src="/assets/site.js"></script>
 <style>
 body{{font-size:1rem;line-height:1.65}}
 .container{{width:min(1060px,100% - 2*clamp(1.25rem,5vw,3rem))}}
@@ -667,6 +668,7 @@ PAGE_FOOT = '''
       <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
       <a class="u" href="/corrections/">Corrections policy</a>
       <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/stack-study/">Study preflight</a>
       <a class="u" href="/">← The record</a>
     </div>
   </div>
@@ -1137,6 +1139,12 @@ Errors/timeouts: <n>, scored as <policy>.'''
 </header>
 <main class="container" id="main">
   {render_ladder_fig()}
+
+  <div class="precond"><strong>Turn this draft into a reviewable packet:</strong> the
+    browser-local <a class="u" href="/stack-study/">Stack Study Preflight</a> records the
+    system, observation mode, denominator, and static aggregate checks together. It computes
+    only declared full-exposure static evidence; deployed routes and adaptive tests remain
+    separate protocol objects.</div>
 
   <section class="zone" id="components" aria-labelledby="comp-h">
     <h2 id="comp-h">The fourteen components</h2>

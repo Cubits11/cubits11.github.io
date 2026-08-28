@@ -41,6 +41,7 @@
       imagesrcset="/assets/img/portrait-480.webp 480w, /assets/img/portrait-720.webp 720w, /assets/img/portrait-960.webp 960w"
       imagesizes="(min-width: 900px) 36vw, 82vw">
 <link rel="stylesheet" href="/assets/site.css">
+<script defer src="/assets/site.js"></script>
 <style>
 /* ---------- page-specific: the record's front page ---------- */
 body::after{ /* grain */
@@ -73,7 +74,7 @@ body::after{ /* grain */
 .mc-motif td.mc-missing .mono{color:var(--review);font-size:.64rem;letter-spacing:.06em}
 .mc-line{color:var(--muted);font-size:.95rem;max-width:52em;margin:1rem 0 0}
 .mc-strip .cta-row{margin-top:1.2rem}
-@media (max-width:560px){.mc-motif th,.mc-motif td{padding:.45rem .25rem}.mc-motif td{font-size:.92rem}.mc-motif th{font-size:.48rem;letter-spacing:.03em}.mc-motif td.mc-missing .mono{font-size:.5rem;letter-spacing:.02em}}
+@media (max-width:560px){.mc-motif{min-width:38rem}.mc-motif th,.mc-motif td{padding:.55rem .7rem}.mc-motif td{font-size:1rem}.mc-motif th{font-size:.7rem;letter-spacing:.06em}.mc-motif td.mc-missing .mono{font-size:.65rem;letter-spacing:.05em}}
 .lede{font-size:clamp(.98rem,1.35vw,1.08rem);line-height:1.72;color:var(--muted);max-width:36em;margin-top:.9rem}
 .lede em{font-family:var(--serif);font-style:italic;font-size:1.06em;color:var(--ink);font-weight:480}
 .fang{margin-top:1.5rem;color:var(--gold)}
@@ -216,7 +217,8 @@ html:not(.js) .bounds-ctl{display:none}
           <span class="fact">Philadelphia, PA</span>
         </div>
         <div class="hero-cta reveal" style="--d:.26s">
-          <a class="btn btn-solid" href="/essays/when-marginals-are-not-enough/">Read the flagship case</a>
+          <a class="btn btn-solid" href="/missing-column/">Explore the research record</a>
+          <a class="btn" href="/stack-study/">Build a study packet</a>
           <a class="btn" href="/resume/">Résumé</a>
         </div>
       </div>
@@ -244,6 +246,29 @@ html:not(.js) .bounds-ctl{display:none}
     </div>
   </section>
 
+  <!-- ======================= START HERE ======================= -->
+  <section class="container" aria-labelledby="start-h" style="padding-block:0 3.5rem">
+    <p class="kicker mono reveal">Start with your question</p>
+    <h2 id="start-h" class="mc-title reveal" style="max-width:22em">A research front door before the dossier.</h2>
+    <nav class="doors reveal" aria-label="Start here">
+      <a class="door" href="/missing-column/">
+        <span class="mono">01 · Latest evidence</span>
+        <strong>Inspect the Missing Column</strong>
+        <span class="desc">A bounded, source-bound census of whether public multi-guard evaluations retain joint evidence.</span>
+      </a>
+      <a class="door" href="/essays/when-marginals-are-not-enough/">
+        <span class="mono">02 · Formal theory</span>
+        <strong>See why marginals stop</strong>
+        <span class="desc">The sharp bound, witness worlds, and the precise point at which an independence assumption enters.</span>
+      </a>
+      <a class="door" href="/resume/">
+        <span class="mono">03 · Work together</span>
+        <strong>Research, engineering, assurance</strong>
+        <span class="desc">A short view of the programs, methods, and work I am looking to do next.</span>
+      </a>
+    </nav>
+  </section>
+
   <!-- ================= THE MISSING COLUMN — campaign strip ================= -->
   <section class="container" id="missing-column" aria-labelledby="mc-h" style="padding-block:0">
     <div class="mc-strip reveal">
@@ -266,6 +291,7 @@ html:not(.js) .bounds-ctl{display:none}
       <div class="cta-row">
         <a class="btn btn-solid" href="/missing-column/">Inspect the census</a>
         <a class="btn" href="/missing-column/disclosure/">Publish the missing row</a>
+        <a class="btn" href="/stack-study/">Open the study preflight</a>
       </div>
     </div>
   </section>
@@ -307,8 +333,9 @@ html:not(.js) .bounds-ctl{display:none}
 <div class="bounds-ctl">
   <label class="mono" for="qslider">Drag the shared-miss overlap — both marginals stay pinned at 10%</label>
   <div class="bounds-ctl-row">
-    <input type="range" id="qslider" min="0" max="10" step="1" value="0" aria-describedby="bfd">
-    <output class="mono" id="qout">q = 0% — the lower endpoint witness</output>
+    <input type="range" id="qslider" min="0" max="10" step="1" value="0" aria-describedby="qslider-help">
+    <output class="mono" id="qout" for="qslider">q = 0% — the lower endpoint witness</output>
+    <span id="qslider-help" class="sr-only">Dragging changes only the overlap of the two failures. Each guard's marginal failure rate remains ten percent.</span>
   </div>
 </div>
 <figcaption class="bounds-caption"><strong>Fig. 02 — the same two scores, every world they permit.</strong>
@@ -575,19 +602,19 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
             <span class="desc">The flagship case: two 10% guardrails, the interval the evidence
               actually supports, and the witnesses at both ends — with the kernel's recorded
               output at a bound commit.</span></div>
-          <a class="chip chip-internal" href="/essays/when-marginals-are-not-enough/">Read →</a>
+          <a class="chip chip-internal" href="/essays/when-marginals-are-not-enough/">Read the flagship case →</a>
         </div>
         <div class="index-item">
           <div><span class="name-sm">Noetic log 002 — the observatory ships, and gets graded</span>
             <span class="desc">The v0.4 shipping record rated without anesthesia, with a
               one-month lookback contract whose unflattering conclusion is pre-registered.</span></div>
-          <a class="chip chip-internal" href="/notes/noetic-log-002/">Read →</a>
+          <a class="chip chip-internal" href="/notes/noetic-log-002/">Read Noetic log 002 →</a>
         </div>
         <div class="index-item">
           <div><span class="name-sm">All writing</span>
             <span class="desc">Essays, field notes, and audit logs, with each piece's claim
               envelope where one applies.</span></div>
-          <a class="chip chip-internal" href="/writing/">Index →</a>
+          <a class="chip chip-internal" href="/writing/">Browse all writing →</a>
         </div>
       </div>
     </div>

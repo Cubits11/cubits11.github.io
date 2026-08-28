@@ -224,6 +224,7 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
 @media (max-width:600px){{.wall-row{{grid-template-columns:1fr}}}}
 @media print{{body{{background:#fff;color:#000}}}}
 </style>
+<script defer src="/assets/site.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>

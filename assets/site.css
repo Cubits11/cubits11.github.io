@@ -90,14 +90,14 @@ img{max-width:100%;height:auto;display:block}
 }
 .site-head .container{display:flex;align-items:center;gap:1.5rem;height:3.4rem}
 .wordmark{font-family:var(--serif);font-style:italic;font-size:1.05rem;text-decoration:none;margin-right:auto;white-space:nowrap}
-.site-nav{display:flex;gap:1.4rem;overflow-x:auto;scrollbar-width:none}
+.site-nav{display:flex;gap:1.4rem;min-width:0;overflow-x:auto;scrollbar-width:none}
 .site-nav::-webkit-scrollbar{display:none}
 .site-nav a{text-decoration:none;color:var(--muted);transition:color .2s;white-space:nowrap}
 .site-nav a:hover,.site-nav a:focus-visible{color:var(--ink)}
 .site-nav a[aria-current="page"]{color:var(--ink);border-bottom:1px solid var(--gold)}
 .theme-toggle{
   appearance:none;border:1px solid var(--line-strong);background:transparent;color:var(--ink);
-  width:2rem;height:2rem;border-radius:50%;cursor:pointer;display:grid;place-items:center;flex:none;
+  width:2.75rem;height:2.75rem;border-radius:50%;cursor:pointer;display:grid;place-items:center;flex:none;
   transition:border-color .2s, transform .3s var(--ease);
 }
 .theme-toggle:hover{border-color:var(--gold);transform:rotate(40deg)}
@@ -110,6 +110,7 @@ img{max-width:100%;height:auto;display:block}
 }
 .skip{position:absolute;left:-999px;top:0;z-index:30;background:var(--ink);color:var(--bg);padding:.6rem 1rem;font-family:var(--mono);font-size:.75rem}
 .skip:focus{left:0}
+.nav-toggle{display:none}
 
 /* ---------- record strips ---------- */
 .class-bar{border-bottom:1px solid var(--line);margin-top:3.4rem}
@@ -226,6 +227,7 @@ section{padding-block:clamp(4rem,9vh,7.5rem);scroll-margin-top:4.5rem}
 /* ---------- figure scroll guard (320px legibility) ---------- */
 .fig-scroll{overflow-x:auto}
 .fig-scroll > svg{min-width:640px}
+.fig-scroll > table{min-width:38rem}
 
 /* ---------- footer ---------- */
 footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
@@ -265,6 +267,27 @@ footer{border-top:1px solid var(--line);padding:0 0 3.5rem;margin-top:2rem}
   .site-nav a{font-size:.62rem}
   .env-grid{grid-template-columns:1fr 1fr}
   .sec-no{font-size:2.6rem}
+}
+@media (max-width: 700px){
+  .site-head .container{height:4rem;gap:.65rem;position:relative}
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center;min-width:2.75rem;min-height:2.75rem;
+    border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;
+    padding:.35rem .72rem;letter-spacing:.08em;flex:none}
+  .nav-toggle:hover,.nav-toggle:focus-visible{border-color:var(--gold)}
+  html.nav-enhanced .site-nav{display:none}
+  html.nav-enhanced .site-nav.nav-open{display:flex}
+  .site-nav{position:absolute;right:0;top:calc(100% - 1px);z-index:21;flex-direction:column;align-items:stretch;
+    min-width:min(21rem,calc(100vw - 2.5rem));max-height:calc(100vh - 4rem);overflow:auto;
+    background:var(--surface);border:1px solid var(--line-strong);box-shadow:0 1rem 2.5rem color-mix(in srgb,var(--ink) 18%,transparent);
+    padding:.45rem}
+  .site-nav a{display:flex;align-items:center;min-height:2.75rem;padding:.5rem .65rem;font-size:.72rem;letter-spacing:.08em}
+  .site-nav a[aria-current="page"]{border-bottom:0;border-left:2px solid var(--gold)}
+  .theme-toggle{width:2.75rem;height:2.75rem}
+}
+@media (forced-colors: active){
+  .site-head,.site-nav,.nav-toggle,.card,.door{background:Canvas;color:CanvasText;border-color:CanvasText}
+  .nav-toggle:focus-visible,:focus-visible{outline-color:Highlight}
+  .chip,.status,.status-dim,.status-hot,.status-plan{border-color:CanvasText;color:CanvasText}
 }
 @media print{
   .site-head,.theme-toggle{display:none}

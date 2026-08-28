@@ -28,6 +28,7 @@ CHECKS = (
     ("MJGD identities", "scripts/mjgd_reference.py", "--test"),
     ("BELLS reproduction", "scripts/reanalyze_bells_subset.py"),
     ("internal links", "scripts/check_links.py"),
+    ("frontend structural gates", "scripts/verify_frontend.py"),
 )
 
 

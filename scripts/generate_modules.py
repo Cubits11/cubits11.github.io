@@ -341,6 +341,7 @@ def render_module(m: dict, claims_by_id: dict) -> str:
 <head>
 {head(title, desc, canonical, crumbs)}
 {MODULE_CSS}
+<script defer src="/assets/site.js"></script>
 </head>
 <body>
 {SITE_HEAD}
@@ -424,6 +425,7 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
 @media (max-width:600px){{.mod-item{{grid-template-columns:auto 1fr}}.mod-meta{{grid-column:2;flex-direction:row;align-items:baseline}}}}
 @media print{{body{{background:#fff;color:#000}}}}
 </style>
+<script defer src="/assets/site.js"></script>
 </head>
 <body>
 {SITE_HEAD}

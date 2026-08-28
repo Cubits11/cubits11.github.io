@@ -63,6 +63,7 @@ ledger/                     evidence ledger — GENERATED from claims.yaml
 writing/  archive/  now/    writing index · intellectual lineage · current work
 notes/noetic-log-001/       public audit log: what v0.2 pretended to implement
 resume/                     web résumé with 90-second overview
+stack-study/                browser-local study preflight; static / route / adaptive scopes stay distinct
 claims.yaml                 claim registry (schema v0.4) — the source of truth
 modules.yaml                module registry — questions, status, bindings
 scripts/generate_ledger.py  registry → ledger renderer (CI drift-checks it)
@@ -70,6 +71,7 @@ scripts/generate_modules.py module registry → module pages (CI drift-checks)
 scripts/generate_observatory.py  claims.yaml → observatory (CI drift-checks)
 scripts/verify_claims.py    registry verifier: bindings, triggers, freshness
 scripts/verify_figures.py   figure geometry assertions (Fig. 02 + essay)
+scripts/verify_frontend.py  static frontend structure + local-only preflight gate
 scripts/reproduce_cc001.py  clean-clone reproduction of CC-001 + CC-004
 404.html                    not-found page
 assets/                     shared stylesheet, self-hosted fonts, images
