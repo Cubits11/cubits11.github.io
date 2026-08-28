@@ -122,7 +122,7 @@ def render(fonts_dir: pathlib.Path, out: pathlib.Path) -> None:
     # the sentence, set in the site's prose face
     draw.text((64, 420), "Teams deploy guardrails in stacks.",
               font=sans, fill=INK)
-    draw.text((64, 462), "Public evaluations report them one at a time.",
+    draw.text((64, 462), "A static table can omit the joint result.",
               font=sans, fill=INK)
     draw.text((64, 528),
               "The individual columns do not determine the last one.",

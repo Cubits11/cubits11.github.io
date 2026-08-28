@@ -3,9 +3,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://cubits11.github.io/</loc><lastmod>2026-08-28</lastmod></url>
   <url><loc>https://cubits11.github.io/archive/</loc><lastmod>2026-08-27</lastmod></url>
+  <url><loc>https://cubits11.github.io/corrections/</loc><lastmod>2026-08-28</lastmod></url>
   <url><loc>https://cubits11.github.io/essays/when-marginals-are-not-enough/</loc><lastmod>2026-08-27</lastmod></url>
   <url><loc>https://cubits11.github.io/ledger/</loc><lastmod>2026-08-28</lastmod></url>
-  <url><loc>https://cubits11.github.io/missing-column/disclosure/</loc><lastmod>2026-08-27</lastmod></url>
+  <url><loc>https://cubits11.github.io/missing-column/disclosure/</loc><lastmod>2026-08-28</lastmod></url>
   <url><loc>https://cubits11.github.io/missing-column/</loc><lastmod>2026-08-28</lastmod></url>
   <url><loc>https://cubits11.github.io/modules/001-marginals/</loc><lastmod>2026-08-27</lastmod></url>
   <url><loc>https://cubits11.github.io/modules/002-pairwise-is-not-enough/</loc><lastmod>2026-08-27</lastmod></url>
@@ -16,8 +17,8 @@
   <url><loc>https://cubits11.github.io/modules/</loc><lastmod>2026-08-27</lastmod></url>
   <url><loc>https://cubits11.github.io/notes/noetic-log-001/</loc><lastmod>2026-08-27</lastmod></url>
   <url><loc>https://cubits11.github.io/notes/noetic-log-002/</loc><lastmod>2026-08-27</lastmod></url>
-  <url><loc>https://cubits11.github.io/now/</loc><lastmod>2026-08-27</lastmod></url>
+  <url><loc>https://cubits11.github.io/now/</loc><lastmod>2026-08-28</lastmod></url>
   <url><loc>https://cubits11.github.io/observatory/</loc><lastmod>2026-08-28</lastmod></url>
-  <url><loc>https://cubits11.github.io/resume/</loc><lastmod>2026-08-27</lastmod></url>
+  <url><loc>https://cubits11.github.io/resume/</loc><lastmod>2026-08-28</lastmod></url>
   <url><loc>https://cubits11.github.io/writing/</loc><lastmod>2026-08-27</lastmod></url>
 </urlset>

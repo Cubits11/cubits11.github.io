@@ -20,6 +20,7 @@ geometry that draws them.
 CI runs `generate_missing_column.py --check` and fails on drift.
 """
 
+import hashlib
 import json
 import pathlib
 import re
@@ -53,7 +54,7 @@ LADDER_RUNGS = [
     ("2 · Pairwise intersections",
      "where two guards' catches and misses overlap"),
     ("3 · Union and all-miss",
-     "what any guard catches; what reaches production"),
+     "what any guard catches; what all miss on the stated item set"),
     ("4 · Per-item release",
      "one row per item — every statistic above recomputable"),
 ]
@@ -66,8 +67,8 @@ def render_motif() -> str:
   <div class="fig-scroll">
   <table class="motif">
     <caption class="sr-only">An illustrative benchmark table: four guardrails
-      with individual catch rates, and a final column for the joint result of
-      the deployed stack, which is not reported.</caption>
+      with individual catch rates, and a final column for a declared
+      full-exposure composition, which is not reported.</caption>
     <thead>
       <tr>
         <th scope="col">Guard A</th>
@@ -91,8 +92,9 @@ def render_motif() -> str:
   <figcaption class="motif-caption"><strong>The missing column.</strong> Illustrative —
     the shape of the reporting gap, not any specific evaluation's numbers. Four
     individual catch rates on one attack set say almost nothing about the fifth
-    cell: the joint result of deploying all four. The census below records which
-    public evaluations fill that cell and which leave it empty.</figcaption>
+    cell: a static joint result for all four on the stated item set. The census
+    below records which bounded inventory rows contain that evidence and which do
+    not.</figcaption>
 </figure>'''
 
 
@@ -118,7 +120,7 @@ def render_residual_fig() -> str:
 <text x="{RC_X0:g}" y="{y + 76}" class="hmono">the {a_miss} A missed, magnified ↓</text>
 <rect x="{RC_X0:g}" y="{y + 88}" width="{b_w:g}" height="26" class="rcB"/>
 <rect x="{x_x:g}" y="{y + 88}" width="{x_w:g}" height="26" class="rcX"/>
-<text x="{RC_X0:g}" y="{y + 132}" class="hmono">B catches {w["b_catch"]} of the {a_miss} A missed · {w["all_miss"]} reach production</text>
+<text x="{RC_X0:g}" y="{y + 132}" class="hmono">B catches {w["b_catch"]} of the {a_miss} A missed · {w["all_miss"]} remain uncaught in this static illustration</text>
 </g>''')
         y += 170
     return f'''
@@ -130,8 +132,8 @@ def render_residual_fig() -> str:
 thousand items. In both, guard A catches nine hundred and misses one hundred.
 The one hundred missed items are magnified into a second strip showing what
 guard B catches among them. In world one, B catches ninety of the hundred and
-ten reach production. In world two, B catches only twenty of the same hundred
-and eighty reach production. Guard B's overall rate is the same in both
+ten remain uncaught. In world two, B catches only twenty of the same hundred
+and eighty remain uncaught. Guard B's overall rate is the same in both
 worlds; only the overlap of the two guards' misses differs, and per-guard
 rates do not report it.</desc>
 {"".join(panels)}
@@ -139,8 +141,8 @@ rates do not report it.</desc>
   </div>
   <figcaption class="rc-caption"><strong>What does the second guard catch among what
     the first missed?</strong> Illustrative. Both worlds keep every per-guard rate
-    identical; only the overlap of misses moves. The stack's residual — what reaches
-    production — differs by a factor of {RC_WORLDS["ii"]["all_miss"] // RC_WORLDS["i"]["all_miss"]}. No table of per-guard columns
+    identical; only the overlap of misses moves. The static all-miss count differs by
+    a factor of {RC_WORLDS["ii"]["all_miss"] // RC_WORLDS["i"]["all_miss"]}. No table of per-guard columns
     distinguishes these worlds; the missing column does. This figure asserts its own
     geometry in CI and is not evidence about any real guardrail pair.</figcaption>
 </figure>'''
@@ -169,7 +171,8 @@ def render_ladder_fig() -> str:
   <desc id="ldd">Four ascending steps. Step one: per-guard marginals — each
 guard alone, on the same items, with a stated denominator. Step two: pairwise
 intersections — where two guards' catches and misses overlap. Step three:
-union and all-miss — what any guard catches and what reaches production. Step
+union and all-miss — what any guard catches and what all guards miss on the
+stated item set. Step
 four: per-item release — one row per item, from which every earlier statistic
 can be recomputed.</desc>
   {"".join(rungs)}
@@ -215,7 +218,7 @@ def render_headline(census: dict, counts: dict) -> str:
         return f'''
     <div class="headline headline-held">
       <p class="mono head-kicker">No count is claimed yet</p>
-      <p>The criteria are frozen and the starting rows are under primary-source
+      <p>The criteria wording is locked and the starting rows are under primary-source
         examination. This page renders its headline from
         <a class="u" href="{SITE}/census.yaml">census.yaml</a> when rows are
         classified — until then it states only that the census exists. A census
@@ -237,10 +240,10 @@ def render_headline(census: dict, counts: dict) -> str:
     <div class="headline">
       <p class="mono head-kicker">The census result — regenerated from the source file</p>
       <p class="head-prop">{esc(proposition)}</p>
-      <p class="mono head-scope">The {counts["K"]} split{"s" if counts["K"] == 1 else ""} as: {esc(scope_line)}.</p>
-      <p class="mono head-scope">The {counts["M"]} is a ladder, not a verdict — {counts["M_strata"]["shared_basis"]} share
-        items and an event definition · {counts["M_strata"]["threshold_not_contradicted"]} once the row that states a
-        threshold mismatch is removed · {counts["M_strata"]["threshold_documented_full_exposure"]} document matched
+      <p class="mono head-scope">The {counts["K"]} is a heterogeneous discovery count, not one deployment estimand. It splits as: {esc(scope_line)}.</p>
+      <p class="mono head-scope">The {counts["M"]} is a ladder, not a verdict — {counts["M_strata"]["shared_basis"]} document a
+        shared item set and a common event definition · {counts["M_strata"]["threshold_not_contradicted"]} have no stated
+        threshold mismatch · {counts["M_strata"]["threshold_documented_full_exposure"]} document matched
         operating thresholds together with full exposure.</p>
       <p class="head-note">A qualifying artifact this search missed, or a row shown to be
         misclassified, changes these numbers — the criteria and the correction route are
@@ -502,7 +505,9 @@ def render_revisions(census: dict, examined: list) -> str:
     <h2 id="corr-h">Corrections and revision history</h2>
     <p class="zone-intro">Changes to this census are recorded here, in the page they
       change — not only in a repository log. Row-level corrections
-      ({row_corrections} recorded) live inside each row above.</p>
+      ({row_corrections} recorded) live inside each row above. The canonical
+      <a class="u" href="/corrections/">correction policy</a> states the
+      response and logging rules.</p>
     <ul class="manual-list">{"".join(entries)}</ul>
     <div class="correct-route">
       <h3 class="mono crit-h">Correct this record</h3>
@@ -553,8 +558,9 @@ def census_dataset_jsonld(census: dict) -> str:
             "whether each reports any item-level joint statistic for the "
             "combined stack (union detection, all-miss rate, pairwise "
             "intersections, residual coverage, or released per-item "
-            "outcomes) or only per-system marginals. Inclusion criteria were "
-            "frozen before the search; every row binds to its primary "
+            "outcomes) or only per-system marginals. The literal inclusion "
+            "criteria are locked in repository history before row "
+            "classification; every row binds to its primary "
             "source; counts are recomputed mechanically from the file."),
         "url": f"{SITE}/missing-column/",
         "sameAs": "https://github.com/Cubits11/cubits11.github.io/blob/main/census.yaml",
@@ -574,7 +580,7 @@ def census_dataset_jsonld(census: dict) -> str:
 
 
 def page_head(title: str, desc: str, path: str, extra_css: str,
-              jsonld: str = "") -> str:
+              jsonld: str = "", release_marker: str = "") -> str:
     return f'''<!doctype html>
 <!-- GENERATED FILE — do not edit by hand.
      Source: census.yaml · renderer: scripts/generate_missing_column.py
@@ -601,6 +607,7 @@ def page_head(title: str, desc: str, path: str, extra_css: str,
 <meta name="robots" content="max-image-preview:large">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+{release_marker}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
 <script>try{{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){{document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}}}catch(e){{}}</script>
 <link rel="stylesheet" href="/assets/site.css">{jsonld}
@@ -658,6 +665,7 @@ PAGE_FOOT = '''
     <div class="foot-links mono">
       <a class="u" href="/missing-column/">The Missing Column</a>
       <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
+      <a class="u" href="/corrections/">Corrections policy</a>
       <a class="u" href="/ledger/">Evidence ledger</a>
       <a class="u" href="/">← The record</a>
     </div>
@@ -778,16 +786,16 @@ def render_landing(data: dict) -> str:
     examined = [r for r in rows if r["status"] == "examined"]
     under_review = [r for r in rows if r["status"] == "under_review"]
     title = "The Missing Column: what guardrail evaluations leave unmeasured — Pranav Bhave"
-    desc = ("Teams deploy AI guardrails in stacks; public evaluations usually "
-            "compare them one at a time. A source-bound census of which "
-            "evaluations publish the joint result — union detection, the "
-            "all-miss rate — that a deployed stack actually needs.")
+    desc = ("A bounded, source-bound inventory of which public guardrail "
+            "evaluations preserve joint-evidence artifacts — union detection, "
+            "all-miss, composition results, or per-item outcomes — beside "
+            "per-system marginals.")
     releases = counts["present_by_scope"].get("computable_via_item_release", 0)
     release_note = f" ({releases} via data release)" if releases else ""
-    count_bar = (f"{counts['N']} examined · {counts['M']} comparable on shared "
-                 f"items ({counts['M_strata']['threshold_documented_full_exposure']} "
-                 f"at documented matched thresholds) · "
-                 f"{counts['K']} report any joint result{release_note}" if counts["N"]
+    count_bar = (f"{counts['N']} examined · {counts['M_strata']['shared_basis']} shared "
+                 f"item/common-event basis ({counts['M_strata']['threshold_documented_full_exposure']} "
+                 f"at documented matched thresholds with full exposure) · "
+                 f"{counts['K']} heterogeneous joint-evidence artifacts{release_note}" if counts["N"]
                  else f"{counts['under_review']} under examination · no count claimed yet")
     census_zone_rows = ""
     if examined:
@@ -796,22 +804,27 @@ def render_landing(data: dict) -> str:
     jsonld = (census_dataset_jsonld(census)
               + breadcrumbs(("The record", "/"),
                             ("The Missing Column", None)))
-    head = page_head(title, desc, "/missing-column/", LANDING_CSS, jsonld)
+    census_sha = hashlib.sha256((ROOT / "census.yaml").read_bytes()).hexdigest()
+    marker = (f'<meta name="census-sha256" content="{census_sha}">\n'
+              f'<meta name="correction-policy-url" content="{SITE}/corrections/">')
+    head = page_head(title, desc, "/missing-column/", LANDING_CSS, jsonld,
+                     release_marker=marker)
     return head + f'''
 <div class="class-bar mono">
   <div class="container">
     <span><b>The Missing Column</b> — a source-bound census · generated from <a class="u" href="{SITE}/census.yaml">census.yaml</a></span>
     <span>{esc(count_bar)}</span>
-    <span>criteria v{esc(census["criteria_version"])} frozen {esc(census["frozen_as_of"])}</span>
+    <span>criteria v{esc(census["criteria_version"])} wording locked {esc(census["frozen_as_of"])}</span>
   </div>
 </div>
 <header class="page">
   <div class="container">
     <h1>The missing column</h1>
-    <p class="intro">Teams deploy guardrails in stacks. Public evaluations usually compare
-      them one at a time. This record tracks whether they publish the joint result needed
-      to say what the stack does — and its own headline is generated from a source file
-      that anyone can mechanically make false.</p>
+    <p class="intro">Teams may deploy guardrails in stacks, but a static evaluation and a
+      deployed route are different objects. This bounded record tracks whether public
+      evaluations preserve the joint-evidence artifacts needed to characterize a stated
+      static composition — and its own headline is generated from a source file that
+      anyone can mechanically make false.</p>
   </div>
 </header>
 <main class="container" id="main">
@@ -824,7 +837,8 @@ def render_landing(data: dict) -> str:
 
   <section class="zone" id="why" aria-labelledby="why-h">
     <h2 id="why-h">Why the last cell cannot be inferred</h2>
-    <p class="zone-intro">Per-system rates do not determine the stack's rate. Two guards
+    <p class="zone-intro">Per-system rates do not determine the static all-miss rate of a
+      declared full-exposure composition. Two guards
       that each miss 10% of attacks can jointly miss anywhere from 0% to 10% — the
       individual columns are compatible with every world in that interval, and
       multiplying the rates silently assumes the one world where the guards' failures
@@ -839,9 +853,10 @@ def render_landing(data: dict) -> str:
 
   <section class="zone" id="residual-zone" aria-labelledby="rz-h">
     <h2 id="rz-h">What the second guard actually adds</h2>
-    <p class="zone-intro">The question a stack deployment is really asking: among the
-      items the first guard missed, what does the second catch? That is residual
-      coverage, and no set of per-guard columns contains it.</p>
+    <p class="zone-intro">One static composition question is: among the items the first
+      guard missed, what does the second catch? That is residual coverage, and no set
+      of per-guard columns contains it. Sequential route risk requires additional
+      observations beyond this static table.</p>
     {render_residual_fig()}
   </section>
 
@@ -850,7 +865,8 @@ def render_landing(data: dict) -> str:
     <p class="zone-intro">Every row binds to its primary source and records the same
       fields; the classification enum is fixed; the counts are recomputed from the file
       by <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_census.py">verify_census.py</a>
-      on every push. Criteria were frozen before the search began.</p>
+      on every push. The literal inclusion wording is locked in repository history before
+      row classification; that is a reproducibility lock, not an independent preregistration.</p>
     {render_criteria(data)}
     {render_headline(census, counts)}
 {render_interpretation_sensitivities(data, counts)}
@@ -862,6 +878,8 @@ def render_landing(data: dict) -> str:
           reporting fact, not a performance finding.</li>
         <li>It does not claim the unmeasured joint statistics would reveal dependence;
           measuring instead of assuming is the entire point.</li>
+        <li>Its 4 is an inclusive discovery count of noninterchangeable artifacts — not an
+          all-miss rate, a stack-quality score, or a deployment conclusion.</li>
         <li>It does not audit the quality of any per-system evaluation beyond the fields
           each row records.</li>
         <li>It covers the artifacts found by the documented bounded search — not
@@ -892,6 +910,70 @@ def render_landing(data: dict) -> str:
 python scripts/generate_missing_column.py --check  # this page matches the census file
 python scripts/verify_figures.py                # figure geometry, asserted to 1e-9
 python scripts/mjgd_reference.py --test         # the disclosure arithmetic, tested</pre>
+  </section>
+</main>''' + PAGE_FOOT
+
+
+def render_corrections(data: dict) -> str:
+    """Render the stable policy route social copy and smoke checks can bind."""
+    census = data["census"]
+    entries = "".join(
+        f'<li><span class="mono">{esc(entry["date"])}</span> — '
+        f'{esc(re.sub(r"\s+", " ", str(entry["change"]).strip()))}</li>'
+        for entry in census["revision_history"])
+    title = "Corrections policy — The Missing Column"
+    desc = ("The correction policy and public revision history for the "
+            "Missing Column Census.")
+    census_sha = hashlib.sha256((ROOT / "census.yaml").read_bytes()).hexdigest()
+    marker = f'<meta name="census-sha256" content="{census_sha}">'
+    head = page_head(
+        title, desc, "/corrections/", "", breadcrumbs(
+            ("The record", "/"), ("The Missing Column", "/missing-column/"),
+            ("Corrections policy", None)), release_marker=marker)
+    return head + f'''
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>Corrections policy</b> — The Missing Column Census</span>
+    <span>canonical route · <a class="u" href="/missing-column/#corrections">row-level history</a></span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <h1>Correct the record</h1>
+    <p class="intro">A public record that cannot be corrected is not evidence. This
+      page is the canonical correction route for the Missing Column Census.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <section class="zone" id="correction-policy" aria-labelledby="policy-h">
+    <h2 id="policy-h">Policy</h2>
+    <ol class="crit-list">
+      <li>Send the exact row ID, the disputed field, and a stable primary-source
+        locator through <a class="u" href="https://github.com/Cubits11/cubits11.github.io/issues">a repository issue ↗</a>
+        or <a class="u" href="mailto:bhavepranavwork@gmail.com">email</a>.</li>
+      <li>Every report is logged publicly the same calendar day it is received:
+        either as a verified correction or as an explicit under-review entry.
+        Silence is not a resolution.</li>
+      <li>A verified correction updates the source row, all mechanically derived
+        counts, generated pages, and the revision history in one reviewable change.
+        The report is credited in the affected row where consent permits.</li>
+      <li>If evidence remains ambiguous, the row is weakened to an explicit
+        ambiguity rather than retained by confidence or rewritten criteria.</li>
+    </ol>
+  </section>
+  <section class="zone" id="revision-history" aria-labelledby="history-h">
+    <h2 id="history-h">Public revision history</h2>
+    <p class="zone-intro">The full record is also embedded beside the census rows;
+      this route exists so a citation, post, or correction request always has one
+      stable destination.</p>
+    <ul class="manual-list">{entries}</ul>
+  </section>
+  <section class="zone" aria-labelledby="scope-h">
+    <h2 id="scope-h">What a correction can change</h2>
+    <p class="zone-intro">A correction can change a row, a count, or the scope of a
+      claim. It cannot be used to retroactively narrow a criterion merely to preserve
+      a preferred result. The census's claim envelope and forbidden-rescue rules are
+      public in <a class="u" href="/ledger/#MC-001">MC-001</a>.</p>
   </section>
 </main>''' + PAGE_FOOT
 
@@ -943,9 +1025,9 @@ def render_demonstration() -> str:
     </table>
     </div>
     <p class="zone-intro" style="margin-top:1.1rem">The product of the five individual miss
-      rates — the all-miss that independent misses would predict — is {product:.1%}. The
-      observed all-miss is {e["all_miss"] / n:.1%}: about {ratio:.1f}× the independence
-      prediction, on this subset. The union also flags {e["benign_union_flagged"]} of the
+      rates is {product:.1%}: an independence plug-in reference. The
+      observed all-miss is {e["all_miss"] / n:.1%}: about {ratio:.1f}× that plug-in,
+      on this subset. The union also flags {e["benign_union_flagged"]} of the
       {e["n_benign"]} benign prompts — the cost column an OR-stack must publish beside its
       catch column.</p>
     <div class="precond"><strong>Scope, stated before anyone asks:</strong> the released 170
@@ -967,8 +1049,8 @@ def render_disclosure(data: dict) -> str:
     desc = ("A reporting standard small enough to paste into a results table: "
             "what an evaluation of stacked guardrails must publish — union "
             "detection, all-miss rate, denominator, event definition, "
-            "same-item confirmation — before anyone can say what the stack "
-            "does.")
+            "same-item confirmation — before anyone characterizes a stated "
+            "static composition.")
     items = [
         ("Population and denominator",
          "What set of items, how many, and where they came from. Every joint "
@@ -990,12 +1072,12 @@ def render_disclosure(data: dict) -> str:
          "Catches among positives and false positives among negatives, as "
          "counts with denominators, not only as rates."),
         ("Union detection",
-         "Items caught by at least one guard, among positives. The stack's "
-         "headline number, and unrecoverable from the marginals."),
+         "Items caught by at least one guard, among positives on the stated "
+         "full-exposure item set. It is unrecoverable from marginals."),
         ("All-miss rate",
-         "Items caught by no guard, among positives — what reaches production. "
-         "Equals 100% minus union detection; publish it anyway, it is the "
-         "number a deployer actually needs."),
+         "Items caught by no guard, among positives on that same static item "
+         "set. It equals 100% minus union detection; it is not, by itself, "
+         "terminal deployment risk under routing, gating, or adaptation."),
         ("Residual coverage",
          "For each added guard: what it catches among the items the preceding "
          "set missed. This is the measured value of adding the guard."),
@@ -1038,7 +1120,7 @@ Errors/timeouts: <n>, scored as <policy>.'''
 <div class="class-bar mono">
   <div class="container">
     <span><b>Minimum Joint Guardrail Disclosure</b> — working name, v0 draft</span>
-    <span>maintained beside the <a class="u" href="/missing-column/">census</a> · criteria v{esc(census["criteria_version"])} frozen {esc(census["frozen_as_of"])}</span>
+    <span>maintained beside the <a class="u" href="/missing-column/">census</a> · criteria v{esc(census["criteria_version"])} wording locked {esc(census["frozen_as_of"])}</span>
   </div>
 </div>
 <header class="page">
@@ -1082,8 +1164,8 @@ Errors/timeouts: <n>, scored as <policy>.'''
     <div class="ask"><p>You evaluated multiple guardrails on a common benchmark. Did you
       retain one binary decision per item for every system? If so, would you consider
       publishing the union detection rate and the corresponding all-miss rate, together
-      with the denominator and event definition? Those two rows let readers evaluate the
-      deployed stack without assuming independence — and I will gladly supply the
+      with the denominator and event definition? Those two rows identify static all-miss
+      for the declared full-exposure evaluation without assuming independence — and I will gladly supply the
       calculation or a small reporting patch:
       <a class="u" href="mailto:bhavepranavwork@gmail.com">bhavepranavwork@gmail.com</a>.</p></div>
   </section>
@@ -1091,7 +1173,7 @@ Errors/timeouts: <n>, scored as <policy>.'''
   <section class="zone" id="reference" aria-labelledby="ref-h">
     <h2 id="ref-h">Reference implementation</h2>
     <p class="zone-intro"><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/mjgd_reference.py">scripts/mjgd_reference.py</a>
-      computes every component above from one decision per item per guard — union,
+      computes every static component above from one decision per item per guard — union,
       all-miss, residual coverage in stack order, and pairwise intersections — and
       asserts its own identities (union + all-miss = denominator; residual coverage
       telescopes to the union; intersections respect their feasibility bounds) against
@@ -1112,6 +1194,7 @@ def main() -> int:
         ROOT / "missing-column" / "index.html": render_landing(data),
         ROOT / "missing-column" / "disclosure" / "index.html":
             render_disclosure(data),
+        ROOT / "corrections" / "index.html": render_corrections(data),
     }
     if "--check" in sys.argv:
         for target, out in outputs.items():

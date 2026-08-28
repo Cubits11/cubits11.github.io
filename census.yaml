@@ -8,9 +8,11 @@
 # whatever this file supports — never the other way around.
 #
 # The census is itself a claim, so it follows the registry's discipline:
-# criteria frozen BEFORE the search, every row bound to its primary source,
-# ambiguity recorded as AMBIGUOUS rather than resolved by preference, and a
-# correction history that lives in the artifact it corrects.
+# literal inclusion wording locked in repository history before row
+# classification, every row bound to its primary source, ambiguity recorded as
+# AMBIGUOUS rather than resolved by preference, and a correction history that
+# lives in the artifact it corrects. The lock proves text preservation, not an
+# independently timestamped preregistration or ignorance of source contents.
 #
 # Row lifecycle:
 #   under_review — named, sourced, not yet classified; excluded from every
@@ -65,8 +67,8 @@
 #   fields — no new adjudication, no re-reading of any source.
 #
 #   M — examined rows with same_items_for_all_systems: yes AND
-#       same_event_definition: yes (comparable per-system results on a
-#       shared item set)
+#       same_event_definition: yes (the shared item/common-event basis;
+#       not a claim of policy comparability)
 #   K — examined rows classified PRESENT
 #   K is always displayed with its joint_scope split. "None" is never used
 #   in public copy when K > 0.
@@ -83,19 +85,30 @@ census:
   criteria_version: 1
   frozen_as_of: "2026-08-27"
   maintainer: Pranav Bhave
+  adjudication_status:
+    mode: "single_primary_reviewer"
+    covered_examined_rows: 19
+    limit: >
+      All currently examined rows are first-pass classifications by one
+      reviewer. No independent second review, disagreement log, or
+      retrieval ledger exists yet; the inventory must not be presented as a
+      systematic review or prevalence estimate.
+    release_gate: >
+      A v1.0 archival release requires a second reviewer for every examined
+      row, explicit disagreements and resolutions, and a published
+      retrieval/screening ledger.
   question: >
-    Teams deploy guardrails in stacks. Public evaluations usually compare
-    them one at a time. Which public evaluations report the joint result —
-    what the stack catches, and what slips past every layer — rather than
-    only per-system marginals?
+    Teams may deploy guardrails in stacks, while a static evaluation can
+    preserve only per-system marginals. Which public evaluations in this
+    bounded inventory preserve a declared joint-evidence artifact — a
+    composition result or per-item outcomes — rather than only marginals?
   proposition_template: >
     As of {as_of}, among {N} public guardrail evaluations meeting the
     frozen inclusion criteria (v{criteria_version}), {M} establish
-    comparable per-system results on a shared item set — comparable in the
-    frozen sense of shared items and a shared event definition, which is
-    weaker than matched operating thresholds — and {K} publish at least
-    one item-level joint statistic for a combination of the systems they
-    evaluate or release per-item outcomes that make one directly
+    a shared item set and a common event definition. That is a shared-basis
+    rung, not evidence of matched operating thresholds or full exposure.
+    {K} provide one of the declared joint-evidence artifacts: a printed
+    composition result or per-item outcomes from which one is directly
     computable.
   inclusion_criteria:
     - key: public_access
@@ -156,7 +169,7 @@ census:
       exclude_benchmark_ids: ["unit42-genai-platform-2025"]
       expected:
         n_examined: 18
-        m_comparable: 12
+        m_shared_basis: 12
         k_present: 4
   search_protocol:
     executed: "2026-08-27"
@@ -189,9 +202,10 @@ census:
   revision_history:
     - date: "2026-08-27"
       change: >
-        Census established. Criteria v1 frozen before the bounded search;
-        the four starting cases entered as under_review pending
-        primary-source examination.
+        Census established. Criteria v1 inclusion wording was committed and
+        is now locked in repository history; that lock is a reproducibility
+        record, not an independent preregistration. The four starting cases
+        entered as under_review pending primary-source examination.
     - date: "2026-08-27"
       change: >
         First examination pass completed: 19 rows examined (one over the
@@ -259,6 +273,18 @@ census:
         evidence or classification changed; this is a weakening of what
         the headline implies, not a rescue of it. The strongest rung being
         0 is the honest headline result and is now printed as such.
+
+    - date: "2026-08-28"
+      change: >
+        Adversarial release audit found that the repair still used the word
+        "comparable" in the primary proposition and described the criteria
+        lock as though it proved pre-search timing. Both claims were too
+        strong. The public proposition now names only the mechanical
+        shared-item/common-event basis, calls the four a heterogeneous
+        joint-evidence discovery count rather than one estimand, and says
+        precisely what the repository-history lock proves. No row,
+        classification, or count changed; this is a further narrowing of
+        language before any merge or public post.
 benchmarks:
   - id: openai-holistic-2022
     status: examined
@@ -1642,14 +1668,19 @@ benchmarks:
       - "'How fast are these guardrails in practice?' — 'processing times for the full dataset'"
       - "Executive summary — 'Cisco AI Defense achieved the best F1-score (0.845)'"
     contact_route: "https://www.ml6.eu/en/contact (no author emails printed)"
-    last_checked: "2026-08-27"
+    last_checked: "2026-08-28"
     correction_history: []
     notes: >
-      No Wayback snapshot existed as of 2026-08-27 (availability API and
-      CDX both empty) — the page should be archived before it is cited
-      further. An earlier working assumption that ML6's harness
-      "necessarily computed" the union was wrong and is rejected: nothing
-      in the post shows per-item retention or any union computation.
+      Re-reviewed against the live source on 2026-08-28 after its HTTP
+      Last-Modified value advanced. The cited table and sections remained
+      present, so this row's classification is unchanged. A single Wayback
+      Save Page Now request was accepted at 2026-08-28T14:27:45Z, but neither
+      the availability endpoint nor CDX had returned a durable capture at
+      2026-08-28T14:28:15Z; no archived URL is claimed yet. Hold public
+      launch use of this source until a timestamped capture is confirmed.
+      An earlier working assumption that ML6's harness "necessarily computed"
+      the union was wrong and is rejected: nothing in the post shows
+      per-item retention or any union computation.
 
 exclusions:
   - id: unsafebench-2024

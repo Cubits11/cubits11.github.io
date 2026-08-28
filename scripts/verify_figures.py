@@ -207,7 +207,7 @@ def check_missing_column() -> None:
             fail(f"missing-column world {wid}: all-miss segment misplaced")
         if f"A catches {a_catch:,} of {total:,} · misses {a_miss}" not in body:
             fail(f"missing-column world {wid}: marginal readout wrong or missing")
-        if f"B catches {b_catch} of the {a_miss} A missed · {all_miss} reach production" not in body:
+        if f"B catches {b_catch} of the {a_miss} A missed · {all_miss} remain uncaught in this static illustration" not in body:
             fail(f"missing-column world {wid}: residual readout wrong or missing")
     ratio = worlds["ii"][1] / worlds["i"][1]
     if ratio != int(ratio) or f"factor of {int(ratio)}" not in html:

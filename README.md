@@ -39,11 +39,18 @@ Then open http://localhost:4173.
 
 ## Deploy & verification
 
-Push to `main`; GitHub Pages serves the repository root (`.nojekyll`
-disables Jekyll). CI (`.github/workflows/verify.yml`) then verifies the
-claim registry — field shape (including falsifiers and forbidden rescues), support-link liveness, ledger coverage, and a
-freshness gate that fails when a claim passes its review window (also run
-weekly) — and collects report-only Lighthouse artifacts for the live site.
+Open a PR, pass the verification workflow, and merge through the protected
+path. The workflow verifies the claim registry — field shape (including
+falsifiers and forbidden rescues), support-link liveness, ledger coverage, and
+a freshness gate that fails when a claim passes its review window (also run
+weekly) — then deploys the exact verified static artifact and checks the live
+checksum, sitemap, rendered ladder, and correction policy.
+
+**One-time repository configuration.** In GitHub **Settings → Pages**, set
+the publishing source to **GitHub Actions** and protect the `github-pages`
+environment so only the default branch can deploy. Until that change is made,
+branch-based Pages publishing remains a legacy, ungated deployment path; do
+not describe the post-deploy smoke check as a preventive gate.
 
 ## Layout
 

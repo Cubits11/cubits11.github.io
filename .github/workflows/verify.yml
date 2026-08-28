@@ -53,36 +53,73 @@ jobs:
         run: python scripts/check_links.py
 
   reproduce:
-    name: Reproduce CC-001
+    name: Reproduce bound artifacts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The self-clone replay verifies ancestry from the corrective
+          # baseline as well as the exact candidate revision.
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install pyyaml
       - name: Clean-clone the bound commit and re-run the kernel
         run: python scripts/reproduce_cc001.py
+      - name: Clean-clone this site revision and replay deterministic gates
+        run: python scripts/verify_clean_clone.py --commit "$GITHUB_SHA"
+
+  deploy:
+    # This is the only deployment path once Pages is configured to use GitHub
+    # Actions. Branch-based Pages publishing cannot be gated: it can publish a
+    # bad commit before an independent workflow finishes. The Pages source
+    # change is an explicit repository-admin action recorded in README.md.
+    name: Deploy verified GitHub Pages artifact
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [claims, reproduce]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload the verified static artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+      - name: Deploy the verified artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
 
   deployed:
-    # Post-deploy gate. A repo that verifies on a checkout has proved only
-    # that the repo is coherent; it has not proved a reader can reach the
-    # pages or that the served HTML carries the numbers CI checked. Runs
-    # after a push to main (Pages deploys asynchronously, so this measures
-    # the previous revision on push and the settled site weekly) and on the
-    # weekly schedule.
+    # Post-deploy gate. A checkout proves only repository coherence. This
+    # job waits for Pages to serve a coherent target: every sitemap route,
+    # the exact census bytes checked here, a rendered census checksum, and
+    # the canonical correction policy. It never treats the prior deploy as
+    # evidence for this revision.
     name: Deployed site smoke
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'
-    needs: claims
+    timeout-minutes: 10
+    if: >-
+      always() && github.event_name != 'pull_request' &&
+      needs.claims.result == 'success' && needs.reproduce.result == 'success' &&
+      (github.event_name != 'push' || needs.deploy.result == 'success')
+    needs: [claims, reproduce, deploy]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install pyyaml
-      - name: Every route serves, and the live counts match the census
-        run: python scripts/smoke_deployed.py
+      - name: Wait for every route, census checksum, counts, and corrections policy
+        run: python scripts/smoke_deployed.py --attempts 30 --interval-seconds 10
 
   lighthouse:
     # Observation, not a gate: collects Lighthouse lab reports for the live

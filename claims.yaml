@@ -416,27 +416,28 @@ claims:
     proposition: >
       As of 2026-08-27, among 19 public guardrail evaluations meeting the
       Missing Column Census's frozen inclusion criteria (v1), 13 establish
-      comparable per-system results on a shared item set, and 4 publish at
-      least one item-level joint statistic for a combination of the
-      systems they evaluate or release per-item outcomes that make one
-      directly computable.
+      a shared item set and a common event definition; 4 provide one of the
+      census's declared joint-evidence artifacts: a printed composition
+      result or per-item outcomes that make one directly computable.
     scope: >
       A census claim about public reporting, bounded by the documented
-      search protocol frozen in census.yaml before examination began. It
+      search protocol documented in census.yaml. Its literal inclusion
+      wording is locked in repository history before row classification;
+      that is a reproducibility lock, not an independent preregistration.
+      It
       covers the artifacts that search found, not everything in
       existence; it says nothing about how well any evaluated system or
       stack performs, and nothing about what the unmeasured joint
       statistics would show. N, M, and K are recomputed mechanically from
       census.yaml by scripts/verify_census.py; this envelope's expected
-      block is cross-checked against that computation in CI. "Comparable"
-      is used here in the frozen criteria's sense — shared items and a
-      shared event definition — which is weaker than matched operating
-      thresholds and full exposure, so M is published as a ladder rather
-      than a single number: 13 on the shared basis, 12 once the one row
-      that states a threshold mismatch (ML6) is removed, and 0 that
+      block is cross-checked against that computation in CI. M is a ladder,
+      not a comparability verdict: 13 document shared items and a common
+      event definition, 12 have no stated threshold mismatch, and 0
       document matched operating thresholds together with full exposure.
       Nothing here asserts that the 13 are interchangeable at a common
-      operating point; the opposite is the finding. The frozen
+      operating point; the opposite is the finding. The 4 is an inclusive
+      discovery count of noninterchangeable artifacts, not an all-miss rate
+      or a deployment conclusion. The frozen
       phrase "separately attributable" did not specify whether a product
       or model name must be printed: the primary count treats systems a
       source distinguishes and reports consistently as separately
@@ -466,10 +467,10 @@ claims:
         with passages, dates, and a correction history.
     expected:
       n_examined: 19
-      m_comparable: 13
+      m_shared_basis: 13
       k_present: 4
-      # The M ladder. Printing one M lets a reader assume the strongest
-      # reading of "comparable"; all three rungs are cross-checked in CI.
+      # The M ladder. Printing only a shared basis lets a reader assume
+      # matched policy; all three rungs are cross-checked in CI.
       m_strata:
         shared_basis: 13
         threshold_not_contradicted: 12
@@ -480,7 +481,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "80c530da058b30dc6d7b816c94d21c7beadcecadd5670466e47b3e339c80c8a6"
+        sha256: "a80b5f85945e5b7fd893a2c47e2552f20f7293eb97f00fef38c556930f009ab0"
         note: fires when the census changes without a claim re-review
       - type: manual
         enforcement: manual
@@ -515,8 +516,8 @@ claims:
       NeMo Guardrails, LLM Guard — jointly catch 73 of the 82 prompts
       labelled harmful and jointly miss 9 (11.0%), while the product of
       their individual miss rates is 3.5%: the observed joint miss on
-      this subset is about three times what independent misses would
-      predict. The same union flags 19 of the 50 benign prompts.
+      this subset is about three times that independence plug-in. The
+      same union flags 19 of the 50 benign prompts.
     scope: >
       Exactly the released file at the bound commit: 170 of the
       evaluation's 990 non-adversarial prompts (the study's ~4,165
@@ -555,7 +556,7 @@ claims:
       all_miss: 9
       n_benign: 50
       benign_union_flagged: 19
-    last_reviewed: "2026-08-27"
+    last_reviewed: "2026-08-28"
     review_window_days: 60
     review_triggers:
       - type: remote_content_change
@@ -580,12 +581,12 @@ claims:
       - do not substitute a different subset, column set, or harm-level filter to preserve the numbers
       - do not fold borderline prompts into either denominator after seeing the results
       - do not recast this subset arithmetic as a population estimate, with or without an interval, if the primary counts are challenged
-      - do not cite the three-times-independence ratio without the selection caveat that scopes it
+      - do not cite the observed-to-plug-in ratio without the selection caveat that scopes it
     non_claims:
       - the subset is author-selected with an unstated rule — nothing here estimates any system's true rate, and no confidence interval is offered because the sampled population is undefined
       - not a ranking or endorsement of any vendor; the released verdicts are at unstated default configurations
       - says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release
-      - the three-times-independence ratio describes this subset's arithmetic, not a general law of guardrail dependence
+      - the observed-to-plug-in ratio describes this subset's arithmetic, not a general law of guardrail dependence
 
   - id: GA-001
     proposition: >
@@ -854,13 +855,13 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md"
       commit: null
       note: "Mutable link by design; the local-content trigger below detects edits."
-    last_reviewed: "2026-08-27"
+    last_reviewed: "2026-08-28"
     review_window_days: 120
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: DESIGN.md
-        sha256: "4108f5743baf4ffcf6721058b27a2b9f9a19a3275e33cab7cfe6a349b3dd3fa3"
+        sha256: "959ecb8434a62f77a9e653067f0f05af90b6b2b3f5a28e8c78628dfa5c412fec"
         note: fires when DESIGN.md changes without a registry re-review
       - type: manual
         enforcement: manual

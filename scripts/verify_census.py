@@ -4,8 +4,8 @@
 The census's public headline is an N/M/K statement. This verifier makes
 that statement mechanical rather than rhetorical:
 
-  1. Shape — the census block (frozen criteria, search protocol, revision
-     history) and every benchmark row carry their required fields; enums
+  1. Shape — the census block (criteria lock, search protocol, revision
+     history, adjudication status) and every benchmark row carry their required fields; enums
      are enforced; dates parse and never sit in the future.
   2. Consistency — a row classified PRESENT must point at its joint
      statistic and carry a joint_scope; a row that is not PRESENT may not
@@ -38,6 +38,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 CLASSIFICATIONS = {"PRESENT", "ABSENT", "AMBIGUOUS", "NOT_COMPARABLE"}
 JOINT_SCOPES = {"printed_full_stack", "printed_partial_stack",
                 "computable_via_item_release", "none"}
+ADJUDICATION_MODES = {"single_primary_reviewer", "dual_reviewed"}
 TRI_STATE = {"yes", "no", "unstated", "mixed"}
 CENSUS_SCHEMA_VERSION = 2
 CRITERIA_CANONICALIZATION = (
@@ -113,7 +114,7 @@ def tri_value(row: dict, field: str, rid: str) -> str:
 
 def check_census_block(census: dict) -> None:
     required = {"id", "schema_version", "criteria_version", "frozen_as_of",
-                "maintainer", "question", "proposition_template",
+                "maintainer", "adjudication_status", "question", "proposition_template",
                 "inclusion_criteria", "exclusion_rules", "non_criteria_note",
                 "frozen_criteria_lock", "interpretation_sensitivities",
                 "search_protocol", "revision_history"}
@@ -124,6 +125,21 @@ def check_census_block(census: dict) -> None:
         fail(f"census.schema_version must be {CENSUS_SCHEMA_VERSION} for "
              "the current verifier")
     parse_date(census.get("frozen_as_of"), "census.frozen_as_of")
+    adjudication = census.get("adjudication_status")
+    if not isinstance(adjudication, dict):
+        fail("census.adjudication_status must be a mapping")
+    else:
+        if adjudication.get("mode") not in ADJUDICATION_MODES:
+            fail("census.adjudication_status.mode must be one of "
+                 f"{sorted(ADJUDICATION_MODES)}")
+        covered = adjudication.get("covered_examined_rows")
+        if not isinstance(covered, int) or isinstance(covered, bool) or covered < 0:
+            fail("census.adjudication_status.covered_examined_rows must be a "
+                 "non-negative integer")
+        for field in ("limit", "release_gate"):
+            if not isinstance(adjudication.get(field), str) \
+                    or not adjudication[field].strip():
+                fail(f"census.adjudication_status.{field} must be non-empty")
     criteria = census.get("inclusion_criteria") or []
     if not isinstance(criteria, list) or len(criteria) < 3:
         fail("census.inclusion_criteria must list the frozen criteria")
@@ -299,8 +315,19 @@ def check_row(row: dict, seen_ids: set) -> None:
     reason = str(row["classification_reason"]).strip()
     if not reason:
         fail(f"{rid}: classification_reason must say why, in one breath")
-    if not isinstance(row["correction_history"], list):
+    history = row["correction_history"]
+    if not isinstance(history, list):
         fail(f"{rid}: correction_history must be a list ([] when clean)")
+    else:
+        for i, correction in enumerate(history):
+            where = f"{rid}.correction_history[{i}]"
+            if not isinstance(correction, dict):
+                fail(f"{where} must be a mapping with date and change")
+                continue
+            parse_date(correction.get("date"), f"{where}.date")
+            if not isinstance(correction.get("change"), str) \
+                    or not correction["change"].strip():
+                fail(f"{where}.change must be a non-empty string")
     prose = row["combination_prose"]
     if prose is not None:
         if not isinstance(prose, dict) or not prose.get("quote") \
@@ -341,14 +368,18 @@ def compute_counts(data: dict, excluded_ids: set[str] | None = None) -> dict:
     comparable = [r for r in examined
                   if tri(r, "same_items_for_all_systems") == "yes"
                   and tri(r, "same_event_definition") == "yes"]
-    # M is a stratum, not a verdict. "Comparable" in the frozen criteria means
-    # only shared items and a shared event definition; it says nothing about
+    # M is a stratum, not a verdict. Its shared-basis rung means only shared
+    # items and a shared event definition; it says nothing about
     # whether the systems were compared at documented, matched operating
     # thresholds, or whether every system saw every item. Reporting M as a
     # single number lets a reader assume the stronger reading, so the census
     # publishes the whole ladder and the page renders all three rungs.
+    # "No stated threshold mismatch" permits an explicit match or a source
+    # that simply does not report threshold comparability. A "mixed" record
+    # has stated a partial mismatch and must not enter this rung by accident.
     threshold_not_contradicted = [r for r in comparable
-                                  if tri(r, "thresholds_comparable") != "no"]
+                                  if tri(r, "thresholds_comparable")
+                                  in {"yes", "unstated"}]
     threshold_documented = [r for r in threshold_not_contradicted
                             if tri(r, "thresholds_comparable") == "yes"
                             and tri(r, "all_systems_saw_all_items") == "yes"]
@@ -393,7 +424,7 @@ def check_interpretation_sensitivities(data: dict) -> None:
     examined_ids = {str(r.get("id")) for r in data.get("benchmarks") or []
                     if r.get("status") == "examined"}
     seen: set[str] = set()
-    keys = ("n_examined", "m_comparable", "k_present")
+    keys = ("n_examined", "m_shared_basis", "k_present")
     for i, item in enumerate(sensitivities):
         where = f"census.interpretation_sensitivities[{i}]"
         if not isinstance(item, dict):
@@ -432,7 +463,7 @@ def check_interpretation_sensitivities(data: dict) -> None:
         if any(not isinstance(expected.get(k), int) or isinstance(expected.get(k), bool)
                for k in keys):
             fail(f"{where}.expected must give integer n_examined, "
-                 "m_comparable, and k_present")
+                 "m_shared_basis, and k_present")
             continue
         counts = compute_counts(data, set(excluded))
         actual = (counts["N"], counts["M"], counts["K"])
@@ -460,6 +491,13 @@ def main() -> int:
         check_exclusion(row, seen)
     check_interpretation_sensitivities(data)
     counts = compute_counts(data)
+    adjudication = (data.get("census") or {}).get("adjudication_status") or {}
+    if adjudication.get("covered_examined_rows") != counts["N"]:
+        fail("census.adjudication_status.covered_examined_rows must equal "
+             f"the current examined-row count ({counts['N']})")
+    else:
+        ok(f"adjudication status declared: {adjudication.get('mode')} for "
+           f"{counts['N']} examined row(s)")
 
     # Claim coherence: if the registry carries the census claim, its
     # expected counts must equal what this file actually computes — the
@@ -471,7 +509,7 @@ def main() -> int:
                    if c.get("id") == "MC-001"), None)
         if mc is not None:
             expected = mc.get("expected") or {}
-            stated = (expected.get("n_examined"), expected.get("m_comparable"),
+            stated = (expected.get("n_examined"), expected.get("m_shared_basis"),
                       expected.get("k_present"))
             actual = (counts["N"], counts["M"], counts["K"])
             if stated != actual:
@@ -481,8 +519,8 @@ def main() -> int:
                 ok(f"MC-001 expected counts match the census (N/M/K "
                    f"{actual[0]}/{actual[1]}/{actual[2]})")
             # The M ladder is part of the envelope: a claim that prints one
-            # M must also state what the stricter readings of "comparable"
-            # yield, or the strongest reading is silently implied.
+            # M must also state what stricter policy/exposure readings yield,
+            # or the strongest reading is silently implied.
             stated_strata = expected.get("m_strata")
             if not isinstance(stated_strata, dict):
                 fail("MC-001 expected must carry an m_strata block "
@@ -504,8 +542,8 @@ def main() -> int:
     if failures:
         print(f"{len(failures)} check(s) failed.")
         return 1
-    ok(f"census block: criteria v{data['census']['criteria_version']} "
-       f"frozen {data['census']['frozen_as_of']}, revision history present")
+    ok(f"census block: criteria v{data['census']['criteria_version']} wording "
+       f"locked {data['census']['frozen_as_of']}, revision history present")
     ok(f"rows: {counts['N']} examined · {counts['under_review']} under review "
        f"· {counts['excluded']} excluded · {counts['unexamined']} unexamined")
     ok(f"counts recomputed: N={counts['N']} M={counts['M']} K={counts['K']} "
@@ -515,8 +553,8 @@ def main() -> int:
        f"{strata['threshold_not_contradicted']} no stated threshold mismatch · "
        f"{strata['threshold_documented_full_exposure']} documented matched "
        f"thresholds with full exposure")
-    print("Census verified: criteria frozen, rows shaped, classifications "
-          "consistent, counts mechanical.")
+    print("Census verified: criteria lock, adjudication status, row shape, "
+          "classification consistency, and mechanical counts all hold.")
     return 0
 
 
