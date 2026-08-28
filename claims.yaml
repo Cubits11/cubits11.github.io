@@ -556,6 +556,28 @@ claims:
       all_miss: 9
       n_benign: 50
       benign_union_flagged: 19
+      # The cost side of the same stack. Recorded because the identified
+      # floor under a stack's benign burden is max_i f_i — the one thing
+      # published marginals always pin down (see scripts/identification.py).
+      per_guard_benign_flags:
+        lakera_guard: 7
+        prompt_guard: 0
+        langkit: 8
+        nemo: 10
+        llm_guard: 0
+      # The third stratum, named so it is never silently dropped: 82 + 50
+      # is 132, not 170. Every count here is stratum-conditional.
+      n_borderline: 38
+      # Union of the OTHER four guards, per guard removed. The difference
+      # from union_detection is that guard's unique contribution — the one
+      # thing the marginals and the union together cannot show, and the
+      # cheapest disclosure that shows it (k scalars, no items released).
+      leave_one_out_union:
+        lakera_guard: 70
+        prompt_guard: 73
+        langkit: 73
+        nemo: 55
+        llm_guard: 73
     last_reviewed: "2026-08-28"
     review_window_days: 60
     review_triggers:
@@ -587,6 +609,101 @@ claims:
       - not a ranking or endorsement of any vendor; the released verdicts are at unstated default configurations
       - says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release
       - the observed-to-plug-in ratio describes this subset's arithmetic, not a general law of guardrail dependence
+
+  - id: MC-003
+    proposition: >
+      For k guardrails scored on a common item set at a common operating
+      point under block-on-any composition, the rate at which every guard
+      misses the same item is fixed by the published per-guard miss rates
+      only up to the interval [max(0, Σp − (k−1)), min p], and every point
+      of that interval is attained by some joint law with those marginals.
+      Two consequences follow by algebra, not by observation: no set of
+      per-guard marginals can certify that such a stack catches even one
+      item its best single member would have missed, while those same
+      marginals always identify a strictly positive floor under the stack's
+      benign flag rate whenever any member has a non-zero false-positive
+      rate. On the one per-item release the census found — BELLS 2025, 82
+      prompts labelled harmful — the identified set is the 13 values
+      {0/82 … 12/82}, the observed all-miss is 9/82, and the leave-one-out
+      unions show three of the five supervisors contribute nothing to that
+      stratum's union: a fact the published marginals and union together
+      cannot reveal.
+    scope: >
+      The mathematics is classical — Bonferroni for the lower endpoint,
+      monotonicity for the upper, Fréchet for sharpness — and nothing here
+      claims to have derived it. What is contributed is the application:
+      pricing, in probability units, what marginal-only guardrail reporting
+      leaves undetermined, and identifying the leave-one-out union as the
+      cheapest disclosure that closes the remaining gap. Every statement is
+      conditional on block-on-any composition, per-item decisions that are
+      functions of the item alone, a fixed population, and a fixed
+      operating point; it says nothing about sequential routes where
+      downstream measurement is censored by upstream blocks, nothing about
+      agentic systems where an intervention changes the trajectory, and
+      nothing about any vendor's product. The empirical half is one
+      stratum of one author-selected subset: 82 harmful prompts, with 50
+      benign and 38 borderline held as separate strata and never folded in.
+      Computed by scripts/identification.py, whose expected block below it
+      re-asserts; the BELLS counts are bound by MC-002 and re-derived from
+      the hash-verified upstream file on every CI run.
+    dimensions:
+      visibility: public
+      provenance: machine_generated_owner_executed
+      support_role: executed_output
+      evidential_status: supported_within_scope
+      maturity: experimental
+    support:
+      url: "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/identification.py"
+      commit: null
+      note: >
+        The file carries the derivation in its docstring and the
+        attainability of both endpoints as executable constructions rather
+        than assertions — the upper by nesting the events, the lower by
+        laying the complements end to end around the circle.
+    expected:
+      identified_set_lower: 0
+      identified_set_upper: 12
+      identified_set_size: 13
+      observed_all_miss: 9
+      denominator: 82
+      benign_burden_floor_pct: 20
+      improvement_floor_pct: 0
+      members_contributing_nothing: 3
+    last_reviewed: "2026-08-28"
+    review_window_days: 60
+    review_triggers:
+      - type: local_content_change
+        enforcement: executable
+        path: scripts/identification.py
+        sha256: "d6af101975e973e4bd1ade3ebc113a2eb63065d4b423deed113d67f73372a32c"
+        note: fires when the derivation or its tests change without a re-review
+      - type: manual
+        enforcement: manual
+        event: >
+          a stack is reported whose composition is not block-on-any, or a
+          reader shows a marginal-only reporting scheme that does certify
+          strict improvement over a stack's best member
+    falsifier:
+      condition: >
+        A joint law with the stated marginals achieves an all-miss rate
+        outside the interval; or a marginal-only reporting scheme is
+        exhibited that certifies strict improvement over the best single
+        member under block-on-any composition; or recomputing from the
+        bound BELLS file yields any count different from the expected
+        block.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not change the composition rule after the fact to preserve the direction of the result
+      - do not restate "identified only up to" as "estimated to be" — a bound is not an estimate
+      - do not quote where an observed value sits inside the interval as a score or a percentage of a gap closed; the endpoints come from adversarial couplings with no detector-behavioural content
+      - do not cite the three-of-five leave-one-out result as a vendor ranking or as evidence about any product outside this stratum
+      - do not fold the borderline stratum into either denominator to change any figure
+    non_claims:
+      - no new mathematics is claimed; the bounds are Fréchet's and the lower endpoint is Bonferroni's
+      - not a claim that guardrails in general fail together — this stratum cannot separate shared blind spots from prompt-difficulty heterogeneity
+      - not a vendor evaluation; the released verdicts are at unstated default configurations, and one supervisor fires exactly once in the 170 released rows
+      - the identified interval is what the marginals leave open, not a prediction about any deployed stack
+      - says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release
 
   - id: GA-001
     proposition: >

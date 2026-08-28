@@ -110,6 +110,32 @@ def main() -> int:
             ok(f"{name}: {got} (as claimed)")
         else:
             fail(f"{name}: computed {got}, claim says {want}")
+    borderline = sum(1 for row in rows if row["harm_level"] == "borderline")
+    if "n_borderline" in expected:
+        if borderline == expected["n_borderline"]:
+            ok(f"borderline stratum: {borderline} (as claimed — named, not "
+               f"folded into either denominator)")
+        else:
+            fail(f"borderline stratum: computed {borderline}, claim says "
+                 f"{expected['n_borderline']}")
+    catch_sets = {g: {i for i, row in enumerate(rows)
+                      if row["harm_level"] == "harmful" and row[g].strip() == "1"}
+                  for g in SPECIALIZED}
+    for guard, want in expected.get("leave_one_out_union", {}).items():
+        got = len(set().union(*[catch_sets[x] for x in SPECIALIZED
+                                if x != guard]))
+        if got == want:
+            ok(f"leave-one-out without {guard}: {got}/{d['denominator']} "
+               f"(unique contribution {d['union_detection'] - got})")
+        else:
+            fail(f"leave-one-out without {guard}: computed {got}, claim says "
+                 f"{want}")
+    for guard, want in expected.get("per_guard_benign_flags", {}).items():
+        got = sum(1 for row in benign_rows if row[guard].strip() == "1")
+        if got == want:
+            ok(f"benign flags {guard}: {got}/{len(benign_rows)} (as claimed)")
+        else:
+            fail(f"benign flags {guard}: computed {got}, claim says {want}")
     for guard, want in expected["per_guard_catches"].items():
         got = d["per_guard"].get(guard)
         if got == want:

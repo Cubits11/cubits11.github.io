@@ -58,6 +58,95 @@ a result without naming which of `O`, `R_π`, `R_π,a,t` it is about. This is a
 release rule for the prospective E2 packet, not a retroactive claim that the
 current reporting inventory already measures all three.
 
+## 1b. What is already identified — and what never can be
+
+Before collecting anything, it is worth knowing what the *existing* form of
+reporting can and cannot support. The answer is sharper than "not much," and
+it is derivable rather than solicited: it needs nobody's cooperation and no
+new census rows.
+
+For k guards scored on a common item set at a common operating point under
+block-on-any composition, with published per-guard miss rates `p_1..p_k`, the
+all-miss rate is fixed only to
+
+    max(0, Σ p_i − (k−1))  ≤  P(∩ E_i)  ≤  min_i p_i
+
+and every point of that interval is attained by some joint law with those
+marginals. The mathematics is classical — Bonferroni below, monotonicity
+above, Fréchet for sharpness. Nothing here is new. What is new is reading it
+as a **price**.
+
+Three consequences, each stated in the direction that survived adversarial
+review (`scripts/identification.py`, claim MC-003):
+
+1. **Direction.** `P(∩E_i) ≤ min_i p_i` is a theorem: a block-on-any stack is
+   never *worse* at catching than its best single member. What marginals can
+   never do is certify that it is *better* — `min_i p_i` always lies inside
+   the identified set. Strict improvement is unfalsifiable from marginals;
+   degradation is ruled out by algebra.
+2. **Asymmetry.** The identified floor under the stack's benign burden is
+   `max_i f_i`, strictly positive whenever any member misfires. The identified
+   floor under its improvement is exactly `0`. Marginal reporting can prove a
+   stack costs its legitimate users, and can never prove it protects anyone.
+   When `Σ p_i > k−1` the harmful-side lower endpoint also lifts, so marginals
+   can certify an irreducible failure floor too. Every certifiable statement
+   marginals support is a statement about *failure*.
+3. **Independence is interior.** The product plug-in a dashboard prints always
+   lies inside the identified set, so the bounds alone cannot refute it. Only
+   per-item data can. This is why the disclosure ask cannot be replaced by
+   better inference.
+
+### The price, and what actually closes it
+
+One scalar closes the harmful side: for a parallel stack on a fixed labelled
+population at a fixed operating point, `all-miss = 1 − B`, where `B` is the
+"flagged by at least one guard" rate. That is an identity, not a theorem, and
+it releases no items.
+
+But the union is not the disclosure that matters most. **The k leave-one-out
+unions are** — publish the union with guard `g` removed, for each `g`, and
+each member's unique contribution becomes visible. This costs k scalars, still
+releases no items, and reveals the one thing marginals *and* the union
+together still hide: whether a stack is an ensemble or one guard carrying
+riders.
+
+On the one per-item release the census found (BELLS 2025, 82 prompts labelled
+harmful), the identified set from the five published marginals is the 13
+values {0/82 … 12/82} — 13/82 is combinatorially infeasible, since 70 catches
+cannot fit in 69 items. The observed all-miss is 9/82. The five marginals
+(52, 5, 25, 70, 0) together with the union (73) are exactly what such a stack
+would report and are entirely consistent with a working five-member ensemble.
+The leave-one-out row says otherwise:
+
+| Removed | Union without it | Unique contribution |
+|---|---:|---:|
+| NeMo Guardrails | 55 / 82 | 18 |
+| Lakera Guard | 70 / 82 | 3 |
+| LangKit | 73 / 82 | 0 |
+| Prompt Guard | 73 / 82 | 0 |
+| LLM Guard | 73 / 82 | 0 |
+
+Three of five contribute nothing on this stratum. Nobody asks for that row.
+
+**Scope, held tightly.** One stratum of one author-selected subset; the 50
+benign and 38 borderline rows are separate strata and are never folded in.
+This is an existence proof that the blind spot is not hypothetical — not
+evidence that guards in general fail together, which this stratum cannot
+separate from prompt-difficulty heterogeneity. Where an observed value sits
+inside the interval is **not** a score: the endpoints come from adversarial
+couplings with no detector-behavioural content, and reporting "75% of the way
+across" is reading a bound as a benchmark. The claim's forbidden rescues bar
+exactly that.
+
+### What this changes about the programme
+
+The disclosure ask stops being a request for cooperation and becomes a
+statement about what published reporting can support. MJGD v1 gains a required
+field — **leave-one-out unions** — and gains a derivation rather than a
+preference for the fields it already had. And §7's Arm S is no longer
+justified by "more data is better": it is the arm that moves the estimand from
+an interval of width `min_i p_i` to a point.
+
 ## 2. The competing explanations
 
 The wager is a three-way test, not a thesis to confirm.
@@ -88,17 +177,21 @@ cannot be quietly reframed as "inconclusive, needs more data."
 Fixed population · event definition · route semantics (parallel / sequential
 with order / gated) · system and API versions · operating thresholds ·
 missingness codes · per-system rates **at the same operating point** ·
-full-stack union and all-miss · benign-union burden · ordered residual
-coverage · uncertainty · latency, cost, errors, timeouts · policy topology ·
+full-stack union and all-miss · **k leave-one-out unions** · benign-union
+burden · ordered residual coverage · uncertainty · latency, cost, errors, timeouts · policy topology ·
 stratification by threat regime · a repeat-after-version-change rule · raw
 outcome tensors where safely releasable, otherwise sufficient aggregates plus
 independently verifiable manifests.
 
 **Raw harmful prompts are not always required.** For a declared decision, a
 full-stack "block on any" rate identifies all-miss; ordered prefix rates
-identify residual contribution. Per-item vectors can stay controlled-access.
+identify residual contribution; the k leave-one-out unions identify each
+member's unique contribution. Per-item vectors can stay controlled-access.
 This is what makes the disclosure ask answerable rather than merely
-principled.
+principled — though it presupposes the evaluator retained a per-item join
+across guards at a common operating point, which many leaderboards never
+construct. Where they did not, the honest answer is that the disclosure is
+not available at any price until the evaluation is re-run.
 
 ## 4. Standing behaviors (enforced, not aspirational)
 
@@ -144,6 +237,22 @@ Named so that they can be refused quickly:
 - Calling MJGD a *standard*. It is a schema until someone outside this
   repository uses it, and then it is a used schema.
 - Any productization, funding pitch, or naming of the work as a venture.
+- **A "sovereign assurance engine."** A local-inference / graph-orchestration /
+  self-healing-scraper / edge-Merkle-ledger stack is a twelve-month
+  infrastructure programme with no result to carry. Every layer of it is
+  downstream of evidence this repository does not yet have. Two components
+  earn their place and are already here in one line each: the clean-clone
+  replay (`scripts/reproduce_cc001.py`) and content-hash binding of every
+  external artifact. The rest — visual audit video, taxonomy crawlers,
+  anti-bot fetchers, a public Merkle root — buys attestation of numbers whose
+  *identification* is the actual open problem. Build the witness when there is
+  something worth witnessing; the missing piece for Days 71–90 is one
+  independent reproduction by a person who is not the author, which no amount
+  of local infrastructure supplies.
+- **Publishing an epistemic-tag vocabulary as a public artifact.** The tags
+  govern this repository's own discipline (see `docs/EPISTEMIC_TAGS.md`). A
+  private notation that keeps the author honest becomes, when published as a
+  framework, exactly the kind of un-adopted standard §5 already refuses.
 
 ## 6. The identity this converges on
 
