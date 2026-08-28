@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Verify the claim registry (claims.yaml) — schema v0.4.
+"""Verify the public claim registry (claims.yaml) — schema v0.4.
 
 Checks, in order:
-  1. Shape — required fields, dimension enums, trigger typing, and the
+  1. Shape — required fields, public-only visibility, dimension enums, trigger typing, and the
      public challenge record: every claim has a non-empty falsifier condition,
      a fixed NARROW|REJECT|HOLD consequence, and a typed forbidden_rescues
      list (an explicit [] is valid). "attested" may never appear as an
@@ -49,7 +49,7 @@ import yaml
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 ENUMS = {
-    "visibility": {"public", "private"},
+    "visibility": {"public"},
     "provenance": {"machine_generated_owner_executed", "owner_authored",
                    "lab_repository", "owner_attested", "owner_verified"},
     "support_role": {"executed_output", "document", "repository_readme",
@@ -93,6 +93,8 @@ def check_dimensions(cid: str, dims: dict) -> None:
             fail(f"{cid}: dimensions.{key}={val!r} not in {sorted(allowed)}")
     if dims.get("evidential_status") == "attested":
         fail(f"{cid}: 'attested' used as evidential_status — it is provenance")
+    if dims.get("visibility") != "public":
+        fail(f"{cid}: claims.yaml is public-only; private records must not be tracked here")
 
 
 def check_falsifier(cid: str, falsifier) -> None:
@@ -201,15 +203,15 @@ SELF_BLOB = "https://github.com/Cubits11/cubits11.github.io/blob/main/"
 
 
 def check_url_liveness(cid: str, url: str) -> None:
-    # A binding into this repository's own main branch is satisfied by the
-    # file existing in the working tree: the claim and the file land on
-    # main in the same push, so before that push the remote URL cannot
-    # resolve yet and after it the remote content IS this file. Checking
-    # the local tree is the invariant that holds at every point.
+    # Branch CI cannot require a self-link to main to resolve before merge.
+    # Here we verify only that its referenced source exists in this checkout;
+    # this is not a remote-liveness or deployment assertion. The post-deploy
+    # smoke gate handles the latter once an exact revision is on main.
     if str(url).startswith(SELF_BLOB):
         rel = str(url)[len(SELF_BLOB):]
         if (ROOT / rel).is_file():
-            ok(f"{cid}: support path exists in this repository — {rel}")
+            ok(f"{cid}: self-support path exists in this checkout — {rel} "
+               "(deployment liveness is a separate gate)")
         else:
             fail(f"{cid}: support URL names {rel}, which does not exist "
                  f"in this repository")

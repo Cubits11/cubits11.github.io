@@ -474,8 +474,9 @@ What was actually verified this pass, and how:
 - **Observatory:** 12/12 decay clocks drawn with correct elapsed days
   (0d for the 08-23 cohort, 3d for 08-20); no false review-due or expired
   states.
-- **Module 004:** renders PLANNED stamps, the AS-001 envelope, and no
-  fabricated sections.
+- **Module 004 (v0.4 snapshot):** rendered PLANNED stamps and a private
+  envelope. A subsequent privacy correction removed private records from the
+  public registry; the module now renders the question without an envelope.
 - **Contrast:** computed ratios recorded under D10.
 - **Not verified in the v0.4 pass, and therefore not claimed then:** a full
   keyboard-only traversal of the new pages, a screen-reader pass over the new
@@ -499,9 +500,10 @@ Run in a browser against the local server, DOM-level and interactive:
   attribute holding unique information (the hover-only concern is fully closed);
   no image lacks `alt`; the observatory's decay-clock SVG is `aria-hidden` so a
   screen reader receives the textual `reviewed … window` dates rather than a
-  bare ring; each capsule carries an `h2`; the three owner-attested capsules are
-  each visibly marked with an attested chip and a dashed neutral rail, and
-  maturity renders on every capsule.
+  bare ring; each capsule carries an `h2`; the then-present owner-attested
+  capsules were visibly marked with an attested chip and a dashed neutral
+  rail, and maturity rendered on every capsule. Private records were removed
+  from the public registry in the subsequent privacy correction.
 - **Still honestly owed:** a session with a real assistive technology
   (VoiceOver / NVDA), which a DOM-and-keyboard audit approximates but does not
   replace, and print styles for the new routes. The accessibility score in

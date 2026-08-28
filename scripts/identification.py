@@ -1,60 +1,41 @@
 #!/usr/bin/env python3
-"""What a reader can actually compute about a stack, given what was published.
+"""What static stack behavior is identified by the columns a report keeps.
 
-The census asks whether joint statistics are *reported*. This file asks the
-prior question: for a given evaluation, what is the identified set for the
-quantity an operator cares about — the rate at which every guard in the
-stack misses the same item?
+The census asks whether joint statistics are reported. This file asks the
+prior question: on one fixed evaluation, what can a reader recover about the
+rate at which every eligible guard misses the same item when the report keeps
+only per-guard marginals?
 
-None of the mathematics here is new. It is Bonferroni plus monotonicity,
-and the bounds are Fréchet's. What this file contributes is the
-application: pricing, in probability units, what marginal-only guardrail
-reporting leaves undetermined, and naming the cheapest disclosure that
-determines it.
+The scope is deliberately narrow: a common, fixed population; full exposure
+of every eligible guard to every item; per-item decisions that are functions
+of that item; one declared operating point; and a parallel block-on-any (OR)
+rule. It is not a model of a sequential route, a changed agent trajectory,
+adaptive attack, sampling uncertainty, or deployment risk.
 
-For miss events E_1..E_k (E_i = "guard i missed this item") with marginal
-miss rates p_1..p_k on a common population, the all-miss rate is pinned
-only to
+For miss events E_1..E_k with marginal miss rates p_1..p_k, the continuous
+identified set for static all-miss is the sharp Fréchet interval
 
-    max(0, Σ p_i − (k−1))  ≤  P(∩ E_i)  ≤  min_i p_i
+    max(0, sum(p_i) - (k-1)) <= P(intersection E_i) <= min(p_i).
 
-and — since couplings are closed under mixture and the functional is
-affine — every point of that interval is attained by some joint law with
-those marginals. The interval IS the identified set, not a conservative
-envelope. Both endpoints are attained for every k: the upper by nesting
-the events (comonotone), the lower by laying the complements end to end
-around the circle, where they cover it exactly when Σ p_i ≤ k−1.
+Every point is attainable by a joint law with those marginals. On a finite
+population of n labelled items with exact per-guard catch counts c_i, the
+identified set is the integer grid
 
-Three consequences, stated in the direction that survives scrutiny:
+    {max(0, n - sum(c_i)), ..., n - max(c_i)}.
 
-  * DIRECTION. Under block-on-any (OR) composition, P(∩E_i) ≤ min_i p_i is
-    a theorem: a stack is never worse than its best member at catching.
-    What marginals can never do is certify that it is BETTER, because
-    min_i p_i always lies inside the identified set. Strict improvement is
-    unfalsifiable from marginals; degradation is ruled out by algebra.
+One same-denominator union aggregate identifies static all-miss exactly:
+all_miss = n - union_detection. It does not disclose overlap. Publishing the
+k leave-one-out unions adds a compact, privacy-preserving view of each guard's
+*exclusive full-stack coverage*: union_all - union_without_guard. That still
+does not identify pairwise or higher-order overlap, Shapley values, route
+semantics, or an ensemble's causal structure.
 
-  * ASYMMETRY. When Σ p_i > k−1 the lower endpoint is positive, so
-    marginals CAN certify an irreducible failure floor. They can certify a
-    floor on failure and never a gain from stacking. The same holds on the
-    benign side, where the union burden is bounded below by max_i f_i and
-    is therefore always certifiably positive when any guard misfires.
+The mathematics is classical. The contribution here is a checked translation
+from the mathematics to the disclosure boundary — what a marginal table can
+support, what a union closes, and what a small additional aggregate exposes.
 
-  * PRICE. One scalar closes the harmful side: for a parallel stack on a
-    fixed labelled population at a fixed operating point, all-miss = 1 − B
-    where B is the "flagged by at least one guard" rate. This is an
-    identity, not a theorem. Cheap, and it releases no items.
-
-    But the identity that MATTERS is the leave-one-out union. Publishing
-    the k unions-without-guard-g reveals each member's unique contribution
-    — the thing marginals plus the union together still hide, and the
-    thing nobody asks for. See ``leave_one_out``.
-
-What this file does NOT do: estimate dependence, correct for sampling
-error, model routes, or certify a stack. A bound is not an estimate, and
-where a value sits inside a bound is not a score.
-
-    python3 scripts/identification.py --test    # identities and sharpness
-    python3 scripts/identification.py --bells   # the one calibrated case
+    python3 scripts/identification.py --test    # formulas and finite checks
+    python3 scripts/identification.py --bells   # registered BELLS envelope
 """
 
 import itertools
@@ -64,227 +45,326 @@ import sys
 
 # --------------------------------------------------------- identified sets
 
-def frechet_interval(miss_rates: list[float]) -> tuple[float, float]:
-    """Identified set for P(all k guards miss), given only their marginals."""
-    if len(miss_rates) < 2:
+def _check_probabilities(values: list[float], label: str) -> None:
+    if len(values) < 2:
         raise ValueError("a stack needs at least two guards")
-    for p in miss_rates:
-        if not 0.0 <= p <= 1.0:
-            raise ValueError(f"miss rate {p} is not a probability")
+    for value in values:
+        if not 0.0 <= value <= 1.0:
+            raise ValueError(f"{label} {value} is not a probability")
+
+
+def _check_counts(values: list[int], n: int) -> None:
+    if len(values) < 2:
+        raise ValueError("a stack needs at least two guards")
+    if n <= 0:
+        raise ValueError("empty denominator")
+    for value in values:
+        if isinstance(value, bool) or not isinstance(value, int) or not 0 <= value <= n:
+            raise ValueError(f"catch count {value!r} is not an integer in [0, {n}]")
+
+
+def frechet_interval(miss_rates: list[float]) -> tuple[float, float]:
+    """Sharp continuous identified set for P(all k guards miss)."""
+    _check_probabilities(miss_rates, "miss rate")
     k = len(miss_rates)
     return max(0.0, sum(miss_rates) - (k - 1)), min(miss_rates)
 
 
+def identified_width(miss_rates: list[float]) -> float:
+    """Width of the continuous all-miss identified set.
+
+    It equals min(p_i) only when the lower Fréchet endpoint is zero.
+    """
+    lower, upper = frechet_interval(miss_rates)
+    return upper - lower
+
+
 def integer_grid(catch_counts: list[int], n: int) -> list[int]:
-    """The identified set on a finite item set is not an interval of reals
-    but a set of integers, and it is smaller than the continuous bound
-    suggests. With n items and catch counts c_i, an all-miss count of t
-    requires every guard's catches to fit inside the remaining n − t
-    items, so t ≤ n − max_i c_i. Every value from the lower bound up to
-    that ceiling is realisable by relabelling which items each guard
-    catches, holding every count exact."""
-    if n <= 0:
-        raise ValueError("empty denominator")
-    lo = max(0, sum(n - c for c in catch_counts) - (len(catch_counts) - 1) * n)
-    return list(range(lo, n - max(catch_counts) + 1))
+    """Exact finite-population all-miss counts compatible with catch counts.
+
+    With n labelled items and exact catches c_i, the all-miss count t is
+    feasible exactly for max(0, n - sum(c_i)) <= t <= n - max(c_i). Every
+    integer in that range is attained by choosing catch sets on n labels.
+    """
+    _check_counts(catch_counts, n)
+    lower = max(0, n - sum(catch_counts))
+    upper = n - max(catch_counts)
+    return list(range(lower, upper + 1))
+
+
+def unique_contribution_intervals(
+        catch_counts: dict[str, int], union_count: int) -> dict[str, tuple[int, int]]:
+    """Bounds on each guard's exclusive full-stack coverage from aggregates.
+
+    Let c_i be a guard's catch count and U the full-stack union. Its exclusive
+    count q_i is identified only to
+
+        max(0, U - sum_{j != i} c_j) <= q_i
+            <= min(c_i, U - max_{j != i} c_j).
+
+    Each integer in the interval is attainable. Thus marginals plus a union
+    can sometimes prove an exclusive count is zero (as a zero marginal does),
+    but they generally cannot recover every guard's realized exclusive
+    coverage. Leave-one-out unions do so under the static assumptions above.
+    """
+    names = list(catch_counts)
+    counts = list(catch_counts.values())
+    if len(names) < 2:
+        raise ValueError("a stack needs at least two guards")
+    if isinstance(union_count, bool) or not isinstance(union_count, int) or union_count < 0:
+        raise ValueError("union count must be a non-negative integer")
+    if any(isinstance(count, bool) or not isinstance(count, int) or count < 0
+           for count in counts):
+        raise ValueError("catch counts must be non-negative integers")
+    if union_count < max(counts) or union_count > sum(counts):
+        raise ValueError("union count is incompatible with the catch counts")
+
+    bounds = {}
+    for guard, count in catch_counts.items():
+        others = [other for name, other in catch_counts.items() if name != guard]
+        lower = max(0, union_count - sum(others))
+        upper = min(count, union_count - max(others))
+        bounds[guard] = (lower, upper)
+    return bounds
 
 
 def independence_plugin(miss_rates: list[float]) -> float:
-    """The number a dashboard prints when it assumes the guards fail
-    independently. It is one point inside the identified set, chosen by
-    assumption rather than evidence. It is never outside the set, so the
-    bounds alone cannot refute it — only per-item data can."""
+    """The all-miss expectation under an independence model.
+
+    The product lies in the continuous Fréchet set. Marginals alone therefore
+    do not identify a realized all-miss rate or distinguish the independence
+    model from another compatible coupling; a same-denominator union or
+    per-item outcome data can. On a finite file the product can be a
+    non-integer expected count, not a realizable deterministic cell count.
+    """
+    _check_probabilities(miss_rates, "miss rate")
     product = 1.0
-    for p in miss_rates:
-        product *= p
+    for rate in miss_rates:
+        product *= rate
     return product
 
 
 def burden_interval(flag_rates: list[float]) -> tuple[float, float]:
-    """Identified set for the stack's benign flag rate — the union of the
-    guards' false positives, since one guard flagging is enough:
+    """Sharp identified set for a static OR stack's benign union-flag rate.
 
-        max_i f_i  ≤  P(∪ F_i)  ≤  min(1, Σ f_i)
+        max_i f_i <= P(union F_i) <= min(1, sum(f_i)).
 
-    The lower endpoint is strictly positive whenever any guard has a
-    non-zero false-positive rate. Marginals therefore always identify a
-    floor under what a stack costs legitimate users."""
-    if len(flag_rates) < 2:
-        raise ValueError("a stack needs at least two guards")
-    for f in flag_rates:
-        if not 0.0 <= f <= 1.0:
-            raise ValueError(f"flag rate {f} is not a probability")
+    A positive marginal benign flag rate therefore yields a positive lower
+    bound on the static union-flag burden. Whether that is an acceptable user
+    cost requires a separate utility, calibration, and route analysis.
+    """
+    _check_probabilities(flag_rates, "flag rate")
     return max(flag_rates), min(1.0, sum(flag_rates))
 
 
 def improvement_interval(miss_rates: list[float]) -> tuple[float, float]:
-    """Identified set for min_i p_i − P(all miss): how much the stack
-    improves on its own best member.
+    """Identified set for improvement over the best static member.
 
-    The lower endpoint is always 0, attained when the best guard's misses
-    are contained in every other guard's. Set beside ``burden_interval``,
-    the asymmetry is exact — a positive identified floor under the cost, a
-    floor of zero under the benefit.
-
-    Read with care: "best member" is selected after seeing the numbers, so
-    an improvement measured against it is a post-hoc comparison, not an
-    estimate of what stacking buys in general."""
+    The quantity is min_i p_i - P(all miss). Its lower endpoint is zero;
+    marginal rates certify non-degradation under OR composition. They do not
+    generally certify strict incremental benefit: when the set is
+    non-degenerate, zero remains compatible. In a singleton case, however,
+    marginals can rule strict improvement out.
+    """
     lower, upper = frechet_interval(miss_rates)
     best = min(miss_rates)
     return best - upper, best - lower
 
 
 def collapse_from_union(union_rate: float) -> float:
-    """all-miss = 1 − (rate flagged by at least one guard). An identity for
-    a parallel stack on a fixed labelled population at a fixed operating
-    point — not a theorem, and not robust to changing any of those three."""
+    """Static all-miss = 1 - static union detection on one fixed population."""
     if not 0.0 <= union_rate <= 1.0:
         raise ValueError("union rate is not a probability")
     return 1.0 - union_rate
 
 
-def leave_one_out(catch_sets: dict) -> dict:
-    """Each guard's unique contribution: how much the union shrinks when
-    that guard is removed.
-
-    This is the disclosure that marginals plus the union still cannot
-    supply, and it costs k scalars and no items. A stack whose members'
-    marginals look complementary can be, item for item, one guard doing
-    all the work and k−1 riding along; only these numbers distinguish the
-    two cases."""
+def leave_one_out(catch_sets: dict[str, set]) -> dict:
+    """Exact exclusive full-stack coverage from per-item catch sets."""
     names = list(catch_sets)
     if len(names) < 2:
         raise ValueError("a stack needs at least two guards")
     union = set().union(*catch_sets.values())
-    out = {}
-    for g in names:
-        without = set().union(*[catch_sets[x] for x in names if x != g]) \
-            if len(names) > 1 else set()
-        out[g] = {"union_without": len(without),
-                  "unique_contribution": len(union) - len(without)}
-    return {"union": len(union), "per_guard": out}
+    per_guard = {}
+    for guard in names:
+        without = set().union(*(catch_sets[name] for name in names if name != guard))
+        per_guard[guard] = {
+            "union_without": len(without),
+            "unique_contribution": len(union) - len(without),
+        }
+    return {"union": len(union), "per_guard": per_guard}
 
 
 # --------------------------------------------------------------- self-tests
 
-def _realise_extremes(miss_rates: list[float], grid: int = 2000) -> tuple[float, float]:
-    """Attainability by explicit construction, not by restating the formula.
-    Upper: nest the events on [0,1) so the intersection is [0, min p).
-    Lower: lay the COMPLEMENTS end to end around the circle; they cover it
-    exactly when Σ(1 − p_i) ≥ 1, i.e. Σ p_i ≤ k − 1."""
-    cells = [(i + 0.5) / grid for i in range(grid)]
-    upper_hat = sum(1 for c in cells if all(c < p for p in miss_rates)) / grid
+def _realise_extremes(miss_rates: list[float], grid: int = 10_000) -> tuple[float, float]:
+    """Numerical smoke check for explicit endpoint constructions.
+
+    Upper endpoint: nest all miss events from zero. Lower endpoint: lay their
+    complements consecutively around a unit circle. The formulas above give
+    the exact endpoint; this routine checks the constructions on a fine grid.
+    """
+    _check_probabilities(miss_rates, "miss rate")
+    if grid <= 0:
+        raise ValueError("grid must be positive")
+    cells = [(index + 0.5) / grid for index in range(grid)]
+    upper_hat = sum(
+        1 for cell in cells if all(cell < rate for rate in miss_rates)
+    ) / grid
+
     arcs, start = [], 0.0
-    for p in miss_rates:
-        arcs.append((start, start + (1.0 - p)))
-        start += (1.0 - p)
-    def missed_by_all(c: float) -> bool:
-        for lo, hi in arcs:
-            if lo <= c < hi or (hi > 1.0 and c < hi - 1.0):
-                return False
-        return True
-    return sum(1 for c in cells if missed_by_all(c)) / grid, upper_hat
+    for rate in miss_rates:
+        length = 1.0 - rate
+        arcs.append((start % 1.0, length))
+        start += length
+
+    def in_arc(cell: float, origin: float, length: float) -> bool:
+        return length >= 1.0 or ((cell - origin) % 1.0) < length
+
+    lower_hat = sum(
+        1 for cell in cells if not any(in_arc(cell, origin, length)
+                                       for origin, length in arcs)
+    ) / grid
+    return lower_hat, upper_hat
+
+
+def _exhaust_small_finite_cases() -> tuple[bool, str]:
+    """Exhaustively check finite formulas for n <= 4 and k <= 3."""
+    for n in range(1, 5):
+        masks = range(1 << n)
+        full_mask = (1 << n) - 1
+        for k in (2, 3):
+            all_miss_sets: dict[tuple[int, ...], set[int]] = {}
+            unique_sets: dict[tuple[tuple[int, ...], int], list[set[int]]] = {}
+            for outcome in itertools.product(masks, repeat=k):
+                counts = tuple(mask.bit_count() for mask in outcome)
+                union_mask = 0
+                for mask in outcome:
+                    union_mask |= mask
+                union_count = union_mask.bit_count()
+                all_miss_sets.setdefault(counts, set()).add(n - union_count)
+                key = (counts, union_count)
+                if key not in unique_sets:
+                    unique_sets[key] = [set() for _ in range(k)]
+                for index, mask in enumerate(outcome):
+                    others = 0
+                    for other_index, other in enumerate(outcome):
+                        if index != other_index:
+                            others |= other
+                    unique_sets[key][index].add((mask & ~others & full_mask).bit_count())
+
+            for counts, seen in all_miss_sets.items():
+                expected = set(integer_grid(list(counts), n))
+                if seen != expected:
+                    return False, f"all-miss grid mismatch n={n}, k={k}, counts={counts}"
+            for (counts, union_count), per_guard in unique_sets.items():
+                named = {f"g{index}": count for index, count in enumerate(counts)}
+                bounds = unique_contribution_intervals(named, union_count)
+                for index, seen in enumerate(per_guard):
+                    lower, upper = bounds[f"g{index}"]
+                    if seen != set(range(lower, upper + 1)):
+                        return False, ("exclusive-coverage interval mismatch "
+                                       f"n={n}, k={k}, counts={counts}, U={union_count}, "
+                                       f"guard={index}")
+    return True, "finite all-miss and exclusive-coverage formulas exhaustive for n<=4, k<=3"
 
 
 def _test() -> int:
     failures = []
 
-    def check(cond, msg):
-        print(("ok    " if cond else "FAIL  ") + msg)
-        if not cond:
-            failures.append(msg)
+    def check(condition: bool, message: str) -> None:
+        print(("ok    " if condition else "FAIL  ") + message)
+        if not condition:
+            failures.append(message)
 
-    lo, hi = frechet_interval([0.5, 0.5])
-    check((lo, hi) == (0.0, 0.5), "k=2, p=(.5,.5): identified set [0, 0.5]")
+    lower, upper = frechet_interval([0.5, 0.5])
+    check((lower, upper) == (0.0, 0.5), "k=2, p=(.5,.5): identified set [0, .5]")
 
-    lo, hi = frechet_interval([0.9, 0.9])
-    check(abs(lo - 0.8) < 1e-12,
-          "Σp > k−1 lifts the lower endpoint: marginals CAN certify a "
-          "failure floor (0.8)")
+    lower, upper = frechet_interval([0.9, 0.9])
+    check(abs(lower - 0.8) < 1e-12 and abs(identified_width([0.9, 0.9]) - 0.1) < 1e-12,
+          "positive lower endpoint: p=(.9,.9) has [0.8, .9], width .1 (not min p)")
 
     for rates in ([0.3, 0.4, 0.5], [0.1, 0.9, 0.5, 0.2]):
-        lo, hi = frechet_interval(rates)
-        check(lo == 0.0 and abs((hi - lo) - min(rates)) < 1e-12,
-              f"Σp ≤ k−1 for {rates}: width == best guard's rate {min(rates)}")
+        lower, upper = frechet_interval(rates)
+        check(lower == 0.0 and abs(identified_width(rates) - min(rates)) < 1e-12,
+              f"zero lower endpoint for {rates}: width equals min p only in this case")
 
-    for rates in ([0.3, 0.4, 0.5], [0.9, 0.9, 0.9], [0.5] * 5):
-        lo, hi = frechet_interval(rates)
-        check(lo - 1e-12 <= independence_plugin(rates) <= hi + 1e-12,
-              f"independence lies INSIDE the identified set for {rates} — "
-              "the bounds alone cannot refute it")
+    for rates in ([0.3, 0.4, 0.5], [0.9, 0.9, 0.9], [0.0, 0.4], [0.3, 1.0]):
+        lower, upper = frechet_interval(rates)
+        product = independence_plugin(rates)
+        check(lower - 1e-12 <= product <= upper + 1e-12,
+              f"independence product lies in the continuous set for {rates}")
 
-    for rates in ([0.3, 0.4, 0.5], [0.2, 0.6, 0.7, 0.9]):
-        lo, hi = frechet_interval(rates)
-        lo_hat, hi_hat = _realise_extremes(rates)
-        check(abs(hi_hat - hi) < 1e-3,
-              f"upper endpoint {hi:.3f} realised by nesting ({hi_hat:.3f})")
-        check(abs(lo_hat - lo) < 1e-3,
-              f"lower endpoint {lo:.3f} realised by arc covering ({lo_hat:.3f})")
+    for rates in ([0.3, 0.4, 0.5], [0.9, 0.9], [0.9, 0.8, 0.75]):
+        lower, upper = frechet_interval(rates)
+        lower_hat, upper_hat = _realise_extremes(rates)
+        check(abs(upper_hat - upper) < 1e-3,
+              f"nested-event construction reaches upper endpoint {upper:.3f}")
+        check(abs(lower_hat - lower) < 1e-3,
+              f"circle-complement construction reaches lower endpoint {lower:.3f}")
 
-    # Direction: a stack is never WORSE than its best member (OR composition).
-    check(frechet_interval([0.3, 0.4, 0.5])[1] == 0.3,
-          "upper endpoint is the best guard's rate — a stack cannot be worse")
     check(improvement_interval([0.3, 0.4, 0.5])[0] == 0.0,
-          "…and the identified floor under its improvement is exactly 0")
+          "non-degenerate marginals leave zero strict improvement compatible")
+    check(improvement_interval([0.0, 0.4]) == (0.0, 0.0),
+          "a singleton marginal set can rule strict improvement out")
 
-    # The asymmetry, on both sides at once.
-    b_lo, b_hi = burden_interval([0.14, 0.0, 0.16, 0.20, 0.0])
-    check(b_lo > 0, f"benign burden floor is strictly positive ({b_lo:.0%})")
+    burden_lower, _ = burden_interval([0.14, 0.0, 0.16, 0.20, 0.0])
+    check(burden_lower > 0,
+          f"positive benign union-flag floor follows from marginals ({burden_lower:.0%})")
 
-    # Finite-sample: the grid is smaller than the real interval implies.
+    finite_ok, finite_message = _exhaust_small_finite_cases()
+    check(finite_ok, finite_message)
+
     grid = integer_grid([52, 5, 25, 70, 0], 82)
     check(grid[0] == 0 and grid[-1] == 12 and len(grid) == 13,
-          "on 82 items the identified set is {0/82 … 12/82}: 13 values, and "
-          "13/82 is infeasible because 70 catches cannot fit in 69 items")
+          "BELLS harmful stratum: exact finite all-miss set is {0/82 ... 12/82}")
 
     check(abs(collapse_from_union(73 / 82) - 9 / 82) < 1e-12,
-          "one published union rate identifies all-miss exactly (1 − 73/82)")
-
-    check(len({frechet_interval(list(q))
-               for q in itertools.permutations([0.15, 0.65, 0.4])}) == 1,
-          "the identified set does not depend on stack order")
+          "one same-denominator union identifies static all-miss (1 - 73/82)")
 
     loo = leave_one_out({"a": {1, 2, 3}, "b": {1, 2}, "c": {4}})
     check(loo["per_guard"]["b"]["unique_contribution"] == 0
           and loo["per_guard"]["c"]["unique_contribution"] == 1,
-          "leave-one-out exposes a member that contributes nothing, which "
-          "marginals and the union together cannot")
+          "leave-one-out identifies exclusive full-stack coverage")
 
-    # The registry envelope must match what this file computes, or MC-003
-    # is decoration. Same discipline as MC-001/MC-002.
+    # The registry envelope must match the transformations computed here.
     try:
-        exp = _expected_mc003()
-    except Exception as exc:                       # registry absent in a bare copy
+        expected = _expected_mc003()
+    except Exception as exc:  # registry absent in a bare script copy
         print(f"note  MC-003 envelope not cross-checked ({exc})")
     else:
-        b = _expected()
-        n, catches = b["n_harmful"], b["per_guard_catches"]
-        grid = integer_grid(list(catches.values()), n)
-        rates = [(n - c) / n for c in catches.values()]
-        fv = [c / b["n_benign"] for c in b["per_guard_benign_flags"].values()]
-        zeros = sum(1 for g in catches
-                    if b["union_detection"] - b["leave_one_out_union"][g] == 0)
+        bells = _expected()
+        n, catches = bells["n_harmful"], bells["per_guard_catches"]
+        finite_grid = integer_grid(list(catches.values()), n)
+        rates = [(n - count) / n for count in catches.values()]
+        flag_rates = [count / bells["n_benign"]
+                      for count in bells["per_guard_benign_flags"].values()]
+        exclusive_bounds = unique_contribution_intervals(catches, bells["union_detection"])
+        zero_exclusive = sum(
+            1 for guard in catches
+            if bells["union_detection"] - bells["leave_one_out_union"][guard] == 0
+        )
         got = {
-            "identified_set_lower": grid[0],
-            "identified_set_upper": grid[-1],
-            "identified_set_size": len(grid),
-            "observed_all_miss": b["all_miss"],
+            "identified_set_lower": finite_grid[0],
+            "identified_set_upper": finite_grid[-1],
+            "identified_set_size": len(finite_grid),
+            "release_recomputed_all_miss": bells["all_miss"],
             "denominator": n,
-            "benign_burden_floor_pct": round(burden_interval(fv)[0] * 100),
+            "benign_burden_floor_pct": round(burden_interval(flag_rates)[0] * 100),
             "improvement_floor_pct": round(improvement_interval(rates)[0] * 100),
-            "members_contributing_nothing": zeros,
+            "members_zero_exclusive_full_stack_coverage": zero_exclusive,
+            "aggregate_unique_contribution_bounds": {
+                guard: list(bounds) for guard, bounds in exclusive_bounds.items()
+            },
         }
-        for key, want in exp.items():
+        for key, want in expected.items():
             check(got.get(key) == want,
-                  f"MC-003 expected {key}={want} matches the computation "
-                  f"({got.get(key)})")
+                  f"MC-003 expected {key}={want} matches ({got.get(key)})")
 
     if failures:
         print(f"\n{len(failures)} check(s) failed.")
         return 1
-    print("\nIdentification arithmetic verified: bounds sharp and attained, "
-          "independence interior,\nimprovement floor zero, burden floor "
-          "positive, leave-one-out separates riders.")
+    print("\nIdentification arithmetic verified: sharp continuous and finite bounds, "
+          "aggregate exclusive-coverage limits, and registered BELLS transforms.")
     return 0
 
 
@@ -296,98 +376,110 @@ def _expected_mc003() -> dict:
     import yaml
     root = pathlib.Path(__file__).resolve().parent.parent
     registry = yaml.safe_load((root / "claims.yaml").read_text())
-    return next(c for c in registry["claims"]
-                if c["id"] == "MC-003")["expected"]
+    return next(claim for claim in registry["claims"]
+                if claim["id"] == "MC-003")["expected"]
 
 
 def _expected() -> dict:
-    """Counts come from MC-002's expected block, which
-    scripts/reanalyze_bells_subset.py re-asserts against the hash-verified
-    upstream file on every CI run. This file keeps no copy of a number the
-    registry already binds."""
+    """Read MC-002's registered values.
+
+    ``reanalyze_bells_subset.py`` separately downloads and hash-verifies the
+    bound upstream file in CI, then re-computes these values. This script
+    checks the identification transformations applied to that registered
+    release-recomputed envelope; it does not fetch source data itself.
+    """
     import pathlib
 
     import yaml
     root = pathlib.Path(__file__).resolve().parent.parent
     registry = yaml.safe_load((root / "claims.yaml").read_text())
-    return next(c for c in registry["claims"] if c["id"] == "MC-002")["expected"]
+    return next(claim for claim in registry["claims"]
+                if claim["id"] == "MC-002")["expected"]
 
 
 def _bells() -> int:
-    exp = _expected()
-    n = exp["n_harmful"]
-    catches = exp["per_guard_catches"]
-    rates = {g: (n - c) / n for g, c in catches.items()}
-    p = list(rates.values())
-    lo, hi = frechet_interval(p)
-    actual = exp["all_miss"] / n
-    plug = independence_plugin(p)
-    best = min(rates, key=lambda g: rates[g])
-    union = exp["union_detection"]
+    expected = _expected()
+    n = expected["n_harmful"]
+    catches = expected["per_guard_catches"]
+    miss_rates = {guard: (n - count) / n for guard, count in catches.items()}
+    continuous_lower, continuous_upper = frechet_interval(list(miss_rates.values()))
+    finite = integer_grid(list(catches.values()), n)
+    release_recomputed = expected["all_miss"] / n
+    product = independence_plugin(list(miss_rates.values()))
+    best = min(miss_rates, key=miss_rates.get)
+    union = expected["union_detection"]
+    aggregate_bounds = unique_contribution_intervals(catches, union)
 
-    print("BELLS 2025 misuse-detection subset — the one calibrated case")
+    print("BELLS 2025 misuse-detection subset — registered identification envelope")
+    print("  Lineage: this view reads MC-002's registered release-recomputed counts.")
+    print("  scripts/reanalyze_bells_subset.py is the separate hash-verified source")
+    print("  reanalysis; this command does not download the vendor-verdict file.\n")
     print(f"  denominator: {n} prompts labelled harmful, of "
-          f"{n + exp['n_benign'] + exp['n_borderline']} released")
-    print(f"  ({exp['n_benign']} benign and {exp['n_borderline']} borderline "
+          f"{n + expected['n_benign'] + expected['n_borderline']} released")
+    print(f"  ({expected['n_benign']} benign and {expected['n_borderline']} borderline "
           "are separate strata and are never folded in)\n")
-    for g, r in sorted(rates.items(), key=lambda kv: kv[1]):
-        print(f"    {g:<14} misses {n - catches[g]:>2}/{n} = {r:6.2%}")
+    for guard, rate in sorted(miss_rates.items(), key=lambda pair: pair[1]):
+        print(f"    {guard:<14} misses {n - catches[guard]:>2}/{n} = {rate:6.2%}")
 
-    print("\n  --- what the marginals alone identify ---")
-    print(f"  identified set for all-miss : [{lo:.2%}, {hi:.2%}]"
-          f"   width {hi - lo:.2%}")
-    print(f"  width == best guard ({best})  : {rates[best]:.2%}")
-    print(f"  on {n} items the set is      : "
-          f"{{{integer_grid(list(catches.values()), n)[0]}/{n} … "
-          f"{integer_grid(list(catches.values()), n)[-1]}/{n}}}")
-    print(f"  independence plug-in        : {plug:.2%}  — inside the set, so "
-          "the bounds\n                                cannot refute it; only "
-          "the per-item release can")
-    print(f"  actually observed           : {actual:.2%} "
-          f"({exp['all_miss']} of {n})")
-    print(f"  collapse from the union     : 1 − {union}/{n} = "
+    print("\n  --- what the harmful-stratum marginals alone identify ---")
+    print(f"  continuous all-miss set     : [{continuous_lower:.2%}, {continuous_upper:.2%}]"
+          f"   width {identified_width(list(miss_rates.values())):.2%}")
+    if continuous_lower == 0:
+        print(f"  in this case width == best  : {miss_rates[best]:.2%} ({best})")
+    print(f"  finite all-miss count set   : {{{finite[0]}/{n} ... {finite[-1]}/{n}}}")
+    print(f"  independence plug-in        : {product:.2%} "
+          f"({product * n:.2f} expected prompts) under a model")
+    print("  Marginals alone do not identify the realized static all-miss or test")
+    print("  that model. A same-denominator union does identify static all-miss.")
+    print(f"  registered release-recomputed: {expected['all_miss']}/{n} = {release_recomputed:.2%}")
+    print(f"  from the registered union   : 1 - {union}/{n} = "
           f"{collapse_from_union(union / n):.2%}")
 
-    i_lo, i_hi = improvement_interval(p)
-    nb = exp["n_benign"]
-    fv = [c / nb for c in exp["per_guard_benign_flags"].values()]
-    b_lo, b_hi = burden_interval(fv)
-    b_actual = exp["benign_union_flagged"] / nb
-    print("\n  --- the asymmetry ---")
-    print(f"  benign burden, identified   : [{b_lo:.2%}, {b_hi:.2%}]"
-          "   floor POSITIVE")
-    print(f"  benign burden, actual       : {b_actual:.2%}")
-    print(f"  improvement over {best},     : [{i_lo:.2%}, {i_hi:.2%}]"
-          "   floor ZERO")
-    print(f"  identified / actual         : "
-          f"{rates[best] - actual:.2%} on this stratum")
-    print(f"\n  From the marginals alone one can prove this stack flags at least")
-    print(f"  {b_lo:.0%} of benign traffic, and cannot prove it catches one harmful")
-    print(f"  item its best member would have missed. ({best} is chosen after")
-    print(f"  seeing the results, so the comparison is post-hoc.)")
+    improvement_lower, improvement_upper = improvement_interval(list(miss_rates.values()))
+    benign_n = expected["n_benign"]
+    flag_rates = [count / benign_n for count in expected["per_guard_benign_flags"].values()]
+    burden_lower, burden_upper = burden_interval(flag_rates)
+    release_benign_union = expected["benign_union_flagged"] / benign_n
+    print("\n  --- static direction and benign burden ---")
+    print(f"  benign union-flag set       : [{burden_lower:.2%}, {burden_upper:.2%}]")
+    print(f"  registered benign union     : {release_benign_union:.2%}")
+    print(f"  improvement over {best:<10}: [{improvement_lower:.2%}, {improvement_upper:.2%}]")
+    print("  OR composition certifies non-degradation versus the best member; in")
+    print("  this non-degenerate case, marginals do not identify strict benefit.")
 
-    print("\n  --- what marginals AND the union still hide ---")
-    print("  leave-one-out unions — k scalars, no items released:")
-    for g, c in sorted(catches.items(), key=lambda kv: -kv[1]):
-        loo = exp["leave_one_out_union"][g]
-        print(f"    without {g:<14} union {loo:>2}/{n}   "
-              f"unique contribution {union - loo:>2}")
-    zeros = [g for g in catches if union - exp["leave_one_out_union"][g] == 0]
-    print(f"\n  {len(zeros)} of {len(catches)} members contribute nothing to this")
-    print(f"  stratum's union: {', '.join(sorted(zeros))}.")
-    print("  The published marginals and the union are exactly what such a")
-    print("  stack would report, and are fully consistent with a working")
-    print(f"  {len(catches)}-member ensemble. Only the leave-one-out row shows")
-    print("  otherwise. Nobody asks for that row.")
+    print("\n  --- what catch marginals plus the union still leave open ---")
+    print("  aggregate-only bounds on exclusive full-stack coverage:")
+    for guard, count in sorted(catches.items(), key=lambda pair: -pair[1]):
+        lower, upper = aggregate_bounds[guard]
+        print(f"    {guard:<14} {lower:>2} ... {upper:<2} of {n}")
+    print("  These aggregates force LLM Guard's exclusive count to zero, but they")
+    print("  do not identify the other guards' realized exclusive coverage.")
+    print("\n  registered leave-one-out unions (exact under the static file semantics):")
+    for guard, count in sorted(catches.items(), key=lambda pair: -pair[1]):
+        without = expected["leave_one_out_union"][guard]
+        print(f"    without {guard:<14} union {without:>2}/{n}   "
+              f"exclusive full-stack coverage {union - without:>2}")
+    zeros = [guard for guard in catches
+             if union - expected["leave_one_out_union"][guard] == 0]
+    print(f"\n  {len(zeros)} of {len(catches)} guards have zero exclusive full-stack")
+    print(f"  coverage on this stratum: {', '.join(sorted(zeros))}.")
 
-    print(f"\n  Scope: exactly these {n} author-selected prompts at the vendors'")
-    print("  released binary verdicts, on one stratum of one evaluation. A")
-    print("  calibration point, not a population, and no ratio here is offered")
-    print("  as a general law of guardrail dependence.")
+    print(f"\n  Scope: exactly these {n} author-selected prompts at vendors' released")
+    print("  binary verdicts, in one stratum of one evaluation. This is a static")
+    print("  counting result, not a population estimate, deployment-risk estimate,")
+    print("  vendor ranking, or general law of guardrail dependence.")
     if "--json" in sys.argv:
-        print(json.dumps({"interval": [lo, hi], "actual": actual,
-                          "independence": plug, "burden": [b_lo, b_hi],
-                          "improvement": [i_lo, i_hi]}, indent=2))
+        print(json.dumps({
+            "continuous_interval": [continuous_lower, continuous_upper],
+            "finite_all_miss_counts": finite,
+            "release_recomputed_all_miss": release_recomputed,
+            "independence_plugin": product,
+            "benign_union_interval": [burden_lower, burden_upper],
+            "improvement_interval": [improvement_lower, improvement_upper],
+            "aggregate_unique_contribution_bounds": {
+                guard: list(bounds) for guard, bounds in aggregate_bounds.items()
+            },
+        }, indent=2))
     return 0
 
 

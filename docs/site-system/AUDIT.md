@@ -176,8 +176,8 @@ sequence (below) runs before any push; pushing main is publishing.
 | This site (field artifact P₀) | CURRENT INSTRUMENT | claims.yaml + generated ledger + CI prosecution; comprehension hypothesis untested |
 | Ghost Visualizer | CURRENT INSTRUMENT (private-demo bound) | GV-001; its own VIS-001 score caps public use |
 | Before You See It (cc-framework asset) | CURRENT INSTRUMENT | finished deterministic film; ILLUSTRATION-stamp honesty mechanic |
-| Module 004 / attestation boundary | PLANNED | AS-001: private, untested, no public artifact by declaration |
-| Assay | PRIVATE / UNTESTED | AS-001; IP-confidentiality posture; no expansion |
+| Module 004 / attestation boundary | PLANNED | public question only; no private-project envelope is rendered |
+| Assay | PRIVATE / UNTESTED | no public registry entry; IP-confidentiality posture; no expansion |
 | GCE | SUPERSEDED | front-door coefficient framing deprecated by cc-framework metric taxonomy |
 | guardrails-cc, ghost-guardrail-composer, guardrail-comp-theory | SUPERSEDED | profile-labeled "[SUPERSEDED by cc-framework]" |
 | cubits-os, resonance-theory, ghost-protocol family, ghost_secure_portfolio | HISTORICAL | profile-labeled |

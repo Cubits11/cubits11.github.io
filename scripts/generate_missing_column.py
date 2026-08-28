@@ -1026,10 +1026,11 @@ def render_demonstration() -> str:
     </div>
     <p class="zone-intro" style="margin-top:1.1rem">The product of the five individual miss
       rates is {product:.1%}: an independence plug-in reference. The
-      observed all-miss is {e["all_miss"] / n:.1%}: about {ratio:.1f}× that plug-in,
-      on this subset. The union also flags {e["benign_union_flagged"]} of the
-      {e["n_benign"]} benign prompts — the cost column an OR-stack must publish beside its
-      catch column.</p>
+      release-recomputed all-miss in this static OR aggregation is
+      {e["all_miss"] / n:.1%}: about {ratio:.1f}× that plug-in on this subset.
+      The same union flags {e["benign_union_flagged"]} of the {e["n_benign"]} benign
+      prompts — a separate static benign-union column needed to interpret this
+      aggregation, not a deployment utility assessment.</p>
     <div class="precond"><strong>Scope, stated before anyone asks:</strong> the released 170
       prompts are an author-selected subset (of 990 non-adversarial prompts; the study's
       ~4,165 adversarial prompts have no per-item release) under an unstated selection rule —

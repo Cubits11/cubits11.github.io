@@ -1,14 +1,15 @@
 # Claim registry — cubits11.github.io · schema v0.4
 #
-# The source of truth for every technical claim the site renders with an
-# evidence marker. /ledger/ is GENERATED from this file by
+# The source of truth for every PUBLIC technical claim the site renders with an
+# evidence marker. Private records do not belong in this repository or this
+# file: visibility labels cannot make a tracked YAML record private. /ledger/ is GENERATED from this file by
 # scripts/generate_ledger.py; CI regenerates it and fails on drift, verifies
 # every field, checks commit↔URL binding consistency, executes the
 # executable review triggers, and enforces the freshness window — on every
 # push and weekly.
 #
 # Schema v0.2 separated the dimensions v0.1 conflated:
-#   visibility        public | private
+#   visibility        public (private records are structurally forbidden)
 #   provenance        machine_generated_owner_executed | owner_authored |
 #                     lab_repository | owner_attested | owner_verified
 #   support_role      executed_output | document | repository_readme |
@@ -513,11 +514,12 @@ claims:
       On the 170-prompt per-item subset publicly released with BELLS's
       2025 misuse-detection evaluation (pinned commit below), the five
       specialized supervisors — Lakera Guard, Prompt Guard, LangKit,
-      NeMo Guardrails, LLM Guard — jointly catch 73 of the 82 prompts
-      labelled harmful and jointly miss 9 (11.0%), while the product of
-      their individual miss rates is 3.5%: the observed joint miss on
-      this subset is about three times that independence plug-in. The
-      same union flags 19 of the 50 benign prompts.
+      NeMo Guardrails, LLM Guard — have an OR-union of released binary
+      verdict columns that flags 73 of the 82 prompts labelled harmful,
+      leaving 9 all-miss (11.0%). The product of their individual miss
+      rates is 3.5%; the release-recomputed all-miss rate is about 3.1×
+      that independence plug-in on this file. The same OR-union flags 19
+      of the 50 benign prompts.
     scope: >
       Exactly the released file at the bound commit: 170 of the
       evaluation's 990 non-adversarial prompts (the study's ~4,165
@@ -569,9 +571,9 @@ claims:
       # is 132, not 170. Every count here is stratum-conditional.
       n_borderline: 38
       # Union of the OTHER four guards, per guard removed. The difference
-      # from union_detection is that guard's unique contribution — the one
-      # thing the marginals and the union together cannot show, and the
-      # cheapest disclosure that shows it (k scalars, no items released).
+      # from union_detection is that guard's exclusive full-stack coverage.
+      # It is a compact aggregate disclosure (k scalars, no item release),
+      # not a claim that it is the globally cheapest possible disclosure.
       leave_one_out_union:
         lakera_guard: 70
         prompt_guard: 73
@@ -603,12 +605,13 @@ claims:
       - do not substitute a different subset, column set, or harm-level filter to preserve the numbers
       - do not fold borderline prompts into either denominator after seeing the results
       - do not recast this subset arithmetic as a population estimate, with or without an interval, if the primary counts are challenged
-      - do not cite the observed-to-plug-in ratio without the selection caveat that scopes it
+      - do not cite the release-recomputed-to-plug-in ratio without the selection caveat that scopes it
     non_claims:
       - the subset is author-selected with an unstated rule — nothing here estimates any system's true rate, and no confidence interval is offered because the sampled population is undefined
       - not a ranking or endorsement of any vendor; the released verdicts are at unstated default configurations
       - says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release
-      - the observed-to-plug-in ratio describes this subset's arithmetic, not a general law of guardrail dependence
+      - the release-recomputed-to-plug-in ratio describes this subset's arithmetic, not a general law of guardrail dependence
+      - not an observed deployed five-guard stack; interpreting this static OR aggregation as a stack requires the separate full-exposure, parallel, fixed-operating-point assumptions
 
   - id: MC-003
     proposition: >
@@ -617,35 +620,38 @@ claims:
       misses the same item is fixed by the published per-guard miss rates
       only up to the interval [max(0, Σp − (k−1)), min p], and every point
       of that interval is attained by some joint law with those marginals.
-      Two consequences follow by algebra, not by observation: no set of
-      per-guard marginals can certify that such a stack catches even one
-      item its best single member would have missed, while those same
-      marginals always identify a strictly positive floor under the stack's
-      benign flag rate whenever any member has a non-zero false-positive
-      rate. On the one per-item release the census found — BELLS 2025, 82
-      prompts labelled harmful — the identified set is the 13 values
-      {0/82 … 12/82}, the observed all-miss is 9/82, and the leave-one-out
-      unions show three of the five supervisors contribute nothing to that
-      stratum's union: a fact the published marginals and union together
-      cannot reveal.
+      Marginals prove non-degradation of a static OR composition relative
+      to its best member, but, when that identified set is non-degenerate,
+      they do not identify strictly positive incremental benefit. They also
+      identify a positive lower bound on static benign union-flag rate when
+      any member has a positive benign flag rate. On the one per-item
+      release the census found — BELLS 2025, 82 prompts labelled harmful —
+      the exact finite identified set is {0/82 … 12/82}; MC-002 recomputes
+      9/82 all-miss from the hash-verified released verdict file. Marginal
+      catch counts plus the union identify only bounds on each guard's
+      exclusive full-stack coverage; the registered leave-one-out unions
+      identify the realized values: NeMo 18, Lakera 3, and LangKit, Prompt
+      Guard, and LLM Guard 0 on this stratum.
     scope: >
       The mathematics is classical — Bonferroni for the lower endpoint,
       monotonicity for the upper, Fréchet for sharpness — and nothing here
       claims to have derived it. What is contributed is the application:
       pricing, in probability units, what marginal-only guardrail reporting
-      leaves undetermined, and identifying the leave-one-out union as the
-      cheapest disclosure that closes the remaining gap. Every statement is
-      conditional on block-on-any composition, per-item decisions that are
-      functions of the item alone, a fixed population, and a fixed
-      operating point; it says nothing about sequential routes where
-      downstream measurement is censored by upstream blocks, nothing about
-      agentic systems where an intervention changes the trajectory, and
-      nothing about any vendor's product. The empirical half is one
-      stratum of one author-selected subset: 82 harmful prompts, with 50
+      leaves undetermined, and identifying leave-one-out unions as a compact
+      privacy-preserving disclosure of exclusive full-stack coverage. They
+      do not identify pairwise or higher-order overlap, Shapley values, or
+      causal structure. Every statement is conditional on block-on-any
+      composition, per-item decisions that are functions of the item alone,
+      a fixed population, full exposure, and a fixed operating point; it
+      says nothing about sequential routes where downstream measurement is
+      censored by upstream blocks, agentic systems where an intervention
+      changes the trajectory, or any vendor's product. The empirical half is
+      one stratum of one author-selected subset: 82 harmful prompts, with 50
       benign and 38 borderline held as separate strata and never folded in.
-      Computed by scripts/identification.py, whose expected block below it
-      re-asserts; the BELLS counts are bound by MC-002 and re-derived from
-      the hash-verified upstream file on every CI run.
+      scripts/reanalyze_bells_subset.py re-computes the BELLS counts from
+      the hash-verified upstream file in CI; scripts/identification.py
+      checks the stated identification transformations against that
+      registered envelope.
     dimensions:
       visibility: public
       provenance: machine_generated_owner_executed
@@ -656,53 +662,60 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/identification.py"
       commit: null
       note: >
-        The file carries the derivation in its docstring and the
-        attainability of both endpoints as executable constructions rather
-        than assertions — the upper by nesting the events, the lower by
-        laying the complements end to end around the circle.
+        The file carries the analytic derivation in its docstring and checks
+        explicit endpoint constructions numerically — the upper by nesting
+        the events, the lower by laying the complements end to end around a
+        circle. Its finite formulas are additionally exhaustively checked
+        for n ≤ 4 and k ≤ 3.
     expected:
       identified_set_lower: 0
       identified_set_upper: 12
       identified_set_size: 13
-      observed_all_miss: 9
+      release_recomputed_all_miss: 9
       denominator: 82
       benign_burden_floor_pct: 20
       improvement_floor_pct: 0
-      members_contributing_nothing: 3
+      members_zero_exclusive_full_stack_coverage: 3
+      aggregate_unique_contribution_bounds:
+        lakera_guard: [0, 3]
+        prompt_guard: [0, 3]
+        langkit: [0, 3]
+        nemo: [0, 21]
+        llm_guard: [0, 0]
     last_reviewed: "2026-08-28"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: scripts/identification.py
-        sha256: "d6af101975e973e4bd1ade3ebc113a2eb63065d4b423deed113d67f73372a32c"
+        sha256: "9404114594f2e9a6ef139c505e20661a40ef06dc3a0be582dd722c2eefa718aa"
         note: fires when the derivation or its tests change without a re-review
       - type: manual
         enforcement: manual
         event: >
-          a stack is reported whose composition is not block-on-any, or a
-          reader shows a marginal-only reporting scheme that does certify
-          strict improvement over a stack's best member
+          a reader identifies an error in the stated Fréchet, finite-grid,
+          or aggregate exclusive-coverage bounds, or a result is used
+          outside the declared static full-exposure assumptions
     falsifier:
       condition: >
         A joint law with the stated marginals achieves an all-miss rate
-        outside the interval; or a marginal-only reporting scheme is
-        exhibited that certifies strict improvement over the best single
-        member under block-on-any composition; or recomputing from the
-        bound BELLS file yields any count different from the expected
-        block.
+        outside the interval; an exact finite catch-set arrangement lies
+        outside the stated finite grid or exclusive-coverage bounds; or
+        recomputing from the bound BELLS file yields any count different
+        from the expected block.
       consequence: REJECT
     forbidden_rescues:
       - do not change the composition rule after the fact to preserve the direction of the result
       - do not restate "identified only up to" as "estimated to be" — a bound is not an estimate
-      - do not quote where an observed value sits inside the interval as a score or a percentage of a gap closed; the endpoints come from adversarial couplings with no detector-behavioural content
-      - do not cite the three-of-five leave-one-out result as a vendor ranking or as evidence about any product outside this stratum
+      - do not quote where a release-recomputed value sits inside the interval as a score or a percentage of a gap closed; the endpoints come from adversarial couplings with no detector-behavioural content
+      - do not cite the zero-exclusive-coverage results as a vendor ranking, a causal attribution, or evidence about any product outside this stratum
       - do not fold the borderline stratum into either denominator to change any figure
     non_claims:
       - no new mathematics is claimed; the bounds are Fréchet's and the lower endpoint is Bonferroni's
       - not a claim that guardrails in general fail together — this stratum cannot separate shared blind spots from prompt-difficulty heterogeneity
       - not a vendor evaluation; the released verdicts are at unstated default configurations, and one supervisor fires exactly once in the 170 released rows
       - the identified interval is what the marginals leave open, not a prediction about any deployed stack
+      - leave-one-out unions identify only exclusive full-stack coverage; they do not identify pairwise or higher-order overlap, Shapley values, or causal contribution
       - says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release
 
   - id: GA-001
@@ -754,43 +767,6 @@ claims:
         possible, not as prevalent — the repository's E12 sample found 0 of
         64 real payloads carrying any pathology class
       - not hardened for deployment; not post-quantum secure
-
-  - id: AS-001
-    proposition: >
-      Assay is an early-stage experiment in enclave-attested media processing
-      on AWS Nitro Enclaves, investigating which provenance claims a verifier
-      can and cannot derive from attestation.
-    scope: "Owner statement only; the artifact is private."
-    dimensions:
-      visibility: private
-      provenance: owner_attested
-      support_role: none
-      evidential_status: untested
-      maturity: experimental
-    support:
-      url: null
-      commit: null
-      note: "No public artifact yet, by declaration."
-    last_reviewed: "2026-08-24"
-    review_window_days: 120
-    review_triggers:
-      - type: manual
-        enforcement: manual
-        event: public artifact released
-    falsifier:
-      condition: >
-        The owner determines that the private project no longer uses AWS
-        Nitro Enclaves for media processing or no longer investigates the
-        stated limits of attestation-derived provenance claims.
-      consequence: REJECT
-    forbidden_rescues:
-      - do not describe an off-enclave or merely adjacent component as enclave-attested media processing
-      - do not treat an unreleased prototype as public support for completeness, security, or provenance-chain claims
-    non_claims:
-      - no public evidence is offered; nothing about completeness, security,
-        or provenance-chain origin is established
-      - attestation cannot establish a file's history prior to the first
-        attested operation
 
   - id: GV-001
     proposition: >
@@ -891,68 +867,6 @@ claims:
         correctness of GCE's code or its value as coursework
       - no current-research claim is made by or for GCE
 
-  - id: BIO-001
-    proposition: >
-      B.S. Computer Science, Pennsylvania State University, May 2026, with a
-      minor in Cybersecurity; research supervised by Dr. Peng Liu (IST 496,
-      Aug–Dec 2025).
-    scope: "Biographical fact. Owner-attested; publicly untested by design."
-    dimensions:
-      visibility: private
-      provenance: owner_attested
-      support_role: none
-      evidential_status: untested
-      maturity: stable
-    support:
-      url: null
-      commit: null
-      note: "Stated on resume; institutional verification available on request."
-    last_reviewed: "2026-08-24"
-    review_window_days: 365
-    review_triggers:
-      - type: manual
-        enforcement: manual
-        event: annual review
-    falsifier:
-      condition: >
-        An institutional record or owner correction contradicts the named
-        degree, minor, completion date, or supervision period.
-      consequence: REJECT
-    forbidden_rescues: []
-    non_claims:
-      - no public registry link is provided; the site does not present this
-        as third-party verified
-
-  - id: CRED-001
-    proposition: >
-      Holds AWS Certified Cloud Practitioner and AWS Certified AI
-      Practitioner; SAA-C03 and Security — Specialty are in progress.
-    scope: "Owner-attested; verification IDs available on request."
-    dimensions:
-      visibility: private
-      provenance: owner_attested
-      support_role: none
-      evidential_status: untested
-      maturity: stable
-    support:
-      url: null
-      commit: null
-      note: null
-    last_reviewed: "2026-08-24"
-    review_window_days: 180
-    review_triggers:
-      - type: manual
-        enforcement: manual
-        event: certification expiry or a new certification earned
-    falsifier:
-      condition: >
-        A credential record or owner correction contradicts any stated held
-        or in-progress certification status.
-      consequence: NARROW
-    forbidden_rescues: []
-    non_claims:
-      - '"in progress" asserts intent and preparation, not partial credential'
-
   - id: SITE-001
     proposition: >
       This site's palette token pairs were computed to pass WCAG AA contrast
@@ -978,7 +892,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: DESIGN.md
-        sha256: "959ecb8434a62f77a9e653067f0f05af90b6b2b3f5a28e8c78628dfa5c412fec"
+        sha256: "6ee16e48493c6a3def9276c38c4203059420b8c004be26b4526d50c9662f7d3c"
         note: fires when DESIGN.md changes without a registry re-review
       - type: manual
         enforcement: manual
@@ -1018,13 +932,13 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py"
       commit: null
       note: "Mutable link by design; the local-content trigger below detects edits."
-    last_reviewed: "2026-08-27"
+    last_reviewed: "2026-08-28"
     review_window_days: 120
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: scripts/verify_claims.py
-        sha256: "9215b38b84da830b938ccf41d6acaae495c6dc80404803cafb606778a73123dd"
+        sha256: "3a98e23ab5d72df0adc9eb9ef585cfe6cdb67f9d58f0e5d43f151fbbe3812817"
         note: fires when the verifier changes without a registry re-review
       - type: manual
         enforcement: manual

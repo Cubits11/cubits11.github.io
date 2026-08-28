@@ -1,95 +1,82 @@
-# Epistemic tags, and what this repository already enforces
+# Epistemic tags: a boundary, not a schema extension
 
-Working note, 2026-08-28. Internal discipline, not a proposed standard —
-see the non-goals in [FRONTIER_ROADMAP.md](FRONTIER_ROADMAP.md).
+Working note, 2026-08-28. This is internal method documentation, not a
+proposed standard or a second public registry.
 
-A nine-tag vocabulary has been in private use for bounding the validity domain
-of a statement: `[O]` observed, `[M]` memory, `[I]` interpretation, `[S]`
-reflective, `[H]` hypothesis, `[E]` empirically supported, `[C]` contested,
-`[U]` unknown, `[F]` falsified. The question worth answering is not whether the
-vocabulary is good. It is **which tags this repository can already prosecute,
-and which it cannot** — because a tag that nothing checks is a mood, and the
-repository's whole thesis is that its claims are mechanically prosecutable.
+A private working vocabulary has used `[O]` observed, `[M]` memory, `[I]`
+interpretation, `[S]` reflective practice, `[H]` hypothesis, `[E]`
+empirically supported, `[C]` contested, `[U]` unknown, and `[F]` falsified.
+The useful question is not whether that vocabulary is elegant. It is whether
+the public claim registry can represent those meanings without pretending to.
+It cannot, and that is a safeguard rather than a missing enum.
 
-## The mapping
+## No one-to-one mapping
 
-| Tag | Nearest registry state | Enforced by |
+`claims.yaml` records a proposition, scope, evidence location, provenance,
+support role, evidential status, review dates, triggers, a falsifier,
+forbidden rescues, and non-claims. Those are useful controls. They are not an
+epistemic-tag ontology.
+
+| Working tag | Why the registry does not encode it directly | Safe handling |
 |---|---|---|
-| `[O]` observed | `provenance: machine_generated_owner_executed` + `support_role: executed_output` | the bound artifact's content hash, re-asserted in CI |
-| `[E]` empirically supported | `evidential_status: supported_within_scope` | `expected` block cross-checked against a recomputation |
-| `[H]` hypothesis | `evidential_status: untested` | freshness window; a hypothesis that never resolves expires |
-| `[F]` falsified | `falsifier.consequence: REJECT`, fired | executable review triggers |
-| `[M]` memory | `provenance: owner_attested` | nothing executable — attestation is the weakest support role |
-| `[I]` interpretation | `support_role: site_document` | ledger coverage only |
-| `[C]` contested | — collapsed into `inconclusive` | nothing |
-| `[U]` unknown | — collapsed into `inconclusive` | nothing |
-| `[S]` reflective | — **inexpressible** | nothing |
+| `[O]` observed | An executed program can be a deterministic calculation, not an observation of a world. | State the data lineage and assertion kind in the claim scope. |
+| `[E]` empirically supported | `supported_within_scope` can also describe a document or artifact claim. | Preserve the evidence type; do not read the status as “empirical.” |
+| `[H]` hypothesis | `untested` also appears on owner-attested facts. | Write the hypothesis and its decision rule explicitly. |
+| `[F]` falsified | A declared falsifier or fired review trigger means review is due; it does not adjudicate falsity. | Record the review and its consequence in a correction/revision record. |
+| `[M]` memory | `owner_attested` is a provenance statement, not a memory category. | Keep it outside technical evidence claims. |
+| `[I]` interpretation | A support URL tells us where text lives, not how an inference was made. | Name the inference and competing readings. |
+| `[C]` contested | `inconclusive` conflates conflict with several other reasons for non-resolution. | Describe the disagreement, evidence, and adjudication path. |
+| `[U]` unknown | Some unknowns are non-identification; others are missing data or open hypotheses. | Name the object and the measurement that would distinguish it. |
+| `[S]` reflective practice | A reflection is not necessarily truth-apt and should not be promoted by accumulating “evidence.” | Keep it in a separate private practice record, never in the public claim registry. |
 
-Three findings fall out of building the table.
+The missing structured axis is **assertion kind**, not a new status label. A
+future, separately reviewed schema could distinguish source record,
+deterministic recomputation, mathematical result, statistical inference,
+hypothesis, and artifact description. Until then, compound claims must scope
+those roles in prose instead of using a decorative tag.
 
-## 1. `[S]` has no home, and that is a real gap
+## `[S]` stays out of `claims.yaml`
 
-The registry cannot say *"this is a practice I keep because it is useful, and
-it makes no empirical claim."* Every claim must declare an `evidential_status`
-drawn from a scale that runs from `untested` to `contradicted` — a scale that
-presupposes the thing is the kind of statement evidence bears on. A reflective
-practice forced onto that scale gets recorded as `untested`, which reads as
-"not yet supported," which is a promise the practice never made.
+Adding `[S]` would create exactly the category error the tag is meant to
+avoid. Every public claim must carry a proposition, scope, support, a review
+window, a falsifier, a fixed consequence, forbidden rescues, and non-claims.
+That is right for a claim. It is wrong for a reflective practice such as “keep
+this distinction visible while planning work.”
 
-The consequence is worse than untidiness: it creates pressure to promote. A
-practice logged as `untested` looks like an unfinished claim, and unfinished
-claims invite completion. **The silent promotion of `[S]` to `[E]` is the
-failure mode the tag vocabulary exists to prevent, and the registry's schema
-currently supplies the incentive for it.**
+There is therefore no `[S]` enum, claim record, generated public page, or
+evidence-ledger entry. If a reflective record is ever useful, it must live
+outside the public repository and include `kind: reflective_practice`, a
+practice status (`adopted`, `revised`, or `retired`), revision conditions,
+related claims, and `non_empirical: true`. It must not carry a claim status,
+an expected result, or an evidence chain. Turning it into a public claim must
+create a new claim ID, a new scope, and new appropriate support; it can never
+be an in-place promotion.
 
-Not fixed here. Adding an enum value touches every claim and deserves its own
-reviewed change. Recorded so it is not rediscovered.
+## `[U]` has a precise instance, not a universal meaning
 
-## 2. `[C]` and `[U]` are different states, and the difference is now computable
+For a fixed, full-exposure, parallel block-on-any stack with per-guard miss
+rates `p_1, …, p_k`, static all-miss is identified only to
 
-`inconclusive` currently absorbs both *"the evidence conflicts"* (`[C]`) and
-*"the parameter is not identified"* (`[U]`). These are not the same problem and
-do not have the same remedy. Conflicting evidence is resolved by more or better
-evidence. **Non-identification is not resolved by more evidence of the same
-kind at all** — it is resolved only by measuring a different thing.
+    [L, U] = [max(0, Σp_i − (k−1)), min_i p_i].
 
-This distinction stopped being philosophical when `scripts/identification.py`
-landed. `[U]` now has units: for a stacked guardrail claim, the unknown is an
-interval, its width is `min_i p_i` in probability, and the one scalar that
-collapses it is nameable. A tag that meant "we don't know" now means "the
-identified set has width W, and here is what closes it."
+The unidentified width is
 
-That is the only defensible reason to keep the vocabulary at all: a tag earns
-its place when it forces a question that changes what you do next. `[U]` now
-does. Before the identification work, it did not — it was a shrug with a
-bracket around it.
+    U − L = min_i p_i − max(0, Σp_i − (k−1)).
 
-## 3. The axiom the repository already implements
+It equals `min_i p_i` only when `L = 0`; for `p = (0.9, 0.9)`, the width is
+`0.1`, not `0.9`. A same-denominator static union aggregate closes this
+particular unknown because `all_miss = 1 − union_detection`. Per-item outcomes
+then add overlap and leave-one-out analysis. Neither form of disclosure turns
+a static result into an operational or adaptive-risk estimate.
 
-> A reflectively tagged assertion can never be silently upgraded without
-> deterministic, reproducible evidence.
-
-This is `forbidden_rescues`, which every claim must declare and which CI
-requires to be explicit (`[]` is allowed; absent is not). It is also the rule
-that killed a drafted clause in MC-001 rather than reinterpreting "commercial"
-after a counterexample appeared, and the rule that will not let MC-003 quote
-where an observed value sits inside its identified interval as though that were
-a score.
-
-The mechanism was already here under a different name. The vocabulary did not
-add it; the vocabulary named it, which is worth something and is not worth
-publishing.
+This is the useful meaning of `[U]` here: not “we do not know,” but “this
+specified object has this identified set under these conditions, and this
+specified measurement would shrink it.” Other unknowns need their own
+objects, units, and remedies.
 
 ## Standing rule
 
-Tags are used in working notes and journal entries. They do not enter
-`claims.yaml`, the generated pages, or anything public, because the registry
-already carries a prosecutable version of the same distinctions and a second
-vocabulary would drift from the first. **Where the two disagree, the registry
-wins** — it is the one that fails a build.
-
-One correction on record: a draft journal entry (Lesson Nº 2) carried invented
-measurements under an `[O]` tag. It was rewritten against the BELLS release,
-where the real numbers turned out to be stronger than the invented ones. That
-is the whole argument for the discipline, and it is the reason the discipline
-stays private until it has survived longer than one correction.
+Working tags may guide private notes. They do not appear in `claims.yaml`,
+the generated ledger, observatory, modules, public evidence pages, or social
+copy. The public record must stand on its own stated proposition, scope,
+lineage, and falsifier. A tag never substitutes for any of them.

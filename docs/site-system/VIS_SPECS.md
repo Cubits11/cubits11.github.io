@@ -74,11 +74,10 @@ reduced-motion neutrality, no-aggregate rule).
 
 ## AS-VIS-001 — Attestation Horizon · NOT PUBLICLY IMPLEMENTED
 
-Decision 2026-08-23: not built. Assay is private (AS-001: owner-attested,
-publicly untested, no public artifact by declaration), and the mission
-rule stands — this concept ships publicly only if Assay's actual
-repository and evidence support it. Module 004 carries the frozen question
-with explicit PLANNED stamps instead.
+Decision 2026-08-23: not built. Private work does not enter the public claim
+registry, and the mission rule stands — this concept ships publicly only when
+there is a public repository and evidence that can support it. Module 004
+carries the frozen question with explicit PLANNED stamps instead.
 
 ## Standing gates for any of these
 

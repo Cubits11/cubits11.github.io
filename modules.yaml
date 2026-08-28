@@ -41,9 +41,9 @@ modules:
       href: /#worlds
     sections:
       observed: >
-        Each guardrail was measured alone: p₁ = 0.10 and p₂ = 0.10. The
-        joint behavior — how often the same input beats both — was never
-        measured. Everything about it beyond what the marginals force is
+        For the declared illustrative input, p₁ = 0.10 and p₂ = 0.10. The
+        joint behavior — how often the same input beats both — is not part of
+        that premise. Everything beyond what the marginals force is an
         assumption, not evidence.
       worlds: >
         Every joint distribution consistent with the two marginals is a
@@ -97,9 +97,9 @@ modules:
       href: https://github.com/Cubits11/cc-framework/blob/ee61a710243c74ec49d5896167d0913327e6b5d3/docs/research/E1_DEPENDENCE_EVIDENCE_STUDY.md
     sections:
       observed: >
-        Three binary guardrails; every singleton failure rate is 0.5 and
-        every pairwise overlap is 0.25 — the complete first- and
-        second-order evidence, held identical by construction.
+        A constructed three-binary-guardrail case: every singleton failure
+        rate is 0.5 and every pairwise overlap is 0.25. The first- and
+        second-order premises are held identical by construction.
       worlds: >
         Two explicit distributions realize those moments: uniform
         even-parity and uniform odd-parity. Under even parity the triple
@@ -210,12 +210,11 @@ modules:
       What can enclave attestation prove about a file's life before the
       enclave first touched it?
     thesis: >
-      The standing conjecture: nothing, by itself. Attestation can bind
-      what happens from the first attested operation onward; everything earlier
-      lies outside the provenance claim unless independently established.
-      The boundary — not the pipeline — is the research object.
+      The standing research question: what, if anything, can enclave
+      attestation establish about a file's life before the enclave first
+      touched it? The boundary — not the pipeline — is the research object.
     status: planned
-    claim_ids: [AS-001]
+    claim_ids: []
     visualization: null
     sections:
       next: >
@@ -223,8 +222,8 @@ modules:
         the attestation horizon that limits them — released only when it
         can stand behind itself.
     non_claims_extra:
-      - No public evidence exists yet, by declaration; this page will not
-        pretend otherwise.
+      - No public artifact or evidence envelope is named here; this planned
+        question must not be read as a claim about a private project.
 
   - id: M-005
     slug: 005-claims-expire
@@ -302,7 +301,7 @@ modules:
       href: /#worlds
     sections:
       observed: >
-        The same two marginals as module 001: p₁ = p₂ = 0.10, no dependence
+        The same declared input as module 001: p₁ = p₂ = 0.10, no dependence
         evidence, both-fail query.
       worlds: >
         identify() returns the sharp interval [0.0, 0.10] and two

@@ -62,8 +62,11 @@ current reporting inventory already measures all three.
 
 Before collecting anything, it is worth knowing what the *existing* form of
 reporting can and cannot support. The answer is sharper than "not much," and
-it is derivable rather than solicited: it needs nobody's cooperation and no
-new census rows.
+it is derivable rather than solicited. Its scope is equally sharp: a fixed
+common population; full exposure; per-item decisions that are functions of
+the item; a fixed operating point; and a declared parallel block-on-any rule.
+It is not a statement about a sequential route, an agent trajectory,
+adaptation, or deployment risk.
 
 For k guards scored on a common item set at a common operating point under
 block-on-any composition, with published per-guard miss rates `p_1..p_k`, the
@@ -74,51 +77,70 @@ all-miss rate is fixed only to
 and every point of that interval is attained by some joint law with those
 marginals. The mathematics is classical — Bonferroni below, monotonicity
 above, Fréchet for sharpness. Nothing here is new. What is new is reading it
-as a **price**.
+as a precise disclosure boundary.
 
-Three consequences, each stated in the direction that survived adversarial
-review (`scripts/identification.py`, claim MC-003):
+Four consequences follow (`scripts/identification.py`, claim MC-003):
 
 1. **Direction.** `P(∩E_i) ≤ min_i p_i` is a theorem: a block-on-any stack is
-   never *worse* at catching than its best single member. What marginals can
-   never do is certify that it is *better* — `min_i p_i` always lies inside
-   the identified set. Strict improvement is unfalsifiable from marginals;
-   degradation is ruled out by algebra.
+   never *worse* at static catching than its best single member. Thus the
+   marginals certify non-degradation. Where the identified set is
+   non-degenerate, they do not identify strictly positive incremental benefit:
+   zero improvement remains compatible. In a singleton case, they can rule
+   strict improvement out.
 2. **Asymmetry.** The identified floor under the stack's benign burden is
    `max_i f_i`, strictly positive whenever any member misfires. The identified
-   floor under its improvement is exactly `0`. Marginal reporting can prove a
-   stack costs its legitimate users, and can never prove it protects anyone.
-   When `Σ p_i > k−1` the harmful-side lower endpoint also lifts, so marginals
-   can certify an irreducible failure floor too. Every certifiable statement
-   marginals support is a statement about *failure*.
-3. **Independence is interior.** The product plug-in a dashboard prints always
-   lies inside the identified set, so the bounds alone cannot refute it. Only
-   per-item data can. This is why the disclosure ask cannot be replaced by
-   better inference.
+   floor under improvement is `0`. The former is a lower bound on static
+   benign union flags — not, without a utility and route model, a conclusion
+   about acceptable user cost. When `Σ p_i > k−1` the harmful-side lower
+   endpoint also lifts, so marginals can certify an irreducible static
+   all-miss floor.
+3. **Independence is compatible, not necessarily interior.** The product
+   plug-in lies in the continuous identified set, sometimes at an endpoint.
+   Marginals alone cannot identify the realized static all-miss rate or test
+   that model. A same-denominator union aggregate identifies the former;
+   per-item data additionally reveal overlap and leave-one-out values.
+4. **Finite data are tighter.** With `n` labelled items and exact catch counts
+   `c_i`, compatible all-miss counts are exactly
+   `{max(0, n − Σc_i), …, n − max_i c_i}`. This is an integer grid, not merely
+   a continuous probability interval.
 
 ### The price, and what actually closes it
 
-One scalar closes the harmful side: for a parallel stack on a fixed labelled
-population at a fixed operating point, `all-miss = 1 − B`, where `B` is the
-"flagged by at least one guard" rate. That is an identity, not a theorem, and
-it releases no items.
+One same-denominator union aggregate closes the static all-miss side: for a
+parallel stack on a fixed labelled population at a fixed operating point,
+`all-miss = 1 − B`, where `B` is the "flagged by at least one guard" rate.
+That is an identity, not a theorem, and it releases no items. It does not by
+itself establish a deployed stack's behavior.
 
-But the union is not the disclosure that matters most. **The k leave-one-out
-unions are** — publish the union with guard `g` removed, for each `g`, and
-each member's unique contribution becomes visible. This costs k scalars, still
-releases no items, and reveals the one thing marginals *and* the union
-together still hide: whether a stack is an ensemble or one guard carrying
-riders.
+The k leave-one-out unions add a different static fact: publish the union with
+guard `g` removed, for each `g`, and each guard's *exclusive full-stack
+coverage* becomes visible. This is a compact, privacy-preserving aggregate
+disclosure, not a proof that it is the cheapest possible disclosure. It does
+not identify pairwise or higher-order overlap, Shapley attribution, or causal
+contribution.
 
 On the one per-item release the census found (BELLS 2025, 82 prompts labelled
 harmful), the identified set from the five published marginals is the 13
 values {0/82 … 12/82} — 13/82 is combinatorially infeasible, since 70 catches
-cannot fit in 69 items. The observed all-miss is 9/82. The five marginals
-(52, 5, 25, 70, 0) together with the union (73) are exactly what such a stack
-would report and are entirely consistent with a working five-member ensemble.
-The leave-one-out row says otherwise:
+cannot fit in 69 items. MC-002 re-computes 9/82 all-miss from the
+hash-verified released verdict file; this is a static OR aggregation of
+released columns, not an observation of a deployed five-guard route.
 
-| Removed | Union without it | Unique contribution |
+The five catch marginals `(52, 5, 25, 70, 0)` plus union `73` constrain, but
+do not identify, exclusive full-stack coverage:
+
+| Guard | Aggregate-only feasible exclusive catches |
+|---|---:|
+| NeMo Guardrails | 0–21 |
+| Lakera Guard | 0–3 |
+| LangKit | 0–3 |
+| Prompt Guard | 0–3 |
+| LLM Guard | 0 |
+
+The registered leave-one-out row identifies the realized values under those
+static file semantics:
+
+| Removed | Union without it | Exclusive full-stack coverage |
 |---|---:|---:|
 | NeMo Guardrails | 55 / 82 | 18 |
 | Lakera Guard | 70 / 82 | 3 |
@@ -126,17 +148,20 @@ The leave-one-out row says otherwise:
 | Prompt Guard | 73 / 82 | 0 |
 | LLM Guard | 73 / 82 | 0 |
 
-Three of five contribute nothing on this stratum. Nobody asks for that row.
+Two guards have positive exclusive full-stack coverage on this stratum; three
+have zero. This is neither a vendor ranking nor an attribution of causal
+value: a zero leave-one-out value means only that removing that guard does not
+shrink this stratum's declared full-OR union.
 
 **Scope, held tightly.** One stratum of one author-selected subset; the 50
 benign and 38 borderline rows are separate strata and are never folded in.
-This is an existence proof that the blind spot is not hypothetical — not
-evidence that guards in general fail together, which this stratum cannot
-separate from prompt-difficulty heterogeneity. Where an observed value sits
-inside the interval is **not** a score: the endpoints come from adversarial
-couplings with no detector-behavioural content, and reporting "75% of the way
-across" is reading a bound as a benchmark. The claim's forbidden rescues bar
-exactly that.
+This is an existence proof that the disclosure blind spot is not hypothetical
+— not evidence that guards in general fail together, which this stratum cannot
+separate from prompt-difficulty heterogeneity. Where a release-recomputed
+value sits inside the interval is **not** a score: the endpoints come from
+adversarial couplings with no detector-behavioural content, and reporting
+"75% of the way across" is reading a bound as a benchmark. The claim's
+forbidden rescues bar exactly that.
 
 ### What this changes about the programme
 
@@ -145,7 +170,8 @@ statement about what published reporting can support. MJGD v1 gains a required
 field — **leave-one-out unions** — and gains a derivation rather than a
 preference for the fields it already had. And §7's Arm S is no longer
 justified by "more data is better": it is the arm that moves the estimand from
-an interval of width `min_i p_i` to a point.
+an interval of width `min_i p_i − max(0, Σp_i − (k−1))` to a point, under the
+static conditions stated above.
 
 ## 2. The competing explanations
 

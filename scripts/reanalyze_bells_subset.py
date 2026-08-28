@@ -148,8 +148,9 @@ def main() -> int:
     for guard in SPECIALIZED:
         product *= (n - d["per_guard"][guard]) / n
     observed = d["all_miss"] / n
-    print(f"\nderived, from the asserted counts:")
-    print(f"  observed joint miss      : {d['all_miss']}/{n} = {observed:.1%}")
+    print("\nderived from the hash-verified source file; compared with the")
+    print("registered expected counts above:")
+    print(f"  recomputed static all-miss: {d['all_miss']}/{n} = {observed:.1%}")
     print(f"  independent-miss product : {product:.1%}  "
           f"(= {product * n:.2f} prompts)")
     print(f"  ratio                    : {observed / product:.2f}×")

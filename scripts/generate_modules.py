@@ -3,7 +3,7 @@
 
 One epistemic grammar for every module page:
 
-  QUESTION · OBSERVED/GIVEN · VISUAL EXPERIMENT · FEASIBLE WORLDS ·
+  QUESTION · EVIDENCE/PREMISES · VISUAL EXPERIMENT · FEASIBLE WORLDS ·
   IDENTIFICATION STATUS · RESULT OR BOUND · WITNESS/COUNTEREXAMPLE ·
   CLAIM ENVELOPE · EVIDENCE · FALSIFIER · NON-CLAIMS · REPRODUCIBILITY ·
   NEXT UNKNOWN
@@ -44,7 +44,7 @@ import generate_ledger as ledger
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 GRAMMAR = [
-    ("observed", "01", "Observed / given"),
+    ("observed", "01", "Evidence / premises"),
     ("_visual", "02", "Visual experiment"),
     ("worlds", "03", "Feasible worlds"),
     ("identification", "04", "Identification status"),
