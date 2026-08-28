@@ -49,6 +49,8 @@ jobs:
         run: python scripts/mjgd_reference.py --test
       - name: Identification bounds are sharp, attained, and match MC-003
         run: python scripts/identification.py
+      - name: Mixture bounds match a direct sweep (AF-001)
+        run: python scripts/mixture_bounds.py
       - name: MC-002 reproduces from the bound public release
         run: python scripts/reanalyze_bells_subset.py
       - name: Internal links resolve (pages, anchors, fragments)
