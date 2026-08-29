@@ -47,6 +47,8 @@ jobs:
         run: python scripts/generate_sitemap.py --check
       - name: Disclosure arithmetic holds its identities
         run: python scripts/mjgd_reference.py --test
+      - name: Validate MJGD v1 schema and conformance fixtures
+        run: python scripts/validate_mjgd.py --test
       - name: Identification bounds are sharp, attained, and match MC-003
         run: python scripts/identification.py
       - name: Mixture bounds match a direct sweep (AF-001)

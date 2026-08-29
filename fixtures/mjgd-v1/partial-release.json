@@ -1,0 +1,78 @@
+{
+  "schema_version": "mjgd/v1",
+  "disclosure_id": "mjgd-v1:partial-release",
+  "observed_at": "2026-08-29",
+  "scope": {
+    "stratum_id": "harmful_static",
+    "threat_regime": "Illustrative fixed harmful-item stratum"
+  },
+  "population": {
+    "id": "controlled_aggregate_set",
+    "positive_denominator": 10,
+    "benign_denominator": 0
+  },
+  "event": {
+    "positive_definition": "An item that should be caught in the declared static evaluation",
+    "flag_definition": "A guard emitted the declared flag at its fixed operating point"
+  },
+  "systems": [
+    {
+      "id": "a",
+      "name": "Guard A",
+      "version": "illustrative-v1",
+      "operating_point": "fixed illustrative threshold"
+    },
+    {
+      "id": "b",
+      "name": "Guard B",
+      "version": "illustrative-v1",
+      "operating_point": "fixed illustrative threshold"
+    }
+  ],
+  "execution": {
+    "mode": "parallel_full_exposure",
+    "topology": "parallel_or",
+    "same_items": true,
+    "full_exposure": true,
+    "order": ["a", "b"]
+  },
+  "missingness": {
+    "policy": "hold",
+    "allowed_codes": ["flag", "clear", "timeout", "error", "not_exposed"]
+  },
+  "evidence": {
+    "kind": "sufficient_aggregates",
+    "manifest": {
+      "kind": "controlled_aggregate_manifest",
+      "location": "controlled://illustrative-aggregate-manifest",
+      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "per_system_catches": {"a": 6, "b": 5}
+  },
+  "reported": {
+    "positive": {
+      "per_system_catches": {"a": 6, "b": 5},
+      "union_detection": 8,
+      "all_miss": 2,
+      "ordered_prefix_unions": [6, 8],
+      "leave_one_out_unions": {"a": 5, "b": 6}
+    },
+    "benign": {
+      "status": "not_available",
+      "reason": "The controlled aggregate release contains no benign union burden"
+    }
+  },
+  "uncertainty": {
+    "kind": "fixed_population_no_interval",
+    "reason": "Attested aggregates describe the declared finite population only"
+  },
+  "repeat_after": [
+    "system_version_change",
+    "operating_point_change",
+    "topology_or_route_change"
+  ],
+  "non_claims": [
+    "static_all_miss_is_not_route_risk",
+    "static_all_miss_is_not_adaptive_robustness"
+  ]
+}

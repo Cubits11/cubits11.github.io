@@ -37,6 +37,15 @@ python3 -m http.server 4173
 
 Then open http://localhost:4173.
 
+## MJGD v1
+
+[Minimum Joint Guardrail Disclosure v1](docs/MJGD_V1.md) is a
+machine-readable disclosure schema for a declared multi-guard evaluation. Its
+validator recomputes only complete static full-exposure outcomes, labels
+controlled aggregates as attested, returns identified sets for marginals, and
+holds routes and missing cells rather than guessing. It is a schema, not a
+safety standard or an adoption claim.
+
 ## Deploy & verification
 
 Open a PR, pass the verification workflow, and merge through the protected
@@ -73,6 +82,10 @@ scripts/verify_claims.py    registry verifier: bindings, triggers, freshness
 scripts/verify_figures.py   figure geometry assertions (Fig. 02 + essay)
 scripts/verify_frontend.py  static frontend structure + local-only preflight gate
 scripts/reproduce_cc001.py  clean-clone reproduction of CC-001 + CC-004
+scripts/validate_mjgd.py    MJGD v1 packet validator + fixture/refusal tests
+schemas/mjgd-v1.schema.json machine-readable MJGD v1 contract
+fixtures/mjgd-v1/           illustrative complete, aggregate, marginal, route, and hold packets
+docs/MJGD_V1.md             MJGD v1 semantics, replay commands, and non-claims
 404.html                    not-found page
 assets/                     shared stylesheet, self-hosted fonts, images
 DESIGN.md                   design-decision ledger + changelogs + field-artifact notes

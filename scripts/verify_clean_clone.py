@@ -26,6 +26,7 @@ CHECKS = (
     ("missing-column drift", "scripts/generate_missing_column.py", "--check"),
     ("sitemap drift", "scripts/generate_sitemap.py", "--check"),
     ("MJGD identities", "scripts/mjgd_reference.py", "--test"),
+    ("MJGD v1 fixtures", "scripts/validate_mjgd.py", "--test"),
     ("BELLS reproduction", "scripts/reanalyze_bells_subset.py"),
     ("internal links", "scripts/check_links.py"),
     ("frontend structural gates", "scripts/verify_frontend.py"),
