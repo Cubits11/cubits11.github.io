@@ -27,6 +27,7 @@ import re
 import sys
 
 import generate_ledger as ledger
+import identification
 import validate_mjgd
 import verify_census
 
@@ -995,9 +996,9 @@ def render_demonstration() -> str:
     guards = {"lakera_guard": "Lakera Guard", "prompt_guard": "Prompt Guard",
               "langkit": "LangKit", "nemo": "NeMo Guardrails",
               "llm_guard": "LLM Guard"}
-    product = 1.0
-    for key in guards:
-        product *= (n - e["per_guard_catches"][key]) / n
+    # The independence plug-in has exactly one implementation in this repo.
+    product = identification.independence_plugin(
+        [(n - e["per_guard_catches"][key]) / n for key in guards])
     ratio = (e["all_miss"] / n) / product
     rows = "".join(
         f'<tr><th scope="row">{esc(name)}</th>'

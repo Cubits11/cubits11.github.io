@@ -36,6 +36,7 @@ import urllib.request
 
 import yaml
 
+import identification
 import mjgd_reference
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -121,12 +122,15 @@ def main() -> int:
     catch_sets = {g: {i for i, row in enumerate(rows)
                       if row["harm_level"] == "harmful" and row[g].strip() == "1"}
                   for g in SPECIALIZED}
+    # Leave-one-out has one implementation; this file consumes it.
+    loo = identification.leave_one_out(catch_sets)
     for guard, want in expected.get("leave_one_out_union", {}).items():
-        got = len(set().union(*[catch_sets[x] for x in SPECIALIZED
-                                if x != guard]))
+        got = loo["per_guard"][guard]["union_without"]
         if got == want:
             ok(f"leave-one-out without {guard}: {got}/{d['denominator']} "
-               f"(unique contribution {d['union_detection'] - got})")
+               f"(unique contribution "
+               f"{loo['per_guard'][guard]['unique_contribution']}, "
+               f"removal-relative — not a residual)")
         else:
             fail(f"leave-one-out without {guard}: computed {got}, claim says "
                  f"{want}")
@@ -144,9 +148,9 @@ def main() -> int:
             fail(f"per-guard {guard}: computed {got}, claim says {want}")
 
     n = d["denominator"]
-    product = 1.0
-    for guard in SPECIALIZED:
-        product *= (n - d["per_guard"][guard]) / n
+    # Same single implementation the page and the validator use.
+    product = identification.independence_plugin(
+        [(n - d["per_guard"][guard]) / n for guard in SPECIALIZED])
     observed = d["all_miss"] / n
     print("\nderived from the hash-verified source file; compared with the")
     print("registered expected counts above:")

@@ -443,25 +443,7 @@ def _recompute_raw_static(contract: dict[str, Any], items: list[dict[str, Any]])
         system_id: [item["decisions"][system_id] == "flag" for item in items]
         for system_id in system_ids
     }
-    reference = mjgd_reference.joint_disclosure(decisions, positives)
-    catch_sets = {
-        system_id: {
-            index for index, item in enumerate(items)
-            if item["positive"] and item["decisions"][system_id] == "flag"
-        }
-        for system_id in system_ids
-    }
-    leave_one_out = identification.leave_one_out(catch_sets)
-    expected = {
-        "per_system_catches": reference["per_guard"],
-        "union_detection": reference["union_detection"],
-        "all_miss": reference["all_miss"],
-        "ordered_prefix_unions": _prefix_unions(reference),
-        "leave_one_out_unions": {
-            system_id: leave_one_out["per_guard"][system_id]["union_without"]
-            for system_id in system_ids
-        },
-    }
+    expected = _static_metrics(decisions, positives, system_ids)
     benign_union = sum(
         any(item["decisions"][system_id] == "flag" for system_id in system_ids)
         for item in items if not item["positive"]
@@ -547,30 +529,72 @@ def _aggregate_pattern_counts(value: Any, order: list[str], denominator: int) ->
     return counts
 
 
-def _metrics_from_patterns(patterns: dict[str, int], order: list[str]) -> dict[str, Any]:
-    width = len(order)
-    per_system = {
-        system_id: sum(count for pattern, count in patterns.items() if pattern[index] == "1")
-        for index, system_id in enumerate(order)
+def _table_from_patterns(patterns: dict[str, int],
+                        order: list[str]) -> tuple[dict[str, list[bool]], list[bool]]:
+    """Expand a complete pattern-count table into one strict binary table.
+
+    Columns are ordered by execution.order, so bit i of a pattern key is the
+    decision of order[i]. Rows are emitted in sorted pattern order so the
+    table is deterministic. Every row is a positive: the pattern counts are
+    validated to sum to population.positive_denominator before this is
+    called.
+
+    This exists so the aggregate evidence form has no arithmetic of its own.
+    It materialises the table and hands it to the same kernel the raw form
+    uses; there is exactly one joint calculator in this repository.
+    """
+    decisions: dict[str, list[bool]] = {system_id: [] for system_id in order}
+    positives: list[bool] = []
+    for pattern in sorted(patterns):
+        flags = [bit == "1" for bit in pattern]
+        for _ in range(patterns[pattern]):
+            positives.append(True)
+            for index, system_id in enumerate(order):
+                decisions[system_id].append(flags[index])
+    return decisions, positives
+
+
+def _static_metrics(decisions: dict[str, list[bool]], positives: list[bool],
+                    order: list[str]) -> dict[str, Any]:
+    """The only place static joint statistics are computed in this file.
+
+    Delegates to the canonical owners and does no counting itself:
+      * mjgd_reference.joint_disclosure — per-system catches, union, all-miss,
+        and residual coverage in stack order;
+      * identification.leave_one_out — the union with each system removed.
+
+    The two decompositions are NOT the same quantity and are never equated:
+
+      ordered_prefix_unions  is ORDER-DEPENDENT. Entry i is what the first
+        i+1 systems catch between them in the declared execution order.
+        Permuting the order changes every entry after the first; it does not
+        change the union, the all-miss, or any system's own catch count.
+
+      leave_one_out_unions   is REMOVAL-RELATIVE and order-free. Entry g is
+        what the stack catches without g. The union minus that entry is g's
+        unique contribution — items no other member catches.
+
+    A system's residual under one order can exceed its unique contribution by
+    any amount, because a residual credits every item not yet caught by the
+    systems ahead of it, including items a later system would also have
+    caught. Reporting one as the other overstates a member's necessity.
+    """
+    reference = mjgd_reference.joint_disclosure(decisions, positives)
+    catch_sets = {
+        system_id: {index for index, positive in enumerate(positives)
+                    if positive and decisions[system_id][index]}
+        for system_id in order
     }
-    union = sum(count for pattern, count in patterns.items() if "1" in pattern)
-    prefixes = [
-        sum(count for pattern, count in patterns.items() if "1" in pattern[:index + 1])
-        for index in range(width)
-    ]
-    leave_one_out = {
-        system_id: sum(
-            count for pattern, count in patterns.items()
-            if any(bit == "1" for position, bit in enumerate(pattern) if position != index)
-        )
-        for index, system_id in enumerate(order)
-    }
+    leave_one_out = identification.leave_one_out(catch_sets)
     return {
-        "per_system_catches": per_system,
-        "union_detection": union,
-        "all_miss": patterns["0" * width],
-        "ordered_prefix_unions": prefixes,
-        "leave_one_out_unions": leave_one_out,
+        "per_system_catches": reference["per_guard"],
+        "union_detection": reference["union_detection"],
+        "all_miss": reference["all_miss"],
+        "ordered_prefix_unions": _prefix_unions(reference),
+        "leave_one_out_unions": {
+            system_id: leave_one_out["per_guard"][system_id]["union_without"]
+            for system_id in order
+        },
     }
 
 
@@ -589,7 +613,8 @@ def _validate_aggregate_static(contract: dict[str, Any]) -> dict[str, Any]:
         evidence["joint_pattern_counts"], order,
         contract["population"]["positive_denominator"],
     )
-    expected = _metrics_from_patterns(patterns, order)
+    decisions, positives = _table_from_patterns(patterns, order)
+    expected = _static_metrics(decisions, positives, order)
     evidence_counts = _check_exact_map(
         evidence["per_system_catches"], contract["system_ids"],
         "evidence.per_system_catches", lambda x, name: _integer(x, name),
@@ -807,6 +832,8 @@ def run_self_test() -> int:
     duplicate_system["systems"][1]["id"] = "a"
     _expect_refusal(duplicate_system, "a duplicate system id")
 
+    failures += _one_kernel_tests()
+
     print()
     if failures:
         print(f"{failures} MJGD v1 self-test(s) failed.")
@@ -814,6 +841,131 @@ def run_self_test() -> int:
     print("MJGD v1 validator verified: complete, aggregate, marginal, route, and hold states.")
     return 0
 
+
+
+
+# ---------------------------------------------------------------- one kernel
+
+def _one_kernel_tests() -> int:
+    """Prove there is a single joint calculator and that both evidence forms
+    reach it. Every check here fails loudly rather than warning."""
+    failed = 0
+
+    def check(cond: bool, label: str) -> None:
+        nonlocal failed
+        print(("ok    " if cond else "FAIL  ") + label)
+        if not cond:
+            failed += 1
+
+    # 1. The BELLS envelope this repository publishes, and its identities.
+    #    Deriving these from the released file is reanalyze_bells_subset.py's
+    #    job, against a hash-verified download; this asserts the registered
+    #    numbers the public page renders.
+    import yaml
+    registry = yaml.safe_load((ROOT / "claims.yaml").read_text())
+    bells = next(c for c in registry["claims"] if c["id"] == "MC-002")["expected"]
+    check(bells["n_harmful"] == 82 and bells["union_detection"] == 73
+          and bells["all_miss"] == 9,
+          "BELLS envelope: denominator 82, union 73, all-miss 9")
+    check(bells["union_detection"] + bells["all_miss"] == bells["n_harmful"],
+          "BELLS: union + all-miss = denominator")
+    check(all(v <= bells["union_detection"]
+              for v in bells["leave_one_out_union"].values()),
+          "BELLS: no leave-one-out union exceeds the full union")
+
+    # 2. One independence plug-in, used everywhere it appears.
+    rates = [(82 - c) / 82 for c in bells["per_guard_catches"].values()]
+    canonical = identification.independence_plugin(rates)
+    hand = 1.0
+    for rate in rates:
+        hand *= rate
+    check(abs(canonical - hand) < 1e-15,
+          f"independence plug-in is the product it claims to be ({canonical:.6f})")
+    # Needles are assembled at runtime: spelled out, this scanner would match
+    # its own source and report itself as an offender.
+    mult = "product " + "*="
+    owners = {"identification.py"}
+    offenders = sorted(
+        path.name for path in sorted((ROOT / "scripts").glob("*.py"))
+        if mult in path.read_text(encoding="utf-8")
+        and path.name not in owners)
+    check(not offenders,
+          f"no independence multiplication outside identification.py "
+          f"({offenders or 'none'})")
+
+    # 3. Raw and aggregate representations of the same data agree exactly.
+    order = ["a", "b", "c"]
+    patterns = {"000": 3, "001": 2, "010": 1, "011": 4,
+                "100": 5, "101": 1, "110": 2, "111": 6}
+    decisions, positives = _table_from_patterns(patterns, order)
+    from_patterns = _static_metrics(decisions, positives, order)
+    raw_decisions = {s: list(decisions[s]) for s in order}
+    from_raw = _static_metrics(raw_decisions, list(positives), order)
+    check(from_patterns == from_raw,
+          "aggregate pattern table and raw item table give identical metrics")
+    check(from_patterns["all_miss"] == patterns["000"],
+          f"all-miss equals the zero-pattern count ({patterns['000']})")
+    check(from_patterns["union_detection"] + from_patterns["all_miss"]
+          == sum(patterns.values()),
+          "union + all-miss = denominator on the expanded table")
+
+    # 4. Order moves residual attribution, never guard identity.
+    reversed_order = list(reversed(order))
+    flipped = _static_metrics({s: decisions[s] for s in reversed_order},
+                              positives, reversed_order)
+    check(flipped["per_system_catches"] == from_patterns["per_system_catches"],
+          "reordering leaves every system's own catch count unchanged")
+    check(flipped["union_detection"] == from_patterns["union_detection"]
+          and flipped["all_miss"] == from_patterns["all_miss"],
+          "reordering leaves union and all-miss unchanged")
+    check(flipped["leave_one_out_unions"] == from_patterns["leave_one_out_unions"],
+          "reordering leaves every leave-one-out union unchanged (order-free)")
+    check(flipped["ordered_prefix_unions"] != from_patterns["ordered_prefix_unions"],
+          f"reordering DOES change ordered prefix unions "
+          f"({from_patterns['ordered_prefix_unions']} -> "
+          f"{flipped['ordered_prefix_unions']})")
+
+    # 5. An omitted pattern key cannot become a silent all-miss.
+    incomplete = {k: v for k, v in patterns.items() if k != "000"}
+    try:
+        _aggregate_pattern_counts(incomplete, order, sum(incomplete.values()))
+    except ValidationError:
+        print("ok    refuses an aggregate table missing the zero pattern")
+    else:
+        failed += 1
+        print("FAIL  refuses an aggregate table missing the zero pattern")
+
+    # 6. Residual coverage is not leave-one-out contribution. A = {0,1},
+    #    B = {1,2} over three positives: A's residual is 2 (it is first and
+    #    everything is still uncaught), while removing A costs the stack only
+    #    item 0. Equating them would overstate A by a factor of two.
+    two = {"A": [True, True, False], "B": [False, True, True]}
+    pos = [True, True, True]
+    metrics = _static_metrics(two, pos, ["A", "B"])
+    reference = mjgd_reference.joint_disclosure(two, pos)
+    residual_a = reference["residual_coverage"][0]["catches_among_prior_misses"]
+    unique_a = metrics["union_detection"] - metrics["leave_one_out_unions"]["A"]
+    check(residual_a == 2 and unique_a == 1 and residual_a != unique_a,
+          f"A={{0,1}}, B={{1,2}}: residual {residual_a} != unique contribution "
+          f"{unique_a} — order-dependent vs removal-relative")
+
+    # 7. No second joint calculator anywhere in scripts/.
+    joint_owners = {"mjgd_reference.py", "identification.py"}
+    union_needle = "set()." + "union("
+    miss_needle = "not in " + "union"
+    recomputers = sorted(
+        path.name for path in sorted((ROOT / "scripts").glob("*.py"))
+        if (union_needle in path.read_text(encoding="utf-8")
+            or miss_needle in path.read_text(encoding="utf-8"))
+        and path.name not in joint_owners)
+    check(not recomputers,
+          f"no union/all-miss recomputation outside the canonical owners "
+          f"({recomputers or 'none'})")
+    removed_needle = "_metrics_from" + "_patterns"
+    gone = not any(removed_needle in path.read_text(encoding="utf-8")
+                   for path in (ROOT / "scripts").glob("*.py"))
+    check(gone, "the second pattern calculator is removed")
+    return failed
 
 def _print_result(result: dict[str, Any], as_json: bool) -> None:
     if as_json:
