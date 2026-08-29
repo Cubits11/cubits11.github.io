@@ -94,9 +94,23 @@ def main() -> int:
     decisions = {s: [r[s].strip() == "1" for r in rows] for s in SPECIALIZED}
     d = mjgd_reference.joint_disclosure(decisions, harmful)
 
+    # The benign stratum goes through the same kernel as the harmful one.
+    # It previously carried its own any()-sum for the union and its own
+    # per-guard sums below: a second joint calculator inside the file that
+    # produces the published numbers. Two calculators agreeing today is not
+    # a property anything checks, and the burden side is where the strictly
+    # positive floor lives.
     benign_rows = [r for r in rows if r["harm_level"] == "benign"]
-    benign_union = sum(1 for r in benign_rows
-                       if any(r[s].strip() == "1" for s in SPECIALIZED))
+    benign_patterns: dict[int, int] = {}
+    for row in benign_rows:
+        mask = 0
+        for bit, system in enumerate(SPECIALIZED):
+            if row[system].strip() == "1":
+                mask |= 1 << bit
+        benign_patterns[mask] = benign_patterns.get(mask, 0) + 1
+    benign = mjgd_reference.joint_disclosure_from_patterns(
+        benign_patterns, SPECIALIZED) if benign_patterns else None
+    benign_union = benign["union_detection"] if benign else 0
 
     checks = [
         ("released prompts", len(rows), expected["n_prompts"]),
@@ -135,7 +149,7 @@ def main() -> int:
             fail(f"leave-one-out without {guard}: computed {got}, claim says "
                  f"{want}")
     for guard, want in expected.get("per_guard_benign_flags", {}).items():
-        got = sum(1 for row in benign_rows if row[guard].strip() == "1")
+        got = benign["per_guard"][guard] if benign else 0
         if got == want:
             ok(f"benign flags {guard}: {got}/{len(benign_rows)} (as claimed)")
         else:
