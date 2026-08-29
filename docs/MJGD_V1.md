@@ -54,10 +54,10 @@ released. An absent JSON key never means clear.
 | Evidence kind | Validator state | What the packet may say |
 | --- | --- | --- |
 | Complete binary per-item outcomes; parallel OR; same items; full exposure | RECOMPUTABLE_STATIC | Exact per-system catches, union detection, all-miss, ordered prefix unions, leave-one-out unions, and benign union burden are recomputed. |
-| Complete joint aggregate-pattern counts plus a manifest | RECOMPUTED_FROM_AGGREGATE_PATTERNS | The submitted aggregate pattern table is complete, so every required static result is recomputed from it without item identities. The source aggregate is still not independently authenticated. |
+| Complete positive-set aggregate-pattern counts plus a manifest | RECOMPUTED_FROM_AGGREGATE_PATTERNS | The submitted positive-set pattern table is complete, so every reported positive static result is recomputed from it without item identities. No benign union is accepted from this packet. The source aggregate is still not independently authenticated. |
 | Per-system marginals only | NOT_IDENTIFIED_FROM_MARGINALS | The exact finite all-miss identified set is returned. No observed union, all-miss, residual, or leave-one-out result is permitted. |
 | Sequential or gated route declaration plus a manifest | HOLD_ROUTE_TRACE_REQUIRED | The declared route is held; this packet does not verify or reduce a route trace to static full-exposure arithmetic. |
-| Explicit timeout, error, or not-exposed raw cell under the hold policy | HOLD_MISSING_DATA | The missing cells are shown and numerical static output is withheld. |
+| Explicit timeout, error, or not-exposed raw cell under the hold policy | HOLD_MISSING_DATA | The missing cells are shown and all numerical static output, including benign burden, is withheld. |
 
 The five committed fixtures demonstrate those states:
 
@@ -84,10 +84,12 @@ four keys are:
 ~~~
 
 The zero pattern is mandatory and the pattern counts must sum to the positive
-denominator. The validator recomputes per-system catches, union, all-miss,
-ordered prefix unions, and leave-one-out unions directly from that table. A
-complete pattern table makes the reported aggregates jointly realizable by
-construction, while keeping item identities controlled.
+denominator. The validator recomputes positive-set per-system catches, union,
+all-miss, ordered prefix unions, and leave-one-out unions directly from that
+table. A complete pattern table makes the reported aggregates jointly
+realizable by construction, while keeping item identities controlled. Because
+the table covers positives only, a benign union burden must be explicitly
+unavailable rather than copied in without matching benign evidence.
 
 It does not authenticate the pattern table's source, manifest, or collection
 process. That remains an attestation and review problem, not an arithmetic
@@ -109,6 +111,8 @@ MJGD v1 does not:
   utility;
 - score timeouts as catches or clears;
 - infer a sequential or gated route result from a parallel static table;
+- accept a benign result when the declared evidence does not cover the benign
+  population;
 - infer adaptive-attack robustness;
 - authorize prompt/data redistribution;
 - establish adoption, interoperability, or safety.

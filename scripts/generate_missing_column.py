@@ -1054,7 +1054,7 @@ def render_mjgd_v1_packet() -> str:
              "positive and benign count is recomputed."),
         validate_mjgd.STATUS_AGGREGATE_PATTERNS:
             ("recomputed aggregate patterns", "A complete controlled aggregate-pattern "
-             "table; static results are recomputed without item identities."),
+             "table; positive static results are recomputed without item identities."),
         validate_mjgd.STATUS_NOT_IDENTIFIED:
             ("not identified", "Marginals only; the exact finite all-miss identified set is "
              "shown instead of inventing a realized joint result."),

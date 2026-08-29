@@ -42,7 +42,7 @@ Then open http://localhost:4173.
 [Minimum Joint Guardrail Disclosure v1](docs/MJGD_V1.md) is a
 machine-readable disclosure schema for a declared multi-guard evaluation. Its
 validator recomputes only complete static full-exposure outcomes and complete
-aggregate pattern tables, returns identified sets for marginals, and holds
+positive-set aggregate pattern tables, returns identified sets for marginals, and holds
 routes and missing cells rather than guessing. The JSON Schema is structural;
 the CLI performs semantic conformance checks. MJGD is a schema, not a safety
 standard or an adoption claim.

@@ -485,9 +485,7 @@ def _validate_raw(contract: dict[str, Any]) -> dict[str, Any]:
     ]
     if non_binary:
         _unavailable_metrics(contract["reported"]["positive"], "reported.positive")
-        _benign_metrics(contract["reported"]["benign"],
-                        contract["population"]["benign_denominator"],
-                        "reported.benign")
+        _unavailable_metrics(contract["reported"]["benign"], "reported.benign")
         return {
             "disclosure_id": contract["disclosure_id"],
             "status": STATUS_HOLD_MISSING,
@@ -602,19 +600,12 @@ def _validate_aggregate_static(contract: dict[str, Any]) -> dict[str, Any]:
     reported = _positive_metrics(contract["reported"]["positive"],
                                  contract["system_ids"], "reported.positive")
     _check_reported_matches(expected, reported, "reported.positive")
-    benign = _benign_metrics(contract["reported"]["benign"],
-                             contract["population"]["benign_denominator"],
-                             "reported.benign")
+    _unavailable_metrics(contract["reported"]["benign"], "reported.benign")
     result = {
         "disclosure_id": contract["disclosure_id"],
         "status": STATUS_AGGREGATE_PATTERNS,
         "positive": expected,
     }
-    if benign["available"]:
-        result["benign"] = {
-            "denominator": contract["population"]["benign_denominator"],
-            "union_flags": benign["union_flags"],
-        }
     return result
 
 
@@ -634,8 +625,7 @@ def _validate_marginals(contract: dict[str, Any]) -> dict[str, Any]:
             raise ValidationError(f"evidence.per_system_catches.{system_id} exceeds denominator")
         ordered_counts.append(counts[system_id])
     _unavailable_metrics(contract["reported"]["positive"], "reported.positive")
-    _benign_metrics(contract["reported"]["benign"],
-                    contract["population"]["benign_denominator"], "reported.benign")
+    _unavailable_metrics(contract["reported"]["benign"], "reported.benign")
     identified = identification.integer_grid(ordered_counts, n)
     return {
         "disclosure_id": contract["disclosure_id"],
@@ -651,8 +641,7 @@ def _validate_route(contract: dict[str, Any]) -> dict[str, Any]:
         raise ValidationError("route or gate evidence must use evidence.kind='route_trace'")
     _manifest(evidence["manifest"], "evidence.manifest")
     _unavailable_metrics(contract["reported"]["positive"], "reported.positive")
-    _benign_metrics(contract["reported"]["benign"],
-                    contract["population"]["benign_denominator"], "reported.benign")
+    _unavailable_metrics(contract["reported"]["benign"], "reported.benign")
     return {
         "disclosure_id": contract["disclosure_id"],
         "status": STATUS_HOLD_ROUTE,
@@ -786,6 +775,11 @@ def run_self_test() -> int:
     del aggregate_missing_pattern["evidence"]["joint_pattern_counts"]["00"]
     _expect_refusal(aggregate_missing_pattern,
                     "an aggregate pattern table with an omitted zero pattern")
+    aggregate_with_unrecomputed_benign = copy.deepcopy(aggregate)
+    aggregate_with_unrecomputed_benign["population"]["benign_denominator"] = 7
+    aggregate_with_unrecomputed_benign["reported"]["benign"] = {"union_flags": 6}
+    _expect_refusal(aggregate_with_unrecomputed_benign,
+                    "an unrecomputed benign union in an aggregate-pattern packet")
 
     marginal = load_packet(FIXTURE_DIR / "aggregate-only.json")
     marginal_with_observed = copy.deepcopy(marginal)
@@ -796,10 +790,18 @@ def run_self_test() -> int:
     route_with_static = copy.deepcopy(route)
     route_with_static["reported"]["positive"] = copy.deepcopy(raw["reported"]["positive"])
     _expect_refusal(route_with_static, "a static result inserted into route evidence")
+    route_with_benign = copy.deepcopy(route)
+    route_with_benign["reported"]["benign"] = {"union_flags": 0}
+    _expect_refusal(route_with_benign, "a benign result inserted into held route evidence")
 
     missing_cell = copy.deepcopy(raw)
     del missing_cell["evidence"]["items"][0]["decisions"]["b"]
     _expect_refusal(missing_cell, "an omitted item-system decision cell")
+
+    missing = load_packet(FIXTURE_DIR / "missing-data.json")
+    missing_with_benign = copy.deepcopy(missing)
+    missing_with_benign["reported"]["benign"] = {"union_flags": 0}
+    _expect_refusal(missing_with_benign, "a benign result inserted into held missing data")
 
     duplicate_system = copy.deepcopy(raw)
     duplicate_system["systems"][1]["id"] = "a"
