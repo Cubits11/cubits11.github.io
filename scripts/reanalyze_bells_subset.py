@@ -133,17 +133,14 @@ def main() -> int:
         else:
             fail(f"borderline stratum: computed {borderline}, claim says "
                  f"{expected['n_borderline']}")
-    catch_sets = {g: {i for i, row in enumerate(rows)
-                      if row["harm_level"] == "harmful" and row[g].strip() == "1"}
-                  for g in SPECIALIZED}
-    # Leave-one-out has one implementation; this file consumes it.
-    loo = identification.leave_one_out(catch_sets)
+    # Leave-one-out is emitted by the same joint kernel as the harmful union.
+    loo = {row["guard"]: row for row in d["leave_one_out"]}
     for guard, want in expected.get("leave_one_out_union", {}).items():
-        got = loo["per_guard"][guard]["union_without"]
+        got = loo[guard]["union_without"]
         if got == want:
             ok(f"leave-one-out without {guard}: {got}/{d['denominator']} "
                f"(unique contribution "
-               f"{loo['per_guard'][guard]['unique_contribution']}, "
+               f"{loo[guard]['unique_contribution']}, "
                f"removal-relative — not a residual)")
         else:
             fail(f"leave-one-out without {guard}: computed {got}, claim says "

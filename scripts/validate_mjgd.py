@@ -572,10 +572,8 @@ def _static_metrics(decisions: dict[str, list[bool]], positives: list[bool],
                     order: list[str]) -> dict[str, Any]:
     """The only place static joint statistics are computed in this file.
 
-    Delegates to the canonical owners and does no counting itself:
-      * mjgd_reference.joint_disclosure — per-system catches, union, all-miss,
-        and residual coverage in stack order;
-      * identification.leave_one_out — the union with each system removed.
+    Delegates every joint statistic to mjgd_reference.joint_disclosure and
+    does no counting itself.
 
     The two decompositions are NOT the same quantity and are never equated:
 
@@ -594,20 +592,14 @@ def _static_metrics(decisions: dict[str, list[bool]], positives: list[bool],
     caught. Reporting one as the other overstates a member's necessity.
     """
     reference = mjgd_reference.joint_disclosure(decisions, positives)
-    catch_sets = {
-        system_id: {index for index, positive in enumerate(positives)
-                    if positive and decisions[system_id][index]}
-        for system_id in order
-    }
-    leave_one_out = identification.leave_one_out(catch_sets)
     return {
         "per_system_catches": reference["per_guard"],
         "union_detection": reference["union_detection"],
         "all_miss": reference["all_miss"],
         "ordered_prefix_unions": _prefix_unions(reference),
         "leave_one_out_unions": {
-            system_id: leave_one_out["per_guard"][system_id]["union_without"]
-            for system_id in order
+            row["guard"]: row["union_without"]
+            for row in reference["leave_one_out"]
         },
     }
 
@@ -980,7 +972,7 @@ def _one_kernel_tests() -> int:
           f"{unique_a} — order-dependent vs removal-relative")
 
     # 7. No second joint calculator anywhere in scripts/.
-    joint_owners = {"mjgd_reference.py", "identification.py"}
+    joint_owners = {"mjgd_reference.py"}
     union_needle = "set()." + "union("
     miss_needle = "not in " + "union"
     recomputers = sorted(
@@ -989,7 +981,7 @@ def _one_kernel_tests() -> int:
             or miss_needle in path.read_text(encoding="utf-8"))
         and path.name not in joint_owners)
     check(not recomputers,
-          f"no union/all-miss recomputation outside the canonical owners "
+          f"no union/all-miss/leave-one-out recomputation outside the canonical owner "
           f"({recomputers or 'none'})")
     removed_needle = "_metrics_from" + "_patterns"
     gone = not any(removed_needle in path.read_text(encoding="utf-8")

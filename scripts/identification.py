@@ -178,22 +178,6 @@ def collapse_from_union(union_rate: float) -> float:
     return 1.0 - union_rate
 
 
-def leave_one_out(catch_sets: dict[str, set]) -> dict:
-    """Exact exclusive full-stack coverage from per-item catch sets."""
-    names = list(catch_sets)
-    if len(names) < 2:
-        raise ValueError("a stack needs at least two guards")
-    union = set().union(*catch_sets.values())
-    per_guard = {}
-    for guard in names:
-        without = set().union(*(catch_sets[name] for name in names if name != guard))
-        per_guard[guard] = {
-            "union_without": len(without),
-            "unique_contribution": len(union) - len(without),
-        }
-    return {"union": len(union), "per_guard": per_guard}
-
-
 # --------------------------------------------------------------- self-tests
 
 def _realise_extremes(miss_rates: list[float], grid: int = 10_000) -> tuple[float, float]:
@@ -320,11 +304,6 @@ def _test() -> int:
 
     check(abs(collapse_from_union(73 / 82) - 9 / 82) < 1e-12,
           "one same-denominator union identifies static all-miss (1 - 73/82)")
-
-    loo = leave_one_out({"a": {1, 2, 3}, "b": {1, 2}, "c": {4}})
-    check(loo["per_guard"]["b"]["unique_contribution"] == 0
-          and loo["per_guard"]["c"]["unique_contribution"] == 1,
-          "leave-one-out identifies exclusive full-stack coverage")
 
     # The registry envelope must match the transformations computed here.
     try:
