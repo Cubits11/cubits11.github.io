@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-08-28"
+last_owner_review: "2026-08-29"
 
 claims:
   - id: CC-001
@@ -539,6 +539,13 @@ claims:
       maturity: experimental
     support:
       url: "https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv"
+      license: "none declared upstream"
+      commercial_reuse: facts_only
+      rights_note: >
+        The upstream repository states no licence. Only counts derived from the
+        hash-verified file are used; the file itself is cited, never redistributed.
+        Facts are not the licensable part, and nothing further may be built on it
+        without the authors’ permission.
       commit: "507566c5a4606c8e3dec0bd59a5c5fde62594951"
       note: >
         The upstream repository declares no license, so the file is
@@ -682,14 +689,17 @@ claims:
         langkit: [0, 3]
         nemo: [0, 21]
         llm_guard: [0, 0]
-    last_reviewed: "2026-08-28"
+    last_reviewed: "2026-08-29"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: scripts/identification.py
-        sha256: "9404114594f2e9a6ef139c505e20661a40ef06dc3a0be582dd722c2eefa718aa"
-        note: fires when the derivation or its tests change without a re-review
+        sha256: "4baba5ef00e5d8db19910abf1560b15cb7c68552690fb5c68c2dadabf8d563d8"
+        note: >-
+          fires when the derivation or its tests change without a re-review;
+          re-reviewed 2026-08-29 after removing a duplicate leave-one-out
+          calculator and rechecking the registered outputs
       - type: manual
         enforcement: manual
         event: >
@@ -718,6 +728,100 @@ claims:
       - leave-one-out unions identify only exclusive full-stack coverage; they do not identify pairwise or higher-order overlap, Shapley values, or causal contribution
       - says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release
 
+  - id: AF-001
+    proposition: >
+      Anthropic's AI Fluency Index reports overall prevalences for the 11
+      of its framework's 24 behaviours that are directly observable in
+      conversations, and percentage-point differences for conversations
+      that produced an artifact, but not the artifact share and not which
+      comparison group the differences are against. Those published
+      numbers therefore do not identify the subgroup rates — but they do
+      bound them. Under every feasible artifact share and under either
+      reading of the comparison, fact-checking is between 30% and 43% less
+      prevalent in artifact conversations, a far larger effect than the
+      stated 3.7 percentage points suggests on a base rate of 8.7%. The
+      three behaviours that rise in artifact conversations are Description
+      behaviours; the three that fall are Discernment behaviours.
+    scope: >
+      Arithmetic on the figures published in the Index summary, nothing
+      more. A pooled rate is a mixture of its subgroups, so a stated
+      overall rate and a stated between-group difference bound each
+      subgroup rate and their ratio; scripts/mixture_bounds.py computes
+      those bounds in closed form and cross-checks them against a sweep.
+      This is a re-expression of published numbers on a relative scale, not
+      a re-analysis of the underlying conversations, to which this record
+      has no access. It inherits every limitation the report declares: the
+      findings are correlational, and the report states that users may
+      perform fluency behaviours mentally without expressing them
+      conversationally — so a fall in transcript-visible checking cannot be
+      separated from checking that moved off-platform, which is where
+      checking an artifact ordinarily goes. The measured evaluation gap is
+      confounded with a measurement gap and these numbers cannot separate
+      them. The framework is CC BY-NC-SA 4.0, copyright 2025 Rick Dakan,
+      Joseph Feller, and Anthropic PBC; it is cited and analysed here,
+      never redistributed or productised.
+    dimensions:
+      visibility: public
+      provenance: machine_generated_owner_executed
+      support_role: executed_output
+      evidential_status: supported_within_scope
+      maturity: experimental
+    support:
+      url: "https://academy.claude.com/tutorials/the-ai-fluency-index"
+      license: "CC BY-NC-SA 4.0 (c) 2025 Rick Dakan, Joseph Feller, Anthropic PBC"
+      commercial_reuse: noncommercial_only
+      rights_note: >
+        Studied, cited, and analysed under the licence. NonCommercial and
+        ShareAlike both bind: the behaviour taxonomy may not be repackaged into any
+        paid curriculum, certification, or commercial derivative without permission.
+      commit: null
+      note: >
+        The published summary. Figures transcribed into
+        scripts/mixture_bounds.py and re-asserted against this claim's
+        expected block on every CI run; a change upstream fires the manual
+        trigger below rather than silently altering a bound.
+    expected:
+      n_conversations: 9830
+      behaviours_total: 24
+      behaviours_observable: 11
+      checks_facts_overall_pct: 8.7
+      checks_facts_artifact_diff_pp: -3.7
+      checks_facts_reduction_min_pct: 29
+      checks_facts_reduction_max_pct: 43
+      behaviours_rising: 3
+      behaviours_falling: 3
+    last_reviewed: "2026-08-28"
+    review_window_days: 90
+    review_triggers:
+      - type: local_content_change
+        enforcement: executable
+        path: scripts/mixture_bounds.py
+        sha256: "1b61adfa34d1c7a48fb8460c9712545cef951ee64a407bd2a936bc0b2592b66d"
+        note: fires when the transcribed figures or the bound change
+      - type: manual
+        enforcement: manual
+        event: >
+          the report publishes the artifact share, states which comparison
+          group the differences are against, corrects a figure, or expands
+          the analysis to a different sample
+    falsifier:
+      condition: >
+        The report states an artifact share or comparison group under which
+        the relative reduction falls outside [30%, 43%]; or a published
+        figure differs from the transcription; or the closed-form bound
+        disagrees with a direct sweep over feasible shares.
+      consequence: NARROW
+    forbidden_rescues:
+      - do not widen the stated interval after the fact to accommodate a figure that falls outside it
+      - do not restate the bound as an estimate of the artifact-conversation rate
+      - do not present the Description-rises / Discernment-falls pattern as causal, or as evidence that artifacts reduce evaluation rather than relocate it
+      - do not repackage the framework's behaviour taxonomy into any commercial or certification artifact; the licence is NonCommercial ShareAlike
+    non_claims:
+      - not a criticism of the Index; the observability boundary and the correlational limits are the report's own declared statements
+      - not a claim about any individual's competence, and not a measure of anyone's diligence
+      - not evidence that artifact production causes less checking — the published marginals cannot separate a behaviour change from a measurement change
+      - no access to the underlying conversations; this is arithmetic on a published summary
+
   - id: GA-001
     proposition: >
       Ghost-Ark is a verifier and measurement harness for the provenance
@@ -736,6 +840,12 @@ claims:
       maturity: in_development
     support:
       url: "https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md"
+      license: "unstated"
+      commercial_reuse: unknown
+      rights_note: >
+        Penn State S2 Lab repository with no licence found. Read-only by the
+        owner’s standing boundary in any case. UNKNOWN is terminal: cite and
+        analyse, build nothing on it, until the lab states terms.
       commit: "98c90d8296580f08dd8b6e38fdd2abd7039ec651"
       note: >
         Re-worded 2026-08-23 to track the bound thesis precisely: soundness
@@ -938,7 +1048,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: scripts/verify_claims.py
-        sha256: "3a98e23ab5d72df0adc9eb9ef585cfe6cdb67f9d58f0e5d43f151fbbe3812817"
+        sha256: "f388a0093251ea8e782c9774ea86e0becdced1676e4e145d7d64e7c75d9dc656"
         note: fires when the verifier changes without a registry re-review
       - type: manual
         enforcement: manual

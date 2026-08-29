@@ -9,6 +9,7 @@ checkout that invoked it.
 """
 
 import argparse
+import re
 import subprocess
 import sys
 import tempfile
@@ -26,10 +27,114 @@ CHECKS = (
     ("missing-column drift", "scripts/generate_missing_column.py", "--check"),
     ("sitemap drift", "scripts/generate_sitemap.py", "--check"),
     ("MJGD identities", "scripts/mjgd_reference.py", "--test"),
+    ("MJGD v1 fixtures", "scripts/validate_mjgd.py", "--test"),
+    ("identification bounds", "scripts/identification.py"),
+    ("pattern-count rank", "scripts/mjgd_pattern_rank.py"),
+    ("mixture bounds", "scripts/mixture_bounds.py"),
     ("BELLS reproduction", "scripts/reanalyze_bells_subset.py"),
     ("internal links", "scripts/check_links.py"),
     ("frontend structural gates", "scripts/verify_frontend.py"),
 )
+
+
+WORKFLOW = ROOT / ".github" / "workflows" / "verify.yml"
+MANIFEST_JOB = "claims"
+
+
+def check_manifest_parity() -> None:
+    """One manifest, two consumers — or the two consumers verify different
+    things and both report success.
+
+    This repository verifies itself through two surfaces: the workflow job
+    that runs on every push, and this clean-clone replay. Each printed a
+    green result while covering a different set of scripts, and neither
+    printed what the other covered. `identification.py` and
+    `mixture_bounds.py` ran in CI and not in the replay, so a reader
+    reproducing from a clean clone got a passing run that never executed the
+    identification arithmetic the central claim rests on.
+
+    That is the census's own finding, committed by the census: two marginals,
+    each reported, and a joint nobody published. The repair is structural
+    rather than a one-time reconciliation — the workflow's list and CHECKS
+    must be the same set, asserted here, so the divergence cannot come back
+    quietly.
+    """
+    import yaml
+    spec = yaml.safe_load(WORKFLOW.read_text())
+    steps = (spec.get("jobs", {}).get(MANIFEST_JOB, {}) or {}).get("steps", [])
+    in_ci = set()
+    for step in steps:
+        cmd = str(step.get("run", "")).strip()
+        parts = cmd.split()
+        if len(parts) >= 2 and parts[0] == "python" \
+                and parts[1].startswith("scripts/"):
+            in_ci.add(" ".join(parts[1:]))
+    in_manifest = {" ".join(entry[1:]) for entry in CHECKS}
+    only_ci = sorted(in_ci - in_manifest)
+    only_manifest = sorted(in_manifest - in_ci)
+    if only_ci or only_manifest:
+        lines = ["CHECKS and the workflow's '%s' job have diverged — one "
+                 "surface would verify what the other does not, and both "
+                 "would report success:" % MANIFEST_JOB]
+        for entry in only_ci:
+            lines.append(f"  in CI, absent from the clean-clone replay: {entry}")
+        for entry in only_manifest:
+            lines.append(f"  in the replay, absent from CI: {entry}")
+        raise SystemExit("\n".join(lines))
+    print(f"ok    manifest parity: {len(in_manifest)} checks drive both CI "
+          f"and the clean-clone replay")
+
+
+README = ROOT / "README.md"
+ENTRY_SECTION = "## Reproduce the claim"
+
+
+def check_readme_entry_point() -> None:
+    """The documented way in must be a way in that still works.
+
+    Rigour and legibility fail independently, and this repository had them
+    at opposite extremes: fifteen gates, a clean-clone replay, and a rank
+    theorem, against a README whose only stated command served the website.
+    The headline result reproduces in under a second and named no entry
+    point, so the distance between "has a result" and "has an external
+    reproducer" was documentation, not evidence.
+
+    A front door rots faster than a proof. This asserts that every script
+    the entry section tells a stranger to run exists, and that the numbers
+    the section quotes are the ones the registry holds — so the paragraph
+    cannot drift away from the arithmetic it advertises.
+    """
+    text = README.read_text()
+    if ENTRY_SECTION not in text:
+        raise SystemExit(f"README lost its {ENTRY_SECTION!r} section — the "
+                         f"documented reproduction path is the only thing "
+                         f"standing between a reader and a 0.9s result")
+    section = text.split(ENTRY_SECTION, 1)[1].split("\n## ", 1)[0]
+
+    named = re.findall(r"python3 (scripts/[\w./-]+\.py)", section)
+    if not named:
+        raise SystemExit("README entry section names no runnable script")
+    for rel in sorted(set(named)):
+        if not (ROOT / rel).exists():
+            raise SystemExit(f"README entry section points at {rel}, which "
+                             f"does not exist")
+
+    import yaml
+    registry = yaml.safe_load((ROOT / "claims.yaml").read_text())
+    mc = next(c for c in registry["claims"] if c["id"] == "MC-002")
+    e = mc["expected"]
+    n = e["n_harmful"]
+    quoted = {
+        f'{e["all_miss"]}/{n}': "registered all-miss fraction",
+        f'{e["all_miss"] / n:.1%}': "registered all-miss rate",
+        f'{e["benign_union_flagged"] / e["n_benign"]:.2%}': "benign union",
+    }
+    for literal, what in quoted.items():
+        if literal not in section:
+            raise SystemExit(f"README entry section no longer quotes the "
+                             f"{what} ({literal}) the registry holds")
+    print(f"ok    README entry point: {len(set(named))} scripts reachable, "
+          f"quoted numbers match the registry")
 
 
 def run(args: list[str], cwd: Path) -> str:
@@ -55,6 +160,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    check_manifest_parity()
+    check_readme_entry_point()
     dirty = run(["git", "status", "--porcelain"], ROOT).strip()
     if dirty:
         print("FAIL  invoking worktree is dirty; commit or otherwise resolve "

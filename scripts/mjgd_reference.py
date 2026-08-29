@@ -8,8 +8,9 @@ union detection, all-miss, residual coverage in stack order, and pairwise
 intersections of catches and of misses — with the denominator attached to
 each number.
 
-This file is the entire marginal cost of the disclosure for an evaluation
-that retained per-item decisions. It has no dependencies beyond the
+After per-item decisions have been retained, reducing them to the joint
+counts is this file. Scoring those decisions is still O(NK); publishing
+the positive-set table is 2**K cells. It has no dependencies beyond the
 standard library. `--test` runs the synthetic fixtures and asserts the
 identities that make the arithmetic trustworthy:
 
@@ -32,6 +33,116 @@ import random
 import sys
 
 
+# The largest stack this file will reduce without being told to stop. 2**20 is
+# a million-cell table; past that the caller is almost certainly not describing
+# a guardrail stack, and silently allocating is worse than refusing. Local
+# operating limit, not part of any disclosure contract.
+_MAX_GUARDS = 20
+
+
+def _reduce(patterns: dict, names: list) -> dict:
+    """The one joint calculator. Everything downstream is a subset sum.
+
+    ``patterns`` maps a K-bit mask to a count of positives exhibiting exactly
+    that flag pattern; bit i of the mask belongs to ``names[i]``. This is the
+    whole disclosure: union, all-miss, ordered residual, leave-one-out, and
+    every pairwise cell are sums over subsets of the same table.
+
+    The pattern-count vector is a **sufficient statistic** for every quantity
+    this file emits. Its *published cell count* is 2**K regardless of N (32
+    when K=5). That is a storage fact about the table, not a claim that
+    forming the table is independent of N: scoring per-item decisions is
+    still O(NK). The table contains no item identifiers or item-level
+    records. It is the exact multiset of joint flag-patterns: a cell of
+    count 1 discloses that that pattern occurred, and two assignments with
+    the same counts are indistinguishable. "Retains nothing about any
+    individual item" is not a property this arithmetic proves.
+    """
+    k = len(names)
+    if k < 2:
+        raise ValueError("a joint disclosure needs at least two guards")
+    if k > _MAX_GUARDS:
+        raise ValueError(f"{k} guards exceeds this reducer's local limit of "
+                         f"{_MAX_GUARDS}; refusing rather than allocating "
+                         f"2**{k} cells")
+    if len(set(names)) != k:
+        raise ValueError("guard names must be distinct — they index the mask")
+    full = 1 << k
+    for mask, count in patterns.items():
+        if not isinstance(mask, int) or not 0 <= mask < full:
+            raise ValueError(f"mask {mask!r} is not a {k}-bit pattern")
+        if not isinstance(count, int) or isinstance(count, bool) or count < 0:
+            raise ValueError(f"count for mask {mask} must be a non-negative "
+                             f"integer, got {count!r}")
+
+    n_pos = sum(patterns.values())
+    if n_pos == 0:
+        raise ValueError("no positives — the denominator is empty")
+
+    def total(predicate) -> int:
+        return sum(c for m, c in patterns.items() if predicate(m))
+
+    per_guard = {names[i]: total(lambda m, i=i: m >> i & 1) for i in range(k)}
+    union = total(lambda m: m != 0)
+    all_miss = patterns.get(0, 0)
+
+    residual, prior = [], 0
+    for i, name in enumerate(names):
+        earlier = (1 << i) - 1
+        residual.append({
+            "guard": name,
+            "catches_among_prior_misses":
+                total(lambda m, i=i, e=earlier: (m >> i & 1) and not (m & e)),
+            "prior_misses": n_pos - prior,
+        })
+        prior += residual[-1]["catches_among_prior_misses"]
+
+    # Leave-one-out: the union with guard i removed. An item leaves the union
+    # only when i was its sole catcher, so LOO_i = U - (items caught only by i).
+    leave_one_out = []
+    for i, name in enumerate(names):
+        only_i = patterns.get(1 << i, 0)
+        leave_one_out.append({
+            "guard": name,
+            "union_without": union - only_i,
+            "unique_contribution": only_i,
+        })
+
+    pairwise = []
+    for a, b in itertools.combinations(range(k), 2):
+        pairwise.append({
+            "guards": [names[a], names[b]],
+            "both_catch": total(lambda m, a=a, b=b: (m >> a & 1) and (m >> b & 1)),
+            "both_miss": total(lambda m, a=a, b=b: not (m >> a & 1)
+                               and not (m >> b & 1)),
+        })
+
+    return {
+        "denominator": n_pos,
+        "per_guard": per_guard,
+        "union_detection": union,
+        "all_miss": all_miss,
+        "residual_coverage": residual,
+        "leave_one_out": leave_one_out,
+        "pairwise": pairwise,
+        "note": ("counts over the stated positive set; rates are each count "
+                 "over the denominator; the declared guard order defines "
+                 "residual attribution and nothing else"),
+    }
+
+
+def joint_disclosure_from_patterns(patterns: dict, order: list) -> dict:
+    """Reduce a compact (mask, count) table. Bit i is pinned to ``order[i]``.
+
+    For an evaluation that already accumulated (mask, count) cells, this is
+    the entry point: the table has 2**K cells whatever N was, and this
+    reducer does not rescan items. Building the table from per-item
+    decisions is still one pass of cost O(NK). It is the same kernel
+    `joint_disclosure` uses, so the two paths cannot drift apart.
+    """
+    return _reduce(dict(patterns), list(order))
+
+
 def joint_disclosure(decisions: dict, positive: list) -> dict:
     """decisions[name][i] = True if guard `name` flagged item i.
     positive[i] = True if item i is a positive (should be caught).
@@ -47,47 +158,18 @@ def joint_disclosure(decisions: dict, positive: list) -> dict:
                              f"decisions for {n_items} items — every guard "
                              f"must score every item")
 
-    pos_idx = [i for i, p in enumerate(positive) if p]
-    n_pos = len(pos_idx)
-    if n_pos == 0:
+    patterns: dict = {}
+    for i, is_pos in enumerate(positive):
+        if not is_pos:
+            continue
+        mask = 0
+        for bit, name in enumerate(names):
+            if decisions[name][i]:
+                mask |= 1 << bit
+        patterns[mask] = patterns.get(mask, 0) + 1
+    if not patterns:
         raise ValueError("no positives — the denominator is empty")
-
-    catches = {name: {i for i in pos_idx if decisions[name][i]}
-               for name in names}
-    union = set().union(*catches.values())
-    all_miss = [i for i in pos_idx if i not in union]
-
-    residual = []
-    caught_so_far: set = set()
-    for name in names:
-        new = catches[name] - caught_so_far
-        residual.append({
-            "guard": name,
-            "catches_among_prior_misses": len(new),
-            "prior_misses": n_pos - len(caught_so_far),
-        })
-        caught_so_far |= catches[name]
-
-    pairwise = []
-    for a, b in itertools.combinations(names, 2):
-        pairwise.append({
-            "guards": [a, b],
-            "both_catch": len(catches[a] & catches[b]),
-            "both_miss": len({i for i in pos_idx
-                              if i not in catches[a] and i not in catches[b]}),
-        })
-
-    return {
-        "denominator": n_pos,
-        "per_guard": {name: len(catches[name]) for name in names},
-        "union_detection": len(union),
-        "all_miss": len(all_miss),
-        "residual_coverage": residual,
-        "pairwise": pairwise,
-        "note": ("counts over the stated positive set; rates are each count "
-                 "over the denominator; order of `decisions` defines "
-                 "residual attribution"),
-    }
+    return _reduce(patterns, names)
 
 
 def _fixture(seed: int, n: int = 400, guards: int = 3) -> tuple:
@@ -175,11 +257,62 @@ def _test() -> int:
     except ValueError:
         check(True, "refuses an empty denominator")
 
+    # The two entry points are one kernel. If a compact table and a per-item
+    # scoring of the same evaluation ever disagreed, the disclosure would have
+    # two meanings and the contract would be worthless.
+    for seed in (11, 12, 13):
+        decisions, positive = _fixture(seed, n=500, guards=4)
+        names = list(decisions)
+        per_item = joint_disclosure(decisions, positive)
+        patterns: dict = {}
+        for i, is_pos in enumerate(positive):
+            if not is_pos:
+                continue
+            mask = sum(1 << b for b, nm in enumerate(names) if decisions[nm][i])
+            patterns[mask] = patterns.get(mask, 0) + 1
+        compact = joint_disclosure_from_patterns(patterns, names)
+        check(compact == per_item,
+              f"seed {seed}: compact (mask, count) table reduces identically "
+              f"to per-item scoring")
+        check(len(patterns) <= 2 ** len(names),
+              f"seed {seed}: table is at most 2**{len(names)} cells for "
+              f"{per_item['denominator']} positives — size does not follow N")
+
+    # Leave-one-out is the union without that guard, and the quantity that
+    # moves is its unique contribution. This is NOT residual coverage: A={0,1},
+    # B={1,2} gives B a residual of 1 and a unique contribution of 1, but with
+    # A={0,1}, B={1} the residual is 0 while the union is unchanged.
+    d = joint_disclosure_from_patterns({0b01: 5, 0b10: 3, 0b11: 7, 0b00: 2},
+                                       ["A", "B"])
+    check(d["union_detection"] == 15 and d["all_miss"] == 2,
+          "compact table: union 15, all-miss 2 over denominator 17")
+    for row in d["leave_one_out"]:
+        check(row["union_without"] == d["union_detection"]
+              - row["unique_contribution"],
+              f"leave-one-out identity holds for {row['guard']}")
+    check([r["unique_contribution"] for r in d["leave_one_out"]] == [5, 3],
+          "unique contribution is the count caught by that guard alone")
+
+    for bad, why in (({0b100: 1}, "a mask wider than the declared order"),
+                     ({0b01: -1}, "a negative count"),
+                     ({0b01: True}, "a boolean masquerading as a count")):
+        try:
+            joint_disclosure_from_patterns(bad, ["A", "B"])
+            check(False, f"refuses {why}")
+        except ValueError:
+            check(True, f"refuses {why}")
+    try:
+        joint_disclosure_from_patterns({0: 1}, [f"g{i}" for i in range(21)])
+        check(False, "refuses a stack past the local guard limit")
+    except ValueError:
+        check(True, "refuses a stack past the local guard limit")
+
     print()
     if failures:
         print(f"{failures} disclosure check(s) failed.")
         return 1
-    print("Disclosure arithmetic verified: identities hold, refusals refuse.")
+    print("Disclosure arithmetic verified: identities hold, refusals refuse, "
+          "and one kernel serves both entry points.")
     return 0
 
 

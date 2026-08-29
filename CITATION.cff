@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use or discuss this work, please cite the repository and its exact revision."
+title: "Cubits11: Evidence-first AI assurance research"
+type: software
+authors:
+  - family-names: Bhave
+    given-names: Pranav
+url: "https://cubits11.github.io/"
+repository-code: "https://github.com/Cubits11/cubits11.github.io"
+abstract: >
+  A reproducible research site on evidence boundaries in multi-guard AI
+  evaluation, statistical identification, claim governance, and provenance.
+keywords:
+  - AI assurance
+  - guardrail evaluation
+  - reproducibility
+  - provenance
+  - statistical identification

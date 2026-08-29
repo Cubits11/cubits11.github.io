@@ -1,0 +1,75 @@
+{
+  "schema_version": "mjgd/v1",
+  "disclosure_id": "mjgd-v1:aggregate-only",
+  "observed_at": "2026-08-29",
+  "scope": {
+    "stratum_id": "harmful_static",
+    "threat_regime": "Illustrative fixed harmful-item stratum"
+  },
+  "population": {
+    "id": "marginal_summary_set",
+    "positive_denominator": 10,
+    "benign_denominator": 0
+  },
+  "event": {
+    "positive_definition": "An item that should be caught in the declared static evaluation",
+    "flag_definition": "A guard emitted the declared flag at its fixed operating point"
+  },
+  "systems": [
+    {
+      "id": "a",
+      "name": "Guard A",
+      "version": "illustrative-v1",
+      "operating_point": "fixed illustrative threshold"
+    },
+    {
+      "id": "b",
+      "name": "Guard B",
+      "version": "illustrative-v1",
+      "operating_point": "fixed illustrative threshold"
+    }
+  ],
+  "execution": {
+    "mode": "parallel_full_exposure",
+    "topology": "parallel_or",
+    "same_items": true,
+    "full_exposure": true,
+    "order": ["a", "b"]
+  },
+  "missingness": {
+    "policy": "hold",
+    "allowed_codes": ["flag", "clear", "timeout", "error", "not_exposed"]
+  },
+  "evidence": {
+    "kind": "marginals_only",
+    "manifest": {
+      "kind": "illustrative_marginal_summary",
+      "location": "controlled://illustrative-marginal-summary",
+      "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    },
+    "per_system_catches": {"a": 6, "b": 5}
+  },
+  "reported": {
+    "positive": {
+      "status": "not_available",
+      "reason": "Marginal catch counts do not identify a realized joint result"
+    },
+    "benign": {
+      "status": "not_available",
+      "reason": "No benign union burden was released"
+    }
+  },
+  "uncertainty": {
+    "kind": "identified_set",
+    "reason": "The validator returns every finite-population all-miss count compatible with the marginals"
+  },
+  "repeat_after": [
+    "system_version_change",
+    "operating_point_change",
+    "topology_or_route_change"
+  ],
+  "non_claims": [
+    "static_all_miss_is_not_route_risk",
+    "static_all_miss_is_not_adaptive_robustness"
+  ]
+}

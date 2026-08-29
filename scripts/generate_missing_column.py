@@ -27,6 +27,8 @@ import re
 import sys
 
 import generate_ledger as ledger
+import identification
+import validate_mjgd
 import verify_census
 
 esc = ledger.esc
@@ -994,9 +996,9 @@ def render_demonstration() -> str:
     guards = {"lakera_guard": "Lakera Guard", "prompt_guard": "Prompt Guard",
               "langkit": "LangKit", "nemo": "NeMo Guardrails",
               "llm_guard": "LLM Guard"}
-    product = 1.0
-    for key in guards:
-        product *= (n - e["per_guard_catches"][key]) / n
+    # The independence plug-in has exactly one implementation in this repo.
+    product = identification.independence_plugin(
+        [(n - e["per_guard_catches"][key]) / n for key in guards])
     ratio = (e["all_miss"] / n) / product
     rows = "".join(
         f'<tr><th scope="row">{esc(name)}</th>'
@@ -1042,6 +1044,66 @@ def render_demonstration() -> str:
       <a class="u" href="/ledger/#MC-002">claim MC-002</a>. Reproduce it:
       <span class="mono">python scripts/reanalyze_bells_subset.py</span> — the file is
       hash-verified before a single count is taken.</div>
+  </section>'''
+
+
+def render_mjgd_v1_packet() -> str:
+    """Render the machine-readable examples from validated fixture results."""
+    labels = {
+        validate_mjgd.STATUS_RECOMPUTABLE:
+            ("recomputed static", "Complete binary full-exposure outcomes; every printed "
+             "positive and benign count is recomputed."),
+        validate_mjgd.STATUS_AGGREGATE_PATTERNS:
+            ("recomputed aggregate patterns", "A complete controlled aggregate-pattern "
+             "table; positive static results are recomputed without item identities."),
+        validate_mjgd.STATUS_NOT_IDENTIFIED:
+            ("not identified", "Marginals only; the exact finite all-miss identified set is "
+             "shown instead of inventing a realized joint result."),
+        validate_mjgd.STATUS_HOLD_ROUTE:
+            ("held: route declaration", "A routed or gated declaration is held, not "
+             "collapsed into static full-exposure arithmetic."),
+        validate_mjgd.STATUS_HOLD_MISSING:
+            ("held: missing data", "An explicit timeout, error, or non-exposure cell is held "
+             "rather than silently scored."),
+    }
+    fixtures = validate_mjgd.validate_fixtures()
+    rows = []
+    raw_result = None
+    for path, result in fixtures:
+        label, explanation = labels[result["status"]]
+        if result["status"] == validate_mjgd.STATUS_RECOMPUTABLE:
+            raw_result = result
+        rows.append(
+            f"<tr><th scope=\"row\">{esc(path.name)}</th><td class=\"mono\">"
+            f"{esc(label)}</td><td>{esc(explanation)}</td></tr>"
+        )
+    if raw_result is None:
+        raise RuntimeError("MJGD fixture suite has no recomputable static example")
+    positive = raw_result["positive"]
+    return f'''
+  <section class="zone" id="machine-readable" aria-labelledby="packet-h">
+    <h2 id="packet-h">Machine-readable MJGD v1</h2>
+    <p class="zone-intro">The human template above now has a small
+      <a class="u" href="/schemas/mjgd-v1.schema.json">structural JSON schema</a>,
+      <a class="u" href="/docs/MJGD_V1.md">implementation notes</a>, and a
+      standard-library validator. Use the validator for semantic conformance:
+      it checks declared evidence boundaries and arithmetic, not safety,
+      calibration, route risk, or adaptive robustness.</p>
+    <table class="census-table">
+      <caption class="sr-only">MJGD v1 conformance fixtures and their validated states</caption>
+      <thead><tr><th scope="col">Illustrative fixture</th><th scope="col">Validator state</th><th scope="col">What that state means</th></tr></thead>
+      <tbody>{''.join(rows)}</tbody>
+    </table>
+    <div class="precond"><strong>One recomputed fixture, not a benchmark result:</strong>
+      4 positives, A catches {positive["per_system_catches"]["a"]}, B catches
+      {positive["per_system_catches"]["b"]}, any guard catches
+      {positive["union_detection"]}, and all guards miss {positive["all_miss"]}.
+      Its benign union is {raw_result["benign"]["union_flags"]} of
+      {raw_result["benign"]["denominator"]}. These are synthetic fixture counts,
+      included to make the contract replayable rather than to characterize any
+      deployed system.</div>
+    <pre>python scripts/validate_mjgd.py --test      # five fixture states + refusal tests
+python scripts/validate_mjgd.py --fixtures  # inspect every committed fixture</pre>
   </section>'''
 
 
@@ -1122,7 +1184,7 @@ Errors/timeouts: <n>, scored as <policy>.'''
     return head + f'''
 <div class="class-bar mono">
   <div class="container">
-    <span><b>Minimum Joint Guardrail Disclosure</b> — working name, v0 draft</span>
+    <span><b>Minimum Joint Guardrail Disclosure</b> — working disclosure schema, v1</span>
     <span>maintained beside the <a class="u" href="/missing-column/">census</a> · criteria v{esc(census["criteria_version"])} wording locked {esc(census["frozen_as_of"])}</span>
   </div>
 </div>
@@ -1133,8 +1195,8 @@ Errors/timeouts: <n>, scored as <policy>.'''
       all-miss over the same items — but the row is only meaningful with its denominator,
       event definition, and alignment conditions attached. This page is the exact
       specification: fourteen components, a paste-in template, and a tested reference
-      implementation. It is a draft standard maintained by one person, adopted so far by
-      nobody; the census records the day that changes.</p>
+      implementation. It is a working schema maintained by one person, with no external
+      use recorded so far; the census records the day that changes.</p>
   </div>
 </header>
 <main class="container" id="main">
@@ -1167,6 +1229,7 @@ Errors/timeouts: <n>, scored as <policy>.'''
   </section>
 
   {render_demonstration()}
+{render_mjgd_v1_packet()}
 
   <section class="zone" id="ask" aria-labelledby="ask-h">
     <h2 id="ask-h">The ask, for benchmark authors</h2>
@@ -1189,7 +1252,7 @@ Errors/timeouts: <n>, scored as <policy>.'''
       synthetic fixtures in CI. It is ~a hundred lines, and it is the entire cost of the
       disclosure when per-item decisions were retained.</p>
     <p class="zone-intro" style="margin-top:.8rem">What this page does not claim: that any
-      organization has adopted this standard; that the missing statistics, once measured,
+      organization has adopted this schema; that the missing statistics, once measured,
       would show strong dependence; or that disclosure alone makes a stack safe. The
       <a class="u" href="/missing-column/">census</a> tracks the first; measurement — not
       assumption — settles the second; nothing settles the third.</p>

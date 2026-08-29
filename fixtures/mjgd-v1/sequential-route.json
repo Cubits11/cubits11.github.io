@@ -1,0 +1,75 @@
+{
+  "schema_version": "mjgd/v1",
+  "disclosure_id": "mjgd-v1:sequential-route",
+  "observed_at": "2026-08-29",
+  "scope": {
+    "stratum_id": "harmful_route",
+    "threat_regime": "Illustrative routed harmful-item stratum"
+  },
+  "population": {
+    "id": "illustrative_routed_set",
+    "positive_denominator": 10,
+    "benign_denominator": 0
+  },
+  "event": {
+    "positive_definition": "An item in the declared harmful route stratum",
+    "flag_definition": "A guard emitted its declared flag",
+    "terminal_event_definition": "The route emitted the declared terminal block outcome"
+  },
+  "systems": [
+    {
+      "id": "entry_guard",
+      "name": "Entry guard",
+      "version": "illustrative-v1",
+      "operating_point": "fixed illustrative threshold"
+    },
+    {
+      "id": "second_guard",
+      "name": "Second guard",
+      "version": "illustrative-v1",
+      "operating_point": "fixed illustrative threshold"
+    }
+  ],
+  "execution": {
+    "mode": "sequential_route",
+    "topology": "sequential",
+    "same_items": false,
+    "full_exposure": false,
+    "order": ["entry_guard", "second_guard"]
+  },
+  "missingness": {
+    "policy": "hold",
+    "allowed_codes": ["flag", "clear", "timeout", "error", "not_exposed"]
+  },
+  "evidence": {
+    "kind": "route_trace",
+    "manifest": {
+      "kind": "illustrative_route_trace",
+      "location": "controlled://illustrative-route-trace",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  },
+  "reported": {
+    "positive": {
+      "status": "not_available",
+      "reason": "A routed trace is not static full-exposure evidence"
+    },
+    "benign": {
+      "status": "not_available",
+      "reason": "No benign routed burden was released"
+    }
+  },
+  "uncertainty": {
+    "kind": "not_estimated",
+    "reason": "This fixture demonstrates a declared route HOLD"
+  },
+  "repeat_after": [
+    "system_version_change",
+    "operating_point_change",
+    "topology_or_route_change"
+  ],
+  "non_claims": [
+    "static_all_miss_is_not_route_risk",
+    "static_all_miss_is_not_adaptive_robustness"
+  ]
+}
