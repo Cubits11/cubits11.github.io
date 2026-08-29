@@ -8,8 +8,9 @@ union detection, all-miss, residual coverage in stack order, and pairwise
 intersections of catches and of misses — with the denominator attached to
 each number.
 
-This file is the entire marginal cost of the disclosure for an evaluation
-that retained per-item decisions. It has no dependencies beyond the
+After per-item decisions have been retained, reducing them to the joint
+counts is this file. Scoring those decisions is still O(NK); publishing
+the positive-set table is 2**K cells. It has no dependencies beyond the
 standard library. `--test` runs the synthetic fixtures and asserts the
 identities that make the arithmetic trustworthy:
 
@@ -47,14 +48,15 @@ def _reduce(patterns: dict, names: list) -> dict:
     whole disclosure: union, all-miss, ordered residual, leave-one-out, and
     every pairwise cell are sums over subsets of the same table.
 
-    The consequence is the point. The pattern-count vector is a **sufficient
-    statistic** for the entire minimum joint disclosure, its size is 2**K
-    regardless of how many items were scored, and it retains nothing about any
-    individual item. A five-guard stack discloses at most 32 integers whether
-    it evaluated eighty prompts or a billion, and those integers are an
-    aggregate, not a record. Cost and disclosure-risk were the two standing
-    objections to publishing the joint column; both are answered here, by
-    arithmetic rather than by argument.
+    The pattern-count vector is a **sufficient statistic** for every quantity
+    this file emits. Its *published cell count* is 2**K regardless of N (32
+    when K=5). That is a storage fact about the table, not a claim that
+    forming the table is independent of N: scoring per-item decisions is
+    still O(NK). The table contains no item identifiers or item-level
+    records. It is the exact multiset of joint flag-patterns: a cell of
+    count 1 discloses that that pattern occurred, and two assignments with
+    the same counts are indistinguishable. "Retains nothing about any
+    individual item" is not a property this arithmetic proves.
     """
     k = len(names)
     if k < 2:
@@ -132,10 +134,11 @@ def _reduce(patterns: dict, names: list) -> dict:
 def joint_disclosure_from_patterns(patterns: dict, order: list) -> dict:
     """Reduce a compact (mask, count) table. Bit i is pinned to ``order[i]``.
 
-    For an evaluation that scored a billion items, this is the entry point:
-    the table is 2**K cells whatever N was, so nothing here is proportional to
-    the number of items. It is the same kernel `joint_disclosure` uses, so the
-    two paths cannot drift apart.
+    For an evaluation that already accumulated (mask, count) cells, this is
+    the entry point: the table has 2**K cells whatever N was, and this
+    reducer does not rescan items. Building the table from per-item
+    decisions is still one pass of cost O(NK). It is the same kernel
+    `joint_disclosure` uses, so the two paths cannot drift apart.
     """
     return _reduce(dict(patterns), list(order))
 

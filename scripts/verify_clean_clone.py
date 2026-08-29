@@ -28,6 +28,7 @@ CHECKS = (
     ("MJGD identities", "scripts/mjgd_reference.py", "--test"),
     ("MJGD v1 fixtures", "scripts/validate_mjgd.py", "--test"),
     ("identification bounds", "scripts/identification.py"),
+    ("pattern-count rank", "scripts/mjgd_pattern_rank.py"),
     ("mixture bounds", "scripts/mixture_bounds.py"),
     ("BELLS reproduction", "scripts/reanalyze_bells_subset.py"),
     ("internal links", "scripts/check_links.py"),

@@ -51,6 +51,8 @@ jobs:
         run: python scripts/validate_mjgd.py --test
       - name: Identification bounds are sharp, attained, and match MC-003
         run: python scripts/identification.py
+      - name: Pattern-count rank (2^K sufficient, not minimal for K>=4)
+        run: python scripts/mjgd_pattern_rank.py
       - name: Mixture bounds match a direct sweep (AF-001)
         run: python scripts/mixture_bounds.py
       - name: MC-002 reproduces from the bound public release
