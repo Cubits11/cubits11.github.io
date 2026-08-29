@@ -444,10 +444,22 @@ def _recompute_raw_static(contract: dict[str, Any], items: list[dict[str, Any]])
         for system_id in system_ids
     }
     expected = _static_metrics(decisions, positives, system_ids)
-    benign_union = sum(
-        any(item["decisions"][system_id] == "flag" for system_id in system_ids)
-        for item in items if not item["positive"]
-    )
+    benign_patterns: dict[int, int] = {}
+    for item in items:
+        if item["positive"]:
+            continue
+        mask = 0
+        for bit, system_id in enumerate(system_ids):
+            if item["decisions"][system_id] == "flag":
+                mask |= 1 << bit
+        benign_patterns[mask] = benign_patterns.get(mask, 0) + 1
+    if not benign_patterns:
+        benign_union = 0
+    else:
+        # Same kernel as positives: compact (mask, count) -> _reduce. An
+        # independent any() sum would be a second union calculator.
+        benign_union = mjgd_reference.joint_disclosure_from_patterns(
+            benign_patterns, system_ids)["union_detection"]
     return {"positive": expected, "benign_union": benign_union}
 
 
@@ -539,9 +551,11 @@ def _table_from_patterns(patterns: dict[str, int],
     validated to sum to population.positive_denominator before this is
     called.
 
-    This exists so the aggregate evidence form has no arithmetic of its own.
-    It materialises the table and hands it to the same kernel the raw form
-    uses; there is exactly one joint calculator in this repository.
+    Test helper only. The production aggregate path never expands counts
+    into N rows; it reduces the compact table with
+    joint_disclosure_from_patterns. This expander exists so tests can
+    compare that compact reduction to a per-item scoring of the same
+    counts.
     """
     decisions: dict[str, list[bool]] = {system_id: [] for system_id in order}
     positives: list[bool] = []
@@ -613,8 +627,24 @@ def _validate_aggregate_static(contract: dict[str, Any]) -> dict[str, Any]:
         evidence["joint_pattern_counts"], order,
         contract["population"]["positive_denominator"],
     )
-    decisions, positives = _table_from_patterns(patterns, order)
-    expected = _static_metrics(decisions, positives, order)
+    kernel_patterns: dict[int, int] = {}
+    for pattern, count in patterns.items():
+        mask = 0
+        for index, bit in enumerate(pattern):
+            if bit == "1":
+                mask |= 1 << index
+        kernel_patterns[mask] = kernel_patterns.get(mask, 0) + count
+    reference = mjgd_reference.joint_disclosure_from_patterns(kernel_patterns, order)
+    expected = {
+        "per_system_catches": reference["per_guard"],
+        "union_detection": reference["union_detection"],
+        "all_miss": reference["all_miss"],
+        "ordered_prefix_unions": _prefix_unions(reference),
+        "leave_one_out_unions": {
+            row["guard"]: row["union_without"]
+            for row in reference["leave_one_out"]
+        },
+    }
     evidence_counts = _check_exact_map(
         evidence["per_system_catches"], contract["system_ids"],
         "evidence.per_system_catches", lambda x, name: _integer(x, name),

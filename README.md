@@ -127,7 +127,7 @@ scripts/verify_figures.py   figure geometry assertions (Fig. 02 + essay)
 scripts/verify_frontend.py  static frontend structure + local-only preflight gate
 scripts/reproduce_cc001.py  clean-clone reproduction of CC-001 + CC-004
 scripts/validate_mjgd.py    MJGD v1 packet validator + fixture/refusal tests
-schemas/mjgd-v1.schema.json machine-readable MJGD v1 contract
+schemas/mjgd-v1.schema.json MJGD v1 schema documentation (validator is the contract)
 fixtures/mjgd-v1/           illustrative complete, aggregate, marginal, route, and hold packets
 docs/MJGD_V1.md             MJGD v1 semantics, replay commands, and non-claims
 404.html                    not-found page
