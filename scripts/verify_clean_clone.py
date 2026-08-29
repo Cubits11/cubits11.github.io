@@ -9,6 +9,7 @@ checkout that invoked it.
 """
 
 import argparse
+import re
 import subprocess
 import sys
 import tempfile
@@ -84,6 +85,58 @@ def check_manifest_parity() -> None:
           f"and the clean-clone replay")
 
 
+README = ROOT / "README.md"
+ENTRY_SECTION = "## Reproduce the claim"
+
+
+def check_readme_entry_point() -> None:
+    """The documented way in must be a way in that still works.
+
+    Rigour and legibility fail independently, and this repository had them
+    at opposite extremes: fifteen gates, a clean-clone replay, and a rank
+    theorem, against a README whose only stated command served the website.
+    The headline result reproduces in under a second and named no entry
+    point, so the distance between "has a result" and "has an external
+    reproducer" was documentation, not evidence.
+
+    A front door rots faster than a proof. This asserts that every script
+    the entry section tells a stranger to run exists, and that the numbers
+    the section quotes are the ones the registry holds — so the paragraph
+    cannot drift away from the arithmetic it advertises.
+    """
+    text = README.read_text()
+    if ENTRY_SECTION not in text:
+        raise SystemExit(f"README lost its {ENTRY_SECTION!r} section — the "
+                         f"documented reproduction path is the only thing "
+                         f"standing between a reader and a 0.9s result")
+    section = text.split(ENTRY_SECTION, 1)[1].split("\n## ", 1)[0]
+
+    named = re.findall(r"python3 (scripts/[\w./-]+\.py)", section)
+    if not named:
+        raise SystemExit("README entry section names no runnable script")
+    for rel in sorted(set(named)):
+        if not (ROOT / rel).exists():
+            raise SystemExit(f"README entry section points at {rel}, which "
+                             f"does not exist")
+
+    import yaml
+    registry = yaml.safe_load((ROOT / "claims.yaml").read_text())
+    mc = next(c for c in registry["claims"] if c["id"] == "MC-002")
+    e = mc["expected"]
+    n = e["n_harmful"]
+    quoted = {
+        f'{e["all_miss"]}/{n}': "registered all-miss fraction",
+        f'{e["all_miss"] / n:.1%}': "registered all-miss rate",
+        f'{e["benign_union_flagged"] / e["n_benign"]:.2%}': "benign union",
+    }
+    for literal, what in quoted.items():
+        if literal not in section:
+            raise SystemExit(f"README entry section no longer quotes the "
+                             f"{what} ({literal}) the registry holds")
+    print(f"ok    README entry point: {len(set(named))} scripts reachable, "
+          f"quoted numbers match the registry")
+
+
 def run(args: list[str], cwd: Path) -> str:
     completed = subprocess.run(args, cwd=cwd, text=True, capture_output=True)
     if completed.returncode:
@@ -108,6 +161,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     check_manifest_parity()
+    check_readme_entry_point()
     dirty = run(["git", "status", "--porcelain"], ROOT).strip()
     if dirty:
         print("FAIL  invoking worktree is dirty; commit or otherwise resolve "
