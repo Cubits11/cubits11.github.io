@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-08-28"
+last_owner_review: "2026-08-29"
 
 claims:
   - id: CC-001
@@ -689,14 +689,17 @@ claims:
         langkit: [0, 3]
         nemo: [0, 21]
         llm_guard: [0, 0]
-    last_reviewed: "2026-08-28"
+    last_reviewed: "2026-08-29"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: scripts/identification.py
-        sha256: "9404114594f2e9a6ef139c505e20661a40ef06dc3a0be582dd722c2eefa718aa"
-        note: fires when the derivation or its tests change without a re-review
+        sha256: "4baba5ef00e5d8db19910abf1560b15cb7c68552690fb5c68c2dadabf8d563d8"
+        note: >-
+          fires when the derivation or its tests change without a re-review;
+          re-reviewed 2026-08-29 after removing a duplicate leave-one-out
+          calculator and rechecking the registered outputs
       - type: manual
         enforcement: manual
         event: >
