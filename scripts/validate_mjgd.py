@@ -6,7 +6,7 @@ not another calculator. It makes the boundary of the existing reference
 arithmetic executable:
 
 * complete static full-exposure outcomes are recomputed;
-* controlled sufficient aggregates are checked and labelled attested;
+* complete aggregate pattern tables are recomputed without item identities;
 * marginals alone produce their exact finite identified set;
 * routes, gates, partial exposure, and missing decision cells HOLD rather
   than being silently reduced to a static stack result.
@@ -38,7 +38,7 @@ SCHEMA_VERSION = "mjgd/v1"
 STATIC_MODE = "parallel_full_exposure"
 ROUTE_MODES = {"sequential_route", "gated_route"}
 STATUS_RECOMPUTABLE = "RECOMPUTABLE_STATIC"
-STATUS_ATTESTED = "ATTESTED_AGGREGATES_NOT_RECOMPUTED"
+STATUS_AGGREGATE_PATTERNS = "RECOMPUTED_FROM_AGGREGATE_PATTERNS"
 STATUS_NOT_IDENTIFIED = "NOT_IDENTIFIED_FROM_MARGINALS"
 STATUS_HOLD_ROUTE = "HOLD_ROUTE_TRACE_REQUIRED"
 STATUS_HOLD_MISSING = "HOLD_MISSING_DATA"
@@ -429,7 +429,7 @@ def _check_reported_matches(expected: dict[str, Any], reported: dict[str, Any],
 
 
 def _recompute_raw_static(contract: dict[str, Any], items: list[dict[str, Any]]) -> dict[str, Any]:
-    system_ids = contract["system_ids"]
+    system_ids = contract["execution"]["order"]
     population = contract["population"]
     positives = [item["positive"] for item in items]
     if len(items) != population["positive_denominator"] + population["benign_denominator"]:
@@ -519,63 +519,96 @@ def _validate_raw(contract: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _aggregate_pattern_counts(value: Any, order: list[str], denominator: int) -> dict[str, int]:
+    """Validate a complete item-membership count table in declared route order.
+
+    Pattern key 010 means only the second system in execution.order flagged
+    those items. The zero pattern is mandatory, so no omitted key can quietly
+    become an all-miss count.
+    """
+    result = _mapping(value, "evidence.joint_pattern_counts")
+    width = len(order)
+    expected = {format(number, f"0{width}b") for number in range(2 ** width)}
+    if set(result) != expected:
+        missing = expected - set(result)
+        extra = set(result) - expected
+        parts = []
+        if missing:
+            parts.append("missing " + ", ".join(sorted(missing)))
+        if extra:
+            parts.append("unknown " + ", ".join(sorted(extra)))
+        raise ValidationError("evidence.joint_pattern_counts must include every "
+                              f"{width}-bit membership pattern ({'; '.join(parts)})")
+    counts = {
+        pattern: _integer(result[pattern], f"evidence.joint_pattern_counts.{pattern}")
+        for pattern in sorted(expected)
+    }
+    if sum(counts.values()) != denominator:
+        raise ValidationError("evidence.joint_pattern_counts must sum to "
+                              "population.positive_denominator")
+    return counts
+
+
+def _metrics_from_patterns(patterns: dict[str, int], order: list[str]) -> dict[str, Any]:
+    width = len(order)
+    per_system = {
+        system_id: sum(count for pattern, count in patterns.items() if pattern[index] == "1")
+        for index, system_id in enumerate(order)
+    }
+    union = sum(count for pattern, count in patterns.items() if "1" in pattern)
+    prefixes = [
+        sum(count for pattern, count in patterns.items() if "1" in pattern[:index + 1])
+        for index in range(width)
+    ]
+    leave_one_out = {
+        system_id: sum(
+            count for pattern, count in patterns.items()
+            if any(bit == "1" for position, bit in enumerate(pattern) if position != index)
+        )
+        for index, system_id in enumerate(order)
+    }
+    return {
+        "per_system_catches": per_system,
+        "union_detection": union,
+        "all_miss": patterns["0" * width],
+        "ordered_prefix_unions": prefixes,
+        "leave_one_out_unions": leave_one_out,
+    }
+
+
 def _validate_aggregate_static(contract: dict[str, Any]) -> dict[str, Any]:
-    evidence = _keys(contract["evidence"], {"kind", "manifest", "per_system_catches"},
-                     set(), "evidence")
+    evidence = _keys(
+        contract["evidence"],
+        {"kind", "manifest", "per_system_catches", "joint_pattern_counts"},
+        set(),
+        "evidence",
+    )
     if evidence["kind"] != "sufficient_aggregates":
         raise ValidationError("internal error: aggregate validator called for other evidence")
     _manifest(evidence["manifest"], "evidence.manifest")
-    counts = _check_exact_map(evidence["per_system_catches"], contract["system_ids"],
-                              "evidence.per_system_catches",
-                              lambda x, name: _integer(x, name))
-    n = contract["population"]["positive_denominator"]
-    for system_id in contract["system_ids"]:
-        if counts[system_id] > n:
-            raise ValidationError(f"evidence.per_system_catches.{system_id} exceeds denominator")
+    order = contract["execution"]["order"]
+    patterns = _aggregate_pattern_counts(
+        evidence["joint_pattern_counts"], order,
+        contract["population"]["positive_denominator"],
+    )
+    expected = _metrics_from_patterns(patterns, order)
+    evidence_counts = _check_exact_map(
+        evidence["per_system_catches"], contract["system_ids"],
+        "evidence.per_system_catches", lambda x, name: _integer(x, name),
+    )
+    if evidence_counts != expected["per_system_catches"]:
+        raise ValidationError("evidence.per_system_catches does not match the "
+                              "complete aggregate pattern table")
     reported = _positive_metrics(contract["reported"]["positive"],
                                  contract["system_ids"], "reported.positive")
-    if reported["per_system_catches"] != counts:
-        raise ValidationError("reported.positive.per_system_catches must match evidence aggregates")
-    union = reported["union_detection"]
-    if not max(counts.values()) <= union <= min(n, sum(counts.values())):
-        raise ValidationError("reported.positive.union_detection is infeasible for "
-                              "the declared per-system catch counts")
-    if reported["all_miss"] != n - union:
-        raise ValidationError("reported.positive.all_miss must equal "
-                              "positive_denominator - union_detection")
-    prefixes = reported["ordered_prefix_unions"]
-    order = contract["execution"]["order"]
-    if prefixes[-1] != union:
-        raise ValidationError("reported.positive.ordered_prefix_unions must end at union_detection")
-    running = 0
-    for index, value in enumerate(prefixes):
-        active = [counts[system_id] for system_id in order[:index + 1]]
-        if value < running or value < max(active) or value > min(n, sum(active)):
-            raise ValidationError("reported.positive.ordered_prefix_unions has an "
-                                  "infeasible prefix union")
-        if index == 0 and value != counts[order[0]]:
-            raise ValidationError("first ordered prefix union must equal first system catch count")
-        running = value
-    for system_id in contract["system_ids"]:
-        without = reported["leave_one_out_unions"][system_id]
-        other_counts = [
-            counts[other_id] for other_id in contract["system_ids"]
-            if other_id != system_id
-        ]
-        if not max(other_counts) <= without <= min(n, sum(other_counts)):
-            raise ValidationError(f"reported.positive.leave_one_out_unions.{system_id} "
-                                  "is infeasible for the other systems")
-        unique = union - without
-        if not 0 <= unique <= counts[system_id]:
-            raise ValidationError(f"reported.positive.leave_one_out_unions.{system_id} "
-                                  "is incompatible with the full union")
+    _check_reported_matches(expected, reported, "reported.positive")
     benign = _benign_metrics(contract["reported"]["benign"],
                              contract["population"]["benign_denominator"],
                              "reported.benign")
     result = {
         "disclosure_id": contract["disclosure_id"],
-        "status": STATUS_ATTESTED,
-        "positive": reported,
+        "status": STATUS_AGGREGATE_PATTERNS,
+        "positive": expected,
     }
     if benign["available"]:
         result["benign"] = {
@@ -658,7 +691,7 @@ def validate_path(path: Path) -> dict[str, Any]:
 FIXTURE_EXPECTATIONS = {
     "parallel-full-exposure.json": STATUS_RECOMPUTABLE,
     "sequential-route.json": STATUS_HOLD_ROUTE,
-    "partial-release.json": STATUS_ATTESTED,
+    "partial-release.json": STATUS_AGGREGATE_PATTERNS,
     "aggregate-only.json": STATUS_NOT_IDENTIFIED,
     "missing-data.json": STATUS_HOLD_MISSING,
 }
@@ -722,6 +755,37 @@ def run_self_test() -> int:
     tampered_union = copy.deepcopy(raw)
     tampered_union["reported"]["positive"]["union_detection"] = 4
     _expect_refusal(tampered_union, "a tampered complete-evidence union")
+
+    ordered = copy.deepcopy(raw)
+    ordered["execution"]["order"] = ["b", "a"]
+    ordered["evidence"]["items"][1]["decisions"]["a"] = "clear"
+    ordered["reported"]["positive"] = {
+        "per_system_catches": {"a": 1, "b": 2},
+        "union_detection": 2,
+        "all_miss": 2,
+        "ordered_prefix_unions": [2, 2],
+        "leave_one_out_unions": {"a": 2, "b": 1},
+    }
+
+    def check_declared_order() -> None:
+        result = validate_packet(ordered)
+        if result["positive"]["ordered_prefix_unions"] != [2, 2]:
+            raise ValidationError("declared execution order did not define prefix attribution")
+
+    check(check_declared_order, "declared execution order controls raw prefix unions")
+    wrong_ordered_prefix = copy.deepcopy(ordered)
+    wrong_ordered_prefix["reported"]["positive"]["ordered_prefix_unions"] = [1, 2]
+    _expect_refusal(wrong_ordered_prefix, "a raw prefix reported in systems-list order")
+
+    aggregate = load_packet(FIXTURE_DIR / "partial-release.json")
+    aggregate_wrong_leave_one_out = copy.deepcopy(aggregate)
+    aggregate_wrong_leave_one_out["reported"]["positive"]["leave_one_out_unions"]["a"] = 1
+    _expect_refusal(aggregate_wrong_leave_one_out,
+                    "an aggregate leave-one-out inconsistent with pattern counts")
+    aggregate_missing_pattern = copy.deepcopy(aggregate)
+    del aggregate_missing_pattern["evidence"]["joint_pattern_counts"]["00"]
+    _expect_refusal(aggregate_missing_pattern,
+                    "an aggregate pattern table with an omitted zero pattern")
 
     marginal = load_packet(FIXTURE_DIR / "aggregate-only.json")
     marginal_with_observed = copy.deepcopy(marginal)

@@ -10,8 +10,10 @@ the population, event, systems and operating points, topology, missingness
 policy, evidence kind, and the results that the declared evidence can support.
 
 The JSON Schema is at
-[schemas/mjgd-v1.schema.json](/schemas/mjgd-v1.schema.json). The executable
-reference is [scripts/validate_mjgd.py](../scripts/validate_mjgd.py).
+[schemas/mjgd-v1.schema.json](/schemas/mjgd-v1.schema.json). It checks the
+structural envelope only; run the executable
+[scripts/validate_mjgd.py](../scripts/validate_mjgd.py) for semantic
+conformance.
 
 ## Replay
 
@@ -52,9 +54,9 @@ released. An absent JSON key never means clear.
 | Evidence kind | Validator state | What the packet may say |
 | --- | --- | --- |
 | Complete binary per-item outcomes; parallel OR; same items; full exposure | RECOMPUTABLE_STATIC | Exact per-system catches, union detection, all-miss, ordered prefix unions, leave-one-out unions, and benign union burden are recomputed. |
-| Sufficient aggregates plus a manifest | ATTESTED_AGGREGATES_NOT_RECOMPUTED | The aggregates are feasibility-checked and labelled attested, not independently recomputed. |
+| Complete joint aggregate-pattern counts plus a manifest | RECOMPUTED_FROM_AGGREGATE_PATTERNS | The submitted aggregate pattern table is complete, so every required static result is recomputed from it without item identities. The source aggregate is still not independently authenticated. |
 | Per-system marginals only | NOT_IDENTIFIED_FROM_MARGINALS | The exact finite all-miss identified set is returned. No observed union, all-miss, residual, or leave-one-out result is permitted. |
-| Sequential or gated route trace | HOLD_ROUTE_TRACE_REQUIRED | A route is recorded but is not reduced to static full-exposure arithmetic. |
+| Sequential or gated route declaration plus a manifest | HOLD_ROUTE_TRACE_REQUIRED | The declared route is held; this packet does not verify or reduce a route trace to static full-exposure arithmetic. |
 | Explicit timeout, error, or not-exposed raw cell under the hold policy | HOLD_MISSING_DATA | The missing cells are shown and numerical static output is withheld. |
 
 The five committed fixtures demonstrate those states:
@@ -68,20 +70,28 @@ The five committed fixtures demonstrate those states:
 They are illustrative fixtures, not measurements of a vendor, model, or
 deployed system.
 
-## Static aggregate rules
+## Complete aggregate-pattern rules
 
-For a positive denominator n, per-system catch counts c_i, and a reported
-union U, the validator requires:
+An aggregate packet gives one non-negative count for every binary membership
+pattern in declared execution order. With two systems ordered A then B, the
+four keys are:
 
 ~~~
-max(c_i) <= U <= min(n, sum(c_i))
-all_miss = n - U
+00  neither A nor B flagged
+01  only B flagged
+10  only A flagged
+11  both A and B flagged
 ~~~
 
-It also checks that ordered prefix unions are feasible and terminate at U,
-and that every leave-one-out union is feasible against the other systems'
-counts. These checks do not reconstruct a controlled per-item tensor and
-therefore do not upgrade an aggregate release to a recomputed result.
+The zero pattern is mandatory and the pattern counts must sum to the positive
+denominator. The validator recomputes per-system catches, union, all-miss,
+ordered prefix unions, and leave-one-out unions directly from that table. A
+complete pattern table makes the reported aggregates jointly realizable by
+construction, while keeping item identities controlled.
+
+It does not authenticate the pattern table's source, manifest, or collection
+process. That remains an attestation and review problem, not an arithmetic
+one.
 
 With marginals alone, the finite all-miss count remains in:
 
@@ -103,6 +113,7 @@ MJGD v1 does not:
 - authorize prompt/data redistribution;
 - establish adoption, interoperability, or safety.
 
-Schema validation is only a check of a declared packet's shape and stated
-evidence boundary. The packet's source data, manifest integrity, and every
-substantive empirical claim still need independent review.
+JSON Schema validation checks only a packet's structural envelope. CLI
+validation adds the declared cross-field and arithmetic checks. Neither checks
+the packet's source data, manifest integrity, or every substantive empirical
+claim; those still need independent review.

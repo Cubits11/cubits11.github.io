@@ -47,7 +47,13 @@
       "location": "controlled://illustrative-aggregate-manifest",
       "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
     },
-    "per_system_catches": {"a": 6, "b": 5}
+    "per_system_catches": {"a": 6, "b": 5},
+    "joint_pattern_counts": {
+      "00": 2,
+      "01": 2,
+      "10": 3,
+      "11": 3
+    }
   },
   "reported": {
     "positive": {

@@ -1052,15 +1052,15 @@ def render_mjgd_v1_packet() -> str:
         validate_mjgd.STATUS_RECOMPUTABLE:
             ("recomputed static", "Complete binary full-exposure outcomes; every printed "
              "positive and benign count is recomputed."),
-        validate_mjgd.STATUS_ATTESTED:
-            ("attested aggregates", "Sufficient released aggregates; feasibility is checked, "
-             "but the controlled outcome tensor is not recomputed."),
+        validate_mjgd.STATUS_AGGREGATE_PATTERNS:
+            ("recomputed aggregate patterns", "A complete controlled aggregate-pattern "
+             "table; static results are recomputed without item identities."),
         validate_mjgd.STATUS_NOT_IDENTIFIED:
             ("not identified", "Marginals only; the exact finite all-miss identified set is "
              "shown instead of inventing a realized joint result."),
         validate_mjgd.STATUS_HOLD_ROUTE:
-            ("held: route trace", "A routed or gated trace is declared, not collapsed into "
-             "static full-exposure arithmetic."),
+            ("held: route declaration", "A routed or gated declaration is held, not "
+             "collapsed into static full-exposure arithmetic."),
         validate_mjgd.STATUS_HOLD_MISSING:
             ("held: missing data", "An explicit timeout, error, or non-exposure cell is held "
              "rather than silently scored."),
@@ -1082,12 +1082,12 @@ def render_mjgd_v1_packet() -> str:
     return f'''
   <section class="zone" id="machine-readable" aria-labelledby="packet-h">
     <h2 id="packet-h">Machine-readable MJGD v1</h2>
-    <p class="zone-intro">The human template above now has a small, checked
-      <a class="u" href="/schemas/mjgd-v1.schema.json">JSON schema</a>,
+    <p class="zone-intro">The human template above now has a small
+      <a class="u" href="/schemas/mjgd-v1.schema.json">structural JSON schema</a>,
       <a class="u" href="/docs/MJGD_V1.md">implementation notes</a>, and a
-      standard-library validator. It validates a declared disclosure shape and
-      evidence boundary; it does not validate safety, calibration, route risk, or
-      adaptive robustness.</p>
+      standard-library validator. Use the validator for semantic conformance:
+      it checks declared evidence boundaries and arithmetic, not safety,
+      calibration, route risk, or adaptive robustness.</p>
     <table class="census-table">
       <caption class="sr-only">MJGD v1 conformance fixtures and their validated states</caption>
       <thead><tr><th scope="col">Illustrative fixture</th><th scope="col">Validator state</th><th scope="col">What that state means</th></tr></thead>

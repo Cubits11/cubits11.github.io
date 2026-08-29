@@ -243,16 +243,16 @@ Errors/timeouts: &lt;n&gt;, scored as &lt;policy&gt;.</pre>
 
   <section class="zone" id="machine-readable" aria-labelledby="packet-h">
     <h2 id="packet-h">Machine-readable MJGD v1</h2>
-    <p class="zone-intro">The human template above now has a small, checked
-      <a class="u" href="/schemas/mjgd-v1.schema.json">JSON schema</a>,
+    <p class="zone-intro">The human template above now has a small
+      <a class="u" href="/schemas/mjgd-v1.schema.json">structural JSON schema</a>,
       <a class="u" href="/docs/MJGD_V1.md">implementation notes</a>, and a
-      standard-library validator. It validates a declared disclosure shape and
-      evidence boundary; it does not validate safety, calibration, route risk, or
-      adaptive robustness.</p>
+      standard-library validator. Use the validator for semantic conformance:
+      it checks declared evidence boundaries and arithmetic, not safety,
+      calibration, route risk, or adaptive robustness.</p>
     <table class="census-table">
       <caption class="sr-only">MJGD v1 conformance fixtures and their validated states</caption>
       <thead><tr><th scope="col">Illustrative fixture</th><th scope="col">Validator state</th><th scope="col">What that state means</th></tr></thead>
-      <tbody><tr><th scope="row">parallel-full-exposure.json</th><td class="mono">recomputed static</td><td>Complete binary full-exposure outcomes; every printed positive and benign count is recomputed.</td></tr><tr><th scope="row">sequential-route.json</th><td class="mono">held: route trace</td><td>A routed or gated trace is declared, not collapsed into static full-exposure arithmetic.</td></tr><tr><th scope="row">partial-release.json</th><td class="mono">attested aggregates</td><td>Sufficient released aggregates; feasibility is checked, but the controlled outcome tensor is not recomputed.</td></tr><tr><th scope="row">aggregate-only.json</th><td class="mono">not identified</td><td>Marginals only; the exact finite all-miss identified set is shown instead of inventing a realized joint result.</td></tr><tr><th scope="row">missing-data.json</th><td class="mono">held: missing data</td><td>An explicit timeout, error, or non-exposure cell is held rather than silently scored.</td></tr></tbody>
+      <tbody><tr><th scope="row">parallel-full-exposure.json</th><td class="mono">recomputed static</td><td>Complete binary full-exposure outcomes; every printed positive and benign count is recomputed.</td></tr><tr><th scope="row">sequential-route.json</th><td class="mono">held: route declaration</td><td>A routed or gated declaration is held, not collapsed into static full-exposure arithmetic.</td></tr><tr><th scope="row">partial-release.json</th><td class="mono">recomputed aggregate patterns</td><td>A complete controlled aggregate-pattern table; static results are recomputed without item identities.</td></tr><tr><th scope="row">aggregate-only.json</th><td class="mono">not identified</td><td>Marginals only; the exact finite all-miss identified set is shown instead of inventing a realized joint result.</td></tr><tr><th scope="row">missing-data.json</th><td class="mono">held: missing data</td><td>An explicit timeout, error, or non-exposure cell is held rather than silently scored.</td></tr></tbody>
     </table>
     <div class="precond"><strong>One recomputed fixture, not a benchmark result:</strong>
       4 positives, A catches 2, B catches

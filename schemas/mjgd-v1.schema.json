@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cubits11.github.io/schemas/mjgd-v1.schema.json",
   "title": "Minimum Joint Guardrail Disclosure v1",
-  "description": "A machine-readable disclosure schema. Conformance does not establish safety, route risk, or adoption.",
+  "description": "Structural envelope only. Run scripts/validate_mjgd.py for executable semantic conformance. Neither form of validation establishes safety, route risk, or adoption.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -192,6 +192,17 @@
       },
       "additionalProperties": false
     },
+    "patternIntegerMap": {
+      "type": "object",
+      "minProperties": 4,
+      "patternProperties": {
+        "^[01]+$": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
     "unavailable": {
       "type": "object",
       "additionalProperties": false,
@@ -267,11 +278,12 @@
     "aggregateEvidence": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["kind", "manifest", "per_system_catches"],
+      "required": ["kind", "manifest", "per_system_catches", "joint_pattern_counts"],
       "properties": {
         "kind": {"const": "sufficient_aggregates"},
         "manifest": {"$ref": "#/$defs/manifest"},
-        "per_system_catches": {"$ref": "#/$defs/systemIntegerMap"}
+        "per_system_catches": {"$ref": "#/$defs/systemIntegerMap"},
+        "joint_pattern_counts": {"$ref": "#/$defs/patternIntegerMap"}
       }
     },
     "marginalEvidence": {
