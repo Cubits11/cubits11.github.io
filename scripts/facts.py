@@ -144,6 +144,8 @@ BINDINGS: list[tuple[str, str, str]] = [
      rf"{NUM}\s+artifacts have now been examined"),
     ("MC-001.N", "the examined-artifact count",
      rf"examined\s+{NUM}\s+public guardrail evaluations"),
+    ("MC-001.N", "the examined-artifact count",
+     rf"{NUM}\s+evaluations examined"),
     ("MC-001.M1", "M ladder rung 1 (shared basis)",
      rf"{NUM}\s+(?:document|establish)\s+a shared item set and (?:a )?common event"),
     ("MC-001.M1", "M ladder rung 1 (shared basis)",
@@ -163,6 +165,8 @@ BINDINGS: list[tuple[str, str, str]] = [
      rf"{NUM}\s+(?:provide|preserve|carry)\s+an?\s+joint-evidence artifact"),
     ("MC-001.K", "the joint-evidence count K",
      rf"{NUM}\s+preserve a joint-evidence artifact"),
+    ("MC-001.K", "the joint-evidence count K",
+     rf"{NUM}\s+preserve joint evidence"),
     ("MC-001.K", "K described as a discovery count",
      rf"(?:the|its)\s+{NUM}\s+is\s+(?:an inclusive|a heterogeneous)"
      r"\s+discovery count"),

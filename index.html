@@ -53,6 +53,11 @@ body::after{ /* grain */
 /* hero */
 .hero{padding-top:clamp(4rem,9vh,7rem);padding-bottom:clamp(3rem,6vh,5rem)}
 .hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(2.5rem,6vw,5rem);align-items:center}
+/* A grid item's automatic minimum is its min-content width, and the motif
+   table declares a 38rem minimum so it can scroll inside .fig-scroll. Without
+   this, the single-column mobile layout inherits that 608px floor and the
+   whole page scrolls sideways. */
+.hero-grid > *{min-width:0}
 .kicker{color:var(--gold);display:flex;align-items:center;gap:.9rem;margin-bottom:1.5rem}
 .kicker::before{content:"";width:2.2rem;height:1px;background:var(--gold);flex:none}
 .name{display:flex;flex-direction:column;text-transform:uppercase;
@@ -79,9 +84,9 @@ body::after{ /* grain */
 .lede em{font-family:var(--serif);font-style:italic;font-size:1.06em;color:var(--ink);font-weight:480}
 .fang{margin-top:1.5rem;color:var(--gold)}
 .fang a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
-.fact-row{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.8rem}
+.fact-row{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.15rem}
 .fact{border:1px solid var(--line-strong);border-radius:999px;padding:.42rem .85rem;color:var(--muted);white-space:nowrap}
-.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.1rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.35rem}
 .hero-h1{font-weight:520;font-size:clamp(2.1rem,4.6vw,3.35rem);line-height:1.06;letter-spacing:-.02em;margin:0}
 .hero-sub{margin-top:1.1rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:.5rem}
 .hero-sub a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
@@ -217,14 +222,14 @@ html:not(.js) .bounds-ctl{display:none}
             <tbody><tr><td>91%</td><td>88%</td><td>94%</td><td>86%</td><td class="mc-missing"><span class="mono">not reported</span></td></tr></tbody>
           </table>
         </div>
-        <p class="lede reveal" style="--d:.16s">Illustrative numbers; the gap is the point.
-          The four printed columns do not determine the fifth — and no arithmetic on them
-          recovers it. I measure what AI guardrail stacks miss together, and build
-          evidence systems that show exactly what data can and cannot establish.</p>
+        <p class="lede reveal" style="--d:.16s">Illustrative numbers; the gap is the point —
+          no arithmetic on the four printed columns recovers the fifth. I measure what AI
+          guardrail stacks miss together, and build evidence systems that show exactly what
+          data can and cannot establish.</p>
         <div class="fact-row mono reveal" style="--d:.22s">
-          <span class="fact"><b><span data-fact="MC-001.N" data-fact-state="current">20</span></b> public guardrail evaluations examined</span>
-          <span class="fact"><b><span data-fact="MC-001.K" data-fact-state="current">5</span></b> preserve a joint-evidence artifact</span>
-          <span class="fact"><b><span data-fact="MC-001.M3" data-fact-state="current">0</span></b> document matched thresholds with full exposure</span>
+          <span class="fact"><b><span data-fact="MC-001.N" data-fact-state="current">20</span></b> evaluations examined</span>
+          <span class="fact"><b><span data-fact="MC-001.K" data-fact-state="current">5</span></b> preserve joint evidence</span>
+          <span class="fact"><b><span data-fact="MC-001.M3" data-fact-state="current">0</span></b> at matched thresholds</span>
         </div>
         <div class="hero-cta reveal" style="--d:.26s">
           <a class="btn btn-solid" href="/missing-column/">Inspect the census</a>

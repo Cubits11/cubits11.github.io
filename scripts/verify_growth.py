@@ -284,6 +284,29 @@ def check_identity() -> None:
             fail(f"{rel}: does not state the canonical identity sentence")
 
 
+def check_resume_pdf() -> None:
+    """The downloadable résumé exists, is a PDF, and is not gated.
+
+    It is a print of resume/index.html, so it needs no separate content check —
+    but it does need to actually exist and actually be linked, because an
+    email-gated résumé costs exactly the reader who already decided to look
+    harder.
+    """
+    pdf = ROOT / "resume" / "pranav-bhave-resume.pdf"
+    if not pdf.exists():
+        fail("resume/pranav-bhave-resume.pdf is missing — rebuild it with "
+             "scripts/build_resume_pdf.py")
+        return
+    if pdf.read_bytes()[:5] != b"%PDF-":
+        fail("resume/pranav-bhave-resume.pdf is not a PDF")
+    page = (ROOT / "resume" / "index.html").read_text(encoding="utf-8")
+    if 'href="/resume/pranav-bhave-resume.pdf"' not in page:
+        fail("resume/index.html does not link its own PDF")
+    text = facts.visible_text(page)
+    if "email me and" in text and "send" in text and "PDF" in text:
+        fail("resume/index.html still gates the PDF behind an email request")
+
+
 def check_social_card() -> None:
     card = ROOT / "assets" / "img" / "og-missing-column.png"
     if not card.exists():
@@ -305,6 +328,7 @@ def main() -> int:
     check_campaigns()
     check_launch_pack()
     check_identity()
+    check_resume_pdf()
     check_social_card()
     if failures:
         for failure in failures:
@@ -317,6 +341,7 @@ def main() -> int:
     print("ok    every campaign link resolves and uses the declared vocabulary")
     print("ok    every tagged URL in the launch pack is attributable")
     print("ok    the identity sentence is identical everywhere it appears")
+    print("ok    the résumé PDF exists, is linked, and is not gated")
     print("ok    the social card is 1200x630")
     print("Acquisition surfaces verified.")
     return 0
