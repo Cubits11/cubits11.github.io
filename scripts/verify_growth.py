@@ -257,6 +257,13 @@ def check_launch_pack() -> None:
              f"visit from it cannot be attributed")
     if not used:
         fail("launch pack contains no campaign-tagged URLs")
+    forbidden = {
+        "[disclosure link]": "a disclosure email contains an untracked placeholder link",
+        "5 report what the stack misses": "the HN title overstates the census definition of K",
+    }
+    for needle, reason in forbidden.items():
+        if needle in pack.read_text(encoding="utf-8"):
+            fail(f"launch pack: {reason}")
 
 
 def check_identity() -> None:

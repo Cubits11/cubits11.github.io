@@ -79,6 +79,7 @@ destinations:
   work: "/work/"
   resume: "/resume/"
   ledger: "/ledger/"
+  ledger_mc003: "/ledger/#MC-003"
   corrections: "/corrections/"
   home: "/"
 
@@ -132,6 +133,14 @@ campaigns:
     intended_action: "read the interval and the worked BELLS recomputation"
     success_signal: "a practitioner says they will measure the joint row"
 
+  - id: x-identification-thread
+    audience: "researchers in safety measurement and dependence"
+    surface: x
+    utm: {source: x, medium: social, campaign: missing-column-launch, content: identification}
+    destination: ledger_mc003
+    intended_action: "read the identification derivation and executable checks"
+    success_signal: "a substantive methodological reply or citation"
+
   - id: x-disclosure-ask
     audience: "AI evaluation and benchmark authors"
     surface: x
@@ -172,6 +181,14 @@ campaigns:
     intended_action: "read one engagement and email"
     success_signal: "an email naming a results table, a claim, or a receipt format"
 
+  - id: linkedin-work-post
+    audience: "prospective collaborators and clients"
+    surface: linkedin
+    utm: {source: linkedin, medium: social, campaign: work-with-me, content: launch}
+    destination: work
+    intended_action: "read one engagement and email"
+    success_signal: "an email naming a results table, a claim, or a receipt format"
+
   - id: email-benchmark-authors
     audience: "authors of specific examined evaluations"
     surface: email
@@ -179,6 +196,14 @@ campaigns:
     destination: census_rows
     intended_action: "check how their own evaluation is recorded and correct it if wrong"
     success_signal: "an author reply, a correction, or a published joint row"
+
+  - id: email-disclosure-template
+    audience: "authors of evaluations recorded ABSENT"
+    surface: email
+    utm: {source: email, medium: outreach, campaign: disclosure-adoption, content: disclosure}
+    destination: disclosure
+    intended_action: "read the disclosure template and reference implementation"
+    success_signal: "an author asks for, uses, or improves the disclosure"
 
   - id: hn-submission
     audience: "technically serious readers and curators"

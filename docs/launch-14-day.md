@@ -217,7 +217,7 @@ Each stands alone. None requires the pinned post as context.
 ### Thread A — the identification result (4 posts)
 
 **Audience:** researchers in safety measurement and dependence
-**Destination:** `https://cubits11.github.io/ledger/#MC-003` (tag as `x-arithmetic-thread`)
+**Destination:** `https://cubits11.github.io/ledger/?utm_source=x&utm_medium=social&utm_campaign=missing-column-launch&utm_content=identification#MC-003`
 **Success signal:** a substantive methodological reply, or a citation
 
 1. Guardrail stacks are reported as if per-detector scores compose. They don't,
@@ -307,7 +307,7 @@ Each stands alone. None requires the pinned post as context.
 ### L3 — the offer
 
 **Audience:** prospective collaborators and clients
-**Destination:** `https://cubits11.github.io/work/?utm_source=linkedin&utm_medium=profile&utm_campaign=work-with-me&utm_content=about`
+**Destination:** `https://cubits11.github.io/work/?utm_source=linkedin&utm_medium=social&utm_campaign=work-with-me&utm_content=launch`
 **Action:** email with a concrete artifact
 **Success signal:** an email naming a results table, a claim, or a receipt format
 
@@ -369,13 +369,16 @@ Reply link URL, when a link is warranted:
 
 ---
 
-## Six outreach emails
+## Five outreach emails
 
 Send to authors of evaluations recorded in the census. **Read the row first**;
 each email must name the artifact's actual content. Send at most two per day.
 
-**Shared destination:**
+**Census-row link:**
 `https://cubits11.github.io/missing-column/?utm_source=email&utm_medium=outreach&utm_campaign=disclosure-adoption&utm_content=author#census`
+
+**Disclosure template:**
+`https://cubits11.github.io/missing-column/disclosure/?utm_source=email&utm_medium=outreach&utm_campaign=disclosure-adoption&utm_content=disclosure`
 
 ### E1 — to an author whose evaluation is recorded PRESENT
 
@@ -394,25 +397,7 @@ each email must name the artifact's actual content. Send at most two per day.
 >
 > Pranav
 
-### E2 — to an author recorded ABSENT who released item-level data
-
-> Subject: two numbers you can already compute from your release
->
-> Hi [name] —
->
-> Your [artifact] releases per-item outcomes, which means union detection and
-> the all-miss rate across your systems are directly computable from what
-> you've already published — no new experiment.
->
-> I've written up the minimum version (two rows, one denominator, with a tested
-> reference implementation): [disclosure link]. Happy to run it against your
-> release and send you the numbers with the code, whatever you do with them.
->
-> Your row in the census is [link]#[row-id] — corrections welcome.
->
-> Pranav
-
-### E3 — to an author recorded ABSENT with no item release
+### E2 — to an author recorded ABSENT with no item release
 
 > Subject: one row in your next results table
 >
@@ -428,12 +413,13 @@ each email must name the artifact's actual content. Send at most two per day.
 > compact alternative that still identifies each detector's exclusive
 > contribution.
 >
-> Template: [disclosure link]. No obligation — I'd just rather ask than record
+> Template: https://cubits11.github.io/missing-column/disclosure/?utm_source=email&utm_medium=outreach&utm_campaign=disclosure-adoption&utm_content=disclosure
+> No obligation — I'd just rather ask than record
 > an absence I could have helped fix.
 >
 > Pranav
 
-### E4 — to an author whose row I corrected
+### E3 — to an author whose row I corrected
 
 > Subject: I corrected how I described your work
 >
@@ -448,7 +434,7 @@ each email must name the artifact's actual content. Send at most two per day.
 >
 > Pranav
 
-### E5 — to a researcher working on dependence or composition
+### E4 — to a researcher working on dependence or composition
 
 > Subject: pricing what marginal-only guardrail reporting leaves open
 >
@@ -469,7 +455,7 @@ each email must name the artifact's actual content. Send at most two per day.
 >
 > Pranav
 
-### E6 — to a curator or newsletter editor
+### E5 — to a curator or newsletter editor
 
 > Subject: a small, checkable result about guardrail benchmarks
 >
@@ -492,7 +478,7 @@ each email must name the artifact's actual content. Send at most two per day.
 
 ## Hacker News submission
 
-**Title:** `The Missing Column: 20 guardrail evaluations, 5 report what the stack misses`
+**Title:** `The Missing Column: 20 guardrail evaluations, 5 preserve joint evidence`
 **URL:** `https://cubits11.github.io/missing-column/?utm_source=hn&utm_medium=forum&utm_campaign=missing-column-launch&utm_content=submission`
 **Audience:** technically serious readers and curators
 **Action:** read the census; challenge a classification
@@ -520,9 +506,7 @@ First comment, posted immediately, no marketing register:
 
 ## Community post
 
-**Venue:** a practitioner forum where guardrail deployment is discussed
-(Lobsters, an AI-security Discord, or an evaluation-focused subreddit whose
-rules permit author-submitted work — check the rules first)
+**Venue:** Lobsters, if its rules permit author-submitted work
 **Destination:** `https://cubits11.github.io/answers/how-to-evaluate-guardrails-you-plan-to-stack/?utm_source=lobsters&utm_medium=forum&utm_campaign=missing-column-launch&utm_content=arithmetic`
 **Action:** discuss the checklist; contribute a missing item
 **Success signal:** a practitioner adds a condition worth putting in the page
@@ -569,17 +553,17 @@ Cadence assumes the branch is merged and deployed on day 0.
 |---|---|---|
 | 0 | Pinned post; profile copy on X, LinkedIn, GitHub; email signature | 45 min |
 | 1 | Post 1 (arithmetic); 3 replies | 30 min |
-| 2 | E1 + E2 outreach; 3 replies | 40 min |
+| 2 | E1 outreach; 3 replies | 40 min |
 | 3 | Post 2 (recomputation); 2 replies | 25 min |
 | 4 | LinkedIn L1; 3 replies | 30 min |
-| 5 | Post 4 (second guard); E3 outreach | 30 min |
+| 5 | Post 4 (second guard); E2 outreach | 30 min |
 | 6 | Rest from posting. 5 replies only. | 25 min |
 | 7 | Thread A (identification); read week-1 signals into `campaigns.yaml` | 45 min |
-| 8 | Post 3 (the ask); E4 + E5 outreach | 40 min |
+| 8 | Post 3 (the ask); E3 + E4 outreach | 40 min |
 | 9 | HN submission + first comment, morning US time; stay in the thread | 90 min |
 | 10 | Post 6 (the correction); 3 replies | 30 min |
 | 11 | LinkedIn L2; community post | 40 min |
-| 12 | Post 5 (empty rung); E6 outreach; 3 replies | 35 min |
+| 12 | Post 5 (empty rung); E5 outreach; 3 replies | 35 min |
 | 13 | Post 7 (deployment caveat); Thread B if week 1 showed method interest | 35 min |
 | 14 | LinkedIn L3; record the 14-day reading in `campaigns.yaml`; decide what to repeat | 60 min |
 
