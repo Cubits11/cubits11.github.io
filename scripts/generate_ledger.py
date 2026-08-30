@@ -233,7 +233,7 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
     <div class="meta-row mono">
       <span>Schema v{version}</span>
       <span>Last owner review: {reviewed}</span>
-      <span>{n} claims</span>
+      <span data-claim-count-state="current">{n} claims</span>
       <span><a class="u" href="https://github.com/Cubits11/cubits11.github.io/actions/workflows/verify.yml">CI runs ↗</a></span>
     </div>
   </div>

@@ -28,9 +28,10 @@ Checks, in order:
   5. Support liveness — every public support URL resolves (< 400).
   6. Ledger coverage — every claim id appears in ledger/index.html
      (generation-drift itself is checked by generate_ledger.py --check).
-  7. Homepage coherence — index.html must state the registry's actual claim
-     count and last owner review; hand-written strips may not silently
-     strand when the registry grows.
+  7. Public claim-count coherence — the homepage and generated registry
+     surfaces must mark their live count and agree with claims.yaml; a
+     historical count must be explicitly dated so it cannot impersonate the
+     live record.
 
 Exit code 0 = registry verified; 1 = at least one check failed.
 """
@@ -75,6 +76,26 @@ REQUIRED = {"id", "proposition", "scope", "dimensions", "support",
 FALSIFIER_CONSEQUENCES = {"NARROW", "REJECT", "HOLD"}
 
 failures: list[str] = []
+
+# A number of claims is an unusually easy datum to leave behind in a hand-written
+# surface. The marker makes the state explicit: the public record is either
+# current and mechanically checked, or historical and dated. Bare ``N claims``
+# strings are forbidden on the designated public count surfaces because a
+# reader cannot know which role they play.
+CLAIM_COUNT_MARKER = re.compile(
+    r'<(?P<tag>[A-Za-z][\w:-]*)(?P<attrs>[^>]*\bdata-claim-count-state="'
+    r'(?P<state>current|historical)"[^>]*)>(?P<body>.*?)</(?P=tag)>',
+    re.DOTALL,
+)
+CLAIM_COUNT_TEXT = re.compile(r"\b(?P<count>\d+)\s+claims?\b", re.IGNORECASE)
+TAG_TEXT = re.compile(r"<[^>]+>")
+AS_OF = re.compile(r'\bdata-as-of="(?P<date>\d{4}-\d{2}-\d{2})"')
+CLAIM_COUNT_SURFACES = {
+    "index.html": "current",
+    "ledger/index.html": "current",
+    "observatory/index.html": "current",
+    "now/index.html": "historical",
+}
 
 
 def fail(msg: str) -> None:
@@ -258,6 +279,78 @@ def check_url_liveness(cid: str, url: str) -> None:
         fail(f"{cid}: support URL unreachable ({exc}): {url}")
 
 
+def check_public_claim_counts(expected: int, today: dt.date) -> None:
+    """Require every public claim count to declare whether it is live or dated.
+
+    Generated pages already derive their values from ``claims.yaml``. The
+    homepage and ``/now/`` are hand-written, however, and a historical
+    sentence there previously looked like a competing live count. This check
+    makes that distinction executable rather than relying on a reader to
+    infer it from surrounding prose.
+    """
+    for rel, expected_state in sorted(CLAIM_COUNT_SURFACES.items()):
+        page = ROOT / rel
+        if not page.is_file():
+            fail(f"{rel}: public claim-count surface is missing")
+            continue
+        raw = page.read_text(encoding="utf-8")
+        markers = 0
+
+        def inspect_marker(match: re.Match[str]) -> str:
+            nonlocal markers
+            attrs = match.group("attrs")
+            state = match.group("state")
+            markers += 1
+            if state != expected_state:
+                fail(f"{rel}: claim-count marker is {state}, expected "
+                     f"{expected_state}")
+            visible = TAG_TEXT.sub(" ", match.group("body"))
+            values = [int(found.group("count"))
+                      for found in CLAIM_COUNT_TEXT.finditer(visible)]
+            if len(values) != 1:
+                fail(f"{rel}: {state} claim-count marker must contain exactly "
+                     f"one 'N claims' value, found {values or 'none'}")
+                return " "
+            value = values[0]
+            if state == "current":
+                if value != expected:
+                    fail(f"{rel}: current claim count {value} disagrees with "
+                         f"claims.yaml ({expected})")
+            else:
+                date_match = AS_OF.search(attrs)
+                if not date_match:
+                    fail(f"{rel}: historical claim count {value} has no "
+                         "data-as-of date")
+                else:
+                    try:
+                        as_of = dt.date.fromisoformat(date_match.group("date"))
+                    except ValueError:
+                        fail(f"{rel}: historical claim count {value} has an "
+                             f"invalid data-as-of date {date_match.group('date')!r}")
+                    else:
+                        if as_of > today:
+                            fail(f"{rel}: historical claim count {value} is "
+                                 f"dated in the future ({as_of})")
+            return " "
+
+        unmarked = CLAIM_COUNT_MARKER.sub(inspect_marker, raw)
+        # Keep adjacent elements adjacent. Replacing every tag with a space
+        # would turn a module's visual label ``07`` + ``Claim envelope`` into
+        # the false phrase "07 claims".
+        for found in CLAIM_COUNT_TEXT.finditer(TAG_TEXT.sub("", unmarked)):
+            fail(f"{rel}: unmarked claim count {found.group('count')} — mark "
+                 "it current or historical with data-as-of")
+        if markers != 1:
+            fail(f"{rel}: expected exactly one {expected_state} claim-count "
+                 f"marker, found {markers}")
+        else:
+            if expected_state == "current":
+                ok(f"{rel}: current claim count is explicitly bound to "
+                   f"claims.yaml ({expected})")
+            else:
+                ok(f"{rel}: historical claim count is explicitly dated")
+
+
 def main() -> int:
     registry = yaml.safe_load((ROOT / "claims.yaml").read_text())
     claims = registry.get("claims", [])
@@ -270,6 +363,22 @@ def main() -> int:
     ledger_html = (ROOT / "ledger" / "index.html").read_text()
     index_html = (ROOT / "index.html").read_text()
 
+    owner_review = str(registry.get("last_owner_review", ""))
+    newest_claim_review = max(str(c.get("last_reviewed", "")) for c in claims)
+    if owner_review < newest_claim_review:
+        fail(f"last_owner_review {owner_review} lags newest claim review "
+             f"{newest_claim_review}")
+    else:
+        ok(f"last_owner_review {owner_review} covers all claim reviews")
+
+    if owner_review in index_html:
+        ok(f"index.html states the registry's last owner review date "
+           f"({owner_review})")
+    else:
+        fail(f"index.html does not state the registry's last owner review "
+             f"date ({owner_review!r})")
+    check_public_claim_counts(len(claims), today)
+
     bindings: dict[str, list[tuple[str, str]]] = {}
     for claim in claims:
         support = claim.get("support") or {}
@@ -280,21 +389,6 @@ def main() -> int:
                 bindings.setdefault(match.group(1), []).append(
                     (claim.get("id", "<missing id>"), str(commit)))
     check_reachability(bindings)
-
-    owner_review = str(registry.get("last_owner_review", ""))
-    newest_claim_review = max(str(c.get("last_reviewed", "")) for c in claims)
-    if owner_review < newest_claim_review:
-        fail(f"last_owner_review {owner_review} lags newest claim review "
-             f"{newest_claim_review}")
-    else:
-        ok(f"last_owner_review {owner_review} covers all claim reviews")
-
-    for needle, what in ((f"{len(claims)} claims", "claim count"),
-                         (owner_review, "last owner review date")):
-        if needle in index_html:
-            ok(f"index.html states the registry's {what} ({needle})")
-        else:
-            fail(f"index.html does not state the registry's {what} ({needle!r})")
 
     for claim in claims:
         cid = claim.get("id", "<missing id>")

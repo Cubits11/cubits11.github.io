@@ -249,7 +249,7 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
 <div class="class-bar mono">
   <div class="container">
     <span><b>Observatory</b> — the registry as one field · generated from claims.yaml</span>
-    <span>Schema v{version} · {n} claims · {status_line}</span>
+    <span data-claim-count-state="current">Schema v{version} · {n} claims · {status_line}</span>
   </div>
 </div>
 <header class="page">
