@@ -1,6 +1,6 @@
 # Frontier roadmap — from a reporting-gap argument to a joint-behavior result
 
-Status: working plan, 2026-08-28. Scope: what this repository does next, and
+Status: working plan, 2026-08-30. Scope: what this repository does next, and
 what it refuses to do next. Every dated deliverable below is a single
 artifact with a stated exit criterion, because a roadmap whose steps cannot
 fail is a mood board.
@@ -13,7 +13,7 @@ stacks**. The distinction is the whole roadmap.
 
 What the census earns, stated at its true strength:
 
-> Within a bounded, single-reviewer inventory of 19 public evaluations, the
+> Within a bounded, single-reviewer inventory of 20 public evaluations, the
 > record documents which joint-evidence artifacts were publicly recoverable.
 
 What it does **not** earn, and must never be written as though it does: field
@@ -22,17 +22,18 @@ operational risk. The 3.1× BELLS figure is reproducible arithmetic on a
 selected 170-prompt subset. It is a demonstration of what becomes computable,
 not an inferential finding about guardrails.
 
-Three structural corrections landed before any merge:
+Three structural corrections now constrain the record:
 
 - **M is a ladder, not a verdict.** The shared-basis rung says only that a
   row documents shared items and a common event definition. It does not mean
   matched operating thresholds. The census now computes and prints all three
-  rungs (13 / 12 / 0) mechanically from fields already on every row. The
+  rungs (14 / 12 / 0) mechanically from fields already on every row. The
   strongest rung is **0**, and 0 is the honest headline.
-- **K is a discovery count, not a stack result.** Its four records contain
-  noninterchangeable evidence types: two printed full-stack composition
-  results, one partial/routing result, and one released per-item file. K is
-  not an all-miss rate, a deployment conclusion, or a field prevalence rate.
+- **K is a discovery count, not a stack result.** Its five records contain
+  overlapping, noninterchangeable evidence types: four print a composition
+  result and two release aligned per-item outcomes; one artifact does both.
+  K is not an all-miss rate, a deployment conclusion, or a field prevalence
+  rate.
 - **A branch push is not a release.** CI now runs on pull requests, and a
   post-deploy job waits for a coherent deployment, checks the served census
   byte-for-byte, and checks that the rendered page binds itself to that census.
@@ -119,8 +120,8 @@ disclosure, not a proof that it is the cheapest possible disclosure. It does
 not identify pairwise or higher-order overlap, Shapley attribution, or causal
 contribution.
 
-On the one per-item release the census found (BELLS 2025, 82 prompts labelled
-harmful), the identified set from the five published marginals is the 13
+On the BELLS 2025 partial per-item release (82 prompts labelled harmful), the
+identified set from the five published marginals is the 13
 values {0/82 … 12/82} — 13/82 is combinatorially infeasible, since 70 catches
 cannot fit in 69 items. MC-002 re-computes 9/82 all-miss from the
 hash-verified released verdict file; this is a static OR aggregation of
@@ -226,7 +227,7 @@ cannot be quietly reframed as "inconclusive, needs more data."
 
 | Window | Deliverable | Exit criterion |
 |---|---|---|
-| Days 1–14 | Corrective census release | M ladder printed; dual-review of all 19 rows recorded; retrieval and screening ledger published; PR CI and post-deploy gate green on the live site |
+| Days 1–14 | Corrective census release | M ladder printed; dual-review of all 20 rows recorded; retrieval and screening ledger published; PR CI and post-deploy gate green on the live site |
 | Days 15–30 | MJGD v1 schema + validator | Fixtures pass for parallel, sequential, partial-release, aggregate-only, and missing-data cases; one maintainer outside this repository tests or rejects it **on record** |
 | Days 31–45 | Frozen E2 protocol | One population, one event, three named systems, versions, thresholds, routes, data rights, stopping rules, and a sealed holdout — all tagged **before** any outcome is inspected |
 | Days 46–70 | Prospective collection | Predeclared high-risk-stratum precision target met, or a declared STOP/HOLD with its reason; no silent missing cells; outcome, label, and configuration provenance retained |
@@ -274,7 +275,7 @@ in `.github/workflows/verify.yml`.
 5. **A branch push is not a release.** Nothing counts as published until CI
    is green on the PR *and* the post-deploy smoke gate confirms the live site
    serves the same numbers. *CI: `smoke_deployed.py`.*
-6. **Adjudication status is never hidden.** The current 19 rows are declared
+6. **Adjudication status is never hidden.** The current 20 rows are declared
    single-primary-reviewer and therefore cannot support a systematic-review
    or prevalence claim. Dual review, disagreement records, and a retrieval
    ledger are a v1.0 archival-release gate — not work already completed.

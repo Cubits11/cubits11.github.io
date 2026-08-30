@@ -92,18 +92,17 @@ standard or an adoption claim.
 
 ## Deploy & verification
 
-Open a PR, pass the verification workflow, and merge through the protected
+Open a PR, pass the verification workflow, and merge through the reviewed
 path. The workflow verifies the claim registry — field shape (including
 falsifiers and forbidden rescues), support-link liveness, ledger coverage, and
 a freshness gate that fails when a claim passes its review window (also run
 weekly) — then deploys the exact verified static artifact and checks the live
 checksum, sitemap, rendered ladder, and correction policy.
 
-**One-time repository configuration.** In GitHub **Settings → Pages**, set
-the publishing source to **GitHub Actions** and protect the `github-pages`
-environment so only the default branch can deploy. Until that change is made,
-branch-based Pages publishing remains a legacy, ungated deployment path; do
-not describe the post-deploy smoke check as a preventive gate.
+**Configured deployment control.** GitHub Pages publishes through **GitHub
+Actions**, and the `github-pages` environment permits only the default branch.
+The branch-based Pages publisher is disabled: deployment waits for the claim
+and reproduction gates, then the workflow smoke-tests the live artifact.
 
 ## Layout
 

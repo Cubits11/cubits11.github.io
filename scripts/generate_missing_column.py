@@ -242,7 +242,7 @@ def render_headline(census: dict, counts: dict) -> str:
     <div class="headline">
       <p class="mono head-kicker">The census result — regenerated from the source file</p>
       <p class="head-prop">{esc(proposition)}</p>
-      <p class="mono head-scope">The {counts["K"]} is a heterogeneous discovery count, not one deployment estimand. It splits as: {esc(scope_line)}.</p>
+      <p class="mono head-scope">The {counts["K"]} is a heterogeneous discovery count, not one deployment estimand. Its primary joint-evidence classification splits as: {esc(scope_line)}. A row can expose additional joint evidence; its detail records that overlap.</p>
       <p class="mono head-scope">The {counts["M"]} is a ladder, not a verdict — {counts["M_strata"]["shared_basis"]} document a
         shared item set and a common event definition · {counts["M_strata"]["threshold_not_contradicted"]} have no stated
         threshold mismatch · {counts["M_strata"]["threshold_documented_full_exposure"]} document matched
@@ -407,10 +407,15 @@ def render_row_details(examined: list) -> str:
         dl.append(f"<dt>Systems</dt><dd>{esc(systems)}</dd>")
         prose = r.get("combination_prose")
         if prose:
+            prose_note = (
+                "The measured joint evidence and its scope are recorded above."
+                if r["classification"] == "PRESENT" else
+                "A recommendation to combine is recorded here because it is not a "
+                "measured joint statistic."
+            )
             dl.append("<dt>Combination prose</dt>"
                       f"<dd>“{esc(prose['quote'])}” — {esc(prose['location'])}. "
-                      "A recommendation to combine is recorded here because it "
-                      "is not a measured joint statistic.</dd>")
+                      f"{prose_note}</dd>")
         passages = "".join(f"<li>{esc(p)}</li>" for p in r["source_passages"])
         dl.append(f'<dt>Source passages</dt><dd><ul class="nc">{passages}</ul></dd>')
         corrections = r.get("correction_history") or []
@@ -1008,11 +1013,10 @@ def render_demonstration() -> str:
     return f'''
   <section class="zone" id="demonstration" aria-labelledby="demo-h">
     <h2 id="demo-h">The row, demonstrated on public data</h2>
-    <p class="zone-intro">One evaluation in the <a class="u" href="/missing-column/">census</a>
-      released per-item verdicts: BELLS's 2025 misuse-detection study published 170 prompts
-      with eleven systems' decisions as columns. That release is the only per-item outcome
-      release the census's bounded search found — so here is this page's arithmetic, run on it, for
-      the five specialized supervisors in that file:</p>
+    <p class="zone-intro">BELLS's 2025 misuse-detection study released 170 prompts
+      with eleven systems' decisions as columns. The census now records another aligned
+      per-item release, but this page demonstrates the BELLS-specific arithmetic because
+      MC-002 binds this exact file and its five specialized supervisors:</p>
     <div class="fig-scroll">
     <table class="census-table demo-table">
       <caption class="sr-only">The minimum joint disclosure computed on the released
