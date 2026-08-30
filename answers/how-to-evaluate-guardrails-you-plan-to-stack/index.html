@@ -1,0 +1,277 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: census.yaml · renderer: scripts/generate_missing_column.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to evaluate AI guardrails you plan to stack</title>
+<meta name="description" content="A checklist for evaluating guardrails that will be deployed together: shared items, one event definition, matched operating points, declared exposure, and the joint row that per-detector scores cannot supply.">
+<link rel="canonical" href="https://cubits11.github.io/answers/how-to-evaluate-guardrails-you-plan-to-stack/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="How to evaluate AI guardrails you plan to stack">
+<meta property="og:description" content="A checklist for evaluating guardrails that will be deployed together: shared items, one event definition, matched operating points, declared exposure, and the joint row that per-detector scores cannot supply.">
+<meta property="og:url" content="https://cubits11.github.io/answers/how-to-evaluate-guardrails-you-plan-to-stack/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta property="og:site_name" content="Cubits11">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta name="twitter:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta name="robots" content="max-image-preview:large">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "How to evaluate AI guardrails you plan to stack",
+  "description": "A checklist for evaluating guardrails that will be deployed together: shared items, one event definition, matched operating points, declared exposure, and the joint row that per-detector scores cannot supply.",
+  "url": "https://cubits11.github.io/answers/how-to-evaluate-guardrails-you-plan-to-stack/",
+  "datePublished": "2026-08-30",
+  "dateModified": "2026-08-30",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "author": {
+    "@type": "Person",
+    "name": "Pranav Bhave",
+    "url": "https://cubits11.github.io",
+    "sameAs": [
+      "https://github.com/Cubits11"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Pranav Bhave",
+    "url": "https://cubits11.github.io"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://cubits11.github.io/answers/how-to-evaluate-guardrails-you-plan-to-stack/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<script defer src="/assets/site.js"></script>
+<style>
+body{font-size:1rem;line-height:1.65}
+.container{width:min(1060px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.68rem}
+header.page{padding:7.9rem 0 2.2rem}
+h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 0 1rem;letter-spacing:-.018em}
+.intro{color:var(--muted);max-width:48em}
+.zone{margin-top:4rem;border-top:1px solid var(--line);padding-top:2rem}
+.zone h2{font-weight:520;font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 .6rem;letter-spacing:-.01em}
+.zone .zone-intro{color:var(--muted);max-width:46em}
+.zone h3{font-weight:520;margin:1.6rem 0 .5rem}
+.fig-scroll{overflow-x:auto}
+.wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
+.wall-row{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
+.wall-row:last-child{border-bottom:none}
+.wall-id{color:var(--gold);overflow-wrap:anywhere}
+.manual-list{margin:1.2rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.manual-list li{margin:.35rem 0}
+.ur-title{margin:0 0 .3rem}
+.ur-note{margin:0;color:var(--muted);font-size:.92rem}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+
+.lede-big{font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.55;max-width:34em}
+.answer{max-width:44em}
+.answer p{margin:0 0 1rem}
+.answer h2{margin-top:2.4rem}
+.answer h3{margin-top:1.6rem}
+.callout{border-left:3px solid var(--gold);padding:.9rem 0 .9rem 1.1rem;margin:1.6rem 0;background:var(--surface)}
+.callout p{margin:0}
+.numline{display:flex;flex-wrap:wrap;gap:1.6rem;margin:1.4rem 0;padding:1rem 1.2rem;border:1px solid var(--line-strong);background:var(--surface)}
+.numline div{min-width:7rem}
+.numline b{display:block;font-size:1.5rem;font-weight:520;line-height:1.1}
+.numline span{color:var(--muted);font-size:.72rem}
+.offer{border:1px solid var(--line-strong);background:var(--surface);padding:1.6rem 1.5rem;margin-top:1.6rem}
+.offer h3{margin:0 0 .5rem;font-size:1.22rem}
+.offer dl{margin:1rem 0 0;display:grid;grid-template-columns:9rem 1fr;gap:.5rem 1rem;font-size:.94rem}
+.offer dt{color:var(--gold);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;padding-top:.22rem}
+.offer dd{margin:0;color:var(--muted)}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.next{margin-top:2.6rem;border-top:1px solid var(--line);padding-top:1.4rem}
+.next .mono{color:var(--gold)}
+@media (max-width:600px){.offer dl{grid-template-columns:1fr}.offer dt{padding-top:.6rem}}
+
+@media (max-width:600px){.wall-row{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/missing-column/">The Missing Column</a>
+      <a href="/observatory/">Evidence</a>
+      <a href="/writing/">Writing</a>
+      <a href="/work/">Work with me</a>
+      <a href="/resume/">About</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>Answer</b> — for benchmark authors and evaluation teams</span>
+    <span>schema: <a class="u" href="/missing-column/disclosure/">MJGD v1</a></span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "The record",
+      "item": "https://cubits11.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Answers"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Evaluating guardrails you plan to stack"
+    }
+  ]
+}
+</script>
+    <h1>How to evaluate AI guardrails you plan to stack</h1>
+    <p class="intro lede-big">Most guardrail evaluations answer "which detector is
+      best?". If you are going to deploy several together, that is not the
+      question you need answered.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <div class="answer">
+    <p>A per-detector leaderboard is a legitimate artifact and this is not a
+      criticism of publishing one. It just cannot be composed. Six things make
+      the difference between an evaluation whose stack behaviour is recoverable
+      and one whose is not — and five of them cost nothing extra if you decide
+      before you run.</p>
+
+    <h2>1. Score every system on the same items</h2>
+    <p>Different item sets make every downstream comparison a guess. This is the
+      cheapest requirement and the most commonly broken one. Of the
+      <span data-fact="MC-001.N" data-fact-state="current">20</span>
+      evaluations in the census,
+      <span data-fact="MC-001.M1" data-fact-state="current">14</span> document a shared item set and a
+      common event definition.</p>
+
+    <h2>2. Fix one event definition</h2>
+    <p>"Blocked", "flagged", "refused", and "scored above threshold" are
+      different events. If two systems are scored against different notions of
+      what counts as a catch, their union is undefined.</p>
+
+    <h2>3. Compare at matched operating points, and say so</h2>
+    <p>A detector at a permissive threshold and one at a strict threshold are
+      not comparable, and a threshold-free metric like AUPRC quietly sidesteps
+      the question a deployed stack has to answer. This is the rung almost
+      nobody reaches:
+      <span data-fact="MC-001.M2" data-fact-state="current">12</span> of the census's
+      shared-basis evaluations have no <em>stated</em> threshold mismatch, but
+      <span data-fact="MC-001.M3" data-fact-state="current">0</span> document
+      matched operating thresholds together with full exposure.</p>
+
+    <h2>4. Declare the exposure condition</h2>
+    <p>There are three very different worlds, and a results table that does not
+      say which one it is in cannot be interpreted:</p>
+    <ul>
+      <li><b>Static full exposure</b> — every system sees every item. Union and
+        all-miss are well defined and directly computable.</li>
+      <li><b>Deployed sequential routing</b> — an upstream block censors what
+        downstream systems ever see. Static composition arithmetic does not
+        apply, and pretending it does inflates the stack.</li>
+      <li><b>Adaptive or agentic</b> — an intervention changes the trajectory,
+        so there is no fixed population to compute a rate over.</li>
+    </ul>
+    <p>The <a class="u" href="/stack-study/">stack study preflight</a> is a
+      browser-local tool that refuses to emit a static joint result when you
+      declare a non-static mode — it is easier to check this before you collect
+      data than after.</p>
+
+    <h2>5. Publish the joint row</h2>
+    <p>Two numbers over the same denominator: how often the union catches, and
+      how often every system misses the same item. That is the row that
+      per-detector columns cannot reconstruct, and it is one line in the table
+      you are already building. The
+      <a class="u" href="/missing-column/disclosure/">Minimum Joint Guardrail
+      Disclosure</a> gives the exact template, its preconditions, and a tested
+      reference implementation.</p>
+
+    <h2>6. Keep the per-item outcomes</h2>
+    <p>One decision per item per system, released alongside the paper, makes
+      every union, all-miss, and pairwise intersection recomputable by anyone —
+      including analyses you did not think to run. If releasing raw items is not
+      possible, leave-one-out unions are a compact, privacy-preserving summary
+      that still identifies each guard's exclusive contribution to the stack.</p>
+
+    <h2>What you get for it</h2>
+    <p>A results table a reader can deploy from rather than infer from, and a
+      claim that survives someone checking it. If you already ran the
+      evaluation and kept the per-item outcomes, the joint row is a
+      recomputation, not a new experiment.</p>
+    
+  <div class="next">
+    <p class="mono">Next</p>
+    <p>If your evaluation is already published, the census records where it stands and how to correct the record if a row misreads it.</p>
+    <div class="cta-row"><a class="btn btn-solid" href="/missing-column/disclosure/">Get the disclosure template</a><a class="btn" href="/missing-column/#census">Find your evaluation</a><a class="btn" href="/work/">Work with me</a></div>
+  </div>
+  </div>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/missing-column/">The Missing Column</a>
+      <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
+      <a class="u" href="/answers/why-guardrail-miss-rates-do-not-multiply/">Why miss rates do not multiply</a>
+      <a class="u" href="/answers/how-to-evaluate-guardrails-you-plan-to-stack/">Evaluating stacked guardrails</a>
+      <a class="u" href="/answers/what-does-the-second-guardrail-add/">What the second guard adds</a>
+      <a class="u" href="/corrections/">Corrections policy</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/observatory/">Claim observatory</a>
+      <a class="u" href="/modules/">Modules</a>
+      <a class="u" href="/archive/">Archive</a>
+      <a class="u" href="/stack-study/">Study preflight</a>
+      <a class="u" href="/work/">Work with me</a>
+      <a class="u" href="/">← The record</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>

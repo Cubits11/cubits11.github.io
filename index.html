@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pranav Bhave — AI Assurance Research</title>
-<meta name="description" content="Pranav Bhave — AI assurance research: statistical bounds on composed guardrails, receipt provenance, claim governance. Builder of CC-Framework and Ghost-Ark.">
+<title>Pranav Bhave — what AI guardrail stacks miss together</title>
+<meta name="description" content="Guardrail evaluations score each detector and omit what the stack misses together. A bounded census of 20 public evaluations, the bound that says why marginals cannot supply it, and a disclosure schema that fixes it in one table row.">
 <link rel="canonical" href="https://cubits11.github.io/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Pranav Bhave — AI Assurance Research">
-<meta property="og:description" content="Research software that exposes what an AI-assurance claim establishes, what it assumes, and where it must stop. Self-audited in public; prosecuted weekly by its own CI.">
+<meta property="og:title" content="Pranav Bhave — what AI guardrail stacks miss together">
+<meta property="og:description" content="Four guardrails. Four scores. One missing column — the joint outcome no per-detector score determines. A source-bound census, an identification result, and the row that fixes it.">
 <meta property="og:url" content="https://cubits11.github.io/">
-<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Pranav Bhave — name set in bone serif on an obsidian dossier card beside a framed outdoor portrait, with palette swatches sampled from the photograph">
@@ -82,6 +82,11 @@ body::after{ /* grain */
 .fact-row{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.8rem}
 .fact{border:1px solid var(--line-strong);border-radius:999px;padding:.42rem .85rem;color:var(--muted);white-space:nowrap}
 .hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.1rem}
+.hero-h1{font-weight:520;font-size:clamp(2.1rem,4.6vw,3.35rem);line-height:1.06;letter-spacing:-.02em;margin:0}
+.hero-sub{margin-top:1.1rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:.5rem}
+.hero-sub a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.hero-sub a:hover{color:var(--ink)}
+.fact-row .fact b{color:var(--ink);font-weight:520}
 
 /* photo as dossier object */
 .fig{border:1px solid var(--line-strong);outline:1px solid color-mix(in srgb, var(--gold) 45%, transparent);outline-offset:6px;
@@ -172,12 +177,11 @@ html:not(.js) .bounds-ctl{display:none}
   <div class="container">
     <a class="wordmark" href="/">Pranav Bhave</a>
     <nav class="site-nav mono" aria-label="Site">
-      <a href="/modules/">Modules</a>
-      <a href="/observatory/">Observatory</a>
-      <a href="/ledger/">Ledger</a>
+      <a href="/missing-column/">The Missing Column</a>
+      <a href="/observatory/">Evidence</a>
       <a href="/writing/">Writing</a>
-      <a href="/archive/">Archive</a>
-      <a href="/resume/">Résumé</a>
+      <a href="/work/">Work with me</a>
+      <a href="/resume/">About</a>
     </nav>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
       <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
@@ -200,27 +204,37 @@ html:not(.js) .bounds-ctl{display:none}
   <section class="hero" id="top">
     <div class="container hero-grid">
       <div>
-        <p class="kicker mono reveal">AI assurance research · statistical bounds · provenance systems</p>
-        <h1 class="name reveal" style="--d:.06s"><span>Pranav</span><span>Bhave</span></h1>
-        <p class="prop reveal" style="--d:.1s">I build research software that exposes what an
-          AI-assurance claim establishes, what it assumes, and where it must stop.</p>
-        <p class="lede reveal" style="--d:.14s"><em>Bounds</em> that admit unknown dependence.
-          <em>Receipts</em> that prove bytes rather than safety.
-          <em>Claims</em> that return for review when their evidence changes.</p>
-        <p class="fang mono reveal" style="--d:.18s">Self-audited twice ·
-          <a href="/notes/noetic-log-001/">corrected in public</a> ·
-          <a href="https://github.com/Cubits11/cubits11.github.io/actions/workflows/verify.yml">prosecuted weekly by its own CI</a></p>
+        <p class="kicker mono reveal">Pranav Bhave — AI assurance research</p>
+        <h1 class="hero-h1 reveal" style="--d:.06s">Four guardrails. Four scores.<br>One missing column.</h1>
+        <p class="prop reveal" style="--d:.1s">Guardrail evaluations score each detector and
+          usually omit what the declared stack misses together — the one number a deployment
+          decision actually rests on.</p>
+        <div class="fig-scroll reveal" style="--d:.14s;margin-top:1.7rem">
+          <table class="mc-motif">
+            <caption class="sr-only">Illustrative: four guardrails with individual catch
+              rates, and an unreported final column for a declared static composition.</caption>
+            <thead><tr><th scope="col">Guard A</th><th scope="col">Guard B</th><th scope="col">Guard C</th><th scope="col">Guard D</th><th scope="col" class="mc-stack">THE STACK</th></tr></thead>
+            <tbody><tr><td>91%</td><td>88%</td><td>94%</td><td>86%</td><td class="mc-missing"><span class="mono">not reported</span></td></tr></tbody>
+          </table>
+        </div>
+        <p class="lede reveal" style="--d:.16s">Illustrative numbers; the gap is the point.
+          The four printed columns do not determine the fifth — and no arithmetic on them
+          recovers it. I measure what guardrail stacks miss together, and build evidence
+          systems that show exactly what data can and cannot establish.</p>
         <div class="fact-row mono reveal" style="--d:.22s">
-          <span class="fact">Penn State — B.S. CS ’26</span>
-          <span class="fact">Cybersecurity minor</span>
-          <span class="fact">AWS CCP + AI Practitioner</span>
-          <span class="fact">Philadelphia, PA</span>
+          <span class="fact"><b><span data-fact="MC-001.N" data-fact-state="current">20</span></b> public guardrail evaluations examined</span>
+          <span class="fact"><b><span data-fact="MC-001.K" data-fact-state="current">5</span></b> preserve a joint-evidence artifact</span>
+          <span class="fact"><b><span data-fact="MC-001.M3" data-fact-state="current">0</span></b> document matched thresholds with full exposure</span>
         </div>
         <div class="hero-cta reveal" style="--d:.26s">
-          <a class="btn btn-solid" href="/missing-column/">Explore the research record</a>
-          <a class="btn" href="/stack-study/">Build a study packet</a>
-          <a class="btn" href="/resume/">Résumé</a>
+          <a class="btn btn-solid" href="/missing-column/">Inspect the census</a>
+          <a class="btn" href="/essays/when-marginals-are-not-enough/">Read the five-minute proof</a>
         </div>
+        <p class="hero-sub mono reveal" style="--d:.3s">
+          <a href="/missing-column/disclosure/">Publish the missing row</a> ·
+          <a href="/work/">Work with me</a> ·
+          <a href="/resume/">Résumé</a>
+        </p>
       </div>
       <figure class="fig reveal" style="--d:.15s;margin:0">
         <picture>
@@ -232,15 +246,8 @@ html:not(.js) .bounds-ctl{display:none}
         </picture>
         <figcaption class="fig-caption mono">
           <div class="fig-caption-row">
-            <span>Fig. 01 — subject · palette source</span>
-            <span class="swatches" aria-hidden="true">
-              <span style="background:#161719"></span>
-              <span style="background:#566326"></span>
-              <span style="background:#657033"></span>
-              <span style="background:#D0A58A"></span>
-            </span>
+            <span>Pranav Bhave · Penn State B.S. CS ’26 · Philadelphia</span>
           </div>
-          <span class="swatch-hexes">Sampled: #161719 polo · #566326 foliage · #657033 moss · #D0A58A light → the record’s gold</span>
         </figcaption>
       </figure>
     </div>
@@ -252,42 +259,36 @@ html:not(.js) .bounds-ctl{display:none}
     <h2 id="start-h" class="mc-title reveal" style="max-width:22em">A research front door before the dossier.</h2>
     <nav class="doors reveal" aria-label="Start here">
       <a class="door" href="/missing-column/">
-        <span class="mono">01 · Latest evidence</span>
-        <strong>Inspect the Missing Column</strong>
-        <span class="desc">A bounded, source-bound census of whether public multi-guard evaluations retain joint evidence.</span>
+        <span class="mono">01 · The evidence</span>
+        <strong>Inspect the census</strong>
+        <span class="desc">Twenty public guardrail evaluations, examined against primary sources, with a live correction route.</span>
       </a>
-      <a class="door" href="/essays/when-marginals-are-not-enough/">
-        <span class="mono">02 · Formal theory</span>
-        <strong>See why marginals stop</strong>
-        <span class="desc">The sharp bound, witness worlds, and the precise point at which an independence assumption enters.</span>
+      <a class="door" href="/answers/why-guardrail-miss-rates-do-not-multiply/">
+        <span class="mono">02 · The arithmetic</span>
+        <strong>Why miss rates do not multiply</strong>
+        <span class="desc">Two 10% detectors miss together anywhere from 0% to 10%. Independence picks one point; the data does not.</span>
       </a>
-      <a class="door" href="/resume/">
+      <a class="door" href="/work/">
         <span class="mono">03 · Work together</span>
-        <strong>Research, engineering, assurance</strong>
-        <span class="desc">A short view of the programs, methods, and work I am looking to do next.</span>
+        <strong>Evaluation design and evidence audits</strong>
+        <span class="desc">Three concrete engagements, each with a stated artifact and a stated boundary.</span>
       </a>
     </nav>
   </section>
 
-  <!-- ================= THE MISSING COLUMN — campaign strip ================= -->
+  <!-- ================= THE MISSING COLUMN — what it is ================= -->
   <section class="container" id="missing-column" aria-labelledby="mc-h" style="padding-block:0">
     <div class="mc-strip reveal">
       <p class="kicker mono">The Missing Column — a source-bound census</p>
-      <h2 id="mc-h" class="mc-title">A static guardrail table can leave the joint outcome
-        unmeasured.</h2>
-      <div class="fig-scroll">
-      <table class="mc-motif">
-        <caption class="sr-only">Illustrative: four guardrails with individual catch
-          rates, and an unreported final column for a declared static composition.</caption>
-        <thead><tr><th scope="col">Guard A</th><th scope="col">Guard B</th><th scope="col">Guard C</th><th scope="col">Guard D</th><th scope="col" class="mc-stack">THE STACK</th></tr></thead>
-        <tbody><tr><td>91%</td><td>88%</td><td>94%</td><td>86%</td><td class="mc-missing"><span class="mono">not reported</span></td></tr></tbody>
-      </table>
-      </div>
-      <p class="mc-line">Illustrative numbers; the gap is the point. The individual columns
-        do not determine the last one — and I track which public evaluations preserve
-        joint-evidence artifacts, in a bounded census whose inclusion wording is locked in
-        repository history and whose headline is generated from a file anyone can
-        mechanically make false.</p>
+      <h2 id="mc-h" class="mc-title">Which public evaluations preserve the joint evidence,
+        and which leave it unmeasured?</h2>
+      <p class="mc-line">A bounded, single-reviewer inventory of public guardrail
+        evaluations, examined against primary sources. Every row binds to its source with
+        quoted passages, a fixed classification, and its own correction history. The
+        inclusion wording is locked in repository history before any row was classified,
+        the headline is regenerated from a file anyone can mechanically make false, and a
+        qualifying artifact the search missed rejects the current counts rather than being
+        absorbed quietly.</p>
       <div class="cta-row">
         <a class="btn btn-solid" href="/missing-column/">Inspect the census</a>
         <a class="btn" href="/missing-column/disclosure/">Publish the missing row</a>
@@ -674,10 +675,16 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
       </div>
     </div>
     <div class="foot-links mono">
-      <a class="u" href="/modules/">Modules</a>
-      <a class="u" href="/observatory/">Observatory</a>
+      <a class="u" href="/missing-column/">The Missing Column</a>
+      <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
+      <a class="u" href="/answers/why-guardrail-miss-rates-do-not-multiply/">Why miss rates do not multiply</a>
+      <a class="u" href="/answers/how-to-evaluate-guardrails-you-plan-to-stack/">Evaluating stacked guardrails</a>
+      <a class="u" href="/answers/what-does-the-second-guardrail-add/">What the second guard adds</a>
+      <a class="u" href="/work/">Work with me</a>
+      <a class="u" href="/observatory/">Claim observatory</a>
       <a class="u" href="/ledger/">Evidence ledger</a>
       <a class="u" href="/writing/">Writing</a>
+      <a class="u" href="/modules/">Modules</a>
       <a class="u" href="/archive/">Archive</a>
       <a class="u" href="/now/">Now</a>
       <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md">Design ledger ↗</a>

@@ -159,6 +159,10 @@ BINDINGS: list[tuple[str, str, str]] = [
      rf"{NUM}\s+provide one of the census(?:'s|&#x27;s)? declared"),
     ("MC-001.K", "the joint-evidence count K",
      rf"{NUM}\s+(?:provide|preserve|carry)\s+heterogeneous\s+joint-evidence"),
+    ("MC-001.K", "the joint-evidence count K",
+     rf"{NUM}\s+(?:provide|preserve|carry)\s+an?\s+joint-evidence artifact"),
+    ("MC-001.K", "the joint-evidence count K",
+     rf"{NUM}\s+preserve a joint-evidence artifact"),
     ("MC-001.K", "K described as a discovery count",
      rf"(?:the|its)\s+{NUM}\s+is\s+(?:an inclusive|a heterogeneous)"
      r"\s+discovery count"),
@@ -188,6 +192,11 @@ REQUIRED_BINDINGS: dict[str, set[str]] = {
     "ledger/index.html": {"MC-001.N", "MC-001.M1", "MC-001.K"},
     "observatory/index.html": {"MC-001.N", "MC-001.M1", "MC-001.K"},
     "resume/index.html": {"MC-001.N", "MC-001.M1", "MC-001.K"},
+    "index.html": {"MC-001.N", "MC-001.K", "MC-001.M3"},
+    "answers/why-guardrail-miss-rates-do-not-multiply/index.html": {
+        "MC-001.N", "MC-001.K", "MC-001.M3"},
+    "answers/how-to-evaluate-guardrails-you-plan-to-stack/index.html": {
+        "MC-001.N", "MC-001.M1", "MC-001.M2", "MC-001.M3"},
 }
 
 TRIPLE = re.compile(r"(\d{1,3})\s*/\s*(\d{1,3})\s*/\s*(\d{1,3})")
@@ -368,6 +377,12 @@ def audit_html(html_text: str, facts: dict[str, int], where: str,
     failures = check_marked_facts(html_text, facts, where)
     phrase_failures, bound = check_bound_phrases(html_text, facts, where)
     failures += phrase_failures
+    # A marked span is a stronger binding than a recognized phrasing, so it
+    # satisfies coverage on its own. Coverage asks whether the page still
+    # states the fact checkably, not which of the two mechanisms caught it.
+    for match in FACT_SPAN.finditer(html_text):
+        if 'data-fact-state="current"' in match.group("attrs"):
+            bound.add(match.group("fid"))
     failures += check_triples(html_text, facts, where, accepted)
     failures += check_historical_regions(html_text, where)
     for fid in sorted((required or set()) - bound):
