@@ -102,11 +102,11 @@ def article_jsonld(title: str, desc: str, path: str, published: str) -> str:
 
 # --------------------------------------------------------------- /work/
 def render_work() -> str:
-    title = "Work with Pranav Bhave — guardrail evaluation design and AI evidence audits"
-    desc = ("Three concrete engagements: designing a shared-item guardrail "
-            "stack evaluation, auditing what one AI claim's evidence actually "
-            "establishes, and threat-modelling what a provenance receipt can "
-            "identify. Artifacts, not certifications.")
+    title = "Work with me — evaluation design and evidence audits"
+    desc = ("Three engagements: designing a shared-item guardrail stack "
+            "evaluation, auditing what an AI claim's evidence establishes, and "
+            "threat-modelling a provenance receipt. Artifacts, not "
+            "certifications.")
     path = "/work/"
     head = page_head(title, desc, path, PAGE_CSS,
                      jsonld=article_jsonld(title, desc, path, "2026-08-30"))
@@ -250,9 +250,8 @@ def render_multiply(counts: dict) -> str:
     mc3 = load_expected("MC-003")
     title = "Why guardrail miss rates cannot simply be multiplied"
     desc = ("Two guardrails that each miss 10% of attacks do not miss 1% "
-            "together. The published miss rates pin the joint failure rate "
-            "only to an interval, and independence is one point inside it — "
-            "with a worked example from a public release.")
+            "together. Published miss rates pin the joint failure rate only to "
+            "an interval, and independence is one point inside it.")
     path = "/answers/why-guardrail-miss-rates-do-not-multiply/"
     head = page_head(title, desc, path, PAGE_CSS,
                      jsonld=article_jsonld(title, desc, path, "2026-08-30"))
@@ -374,10 +373,9 @@ def render_multiply(counts: dict) -> str:
 def render_evaluate(counts: dict) -> str:
     f = fact_registry.fact_span
     title = "How to evaluate AI guardrails you plan to stack"
-    desc = ("A checklist for evaluating guardrails that will be deployed "
-            "together: shared items, one event definition, matched operating "
-            "points, declared exposure, and the joint row that per-detector "
-            "scores cannot supply.")
+    desc = ("Six things to decide before you run: shared items, one event "
+            "definition, matched operating points, declared exposure, and the "
+            "joint row per-detector scores cannot supply.")
     path = "/answers/how-to-evaluate-guardrails-you-plan-to-stack/"
     head = page_head(title, desc, path, PAGE_CSS,
                      jsonld=article_jsonld(title, desc, path, "2026-08-30"))
@@ -483,10 +481,9 @@ def render_second_guard(counts: dict) -> str:
     mc2 = load_expected("MC-002")
     mc3 = load_expected("MC-003")
     title = "What does the second guardrail catch that the first one misses?"
-    desc = ("Residual coverage — what the second guardrail adds among the items "
-            "the first one missed — is not contained in any set of per-detector "
-            "scores, and leave-one-out unions identify it without releasing "
-            "raw items.")
+    desc = ("Residual coverage — what the second guardrail adds among items "
+            "the first one missed — is in no set of per-detector scores. "
+            "Leave-one-out unions identify it without releasing raw items.")
     path = "/answers/what-does-the-second-guardrail-add/"
     head = page_head(title, desc, path, PAGE_CSS,
                      jsonld=article_jsonld(title, desc, path, "2026-08-30"))

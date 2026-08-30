@@ -150,6 +150,8 @@ def head(title: str, description: str, canonical: str,
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:url" content="{esc(canonical)}">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta property="og:image:alt" content="Pranav Bhave, AI assurance research — measuring what guardrail stacks miss together">
+<meta name="twitter:image:alt" content="Pranav Bhave, AI assurance research — measuring what guardrail stacks miss together">
 <meta property="og:site_name" content="Cubits11">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">

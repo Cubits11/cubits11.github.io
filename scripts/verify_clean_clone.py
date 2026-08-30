@@ -27,6 +27,8 @@ CHECKS = (
     ("missing-column drift", "scripts/generate_missing_column.py", "--check"),
     ("fact-binding fixtures", "scripts/verify_facts.py", "--test"),
     ("current fact surfaces", "scripts/verify_facts.py"),
+    ("growth page drift", "scripts/generate_growth.py", "--check"),
+    ("acquisition surfaces", "scripts/verify_growth.py"),
     ("sitemap drift", "scripts/generate_sitemap.py", "--check"),
     ("MJGD identities", "scripts/mjgd_reference.py", "--test"),
     ("MJGD v1 fixtures", "scripts/validate_mjgd.py", "--test"),

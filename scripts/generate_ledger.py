@@ -143,6 +143,8 @@ def render(registry: dict) -> str:
 <meta property="og:description" content="Every technical claim this site renders, in envelope form: dimensions, immutable bindings, falsifiers, forbidden rescues, executable review triggers, freshness windows, non-claims.">
 <meta property="og:url" content="https://cubits11.github.io/ledger/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta property="og:image:alt" content="Pranav Bhave, AI assurance research — measuring what guardrail stacks miss together">
+<meta name="twitter:image:alt" content="Pranav Bhave, AI assurance research — measuring what guardrail stacks miss together">
 <meta property="og:site_name" content="Cubits11">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">

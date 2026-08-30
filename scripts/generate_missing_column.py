@@ -811,11 +811,10 @@ def render_landing(data: dict) -> str:
     rows = data.get("benchmarks") or []
     examined = [r for r in rows if r["status"] == "examined"]
     under_review = [r for r in rows if r["status"] == "under_review"]
-    title = "The Missing Column: what guardrail evaluations leave unmeasured — Pranav Bhave"
+    title = "The Missing Column — a guardrail evaluation census"
     desc = ("A bounded, source-bound inventory of which public guardrail "
             "evaluations preserve joint-evidence artifacts — union detection, "
-            "all-miss, composition results, or per-item outcomes — beside "
-            "per-system marginals.")
+            "all-miss, or per-item outcomes — beside per-system scores.")
     releases = counts["present_by_scope"].get("computable_via_item_release", 0)
     release_note = f" ({releases} via data release)" if releases else ""
     count_bar = (f"{counts['N']} examined · {counts['M_strata']['shared_basis']} shared "
@@ -1133,10 +1132,8 @@ def render_disclosure(data: dict) -> str:
     counts = verify_census.compute_counts(data)
     title = "Minimum Joint Guardrail Disclosure — Pranav Bhave"
     desc = ("A reporting standard small enough to paste into a results table: "
-            "what an evaluation of stacked guardrails must publish — union "
-            "detection, all-miss rate, denominator, event definition, "
-            "same-item confirmation — before anyone characterizes a stated "
-            "static composition.")
+            "union detection, all-miss rate, denominator, and event "
+            "definition — what to publish before characterizing a stack.")
     items = [
         ("Population and denominator",
          "What set of items, how many, and where they came from. Every joint "
