@@ -1058,13 +1058,13 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py"
       commit: null
       note: "Mutable link by design; the local-content trigger below detects edits."
-    last_reviewed: "2026-08-28"
+    last_reviewed: "2026-08-30"
     review_window_days: 120
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: scripts/verify_claims.py
-        sha256: "f388a0093251ea8e782c9774ea86e0becdced1676e4e145d7d64e7c75d9dc656"
+        sha256: "cc2427b8fd2bf9ae85f7176d3b0932eeb1d9c9aea993ee762f1a8b3e9345d8d8"
         note: fires when the verifier changes without a registry re-review
       - type: manual
         enforcement: manual
