@@ -16,6 +16,7 @@ to refuse).
 
 import datetime
 import pathlib
+import re
 import subprocess
 import sys
 
@@ -75,8 +76,14 @@ def main() -> int:
     if "--check" in sys.argv:
         current = target.read_text() if target.exists() else ""
         def urls(text: str) -> list:
-            return [line.strip() for line in text.splitlines()
-                    if "<loc>" in line]
+            """The URL identities alone.
+
+            Reading whole ``<loc>`` lines would fold each entry's lastmod
+            into the comparison, so a date-only change would be reported as
+            URL drift the check never established. A verifier that names the
+            wrong cause is the failure mode this site exists to refuse.
+            """
+            return re.findall(r"<loc>([^<]+)</loc>", text)
         if urls(current) != urls(out):
             print("DRIFT: sitemap.xml URL set does not match discovered pages.")
             print("Run: python scripts/generate_sitemap.py")

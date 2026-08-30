@@ -1,0 +1,257 @@
+# The campaign ledger — every acquisition path this record deliberately opens.
+#
+# This file is the attribution source of truth. A link that is not built from a
+# row here is not attributable, and an unattributable visit cannot be counted
+# toward the first hundred qualified humans. scripts/verify_growth.py checks
+# every row's shape, that its destination resolves to a committed page, and
+# that the URL it produces is well-formed.
+#
+# What this file is NOT: a traffic report. It records what was published and
+# where it pointed. Observed outcomes live in `observed:` and stay empty until
+# a real number is read off a real source. Unknown remains unknown.
+
+schema_version: 1
+owner: "Pranav Bhave"
+site: "https://cubits11.github.io"
+
+# The measurement contract this ledger serves.
+contract:
+  question: >
+    Did a real member of a target audience reach the record through a named
+    path, and did they perform an intent action once here?
+  qualified_human: >
+    A member of at least one target audience who arrives through an
+    attributable source and performs one intent action: reads the flagship
+    result, opens evidence or reproduction material, uses or copies the
+    disclosure, visits the resume or work surface, or replies, emails, cites,
+    stars, corrects, introduces, or requests a conversation.
+  excluded: >
+    Bots, purchased traffic, engagement pods, untargeted impressions, the
+    owner's own visits, and follower growth without an intent action. None of
+    these count, and none of them are reported as if they did.
+  privacy_stance: >
+    The site publishes no client-side analytics and sets no cookies, and that
+    claim is load-bearing in its colophon. Nothing in this ledger changes it.
+    Attribution here is built from campaign parameters that the destination
+    platform and the owner's own referrer sources can read, not from anything
+    the page does to a visitor. Adding any measurement endpoint would change a
+    public claim about this site and is therefore a deliberate, separately
+    reviewed act — never a side effect of a growth push.
+  sources_available_without_new_instrumentation:
+    - name: "GitHub repository traffic"
+      gives: "referrers and view counts for the repository, 14-day rolling window"
+      access: "repository Insights → Traffic; owner-authenticated"
+      status: "not read in this run — requires owner-authenticated access"
+    - name: "Platform post analytics"
+      gives: "impressions, link clicks, and profile visits per post"
+      access: "the posting account's own analytics view"
+      status: "not read in this run — no post has been published yet"
+    - name: "Direct human replies"
+      gives: "the only unambiguous qualified-human signal available here"
+      access: "email, issues, PRs, mentions, and citations"
+      status: "counted by hand in `observed:` as they arrive"
+  known_limits: >
+    A static site on GitHub Pages exposes no server logs to its owner, so
+    landing-page-level counts are not observable without instrumentation this
+    record has chosen not to add. Campaign parameters therefore attribute at
+    the source side (which post, which reply, which email) rather than the
+    destination side. At n = 100 nothing here is statistically significant;
+    every number this ledger ever reports is directional and labelled so.
+
+# Campaign parameter vocabulary. Fixed, so two posts about the same thing are
+# comparable and a typo is a verifier failure rather than a silent new bucket.
+vocabulary:
+  utm_source: [x, linkedin, hn, github, email, lobsters, reddit, direct]
+  utm_medium: [social, reply, profile, outreach, forum, readme, signature]
+  utm_campaign: [missing-column-launch, disclosure-adoption, work-with-me]
+  utm_content: []   # free text per row, validated as slug-shaped
+
+# Destinations, by funnel stage. Every campaign row must name one of these.
+destinations:
+  flagship: "/missing-column/"
+  proof: "/essays/when-marginals-are-not-enough/"
+  disclosure: "/missing-column/disclosure/"
+  census_rows: "/missing-column/#census"
+  arithmetic: "/answers/why-guardrail-miss-rates-do-not-multiply/"
+  evaluating: "/answers/how-to-evaluate-guardrails-you-plan-to-stack/"
+  second_guard: "/answers/what-does-the-second-guardrail-add/"
+  preflight: "/stack-study/"
+  work: "/work/"
+  resume: "/resume/"
+  ledger: "/ledger/"
+  corrections: "/corrections/"
+  home: "/"
+
+# Baseline, established before anything ships. Observed values only.
+baseline:
+  established: "2026-08-30"
+  method: >
+    Read from this repository and this run. No live-site or platform figure
+    was read: the sandbox executing this run cannot reach cubits11.github.io
+    or any analytics surface, so every destination-side number below is
+    recorded as unavailable rather than estimated.
+  observed:
+    published_campaign_links: 0
+    qualified_visitors: unavailable
+    flagship_evidence_actions: unavailable
+    external_interactions: 0
+    substantive_conversations: 0
+    external_citations_or_uses: 0
+  unavailable:
+    - "live-site page views (no server logs, no analytics, egress-blocked here)"
+    - "search impressions and queries (Search Console not connected in this run)"
+    - "repository traffic referrers (requires owner-authenticated access)"
+
+targets:
+  window_days: 30
+  starts: "2026-08-30"
+  directional: true
+  qualified_visitors: 100
+  flagship_evidence_actions: 30
+  external_interactions: 10
+  substantive_conversations: 3
+  external_uses: 1     # a citation, author response, correction, disclosure use, or reproduction
+  note: >
+    Operating targets, not predictions. At this scale, results are directional
+    and must be labelled so; no significance is claimed or manufactured.
+
+campaigns:
+  - id: x-pinned-missing-column
+    audience: "AI evaluation and benchmark authors"
+    surface: x
+    utm: {source: x, medium: profile, campaign: missing-column-launch, content: pinned}
+    destination: flagship
+    intended_action: "open the census and read a row's source binding"
+    success_signal: "a benchmark author replies, corrects a row, or opens an issue"
+
+  - id: x-arithmetic-thread
+    audience: "guardrail and AI-security engineers"
+    surface: x
+    utm: {source: x, medium: social, campaign: missing-column-launch, content: arithmetic}
+    destination: arithmetic
+    intended_action: "read the interval and the worked BELLS recomputation"
+    success_signal: "a practitioner says they will measure the joint row"
+
+  - id: x-disclosure-ask
+    audience: "AI evaluation and benchmark authors"
+    surface: x
+    utm: {source: x, medium: social, campaign: disclosure-adoption, content: template}
+    destination: disclosure
+    intended_action: "copy the disclosure table into a results section"
+    success_signal: "an evaluation publishes a union or all-miss row"
+
+  - id: x-second-guard
+    audience: "teams justifying a second detector"
+    surface: x
+    utm: {source: x, medium: social, campaign: missing-column-launch, content: residual}
+    destination: second_guard
+    intended_action: "read residual coverage and leave-one-out unions"
+    success_signal: "a reply describing a stack where this was measured"
+
+  - id: x-reply-generic
+    audience: "authors and engineers in live threads"
+    surface: x
+    utm: {source: x, medium: reply, campaign: missing-column-launch, content: reply}
+    destination: arithmetic
+    intended_action: "one specific, useful answer in someone else's thread"
+    success_signal: "a substantive response from the thread's author"
+
+  - id: linkedin-launch
+    audience: "hiring managers and assurance leads"
+    surface: linkedin
+    utm: {source: linkedin, medium: social, campaign: missing-column-launch, content: launch}
+    destination: flagship
+    intended_action: "read the finding and open the census"
+    success_signal: "an inbound conversation about assurance or evaluation work"
+
+  - id: linkedin-work
+    audience: "hiring managers and prospective collaborators"
+    surface: linkedin
+    utm: {source: linkedin, medium: profile, campaign: work-with-me, content: about}
+    destination: work
+    intended_action: "read one engagement and email"
+    success_signal: "an email naming a results table, a claim, or a receipt format"
+
+  - id: email-benchmark-authors
+    audience: "authors of specific examined evaluations"
+    surface: email
+    utm: {source: email, medium: outreach, campaign: disclosure-adoption, content: author}
+    destination: census_rows
+    intended_action: "check how their own evaluation is recorded and correct it if wrong"
+    success_signal: "an author reply, a correction, or a published joint row"
+
+  - id: hn-submission
+    audience: "technically serious readers and curators"
+    surface: hn
+    utm: {source: hn, medium: forum, campaign: missing-column-launch, content: submission}
+    destination: flagship
+    intended_action: "read the census and challenge a classification"
+    success_signal: "a comment that finds a qualifying evaluation the search missed"
+
+  - id: github-profile-readme
+    audience: "engineers and researchers arriving from code"
+    surface: github
+    utm: {source: github, medium: readme, campaign: missing-column-launch, content: profile}
+    destination: flagship
+    intended_action: "open the census from the profile"
+    success_signal: "a star, a fork of the disclosure implementation, or an issue"
+
+  - id: x-identity-post
+    audience: "all five target audiences"
+    surface: x
+    utm: {source: x, medium: social, campaign: missing-column-launch, content: pinned}
+    destination: home
+    intended_action: "understand what Pranav works on in one post"
+    success_signal: "a follow from a target audience, or a question about the method"
+
+  - id: x-evaluating-checklist
+    audience: "evaluation designers"
+    surface: x
+    utm: {source: x, medium: social, campaign: missing-column-launch, content: arithmetic}
+    destination: evaluating
+    intended_action: "decide the exposure condition before collecting data"
+    success_signal: "a question about declaring exposure conditions"
+
+  - id: x-correction-post
+    audience: "researchers and technically serious writers"
+    surface: x
+    utm: {source: x, medium: social, campaign: missing-column-launch, content: reply}
+    destination: corrections
+    intended_action: "read how this record handles being wrong"
+    success_signal: "a citation of the correction model, or a reply about evidence practice"
+
+  - id: x-deployment-caveat
+    audience: "AI-security and platform engineers"
+    surface: x
+    utm: {source: x, medium: social, campaign: missing-column-launch, content: arithmetic}
+    destination: preflight
+    intended_action: "run the preflight before designing the study"
+    success_signal: "someone finds their evaluation and deployment are in different regimes"
+
+  - id: linkedin-correction
+    audience: "hiring managers and researchers"
+    surface: linkedin
+    utm: {source: linkedin, medium: social, campaign: missing-column-launch, content: launch}
+    destination: corrections
+    intended_action: "read the correction record as a statement of practice"
+    success_signal: "an inbound conversation about evidence practice or hiring"
+
+  - id: community-checklist
+    audience: "practitioners deploying guardrails"
+    surface: lobsters
+    utm: {source: lobsters, medium: forum, campaign: missing-column-launch, content: arithmetic}
+    destination: evaluating
+    intended_action: "discuss the checklist and contribute a missing condition"
+    success_signal: "a practitioner adds a condition worth putting on the page"
+
+  - id: email-signature
+    audience: "everyone Pranav already corresponds with"
+    surface: email
+    utm: {source: email, medium: signature, campaign: missing-column-launch, content: sig}
+    destination: home
+    intended_action: "one low-friction path from existing correspondence"
+    success_signal: "a reply mentioning the missing column"
+
+# Observed results. One row per reading, each naming where the number came
+# from. Empty until a real source is read; an empty list is an honest baseline.
+readings: []

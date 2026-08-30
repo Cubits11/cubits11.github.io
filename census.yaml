@@ -81,7 +81,7 @@
 
 census:
   id: MC-CENSUS-001
-  schema_version: 2
+  schema_version: 3
   criteria_version: 1
   frozen_as_of: "2026-08-27"
   maintainer: Pranav Bhave
@@ -304,6 +304,29 @@ census:
         MC-001 was re-reviewed as a corrected, superseding 20/14/5 proposition
         rather than preserving the old result. The frozen inclusion wording
         and the UnsafeBench exclusion are unchanged.
+    - date: "2026-08-30"
+      change: >
+        Schema v3, prompted by a public self-contradiction rather than by any
+        evidence error. The flagship page derived its headline K from
+        compute_counts and, four paragraphs later, stated a hand-typed K of 4
+        in its non-claims list. Every gate passed: the census was internally
+        coherent, the HTML matched its generator byte-for-byte, the deployed
+        checksum matched, and the deployed smoke test asserted N and the M
+        ladder but never K. The record's promise is that public claims stay
+        bound to their evidence, so a page publicly stating two values for its
+        own headline quantity is a release blocker and not a typo. Three
+        changes follow. (1) Rows may declare joint_scope_additional, so a row
+        carrying two kinds of joint evidence says so as data; the counts of
+        artifacts that print a composition result, that release aligned
+        per-item outcomes, and that do both are now derived by compute_counts
+        instead of counted by hand in prose. No row's classification,
+        evidence, or primary joint_scope changed, and N, M, K and the M ladder
+        are unchanged at 20/14/5 and 14/12/0. (2) Every census quantity the
+        site states now carries a stable identity, checked against this file
+        on every push and against the served bytes after every deploy. (3)
+        Historical counts must date themselves in markup; an undated
+        superseded envelope now fails CI. This entry records a verification
+        failure, not a measurement failure.
 benchmarks:
   - id: openai-holistic-2022
     status: examined
@@ -1505,6 +1528,13 @@ benchmarks:
       pairwise/three-way intersection is directly computable for the
       complete released population.
     joint_scope: computable_via_item_release
+    # A row's joint_scope names its primary evidence. This row carries a
+    # second, non-interchangeable kind, and the overlap was previously
+    # legible only in prose — which is how a hand-typed count of it entered
+    # the record. Declaring it here makes every scope-derived count
+    # mechanical.
+    joint_scope_additional:
+      - printed_partial_stack
     classification: PRESENT
     classification_reason: >
       PRESENT on two grounds: the source prints named pairwise guard

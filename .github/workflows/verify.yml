@@ -43,6 +43,22 @@ jobs:
         run: python scripts/generate_observatory.py --check
       - name: Missing Column pages are generated, not hand-edited (drift check)
         run: python scripts/generate_missing_column.py --check
+      # A drift check proves the HTML matches its generator. It cannot prove
+      # the page agrees with itself: a generator that derives one sentence
+      # from the census and hand-types the next passes it. These two gates
+      # bind every current numeral to the quantity it asserts.
+      - name: Fact binding holds under adversarial fixtures
+        run: python scripts/verify_facts.py --test
+      - name: Every current factual surface agrees with the census
+        run: python scripts/verify_facts.py
+      - name: Growth pages are generated, not hand-edited (drift check)
+        run: python scripts/generate_growth.py --check
+      # The acquisition layer is where a rigorous record usually starts
+      # lying: a title that overpromises, a campaign link pointing at a moved
+      # route, an identity sentence that drifts between profiles. Same
+      # standard as the evidence layer.
+      - name: Acquisition surfaces (titles, canonicals, CTAs, attribution)
+        run: python scripts/verify_growth.py
       - name: Sitemap matches pages, lastmod matches history (drift check)
         run: python scripts/generate_sitemap.py --check
       - name: Disclosure arithmetic holds its identities

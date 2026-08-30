@@ -1,0 +1,263 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: census.yaml · renderer: scripts/generate_missing_column.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What does the second guardrail catch that the first one misses?</title>
+<meta name="description" content="Residual coverage — what the second guardrail adds among items the first one missed — is in no set of per-detector scores. Leave-one-out unions identify it without releasing raw items.">
+<link rel="canonical" href="https://cubits11.github.io/answers/what-does-the-second-guardrail-add/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="What does the second guardrail catch that the first one misses?">
+<meta property="og:description" content="Residual coverage — what the second guardrail adds among items the first one missed — is in no set of per-detector scores. Leave-one-out unions identify it without releasing raw items.">
+<meta property="og:url" content="https://cubits11.github.io/answers/what-does-the-second-guardrail-add/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta property="og:site_name" content="Cubits11">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta name="twitter:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta name="robots" content="max-image-preview:large">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "What does the second guardrail catch that the first one misses?",
+  "description": "Residual coverage — what the second guardrail adds among items the first one missed — is in no set of per-detector scores. Leave-one-out unions identify it without releasing raw items.",
+  "url": "https://cubits11.github.io/answers/what-does-the-second-guardrail-add/",
+  "datePublished": "2026-08-30",
+  "dateModified": "2026-08-30",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "author": {
+    "@type": "Person",
+    "name": "Pranav Bhave",
+    "url": "https://cubits11.github.io",
+    "sameAs": [
+      "https://github.com/Cubits11"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Pranav Bhave",
+    "url": "https://cubits11.github.io"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://cubits11.github.io/answers/what-does-the-second-guardrail-add/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<script defer src="/assets/site.js"></script>
+<style>
+body{font-size:1rem;line-height:1.65}
+.container{width:min(1060px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.68rem}
+header.page{padding:7.9rem 0 2.2rem}
+h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 0 1rem;letter-spacing:-.018em}
+.intro{color:var(--muted);max-width:48em}
+.zone{margin-top:4rem;border-top:1px solid var(--line);padding-top:2rem}
+.zone h2{font-weight:520;font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 .6rem;letter-spacing:-.01em}
+.zone .zone-intro{color:var(--muted);max-width:46em}
+.zone h3{font-weight:520;margin:1.6rem 0 .5rem}
+.fig-scroll{overflow-x:auto}
+.wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
+.wall-row{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
+.wall-row:last-child{border-bottom:none}
+.wall-id{color:var(--gold);overflow-wrap:anywhere}
+.manual-list{margin:1.2rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.manual-list li{margin:.35rem 0}
+.ur-title{margin:0 0 .3rem}
+.ur-note{margin:0;color:var(--muted);font-size:.92rem}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+
+.lede-big{font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.55;max-width:34em}
+.answer{max-width:44em}
+.answer p{margin:0 0 1rem}
+.answer h2{margin-top:2.4rem}
+.answer h3{margin-top:1.6rem}
+.callout{border-left:3px solid var(--gold);padding:.9rem 0 .9rem 1.1rem;margin:1.6rem 0;background:var(--surface)}
+.callout p{margin:0}
+.numline{display:flex;flex-wrap:wrap;gap:1.6rem;margin:1.4rem 0;padding:1rem 1.2rem;border:1px solid var(--line-strong);background:var(--surface)}
+.numline div{min-width:7rem}
+.numline b{display:block;font-size:1.5rem;font-weight:520;line-height:1.1}
+.numline span{color:var(--muted);font-size:.72rem}
+.offer{border:1px solid var(--line-strong);background:var(--surface);padding:1.6rem 1.5rem;margin-top:1.6rem}
+.offer h3{margin:0 0 .5rem;font-size:1.22rem}
+.offer dl{margin:1rem 0 0;display:grid;grid-template-columns:9rem 1fr;gap:.5rem 1rem;font-size:.94rem}
+.offer dt{color:var(--gold);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;padding-top:.22rem}
+.offer dd{margin:0;color:var(--muted)}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.next{margin-top:2.6rem;border-top:1px solid var(--line);padding-top:1.4rem}
+.next .mono{color:var(--gold)}
+@media (max-width:600px){.offer dl{grid-template-columns:1fr}.offer dt{padding-top:.6rem}}
+
+@media (max-width:600px){.wall-row{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/missing-column/">The Missing Column</a>
+      <a href="/observatory/">Evidence</a>
+      <a href="/writing/">Writing</a>
+      <a href="/work/">Work with me</a>
+      <a href="/resume/">About</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>Answer</b> — for teams justifying a second detector</span>
+    <span>evidence: <a class="u" href="/ledger/#MC-003">MC-003</a></span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "The record",
+      "item": "https://cubits11.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Answers"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "What the second guardrail adds"
+    }
+  ]
+}
+</script>
+    <h1>What does the second guardrail catch that the first one misses?</h1>
+    <p class="intro lede-big">This is the question that justifies the second
+      detector's cost, latency, and false positives. No column in a standard
+      guardrail results table answers it.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <div class="answer">
+    <h2>Residual coverage is a different quantity</h2>
+    <p>Say detector A catches 80% and detector B catches 70%. B's headline
+      number is measured over <em>all</em> items. The question you actually have
+      is narrower: among the 20% that A let through, how many does B stop?</p>
+    <p>That conditional rate can be anything from 0% to 100% while both headline
+      numbers stay exactly as published. A second detector that is excellent
+      overall and blind to precisely A's blind spots contributes nothing to the
+      stack — and its published score looks identical to one that closes every
+      gap.</p>
+    <div class="callout">
+      <p>Residual coverage is not derivable from marginal scores. It is a
+        property of how the detectors fail <em>together</em>, and per-detector
+        columns contain no information about that.</p>
+    </div>
+
+    <h2>The measurement is cheap if you kept the items</h2>
+    <p>With one decision per item per system, residual coverage is a filter and
+      a count: take the items the first guard missed, and count how many the
+      second caught. No new experiment, no new inference.</p>
+    <p>If you cannot release per-item outcomes, there is a compact alternative
+      that identifies the same thing. Publish the union with each guard removed
+      in turn — a <em>leave-one-out</em> union. The gap between the full union
+      and the union without guard <em>g</em> is exactly the set of items only
+      <em>g</em> catches: its exclusive contribution to the stack.</p>
+
+    <h2>What that looks like on real data</h2>
+    <p>On the harmful stratum of the BELLS 2025 released subset
+      (82 prompts, five specialized supervisors, union catches
+      73), the registered leave-one-out unions identify each supervisor's
+      exclusive full-stack coverage:</p>
+    <div class="numline"><div><b>18</b><span>nemo</span></div><div><b>3</b><span>lakera guard</span></div><div><b>0</b><span>prompt guard</span></div><div><b>0</b><span>langkit</span></div><div><b>0</b><span>llm guard</span></div></div>
+    <p>Three of the five contribute nothing exclusive on this stratum: remove
+      them and the union is unchanged. Marginal catch counts alone would have
+      bounded each guard's exclusive coverage only loosely — for example
+      0 to
+      21 items for the
+      strongest member. The leave-one-out unions identify the realized values.</p>
+    <div class="callout">
+      <p><b>Scope, strictly.</b> One author-selected subset, one stratum, at
+        unstated default configurations. This is not a vendor ranking, not a
+        causal attribution, and not evidence about any product outside this
+        file. One supervisor fires exactly once in the whole released set.
+        Leave-one-out unions identify exclusive coverage only — not pairwise
+        overlap, Shapley values, or causal contribution.</p>
+    </div>
+
+    <h2>The cost side of the ledger</h2>
+    <p>Adding a guard also adds false positives, and that direction <em>is</em>
+      partly identified by the marginals: if any member flags benign traffic at
+      a positive rate, the stack's benign flag rate has a strictly positive
+      floor. On the same released file, the five-supervisor union flags
+      19 of 50 benign prompts. A
+      second detector that adds no exclusive coverage still adds burden.</p>
+    
+  <div class="next">
+    <p class="mono">Next</p>
+    <p>The Minimum Joint Guardrail Disclosure specifies the residual-coverage and leave-one-out rows, with a tested reference implementation.</p>
+    <div class="cta-row"><a class="btn btn-solid" href="/missing-column/disclosure/">Publish the missing row</a><a class="btn" href="/missing-column/#residual-zone">See the residual figure</a><a class="btn" href="/ledger/#MC-003">Read the identification claim</a></div>
+  </div>
+  </div>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/missing-column/">The Missing Column</a>
+      <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
+      <a class="u" href="/answers/why-guardrail-miss-rates-do-not-multiply/">Why miss rates do not multiply</a>
+      <a class="u" href="/answers/how-to-evaluate-guardrails-you-plan-to-stack/">Evaluating stacked guardrails</a>
+      <a class="u" href="/answers/what-does-the-second-guardrail-add/">What the second guard adds</a>
+      <a class="u" href="/corrections/">Corrections policy</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/observatory/">Claim observatory</a>
+      <a class="u" href="/modules/">Modules</a>
+      <a class="u" href="/archive/">Archive</a>
+      <a class="u" href="/stack-study/">Study preflight</a>
+      <a class="u" href="/work/">Work with me</a>
+      <a class="u" href="/">← The record</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>

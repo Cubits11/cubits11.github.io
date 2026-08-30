@@ -1,0 +1,289 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: census.yaml · renderer: scripts/generate_missing_column.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why guardrail miss rates cannot simply be multiplied</title>
+<meta name="description" content="Two guardrails that each miss 10% of attacks do not miss 1% together. Published miss rates pin the joint failure rate only to an interval, and independence is one point inside it.">
+<link rel="canonical" href="https://cubits11.github.io/answers/why-guardrail-miss-rates-do-not-multiply/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Why guardrail miss rates cannot simply be multiplied">
+<meta property="og:description" content="Two guardrails that each miss 10% of attacks do not miss 1% together. Published miss rates pin the joint failure rate only to an interval, and independence is one point inside it.">
+<meta property="og:url" content="https://cubits11.github.io/answers/why-guardrail-miss-rates-do-not-multiply/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta property="og:site_name" content="Cubits11">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta name="twitter:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta name="robots" content="max-image-preview:large">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Why guardrail miss rates cannot simply be multiplied",
+  "description": "Two guardrails that each miss 10% of attacks do not miss 1% together. Published miss rates pin the joint failure rate only to an interval, and independence is one point inside it.",
+  "url": "https://cubits11.github.io/answers/why-guardrail-miss-rates-do-not-multiply/",
+  "datePublished": "2026-08-30",
+  "dateModified": "2026-08-30",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "author": {
+    "@type": "Person",
+    "name": "Pranav Bhave",
+    "url": "https://cubits11.github.io",
+    "sameAs": [
+      "https://github.com/Cubits11"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Pranav Bhave",
+    "url": "https://cubits11.github.io"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://cubits11.github.io/answers/why-guardrail-miss-rates-do-not-multiply/"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<script defer src="/assets/site.js"></script>
+<style>
+body{font-size:1rem;line-height:1.65}
+.container{width:min(1060px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.68rem}
+header.page{padding:7.9rem 0 2.2rem}
+h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 0 1rem;letter-spacing:-.018em}
+.intro{color:var(--muted);max-width:48em}
+.zone{margin-top:4rem;border-top:1px solid var(--line);padding-top:2rem}
+.zone h2{font-weight:520;font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 .6rem;letter-spacing:-.01em}
+.zone .zone-intro{color:var(--muted);max-width:46em}
+.zone h3{font-weight:520;margin:1.6rem 0 .5rem}
+.fig-scroll{overflow-x:auto}
+.wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
+.wall-row{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
+.wall-row:last-child{border-bottom:none}
+.wall-id{color:var(--gold);overflow-wrap:anywhere}
+.manual-list{margin:1.2rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.manual-list li{margin:.35rem 0}
+.ur-title{margin:0 0 .3rem}
+.ur-note{margin:0;color:var(--muted);font-size:.92rem}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+
+.lede-big{font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.55;max-width:34em}
+.answer{max-width:44em}
+.answer p{margin:0 0 1rem}
+.answer h2{margin-top:2.4rem}
+.answer h3{margin-top:1.6rem}
+.callout{border-left:3px solid var(--gold);padding:.9rem 0 .9rem 1.1rem;margin:1.6rem 0;background:var(--surface)}
+.callout p{margin:0}
+.numline{display:flex;flex-wrap:wrap;gap:1.6rem;margin:1.4rem 0;padding:1rem 1.2rem;border:1px solid var(--line-strong);background:var(--surface)}
+.numline div{min-width:7rem}
+.numline b{display:block;font-size:1.5rem;font-weight:520;line-height:1.1}
+.numline span{color:var(--muted);font-size:.72rem}
+.offer{border:1px solid var(--line-strong);background:var(--surface);padding:1.6rem 1.5rem;margin-top:1.6rem}
+.offer h3{margin:0 0 .5rem;font-size:1.22rem}
+.offer dl{margin:1rem 0 0;display:grid;grid-template-columns:9rem 1fr;gap:.5rem 1rem;font-size:.94rem}
+.offer dt{color:var(--gold);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;padding-top:.22rem}
+.offer dd{margin:0;color:var(--muted)}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.next{margin-top:2.6rem;border-top:1px solid var(--line);padding-top:1.4rem}
+.next .mono{color:var(--gold)}
+@media (max-width:600px){.offer dl{grid-template-columns:1fr}.offer dt{padding-top:.6rem}}
+
+@media (max-width:600px){.wall-row{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/missing-column/">The Missing Column</a>
+      <a href="/observatory/">Evidence</a>
+      <a href="/writing/">Writing</a>
+      <a href="/work/">Work with me</a>
+      <a href="/resume/">About</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>Answer</b> — for engineers stacking guardrails</span>
+    <span>evidence: <a class="u" href="/ledger/#MC-003">MC-003</a> · <a class="u" href="/ledger/#MC-002">MC-002</a></span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "The record",
+      "item": "https://cubits11.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Answers"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Why miss rates do not multiply"
+    }
+  ]
+}
+</script>
+    <h1>Why guardrail miss rates cannot simply be multiplied</h1>
+    <p class="intro lede-big">Two guardrails that each miss 10% of attacks do not
+      miss 1% together. That number is a modelling choice, and the data you have
+      does not license it.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <div class="answer">
+    <h2>The short version</h2>
+    <p>You have two detectors. Each is published at a 10% miss rate on the same
+      items. You stack them: block if either fires. What fraction gets through
+      both?</p>
+    <p>The multiplication answer is 0.10 × 0.10 = 1%. It is the number almost
+      everyone reaches for, and it is only correct if the two detectors fail on
+      unrelated items. Nothing in the published rates tells you whether they do.</p>
+    <div class="callout">
+      <p>From two 10% miss rates alone, the rate at which <em>both</em> miss the
+        same item is pinned only to the interval <b>[0%, 10%]</b> — and every
+        value in it is achievable by some real pairing of those detectors.
+        Independence picks 1%. The evidence does not.</p>
+    </div>
+    <p>The upper end is what happens when the second detector fails on exactly
+      the items the first one fails on — it catches nothing the first did not,
+      and the stack is no better than its best member. The lower end is what
+      happens when their failures are arranged to avoid each other completely.
+      Both are consistent with the same two published numbers.</p>
+
+    <h2>Where the interval comes from</h2>
+    <p>For <em>k</em> guardrails scored on a common item set at a common
+      operating point, under block-on-any composition, the all-miss rate is
+      identified by the per-guard miss rates only up to</p>
+    <p class="mono" style="padding:.8rem 1rem;border:1px solid var(--line-strong);background:var(--surface)">
+      [ max(0, Σp − (k−1)),&nbsp; min p ]</p>
+    <p>The upper endpoint is monotonicity: everyone missing together cannot
+      happen more often than the most accurate member misses at all. The lower
+      endpoint is Bonferroni. Both endpoints are attained — they are not
+      conservative padding, they are reachable by actual joint distributions.
+      This is classical Fréchet–Hoeffding; no new mathematics is claimed. What
+      it prices, in probability units, is how much marginal-only guardrail
+      reporting leaves undetermined.</p>
+    <p>Note what this does <em>not</em> say. Marginals do prove that a static OR
+      composition is never worse than its best member. What they cannot
+      establish, whenever that interval is non-degenerate, is any strictly
+      positive incremental benefit from adding the second guard.</p>
+
+    <h2>A worked case where the number was actually recoverable</h2>
+    <p>Most evaluations make this uncheckable, because they never release
+      per-item outcomes. One did. The BELLS 2025 misuse-detection evaluation
+      published a 170-prompt subset with per-item verdicts for
+      five specialized supervisors, so the joint behaviour can be recomputed
+      rather than assumed.</p>
+    <div class="numline">
+      <div><b>82</b><span>prompts labelled harmful</span></div>
+      <div><b>73</b><span>caught by the OR-union</span></div>
+      <div><b>9</b><span>missed by all five</span></div>
+      <div><b>3.1×</b><span>the independence plug-in</span></div>
+    </div>
+    <p>The product of the five individual miss rates predicts 3.5%. Recomputing
+      from the released verdict file gives 9/82,
+      about 3.1 times that. The identified interval on this file is the
+      finite set {0/82 …
+      12/82} — so the recomputed
+      value sits inside a range the marginals never narrowed.</p>
+    <div class="callout">
+      <p><b>Scope, strictly.</b> This is counting arithmetic on one
+        author-selected subset at the vendors' released default configurations.
+        It is not a population estimate, not a vendor ranking, and not evidence
+        that guardrails in general fail together. It is one case where the
+        assumption could be checked, and it did not hold in the optimistic
+        direction.</p>
+    </div>
+
+    <h2>What to do instead</h2>
+    <p>Measure the stack on the same items you measured the parts on. Two
+      numbers are enough to start: how often the union catches, and how often
+      everything misses — over one denominator, with one event definition, at
+      declared operating points. That is the
+      <a class="u" href="/missing-column/disclosure/">Minimum Joint Guardrail
+      Disclosure</a>, and if you kept one decision per item per system you
+      already have the data.</p>
+    <p>Across the
+      <span data-fact="MC-001.N" data-fact-state="current">20</span>
+      public guardrail evaluations examined in the Missing Column Census,
+      <span data-fact="MC-001.K" data-fact-state="current">5</span> preserve an artifact from which a joint
+      statistic can be read or recomputed.
+      <span data-fact="MC-001.M3" data-fact-state="current">0</span>
+      document matched operating thresholds together with full exposure.</p>
+    
+  <div class="next">
+    <p class="mono">Next</p>
+    <p>See which evaluations preserve the joint evidence and which do not — every row bound to its primary source, with a correction route.</p>
+    <div class="cta-row"><a class="btn btn-solid" href="/missing-column/">Inspect the census</a><a class="btn" href="/missing-column/disclosure/">Publish the missing row</a><a class="btn" href="/essays/when-marginals-are-not-enough/">The five-minute proof</a></div>
+  </div>
+  </div>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/missing-column/">The Missing Column</a>
+      <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
+      <a class="u" href="/answers/why-guardrail-miss-rates-do-not-multiply/">Why miss rates do not multiply</a>
+      <a class="u" href="/answers/how-to-evaluate-guardrails-you-plan-to-stack/">Evaluating stacked guardrails</a>
+      <a class="u" href="/answers/what-does-the-second-guardrail-add/">What the second guard adds</a>
+      <a class="u" href="/corrections/">Corrections policy</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/observatory/">Claim observatory</a>
+      <a class="u" href="/modules/">Modules</a>
+      <a class="u" href="/archive/">Archive</a>
+      <a class="u" href="/stack-study/">Study preflight</a>
+      <a class="u" href="/work/">Work with me</a>
+      <a class="u" href="/">← The record</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>

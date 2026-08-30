@@ -141,7 +141,7 @@ modules:
     slug: 003-kernel-of-a-receipt
     title: Kernel of a receipt
     question: >
-      When a governance receipt verifies, what exactly has been identified?
+      When a governance receipt verifies, what exactly has been identified — and which transformations leave that identity ambiguous?
     thesis: >
       An execution is identified only up to the kernel of the receipt
       system's whole parse → canonicalize → digest pipeline. Receipt
@@ -229,7 +229,7 @@ modules:
     slug: 005-claims-expire
     title: Claims expire
     question: >
-      What happens to a claim when the world that supported it moves on?
+      What happens to a claim when the world that supported it moves on, and what should a public record do about it?
     thesis: >
       Its warrant decays even though its words do not change. Freshness is
       therefore part of a claim's structure: every claim in this site's

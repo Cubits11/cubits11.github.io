@@ -29,6 +29,7 @@ import sys
 import generate_ledger as ledger
 import identification
 import validate_mjgd
+import facts as fact_registry
 import verify_census
 
 esc = ledger.esc
@@ -238,14 +239,20 @@ def render_headline(census: dict, counts: dict) -> str:
         if scopes.get(key):
             scope_bits.append(f'{scopes[key]} {SCOPE_LABELS[key]}')
     scope_line = (" · ".join(scope_bits)) if scope_bits else "—"
+    # Identity, not just value: each numeral below says which census quantity
+    # it is, so a later edit that retypes one is a failure rather than a
+    # second opinion.
+    f = fact_registry.fact_span
+    strata = counts["M_strata"]
+    modes = counts["K_evidence_modes"]
     return f'''
     <div class="headline">
       <p class="mono head-kicker">The census result — regenerated from the source file</p>
       <p class="head-prop">{esc(proposition)}</p>
-      <p class="mono head-scope">The {counts["K"]} is a heterogeneous discovery count, not one deployment estimand. Its primary joint-evidence classification splits as: {esc(scope_line)}. A row can expose additional joint evidence; its detail records that overlap.</p>
-      <p class="mono head-scope">The {counts["M"]} is a ladder, not a verdict — {counts["M_strata"]["shared_basis"]} document a
-        shared item set and a common event definition · {counts["M_strata"]["threshold_not_contradicted"]} have no stated
-        threshold mismatch · {counts["M_strata"]["threshold_documented_full_exposure"]} document matched
+      <p class="mono head-scope">The {f("MC-001.K", counts["K"])} is a heterogeneous discovery count, not one deployment estimand. Its primary joint-evidence classification splits as: {esc(scope_line)}. {f("MC-001.K.prints_composition_result", modes["prints_composition_result"])} artifacts print at least one composition result and {f("MC-001.K.releases_computable_items", modes["releases_computable_items"])} release aligned per-item outcomes; {f("MC-001.K.does_both", modes["does_both"])} artifact does both, so those descriptions overlap by construction.</p>
+      <p class="mono head-scope">The {f("MC-001.M", counts["M"])} is a ladder, not a verdict — {f("MC-001.M1", strata["shared_basis"])} document a
+        shared item set and a common event definition · {f("MC-001.M2", strata["threshold_not_contradicted"])} have no stated
+        threshold mismatch · {f("MC-001.M3", strata["threshold_documented_full_exposure"])} document matched
         operating thresholds together with full exposure.</p>
       <p class="head-note">A qualifying artifact this search missed, or a row shown to be
         misclassified, changes these numbers — the criteria and the correction route are
@@ -515,7 +522,7 @@ def render_revisions(census: dict, examined: list) -> str:
       ({row_corrections} recorded) live inside each row above. The canonical
       <a class="u" href="/corrections/">correction policy</a> states the
       response and logging rules.</p>
-    <ul class="manual-list">{"".join(entries)}</ul>
+    <ul class="manual-list" data-fact-state="historical">{"".join(entries)}</ul>
     <div class="correct-route">
       <h3 class="mono crit-h">Correct this record</h3>
       <p class="zone-intro">If a row misreads its source, a supposedly absent statistic
@@ -652,12 +659,11 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
   <div class="container">
     <a class="wordmark" href="/">Pranav Bhave</a>
     <nav class="site-nav mono" aria-label="Site">
-      <a href="/modules/">Modules</a>
-      <a href="/observatory/">Observatory</a>
-      <a href="/ledger/">Ledger</a>
+      <a href="/missing-column/">The Missing Column</a>
+      <a href="/observatory/">Evidence</a>
       <a href="/writing/">Writing</a>
-      <a href="/archive/">Archive</a>
-      <a href="/resume/">R&eacute;sum&eacute;</a>
+      <a href="/work/">Work with me</a>
+      <a href="/resume/">About</a>
     </nav>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
       <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
@@ -673,9 +679,16 @@ PAGE_FOOT = '''
     <div class="foot-links mono">
       <a class="u" href="/missing-column/">The Missing Column</a>
       <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
+      <a class="u" href="/answers/why-guardrail-miss-rates-do-not-multiply/">Why miss rates do not multiply</a>
+      <a class="u" href="/answers/how-to-evaluate-guardrails-you-plan-to-stack/">Evaluating stacked guardrails</a>
+      <a class="u" href="/answers/what-does-the-second-guardrail-add/">What the second guard adds</a>
       <a class="u" href="/corrections/">Corrections policy</a>
       <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/observatory/">Claim observatory</a>
+      <a class="u" href="/modules/">Modules</a>
+      <a class="u" href="/archive/">Archive</a>
       <a class="u" href="/stack-study/">Study preflight</a>
+      <a class="u" href="/work/">Work with me</a>
       <a class="u" href="/">← The record</a>
     </div>
   </div>
@@ -791,14 +804,17 @@ tr.demo-allmiss th,tr.demo-allmiss td{color:var(--invalid)}
 def render_landing(data: dict) -> str:
     census = data["census"]
     counts = verify_census.compute_counts(data)
+    # Every census numeral this page states carries the identity of the
+    # quantity it asserts. A sentence that hand-types one has no identity to
+    # check, which is exactly how a stale K survived every gate that existed.
+    k_fact = fact_registry.fact_span("MC-001.K", counts["K"])
     rows = data.get("benchmarks") or []
     examined = [r for r in rows if r["status"] == "examined"]
     under_review = [r for r in rows if r["status"] == "under_review"]
-    title = "The Missing Column: what guardrail evaluations leave unmeasured — Pranav Bhave"
+    title = "The Missing Column — a guardrail evaluation census"
     desc = ("A bounded, source-bound inventory of which public guardrail "
             "evaluations preserve joint-evidence artifacts — union detection, "
-            "all-miss, composition results, or per-item outcomes — beside "
-            "per-system marginals.")
+            "all-miss, or per-item outcomes — beside per-system scores.")
     releases = counts["present_by_scope"].get("computable_via_item_release", 0)
     release_note = f" ({releases} via data release)" if releases else ""
     count_bar = (f"{counts['N']} examined · {counts['M_strata']['shared_basis']} shared "
@@ -887,7 +903,7 @@ def render_landing(data: dict) -> str:
           reporting fact, not a performance finding.</li>
         <li>It does not claim the unmeasured joint statistics would reveal dependence;
           measuring instead of assuming is the entire point.</li>
-        <li>Its 4 is an inclusive discovery count of noninterchangeable artifacts — not an
+        <li>Its {k_fact} is an inclusive discovery count of noninterchangeable artifacts — not an
           all-miss rate, a stack-quality score, or a deployment conclusion.</li>
         <li>It does not audit the quality of any per-system evaluation beyond the fields
           each row records.</li>
@@ -975,7 +991,7 @@ def render_corrections(data: dict) -> str:
     <p class="zone-intro">The full record is also embedded beside the census rows;
       this route exists so a citation, post, or correction request always has one
       stable destination.</p>
-    <ul class="manual-list">{entries}</ul>
+    <ul class="manual-list" data-fact-state="historical">{entries}</ul>
   </section>
   <section class="zone" aria-labelledby="scope-h">
     <h2 id="scope-h">What a correction can change</h2>
@@ -1116,10 +1132,8 @@ def render_disclosure(data: dict) -> str:
     counts = verify_census.compute_counts(data)
     title = "Minimum Joint Guardrail Disclosure — Pranav Bhave"
     desc = ("A reporting standard small enough to paste into a results table: "
-            "what an evaluation of stacked guardrails must publish — union "
-            "detection, all-miss rate, denominator, event definition, "
-            "same-item confirmation — before anyone characterizes a stated "
-            "static composition.")
+            "union detection, all-miss rate, denominator, and event "
+            "definition — what to publish before characterizing a stack.")
     items = [
         ("Population and denominator",
          "What set of items, how many, and where they came from. Every joint "

@@ -143,6 +143,8 @@ def render(registry: dict) -> str:
 <meta property="og:description" content="Every technical claim this site renders, in envelope form: dimensions, immutable bindings, falsifiers, forbidden rescues, executable review triggers, freshness windows, non-claims.">
 <meta property="og:url" content="https://cubits11.github.io/ledger/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta property="og:image:alt" content="Pranav Bhave, AI assurance research — measuring what guardrail stacks miss together">
+<meta name="twitter:image:alt" content="Pranav Bhave, AI assurance research — measuring what guardrail stacks miss together">
 <meta property="og:site_name" content="Cubits11">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
@@ -202,12 +204,11 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
   <div class="container">
     <a class="wordmark" href="/">Pranav Bhave</a>
     <nav class="site-nav mono" aria-label="Site">
-      <a href="/modules/">Modules</a>
-      <a href="/observatory/">Observatory</a>
-      <a href="/ledger/" aria-current="page">Ledger</a>
+      <a href="/missing-column/">The Missing Column</a>
+      <a href="/observatory/" aria-current="page">Evidence</a>
       <a href="/writing/">Writing</a>
-      <a href="/archive/">Archive</a>
-      <a href="/resume/">R&eacute;sum&eacute;</a>
+      <a href="/work/">Work with me</a>
+      <a href="/resume/">About</a>
     </nav>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
       <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>

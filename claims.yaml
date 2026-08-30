@@ -431,7 +431,12 @@ claims:
       stack performs, and nothing about what the unmeasured joint
       statistics would show. N, M, and K are recomputed mechanically from
       census.yaml by scripts/verify_census.py; this envelope's expected
-      block is cross-checked against that computation in CI. M is a ladder,
+      block is cross-checked against that computation in CI. Since census
+      schema v3 the joint-evidence mode counts in this note are derived the
+      same way, from a declared joint_scope_additional field, rather than
+      counted by hand here; scripts/verify_facts.py binds every current
+      census numeral on every public page, and on the deployed page after
+      release, to the quantity it asserts. M is a ladder,
       not a comparability verdict: 14 document shared items and a common
       event definition, 12 have no stated threshold mismatch, and 0
       document matched operating thresholds together with full exposure.
@@ -491,7 +496,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "90b0b02f0eda9526d9d94f6bf57a811c0ca4035786b48d6eb62eec4be91bb2f8"
+        sha256: "5edb2e1e564a611c59acbcda526ef3a6d4637ee93c75f626ebe7bb2ec0595b90"
         note: fires when the census changes without a claim re-review
       - type: manual
         enforcement: manual

@@ -7,6 +7,13 @@ route, that the served census is the revision just checked, and that the
 rendered Missing Column page is bound to that exact census. GitHub Pages is
 asynchronous, so the script retries until all of those assertions describe
 one coherent public deployment.
+
+It formerly asserted N and the M ladder and not K, so the strongest statement
+it could support was "the deployed page matches the checked revision" — which
+a page contradicting itself about K satisfies. It now re-runs the full fact
+audit against the served bytes, so the statement it supports is the one the
+record actually promises: every current factual surface the public receives
+agrees with the census that produced it.
 """
 
 import argparse
@@ -21,6 +28,7 @@ from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import facts  # noqa: E402
 from verify_census import compute_counts, load  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -93,8 +101,8 @@ def check_once(site: str) -> list[str]:
         return failures
 
     html = body.decode("utf-8", "replace")
-    text = re.sub(r"<[^>]+>", " ", html)
-    text = re.sub(r"\s+", " ", text)
+    text = facts.visible_text(html)
+    modes = counts["K_evidence_modes"]
     wanted = [
         (f"{counts['N']} public guardrail evaluations", "N in the proposition"),
         (f"{strata['shared_basis']} document a shared item set and a common event definition",
@@ -103,6 +111,16 @@ def check_once(site: str) -> list[str]:
          "M ladder rung 2"),
         (f"{strata['threshold_documented_full_exposure']} document matched",
          "M ladder rung 3 — the strongest reading"),
+        # K was the one headline quantity this gate never asserted, which is
+        # how a deployed page that stated it as both 5 and 4 passed here.
+        (f"{counts['K']} provide one of the declared joint-evidence artifacts",
+         "K in the proposition"),
+        (f"The {counts['K']} is a heterogeneous discovery count",
+         "K where the page glosses it"),
+        (f"Its {counts['K']} is an inclusive discovery count",
+         "K in the non-claims — the surface that drifted"),
+        (f"{modes['prints_composition_result']} artifacts print at least one "
+         f"composition result", "the printed-evidence mode count"),
     ]
     for needle, label in wanted:
         if needle in text:
@@ -110,6 +128,31 @@ def check_once(site: str) -> list[str]:
         else:
             failures.append(
                 f"deployed page is missing {label} (expected {needle!r})")
+
+    # The same fact audit CI runs on the checkout, re-run against the bytes
+    # the public actually receives. A checkout gate proves what was built; it
+    # cannot prove what is being served.
+    registry = facts.registry(counts)
+    fact_failures = facts.audit_html(
+        html, registry, mc_url,
+        facts.REQUIRED_BINDINGS.get("missing-column/index.html"),
+        facts.accepted_triples())
+    if fact_failures:
+        failures.extend(fact_failures)
+    else:
+        print("ok    deployed page carries no stale current census value")
+
+    stale_k = re.compile(
+        r"\b(?:the|its)\s+(?!%d\b)\d+\s+is\s+(?:an inclusive|a heterogeneous)"
+        r"\s+discovery count" % counts["K"], re.I)
+    hit = stale_k.search(facts.visible_text(facts.strip_historical(html)))
+    if hit:
+        failures.append(
+            f"deployed page states a discovery count other than the current "
+            f"{counts['K']}: {hit.group(0)!r}")
+    else:
+        print(f"ok    no current discovery count on the deployed page "
+              f"disagrees with K={counts['K']}")
     marker = f'<meta name="census-sha256" content="{local_sha}">'
     if marker in html:
         print("ok    deployed page binds itself to the deployed census checksum")
