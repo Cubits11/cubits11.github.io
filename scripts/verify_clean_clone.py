@@ -25,6 +25,8 @@ CHECKS = (
     ("module drift", "scripts/generate_modules.py", "--check"),
     ("observatory drift", "scripts/generate_observatory.py", "--check"),
     ("missing-column drift", "scripts/generate_missing_column.py", "--check"),
+    ("fact-binding fixtures", "scripts/verify_facts.py", "--test"),
+    ("current fact surfaces", "scripts/verify_facts.py"),
     ("sitemap drift", "scripts/generate_sitemap.py", "--check"),
     ("MJGD identities", "scripts/mjgd_reference.py", "--test"),
     ("MJGD v1 fixtures", "scripts/validate_mjgd.py", "--test"),

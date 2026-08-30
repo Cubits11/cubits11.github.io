@@ -29,6 +29,7 @@ import sys
 import generate_ledger as ledger
 import identification
 import validate_mjgd
+import facts as fact_registry
 import verify_census
 
 esc = ledger.esc
@@ -238,14 +239,20 @@ def render_headline(census: dict, counts: dict) -> str:
         if scopes.get(key):
             scope_bits.append(f'{scopes[key]} {SCOPE_LABELS[key]}')
     scope_line = (" · ".join(scope_bits)) if scope_bits else "—"
+    # Identity, not just value: each numeral below says which census quantity
+    # it is, so a later edit that retypes one is a failure rather than a
+    # second opinion.
+    f = fact_registry.fact_span
+    strata = counts["M_strata"]
+    modes = counts["K_evidence_modes"]
     return f'''
     <div class="headline">
       <p class="mono head-kicker">The census result — regenerated from the source file</p>
       <p class="head-prop">{esc(proposition)}</p>
-      <p class="mono head-scope">The {counts["K"]} is a heterogeneous discovery count, not one deployment estimand. Its primary joint-evidence classification splits as: {esc(scope_line)}. A row can expose additional joint evidence; its detail records that overlap.</p>
-      <p class="mono head-scope">The {counts["M"]} is a ladder, not a verdict — {counts["M_strata"]["shared_basis"]} document a
-        shared item set and a common event definition · {counts["M_strata"]["threshold_not_contradicted"]} have no stated
-        threshold mismatch · {counts["M_strata"]["threshold_documented_full_exposure"]} document matched
+      <p class="mono head-scope">The {f("MC-001.K", counts["K"])} is a heterogeneous discovery count, not one deployment estimand. Its primary joint-evidence classification splits as: {esc(scope_line)}. {f("MC-001.K.prints_composition_result", modes["prints_composition_result"])} artifacts print at least one composition result and {f("MC-001.K.releases_computable_items", modes["releases_computable_items"])} release aligned per-item outcomes; {f("MC-001.K.does_both", modes["does_both"])} artifact does both, so those descriptions overlap by construction.</p>
+      <p class="mono head-scope">The {f("MC-001.M", counts["M"])} is a ladder, not a verdict — {f("MC-001.M1", strata["shared_basis"])} document a
+        shared item set and a common event definition · {f("MC-001.M2", strata["threshold_not_contradicted"])} have no stated
+        threshold mismatch · {f("MC-001.M3", strata["threshold_documented_full_exposure"])} document matched
         operating thresholds together with full exposure.</p>
       <p class="head-note">A qualifying artifact this search missed, or a row shown to be
         misclassified, changes these numbers — the criteria and the correction route are
@@ -515,7 +522,7 @@ def render_revisions(census: dict, examined: list) -> str:
       ({row_corrections} recorded) live inside each row above. The canonical
       <a class="u" href="/corrections/">correction policy</a> states the
       response and logging rules.</p>
-    <ul class="manual-list">{"".join(entries)}</ul>
+    <ul class="manual-list" data-fact-state="historical">{"".join(entries)}</ul>
     <div class="correct-route">
       <h3 class="mono crit-h">Correct this record</h3>
       <p class="zone-intro">If a row misreads its source, a supposedly absent statistic
@@ -791,6 +798,10 @@ tr.demo-allmiss th,tr.demo-allmiss td{color:var(--invalid)}
 def render_landing(data: dict) -> str:
     census = data["census"]
     counts = verify_census.compute_counts(data)
+    # Every census numeral this page states carries the identity of the
+    # quantity it asserts. A sentence that hand-types one has no identity to
+    # check, which is exactly how a stale K survived every gate that existed.
+    k_fact = fact_registry.fact_span("MC-001.K", counts["K"])
     rows = data.get("benchmarks") or []
     examined = [r for r in rows if r["status"] == "examined"]
     under_review = [r for r in rows if r["status"] == "under_review"]
@@ -887,7 +898,7 @@ def render_landing(data: dict) -> str:
           reporting fact, not a performance finding.</li>
         <li>It does not claim the unmeasured joint statistics would reveal dependence;
           measuring instead of assuming is the entire point.</li>
-        <li>Its 4 is an inclusive discovery count of noninterchangeable artifacts — not an
+        <li>Its {k_fact} is an inclusive discovery count of noninterchangeable artifacts — not an
           all-miss rate, a stack-quality score, or a deployment conclusion.</li>
         <li>It does not audit the quality of any per-system evaluation beyond the fields
           each row records.</li>
@@ -975,7 +986,7 @@ def render_corrections(data: dict) -> str:
     <p class="zone-intro">The full record is also embedded beside the census rows;
       this route exists so a citation, post, or correction request always has one
       stable destination.</p>
-    <ul class="manual-list">{entries}</ul>
+    <ul class="manual-list" data-fact-state="historical">{entries}</ul>
   </section>
   <section class="zone" aria-labelledby="scope-h">
     <h2 id="scope-h">What a correction can change</h2>

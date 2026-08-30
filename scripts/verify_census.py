@@ -40,7 +40,7 @@ JOINT_SCOPES = {"printed_full_stack", "printed_partial_stack",
                 "computable_via_item_release", "none"}
 ADJUDICATION_MODES = {"single_primary_reviewer", "dual_reviewed"}
 TRI_STATE = {"yes", "no", "unstated", "mixed"}
-CENSUS_SCHEMA_VERSION = 2
+CENSUS_SCHEMA_VERSION = 3
 CRITERIA_CANONICALIZATION = (
     "JSON UTF-8; sort_keys=true; separators=(',', ':'); ensure_ascii=false; "
     "inclusion_criteria only"
@@ -286,6 +286,25 @@ def check_row(row: dict, seen_ids: set) -> None:
     joint_scope = row["joint_scope"]
     if joint_scope not in JOINT_SCOPES:
         fail(f"{rid}: joint_scope={joint_scope!r} not in {sorted(JOINT_SCOPES)}")
+    # A row may carry a second kind of joint evidence. Declaring it is
+    # optional; declaring it loosely is not, because scope-mode counts are
+    # derived from this field and a count nobody can recompute is the
+    # defect this field exists to prevent.
+    additional = row.get("joint_scope_additional") or []
+    if not isinstance(additional, list):
+        fail(f"{rid}: joint_scope_additional must be a list of scopes")
+        additional = []
+    for extra in additional:
+        if extra not in JOINT_SCOPES or extra == "none":
+            fail(f"{rid}: joint_scope_additional={extra!r} not in "
+                 f"{sorted(JOINT_SCOPES - {'none'})}")
+        elif extra == joint_scope:
+            fail(f"{rid}: joint_scope_additional repeats the primary "
+                 f"joint_scope {joint_scope!r}")
+    if additional and classification != "PRESENT":
+        fail(f"{rid}: joint_scope_additional requires classification PRESENT")
+    if len(set(additional)) != len(additional):
+        fail(f"{rid}: joint_scope_additional contains duplicates")
     evidence = str(row["joint_statistic_evidence"]).strip()
     if classification == "PRESENT":
         if joint_scope == "none":
@@ -392,6 +411,21 @@ def compute_counts(data: dict, excluded_ids: set[str] | None = None) -> dict:
     for r in present:
         s = r.get("joint_scope", "?")
         by_scope[s] = by_scope.get(s, 0) + 1
+    # Evidence modes are not the primary-scope split: a row can print a
+    # composition result *and* release the items. Prose used to state that
+    # overlap as a hand-typed number; it is derived here instead, so the
+    # sentence and the file cannot disagree.
+    printed_scopes = {"printed_full_stack", "printed_partial_stack"}
+    prints_any = 0
+    releases_items = 0
+    both = 0
+    for r in present:
+        scopes = {r.get("joint_scope")} | set(r.get("joint_scope_additional") or [])
+        p_hit = bool(scopes & printed_scopes)
+        c_hit = "computable_via_item_release" in scopes
+        prints_any += p_hit
+        releases_items += c_hit
+        both += p_hit and c_hit
     return {
         "N": len(examined),
         "M": len(comparable),
@@ -401,6 +435,11 @@ def compute_counts(data: dict, excluded_ids: set[str] | None = None) -> dict:
             "threshold_documented_full_exposure": len(threshold_documented),
         },
         "K": len(present),
+        "K_evidence_modes": {
+            "prints_composition_result": prints_any,
+            "releases_computable_items": releases_items,
+            "does_both": both,
+        },
         "by_classification": by_classification,
         "present_by_scope": by_scope,
         "under_review": len(under_review),
