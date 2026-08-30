@@ -87,7 +87,7 @@ census:
   maintainer: Pranav Bhave
   adjudication_status:
     mode: "single_primary_reviewer"
-    covered_examined_rows: 19
+    covered_examined_rows: 20
     limit: >
       All currently examined rows are first-pass classifications by one
       reviewer. No independent second review, disagreement log, or
@@ -168,9 +168,9 @@ census:
         product instead.
       exclude_benchmark_ids: ["unit42-genai-platform-2025"]
       expected:
-        n_examined: 18
-        m_shared_basis: 12
-        k_present: 4
+        n_examined: 19
+        m_shared_basis: 13
+        k_present: 5
   search_protocol:
     executed: "2026-08-27"
     bounded: >
@@ -182,8 +182,9 @@ census:
       - ML6 enterprise guardrail benchmark (blog)
       - TrueFoundry guardrail provider benchmark (blog)
       - BELLS (CeSIA) — framework paper, successor evaluation, leaderboard
-      - the multimodal safeguard benchmark previously cited as "MSBench"
-        (acronym unverified at freeze time; resolved during examination)
+      - an early, vague "MSBench" ensemble lead, resolved in the first pass
+        as excluded UnsafeBench; the distinct Multimodal Safeguard Bench
+        repository missed by that pass is recorded in the 2026-08-30 correction
     queries:
       - LLM guardrail benchmark comparison
       - guardrails benchmark providers
@@ -285,6 +286,24 @@ census:
         precisely what the repository-history lock proves. No row,
         classification, or count changed; this is a further narrowing of
         language before any merge or public post.
+    - date: "2026-08-30"
+      change: >
+        A post-release source audit found a separate qualifying pre-freeze
+        artifact: Patrick Kollman's Multimodal Safeguard Bench. It is not the
+        excluded UnsafeBench artifact named in the 2026-08-27 entry: the new
+        row gates harmful text and rendered-image inputs before a VLM and
+        commits guard outcomes for Llama Guard 4, Llama Guard 3 Vision, and
+        ShieldGemma-2; UnsafeBench evaluates image-generation-platform safety
+        classifiers. GitHub's currently public history records repository
+        creation on 2026-06-02 and the pinned fb6f32e6 snapshot dated
+        2026-07-13, before the frozen as-of date; no independent pre-cutoff
+        web archive was identified. The documented search missed it. Under
+        unchanged v1 criteria, the examined PRESENT row changes N/M/K from
+        19/13/4 to 20/14/5 and the M ladder from 13/12/0 to 14/12/0. This
+        satisfies the prior MC-001 falsifier and rejects its 19/13/4 envelope;
+        MC-001 was re-reviewed as a corrected, superseding 20/14/5 proposition
+        rather than preserving the old result. The frozen inclusion wording
+        and the UnsafeBench exclusion are unchanged.
 benchmarks:
   - id: openai-holistic-2022
     status: examined
@@ -1202,6 +1221,12 @@ benchmarks:
           the freeze: it reports the primary treatment and a
           named-products-only sensitivity that removes this row and
           mechanically yields N/M/K = 18/12/4.
+      - date: "2026-08-30"
+        change: >
+          The 18/12/4 sensitivity result above is time-specific. Addition
+          of the distinct, qualifying Multimodal Safeguard Bench changes
+          the same named-products-only counterfactual to 19/13/5; the
+          interpretation and this row's evidence are unchanged.
     notes: >
       Anonymization limits vendor attribution. The source calls these
       Platform 1, Platform 2, and Platform 3 to avoid provider bias, then
@@ -1379,6 +1404,135 @@ benchmarks:
       here is assembled from the paper's own Tables 8-10 in one reading
       pass and is held loosely — the paper's stated count (28 from 17) is
       the verified fact; name-level corrections are invited.
+
+  - id: multimodal-safeguard-bench-2026
+    status: examined
+    title: "Multimodal Safeguard Bench: Guard Blind Spots Are Architecture-Specific and Complementary"
+    authors_or_org: "Patrick Kollman — Independent Researcher"
+    publication_date: "2026-07-13"
+    primary_url: "https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff"
+    task: "multimodal guard-layer harmful-request detection and end-to-end jailbreak prevention, with benign over-refusal"
+    dataset_population: >
+      200 HarmBench harmful behaviors and 250 XSTest safe prompts; every
+      intent is evaluated as a text item and as an image-rendered item, for
+      400 harmful plus 500 benign items.
+    n_items: "900 (400 harmful + 500 benign)"
+    n_systems: 3
+    systems: ["Llama-Guard-4-12B", "Llama-Guard-3-11B-Vision", "ShieldGemma-2-4B"]
+    same_items_for_all_systems:
+      value: "yes"
+      evidence: >
+        The canonical release contains matching item_id sets in every one
+        of the three harmful JSONLs (400 items each) and three benign JSONLs
+        (500 items each); the paper describes the same 200 + 250 intents
+        rendered in both modalities.
+    same_event_definition:
+      value: "yes"
+      evidence: >
+        Every guard-result JSONL records the same Boolean `blocked` event
+        against common harmful/benign item labels; the paper defines
+        per-modality detection recall and over-refusal from those verdicts.
+    thresholds_comparable:
+      value: "no"
+      evidence: >
+        Llama Guard 4 and Llama Guard 3 Vision treat an autoregressively
+        generated unsafe label as a block, while ShieldGemma-2 blocks when a
+        per-policy violation probability exceeds 0.5. The source documents
+        no matched operating-point calibration.
+    all_systems_saw_all_items:
+      value: "yes"
+      evidence: >
+        Each named guard has one committed verdict for each of the same 900
+        item_ids. ShieldGemma-2 returns a deterministic safe verdict for
+        text-only items without a model call; that is an explicit pass
+        outcome, not missing data or gating.
+    per_system_metrics: >
+      detection recall by modality, end-to-end ASR by modality, aggregate
+      over-refusal, and protection gap; the main table and ensemble JSON
+      report Wilson 95% intervals where applicable.
+    item_level_outcomes_released:
+      value: "yes"
+      evidence: >
+        results/full_run/guard_*_{harmful,benign}.jsonl commits per-item
+        item_id, guard_name, and Boolean blocked verdicts for all three
+        guards and all 900 items (not model generations).
+    pairwise_intersections_reported:
+      value: "yes"
+      evidence: >
+        The paper's Ensembles section reports that SG2 rescues 30 of the 36
+        harmful image items LG4 misses and loses none: a pairwise
+        residual/intersection result for that pair and modality, not a full
+        pairwise matrix.
+    union_detection_reported:
+      value: "yes"
+      evidence: >
+        The Ensemble operating-points table and results/full_run/ensemble.json
+        print OR-composition detection rows for LG4⊕SG2 and LG4⊕LG3V.
+    all_miss_rate_reported:
+      value: "no"
+      evidence: >
+        No pure all-three-guard miss rate is printed. The combined ASR rows
+        also include downstream target-model and judge behavior, so they are
+        not relabeled as an all-guard-miss statistic.
+    residual_coverage_reported:
+      value: "yes"
+      evidence: >
+        The paper states that SG2 rescues 30 of the 36 image items LG4
+        misses (83%): an explicit pairwise residual-coverage result; no
+        full three-guard decomposition is printed.
+    sequential_gating_modeled:
+      value: "no"
+      evidence: >
+        The reported combinations are OR rules and modality routing built
+        from guard verdicts. Models are staged sequentially only to fit one
+        GPU, not as a measured sequential deployment gate.
+    uncertainty_reported:
+      value: "yes"
+      evidence: >
+        The paper and results/full_run/ensemble.json report Wilson 95%
+        intervals; paired tests are released in protection_gap_tests.json.
+    raw_data_available: "https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run (committed per-item guard verdicts; raw model generations are intentionally excluded)"
+    code_available: "https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff"
+    combination_prose:
+      quote: "LG4⊕LG3V (block on either)"
+      location: "README — Cross-modal ensembles: the cheap fix; paper Ensembles section"
+    joint_statistic_evidence: >
+      The paper's Ensemble operating-points table and results/full_run/ensemble.json
+      print two pairwise OR compositions: LG4⊕SG2 (modality routed) and
+      LG4⊕LG3V. More broadly, the six committed guard JSONLs provide aligned
+      Boolean verdicts for the same 400 harmful and 500 benign item_ids
+      across all three guards, so every union, all-miss count, and
+      pairwise/three-way intersection is directly computable for the
+      complete released population.
+    joint_scope: computable_via_item_release
+    classification: PRESENT
+    classification_reason: >
+      PRESENT on two grounds: the source prints named pairwise guard
+      compositions, and its complete aligned per-item verdict release makes
+      joint statistics across all three evaluated guards directly
+      computable. The printed rows cover pairs, not a three-guard stack; no
+      matched operating-point calibration is documented, and ShieldGemma-2's
+      text-item passes are structural rather than model-inferred.
+    source_passages:
+      - "README.md, Key Finding note — ‘900 items (200 HarmBench × 2 modalities + 250 XSTest × 2 modalities)’ and canonical results/full_run link."
+      - "writeup/paper.tex, Experimental Setup — three named guards, 400 harmful + 500 benign items, native decision rules, and Wilson intervals."
+      - "writeup/paper.tex, Ensembles/Table ‘Ensemble operating points’ — LG4⊕SG2 and LG4⊕LG3V results; ‘SG2 rescues 30 of the 36 image items LG4 misses’."
+      - "results/full_run/ensemble.json — reports join integrity for the 400 harmful item_ids across judge and all three guard files."
+      - "results/full_run/guard_*_{harmful,benign}.jsonl — committed item-level item_id, guard_name, and blocked fields for all three guards; aligned benign IDs verified from the three files."
+      - "configs/mvp.yaml and src/msbench/guards.py — ShieldGemma-2 threshold 0.5 versus native Llama safe/unsafe output parsing."
+      - "GitHub repository metadata and commit fb6f32e6 (checked 2026-08-30) — creation 2026-06-02 and commit timestamp 2026-07-13; no independent pre-cutoff web archive identified."
+    contact_route: "https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/issues"
+    last_checked: "2026-08-30"
+    correction_history: []
+    notes: >
+      The currently public GitHub history timestamps this canonical commit
+      2026-07-13, before the 2026-08-27 frozen as-of date; a 2026-08-30
+      archive query found no independent pre-cutoff capture, so the public
+      history is the date evidence used here. This is distinct from excluded
+      UnsafeBench (Qu et al., arXiv 2405.03486): that artifact evaluates
+      image-generation-platform safety classifiers; this one evaluates named
+      guards around a VLM. Its addition is a missed-artifact correction, not
+      a change to frozen criteria.
 
   - id: wainjectbench-2025
     status: examined

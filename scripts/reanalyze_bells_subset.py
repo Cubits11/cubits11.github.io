@@ -3,11 +3,11 @@
 
 BELLS's 2025 misuse-detection evaluation ("The bitter lesson of misuse
 detection", arXiv 2507.06282) released a per-item subset: 170 prompts,
-each carrying eleven systems' binary verdicts as columns. That release is
-the only per-item outcome substrate found by the Missing Column Census's
-bounded 2026-08-27 search from which joint stack statistics are directly
-computable; this is not a claim of global exclusivity. This script computes
-them, and claim MC-002 binds the result.
+each carrying eleven systems' binary verdicts as columns. This is a
+BELLS-specific public per-item outcome substrate from which joint stack
+statistics are directly computable. The census later recorded a distinct
+full-cohort outcome release; this script does not make an exclusivity claim.
+It computes the BELLS facts, and claim MC-002 binds the result.
 
 Discipline:
   * the CSV is pinned by commit AND content hash — the numbers are about

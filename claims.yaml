@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-08-29"
+last_owner_review: "2026-08-30"
 
 claims:
   - id: CC-001
@@ -415,9 +415,9 @@ claims:
 
   - id: MC-001
     proposition: >
-      As of 2026-08-27, among 19 public guardrail evaluations meeting the
-      Missing Column Census's frozen inclusion criteria (v1), 13 establish
-      a shared item set and a common event definition; 4 provide one of the
+      As of 2026-08-27, among 20 public guardrail evaluations meeting the
+      Missing Column Census's frozen inclusion criteria (v1), 14 establish
+      a shared item set and a common event definition; 5 provide one of the
       census's declared joint-evidence artifacts: a printed composition
       result or per-item outcomes that make one directly computable.
     scope: >
@@ -432,27 +432,36 @@ claims:
       statistics would show. N, M, and K are recomputed mechanically from
       census.yaml by scripts/verify_census.py; this envelope's expected
       block is cross-checked against that computation in CI. M is a ladder,
-      not a comparability verdict: 13 document shared items and a common
+      not a comparability verdict: 14 document shared items and a common
       event definition, 12 have no stated threshold mismatch, and 0
       document matched operating thresholds together with full exposure.
-      Nothing here asserts that the 13 are interchangeable at a common
-      operating point; the opposite is the finding. The 4 is an inclusive
+      Nothing here asserts that the 14 are interchangeable at a common
+      operating point; the opposite is the finding. The 5 is an inclusive
       discovery count of noninterchangeable artifacts, not an all-miss rate
-      or a deployment conclusion. The frozen
+      or a deployment conclusion. Four artifacts print at least one
+      composition result and two release aligned per-item outcomes from
+      which joint statistics are directly computable; one artifact does
+      both, so those descriptions intentionally overlap. The frozen
       phrase "separately attributable" did not specify whether a product
       or model name must be printed: the primary count treats systems a
       source distinguishes and reports consistently as separately
       attributable even when anonymized; the declared named-products-only
-      sensitivity excludes Unit42 and mechanically yields N/M/K = 18/12/4.
+      sensitivity excludes Unit42 and mechanically yields N/M/K = 19/13/5.
       A drafted further clause — that
-      no printed joint statistic among the four covers a commercial
+      no printed joint statistic among the then-four covers a commercial
       guardrail API — was withdrawn before publication when same-day
       adversarial review produced a live counterexample under one
       defensible reading (WAInjectBench's printed ensemble includes GPT-4o
       prompted as a detector); this claim's forbidden rescues bar narrowing
       "commercial" after the fact, so the clause was dropped rather than
       reinterpreted, and the event is recorded in the census revision
-      history.
+      history. On 2026-08-30, a post-release source audit found the distinct
+      Multimodal Safeguard Bench repository, whose currently public Git
+      history carries a pre-cutoff commit timestamp, and which the documented
+      search had missed. That met this claim's prior REJECT falsifier: the
+      19/13/4 envelope is rejected and retained in census revision history.
+      This 20/14/5 envelope is its corrected, superseding proposition, not
+      a reinterpretation of the former count.
     dimensions:
       visibility: public
       provenance: owner_authored
@@ -467,22 +476,22 @@ claims:
         edits, and every row in the file binds to its own primary source
         with passages, dates, and a correction history.
     expected:
-      n_examined: 19
-      m_shared_basis: 13
-      k_present: 4
+      n_examined: 20
+      m_shared_basis: 14
+      k_present: 5
       # The M ladder. Printing only a shared basis lets a reader assume
       # matched policy; all three rungs are cross-checked in CI.
       m_strata:
-        shared_basis: 13
+        shared_basis: 14
         threshold_not_contradicted: 12
         threshold_documented_full_exposure: 0
-    last_reviewed: "2026-08-28"
+    last_reviewed: "2026-08-30"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "a80b5f85945e5b7fd893a2c47e2552f20f7293eb97f00fef38c556930f009ab0"
+        sha256: "90b0b02f0eda9526d9d94f6bf57a811c0ca4035786b48d6eb62eec4be91bb2f8"
         note: fires when the census changes without a claim re-review
       - type: manual
         enforcement: manual
@@ -493,21 +502,21 @@ claims:
     falsifier:
       condition: >
         A qualifying public evaluation meeting criteria v1 and published
-        on or before 2026-08-27 is shown to have been missed by the
-        documented search, or an examined row is shown to misreport its
+        on or before 2026-08-27 is shown to be absent from this corrected
+        census, or an examined row is shown to misreport its
         source such that recomputed N, M, or K differ from the stated
-        19/13/4.
+        20/14/5.
       consequence: REJECT
     forbidden_rescues:
       - do not reinterpret "joint statistic" after a counterexample appears in order to keep the stated counts
       - do not reclassify an examined row without recording the change and its reason in the census correction history
-      - do not treat the bounded-search disclaimer as license to ignore a demonstrated miss — a miss rejects these counts and the corrected census states new ones
+      - do not treat the bounded-search disclaimer as license to ignore a demonstrated miss — a miss rejects the current counts and the corrected census must state new ones
       - do not cite readership, links, or reuse of the census as evidence of its accuracy
     non_claims:
       - does not claim any evaluated guardrail stack performs poorly; an unfilled column is a reporting fact, not a performance finding
       - does not claim the unmeasured joint statistics would reveal dependence; measuring instead of assuming is the point
       - does not audit the quality of any per-system evaluation beyond the fields each row records
-      - does not cover artifacts outside the documented bounded search or after the stated date
+      - does not claim exhaustive coverage beyond the corrected, examined artifact set or coverage after the stated date
 
   - id: MC-002
     proposition: >
@@ -631,8 +640,8 @@ claims:
       to its best member, but, when that identified set is non-degenerate,
       they do not identify strictly positive incremental benefit. They also
       identify a positive lower bound on static benign union-flag rate when
-      any member has a positive benign flag rate. On the one per-item
-      release the census found — BELLS 2025, 82 prompts labelled harmful —
+      any member has a positive benign flag rate. On the BELLS 2025 partial
+      per-item release — 82 prompts labelled harmful —
       the exact finite identified set is {0/82 … 12/82}; MC-002 recomputes
       9/82 all-miss from the hash-verified released verdict file. Marginal
       catch counts plus the union identify only bounds on each guard's
@@ -655,6 +664,8 @@ claims:
       changes the trajectory, or any vendor's product. The empirical half is
       one stratum of one author-selected subset: 82 harmful prompts, with 50
       benign and 38 borderline held as separate strata and never folded in.
+      It is a BELLS-specific reproduction, not an assertion that BELLS is
+      the census's only per-item outcome release.
       scripts/reanalyze_bells_subset.py re-computes the BELLS counts from
       the hash-verified upstream file in CI; scripts/identification.py
       checks the stated identification transformations against that
@@ -689,7 +700,7 @@ claims:
         langkit: [0, 3]
         nemo: [0, 21]
         llm_guard: [0, 0]
-    last_reviewed: "2026-08-29"
+    last_reviewed: "2026-08-30"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
@@ -996,13 +1007,13 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md"
       commit: null
       note: "Mutable link by design; the local-content trigger below detects edits."
-    last_reviewed: "2026-08-28"
+    last_reviewed: "2026-08-30"
     review_window_days: 120
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: DESIGN.md
-        sha256: "6ee16e48493c6a3def9276c38c4203059420b8c004be26b4526d50c9662f7d3c"
+        sha256: "c3dd2bea56430b10591f56cc7ee559ddee5b96bdfeeaf3f42e7d79856492ec3a"
         note: fires when DESIGN.md changes without a registry re-review
       - type: manual
         enforcement: manual

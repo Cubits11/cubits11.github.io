@@ -628,3 +628,35 @@ falsifiable object, or the campaign has no business sitting on this site.
 - **Not verified in this pass, and therefore not claimed:** an AT
   session (still owed from v0.4), print styles for the new routes, and
   the two below-the-fold campaign figures as rendered pixels (above).
+
+## Correction review — 2026-08-30 (MSBench)
+
+- **What changed.** A post-release source audit found Patrick Kollman's
+  *Multimodal Safeguard Bench*, a distinct qualifying artifact whose
+  currently public Git history has a pinned `fb6f32e6` snapshot dated
+  2026-07-13. No independent pre-cutoff web archive was found, so the commit
+  history is the date evidence used here. It evaluates Llama Guard 4, Llama
+  Guard 3 Vision, and ShieldGemma-2 around a VLM on 900 aligned text/image
+  items and commits per-item guard verdicts. This is not the excluded
+  UnsafeBench: UnsafeBench evaluates image-generation-platform safety
+  classifiers.
+- **Correction, not rescue.** The frozen v1 inclusion wording and the
+  UnsafeBench exclusion are unchanged. The former MC-001 envelope
+  (`19/13/4`, M ladder `13/12/0`) satisfied its own predeclared REJECT
+  falsifier and is retained as rejected in the census revision history. The
+  superseding, re-reviewed envelope is `20/14/5`, with M ladder `14/12/0`.
+  The named-products-only sensitivity is now `19/13/5`.
+- **Evidence boundary.** MSBench prints two pairwise compositions and
+  releases aligned `item_id`/`blocked` outcomes for all three guards, so its
+  three-guard static joint statistics are computable. It does not document
+  matched operating thresholds or a deployed sequential route; those limits
+  remain visible in the new row. The older BELLS demonstration is now named
+  as a BELLS-specific, partial-release reproduction rather than the census's
+  sole per-item release.
+- **Local review (before commit):** `verify_claims.py`, `verify_census.py`,
+  all generated-page drift checks, `verify_figures.py`,
+  `generate_modules.py --check`, `mjgd_reference.py --test`,
+  `validate_mjgd.py --test`, `identification.py`, `mjgd_pattern_rank.py`,
+  `mixture_bounds.py`, `reanalyze_bells_subset.py`, `check_links.py`, and
+  `verify_frontend.py` passed. A clean-clone replay remains the pre-merge
+  check; no push, deployment, archive write, or outreach was performed.
