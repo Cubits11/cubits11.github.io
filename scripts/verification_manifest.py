@@ -42,6 +42,7 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("MC-004 semantic scope", "scripts/verify_mc004_semantics.py"),
     ("degeneracy diagnostic", "scripts/degeneracy.py"),
     ("portable static-OR receipt", "examples/stack-joint/test_joint_or.py"),
+    ("portable route receipt", "examples/route-receipt/test_route_receipt.py"),
     ("qualified outcome ledger", "scripts/outcomes.py"),
     ("internal links", "scripts/check_links.py"),
     ("frontend structure and scroll regions", "scripts/verify_frontend.py"),

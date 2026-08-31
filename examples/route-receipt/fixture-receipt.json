@@ -1,0 +1,113 @@
+{
+  "schema_version": "route-receipt/v1",
+  "receipt_id": "illustrative-modality-route",
+  "observed_at": "2026-08-31",
+  "execution": {
+    "kind": "evaluation_route",
+    "evidence_origin": "derived_static_reconstruction",
+    "route_declaration_source": "illustrative://route-declaration",
+    "trace_generation_source": "illustrative://direct-route-trace",
+    "code_ref": "illustrative@0000000",
+    "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "population": {
+    "label_definition": "Illustrative positive and benign route strata",
+    "label_source": "illustrative://labels",
+    "id_scheme": "opaque stable item IDs; prompts and generations omitted",
+    "strata": [
+      {
+        "id": "positive_text",
+        "role": "positive",
+        "route_key": "text",
+        "item_ids": ["positive-text-1", "positive-text-2"]
+      },
+      {
+        "id": "positive_image",
+        "role": "positive",
+        "route_key": "image",
+        "item_ids": ["positive-image-1", "positive-image-2"]
+      },
+      {
+        "id": "benign_text",
+        "role": "benign",
+        "route_key": "text",
+        "item_ids": ["benign-text-1"]
+      },
+      {
+        "id": "benign_image",
+        "role": "benign",
+        "route_key": "image",
+        "item_ids": ["benign-image-1"]
+      }
+    ]
+  },
+  "terminal_event": {
+    "status": "source_defined",
+    "name": "unsafe target completion",
+    "definition": "Illustrative target terminal event, observed only for positive items.",
+    "source": "illustrative://terminal-event-contract"
+  },
+  "routes": [
+    {
+      "id": "text_lg4",
+      "route_key": "text",
+      "topology": "parallel_block_on_any",
+      "policy_source": "illustrative://text-route-policy",
+      "nondecision_policy": {
+        "timeout": "hold",
+        "error": "hold"
+      },
+      "stages": [
+        {
+          "id": "lg4",
+          "system": "Illustrative text guard",
+          "version": "illustrative-v1",
+          "decision_rule": "native unsafe label maps to flag",
+          "operating_point": {
+            "kind": "native_categorical",
+            "value": "unsafe",
+            "source": "illustrative://lg4-native-rule"
+          }
+        }
+      ]
+    },
+    {
+      "id": "image_lg4_or_sg2",
+      "route_key": "image",
+      "topology": "parallel_block_on_any",
+      "policy_source": "illustrative://image-route-policy",
+      "nondecision_policy": {
+        "timeout": "hold",
+        "error": "hold"
+      },
+      "stages": [
+        {
+          "id": "lg4",
+          "system": "Illustrative multimodal guard",
+          "version": "illustrative-v1",
+          "decision_rule": "native unsafe label maps to flag",
+          "operating_point": {
+            "kind": "native_categorical",
+            "value": "unsafe",
+            "source": "illustrative://lg4-native-rule"
+          }
+        },
+        {
+          "id": "sg2",
+          "system": "Illustrative image guard",
+          "version": "illustrative-v1",
+          "decision_rule": "max policy score above threshold maps to flag",
+          "operating_point": {
+            "kind": "numeric_threshold",
+            "value": 0.5,
+            "source": "illustrative://sg2-threshold"
+          }
+        }
+      ]
+    }
+  ],
+  "outcomes": {
+    "path": "fixture-outcomes.jsonl",
+    "sha256": "2c256390b3d3e4eb8590c74ccc5724e6067aea15c52dc27ebb487ff489afe72e"
+  }
+}

@@ -24,6 +24,7 @@ QUALIFIED_BUCKETS = (
     "upstream_prs",
     "human_cold_runs",
 )
+INTERACTION_FIELDS = ("date", "kind", "url", "summary")
 
 
 def validate(data: object) -> dict:
@@ -49,6 +50,24 @@ def validate(data: object) -> dict:
     if (isinstance(interactions, bool) or not isinstance(interactions, int)
             or interactions < 0):
         raise ValueError("technical_interactions must be a non-negative integer")
+    log = diagnostics.get("technical_interaction_log")
+    if not isinstance(log, list):
+        raise ValueError("technical_interaction_log must be a list")
+    if len(log) != interactions:
+        raise ValueError("technical_interactions must equal the interaction-log length")
+    for index, item in enumerate(log):
+        if not isinstance(item, dict) or set(item) != set(INTERACTION_FIELDS):
+            raise ValueError(
+                f"technical_interaction_log[{index}] must contain exactly "
+                + ", ".join(INTERACTION_FIELDS)
+            )
+        for field in INTERACTION_FIELDS:
+            if not isinstance(item[field], str) or not item[field].strip():
+                raise ValueError(
+                    f"technical_interaction_log[{index}].{field} must be a non-empty string"
+                )
+        if not item["url"].startswith(("https://", "http://")):
+            raise ValueError(f"technical_interaction_log[{index}].url must be an HTTP(S) URL")
 
     rule = data.get("stop_rule")
     if not isinstance(rule, dict):
@@ -91,7 +110,11 @@ def main() -> int:
     diagnostics = data["diagnostics"]
     print("\nDIAGNOSTICS (not evidence)")
     for key, value in diagnostics.items():
+        if key == "technical_interaction_log":
+            continue
         print(f"  {key:28s} {'—' if value is None else value}")
+    for item in diagnostics["technical_interaction_log"]:
+        print(f"  interaction {item['date']} {item['kind']}: {item['url']}")
 
     rule = data["stop_rule"]
     interactions = technical_interactions(data)

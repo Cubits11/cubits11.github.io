@@ -1367,6 +1367,7 @@ def render_reproduce(data: dict) -> str:
     e = mc["expected"]
     outcome_ledger = outcomes.load()
     qualified_outcomes = outcomes.qualified_total(outcome_ledger)
+    technical_interactions = outcomes.technical_interactions(outcome_ledger)
     bt, bi = e["benign_text"], e["benign_image"]
     ht, hi = e["harmful_text"], e["harmful_image"]
     lg3v_benign = bi["per_guard"]["llama_guard_3_vision"]
@@ -1497,7 +1498,8 @@ FAIL  guard_…jsonl: sha256 …  != recorded …  — the bound artifact change
       <a class="u" href="mailto:bhavepranavwork@gmail.com">email</a>. The project-wide
       <a class="u" href="/distribution/outcomes.yaml">qualified-outcome ledger</a> currently
       records {qualified_outcomes} qualified external outcome{'s' if qualified_outcomes != 1 else ''};
-      that public null is not a growth metric. MC-004 has no recorded independent
+      it also records {technical_interactions} technical interaction{'s' if technical_interactions != 1 else ''},
+      which is diagnostic rather than evidence. That public null is not a growth metric. MC-004 has no recorded independent
       reproduction — this page is the standing invitation, not evidence that one exists.</p>
   </section>
   <section class="zone" id="not-claimed" aria-labelledby="nc-h">
