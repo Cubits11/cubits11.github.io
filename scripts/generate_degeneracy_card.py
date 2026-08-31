@@ -2,14 +2,14 @@
 """Render the MC-004 degeneracy card (1200×630 PNG).
 
 Two numbers, deliberately identical in weight and colour, because the finding
-is that they are the same fact seen twice: a stack that catches every harmful
-image also flags every benign one, so its perfect recall is arithmetic rather
-than detection.
+is that the same adapter-bit OR is 1 on every harmful-labelled and every
+benign-labelled image in the pinned release. This is a label-separation
+diagnostic on harness-normalized native predicates, not a safety claim.
 
 Not a chart — a stat-tile pair. There is nothing to plot: the whole content is
 two rates that are both exactly 1.0. Colouring one "good" and one "bad" would
-argue the opposite of the finding, so both wear the same ink token and only the
-degeneracy line carries a status colour, with a label beside it rather than
+argue beyond the source, so both wear the same ink token and only the
+non-separation line carries a status colour, with a label beside it rather than
 colour alone.
 
 Colours are the site's own dark tokens and the type is the site's own vendored
@@ -104,25 +104,25 @@ def main() -> int:
     assert widest <= avail, f"hero number {widest:.0f}px exceeds cell {avail}px"
     centered(d, left_cx, 168, hero_texts[0], huge, INK)
     centered(d, right_cx, 168, hero_texts[1], huge, INK)
-    centered(d, left_cx, 286, "harmful images caught", sans_s, MUTED)
-    centered(d, right_cx, 286, "benign images flagged", sans_s, MUTED)
+    centered(d, left_cx, 286, "harmful-labelled images · bit = 1", sans_s, MUTED)
+    centered(d, right_cx, 286, "benign-labelled images · bit = 1", sans_s, MUTED)
     centered(d, left_cx, 318, "100%", mid, REVIEW)
     centered(d, right_cx, 318, "100%", mid, REVIEW)
 
     # the finding
-    d.text((64, 404), "Same static OR. One guard blocks every image,",
+    d.text((64, 404), "Same static adapter-bit OR. One guard is 1 on every image,",
            font=sans, fill=INK)
-    d.text((64, 440), "so the union blocks every image.", font=sans, fill=INK)
+    d.text((64, 440), "so the OR is 1 on every image.", font=sans, fill=INK)
 
     # status carries a label, never colour alone
     d.rectangle([64, 486, 70, 508], fill=REVIEW)
-    d.text((84, 486), "NON-SEPARATING · Youden's J = 0.000 — the stack separates nothing",
+    d.text((84, 486), "NON-SEPARATING ON RELEASE LABELS · Δ_L = 0.000",
            font=mono_s, fill=REVIEW)
 
     # scope boundary and route back to the receipt
     d.line([(64, 534), (W - 64, 534)], fill=LINE, width=2)
-    d.text((64, 552), "Static OR of three guards on the released per-item verdicts. "
-                      "Not deployed-route safety.", font=mono_xs, fill=MUTED)
+    d.text((64, 552), "Static OR of harness-normalized native unsafe labels. "
+                      "No shared-event translation; not deployed-route safety.", font=mono_xs, fill=MUTED)
     d.text((64, 576), "8 pinned files, one command: cubits11.github.io/missing-column/reproduce/",
            font=mono_xs, fill=MUTED)
 

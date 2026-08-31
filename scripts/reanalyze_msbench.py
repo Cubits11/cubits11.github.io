@@ -5,9 +5,11 @@ Multimodal Safeguard Bench (census row multimodal-safeguard-bench-2026)
 committed one Boolean verdict per item per guard for three guards over 400
 harmful and 500 benign items, each stratum half text and half image. The
 release prints per-guard metrics and two two-guard compositions; it prints
-no three-guard union, no all-miss, no leave-one-out table, and no
-catch-pattern decomposition. Those joint statistics are directly computable
-from the committed verdict files, and claim MC-004 binds the result.
+no three-guard adapter-bit OR, no all-zero-bit count, no leave-one-out table,
+and no native-label pattern decomposition. Those bit statistics are directly
+computable from the committed verdict files, and claim MC-004 binds the
+result. They are not a shared-event catch statistic: the harness normalizes
+distinct native `unsafe` predicates into its stored `blocked` bit.
 
 Discipline (the MC-002 pattern, unchanged):
   * every input file is pinned by commit AND content hash — the numbers are
@@ -76,8 +78,8 @@ SHA256 = {
         "fca2d21da716a5e38dc59b409ac09601ca1ec2a16297db357455f7d17c1a4b02",
 }
 
-SUCCESS_LINE = ("MC-004 reproduced: the three-guard joint statistics, computed "
-                "from the bound public release, match the registered claim.")
+SUCCESS_LINE = ("MC-004 reproduced: the three-guard native-label bit statistics, "
+                "computed from the bound public release, match the registered claim.")
 
 failures: list = []
 
@@ -87,10 +89,8 @@ def summary_line(kind: str, modality: str, union: int, n: int,
     """One stratum's summary exactly as this script prints it. The reproduce
     page renders its expected-output receipt through this same function, so
     the page and the executed stdout cannot drift apart."""
-    word = "union catches" if kind == "harmful" else "union flags"
-    tail = "all-miss" if kind == "harmful" else "flagged by none"
-    return (f"  {kind:>7} {modality:<5} {word} {union:>3}/{n} — "
-            f"{tail} {all_miss}/{n}")
+    return (f"  {kind:>7} {modality:<5} OR(native-unsafe)={union:>3}/{n} — "
+            f"all-native-safe {all_miss}/{n}")
 
 
 def fail(msg: str) -> None:
@@ -206,11 +206,10 @@ def main() -> int:
     for kind, modality, _n in STRATA:
         stratum = f"{kind}_{modality}"
         got, want = computed[stratum], expected[stratum]
-        flag_word = "catches" if kind == "harmful" else "flags"
         checks = [
             ("denominator", got["n"], want["n"]),
             ("union", got["union"], want["union"]),
-            ("all-miss" if kind == "harmful" else "flagged-by-none",
+            ("all-zero-bit",
              got["all_miss"], want["all_miss"]),
         ]
         for name, have, need in checks:
@@ -222,9 +221,9 @@ def main() -> int:
             have = got["per_guard"][guard]
             need = want["per_guard"][guard]
             if have == need:
-                ok(f"{stratum} {flag_word} {guard}: {have}/{got['n']} (as claimed)")
+                ok(f"{stratum} native-unsafe {guard}: {have}/{got['n']} (as claimed)")
             else:
-                fail(f"{stratum} {flag_word} {guard}: computed {have}, "
+                fail(f"{stratum} native-unsafe {guard}: computed {have}, "
                      f"claim says {need}")
             have = got["leave_one_out"][guard]
             need = want["leave_one_out_union"][guard]
@@ -236,10 +235,10 @@ def main() -> int:
                 fail(f"{stratum} union without {guard}: computed {have}, "
                      f"claim says {need}")
         if got["patterns"] == want["patterns"]:
-            ok(f"{stratum} catch-pattern table: "
+            ok(f"{stratum} native-label pattern table: "
                f"{len(want['patterns'])} nonzero cells of 8 (as claimed)")
         else:
-            fail(f"{stratum} catch-pattern table: computed {got['patterns']}, "
+            fail(f"{stratum} native-label pattern table: computed {got['patterns']}, "
                  f"claim says {want['patterns']}")
         if sum(got["patterns"].values()) != got["n"]:
             fail(f"{stratum}: pattern cells sum to "
@@ -299,8 +298,8 @@ def main() -> int:
                   if "lg4" not in key.split("+") and key != "none"
                   and "sg2" in key.split("+"))
     if (lg4_misses, rescued) == (36, 30):
-        ok("printed agreement — SG2 rescues 30 of the 36 harmful image items "
-           "LG4 misses (the paper's pairwise residual)")
+        ok("printed agreement — the paper reports SG2 on 30 of the 36 harmful "
+           "image rows where LG4 is 0 (its pairwise residual)")
     else:
         fail(f"printed agreement — LG4 image misses {lg4_misses} (paper: 36), "
              f"SG2 rescues {rescued} (paper: 30)")

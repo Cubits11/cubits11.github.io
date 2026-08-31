@@ -218,6 +218,15 @@ def tri_cell(row: dict, field: str) -> str:
             f'<span class="tri-ev">{evidence}</span>')
 
 
+def native_action_translation_cell(row: dict) -> str:
+    """An optional semantic annotation, separate from the ground-truth event."""
+    cell = row.get("native_action_translation") or {}
+    status = esc(str(cell.get("status", "not_established")).replace("_", " "))
+    evidence = esc(cell.get("evidence", ""))
+    return (f'<span class="mono">{status}</span>'
+            f'<span class="tri-ev">{evidence}</span>')
+
+
 def render_headline(census: dict, counts: dict) -> str:
     if counts["N"] == 0:
         return f'''
@@ -412,6 +421,9 @@ def render_row_details(examined: list) -> str:
             dl.append(f"<dt>{esc(label_text)}</dt><dd>{esc(value)}</dd>")
         for field, label_text in DETAIL_TRIS:
             dl.append(f"<dt>{esc(label_text)}</dt><dd>{tri_cell(r, field)}</dd>")
+        if r.get("native_action_translation"):
+            dl.append("<dt>Native action → shared-event translation</dt><dd>"
+                      f"{native_action_translation_cell(r)}</dd>")
         systems = ", ".join(str(s) for s in r["systems"])
         dl.append(f"<dt>Systems</dt><dd>{esc(systems)}</dd>")
         prose = r.get("combination_prose")
@@ -1086,9 +1098,9 @@ def render_demonstration() -> str:
     <h2 id="demo-h">The row, demonstrated on public data</h2>
     <p class="zone-intro">BELLS's 2025 misuse-detection study released 170 prompts
       with eleven systems' decisions as columns. The census records a second aligned
-      per-item release — Multimodal Safeguard Bench — whose three-guard unions,
-      all-miss counts, leave-one-out unions, and full catch-pattern tables are now
-      likewise computed from the bound files and registered as
+      per-item release — Multimodal Safeguard Bench — whose three-guard
+      adapter-bit ORs, all-zero counts, leave-one-out bit ORs, and full
+      native-label pattern tables are likewise computed from the bound files and registered as
       <a class="u" href="/ledger/#MC-004">claim MC-004</a>
       (<span class="mono">python scripts/reanalyze_msbench.py</span>). This page
       demonstrates the BELLS-specific arithmetic because MC-002 binds this exact file
@@ -1384,14 +1396,16 @@ def render_reproduce(data: dict) -> str:
 <header class="page">
   <div class="container">
     <h1>Reproduce this recomputation</h1>
-    <p class="intro">MC-004 is counting arithmetic on files Multimodal Safeguard Bench
-      already released — not new data, and not a census change: N/M/K stays
+    <p class="intro">MC-004 is counting arithmetic on harness-normalized adapter bits
+      Multimodal Safeguard Bench already released — not new data, and not a census change: N/M/K stays
       <span data-fact="MC-001.N" data-fact-state="current">{fact_registry.registry()["MC-001.N"]}</span>/{fact_registry.registry()["MC-001.M1"]}/{fact_registry.registry()["MC-001.K"]} and the
       stricter ladder stays 14/12/0. The guards run at native, unmatched operating
-      points. The least favorable column comes first: the three-guard OR-union flags
-      every one of the {bi["n"]} benign image items — saturation owed to Llama Guard 3
-      Vision's own {lg3v_benign}/{bi["n"]} column — and {bt["union"]} of {bt["n"]} benign
-      text items. This page exists so a stranger can check all of it in about a minute.</p>
+      points. The least favorable column comes first: the three-guard bit OR is 1 on
+      every one of the {bi["n"]} benign-labelled image items — saturation owed to Llama Guard 3
+      Vision's own {lg3v_benign}/{bi["n"]} bit column — and {bt["union"]} of {bt["n"]} benign-
+      labelled text items. No source-defined translation makes this OR a shared-event
+      catch union. This page exists so a stranger can check the bounded bit arithmetic
+      in about a minute.</p>
   </div>
 </header>
 <main class="container" id="main">
@@ -1399,15 +1413,18 @@ def render_reproduce(data: dict) -> str:
     <h2 id="claim-h">The claim, exactly</h2>
     <p class="zone-intro">On the six per-item verdict files of the release's
       <span class="mono">full_run</span> directory at commit
-      <span class="mono">{esc(commit[:12])}</span> (hash-verified below), the OR-union of
-      Llama Guard 4, Llama Guard 3 Vision, and ShieldGemma 2 flags
-      {bi["union"]}/{bi["n"]} benign image and {bt["union"]}/{bt["n"]} benign text items,
-      and catches {ht["union"]}/{ht["n"]} harmful text items ({ht["all_miss"]} caught by
-      none) and {hi["union"]}/{hi["n"]} harmful image items on this file. ShieldGemma 2
-      is an image-content classifier whose text verdicts are deterministic passes as
-      released — so the harmful-text union is the work of the two Llama guards, not of
-      three independent catchers. The full pattern tables, leave-one-out unions, scope,
-      falsifier, and forbidden rescues are registered as
+      <span class="mono">{esc(commit[:12])}</span> (hash-verified below), the harness stores
+      each guard's native <span class="mono">unsafe</span> label as a Boolean
+      <span class="mono">blocked</span> bit. The static OR of those bits is 1 on
+      {bi["union"]}/{bi["n"]} benign-labelled image and {bt["union"]}/{bt["n"]} benign-labelled
+      text rows, and on {ht["union"]}/{ht["n"]} harmful-labelled text rows
+      ({ht["all_miss"]} all-zero rows) and {hi["union"]}/{hi["n"]} harmful-labelled image
+      rows. Llama Guard 3 Vision is a multimodal prompt/response classifier;
+      ShieldGemma 2 is image-only and its text rows are deterministic passes as released.
+      No examined source defines a translation of all native predicates to one shared
+      catch event, so this is a released-bit aggregate, not a safety stack or a
+      three-independent-catcher result. The full bit-pattern tables, leave-one-out bit
+      ORs, scope, falsifier, and forbidden rescues are registered as
       <a class="u" href="/ledger/#MC-004">claim MC-004</a>.</p>
   </section>
   <section class="zone" id="run" aria-labelledby="run-h">
@@ -1476,14 +1493,17 @@ FAIL  guard_…jsonl: sha256 …  != recorded …  — the bound artifact change
   <section class="zone" id="not-claimed" aria-labelledby="nc-h">
     <h2 id="nc-h">Not claimed</h2>
     <ul class="crit-list">
+      <li>No shared-event catch statistic: the common <span class="mono">blocked</span> bit
+        is a harness normalization of native predicates, and no source-defined
+        translation to a single event has been identified.</li>
       <li>No vendor ranking, endorsement, or indictment — the verdicts are at native,
         unmatched operating rules, and no threshold calibration is documented upstream.</li>
       <li>No population estimate and no interval; the items are the release's own
         construction, and the counts are about exactly these bytes.</li>
       <li>Not an observed deployed stack; the OR aggregation is arithmetic, not a
         deployment.</li>
-      <li>The harmful-image {hi["union"]}/{hi["n"]} is a counting fact about these
-        {hi["n"]} released items, not evidence the union catches image attacks in
+      <li>The harmful-image {hi["union"]}/{hi["n"]} bit-OR count is a fact about these
+        {hi["n"]} released items, not evidence of image-attack safety in
         general — and the release's own changelog documents that ShieldGemma 2's image
         scores are sensitive to the text-rendering stack.</li>
       <li>A recomputation on released files: it changes no census count and adds no

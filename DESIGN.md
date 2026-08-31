@@ -648,11 +648,19 @@ falsifiable object, or the campaign has no business sitting on this site.
   The named-products-only sensitivity is now `19/13/5`.
 - **Evidence boundary.** MSBench prints two pairwise compositions and
   releases aligned `item_id`/`blocked` outcomes for all three guards, so its
-  three-guard static joint statistics are computable. It does not document
-  matched operating thresholds or a deployed sequential route; those limits
-  remain visible in the new row. The older BELLS demonstration is now named
-  as a BELLS-specific, partial-release reproduction rather than the census's
-  sole per-item release.
+  three-guard static adapter-bit statistics are computable. It does not
+  document matched operating thresholds, a deployed sequential route, or a
+  source-defined translation from the guards' native predicates to one shared
+  catch event; those limits remain visible in the row. The older BELLS
+  demonstration is now named as a BELLS-specific, partial-release
+  reproduction rather than the census's sole per-item release.
+- **Semantic correction — 2026-08-31.** The first MC-004 wording promoted the
+  harness-normalized `blocked` bit to a common catch event. That was a type
+  error: the census's shared-event field describes the common benchmark label,
+  whereas Llama Guard 3 Vision and ShieldGemma-2 retain distinct native
+  predicates before the harness maps them to `blocked`. The values and N/M/K
+  remain unchanged; MC-004 now names the object as adapter-bit arithmetic and
+  carries a `native_action_translation: not_established` annotation.
 - **Local review (before commit):** `verify_claims.py`, `verify_census.py`,
   all generated-page drift checks, `verify_figures.py`,
   `generate_modules.py --check`, `mjgd_reference.py --test`,

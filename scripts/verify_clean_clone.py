@@ -39,6 +39,7 @@ CHECKS = (
     ("mixture bounds", "scripts/mixture_bounds.py"),
     ("BELLS reproduction", "scripts/reanalyze_bells_subset.py"),
     ("MSBench reproduction", "scripts/reanalyze_msbench.py"),
+    ("MC-004 semantic scope", "scripts/verify_mc004_semantics.py"),
     ("degeneracy diagnostic", "scripts/degeneracy.py"),
     ("internal links", "scripts/check_links.py"),
     ("frontend structure and scroll regions", "scripts/verify_frontend.py"),
