@@ -40,6 +40,17 @@ JOINT_SCOPES = {"printed_full_stack", "printed_partial_stack",
                 "computable_via_item_release", "none"}
 ADJUDICATION_MODES = {"single_primary_reviewer", "dual_reviewed"}
 TRI_STATE = {"yes", "no", "unstated", "mixed"}
+
+# Protocol-v1 vocabulary (census_protocol_v1.yaml). v0 rows carry these as
+# annotations; the classes are derived from evidence already in the row, so
+# each one is re-checked here against that evidence rather than trusted.
+SOURCE_TYPES = {"preprint", "peer_reviewed_paper", "repository_or_leaderboard",
+                "vendor_publication"}
+RECONSTRUCTION_CLASSES = {"DIRECTLY_REPORTED", "EXACTLY_RECONSTRUCTIBLE",
+                          "PARTIALLY_IDENTIFIED", "NOT_IDENTIFIABLE",
+                          "NOT_APPLICABLE", "UNVERIFIED"}
+PRESERVATION_STATES = {"ARCHIVED_VERIFIED", "ARCHIVE_URL_RECORDED",
+                       "NO_ARCHIVE_RECORDED", "ARCHIVE_UNDETERMINED"}
 CENSUS_SCHEMA_VERSION = 3
 CRITERIA_CANONICALIZATION = (
     "JSON UTF-8; sort_keys=true; separators=(',', ':'); ensure_ascii=false; "
@@ -67,6 +78,7 @@ REQUIRED_EXAMINED = {
     "combination_prose", "joint_statistic_evidence", "joint_scope",
     "classification", "classification_reason", "source_passages",
     "contact_route", "last_checked", "correction_history",
+    "source_type", "reconstruction", "preservation",
     *TRI_FIELDS,
 }
 
@@ -519,6 +531,104 @@ def load() -> dict:
     return yaml.safe_load((ROOT / "census.yaml").read_text())
 
 
+
+def row_digest(data: dict) -> str:
+    """Canonical digest over every benchmark row — the v0 immutability lock."""
+    rows = sorted(data.get("benchmarks") or [], key=lambda r: r.get("id", ""))
+    blob = json.dumps(rows, sort_keys=True, separators=(",", ":"),
+                      ensure_ascii=False)
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()
+
+
+def check_snapshot_and_lock(data: dict) -> None:
+    """v0 is history. It may be corrected, never silently revised."""
+    census = data.get("census") or {}
+    snapshot = census.get("snapshot")
+    if not isinstance(snapshot, dict):
+        fail("census.snapshot is missing — v0 must declare itself a historical "
+             "snapshot with a public statement about currency")
+        return
+    for field in ("version", "label", "frozen_as_of", "public_statement",
+                  "mutability", "protocol_for_new_observations"):
+        if not str(snapshot.get(field) or "").strip():
+            fail(f"census.snapshot.{field} must be non-empty")
+    statement = str(snapshot.get("public_statement") or "").lower()
+    if "not asserted to remain current" not in statement:
+        fail("census.snapshot.public_statement must state that the counts are "
+             "not asserted to remain current")
+    protocol = ROOT / str(snapshot.get("protocol_for_new_observations") or "")
+    if not protocol.exists():
+        fail("census.snapshot.protocol_for_new_observations must name a "
+             "protocol file that exists — v1 rules must precede v1 rows")
+
+    lock = census.get("v0_row_lock")
+    if not isinstance(lock, dict):
+        fail("census.v0_row_lock is missing — history would be silently mutable")
+        return
+    declared = str(lock.get("sha256") or "")
+    actual = row_digest(data)
+    if declared != actual:
+        fail("census.v0_row_lock.sha256 does not match the current rows "
+             f"(declared {declared[:12]}…, actual {actual[:12]}…). A row changed. "
+             "If the change is intended: add correction_history to that row, add "
+             "a census revision_history entry, and re-mint the lock.")
+    else:
+        ok(f"v0 row lock holds: history unchanged ({actual[:12]}…)")
+
+
+def check_protocol_annotations(row: dict, rid: str) -> None:
+    """Every annotation must be supported by evidence already in the row.
+
+    The point is not that a class is spelled correctly. It is that a class
+    asserting reconstructability cannot be written over a row whose own fields
+    do not support it, and that inability to establish a class resolves to
+    UNVERIFIED rather than to a negative finding.
+    """
+    if row.get("source_type") not in SOURCE_TYPES:
+        fail(f"{rid}: source_type={row.get('source_type')!r} not in "
+             f"{sorted(SOURCE_TYPES)}")
+
+    for key, field, allowed in (("reconstruction", "class", RECONSTRUCTION_CLASSES),
+                                ("preservation", "state", PRESERVATION_STATES)):
+        cell = row.get(key)
+        if not isinstance(cell, dict):
+            fail(f"{rid}: {key} must be a mapping with {field} and evidence")
+            continue
+        value = cell.get(field)
+        if value not in allowed:
+            fail(f"{rid}: {key}.{field}={value!r} not in {sorted(allowed)}")
+        if not str(cell.get("evidence") or "").strip():
+            fail(f"{rid}: {key}.evidence must be a non-empty string — a class "
+                 "without evidence is an assertion, not a classification")
+
+    cls = (row.get("reconstruction") or {}).get("class")
+    scope = row.get("joint_scope")
+    item = tri_value(row, "item_level_outcomes_released", rid) \
+        if isinstance(row.get("item_level_outcomes_released"), dict) else None
+
+    if cls == "DIRECTLY_REPORTED" and scope not in {"printed_full_stack",
+                                                    "printed_partial_stack"}:
+        fail(f"{rid}: DIRECTLY_REPORTED requires a printed composition "
+             f"(joint_scope={scope!r})")
+    if cls == "EXACTLY_RECONSTRUCTIBLE" and item != "yes":
+        fail(f"{rid}: EXACTLY_RECONSTRUCTIBLE requires released per-item "
+             f"outcomes over the full set (item_level_outcomes_released={item!r})")
+    if cls == "NOT_APPLICABLE" and row.get("classification") != "NOT_COMPARABLE":
+        fail(f"{rid}: NOT_APPLICABLE requires a positive incomparability "
+             "finding (classification NOT_COMPARABLE)")
+    if cls == "NOT_IDENTIFIABLE":
+        # Reserved for a positive finding. A failed search must never land here.
+        if row.get("classification") != "NOT_COMPARABLE":
+            fail(f"{rid}: NOT_IDENTIFIABLE must rest on a positive finding of "
+                 "incomparability, never on a failed retrieval — use UNVERIFIED")
+    if cls == "PARTIALLY_IDENTIFIED" and scope == "none":
+        si = tri_value(row, "same_items_for_all_systems", rid)
+        se = tri_value(row, "same_event_definition", rid)
+        if not (si in {"yes", "mixed"} and se == "yes"):
+            fail(f"{rid}: PARTIALLY_IDENTIFIED over marginals requires a shared "
+                 f"item universe and event definition (items={si!r}, event={se!r})")
+
+
 def main() -> int:
     data = load()
     check_census_block(data.get("census") or {})
@@ -529,6 +639,10 @@ def main() -> int:
     for row in data.get("exclusions") or []:
         check_exclusion(row, seen)
     check_interpretation_sensitivities(data)
+    check_snapshot_and_lock(data)
+    for _row in (data.get('benchmarks') or []):
+        if _row.get('status') == 'examined':
+            check_protocol_annotations(_row, _row.get('id', '?'))
     counts = compute_counts(data)
     adjudication = (data.get("census") or {}).get("adjudication_status") or {}
     if adjudication.get("covered_examined_rows") != counts["N"]:
