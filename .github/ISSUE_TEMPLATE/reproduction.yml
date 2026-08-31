@@ -1,0 +1,66 @@
+name: Reproduction run — match or mismatch
+description: >-
+  File the result of running a registered reproduction (for example
+  scripts/reanalyze_msbench.py for claim MC-004, or
+  scripts/reanalyze_bells_subset.py for MC-002). Both outcomes are wanted:
+  a match becomes the claim's independent-reproduction record; a mismatch
+  is handled as a correction under the same-day correction policy.
+title: "Reproduction: <claim id> — <match|mismatch>"
+labels: ["reproduction"]
+body:
+  - type: input
+    id: claim
+    attributes:
+      label: Claim id
+      description: Which registered claim did you reproduce? (see /ledger/)
+      placeholder: MC-004
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Repository commit
+      description: Output of `git rev-parse HEAD` in your clone.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS and Python version (e.g. `uname -sr; python3 --version`).
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Exact command you ran
+      placeholder: python scripts/reanalyze_msbench.py
+    validations:
+      required: true
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Outcome
+      options:
+        - "Match — exit 0, final line matched the page's expected output"
+        - "Mismatch — a FAIL line, a different count, or a nonzero exit"
+    validations:
+      required: true
+  - type: textarea
+    id: stdout
+    attributes:
+      label: Full stdout (and stderr if any)
+      description: Paste the complete output. For a mismatch, this is the evidence the correction starts from.
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: credit
+    attributes:
+      label: Credit permission
+      description: Matching runs are recorded as the claim's reproduction record; mismatches are credited in the correction history.
+      options:
+        - "Yes — credit me by the name on this GitHub account"
+        - "No — record the run without naming me"
+    validations:
+      required: true

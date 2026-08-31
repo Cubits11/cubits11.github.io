@@ -83,6 +83,45 @@ REPLAY_ADVERTISED = (
 )
 REPLAY_FULL = "scripts/verify_clean_clone.py"
 
+REPRO_PAGE = "missing-column/reproduce/index.html"
+REPRO_COMMAND = "python scripts/reanalyze_msbench.py"
+REPRO_ISSUE_FORM = "issues/new?template=reproduction.yml"
+
+
+def check_reproduce_packet(html_text: str, where: str) -> list[str]:
+    """The MC-004 reproduction page must stay a runnable, falsifiable packet.
+
+    The page derives its hashes, commit, and expected-output lines from
+    reanalyze_msbench itself, so agreement is structural; this gate protects
+    against the surface quietly losing a load-bearing element: the setup
+    block, the command, the bound commit, any pinned hash, the exact success
+    line, the mutation contract, or the route a stranger files a run
+    through. Losing any of these turns the packet back into prose.
+    """
+    import reanalyze_msbench
+    failures: list[str] = []
+
+    def need(fragment: str, what: str) -> None:
+        if fragment not in html_text:
+            failures.append(f"{where}: reproduction packet lost {what}")
+
+    for line in (REPLAY_CLONE, "cd cubits11.github.io", *REPLAY_VENV,
+                 REPLAY_INSTALL):
+        need(line, f"its setup line {line!r}")
+    need(REPRO_COMMAND, "the reproduction command")
+    need(reanalyze_msbench.BOUND_COMMIT, "the bound source commit")
+    for name, digest in reanalyze_msbench.SHA256.items():
+        need(digest, f"the pinned sha256 for {name}")
+    need(html.escape(reanalyze_msbench.SUCCESS_LINE),
+         "the exact expected success line")
+    need("--dir", "the offline mutation path")
+    need(REPRO_ISSUE_FORM, "the reproduction issue form link")
+    need("/corrections/", "the correction route")
+    if not (ROOT / ".github" / "ISSUE_TEMPLATE" / "reproduction.yml").exists():
+        failures.append(f"{where}: the reproduction issue form it links "
+                        f"does not exist in the repository")
+    return failures
+
 
 def replay_commands(html_text: str) -> list[str] | None:
     """The replay manifest's command lines, comments stripped — or None when
@@ -192,6 +231,8 @@ def audit_tree() -> list[str]:
         failures += check_freshness(html_text, rel)
         if rel == REPLAY_PAGE:
             failures += check_replay_manifest(html_text, rel)
+        if rel == REPRO_PAGE:
+            failures += check_reproduce_packet(html_text, rel)
         checked += 1
     if not failures:
         values = " ".join(f"{k.split('.', 1)[1]}={v}"
@@ -397,7 +438,36 @@ def run_tests() -> list[str]:
         check(f"replay mutation caught: {name}",
               bool(check_replay_manifest(mutated, "fixture")))
 
-    # 11. The evidence-mode counts must reconcile with K by inclusion-exclusion.
+    # 11. The reproduction packet page is complete and each load-bearing
+    #     element is load-bearing: the generator's rendered page passes, and
+    #     losing the command, the bound commit, a pinned hash, the success
+    #     line, the mutation path, or the filing route fails rather than
+    #     passing by silence.
+    import reanalyze_msbench
+    repro = gen.render_reproduce(data)
+    check("the generator's reproduction packet is complete",
+          not check_reproduce_packet(repro, "fixture"),
+          "; ".join(check_reproduce_packet(repro, "fixture")))
+    a_hash = next(iter(reanalyze_msbench.SHA256.values()))
+    repro_mutations = {
+        "reproduction command removed": (REPRO_COMMAND, "python scripts/x.py"),
+        "bound commit removed": (reanalyze_msbench.BOUND_COMMIT, "deadbeef"),
+        "a pinned hash removed": (a_hash, a_hash[:32]),
+        "success line reworded": ("match the registered claim",
+                                  "look about right"),
+        "issue form link removed": (REPRO_ISSUE_FORM, "issues/new"),
+        "setup block loses its clone": (REPLAY_CLONE, ""),
+    }
+    for name, (old, new) in repro_mutations.items():
+        mutated = repro.replace(old, new)
+        if mutated == repro:
+            failures.append(f"fixture setup: reproduce mutation {name!r} "
+                            f"matched nothing")
+            continue
+        check(f"reproduce mutation caught: {name}",
+              bool(check_reproduce_packet(mutated, "fixture")))
+
+    # 12. The evidence-mode counts must reconcile with K by inclusion-exclusion.
     #     If they ever stop doing so, the prose describing the overlap is
     #     describing something other than the census.
     modes = verify_census.compute_counts(data)["K_evidence_modes"]

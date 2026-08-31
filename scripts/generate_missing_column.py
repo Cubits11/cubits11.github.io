@@ -28,6 +28,7 @@ import sys
 
 import generate_ledger as ledger
 import identification
+import reanalyze_msbench
 import validate_mjgd
 import facts as fact_registry
 import verify_census
@@ -1296,12 +1297,167 @@ Errors/timeouts: <n>, scored as <policy>.'''
 </main>''' + PAGE_FOOT
 
 
+def render_reproduce(data: dict) -> str:
+    """The stranger reproduction page for MC-004 — one claim, one receipt,
+    one non-claim, one reproduction action. Hashes and the bound commit come
+    from reanalyze_msbench itself and the numerals from MC-004's expected
+    block, so this page cannot disagree with the script or the registry
+    without failing a drift check."""
+    import yaml
+    registry = yaml.safe_load((ROOT / "claims.yaml").read_text())
+    mc = next((c for c in registry["claims"] if c["id"] == "MC-004"), None)
+    if mc is None:
+        return ""
+    e = mc["expected"]
+    bt, bi = e["benign_text"], e["benign_image"]
+    ht, hi = e["harmful_text"], e["harmful_image"]
+    lg3v_benign = bi["per_guard"]["llama_guard_3_vision"]
+    commit = reanalyze_msbench.BOUND_COMMIT
+    hash_rows = "".join(
+        f'<tr><th scope="row" class="mono" style="font-size:.72rem">{esc(name)}</th>'
+        f'<td class="mono" style="font-size:.68rem;word-break:break-all">{esc(digest)}</td></tr>'
+        for name, digest in reanalyze_msbench.SHA256.items())
+    issue_url = ("https://github.com/Cubits11/cubits11.github.io/issues/new"
+                 "?template=reproduction.yml")
+    title = "Reproduce claim MC-004 — a three-guard recomputation"
+    desc = ("One command block, eight pinned hashes, the expected output, "
+            "and what must fail — reproduce claim MC-004's three-guard "
+            "recomputation from released files; match and mismatch both "
+            "get credited.")
+    head = page_head(
+        title, desc, "/missing-column/reproduce/", "", breadcrumbs(
+            ("The record", "/"), ("The Missing Column", "/missing-column/"),
+            ("Reproduce MC-004", None)))
+    pre_style = ("background:var(--surface);border:1px solid var(--line-strong);"
+                 "padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);"
+                 "font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.2rem 0 0")
+    return head + f'''
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>Reproduce it</b> — claim <a class="u" href="/ledger/#MC-004">MC-004</a></span>
+    <span>a recomputation on released files · census counts unchanged</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <h1>Reproduce this recomputation</h1>
+    <p class="intro">MC-004 is counting arithmetic on files Multimodal Safeguard Bench
+      already released — not new data, and not a census change: N/M/K stays
+      <span data-fact="MC-001.N" data-fact-state="current">{fact_registry.registry()["MC-001.N"]}</span>/{fact_registry.registry()["MC-001.M1"]}/{fact_registry.registry()["MC-001.K"]} and the
+      stricter ladder stays 14/12/0. The guards run at native, unmatched operating
+      points. The least favorable column comes first: the three-guard OR-union flags
+      every one of the {bi["n"]} benign image items — saturation owed to Llama Guard 3
+      Vision's own {lg3v_benign}/{bi["n"]} column — and {bt["union"]} of {bt["n"]} benign
+      text items. This page exists so a stranger can check all of it in about a minute.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <section class="zone" id="claim" aria-labelledby="claim-h">
+    <h2 id="claim-h">The claim, exactly</h2>
+    <p class="zone-intro">On the six per-item verdict files of the release's
+      <span class="mono">full_run</span> directory at commit
+      <span class="mono">{esc(commit[:12])}</span> (hash-verified below), the OR-union of
+      Llama Guard 4, Llama Guard 3 Vision, and ShieldGemma 2 flags
+      {bi["union"]}/{bi["n"]} benign image and {bt["union"]}/{bt["n"]} benign text items,
+      and catches {ht["union"]}/{ht["n"]} harmful text items ({ht["all_miss"]} caught by
+      none) and {hi["union"]}/{hi["n"]} harmful image items on this file. ShieldGemma 2
+      is an image-content classifier whose text verdicts are deterministic passes as
+      released — so the harmful-text union is the work of the two Llama guards, not of
+      three independent catchers. The full pattern tables, leave-one-out unions, scope,
+      falsifier, and forbidden rescues are registered as
+      <a class="u" href="/ledger/#MC-004">claim MC-004</a>.</p>
+  </section>
+  <section class="zone" id="run" aria-labelledby="run-h">
+    <h2 id="run-h">Run it</h2>
+    <p class="zone-intro">From an empty directory — a POSIX shell with
+      <span class="mono">git</span> and Python&nbsp;3.11+ (with its standard
+      <span class="mono">venv</span> module). The script downloads the eight pinned
+      files from the bound commit and refuses to count anything until every hash
+      matches.</p>
+    <pre style="{pre_style}">git clone https://github.com/Cubits11/cubits11.github.io.git
+cd cubits11.github.io
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements.txt
+python scripts/reanalyze_msbench.py</pre>
+  </section>
+  <section class="zone" id="expect" aria-labelledby="expect-h">
+    <h2 id="expect-h">What you should see</h2>
+    <p class="zone-intro">Dozens of <span class="mono">ok</span> assertion lines —
+      every recomputed quantity that overlaps the release's own printed metrics is
+      asserted equal to the printed value — then this summary and exit code 0:</p>
+    <pre style="{pre_style}">{esc(reanalyze_msbench.summary_line("benign", "text", bt["union"], bt["n"], bt["all_miss"]))}
+{esc(reanalyze_msbench.summary_line("benign", "image", bi["union"], bi["n"], bi["all_miss"]))}
+{esc(reanalyze_msbench.summary_line("harmful", "text", ht["union"], ht["n"], ht["all_miss"]))}
+{esc(reanalyze_msbench.summary_line("harmful", "image", hi["union"], hi["n"], hi["all_miss"]))}
+
+{esc(reanalyze_msbench.SUCCESS_LINE)}</pre>
+  </section>
+  <section class="zone" id="must-fail" aria-labelledby="fail-h">
+    <h2 id="fail-h">What must fail</h2>
+    <p class="zone-intro">A reproduction that cannot fail proves nothing. Save the
+      eight files locally, flip one byte of any of them, and re-run offline:</p>
+    <pre style="{pre_style}">python scripts/reanalyze_msbench.py --dir path/to/mutated_full_run
+FAIL  guard_…jsonl: sha256 …  != recorded …  — the bound artifact changed;
+      MC-004 must be re-reviewed, not silently recomputed   (exit code 1)</pre>
+    <p class="zone-intro" style="margin-top:.9rem">The same flip smuggled past the hash
+      gate trips nine independent count, pattern, and printed-agreement assertions —
+      that mutation test is part of the claim's record, not a promise.</p>
+  </section>
+  <section class="zone" id="pins" aria-labelledby="pins-h">
+    <h2 id="pins-h">The eight pinned files</h2>
+    <p class="zone-intro">All at
+      <a class="u" href="https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/{esc(commit)}/results/full_run">PatrickKollman/Multimodal-Safeguard-Bench@{esc(commit[:12])} ↗</a>
+      under <span class="mono">results/full_run/</span> (MIT-licensed upstream; cited
+      and hash-verified here, never redistributed).</p>
+    <div class="fig-scroll">
+    <table class="census-table">
+      <caption class="sr-only">The eight pinned release files and their sha256 digests.</caption>
+      <thead><tr><th scope="col">File</th><th scope="col">sha256</th></tr></thead>
+      <tbody>{hash_rows}</tbody>
+    </table>
+    </div>
+  </section>
+  <section class="zone" id="file-your-run" aria-labelledby="file-h">
+    <h2 id="file-h">File your run — match or mismatch</h2>
+    <p class="zone-intro">Both outcomes are wanted. A matching run becomes this claim's
+      first independent reproduction; a mismatching run is a correction, handled under
+      the <a class="u" href="/corrections/">same-day correction policy</a> and credited
+      where consent permits. Use the
+      <a class="u" href="{issue_url}">reproduction issue form ↗</a> (environment,
+      commit, command, stdout, match or mismatch) or
+      <a class="u" href="mailto:bhavepranavwork@gmail.com">email</a>. As of the last
+      owner review, MC-004 has no recorded independent reproduction — this page is the
+      standing invitation, not evidence that one exists.</p>
+  </section>
+  <section class="zone" id="not-claimed" aria-labelledby="nc-h">
+    <h2 id="nc-h">Not claimed</h2>
+    <ul class="crit-list">
+      <li>No vendor ranking, endorsement, or indictment — the verdicts are at native,
+        unmatched operating rules, and no threshold calibration is documented upstream.</li>
+      <li>No population estimate and no interval; the items are the release's own
+        construction, and the counts are about exactly these bytes.</li>
+      <li>Not an observed deployed stack; the OR aggregation is arithmetic, not a
+        deployment.</li>
+      <li>The harmful-image {hi["union"]}/{hi["n"]} is a counting fact about these
+        {hi["n"]} released items, not evidence the union catches image attacks in
+        general — and the release's own changelog documents that ShieldGemma 2's image
+        scores are sensitive to the text-rendering stack.</li>
+      <li>A recomputation on released files: it changes no census count and adds no
+        new measurement.</li>
+    </ul>
+  </section>
+</main>''' + PAGE_FOOT
+
+
 def main() -> int:
     data = verify_census.load()
     outputs = {
         ROOT / "missing-column" / "index.html": render_landing(data),
         ROOT / "missing-column" / "disclosure" / "index.html":
             render_disclosure(data),
+        ROOT / "missing-column" / "reproduce" / "index.html":
+            render_reproduce(data),
         ROOT / "corrections" / "index.html": render_corrections(data),
     }
     if "--check" in sys.argv:
