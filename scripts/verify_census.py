@@ -40,6 +40,8 @@ JOINT_SCOPES = {"printed_full_stack", "printed_partial_stack",
                 "computable_via_item_release", "none"}
 ADJUDICATION_MODES = {"single_primary_reviewer", "dual_reviewed"}
 TRI_STATE = {"yes", "no", "unstated", "mixed"}
+NATIVE_ACTION_TRANSLATIONS = {"shared_source_defined", "translation_declared",
+                              "not_established", "not_applicable"}
 
 # Protocol-v1 vocabulary (census_protocol_v1.yaml). v0 rows carry these as
 # annotations; the classes are derived from evidence already in the row, so
@@ -291,6 +293,22 @@ def check_row(row: dict, seen_ids: set) -> None:
     elif len(pub) == 10 and pub[4] == "-" and pub[7] == "-":
         parse_date(pub, f"{rid}.publication_date")
     values = {f: tri_value(row, f, rid) for f in TRI_FIELDS}
+    # The shared-event field is about the benchmark's ground-truth positive
+    # set. A mechanism's native alarm/action predicate is a separate object,
+    # optionally recorded when a row's stored bit has been normalized by a
+    # harness. Keep that distinction visible without retroactively requiring
+    # a new annotation on every historical row.
+    translation = row.get("native_action_translation")
+    if translation is not None:
+        if not isinstance(translation, dict):
+            fail(f"{rid}: native_action_translation must be a mapping")
+        else:
+            status = translation.get("status")
+            if status not in NATIVE_ACTION_TRANSLATIONS:
+                fail(f"{rid}: native_action_translation.status={status!r} not in "
+                     f"{sorted(NATIVE_ACTION_TRANSLATIONS)}")
+            if not str(translation.get("evidence") or "").strip():
+                fail(f"{rid}: native_action_translation.evidence must be non-empty")
     classification = row["classification"]
     if classification not in CLASSIFICATIONS:
         fail(f"{rid}: classification={classification!r} not in "

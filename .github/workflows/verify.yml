@@ -79,6 +79,8 @@ jobs:
         run: python scripts/reanalyze_bells_subset.py
       - name: MC-004 reproduces from the bound public release
         run: python scripts/reanalyze_msbench.py
+      - name: MC-004 adapter-bit scope remains separate from a catch event
+        run: python scripts/verify_mc004_semantics.py
       - name: Conditional-degeneracy diagnostic (OR-closure holds on the bound release)
         run: python scripts/degeneracy.py
       - name: Internal links resolve (pages, anchors, fragments)

@@ -496,7 +496,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "17d88bff764dd63fcd30b496d1e5ea70ae0a42c169489b660970e819fadc39df"
+        sha256: "9327ee9a6185bc0e46828be723231b61f8ca5dff9df63078a19f887b5491a48b"
         note: >-
           fires when the census changes without a claim re-review;
           re-reviewed 2026-08-31 after freezing v0 as a historical
@@ -504,10 +504,10 @@ claims:
           vocabulary (source_type, reconstruction class, preservation
           state), a v0_row_lock minted so history cannot change
           silently, and prospective v1 collection rules committed in
-          census_protocol_v1.yaml. Purely additive — no row was
-          reclassified; N/M/K and the M ladder recomputed unchanged
-          at 20/14/5 and 14/12/0
-          unchanged
+          census_protocol_v1.yaml. The same-day semantic-scope correction to
+          MC-004 records its released values as adapter-bit arithmetic rather
+          than a shared-event catch union; no row classification or N/M/K
+          value changed, and the M ladder remains 14/12/0.
       - type: manual
         enforcement: manual
         event: >
@@ -759,34 +759,41 @@ claims:
       On the per-item guard-verdict files publicly released with Multimodal
       Safeguard Bench's full_run (pinned commit below; six verdict files and
       the release's two printed-metric files hash-verified), the three guards
-      — Llama Guard 4, Llama Guard 3 Vision, ShieldGemma 2 — have a
-      released-verdict OR-union that catches 192 of the 200 harmful text
-      items (8 caught by none, 4.0%) and all 200 harmful image items (0
-      missed by all three), while the same union flags 32 of the 250 benign
-      text items (12.8%) and every one of the 250 benign image items — the
-      benign image column is saturated by Llama Guard 3 Vision alone, which
-      flags 250 of 250. The complete 2^3 catch-pattern table, leave-one-out
-      unions, and unique contributions for each released stratum are bound
-      below. The release prints per-guard metrics and two two-guard
-      compositions; it prints no three-guard union, no all-miss, no
-      leave-one-out table, and no pattern decomposition — and every
-      recomputed quantity that overlaps what it does print is asserted equal
-      to the printed value.
+      — Llama Guard 4, Llama Guard 3 Vision, ShieldGemma 2 — have
+      harness-normalized native `unsafe` labels whose static Boolean OR is 1
+      on 192 of 200 harmful-labelled text items (8 all-zero rows, 4.0%) and
+      all 200 harmful-labelled image items (0 all-zero rows), while the same
+      OR is 1 on 32 of 250 benign-labelled text items (12.8%) and every one
+      of 250 benign-labelled image items. Llama Guard 3 Vision alone has a
+      1-bit on all 250 released benign image items. The complete 2^3
+      native-label pattern table, leave-one-out bit ORs, and unique bit
+      contributions for each released stratum are bound below. The release
+      prints per-guard metrics and two two-guard compositions; it prints no
+      three-guard bit OR, no all-zero-row count, no leave-one-out table, and
+      no pattern decomposition — and every recomputed quantity that overlaps
+      what it does print is asserted equal to the printed value.
     scope: >
       Exactly the six committed verdict files of the full_run directory at
       the bound commit: 400 harmful and 500 benign items, each stratum half
-      text and half image, one Boolean blocked verdict per item per guard.
-      Counting arithmetic only, at the guards' released verdicts and native
-      operating rules (the Llama guards emit labels autoregressively;
-      ShieldGemma 2 blocks above a 0.5 policy-violation probability; the
-      source documents no matched operating-point calibration, so M-ladder
-      threshold comparability is unchanged). ShieldGemma 2 is an
-      image-content classifier: its text-item verdicts are deterministic
-      passes as committed and documented upstream, which is why its text
-      column is zero — an explicit released outcome, not missing data.
-      Strata are computed exactly as released and never folded; file totals
-      are sums of the bound strata and carry no additional content. Computed
-      by scripts/reanalyze_msbench.py from scripts/mjgd_reference.py; the
+      text and half image, one Boolean `blocked` adapter bit per item per
+      guard. Let L be the release's harmful/benign label, A_s each guard's
+      native `unsafe` predicate, B_s the harness mapping of that predicate
+      to `blocked`, and O = OR_s B_s. The bound arithmetic reports B and O
+      conditional on L. It does not establish a source-defined translation
+      from every A_s to one shared catch event E: Llama Guard 3 Vision is a
+      multimodal prompt/response classifier, while ShieldGemma 2 is an
+      image-only three-policy classifier, and the pipeline merely maps each
+      native `unsafe` label to `blocked`. Counting arithmetic only, at the
+      guards' released native operating rules (the Llama guards emit labels
+      autoregressively; ShieldGemma 2 blocks above a 0.5 policy-violation
+      probability; the source documents no matched operating-point
+      calibration, so M-ladder threshold comparability is unchanged).
+      ShieldGemma 2's text-item bits are deterministic passes as committed
+      and documented upstream, which is why its text column is zero — an
+      explicit released outcome, not missing data. Strata are computed
+      exactly as released and never folded; file totals are sums of the
+      bound strata and carry no additional content. Computed by
+      scripts/reanalyze_msbench.py from scripts/mjgd_reference.py; the
       expected block below is what CI re-asserts against the downloaded,
       hash-verified files.
     dimensions:
@@ -880,7 +887,7 @@ claims:
           lg4+lg3v: 33
           lg3v+sg2: 15
           lg4+lg3v+sg2: 8
-    last_reviewed: '2026-08-30'
+    last_reviewed: '2026-08-31'
     review_window_days: 60
     review_triggers:
       - type: remote_content_change
@@ -935,8 +942,9 @@ claims:
         enforcement: manual
         event: >
           the authors publish a corrected or extended full_run, print their
-          own three-guard joint statistics, or document a matched
-          operating-point calibration
+          own three-guard joint statistics, document a matched
+          operating-point calibration, or publish a source-defined
+          translation from all native predicates to one shared catch event
     falsifier:
       condition: >
         Recomputing from the bound, hash-verified files yields any count
@@ -958,9 +966,16 @@ claims:
       - do not cite the benign-image 250/250 union without attributing it to
         Llama Guard 3 Vision's 250/250 column, and do not cite the harmful
         strata without the benign strata
+      - do not call an OR of the harness-normalized native labels a
+        shared-event catch union, stack safety result, or three-independent-
+        guard finding unless a source-defined event translation is added
       - do not recast these file counts as population estimates, with or
         without an interval, if the primary counts are challenged
     non_claims:
+      - >-
+        not a shared-event catch statistic: the common `blocked` bit is a
+        harness normalization of distinct native predicates, and no
+        source-defined translation to a common event E has been identified
       - not a population estimate — the items derive from HarmBench and
         XSTest under the release's own construction, and no interval is
         offered because no sampled population is defined
@@ -976,9 +991,9 @@ claims:
         changelog documents that ShieldGemma 2's image scores are sensitive
         to the text-rendering stack, so nothing here predicts what any guard
         would do under a different rendering environment
-      - the zero three-guard image all-miss is a counting fact about these
-        200 released image items, not evidence that the union catches
-        image attacks in general
+      - the zero three-guard image all-zero-bit count is a counting fact
+        about these 200 released image items, not evidence of general image
+        attack safety
 
   - id: AF-001
     proposition: >
@@ -1248,14 +1263,16 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md"
       commit: null
       note: "Mutable link by design; the local-content trigger below detects edits."
-    last_reviewed: "2026-08-30"
+    last_reviewed: "2026-08-31"
     review_window_days: 120
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: DESIGN.md
-        sha256: "c3dd2bea56430b10591f56cc7ee559ddee5b96bdfeeaf3f42e7d79856492ec3a"
-        note: fires when DESIGN.md changes without a registry re-review
+        sha256: "da648fcd4ea33a959ebfa0ac4b87166f2ee64af2de22283dd08e41c4f2e8386f"
+        note: >-
+          fires when DESIGN.md changes without a registry re-review;
+          re-reviewed 2026-08-31 after its MC-004 semantic-scope correction
       - type: manual
         enforcement: manual
         event: site redesign

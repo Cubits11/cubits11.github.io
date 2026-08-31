@@ -69,6 +69,10 @@
 #   M — examined rows with same_items_for_all_systems: yes AND
 #       same_event_definition: yes (the shared item/common-event basis;
 #       not a claim of policy comparability)
+#   `same_event_definition` is the benchmark ground-truth event (which items
+#   are positive), not a mechanism's native alarm/action predicate. Rows that
+#   expose a harness-normalized predicate may additionally record
+#   `native_action_translation`; that semantic field does not alter N/M/K.
 #   K — examined rows classified PRESENT
 #   K is always displayed with its joint_scope split. "None" is never used
 #   in public copy when K > 0.
@@ -99,7 +103,7 @@ census:
       scripts/verify_census.py fails the build otherwise.
     protocol_for_new_observations: census_protocol_v1.yaml
   v0_row_lock:
-    sha256: "6ef932c2db525e5f3b1c932f9dadb17226f3f3697454a0a253744d6936696b7d"
+    sha256: "5f80207bb801d62c395c2474228876050eecd2e7c9796041d902f596cb30fdc3"
     canonicalization: >-
       JSON UTF-8; sort_keys=true; separators=(',', ':'); ensure_ascii=false;
       benchmarks list sorted by id
@@ -222,6 +226,19 @@ census:
       candidates surfaced but not examined are listed under
       unexamined_candidates and excluded from every count
   revision_history:
+    - date: "2026-08-31"
+      change: >-
+        Semantic-scope correction for multimodal-safeguard-bench-2026. The
+        row's old same-event evidence incorrectly treated the harness's
+        normalized `blocked` bit as the shared event. Under the frozen
+        protocol, that field concerns the common HarmBench/XSTest ground-truth
+        label and remains yes. A new native_action_translation annotation
+        records that no source-defined map from all native guard predicates to
+        one catch event was found. MC-004's counts are retained as adapter-bit
+        arithmetic and no longer called a shared-event catch union; N/M/K and
+        the M ladder remain 20/14/5 and 14/12/0. This corrects this record's
+        semantic framing, not the authors' counts or their disclosed pairwise
+        compositions.
     - date: "2026-08-31"
       change: >-
         v0 frozen as a historical snapshot. Every examined row annotated with
@@ -1649,7 +1666,7 @@ benchmarks:
     reconstruction:
       class: EXACTLY_RECONSTRUCTIBLE
       evidence: >-
-        released per-item verdicts cover every compared mechanism over the full item set, so every joint quantity is exactly computable (L3)
+        released per-item `blocked` bits cover every compared mechanism over the full item set, so every bitwise OR, all-zero, and pattern quantity is exactly computable (L3); a shared-event catch statistic additionally needs a native-action translation
     preservation:
       state: NO_ARCHIVE_RECORDED
       evidence: >-
@@ -1677,9 +1694,19 @@ benchmarks:
     same_event_definition:
       value: "yes"
       evidence: >
-        Every guard-result JSONL records the same Boolean `blocked` event
-        against common harmful/benign item labels; the paper defines
-        per-modality detection recall and over-refusal from those verdicts.
+        HarmBench harmful and XSTest benign labels define the same
+        ground-truth positive/negative set for all three guards. This field
+        records that benchmark label, not the meaning of each guard's native
+        alarm/action predicate.
+    native_action_translation:
+      status: not_established
+      evidence: >
+        Llama Guard 3 Vision is a multimodal prompt/response safety
+        classifier, while ShieldGemma-2 is an image-only three-policy
+        classifier. src/msbench/guards.py applies their native decision
+        rules and src/msbench/pipeline.py records `blocked = (label ==
+        "unsafe")`; no examined source defines a translation from all native
+        predicates to one shared catch event.
     thresholds_comparable:
       value: "no"
       evidence: >
@@ -1748,10 +1775,11 @@ benchmarks:
       The paper's Ensemble operating-points table and results/full_run/ensemble.json
       print two pairwise OR compositions: LG4⊕SG2 (modality routed) and
       LG4⊕LG3V. More broadly, the six committed guard JSONLs provide aligned
-      Boolean verdicts for the same 400 harmful and 500 benign item_ids
-      across all three guards, so every union, all-miss count, and
-      pairwise/three-way intersection is directly computable for the
-      complete released population.
+      harness-normalized Boolean bits for the same 400 harmful and 500 benign
+      item_ids across all three guards, so every bitwise OR, all-zero count,
+      and pairwise/three-way bit intersection is directly computable for the
+      complete released population. That establishes a joint bit matrix, not
+      a shared-event catch union.
     joint_scope: computable_via_item_release
     # A row's joint_scope names its primary evidence. This row carries a
     # second, non-interchangeable kind, and the overlap was previously
@@ -1764,21 +1792,31 @@ benchmarks:
     classification_reason: >
       PRESENT on two grounds: the source prints named pairwise guard
       compositions, and its complete aligned per-item verdict release makes
-      joint statistics across all three evaluated guards directly
+      joint adapter-bit statistics across all three evaluated guards directly
       computable. The printed rows cover pairs, not a three-guard stack; no
-      matched operating-point calibration is documented, and ShieldGemma-2's
-      text-item passes are structural rather than model-inferred.
+      matched operating-point calibration or native-action-to-shared-event
+      translation is documented, and ShieldGemma-2's text-item passes are
+      structural rather than model-inferred.
     source_passages:
       - "README.md, Key Finding note — ‘900 items (200 HarmBench × 2 modalities + 250 XSTest × 2 modalities)’ and canonical results/full_run link."
       - "writeup/paper.tex, Experimental Setup — three named guards, 400 harmful + 500 benign items, native decision rules, and Wilson intervals."
       - "writeup/paper.tex, Ensembles/Table ‘Ensemble operating points’ — LG4⊕SG2 and LG4⊕LG3V results; ‘SG2 rescues 30 of the 36 image items LG4 misses’."
       - "results/full_run/ensemble.json — reports join integrity for the 400 harmful item_ids across judge and all three guard files."
       - "results/full_run/guard_*_{harmful,benign}.jsonl — committed item-level item_id, guard_name, and blocked fields for all three guards; aligned benign IDs verified from the three files."
-      - "configs/mvp.yaml and src/msbench/guards.py — ShieldGemma-2 threshold 0.5 versus native Llama safe/unsafe output parsing."
+      - "src/msbench/guards.py and src/msbench/pipeline.py — Llama Guard 3 Vision receives image+prompt while ShieldGemma-2 is image-only; the pipeline stores `blocked = (label == \"unsafe\")` after each native rule."
       - "GitHub repository metadata and commit fb6f32e6 (checked 2026-08-30) — creation 2026-06-02 and commit timestamp 2026-07-13; no independent pre-cutoff web archive identified."
     contact_route: "https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/issues"
-    last_checked: "2026-08-30"
-    correction_history: []
+    last_checked: "2026-08-31"
+    correction_history:
+      - date: "2026-08-31"
+        change: >-
+          Semantic-scope correction: the row had treated the harness's common
+          `blocked` field as a common event definition. Under the census
+          protocol, same_event_definition concerns the shared ground-truth
+          label, so its value remains yes and N/M/K remains 20/14/5. A new
+          native_action_translation annotation records that no source-defined
+          translation maps every guard's native predicate to one catch event;
+          reconstructed values are renamed as adapter-bit statistics.
     notes: >
       The currently public GitHub history timestamps this canonical commit
       2026-07-13, before the 2026-08-27 frozen as-of date; a 2026-08-30

@@ -14,38 +14,28 @@ carries the boundary.
 
 ---
 
-## Drafted post — MC-004 degeneracy · NOT SENT
+## Rejected post — MC-004 degeneracy · EVENT TRANSLATION ABSENT
 
-> A public 3-guard safety release catches 200/200 harmful images.
-> It also flags 250/250 benign images.
->
-> Same static OR. One guard blocks every image, so the union blocks every
-> image — the other two guards are genuinely good (J = 0.66, 0.78) and cannot
-> change the result.
->
-> Per-guard metrics obscure it: the release publishes
-> detection_recall_image = 1.0 and pools over-refusal across modalities to
-> 0.55. Split per modality it is 1.00.
->
-> Static OR on released per-item verdicts. Not deployed-route safety.
-> 8 pinned files, one command:
-> https://cubits11.github.io/missing-column/reproduce/
+Do not revive the former draft or its card. It called an OR of
+harness-normalized native `unsafe` labels “catches” and called the result a
+three-guard stack. The release provides no source-defined translation from all
+three native predicates to one shared catch event. The `200/200` and `250/250`
+counts remain checkable adapter-bit arithmetic; they are not a publishable
+safety-performance caption.
 
-Card: `assets/img/og-mc004-degeneracy.png` — the two numbers, not the generic
-missing-column mark.
+The former card `assets/img/og-mc004-degeneracy.png` is quarantined. It is not
+an approved asset or an outbound-post basis.
 
-### Precision notes that must survive editing
+### Boundary that must survive any future drafting
 
-- The **3-guard static OR is our computation** from the released per-item
-  verdicts. The release itself publishes 2-guard ensembles; its `lg4_lg3v` row
-  reports `detection_recall_image = 1.0` with over-refusal pooled at `0.564`.
-  Do not imply the release printed the 3-guard union.
-- `250/250 flagged` is over-refusal on benign items, not a detection failure.
-  Saying "flagged" rather than "caught" is load-bearing.
-- The release also contains a **good** configuration —
-  `lg4_sg2_modality_routed`, image recall 0.97 at over-refusal 0.148. The post
-  is about a reporting gap, not about bad work. Any framing that reads as
-  "this benchmark is bad" is wrong and must be corrected.
+- A three-guard static OR would be this record's counterfactual computation;
+  the release prints only two-guard compositions. Do not imply otherwise.
+- A benign/harmful benchmark label L and a guard's native `unsafe` predicate
+  A_s are different objects. The pipeline's `blocked` bit B_s is a harness
+  normalization; `OR_s B_s` is not a shared-event catch union without an
+  explicit translation contract.
+- The release itself already describes LG4∨LG3V as a refuse-all-images pairing
+  and not deployable. Do not turn its own disclosure into an accusation.
 - Never write "standard" for the proposed reporting protocol. No adoption is
   recorded.
 
