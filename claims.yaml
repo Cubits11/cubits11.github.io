@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-08-30"
+last_owner_review: "2026-08-31"
 
 claims:
   - id: CC-001
@@ -743,6 +743,232 @@ claims:
       - the identified interval is what the marginals leave open, not a prediction about any deployed stack
       - leave-one-out unions identify only exclusive full-stack coverage; they do not identify pairwise or higher-order overlap, Shapley values, or causal contribution
       - says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release
+
+  - id: MC-004
+    proposition: >
+      On the per-item guard-verdict files publicly released with Multimodal
+      Safeguard Bench's full_run (pinned commit below; six verdict files and
+      the release's two printed-metric files hash-verified), the three guards
+      — Llama Guard 4, Llama Guard 3 Vision, ShieldGemma 2 — have a
+      released-verdict OR-union that catches 192 of the 200 harmful text
+      items (8 caught by none, 4.0%) and all 200 harmful image items (0
+      missed by all three), while the same union flags 32 of the 250 benign
+      text items (12.8%) and every one of the 250 benign image items — the
+      benign image column is saturated by Llama Guard 3 Vision alone, which
+      flags 250 of 250. The complete 2^3 catch-pattern table, leave-one-out
+      unions, and unique contributions for each released stratum are bound
+      below. The release prints per-guard metrics and two two-guard
+      compositions; it prints no three-guard union, no all-miss, no
+      leave-one-out table, and no pattern decomposition — and every
+      recomputed quantity that overlaps what it does print is asserted equal
+      to the printed value.
+    scope: >
+      Exactly the six committed verdict files of the full_run directory at
+      the bound commit: 400 harmful and 500 benign items, each stratum half
+      text and half image, one Boolean blocked verdict per item per guard.
+      Counting arithmetic only, at the guards' released verdicts and native
+      operating rules (the Llama guards emit labels autoregressively;
+      ShieldGemma 2 blocks above a 0.5 policy-violation probability; the
+      source documents no matched operating-point calibration, so M-ladder
+      threshold comparability is unchanged). ShieldGemma 2 is an
+      image-content classifier: its text-item verdicts are deterministic
+      passes as committed and documented upstream, which is why its text
+      column is zero — an explicit released outcome, not missing data.
+      Strata are computed exactly as released and never folded; file totals
+      are sums of the bound strata and carry no additional content. Computed
+      by scripts/reanalyze_msbench.py from scripts/mjgd_reference.py; the
+      expected block below is what CI re-asserts against the downloaded,
+      hash-verified files.
+    dimensions:
+      visibility: public
+      provenance: machine_generated_owner_executed
+      support_role: executed_output
+      evidential_status: supported_within_scope
+      maturity: experimental
+    support:
+      url: https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run
+      license: MIT
+      commercial_reuse: permitted
+      rights_note: >
+        The upstream release is MIT-licensed. This record still uses only
+        counts derived from the hash-verified files and cites rather than
+        redistributes them, so the bound bytes cannot drift from their
+        source.
+      commit: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+      note: >
+        Six guard-verdict JSONL files are the data inputs; metrics.json and
+        ensemble.json are additionally pinned because the reproduction
+        script asserts agreement with every overlapping printed value. All
+        eight sha256 hashes are recorded in scripts/reanalyze_msbench.py
+        and verified before a single count is taken.
+    expected:
+      harmful_text:
+        n: 200
+        per_guard:
+          llama_guard_4: 185
+          llama_guard_3_vision: 178
+          shield_gemma_2: 0
+        union: 192
+        all_miss: 8
+        leave_one_out_union:
+          llama_guard_4: 178
+          llama_guard_3_vision: 185
+          shield_gemma_2: 192
+        patterns:
+          none: 8
+          lg4: 14
+          lg3v: 7
+          lg4+lg3v: 171
+      harmful_image:
+        n: 200
+        per_guard:
+          llama_guard_4: 164
+          llama_guard_3_vision: 200
+          shield_gemma_2: 174
+        union: 200
+        all_miss: 0
+        leave_one_out_union:
+          llama_guard_4: 200
+          llama_guard_3_vision: 194
+          shield_gemma_2: 200
+        patterns:
+          lg3v: 6
+          lg4+lg3v: 20
+          lg3v+sg2: 30
+          lg4+lg3v+sg2: 144
+      benign_text:
+        n: 250
+        per_guard:
+          llama_guard_4: 18
+          llama_guard_3_vision: 25
+          shield_gemma_2: 0
+        union: 32
+        all_miss: 218
+        leave_one_out_union:
+          llama_guard_4: 25
+          llama_guard_3_vision: 18
+          shield_gemma_2: 32
+        patterns:
+          none: 218
+          lg4: 7
+          lg3v: 14
+          lg4+lg3v: 11
+      benign_image:
+        n: 250
+        per_guard:
+          llama_guard_4: 41
+          llama_guard_3_vision: 250
+          shield_gemma_2: 23
+        union: 250
+        all_miss: 0
+        leave_one_out_union:
+          llama_guard_4: 250
+          llama_guard_3_vision: 56
+          shield_gemma_2: 250
+        patterns:
+          lg3v: 194
+          lg4+lg3v: 33
+          lg3v+sg2: 15
+          lg4+lg3v+sg2: 8
+    last_reviewed: '2026-08-31'
+    review_window_days: 60
+    review_triggers:
+      - type: remote_content_change
+        enforcement: executable
+        repo: PatrickKollman/Multimodal-Safeguard-Bench
+        path: results/full_run/guard_llama_guard_4_harmful.jsonl
+        bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+        note: fires when a bound verdict file on the default branch changes
+      - type: remote_content_change
+        enforcement: executable
+        repo: PatrickKollman/Multimodal-Safeguard-Bench
+        path: results/full_run/guard_llama_guard_4_benign.jsonl
+        bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+        note: fires when a bound verdict file on the default branch changes
+      - type: remote_content_change
+        enforcement: executable
+        repo: PatrickKollman/Multimodal-Safeguard-Bench
+        path: results/full_run/guard_llama_guard_3_vision_harmful.jsonl
+        bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+        note: fires when a bound verdict file on the default branch changes
+      - type: remote_content_change
+        enforcement: executable
+        repo: PatrickKollman/Multimodal-Safeguard-Bench
+        path: results/full_run/guard_llama_guard_3_vision_benign.jsonl
+        bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+        note: fires when a bound verdict file on the default branch changes
+      - type: remote_content_change
+        enforcement: executable
+        repo: PatrickKollman/Multimodal-Safeguard-Bench
+        path: results/full_run/guard_shield_gemma_2_harmful.jsonl
+        bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+        note: fires when a bound verdict file on the default branch changes
+      - type: remote_content_change
+        enforcement: executable
+        repo: PatrickKollman/Multimodal-Safeguard-Bench
+        path: results/full_run/guard_shield_gemma_2_benign.jsonl
+        bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+        note: fires when a bound verdict file on the default branch changes
+      - type: remote_content_change
+        enforcement: executable
+        repo: PatrickKollman/Multimodal-Safeguard-Bench
+        path: results/full_run/metrics.json
+        bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+        note: fires when the release's printed per-guard metrics change
+      - type: remote_content_change
+        enforcement: executable
+        repo: PatrickKollman/Multimodal-Safeguard-Bench
+        path: results/full_run/ensemble.json
+        bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+        note: fires when the release's printed composition metrics change
+      - type: manual
+        enforcement: manual
+        event: >
+          the authors publish a corrected or extended full_run, print their
+          own three-guard joint statistics, or document a matched
+          operating-point calibration
+    falsifier:
+      condition: >
+        Recomputing from the bound, hash-verified files yields any count
+        different from the expected block, or any pinned file no longer
+        matches its recorded sha256, or any recomputed quantity that
+        overlaps the release's printed metrics disagrees with the printed
+        value, or the committed blocked columns are shown not to be the
+        named guards' verdicts.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not fold text and image strata — or harmful and benign files —
+        into pooled denominators to move any figure; the strata are bound
+        exactly as released
+      - do not substitute verdicts from the release's other run directories
+        (adaptive_run, carrier sweeps, rendering probes) to preserve a
+        number bound to full_run
+      - do not reinterpret ShieldGemma 2's deterministic text passes as
+        missing data to shrink a denominator after seeing the results
+      - do not cite the benign-image 250/250 union without attributing it to
+        Llama Guard 3 Vision's 250/250 column, and do not cite the harmful
+        strata without the benign strata
+      - do not recast these file counts as population estimates, with or
+        without an interval, if the primary counts are challenged
+    non_claims:
+      - not a population estimate — the items derive from HarmBench and
+        XSTest under the release's own construction, and no interval is
+        offered because no sampled population is defined
+      - not a ranking, endorsement, or indictment of any guard or vendor;
+        the verdicts are at native, unmatched operating rules
+      - not an observed deployed three-guard stack; interpreting the OR
+        aggregation as a stack requires the separate full-exposure,
+        parallel, fixed-operating-point assumptions
+      - says nothing about the release's carrier-prompt, adversarial-UAP, or
+        cross-VLM runs, which are separate artifacts with their own
+        contracts
+      - the counts are about the committed verdict bytes; the release's own
+        changelog documents that ShieldGemma 2's image scores are sensitive
+        to the text-rendering stack, so nothing here predicts what any guard
+        would do under a different rendering environment
+      - the zero three-guard image all-miss is a counting fact about these
+        200 released image items, not evidence that the union catches
+        image attacks in general
 
   - id: AF-001
     proposition: >
