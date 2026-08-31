@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Print a static-OR receipt only for a complete declared tuple.
 
+The receipt has two deliberately disjoint result kinds. ``shared_event`` can
+print a union and all-miss rate only with a declared shared-event translation.
+``harness_action`` can print a counterfactual block decision when a source
+declares the common action, but it never relabels that action as safety.
+
 A passing run establishes structural completeness of declarations and rows; it
 does not independently validate the source quotations behind those declarations.
 """
@@ -9,14 +14,15 @@ import pathlib
 import sys
 
 FIELDS = ("item_id", "system_id", "decision", "item_set", "threshold", "exposure")
-REQUIRED = ("event", "event_source", "event_translation", "event_translation_source",
-            "item_set", "item_ids", "item_count", "systems", "operator",
-            "composition", "exposure", "threshold_rule", "threshold_source",
-            "missingness", "label_source", "adaptive")
+REQUIRED = ("interpretation", "event", "event_source", "item_set", "item_ids",
+            "item_count", "systems", "operator", "composition", "exposure",
+            "threshold_rule", "threshold_source", "missingness", "label_source",
+            "adaptive")
 EXACT = {"operator": "static_or", "composition": "counterfactual_static",
          "exposure": "declared_full", "threshold_rule": "fixed_per_system",
          "missingness": "none", "adaptive": "untested"}
 EVENT_TRANSLATIONS = {"shared_source_defined", "translation_declared"}
+INTERPRETATIONS = {"shared_event", "harness_action"}
 PLACEHOLDERS = {"", "default", "vendor_default", "matched", "unknown", "na", "n/a"}
 
 
@@ -51,8 +57,19 @@ if any(not meta.get(key) for key in REQUIRED):
     unknown("missing header field")
 if any(meta[key] != value for key, value in EXACT.items()):
     unknown("unsupported tuple declaration")
-if meta["event_translation"] not in EVENT_TRANSLATIONS:
-    unknown("event is not a declared shared contract")
+interpretation = meta["interpretation"]
+if interpretation not in INTERPRETATIONS:
+    unknown("unsupported interpretation")
+if interpretation == "shared_event":
+    if any(not meta.get(key) for key in ("event_translation", "event_translation_source")):
+        unknown("missing shared-event translation declaration")
+    if meta["event_translation"] not in EVENT_TRANSLATIONS:
+        unknown("event is not a declared shared contract")
+else:
+    if not meta.get("action_source"):
+        unknown("missing declared harness action")
+    if meta.get("event_translation") not in (None, "", "not_applicable"):
+        unknown("harness action cannot be promoted to a shared event")
 items, systems = manifest(meta["item_ids"], "item"), manifest(meta["systems"], "system")
 try:
     if int(meta["item_count"]) != len(items) or int(meta["item_count"]) < 1:
@@ -86,4 +103,7 @@ if len(D) != len(rows) or len(D) != len(items) * len(systems):
     unknown("incomplete or duplicate item×system matrix")
 union = sum(max(D[item, system] for system in systems) for item in items)
 all_miss = sum(min(1 - D[item, system] for system in systems) for item in items)
-print(f"n={len(items)}\nunion={union}/{len(items)} = {union/len(items):.12g}\nall_miss={all_miss}/{len(items)} = {all_miss/len(items):.12g}")
+if interpretation == "shared_event":
+    print(f"interpretation=shared_event\nn={len(items)}\nunion={union}/{len(items)} = {union/len(items):.12g}\nall_miss={all_miss}/{len(items)} = {all_miss/len(items):.12g}")
+else:
+    print(f"interpretation=harness_action\nn={len(items)}\nblocked_by_any={union}/{len(items)} = {union/len(items):.12g}\nblocked_by_none={all_miss}/{len(items)} = {all_miss/len(items):.12g}")

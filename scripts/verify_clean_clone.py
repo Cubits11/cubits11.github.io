@@ -15,86 +15,29 @@ import sys
 import tempfile
 from pathlib import Path
 
+from verification_manifest import CHECKS, validate_manifest
+
 ROOT = Path(__file__).resolve().parent.parent
 BASELINE = "eb5423a0b9f5808dea57acfcc865074208a83085"
-CHECKS = (
-    ("claim registry", "scripts/verify_claims.py"),
-    ("census", "scripts/verify_census.py"),
-    ("census protocol v1", "scripts/verify_census_protocol.py"),
-    ("census invariant mutations", "scripts/verify_census_mutations.py"),
-    ("ledger drift", "scripts/generate_ledger.py", "--check"),
-    ("figure assertions", "scripts/verify_figures.py"),
-    ("module drift", "scripts/generate_modules.py", "--check"),
-    ("observatory drift", "scripts/generate_observatory.py", "--check"),
-    ("missing-column drift", "scripts/generate_missing_column.py", "--check"),
-    ("fact-binding fixtures", "scripts/verify_facts.py", "--test"),
-    ("current fact surfaces", "scripts/verify_facts.py"),
-    ("growth page drift", "scripts/generate_growth.py", "--check"),
-    ("acquisition surfaces", "scripts/verify_growth.py"),
-    ("sitemap drift", "scripts/generate_sitemap.py", "--check"),
-    ("MJGD identities", "scripts/mjgd_reference.py", "--test"),
-    ("MJGD v1 fixtures", "scripts/validate_mjgd.py", "--test"),
-    ("identification bounds", "scripts/identification.py"),
-    ("pattern-count rank", "scripts/mjgd_pattern_rank.py"),
-    ("mixture bounds", "scripts/mixture_bounds.py"),
-    ("BELLS reproduction", "scripts/reanalyze_bells_subset.py"),
-    ("MSBench reproduction", "scripts/reanalyze_msbench.py"),
-    ("MC-004 semantic scope", "scripts/verify_mc004_semantics.py"),
-    ("degeneracy diagnostic", "scripts/degeneracy.py"),
-    ("internal links", "scripts/check_links.py"),
-    ("frontend structure and scroll regions", "scripts/verify_frontend.py"),
-    ("remote-evidence failure states", "scripts/verify_wayback_states.py"),
-    ("résumé PDF receipt", "scripts/verify_resume_receipt.py"),
-    ("frontend structural gates", "scripts/verify_frontend.py"),
-)
-
-
 WORKFLOW = ROOT / ".github" / "workflows" / "verify.yml"
-MANIFEST_JOB = "claims"
 
 
-def check_manifest_parity() -> None:
-    """One manifest, two consumers — or the two consumers verify different
-    things and both report success.
-
-    This repository verifies itself through two surfaces: the workflow job
-    that runs on every push, and this clean-clone replay. Each printed a
-    green result while covering a different set of scripts, and neither
-    printed what the other covered. `identification.py` and
-    `mixture_bounds.py` ran in CI and not in the replay, so a reader
-    reproducing from a clean clone got a passing run that never executed the
-    identification arithmetic the central claim rests on.
-
-    That is the census's own finding, committed by the census: two marginals,
-    each reported, and a joint nobody published. The repair is structural
-    rather than a one-time reconciliation — the workflow's list and CHECKS
-    must be the same set, asserted here, so the divergence cannot come back
-    quietly.
-    """
+def check_workflow_entrypoint() -> None:
+    """The workflow must call the same manifest this replay imports."""
     import yaml
     spec = yaml.safe_load(WORKFLOW.read_text())
-    steps = (spec.get("jobs", {}).get(MANIFEST_JOB, {}) or {}).get("steps", [])
-    in_ci = set()
-    for step in steps:
-        cmd = str(step.get("run", "")).strip()
-        parts = cmd.split()
-        if len(parts) >= 2 and parts[0] == "python" \
-                and parts[1].startswith("scripts/"):
-            in_ci.add(" ".join(parts[1:]))
-    in_manifest = {" ".join(entry[1:]) for entry in CHECKS}
-    only_ci = sorted(in_ci - in_manifest)
-    only_manifest = sorted(in_manifest - in_ci)
-    if only_ci or only_manifest:
-        lines = ["CHECKS and the workflow's '%s' job have diverged — one "
-                 "surface would verify what the other does not, and both "
-                 "would report success:" % MANIFEST_JOB]
-        for entry in only_ci:
-            lines.append(f"  in CI, absent from the clean-clone replay: {entry}")
-        for entry in only_manifest:
-            lines.append(f"  in the replay, absent from CI: {entry}")
-        raise SystemExit("\n".join(lines))
-    print(f"ok    manifest parity: {len(in_manifest)} checks drive both CI "
-          f"and the clean-clone replay")
+    steps = (spec.get("jobs", {}).get("claims", {}) or {}).get("steps", [])
+    commands = [str(step.get("run", "")).strip() for step in steps]
+    expected = "python scripts/verification_manifest.py"
+    if expected not in commands:
+        raise ValueError("the workflow's claims job no longer runs the canonical "
+                         "verification manifest")
+    direct = [cmd for cmd in commands if cmd.startswith("python scripts/")
+              and cmd != expected]
+    if direct:
+        raise ValueError("the workflow's claims job bypasses the canonical "
+                         "manifest: " + "; ".join(direct))
+    print(f"ok    canonical manifest: {len(CHECKS)} checks drive CI and the clean-clone replay")
 
 
 README = ROOT / "README.md"
@@ -172,7 +115,12 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    check_manifest_parity()
+    try:
+        validate_manifest()
+        check_workflow_entrypoint()
+    except ValueError as exc:
+        print(f"FAIL  {exc}")
+        return 1
     check_readme_entry_point()
     dirty = run(["git", "status", "--porcelain"], ROOT).strip()
     if dirty:

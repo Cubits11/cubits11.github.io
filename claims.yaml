@@ -496,7 +496,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "9327ee9a6185bc0e46828be723231b61f8ca5dff9df63078a19f887b5491a48b"
+        sha256: "4e61d5dfbe6e82acf4ae14693e41a00a97942c0a302a68aceb1328f451650ec8"
         note: >-
           fires when the census changes without a claim re-review;
           re-reviewed 2026-08-31 after freezing v0 as a historical
@@ -505,9 +505,10 @@ claims:
           state), a v0_row_lock minted so history cannot change
           silently, and prospective v1 collection rules committed in
           census_protocol_v1.yaml. The same-day semantic-scope correction to
-          MC-004 records its released values as adapter-bit arithmetic rather
-          than a shared-event catch union; no row classification or N/M/K
-          value changed, and the M ladder remains 14/12/0.
+          MC-004 records its released values as adapter-bit arithmetic: a
+          counterfactual harness action, not a shared-event catch union. No
+          row classification or N/M/K value changed, and the M ladder remains
+          14/12/0.
       - type: manual
         enforcement: manual
         event: >
@@ -779,11 +780,14 @@ claims:
       guard. Let L be the release's harmful/benign label, A_s each guard's
       native `unsafe` predicate, B_s the harness mapping of that predicate
       to `blocked`, and O = OR_s B_s. The bound arithmetic reports B and O
-      conditional on L. It does not establish a source-defined translation
-      from every A_s to one shared catch event E: Llama Guard 3 Vision is a
-      multimodal prompt/response classifier, while ShieldGemma 2 is an
-      image-only three-policy classifier, and the pipeline merely maps each
-      native `unsafe` label to `blocked`. Counting arithmetic only, at the
+      conditional on L. Because the harness uses `blocked` items to suppress
+      target generation, O is also a valid counterfactual harness-block
+      decision for these released rows under a fixed block-on-any rule. It
+      does not establish a source-defined translation from every A_s to one
+      shared catch event E: Llama Guard 3 Vision is a multimodal
+      prompt/response classifier, while ShieldGemma 2 is an image-only
+      three-policy classifier, and the pipeline merely maps each native
+      `unsafe` label to `blocked`. Counting arithmetic only, at the
       guards' released native operating rules (the Llama guards emit labels
       autoregressively; ShieldGemma 2 blocks above a 0.5 policy-violation
       probability; the source documents no matched operating-point
@@ -938,6 +942,24 @@ claims:
         path: results/full_run/ensemble.json
         bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
         note: fires when the release's printed composition metrics change
+      - type: remote_content_change
+        enforcement: executable
+        repo: PatrickKollman/Multimodal-Safeguard-Bench
+        path: src/msbench/guards.py
+        bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+        note: fires when the guards' native adapter semantics change
+      - type: remote_content_change
+        enforcement: executable
+        repo: PatrickKollman/Multimodal-Safeguard-Bench
+        path: src/msbench/pipeline.py
+        bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+        note: fires when the harness label-to-block action changes
+      - type: remote_content_change
+        enforcement: executable
+        repo: PatrickKollman/Multimodal-Safeguard-Bench
+        path: writeup/paper.tex
+        bound_ref: fb6f32e6b50b6faad833b815ebcd80afd2068bff
+        note: fires when the stated route or operating-point semantics change
       - type: manual
         enforcement: manual
         event: >

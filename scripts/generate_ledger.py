@@ -83,13 +83,23 @@ def render_claim(c: dict) -> str:
     )
     sup = support_label(c.get("support") or {})
     sup_note = (c.get("support") or {}).get("note")
+    # The registry retains one trigger per source file, but a reader needs to
+    # see the review event rather than six visually identical list items.
+    trigger_groups: dict[tuple[str, str], int] = {}
+    for trigger in c.get("review_triggers", []):
+        enforcement = str(trigger.get("enforcement", "manual"))
+        description = str(trigger.get("note") or trigger.get("event")
+                          or trigger.get("type"))
+        key = (enforcement, description)
+        trigger_groups[key] = trigger_groups.get(key, 0) + 1
     triggers = "".join(
         '<li><span class="mono tag {cls}">{enf}</span> {desc}</li>'.format(
-            cls="tag-exec" if t.get("enforcement") == "executable" else "tag-manual",
-            enf=esc(t.get("enforcement", "manual")),
-            desc=esc(t.get("note") or t.get("event") or t.get("type")),
+            cls="tag-exec" if enforcement == "executable" else "tag-manual",
+            enf=esc(enforcement),
+            desc=esc(description if count == 1
+                     else f"{description} ({count} bound sources)"),
         )
-        for t in c.get("review_triggers", [])
+        for (enforcement, description), count in trigger_groups.items()
     )
     falsifier = c["falsifier"]
     rescues = c["forbidden_rescues"]
