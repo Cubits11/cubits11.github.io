@@ -111,6 +111,14 @@ routes and missing cells rather than guessing. The JSON Schema is structural;
 the CLI performs semantic conformance checks. MJGD is a schema, not a safety
 standard or an adoption claim.
 
+## Route receipt stub
+
+[examples/route-receipt/](examples/route-receipt/) is the separate, portable
+two-file receipt for a declared item-level route. It emits only policy actions
+from a direct route trace and returns HOLD for a post-hoc static
+reconstruction. It is a template, not an adoption claim or a deployment
+certificate.
+
 ## Deploy & verification
 
 Open a PR, pass the verification workflow, and merge through the reviewed

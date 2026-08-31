@@ -24,7 +24,17 @@ diagnostics:
   # X exposes these in its own activity dashboard.
   impressions: null
   clicks: null
-  technical_interactions: 0     # replies that carried a number, source, or correction
+  # An invitation or open issue is diagnostic only; it is never credited as
+  # an external reproduction, correction, release, PR, or cold run.
+  technical_interactions: 1     # replies that carried a number, source, or correction
+  technical_interaction_log:
+    - date: "2026-08-31"
+      kind: upstream_issue
+      url: https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/issues/1
+      summary: >
+        Requested a declared, item-level receipt for the reported LG4→text /
+        LG4∨ShieldGemma 2→image evaluation route, explicitly distinguishing a
+        direct route trace from a post-hoc reconstruction. Open; no outcome yet.
 
 stop_rule:
   threshold_interactions: 12
