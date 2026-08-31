@@ -4,12 +4,30 @@ Personal site of **Pranav Bhave** — AI Assurance · Security Engineering ·
 Evidence Systems; cloud security,
 claim governance. Live at [cubits11.github.io](https://cubits11.github.io/).
 
-## Reproduce the claim in under a minute
+## Reproduce the claims
 
-The headline result is one command. It downloads a hash-pinned public file,
-recomputes the joint statistics from it, and asserts them against the number
-registered in `claims.yaml` — so a mismatch fails loudly instead of quietly
-re-deriving a new answer.
+### First: MC-004 — released verdicts, recomputed
+
+The least favorable number comes first. On the release's pinned `full_run`
+image items, the static OR flags `250/250` benign images and catches `200/200`
+harmful images. Llama Guard 3 Vision blocks every released image item in that
+directory, so the OR inherits that column. This is counting arithmetic on
+hash-pinned verdict files — not a deployed route, a model law, or an
+independent replication of the models.
+
+```bash
+python3 -m pip install -r requirements.txt && python3 scripts/reanalyze_msbench.py
+```
+
+The script verifies eight source hashes before it counts. Its scope, expected
+stdout, pinned source, and correction route are on
+[/missing-column/reproduce/](https://cubits11.github.io/missing-column/reproduce/).
+
+### Second: MC-002 — a five-guard receipt
+
+This command recomputes a joint miss from five vendors' released binary
+verdicts, and asserts it against the registered value so a mismatch fails
+loudly instead of quietly re-deriving a new answer.
 
 ```bash
 python3 -m pip install -r requirements.txt && python3 scripts/reanalyze_bells_subset.py
@@ -129,6 +147,7 @@ scripts/reproduce_cc001.py  clean-clone reproduction of CC-001 + CC-004
 scripts/validate_mjgd.py    MJGD v1 packet validator + fixture/refusal tests
 schemas/mjgd-v1.schema.json MJGD v1 schema documentation (validator is the contract)
 fixtures/mjgd-v1/           illustrative complete, aggregate, marginal, route, and hold packets
+examples/stack-joint/       portable static-OR CSV receipt stub + fixture
 docs/MJGD_V1.md             MJGD v1 semantics, replay commands, and non-claims
 404.html                    not-found page
 assets/                     shared stylesheet, self-hosted fonts, images
