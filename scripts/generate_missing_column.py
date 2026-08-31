@@ -33,6 +33,7 @@ import facts as fact_registry
 import verify_census
 
 esc = ledger.esc
+squash = ledger.squash
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 SITE = "https://cubits11.github.io"
@@ -264,10 +265,10 @@ def render_criteria(data: dict) -> str:
     census = data["census"]
     items = "".join(
         f'<li><span class="mono crit-key">{esc(c["key"])}</span>'
-        f'{esc(re.sub(r"\s+", " ", str(c["text"]).strip()))}</li>'
+        f'{esc(squash(c["text"]))}</li>'
         for c in census["inclusion_criteria"])
     exclusions = "".join(
-        f"<li>{esc(re.sub(r'\s+', ' ', str(x).strip()))}</li>"
+        f"<li>{esc(squash(x))}</li>"
         for x in census["exclusion_rules"])
     protocol = census["search_protocol"]
     queries = "".join(f"<li>{esc(q)}</li>" for q in protocol["queries"])
@@ -281,16 +282,16 @@ def render_criteria(data: dict) -> str:
         <h3 class="mono crit-h">Excluded by rule</h3>
         <ul class="crit-list">{exclusions}</ul>
         <h3 class="mono crit-h" style="margin-top:1.2rem">Not a joint statistic</h3>
-        <p class="crit-note">{esc(re.sub(r"\s+", " ", str(census["non_criteria_note"]).strip()))}</p>
+        <p class="crit-note">{esc(squash(census["non_criteria_note"]))}</p>
       </div>
     </div>
     <details class="protocol">
       <summary class="mono">The bounded search protocol — executed {esc(protocol["executed"])}</summary>
-      <p class="crit-note">{esc(re.sub(r"\s+", " ", str(protocol["bounded"]).strip()))}</p>
+      <p class="crit-note">{esc(squash(protocol["bounded"]))}</p>
       <p class="mono crit-h" style="margin-top:.9rem">Fixed query list</p>
       <ul class="crit-list">{queries}</ul>
       <p class="crit-note" style="margin-top:.7rem">Snowball: {esc(protocol["snowball"])} ·
-        Budget: {esc(re.sub(r"\s+", " ", str(protocol["budget"]).strip()))}</p>
+        Budget: {esc(squash(protocol["budget"]))}</p>
     </details>'''
 
 
@@ -326,7 +327,7 @@ def render_interpretation_sensitivities(data: dict, primary: dict) -> str:
                 if row else esc(row_id))
         rows.append(
             f'<li><span class="mono crit-key">{esc(sensitivity["label"])}</span>'
-            f'{esc(re.sub(r"\s+", " ", str(sensitivity["premise"]).strip()))} '
+            f'{esc(squash(sensitivity["premise"]))} '
             f'Excludes {", ".join(excluded)}. '
             f'<span class="mono">counterfactual N/M/K = '
             f'{alternative["N"]}/{alternative["M"]}/{alternative["K"]}; '
@@ -487,7 +488,7 @@ def render_exclusions(data: dict) -> str:
             f'<div><p class="ur-title">{esc(r["title"])}'
             + (f' — <a class="u" href="{esc(r["primary_url"])}">source ↗</a>'
                if r.get("primary_url") else "")
-            + f'</p><p class="ur-note">Excluded: {esc(re.sub(r"\s+", " ", str(r["reason"]).strip()))}</p></div></div>'
+            + f'</p><p class="ur-note">Excluded: {esc(squash(r["reason"]))}</p></div></div>'
             for r in exclusions)
         body.append(f'<h3 class="mono crit-h">Examined and excluded</h3>'
                     f'<div class="wall">{rows}</div>')
@@ -512,7 +513,7 @@ def render_revisions(census: dict, examined: list) -> str:
     entries = []
     for e in census["revision_history"]:
         entries.append(f'<li><span class="mono">{esc(e["date"])}</span> — '
-                       f'{esc(re.sub(r"\s+", " ", str(e["change"]).strip()))}</li>')
+                       f'{esc(squash(e["change"]))}</li>')
     row_corrections = sum(len(r.get("correction_history") or []) for r in examined)
     return f'''
   <section class="zone" id="corrections" aria-labelledby="corr-h">
@@ -929,12 +930,24 @@ def render_landing(data: dict) -> str:
 
   <section class="zone replay" aria-labelledby="replay-h">
     <h2 id="replay-h">Replay manifest</h2>
-    <p class="zone-intro">The exact commands that re-verify this census from a clean
-      checkout. Nothing on this page requires trusting this page.</p>
-    <pre style="background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.4rem 0 0">python scripts/verify_census.py --counts        # row shape + N/M/K recomputed from census.yaml
+    <p class="zone-intro">The exact commands that re-verify this census, starting from an
+      empty directory: a POSIX shell with <span class="mono">git</span> and
+      Python&nbsp;3.11+ (with its standard <span class="mono">venv</span> module) is the
+      whole environment. Nothing on this page requires trusting this page.</p>
+    <pre style="background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.4rem 0 0">git clone https://github.com/Cubits11/cubits11.github.io.git
+cd cubits11.github.io
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements.txt       # pyyaml — the only dependency
+python scripts/verify_census.py --counts        # row shape + N/M/K recomputed from census.yaml
 python scripts/generate_missing_column.py --check  # this page matches the census file
 python scripts/verify_figures.py                # figure geometry, asserted to 1e-9
 python scripts/mjgd_reference.py --test         # the disclosure arithmetic, tested</pre>
+    <p class="zone-intro" style="margin-top:1.1rem">Those four checks verify this census.
+      The whole-repository replay — every claim binding, generated page, figure assertion,
+      and bound reproduction, re-run from a fresh clone of one commit — is one further
+      command from the same shell: <span class="mono">python
+      scripts/verify_clean_clone.py</span>.</p>
   </section>
 </main>''' + PAGE_FOOT
 
@@ -944,7 +957,7 @@ def render_corrections(data: dict) -> str:
     census = data["census"]
     entries = "".join(
         f'<li><span class="mono">{esc(entry["date"])}</span> — '
-        f'{esc(re.sub(r"\s+", " ", str(entry["change"]).strip()))}</li>'
+        f'{esc(squash(entry["change"]))}</li>'
         for entry in census["revision_history"])
     title = "Corrections policy — The Missing Column"
     desc = ("The correction policy and public revision history for the "

@@ -10,6 +10,7 @@ forbidden rescues alongside its non-claims.
 
 import html
 import pathlib
+import re
 import sys
 
 import yaml
@@ -44,6 +45,14 @@ LABELS = {
 
 def esc(value) -> str:
     return html.escape(str(value).strip())
+
+
+def squash(value) -> str:
+    """One line of prose from a YAML block scalar: whitespace runs collapse
+    to single spaces. Kept out of f-string expressions so the generators
+    parse on every supported interpreter (pre-3.12 f-strings reject the
+    backslash in the character class)."""
+    return re.sub(r"\s+", " ", str(value).strip())
 
 
 def label(key) -> str:

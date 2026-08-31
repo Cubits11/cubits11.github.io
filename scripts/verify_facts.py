@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import copy
 import datetime
+import html
 import re
 import sys
 from pathlib import Path
@@ -68,6 +69,115 @@ def check_freshness(html_text: str, where: str) -> list[str]:
     return failures
 
 
+# ----------------------------------------------------------- replay manifest
+REPLAY_PAGE = "missing-column/index.html"
+REPLAY_CLONE = "git clone https://github.com/Cubits11/cubits11.github.io.git"
+REPLAY_VENV = ("python3 -m venv .venv", ". .venv/bin/activate")
+REPLAY_INSTALL = "python -m pip install -r requirements.txt"
+REPLAY_ADVERTISED = (
+    "scripts/verify_census.py --counts",
+    "scripts/generate_missing_column.py --check",
+    "scripts/verify_figures.py",
+    "scripts/mjgd_reference.py --test",
+)
+REPLAY_FULL = "scripts/verify_clean_clone.py"
+
+
+def replay_commands(html_text: str) -> list[str] | None:
+    """The replay manifest's command lines, comments stripped — or None when
+    the section or its command block is gone."""
+    section = re.search(
+        r'<section class="zone replay".*?<pre[^>]*>(?P<block>.*?)</pre>',
+        html_text, re.S)
+    if not section:
+        return None
+    lines = []
+    for raw in html.unescape(section.group("block")).splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if line:
+            lines.append(line)
+    return lines
+
+
+def check_replay_manifest(html_text: str, where: str) -> list[str]:
+    """The public reproduction surface must run from an empty shell.
+
+    This page shipped calling itself a clean-checkout replay while its first
+    command assumed a repository, a working directory, an installed
+    dependency, and an interpreter name it never established: a stranger in
+    an empty directory got ``Errno 2``, not a census. Every clause below
+    either failed then or guards one that did:
+
+      * the block's first act is the clone, and the ``cd`` enters exactly
+        the directory that clone creates;
+      * dependency setup installs the declared requirements file inside an
+        environment the block itself created (``python3 -m venv`` then
+        activation) — bare ``pip install`` refuses on PEP 668 systems;
+      * every advertised verification command appears after setup, in
+        order, uses the interpreter the activation established, and points
+        at a script that exists in this repository;
+      * the venv the block creates is git-ignored — otherwise the block's
+        own side effect dirties the worktree and vetoes the
+        whole-repository replay the section advertises alongside it.
+    """
+    cmds = replay_commands(html_text)
+    if cmds is None:
+        return [f"{where}: replay manifest section or its command block is gone"]
+    failures: list[str] = []
+
+    def missing(what: str) -> None:
+        failures.append(f"{where}: replay manifest lost {what} — a stranger "
+                        f"in an empty shell cannot reproduce the census")
+
+    if not cmds or cmds[0] != REPLAY_CLONE:
+        missing(f"its clone step ({REPLAY_CLONE!r} must come first)")
+    target = REPLAY_CLONE.rsplit("/", 1)[-1].removesuffix(".git")
+    if len(cmds) < 2 or cmds[1] != f"cd {target}":
+        missing(f"its working-directory step ('cd {target}' must follow the clone)")
+
+    def index(cmd: str) -> int:
+        return cmds.index(cmd) if cmd in cmds else -1
+
+    venv, activate = (index(c) for c in REPLAY_VENV)
+    install = index(REPLAY_INSTALL)
+    if venv < 0 or activate < 0 or not venv < activate:
+        missing("its interpreter setup (venv creation, then activation)")
+    if install < 0 or (activate >= 0 and install < activate):
+        missing(f"its dependency step ({REPLAY_INSTALL!r} after activation)")
+    if not (ROOT / "requirements.txt").exists():
+        failures.append(f"{where}: replay manifest installs requirements.txt, "
+                        f"which does not exist")
+
+    previous = install
+    for advertised in REPLAY_ADVERTISED:
+        at = index(f"python {advertised}")
+        if at < 0 or at < previous:
+            missing(f"the advertised check 'python {advertised}' "
+                    f"(present, after setup, in order)")
+            continue
+        previous = at
+        script = advertised.split()[0]
+        if not (ROOT / script).exists():
+            failures.append(f"{where}: replay manifest advertises {script}, "
+                            f"which does not exist")
+
+    gitignore = ROOT / ".gitignore"
+    if ".venv/" not in (gitignore.read_text() if gitignore.exists() else ""):
+        failures.append(f"{where}: the replay block creates .venv inside the "
+                        f"clone, but .gitignore does not ignore it — the "
+                        f"block's own side effect would dirty the worktree "
+                        f"and veto the whole-repository replay")
+
+    section = re.search(r'<section class="zone replay".*?</section>',
+                        html_text, re.S)
+    if section and REPLAY_FULL not in section.group(0):
+        missing(f"the whole-repository replay pointer ({REPLAY_FULL})")
+    if not (ROOT / REPLAY_FULL).exists():
+        failures.append(f"{where}: the whole-repository replay points at "
+                        f"{REPLAY_FULL}, which does not exist")
+    return failures
+
+
 def audit_tree() -> list[str]:
     registry = facts.registry()
     accepted = facts.accepted_triples()
@@ -79,6 +189,8 @@ def audit_tree() -> list[str]:
         failures += facts.audit_html(html_text, registry, rel,
                                      facts.REQUIRED_BINDINGS.get(rel), accepted)
         failures += check_freshness(html_text, rel)
+        if rel == REPLAY_PAGE:
+            failures += check_replay_manifest(html_text, rel)
         checked += 1
     if not failures:
         values = " ".join(f"{k.split('.', 1)[1]}={v}"
@@ -251,7 +363,40 @@ def run_tests() -> list[str]:
               "<p>Corrected 2026-08-30.</p><p>Last owner review: 2026-08-30</p>",
               "fixture"))
 
-    # 10. The evidence-mode counts must reconcile with K by inclusion-exclusion.
+    # 10. The replay manifest is self-contained and each load-bearing line is
+    #     load-bearing: the rendered block passes, and losing the clone, the
+    #     cd, the interpreter setup, the dependency install, or any advertised
+    #     check makes the gate fail rather than pass by silence. The mutations
+    #     are exactly the defect that shipped: a "clean checkout" replay whose
+    #     first command assumed a checkout.
+    rendered = gen.render_landing(data)
+    check("the generator's replay manifest is self-contained",
+          not check_replay_manifest(rendered, "fixture"),
+          "; ".join(check_replay_manifest(rendered, "fixture")))
+    mutations = {
+        "clone line removed": (REPLAY_CLONE, ""),
+        "cd line removed": ("cd cubits11.github.io", ""),
+        "venv creation removed": (REPLAY_VENV[0], ""),
+        "venv activation removed": (REPLAY_VENV[1], ""),
+        "dependency install removed": (REPLAY_INSTALL, ""),
+        "an advertised check removed": ("python scripts/verify_figures.py", ""),
+        "an advertised check reordered before setup": (
+            REPLAY_CLONE,
+            f"python {REPLAY_ADVERTISED[0]}\n{REPLAY_CLONE}"),
+        "a check retargeted at a ghost script": (
+            "scripts/verify_figures.py", "scripts/verify_figments.py"),
+        "whole-repository pointer removed": (REPLAY_FULL, "scripts/"),
+    }
+    for name, (old, new) in mutations.items():
+        mutated = rendered.replace(old, new)
+        if mutated == rendered:
+            failures.append(f"fixture setup: replay mutation {name!r} "
+                            f"matched nothing")
+            continue
+        check(f"replay mutation caught: {name}",
+              bool(check_replay_manifest(mutated, "fixture")))
+
+    # 11. The evidence-mode counts must reconcile with K by inclusion-exclusion.
     #     If they ever stop doing so, the prose describing the overlap is
     #     describing something other than the census.
     modes = verify_census.compute_counts(data)["K_evidence_modes"]

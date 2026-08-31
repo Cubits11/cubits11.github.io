@@ -66,6 +66,7 @@ STATUS_LABEL = {
 }
 
 esc = ledger.esc
+squash = ledger.squash
 
 errors: list[str] = []
 
@@ -356,7 +357,7 @@ def render_module(m: dict, claims_by_id: dict) -> str:
   <div class="container">
     <p class="eyebrow mono"><span>Module {esc(num)} — {esc(m["title"])}</span></p>
     <h1 class="q">{esc(desc)}</h1>
-    <p class="standfirst">{esc(re.sub(r"\\s+", " ", str(m["thesis"]).strip()))}</p>{planned_stamps}
+    <p class="standfirst">{esc(squash(m["thesis"]))}</p>{planned_stamps}
   </div>
 </header>
 <main class="container" id="main">{"".join(body_sections)}
