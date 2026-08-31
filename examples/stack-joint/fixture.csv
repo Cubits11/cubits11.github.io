@@ -1,3 +1,4 @@
+# interpretation: shared_event
 # event: D=1 means the shared, declared flag event E on this fixture's items.
 # event_source: fixture contract, lines 1-2
 # event_translation: shared_source_defined

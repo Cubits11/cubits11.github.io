@@ -8,36 +8,42 @@ project-specific registry or identifiers.
 
 The program prints a static OR only after a **self-described tuple** has a
 complete manifest and complete binary item-by-system matrix. Its object is
-strictly a counterfactual static OR, never a deployed route:
+strictly counterfactual, never a deployed route. There are two disjoint
+interpretations:
 
 ```
-union    = mean_i max_s D[i,s]
-all_miss = mean_i min_s (1 - D[i,s])
+shared_event   → union / all_miss, only with a declared shared-event translation
+harness_action → blocked_by_any / blocked_by_none, only with a declared common action
 ```
 
 `UNKNOWN` with a nonzero exit is the intended result whenever the tuple is
 missing, routed, adaptive, threshold-defaulted, semantically uncontracted,
 or structurally incomplete. A successful run means only “structurally complete
-self-described tuple.” It cannot independently prove a common event,
+self-described tuple of the printed kind.” It cannot independently prove a common event,
 source quotation, full real-world exposure, fixed-before-evaluation threshold,
 item manifest, label provenance, or non-deployment.
 
-In particular, do not use this file to OR native `unsafe` labels from systems
-whose source-defined events differ. First write a shared event translation
-contract, cite the native definitions in `event_source`, cite the translation
-in `event_translation_source`, and declare `event_translation` as either
-`shared_source_defined` or `translation_declared`. The code requires those
-declarations; it cannot verify them.
+In particular, do not call an OR of native `unsafe` labels a shared-event
+catch statistic when their source-defined events differ. For that output,
+write a shared-event translation contract, cite the native definitions in
+`event_source`, cite the translation in `event_translation_source`, and
+declare `event_translation` as either `shared_source_defined` or
+`translation_declared`. The code requires those declarations; it cannot
+verify them. If a harness itself declares that each binary decision triggers
+one common block action, use `harness_action` instead. That prints only the
+counterfactual action rate and never promotes it to safety efficacy.
 
 ## CSV contract
 
 Start the file with the required declarations shown in `fixture.csv`:
 
 ```csv
+# interpretation: shared_event | harness_action
 # event: D=1 means the shared event E
 # event_source: primary-source native-event quotations
-# event_translation: shared_source_defined | translation_declared
-# event_translation_source: shared-event contract or translation source
+# event_translation: shared_source_defined | translation_declared  [shared_event only]
+# event_translation_source: shared-event contract or translation source [shared_event only]
+# action_source: source defining D=1 as the common action [harness_action only]
 # item_set: stable denominator token
 # item_ids: exact,comma,separated,item,IDs
 # item_count: number of IDs above
@@ -70,13 +76,19 @@ python3 test_joint_or.py
 Expected good-fixture output:
 
 ```
+interpretation=shared_event
 n=4
 union=3/4 = 0.75
 all_miss=1/4 = 0.25
 ```
 
+For a harness action, the same rows would instead print
+`blocked_by_any=3/4` and `blocked_by_none=1/4`, preceded by
+`interpretation=harness_action`.
+
 The regression suite verifies that the stub refuses a blank event, default
 thresholds, `NA`, missing cells, an entirely missing item or system, duplicate
-cells, threshold drift, split drift, and non-static operator/composition/
-exposure declarations. Its checks are structural, not a validity certificate
-for the declared facts.
+cells, threshold drift, split drift, an action with no action source, a native
+label aggregate smuggled into the shared-event mode, and non-static operator/
+composition/exposure declarations. Its checks are structural, not a validity
+certificate for the declared facts.

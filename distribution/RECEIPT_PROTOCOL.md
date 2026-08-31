@@ -28,8 +28,9 @@ an approved asset or an outbound-post basis.
 
 ### Boundary that must survive any future drafting
 
-- A three-guard static OR would be this record's counterfactual computation;
-  the release prints only two-guard compositions. Do not imply otherwise.
+- A three-guard static OR is a valid counterfactual harness-block computation
+  under the release's fixed block action; the release prints only two-guard
+  compositions. Do not imply it was a deployed or printed three-guard route.
 - A benign/harmful benchmark label L and a guard's native `unsafe` predicate
   A_s are different objects. The pipeline's `blocked` bit B_s is a harness
   normalization; `OR_s B_s` is not a shared-event catch union without an

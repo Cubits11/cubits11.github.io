@@ -34,6 +34,8 @@ def main() -> int:
 
     check("MC-004 names native unsafe labels", "native `unsafe`" in mc["proposition"])
     check("MC-004 names the missing translation", "shared catch event" in mc["scope"])
+    check("MC-004 preserves its counterfactual harness action",
+          "counterfactual harness-block" in mc["scope"])
     check("MC-004 proposition does not call bits catches", "catches" not in mc["proposition"].lower())
     check("MC-004 carries the semantic non-claim",
           any("not a shared-event catch statistic" in x for x in mc["non_claims"]))
@@ -48,8 +50,12 @@ def main() -> int:
     repro = generator.render_reproduce(data)
     check("reproduction page names its released-bit aggregate",
           "released-bit aggregate" in repro and "No shared-event catch statistic" in repro)
+    check("reproduction page preserves the action/safety boundary",
+          "counterfactual harness-block" in repro and "shared-policy safety" in repro)
     readme = (ROOT / "README.md").read_text()
-    check("README carries the shared-event boundary", "shared-event catch\nclaim" in readme)
+    check("README carries the shared-event boundary", "shared-event catch claim" in readme)
+    check("README carries the counterfactual action boundary",
+          "counterfactual harness-block calculation" in readme)
     receipt = (ROOT / "distribution" / "RECEIPT_PROTOCOL.md").read_text()
     check("unsafe social draft is rejected", "Rejected post — MC-004" in receipt
           and "not a publishable\nsafety-performance caption" in receipt)

@@ -103,7 +103,7 @@ census:
       scripts/verify_census.py fails the build otherwise.
     protocol_for_new_observations: census_protocol_v1.yaml
   v0_row_lock:
-    sha256: "5f80207bb801d62c395c2474228876050eecd2e7c9796041d902f596cb30fdc3"
+    sha256: "4d168483ca6d8c7039cdfbfea76f9c8fdbf13fda51ebcdb40d0275c02f043752"
     canonicalization: >-
       JSON UTF-8; sort_keys=true; separators=(',', ':'); ensure_ascii=false;
       benchmarks list sorted by id
@@ -226,6 +226,17 @@ census:
       candidates surfaced but not examined are listed under
       unexamined_candidates and excluded from every count
   revision_history:
+    - date: "2026-08-31"
+      change: >-
+        Action-layer clarification for multimodal-safeguard-bench-2026. A
+        source check of src/msbench/pipeline.py established that the harness
+        uses `blocked` items to suppress target generation. A fixed
+        block-on-any OR therefore remains a valid counterfactual
+        harness-action calculation on the pinned rows; it does not restore a
+        source-defined shared-event safety or catch interpretation. N/M/K and
+        the M ladder remain 20/14/5 and 14/12/0. This corrects this record's
+        scope, not the authors' counts, their disclosed pairwise
+        compositions, or any deployed route.
     - date: "2026-08-31"
       change: >-
         Semantic-scope correction for multimodal-safeguard-bench-2026. The
@@ -1705,8 +1716,10 @@ benchmarks:
         classifier, while ShieldGemma-2 is an image-only three-policy
         classifier. src/msbench/guards.py applies their native decision
         rules and src/msbench/pipeline.py records `blocked = (label ==
-        "unsafe")`; no examined source defines a translation from all native
-        predicates to one shared catch event.
+        "unsafe")` and suppresses generation for a blocked item. That gives
+        a fixed block-on-any OR a counterfactual harness-action meaning, but
+        no examined source defines a translation from all native predicates
+        to one shared catch event.
     thresholds_comparable:
       value: "no"
       evidence: >
@@ -1778,8 +1791,9 @@ benchmarks:
       harness-normalized Boolean bits for the same 400 harmful and 500 benign
       item_ids across all three guards, so every bitwise OR, all-zero count,
       and pairwise/three-way bit intersection is directly computable for the
-      complete released population. That establishes a joint bit matrix, not
-      a shared-event catch union.
+      complete released population. That establishes a joint bit matrix and
+      a counterfactual harness-action composition, not a shared-event catch
+      union.
     joint_scope: computable_via_item_release
     # A row's joint_scope names its primary evidence. This row carries a
     # second, non-interchangeable kind, and the overlap was previously
@@ -1803,11 +1817,19 @@ benchmarks:
       - "writeup/paper.tex, Ensembles/Table ‘Ensemble operating points’ — LG4⊕SG2 and LG4⊕LG3V results; ‘SG2 rescues 30 of the 36 image items LG4 misses’."
       - "results/full_run/ensemble.json — reports join integrity for the 400 harmful item_ids across judge and all three guard files."
       - "results/full_run/guard_*_{harmful,benign}.jsonl — committed item-level item_id, guard_name, and blocked fields for all three guards; aligned benign IDs verified from the three files."
-      - "src/msbench/guards.py and src/msbench/pipeline.py — Llama Guard 3 Vision receives image+prompt while ShieldGemma-2 is image-only; the pipeline stores `blocked = (label == \"unsafe\")` after each native rule."
+      - "src/msbench/guards.py and src/msbench/pipeline.py — Llama Guard 3 Vision receives image+prompt while ShieldGemma-2 is image-only; the pipeline stores `blocked = (label == \"unsafe\")` after each native rule and turns a blocked item into `[BLOCKED]` without a target-model call."
       - "GitHub repository metadata and commit fb6f32e6 (checked 2026-08-30) — creation 2026-06-02 and commit timestamp 2026-07-13; no independent pre-cutoff web archive identified."
     contact_route: "https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/issues"
     last_checked: "2026-08-31"
     correction_history:
+      - date: "2026-08-31"
+        change: >-
+          Action-layer clarification: src/msbench/pipeline.py uses a blocked
+          item to suppress target generation. A fixed static OR of the
+          released bits is therefore a valid counterfactual harness-action
+          calculation on these rows, while the absent source-defined
+          translation still prevents calling it a shared-event catch or
+          safety result.
       - date: "2026-08-31"
         change: >-
           Semantic-scope correction: the row had treated the harness's common

@@ -29,68 +29,11 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install pyyaml
-      - name: Verify registry (shape, bindings, triggers, freshness, liveness)
-        run: python scripts/verify_claims.py
-      - name: Verify census (frozen criteria, row shape, mechanical counts)
-        run: python scripts/verify_census.py
-      - name: Census protocol v1 is prospective and matches the enforcer
-        run: python scripts/verify_census_protocol.py
-      - name: Census invariants demonstrably fail when their property is broken
-        run: python scripts/verify_census_mutations.py
-      - name: Ledger is generated, not hand-edited (drift check)
-        run: python scripts/generate_ledger.py --check
-      - name: Figures cannot lie (geometry assertions)
-        run: python scripts/verify_figures.py
-      - name: Modules are generated, not hand-edited (drift + schema check)
-        run: python scripts/generate_modules.py --check
-      - name: Observatory is generated, not hand-edited (drift check)
-        run: python scripts/generate_observatory.py --check
-      - name: Missing Column pages are generated, not hand-edited (drift check)
-        run: python scripts/generate_missing_column.py --check
-      # A drift check proves the HTML matches its generator. It cannot prove
-      # the page agrees with itself: a generator that derives one sentence
-      # from the census and hand-types the next passes it. These two gates
-      # bind every current numeral to the quantity it asserts.
-      - name: Fact binding holds under adversarial fixtures
-        run: python scripts/verify_facts.py --test
-      - name: Every current factual surface agrees with the census
-        run: python scripts/verify_facts.py
-      - name: Growth pages are generated, not hand-edited (drift check)
-        run: python scripts/generate_growth.py --check
-      # The acquisition layer is where a rigorous record usually starts
-      # lying: a title that overpromises, a campaign link pointing at a moved
-      # route, an identity sentence that drifts between profiles. Same
-      # standard as the evidence layer.
-      - name: Acquisition surfaces (titles, canonicals, CTAs, attribution)
-        run: python scripts/verify_growth.py
-      - name: Sitemap matches pages, lastmod matches history (drift check)
-        run: python scripts/generate_sitemap.py --check
-      - name: Disclosure arithmetic holds its identities
-        run: python scripts/mjgd_reference.py --test
-      - name: Validate MJGD v1 schema and conformance fixtures
-        run: python scripts/validate_mjgd.py --test
-      - name: Identification bounds are sharp, attained, and match MC-003
-        run: python scripts/identification.py
-      - name: Pattern-count rank (2^K sufficient, not minimal for K>=4)
-        run: python scripts/mjgd_pattern_rank.py
-      - name: Mixture bounds match a direct sweep (AF-001)
-        run: python scripts/mixture_bounds.py
-      - name: MC-002 reproduces from the bound public release
-        run: python scripts/reanalyze_bells_subset.py
-      - name: MC-004 reproduces from the bound public release
-        run: python scripts/reanalyze_msbench.py
-      - name: MC-004 adapter-bit scope remains separate from a catch event
-        run: python scripts/verify_mc004_semantics.py
-      - name: Conditional-degeneracy diagnostic (OR-closure holds on the bound release)
-        run: python scripts/degeneracy.py
-      - name: Internal links resolve (pages, anchors, fragments)
-        run: python scripts/check_links.py
-      - name: Frontend structural and local-only preflight gates
-        run: python scripts/verify_frontend.py
-      - name: Remote-evidence failure states stay truthful (undetermined != absent)
-        run: python scripts/verify_wayback_states.py
-      - name: Résumé PDF is still a print of the committed page
-        run: python scripts/verify_resume_receipt.py
+      # Both CI and the clean-clone replay execute this source-controlled,
+      # duplicate-free manifest. A check cannot quietly run in one green
+      # surface but not the other.
+      - name: Deterministic claim and artifact verification manifest
+        run: python scripts/verification_manifest.py
 
   reproduce:
     name: Reproduce bound artifacts

@@ -37,8 +37,10 @@ bit rate at that same conditioning. One column.
     INFORMATIVE     otherwise
 
 Δ_L ~ 0 means the adapter-bit cell does not separate the release's labels. It
-is not a safety-performance metric unless a source-defined event translation
-connects native guard predicates to one shared event.
+does not erase the action-layer result: a fixed block-on-any rule can still be
+a valid counterfactual harness-block computation. It is not a safety-performance
+metric unless a source-defined event translation connects native guard predicates
+to one shared event.
 
 Run:
     python scripts/degeneracy.py                 # fetch the bound release

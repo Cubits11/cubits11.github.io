@@ -8,8 +8,10 @@ release prints per-guard metrics and two two-guard compositions; it prints
 no three-guard adapter-bit OR, no all-zero-bit count, no leave-one-out table,
 and no native-label pattern decomposition. Those bit statistics are directly
 computable from the committed verdict files, and claim MC-004 binds the
-result. They are not a shared-event catch statistic: the harness normalizes
-distinct native `unsafe` predicates into its stored `blocked` bit.
+result. They are a valid counterfactual harness-block calculation at that
+stored action layer: the harness normalizes distinct native `unsafe`
+predicates into `blocked` and suppresses blocked items. They are not a
+shared-event catch statistic.
 
 Discipline (the MC-002 pattern, unchanged):
   * every input file is pinned by commit AND content hash — the numbers are

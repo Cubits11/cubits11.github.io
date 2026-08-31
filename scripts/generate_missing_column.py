@@ -28,6 +28,7 @@ import sys
 
 import generate_ledger as ledger
 import identification
+import outcomes
 import reanalyze_msbench
 import validate_mjgd
 import facts as fact_registry
@@ -1364,6 +1365,8 @@ def render_reproduce(data: dict) -> str:
     if mc is None:
         return ""
     e = mc["expected"]
+    outcome_ledger = outcomes.load()
+    qualified_outcomes = outcomes.qualified_total(outcome_ledger)
     bt, bi = e["benign_text"], e["benign_image"]
     ht, hi = e["harmful_text"], e["harmful_image"]
     lg3v_benign = bi["per_guard"]["llama_guard_3_vision"]
@@ -1403,9 +1406,11 @@ def render_reproduce(data: dict) -> str:
       points. The least favorable column comes first: the three-guard bit OR is 1 on
       every one of the {bi["n"]} benign-labelled image items — saturation owed to Llama Guard 3
       Vision's own {lg3v_benign}/{bi["n"]} bit column — and {bt["union"]} of {bt["n"]} benign-
-      labelled text items. No source-defined translation makes this OR a shared-event
-      catch union. This page exists so a stranger can check the bounded bit arithmetic
-      in about a minute.</p>
+      labelled text items. The harness itself uses a <span class="mono">blocked</span> item
+      to suppress target generation, so this static OR is a valid counterfactual
+      harness-block computation under a fixed block-on-any rule. No source-defined
+      translation makes it a shared-event catch union. This page exists so a stranger
+      can check the bounded bit arithmetic in about a minute.</p>
   </div>
 </header>
 <main class="container" id="main">
@@ -1421,10 +1426,13 @@ def render_reproduce(data: dict) -> str:
       ({ht["all_miss"]} all-zero rows) and {hi["union"]}/{hi["n"]} harmful-labelled image
       rows. Llama Guard 3 Vision is a multimodal prompt/response classifier;
       ShieldGemma 2 is image-only and its text rows are deterministic passes as released.
-      No examined source defines a translation of all native predicates to one shared
-      catch event, so this is a released-bit aggregate, not a safety stack or a
-      three-independent-catcher result. The full bit-pattern tables, leave-one-out bit
-      ORs, scope, falsifier, and forbidden rescues are registered as
+      The harness uses a <span class="mono">blocked</span> item to suppress target generation,
+      so, under a fixed block-on-any rule, this is a valid counterfactual harness-block
+      calculation for these pinned rows. No examined source defines a translation of all
+      native predicates to one shared catch event, so it remains a released-bit aggregate,
+      not a shared-policy safety result, a deployed stack, or a three-independent-catcher
+      result. The full bit-pattern
+      tables, leave-one-out bit ORs, scope, falsifier, and forbidden rescues are registered as
       <a class="u" href="/ledger/#MC-004">claim MC-004</a>.</p>
   </section>
   <section class="zone" id="run" aria-labelledby="run-h">
@@ -1486,9 +1494,11 @@ FAIL  guard_…jsonl: sha256 …  != recorded …  — the bound artifact change
       where consent permits. Use the
       <a class="u" href="{issue_url}">reproduction issue form ↗</a> (environment,
       commit, command, stdout, match or mismatch) or
-      <a class="u" href="mailto:bhavepranavwork@gmail.com">email</a>. As of the last
-      owner review, MC-004 has no recorded independent reproduction — this page is the
-      standing invitation, not evidence that one exists.</p>
+      <a class="u" href="mailto:bhavepranavwork@gmail.com">email</a>. The project-wide
+      <a class="u" href="/distribution/outcomes.yaml">qualified-outcome ledger</a> currently
+      records {qualified_outcomes} qualified external outcome{'s' if qualified_outcomes != 1 else ''};
+      that public null is not a growth metric. MC-004 has no recorded independent
+      reproduction — this page is the standing invitation, not evidence that one exists.</p>
   </section>
   <section class="zone" id="not-claimed" aria-labelledby="nc-h">
     <h2 id="nc-h">Not claimed</h2>

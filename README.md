@@ -12,9 +12,10 @@ The least favorable number comes first. On the release's pinned `full_run`
 image items, the static OR of the harness-normalized native `unsafe` bits is
 1 for `250/250` benign-labelled images and `200/200` harmful-labelled images.
 Llama Guard 3 Vision has a 1-bit on every released image item in that
-directory, so the OR inherits that column. This is counting arithmetic on
-hash-pinned adapter verdicts — not a deployed route, a shared-event catch
-claim, a model law, or an independent replication of the models.
+directory, so the OR inherits that column. The harness's fixed block action
+makes this a valid counterfactual harness-block calculation on those pinned
+rows — not a deployed route, a shared-event catch claim, a model law, or an
+independent replication of the models.
 
 ```bash
 python3 -m pip install -r requirements.txt && python3 scripts/reanalyze_msbench.py
