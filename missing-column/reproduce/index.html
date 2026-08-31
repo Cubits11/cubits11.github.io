@@ -1,0 +1,250 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: census.yaml · renderer: scripts/generate_missing_column.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reproduce claim MC-004 — a three-guard recomputation</title>
+<meta name="description" content="One command block, eight pinned hashes, the expected output, and what must fail — reproduce claim MC-004&#x27;s three-guard recomputation from released files; match and mismatch both get credited.">
+<link rel="canonical" href="https://cubits11.github.io/missing-column/reproduce/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Reproduce claim MC-004 — a three-guard recomputation">
+<meta property="og:description" content="One command block, eight pinned hashes, the expected output, and what must fail — reproduce claim MC-004&#x27;s three-guard recomputation from released files; match and mismatch both get credited.">
+<meta property="og:url" content="https://cubits11.github.io/missing-column/reproduce/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta property="og:site_name" content="Cubits11">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta name="twitter:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta name="robots" content="max-image-preview:large">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "The record",
+      "item": "https://cubits11.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "The Missing Column",
+      "item": "https://cubits11.github.io/missing-column/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Reproduce MC-004"
+    }
+  ]
+}
+</script>
+<script defer src="/assets/site.js"></script>
+<style>
+body{font-size:1rem;line-height:1.65}
+.container{width:min(1060px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.68rem}
+header.page{padding:7.9rem 0 2.2rem}
+h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 0 1rem;letter-spacing:-.018em}
+.intro{color:var(--muted);max-width:48em}
+.zone{margin-top:4rem;border-top:1px solid var(--line);padding-top:2rem}
+.zone h2{font-weight:520;font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 .6rem;letter-spacing:-.01em}
+.zone .zone-intro{color:var(--muted);max-width:46em}
+.zone h3{font-weight:520;margin:1.6rem 0 .5rem}
+.fig-scroll{overflow-x:auto}
+.wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
+.wall-row{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
+.wall-row:last-child{border-bottom:none}
+.wall-id{color:var(--gold);overflow-wrap:anywhere}
+.manual-list{margin:1.2rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.manual-list li{margin:.35rem 0}
+.ur-title{margin:0 0 .3rem}
+.ur-note{margin:0;color:var(--muted);font-size:.92rem}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+
+@media (max-width:600px){.wall-row{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/missing-column/">The Missing Column</a>
+      <a href="/observatory/">Evidence</a>
+      <a href="/writing/">Writing</a>
+      <a href="/work/">Work with me</a>
+      <a href="/resume/">About</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>Reproduce it</b> — claim <a class="u" href="/ledger/#MC-004">MC-004</a></span>
+    <span>a recomputation on released files · census counts unchanged</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <h1>Reproduce this recomputation</h1>
+    <p class="intro">MC-004 is counting arithmetic on files Multimodal Safeguard Bench
+      already released — not new data, and not a census change: N/M/K stays
+      <span data-fact="MC-001.N" data-fact-state="current">20</span>/14/5 and the
+      stricter ladder stays 14/12/0. The guards run at native, unmatched operating
+      points. The least favorable column comes first: the three-guard OR-union flags
+      every one of the 250 benign image items — saturation owed to Llama Guard 3
+      Vision's own 250/250 column — and 32 of 250 benign
+      text items. This page exists so a stranger can check all of it in about a minute.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <section class="zone" id="claim" aria-labelledby="claim-h">
+    <h2 id="claim-h">The claim, exactly</h2>
+    <p class="zone-intro">On the six per-item verdict files of the release's
+      <span class="mono">full_run</span> directory at commit
+      <span class="mono">fb6f32e6b50b</span> (hash-verified below), the OR-union of
+      Llama Guard 4, Llama Guard 3 Vision, and ShieldGemma 2 flags
+      250/250 benign image and 32/250 benign text items,
+      and catches 192/200 harmful text items (8 caught by
+      none) and 200/200 harmful image items on this file. ShieldGemma 2
+      is an image-content classifier whose text verdicts are deterministic passes as
+      released — so the harmful-text union is the work of the two Llama guards, not of
+      three independent catchers. The full pattern tables, leave-one-out unions, scope,
+      falsifier, and forbidden rescues are registered as
+      <a class="u" href="/ledger/#MC-004">claim MC-004</a>.</p>
+  </section>
+  <section class="zone" id="run" aria-labelledby="run-h">
+    <h2 id="run-h">Run it</h2>
+    <p class="zone-intro">From an empty directory — a POSIX shell with
+      <span class="mono">git</span> and Python&nbsp;3.11+ (with its standard
+      <span class="mono">venv</span> module). The script downloads the eight pinned
+      files from the bound commit and refuses to count anything until every hash
+      matches.</p>
+    <pre style="background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.2rem 0 0">git clone https://github.com/Cubits11/cubits11.github.io.git
+cd cubits11.github.io
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements.txt
+python scripts/reanalyze_msbench.py</pre>
+  </section>
+  <section class="zone" id="expect" aria-labelledby="expect-h">
+    <h2 id="expect-h">What you should see</h2>
+    <p class="zone-intro">Dozens of <span class="mono">ok</span> assertion lines —
+      every recomputed quantity that overlaps the release's own printed metrics is
+      asserted equal to the printed value — then this summary and exit code 0:</p>
+    <pre style="background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.2rem 0 0">benign text  union flags  32/250 — flagged by none 218/250
+benign image union flags 250/250 — flagged by none 0/250
+harmful text  union catches 192/200 — all-miss 8/200
+harmful image union catches 200/200 — all-miss 0/200
+
+MC-004 reproduced: the three-guard joint statistics, computed from the bound public release, match the registered claim.</pre>
+  </section>
+  <section class="zone" id="must-fail" aria-labelledby="fail-h">
+    <h2 id="fail-h">What must fail</h2>
+    <p class="zone-intro">A reproduction that cannot fail proves nothing. Save the
+      eight files locally, flip one byte of any of them, and re-run offline:</p>
+    <pre style="background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.2rem 0 0">python scripts/reanalyze_msbench.py --dir path/to/mutated_full_run
+FAIL  guard_…jsonl: sha256 …  != recorded …  — the bound artifact changed;
+      MC-004 must be re-reviewed, not silently recomputed   (exit code 1)</pre>
+    <p class="zone-intro" style="margin-top:.9rem">The same flip smuggled past the hash
+      gate trips nine independent count, pattern, and printed-agreement assertions —
+      that mutation test is part of the claim's record, not a promise.</p>
+  </section>
+  <section class="zone" id="pins" aria-labelledby="pins-h">
+    <h2 id="pins-h">The eight pinned files</h2>
+    <p class="zone-intro">All at
+      <a class="u" href="https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run">PatrickKollman/Multimodal-Safeguard-Bench@fb6f32e6b50b ↗</a>
+      under <span class="mono">results/full_run/</span> (MIT-licensed upstream; cited
+      and hash-verified here, never redistributed).</p>
+    <div class="fig-scroll">
+    <table class="census-table">
+      <caption class="sr-only">The eight pinned release files and their sha256 digests.</caption>
+      <thead><tr><th scope="col">File</th><th scope="col">sha256</th></tr></thead>
+      <tbody><tr><th scope="row" class="mono" style="font-size:.72rem">guard_llama_guard_4_harmful.jsonl</th><td class="mono" style="font-size:.68rem;word-break:break-all">d416962d2f1a4e762fd2aee27ce6f61cbe3c4e56256542cf19cb389bce4da036</td></tr><tr><th scope="row" class="mono" style="font-size:.72rem">guard_llama_guard_4_benign.jsonl</th><td class="mono" style="font-size:.68rem;word-break:break-all">b8fdbe4cff31fbc9e0d06a5fffd7a71325d89a60cd5b44f61fc340d9d5e16d42</td></tr><tr><th scope="row" class="mono" style="font-size:.72rem">guard_llama_guard_3_vision_harmful.jsonl</th><td class="mono" style="font-size:.68rem;word-break:break-all">777e189833d7c689fa7ebc8ef45f47617053e27f7f3f92de497ce37e180b3c1e</td></tr><tr><th scope="row" class="mono" style="font-size:.72rem">guard_llama_guard_3_vision_benign.jsonl</th><td class="mono" style="font-size:.68rem;word-break:break-all">73a46fd7b3fac53e85c22aee27380b13f7935195273c3ffd18b9a3e39166358e</td></tr><tr><th scope="row" class="mono" style="font-size:.72rem">guard_shield_gemma_2_harmful.jsonl</th><td class="mono" style="font-size:.68rem;word-break:break-all">069bd28f30050684e2ce52f17570f8c75ea1e13f12d8277054068f776b7cdfe4</td></tr><tr><th scope="row" class="mono" style="font-size:.72rem">guard_shield_gemma_2_benign.jsonl</th><td class="mono" style="font-size:.68rem;word-break:break-all">72bd24530b976438aab251efdf23f2a5d2bb1abdc8edff236da6fca76f292970</td></tr><tr><th scope="row" class="mono" style="font-size:.72rem">metrics.json</th><td class="mono" style="font-size:.68rem;word-break:break-all">2a96c77ff6a816fec02244608ae40a045829ce5bc4c403867030c080248eb6c3</td></tr><tr><th scope="row" class="mono" style="font-size:.72rem">ensemble.json</th><td class="mono" style="font-size:.68rem;word-break:break-all">fca2d21da716a5e38dc59b409ac09601ca1ec2a16297db357455f7d17c1a4b02</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+  <section class="zone" id="file-your-run" aria-labelledby="file-h">
+    <h2 id="file-h">File your run — match or mismatch</h2>
+    <p class="zone-intro">Both outcomes are wanted. A matching run becomes this claim's
+      first independent reproduction; a mismatching run is a correction, handled under
+      the <a class="u" href="/corrections/">same-day correction policy</a> and credited
+      where consent permits. Use the
+      <a class="u" href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=reproduction.yml">reproduction issue form ↗</a> (environment,
+      commit, command, stdout, match or mismatch) or
+      <a class="u" href="mailto:bhavepranavwork@gmail.com">email</a>. As of the last
+      owner review, MC-004 has no recorded independent reproduction — this page is the
+      standing invitation, not evidence that one exists.</p>
+  </section>
+  <section class="zone" id="not-claimed" aria-labelledby="nc-h">
+    <h2 id="nc-h">Not claimed</h2>
+    <ul class="crit-list">
+      <li>No vendor ranking, endorsement, or indictment — the verdicts are at native,
+        unmatched operating rules, and no threshold calibration is documented upstream.</li>
+      <li>No population estimate and no interval; the items are the release's own
+        construction, and the counts are about exactly these bytes.</li>
+      <li>Not an observed deployed stack; the OR aggregation is arithmetic, not a
+        deployment.</li>
+      <li>The harmful-image 200/200 is a counting fact about these
+        200 released items, not evidence the union catches image attacks in
+        general — and the release's own changelog documents that ShieldGemma 2's image
+        scores are sensitive to the text-rendering stack.</li>
+      <li>A recomputation on released files: it changes no census count and adds no
+        new measurement.</li>
+    </ul>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/missing-column/">The Missing Column</a>
+      <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
+      <a class="u" href="/answers/why-guardrail-miss-rates-do-not-multiply/">Why miss rates do not multiply</a>
+      <a class="u" href="/answers/how-to-evaluate-guardrails-you-plan-to-stack/">Evaluating stacked guardrails</a>
+      <a class="u" href="/answers/what-does-the-second-guardrail-add/">What the second guard adds</a>
+      <a class="u" href="/corrections/">Corrections policy</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/observatory/">Claim observatory</a>
+      <a class="u" href="/modules/">Modules</a>
+      <a class="u" href="/archive/">Archive</a>
+      <a class="u" href="/stack-study/">Study preflight</a>
+      <a class="u" href="/work/">Work with me</a>
+      <a class="u" href="/">← The record</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>

@@ -76,7 +76,21 @@ SHA256 = {
         "fca2d21da716a5e38dc59b409ac09601ca1ec2a16297db357455f7d17c1a4b02",
 }
 
+SUCCESS_LINE = ("MC-004 reproduced: the three-guard joint statistics, computed "
+                "from the bound public release, match the registered claim.")
+
 failures: list = []
+
+
+def summary_line(kind: str, modality: str, union: int, n: int,
+                 all_miss: int) -> str:
+    """One stratum's summary exactly as this script prints it. The reproduce
+    page renders its expected-output receipt through this same function, so
+    the page and the executed stdout cannot drift apart."""
+    word = "union catches" if kind == "harmful" else "union flags"
+    tail = "all-miss" if kind == "harmful" else "flagged by none"
+    return (f"  {kind:>7} {modality:<5} {word} {union:>3}/{n} — "
+            f"{tail} {all_miss}/{n}")
 
 
 def fail(msg: str) -> None:
@@ -293,20 +307,18 @@ def main() -> int:
 
     # ------------------------------------------------------------- summary
     print("\nderived from the hash-verified release files; every overlapping")
-    print("quantity above is asserted equal to the release's own printing:")
-    for kind, modality, _n in STRATA:
-        s = computed[f"{kind}_{modality}"]
-        word = "union catches" if kind == "harmful" else "union flags"
-        print(f"  {kind:>7} {modality:<5} {word} {s['union']:>3}/{s['n']} — "
-              f"{'all-miss' if kind == 'harmful' else 'flagged by none'} "
-              f"{s['all_miss']}/{s['n']}")
+    print("quantity above is asserted equal to the release's own printing")
+    print("(benign burden first — it is the least favorable column):")
+    for stratum in ("benign_text", "benign_image", "harmful_text", "harmful_image"):
+        kind, modality = stratum.split("_")
+        s = computed[stratum]
+        print(summary_line(kind, modality, s["union"], s["n"], s["all_miss"]))
 
     print()
     if failures:
         print(f"{len(failures)} check(s) failed.")
         return 1
-    print("MC-004 reproduced: the three-guard joint statistics, computed from "
-          "the bound public release, match the registered claim.")
+    print(SUCCESS_LINE)
     return 0
 
 
