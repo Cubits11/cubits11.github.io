@@ -28,7 +28,8 @@ def discover_pages() -> list:
     pages = [ROOT / "index.html"]
     for p in sorted(ROOT.rglob("index.html")):
         rel = p.relative_to(ROOT)
-        if rel.parts[0] in (".git", "docs", "scripts") or rel == pathlib.Path("index.html"):
+        if rel.parts[0] in (".git", "docs", "scripts", ".venv") \
+                or rel == pathlib.Path("index.html"):
             continue
         pages.append(p)
     return pages

@@ -48,7 +48,8 @@ def pages() -> list[Path]:
     return sorted(
         p for p in ROOT.rglob("*.html")
         if ".git" not in p.parts and "docs" not in p.parts
-        and "scripts" not in p.parts and "fixtures" not in p.parts)
+        and "scripts" not in p.parts and "fixtures" not in p.parts
+        and ".venv" not in p.parts)
 
 
 def check_freshness(html_text: str, where: str) -> list[str]:
