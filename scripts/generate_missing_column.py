@@ -640,6 +640,15 @@ h1{{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0
 .zone .zone-intro{{color:var(--muted);max-width:46em}}
 .zone h3{{font-weight:520;margin:1.6rem 0 .5rem}}
 .fig-scroll{{overflow-x:auto}}
+.lede{{font-size:1.14rem;line-height:1.5}}
+.snapshot-note{{margin-top:1rem;padding:.7rem .9rem;border-left:2px solid var(--line-strong);
+  color:var(--muted);font-size:.88rem}}
+.epi-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(15rem,100%),1fr));
+  gap:1rem;margin-top:1rem}}
+.epi{{border:1px solid var(--line);padding:.85rem 1rem;min-width:0}}
+.epi h3{{font:400 .64rem/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 .4rem}}
+.epi p{{margin:0;font-size:.9rem}}
 .fig-scroll:focus-visible{{outline:2px solid var(--evidence,currentColor);outline-offset:3px}}
 .wall{{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}}
 .wall-row{{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}}
@@ -823,6 +832,7 @@ def render_landing(data: dict) -> str:
             "all-miss, or per-item outcomes — beside per-system scores.")
     releases = counts["present_by_scope"].get("computable_via_item_release", 0)
     release_note = f" ({releases} via data release)" if releases else ""
+    snapshot = census["snapshot"]
     count_bar = (f"{counts['N']} examined · {counts['M_strata']['shared_basis']} shared "
                  f"item/common-event basis ({counts['M_strata']['threshold_documented_full_exposure']} "
                  f"at documented matched thresholds with full exposure) · "
@@ -851,11 +861,18 @@ def render_landing(data: dict) -> str:
 <header class="page">
   <div class="container">
     <h1>The missing column</h1>
-    <p class="intro">Teams may deploy guardrails in stacks, but a static evaluation and a
-      deployed route are different objects. This bounded record tracks whether public
-      evaluations preserve the joint-evidence artifacts needed to characterize a stated
-      static composition — and its own headline is generated from a source file that
-      anyone can mechanically make false.</p>
+    <p class="intro lede">Benchmarks commonly report what each detector catches on its own.
+      To understand a deployed stack, you also need what those detectors catch — and miss —
+      <em>together</em>. That number is usually not published.</p>
+    <p class="intro">This is a bounded record of which public evaluations preserve the
+      evidence needed to recover it. A static evaluation and a deployed route are different
+      objects, so the record tracks what each artifact actually publishes rather than what a
+      stack would do. Its own headline is generated from a source file that anyone can
+      mechanically make false.</p>
+    <p class="snapshot-note"><b>Census {esc(snapshot["version"])}.</b> {esc(snapshot["public_statement"])}
+      Frozen {esc(snapshot["frozen_as_of"])}; annotated {esc(snapshot["annotated_as_of"])}.
+      Rules for new observations are fixed in advance in
+      <a class="u" href="{SITE}/census_protocol_v1.yaml">census_protocol_v1.yaml</a>.</p>
   </div>
 </header>
 <main class="container" id="main">
@@ -864,6 +881,26 @@ def render_landing(data: dict) -> str:
     <a class="btn btn-solid" href="#census">Inspect the census</a>
     <a class="btn" href="/missing-column/disclosure/">Publish the missing row</a>
     <a class="btn" href="#corrections">Correct this record</a>
+  </div>
+  <section class="zone" id="epistemic-status" aria-labelledby="epi-h">
+    <h2 id="epi-h">What this page is claiming</h2>
+    <div class="epi-grid">
+      <div class="epi"><h3>Observed</h3><p>What the examined artifacts print, each bound to a
+        quoted primary-source passage in <a class="u" href="{SITE}/census.yaml">census.yaml</a>.
+        Every row records its retrieval date.</p></div>
+      <div class="epi"><h3>Derived</h3><p>The counts above. They are recomputed from the rows by
+        <span class="mono">verify_census.py</span> on every run; no headline number is typed by
+        hand anywhere in this repository.</p></div>
+      <div class="epi"><h3>Interpreted</h3><p>Where a row sits on the disclosure ladder, and its
+        reconstruction class. These are judgements made under written rules, by a single
+        reviewer, and they are contestable.</p></div>
+      <div class="epi"><h3>Not claimed</h3><p>That the search found every qualifying artifact;
+        that an unreported quantity is unknowable — comparable marginals still bound it; that
+        an OR-union equals a deployed system's behaviour; or that anyone has adopted the
+        proposed reporting protocol.</p></div>
+    </div>
+  </section>
+  <div class="mc-cta-after">
   </div>
 
   <section class="zone" id="why" aria-labelledby="why-h">
@@ -1156,7 +1193,7 @@ def render_disclosure(data: dict) -> str:
     census = data["census"]
     counts = verify_census.compute_counts(data)
     title = "Minimum Joint Guardrail Disclosure — Pranav Bhave"
-    desc = ("A reporting standard small enough to paste into a results table: "
+    desc = ("A proposed reporting protocol small enough to paste into a results table: "
             "union detection, all-miss rate, denominator, and event "
             "definition — what to publish before characterizing a stack.")
     items = [
@@ -1237,7 +1274,7 @@ Errors/timeouts: <n>, scored as <policy>.'''
     <p class="intro">"Publish the stack" compresses to one table row — union detection and
       all-miss over the same items — but the row is only meaningful with its denominator,
       event definition, and alignment conditions attached. This page is the exact
-      specification: fourteen components, a paste-in template, and a tested reference
+      proposal: fourteen components, a paste-in template, and a tested reference
       implementation. It is a working schema maintained by one person, with no external
       use recorded so far; the census records the day that changes.</p>
   </div>

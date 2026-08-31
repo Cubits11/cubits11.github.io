@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-08-30"
+last_owner_review: "2026-08-31"
 
 claims:
   - id: CC-001
@@ -490,19 +490,23 @@ claims:
         shared_basis: 14
         threshold_not_contradicted: 12
         threshold_documented_full_exposure: 0
-    last_reviewed: "2026-08-30"
+    last_reviewed: "2026-08-31"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "56d940b8d6e9c44893ac63cd758c849a19e675dad1fc371f94a6803d78f381fa"
+        sha256: "17d88bff764dd63fcd30b496d1e5ea70ae0a42c169489b660970e819fadc39df"
         note: >-
           fires when the census changes without a claim re-review;
-          re-reviewed 2026-08-30 after adding dated adjudication
-          entries to the wainjectbench-2025 and bells-o-2026 rows
-          (historical repository artifacts examined and rejected as
-          per-item releases) — N/M/K and the M ladder recomputed
+          re-reviewed 2026-08-31 after freezing v0 as a historical
+          snapshot: every examined row annotated with protocol-v1
+          vocabulary (source_type, reconstruction class, preservation
+          state), a v0_row_lock minted so history cannot change
+          silently, and prospective v1 collection rules committed in
+          census_protocol_v1.yaml. Purely additive — no row was
+          reclassified; N/M/K and the M ladder recomputed unchanged
+          at 20/14/5 and 14/12/0
           unchanged
       - type: manual
         enforcement: manual

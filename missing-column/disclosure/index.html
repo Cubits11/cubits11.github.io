@@ -7,11 +7,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Minimum Joint Guardrail Disclosure — Pranav Bhave</title>
-<meta name="description" content="A reporting standard small enough to paste into a results table: union detection, all-miss rate, denominator, and event definition — what to publish before characterizing a stack.">
+<meta name="description" content="A proposed reporting protocol small enough to paste into a results table: union detection, all-miss rate, denominator, and event definition — what to publish before characterizing a stack.">
 <link rel="canonical" href="https://cubits11.github.io/missing-column/disclosure/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Minimum Joint Guardrail Disclosure — Pranav Bhave">
-<meta property="og:description" content="A reporting standard small enough to paste into a results table: union detection, all-miss rate, denominator, and event definition — what to publish before characterizing a stack.">
+<meta property="og:description" content="A proposed reporting protocol small enough to paste into a results table: union detection, all-miss rate, denominator, and event definition — what to publish before characterizing a stack.">
 <meta property="og:url" content="https://cubits11.github.io/missing-column/disclosure/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
 <meta property="og:image:width" content="1200">
@@ -66,6 +66,15 @@ h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 
 .zone .zone-intro{color:var(--muted);max-width:46em}
 .zone h3{font-weight:520;margin:1.6rem 0 .5rem}
 .fig-scroll{overflow-x:auto}
+.lede{font-size:1.14rem;line-height:1.5}
+.snapshot-note{margin-top:1rem;padding:.7rem .9rem;border-left:2px solid var(--line-strong);
+  color:var(--muted);font-size:.88rem}
+.epi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(15rem,100%),1fr));
+  gap:1rem;margin-top:1rem}
+.epi{border:1px solid var(--line);padding:.85rem 1rem;min-width:0}
+.epi h3{font:400 .64rem/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 .4rem}
+.epi p{margin:0;font-size:.9rem}
 .fig-scroll:focus-visible{outline:2px solid var(--evidence,currentColor);outline-offset:3px}
 .wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
 .wall-row{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
@@ -141,7 +150,7 @@ tr.demo-allmiss th,tr.demo-allmiss td{color:var(--invalid)}
     <p class="intro">"Publish the stack" compresses to one table row — union detection and
       all-miss over the same items — but the row is only meaningful with its denominator,
       event definition, and alignment conditions attached. This page is the exact
-      specification: fourteen components, a paste-in template, and a tested reference
+      proposal: fourteen components, a paste-in template, and a tested reference
       implementation. It is a working schema maintained by one person, with no external
       use recorded so far; the census records the day that changes.</p>
   </div>

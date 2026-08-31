@@ -84,6 +84,27 @@ census:
   schema_version: 3
   criteria_version: 1
   frozen_as_of: "2026-08-27"
+  snapshot:
+    version: v0
+    label: "Census v0 — Historical Snapshot"
+    frozen_as_of: "2026-08-27"
+    annotated_as_of: "2026-08-31"
+    public_statement: >-
+      Historical snapshot. Counts describe the evidence state captured at this
+      version and date, and are not asserted to remain current.
+    mutability: >-
+      v0 rows are historical. A row may be corrected, never silently revised:
+      any material change must add a correction_history entry to that row, add a
+      revision_history entry to the census, and re-mint v0_row_lock.sha256.
+      scripts/verify_census.py fails the build otherwise.
+    protocol_for_new_observations: census_protocol_v1.yaml
+  v0_row_lock:
+    sha256: "6ef932c2db525e5f3b1c932f9dadb17226f3f3697454a0a253744d6936696b7d"
+    canonicalization: >-
+      JSON UTF-8; sort_keys=true; separators=(',', ':'); ensure_ascii=false;
+      benchmarks list sorted by id
+    purpose: >-
+      Makes silent mutation of the historical snapshot mechanically detectable.
   maintainer: Pranav Bhave
   adjudication_status:
     mode: "single_primary_reviewer"
@@ -201,6 +222,18 @@ census:
       candidates surfaced but not examined are listed under
       unexamined_candidates and excluded from every count
   revision_history:
+    - date: "2026-08-31"
+      change: >-
+        v0 frozen as a historical snapshot. Every examined row annotated with
+        protocol-v1 vocabulary (source_type, reconstruction class, preservation
+        state); v0_row_lock minted so history cannot change silently. Two
+        classifications narrowed by the annotation: 14 marginals-only rows are
+        recorded as PARTIALLY_IDENTIFIED rather than implying the joint is
+        unknowable (comparable marginals bound it by sharp Frechet-Hoeffding
+        limits), and circleguardbench-2025 is recorded as UNVERIFIED because its
+        shared basis is unstated in the examined surfaces. No N/M/K value changed;
+        no row was reclassified. Prospective collection rules for v1 were written
+        and committed before the first v1 observation (census_protocol_v1.yaml).
     - date: "2026-08-27"
       change: >
         Census established. Criteria v1 inclusion wording was committed and
@@ -329,6 +362,17 @@ census:
         failure, not a measurement failure.
 benchmarks:
   - id: openai-holistic-2022
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "A Holistic Approach to Undesired Content Detection in the Real World"
     authors_or_org: "Markov, Zhang, Agarwal, Eloundou, Lee, Adler, Jiang, Weng — OpenAI"
@@ -397,6 +441,17 @@ benchmarks:
       Published 2022 (AAAI-23 oral) — the earliest included artifact.
 
   - id: llama-guard-2023
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations"
     authors_or_org: "Inan et al. — Meta GenAI"
@@ -462,6 +517,17 @@ benchmarks:
     notes: null
 
   - id: aegis-2024
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: DIRECTLY_REPORTED
+      evidence: >-
+        the artifact prints a composed result over a named subset of the compared mechanisms (L6, partial scope)
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "AEGIS: Online Adaptive AI Content Safety Moderation with Ensemble of LLM Experts"
     authors_or_org: "Ghosh, Varshney, Galinkin, Parisien — NVIDIA"
@@ -541,6 +607,17 @@ benchmarks:
       "what does a stack of independent guards jointly miss".
 
   - id: wildguard-2024
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "WildGuard: Open One-Stop Moderation Tools for Safety Risks, Jailbreaks, and Refusals of LLMs"
     authors_or_org: "Han, Rao, Ettinger, Jiang, Lin, Lambert, Choi, Dziri — Allen Institute for AI / UW / SNU"
@@ -610,6 +687,17 @@ benchmarks:
     notes: null
 
   - id: lakera-pint-2024
+    source_type: repository_or_leaderboard
+    source_type_evidence: >-
+      artifact retrieved from a code/leaderboard repository
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "PINT Benchmark (Prompt Injection Test)"
     authors_or_org: "Lakera AI"
@@ -679,6 +767,17 @@ benchmarks:
       scoreboard; runs are evaluated by Lakera rather than self-served.
 
   - id: shieldgemma-2024
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "ShieldGemma: Generative AI Content Moderation Based on Gemma"
     authors_or_org: "ShieldGemma Team — Google"
@@ -744,6 +843,17 @@ benchmarks:
     notes: null
 
   - id: upenn-multilingual-2024
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "Benchmarking LLM Guardrails in Handling Multilingual Toxicity"
     authors_or_org: "Yang, Dan, Roth, Lee — University of Pennsylvania / Microsoft"
@@ -809,6 +919,17 @@ benchmarks:
     notes: null
 
   - id: guardbench-2024
+    source_type: peer_reviewed_paper
+    source_type_evidence: >-
+      ACL Anthology published venue
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "GuardBench: A Large-Scale Benchmark for Guardrail Models"
     authors_or_org: "Elias Bassani, Ignacio Sanchez — European Commission Joint Research Centre"
@@ -878,6 +999,17 @@ benchmarks:
       newer guards; no commercial APIs (stated limitation).
 
   - id: ibm-adversarial-prompt-2025
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "Adversarial Prompt Evaluation: Systematic Benchmarking of Guardrails Against Prompt Input Attacks on LLMs"
     authors_or_org: "Zizzo et al. — IBM Research (NeurIPS 2024 Safe GenAI workshop)"
@@ -956,6 +1088,17 @@ benchmarks:
     notes: null
 
   - id: neuraltrust-2025
+    source_type: vendor_publication
+    source_type_evidence: >-
+      published on the vendor/organisation domain neuraltrust.ai
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "Benchmarking Jailbreak Detection Solutions for LLMs"
     authors_or_org: "Ayoub El Qadi — NeuralTrust"
@@ -1022,6 +1165,17 @@ benchmarks:
     notes: "Vendor-run benchmark; caveat recorded in the reason."
 
   - id: llamafirewall-2025
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: DIRECTLY_REPORTED
+      evidence: >-
+        the artifact prints a composed-stack result (L6)
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "LlamaFirewall: An open source guardrail system for building secure AI agents"
     authors_or_org: "Chennabasappa et al. — Meta"
@@ -1097,6 +1251,17 @@ benchmarks:
       measuring its own two components.
 
   - id: circleguardbench-2025
+    source_type: repository_or_leaderboard
+    source_type_evidence: >-
+      artifact retrieved from a model/leaderboard hub
+    reconstruction:
+      class: UNVERIFIED
+      evidence: >-
+        the shared basis required to place this artifact is not established in the examined surfaces; no disclosure finding is asserted
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "CircleGuardBench"
     authors_or_org: "White Circle AI"
@@ -1165,6 +1330,17 @@ benchmarks:
       leaderboard app was not fully machine-readable in this pass.
 
   - id: unit42-genai-platform-2025
+    source_type: vendor_publication
+    source_type_evidence: >-
+      published on the vendor/organisation domain unit42.paloaltonetworks.com
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "How Good Are the LLM Guardrails on the Market? A Comparative Study on the Effectiveness of LLM Content Filtering Across Major GenAI Platforms"
     authors_or_org: "Huang, Bray, Rao, Ji, Hu — Palo Alto Networks Unit 42"
@@ -1258,6 +1434,17 @@ benchmarks:
       this row.
 
   - id: bells-misuse-2025
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        per-item verdicts are released for a subset only: exact on the released subset, bounded by the marginals on the remainder
+    preservation:
+      state: ARCHIVE_URL_RECORDED
+      evidence: >-
+        an archival URL is recorded; its liveness was not verified in this run
     status: examined
     title: "The bitter lesson of misuse detection (BELLS evaluation and leaderboard)"
     authors_or_org: "Mariaccia, Segerie, Dorn — CeSIA"
@@ -1348,6 +1535,17 @@ benchmarks:
       specialized supervisors, with the selection caveats stated.
 
   - id: bells-o-2026
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: ARCHIVE_URL_RECORDED
+      evidence: >-
+        an archival URL is recorded; its liveness was not verified in this run
     status: examined
     title: "BELLS-O: Evaluating the Operational Trade-offs of LLM Supervision Systems"
     authors_or_org: "Waibl (Univ. Graz; SPAR), Michalak (SPAR), Mariaccia (CeSIA)"
@@ -1445,6 +1643,17 @@ benchmarks:
       the verified fact; name-level corrections are invited.
 
   - id: multimodal-safeguard-bench-2026
+    source_type: repository_or_leaderboard
+    source_type_evidence: >-
+      artifact retrieved from a code/leaderboard repository
+    reconstruction:
+      class: EXACTLY_RECONSTRUCTIBLE
+      evidence: >-
+        released per-item verdicts cover every compared mechanism over the full item set, so every joint quantity is exactly computable (L3)
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "Multimodal Safeguard Bench: Guard Blind Spots Are Architecture-Specific and Complementary"
     authors_or_org: "Patrick Kollman — Independent Researcher"
@@ -1581,6 +1790,17 @@ benchmarks:
       a change to frozen criteria.
 
   - id: wainjectbench-2025
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: DIRECTLY_REPORTED
+      evidence: >-
+        the artifact prints a composed-stack result (L6)
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "WAInjectBench: Benchmarking Prompt Injection Detections for Web Agents"
     authors_or_org: "Liu, Xu, Wang, Jia, Gong — Duke University"
@@ -1682,6 +1902,17 @@ benchmarks:
       Scope is web-agent prompt injection, not general moderation.
 
   - id: domyn-open-guards-2026
+    source_type: preprint
+    source_type_evidence: >-
+      arXiv-hosted preprint (venue status recorded separately in notes)
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "Benchmarking Open-Source Safety Guard Models: A Comprehensive Evaluation"
     authors_or_org: "Harsh, Sarmah, Pasquali — Domyn"
@@ -1747,6 +1978,17 @@ benchmarks:
     notes: null
 
   - id: truefoundry-2026
+    source_type: vendor_publication
+    source_type_evidence: >-
+      published on the vendor/organisation domain www.truefoundry.com
+    reconstruction:
+      class: NOT_APPLICABLE
+      evidence: >-
+        per-provider ground truth: a union or all-miss statistic over these marginals is ill-defined, so the joint is not a well-defined object
+    preservation:
+      state: ARCHIVE_URL_RECORDED
+      evidence: >-
+        an archival URL is recorded; its liveness was not verified in this run
     status: examined
     title: "Benchmarking LLM Guardrail Providers: A Data-Driven Comparison"
     authors_or_org: "Kashish Kumar — TrueFoundry"
@@ -1822,6 +2064,17 @@ benchmarks:
       the PII and prompt-injection tables are single-provider.
 
   - id: ml6-2026
+    source_type: vendor_publication
+    source_type_evidence: >-
+      published on the vendor/organisation domain www.ml6.eu
+    reconstruction:
+      class: PARTIALLY_IDENTIFIED
+      evidence: >-
+        comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
+    preservation:
+      state: NO_ARCHIVE_RECORDED
+      evidence: >-
+        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
     status: examined
     title: "Inside AI Guardrails: a benchmark on enterprise LLM security"
     authors_or_org: "Cristóbal Sendín — ML6 (contributors Vrancken, Wehkamp, Van Der Burght)"

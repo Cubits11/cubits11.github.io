@@ -267,6 +267,27 @@ def check_launch_pack() -> None:
             fail(f"launch pack: {reason}")
 
 
+def check_disclosure_language() -> None:
+    """The MJGD is a proposal until someone else adopts it.
+
+    "Standard" and "specification" assert a settled, adopted artifact. The
+    claim registry records that no benchmark author has adopted the MJGD, so
+    those words would be stronger than the evidence beneath them. This gate
+    keeps the public wording inside what the record supports.
+    """
+    banned = ("reporting standard", "disclosure standard", "the mjgd standard")
+    for rel in ("missing-column/disclosure/index.html",
+                "answers/what-does-the-second-guardrail-add/index.html"):
+        path = ROOT / rel
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8").lower()
+        for phrase in banned:
+            if phrase in text:
+                fail(f"{rel}: calls the disclosure a {phrase!r} — no external "
+                     "adoption is recorded, so use 'proposed reporting protocol'")
+
+
 def check_identity() -> None:
     """The identity sentence must be identical wherever it is published."""
     found = []
@@ -336,6 +357,7 @@ def main() -> int:
     check_campaigns()
     check_launch_pack()
     check_identity()
+    check_disclosure_language()
     check_resume_pdf()
     check_social_card()
     if failures:

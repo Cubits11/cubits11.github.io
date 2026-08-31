@@ -33,6 +33,10 @@ jobs:
         run: python scripts/verify_claims.py
       - name: Verify census (frozen criteria, row shape, mechanical counts)
         run: python scripts/verify_census.py
+      - name: Census protocol v1 is prospective and matches the enforcer
+        run: python scripts/verify_census_protocol.py
+      - name: Census invariants demonstrably fail when their property is broken
+        run: python scripts/verify_census_mutations.py
       - name: Ledger is generated, not hand-edited (drift check)
         run: python scripts/generate_ledger.py --check
       - name: Figures cannot lie (geometry assertions)

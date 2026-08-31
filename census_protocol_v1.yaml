@@ -1,0 +1,400 @@
+# ============================================================================
+# MISSING COLUMN CENSUS — PROTOCOL v1
+#
+# Prospective. This file was written and committed BEFORE the first v1
+# observation was collected, so that the classification rules cannot be
+# chosen to protect a result they were written after seeing.
+#
+# v0 (census.yaml, frozen 2026-08-27) is a historical snapshot classified
+# under criteria v1-of-v0. This protocol governs v1 collection only. It does
+# not retroactively reclassify v0 rows; where it introduces vocabulary that
+# v0 rows can be annotated with mechanically, that annotation is recorded in
+# v0's revision history as an annotation, never as a reclassification.
+#
+# Design rule that outranks every other rule here: a rule may not be chosen
+# because it preserves the current headline. Where a rule would change the
+# headline, that consequence is stated in `headline_effect`.
+# ============================================================================
+
+protocol:
+  id: MC-PROTOCOL-V1
+  version: 1
+  status: prospective_frozen
+  written_before_first_v1_observation: true
+  supersedes: null
+  applies_to: "census v1 collection"
+  does_not_apply_to: "census v0 rows (historical snapshot; annotation only)"
+
+# ---------------------------------------------------------------------------
+# A. UNIVERSE DEFINITION
+# ---------------------------------------------------------------------------
+universe:
+  unit_of_observation: >
+    One public evaluation artifact. The unit is the ARTIFACT (a paper, report,
+    leaderboard snapshot, or repository release), not the benchmark family and
+    not the individual task. Two artifacts from one family are two records; one
+    artifact covering five tasks is one record.
+
+  counting_rule: >
+    Counts are over artifacts meeting every inclusion criterion. Never mix
+    artifacts, families, tasks, and modalities in one denominator. Any count
+    published must name which of these it counts.
+
+  inclusion:
+    - key: public_access
+      text: publicly accessible without payment at a stable URL
+    - key: multi_mechanism
+      text: >
+        evaluates two or more distinct, separately attributable safety or
+        guardrail mechanisms (commercial APIs, open-source guard models, or
+        models deployed as safeguards around an LLM)
+    - key: shared_item_universe
+      text: >
+        evaluates those mechanisms on a meaningfully shared item universe —
+        the same item set claimed, per task, for every compared mechanism
+    - key: per_mechanism_results
+      text: reports separately attributable per-mechanism quantitative results
+    - key: domain
+      text: >
+        targets safety or harm detection, jailbreak or prompt-injection
+        detection, content moderation, policy enforcement, or PII detection
+        around LLM systems
+    - key: method_detail
+      text: >
+        provides enough methodological detail to place the artifact on the
+        disclosure ladder and assign a reconstruction class
+
+  exclusions:
+    - key: per_mechanism_datasets
+      text: each mechanism evaluated on a different dataset with no shared basis
+      rationale: no joint object exists to report
+    - key: incomparable_thresholds
+      text: >
+        mechanisms scored against different event definitions or different
+        ground-truth label sets
+      rationale: >
+        a union or all-miss statistic over such marginals is ill-defined, not
+        merely unreported. These are INELIGIBLE for the ladder but are recorded
+        with reconstruction NOT_APPLICABLE rather than discarded.
+    - key: qualitative_only
+      text: narrative or feature comparison with no measured common evaluation
+    - key: single_mechanism
+      text: one mechanism only — nothing to compose
+    - key: base_model_leaderboard
+      text: >
+        a model's own refusal behaviour is not a separately deployed guardrail
+        system
+    - key: duplicate_publication
+      text: >
+        the same measurements republished; the earliest artifact carrying the
+        measurements is the record, later ones are SUPERSEDED pointers
+    - key: mirror
+      text: a copy hosting another artifact's measurements without new evaluation
+    - key: superseded_version
+      text: >
+        an earlier version of an artifact whose successor covers the same
+        mechanisms and items; retained as SUPERSEDED, never silently deleted
+    - key: inaccessible_evidence
+      text: >
+        evidence exists but could not be retrieved. NOT an exclusion for
+        absence — such candidates stay VERIFICATION_PENDING and are excluded
+        from counts with the reason recorded. Never counted as "does not report".
+    - key: partial_modal_evaluation
+      text: >
+        only one modality or subset evaluated per mechanism with no shared basis
+        across the compared set
+
+  edge_cases:
+    - case: mechanism_is_itself_a_stack
+      rule: >
+        If a compared mechanism is internally composed of several components
+        reported as one number with the combination rule unstated, the record is
+        ELIGIBLE, and the fact is recorded as a stack_reported_as_marginal flag.
+        This is evidence FOR the reporting problem, not grounds for exclusion.
+    - case: artifact_publishes_complete_joint
+      rule: >
+        An artifact publishing full joint information is ELIGIBLE and is
+        expected. It raises the disclosure distribution; it does not threaten
+        the protocol.
+      headline_effect: >
+        Enough such artifacts would make the headline claim false. That is the
+        intended falsification route and must not be blocked by rule choice.
+    - case: leaderboard_is_mutable
+      rule: >
+        A leaderboard is observed as a dated snapshot with a retrieval date and
+        a content digest where obtainable. A later state is a new record, not an
+        edit of the old one.
+    - case: ensemble_row_is_the_authors_own_systems
+      rule: >
+        A joint statistic over a subset of the compared mechanisms is
+        DIRECTLY_REPORTED with joint_scope partial, and the covered subset is
+        named. It is not promoted to full-stack disclosure.
+
+# ---------------------------------------------------------------------------
+# B. STATE MACHINE
+# ---------------------------------------------------------------------------
+state_machine:
+  states:
+    DISCOVERED:
+      means: a candidate artifact has been found; nothing has been assessed
+      counts_toward_totals: false
+    ELIGIBILITY_PENDING:
+      means: eligibility assessment started, not concluded
+      counts_toward_totals: false
+    ELIGIBLE:
+      means: meets every inclusion criterion; not yet evidence-verified
+      counts_toward_totals: false
+    INELIGIBLE:
+      means: fails a named inclusion criterion or matches a named exclusion
+      requires: exclusion_key
+      counts_toward_totals: false
+    VERIFICATION_PENDING:
+      means: >
+        eligible, and classification requires evidence not yet retrieved or not
+        retrievable in the current environment
+      requires: blocking_reason
+      counts_toward_totals: false
+      note: >
+        This is the state that prevents inability-to-verify from becoming
+        absence. A record may remain here indefinitely without ever being
+        counted as "does not report".
+    VERIFIED:
+      means: >
+        classified against primary sources with per-field evidence recorded
+      requires: [disclosure_ladder, reconstruction, provenance_pointers]
+      counts_toward_totals: true
+    STALE:
+      means: >
+        previously VERIFIED, and the source may have changed since the recorded
+        verification date (TTL elapsed or upstream change detected)
+      counts_toward_totals: false
+      note: a stale record's last verified classification is retained and dated
+    SUPERSEDED:
+      means: a later artifact replaces this one as the record for its measurements
+      requires: superseded_by
+      counts_toward_totals: false
+
+  transitions:
+    - from: DISCOVERED
+      to: ELIGIBILITY_PENDING
+    - from: ELIGIBILITY_PENDING
+      to: [ELIGIBLE, INELIGIBLE]
+    - from: ELIGIBLE
+      to: [VERIFICATION_PENDING, VERIFIED]
+    - from: VERIFICATION_PENDING
+      to: [VERIFIED, INELIGIBLE]
+      note: >
+        VERIFICATION_PENDING may never transition to a classification asserting
+        absence. It resolves only by obtaining evidence or by failing eligibility.
+    - from: VERIFIED
+      to: [STALE, SUPERSEDED]
+    - from: STALE
+      to: [VERIFIED, SUPERSEDED]
+
+  law: >
+    Inability to verify is never converted into absence. No transition writes a
+    negative disclosure finding from a failed retrieval.
+
+# ---------------------------------------------------------------------------
+# C. DISCLOSURE LADDER
+# ---------------------------------------------------------------------------
+disclosure_ladder:
+  rungs:
+    L1:
+      name: individual mechanism marginals
+      licenses: >
+        Statements about each mechanism alone on the stated population.
+      does_not_license: >
+        Any statement about what two or more mechanisms do together. Marginals
+        bound the joint; they do not identify it.
+    L2:
+      name: shared item universe identifiable
+      licenses: >
+        That the compared marginals refer to one population and one event
+        definition, so a joint object is well defined.
+      does_not_license: any numeric joint quantity
+    L3:
+      name: item-level mechanism verdicts
+      licenses: >
+        Exact computation of every joint quantity over the released items:
+        unions, all-miss counts, and every intersection.
+      scope_rule: >
+        Licenses computation only over the RELEASED subset. A partial release
+        licenses statements about that subset, explicitly denominated.
+    L4:
+      name: pairwise overlap or joints
+      licenses: pairwise intersection and pairwise union statements
+      does_not_license: >
+        higher-order joints. Pairwise agreement does not identify the triple —
+        this is an established result in this record, not a conjecture.
+    L5:
+      name: sufficient higher-order or full joint information
+      licenses: full joint distribution over the mechanism verdicts
+    L6:
+      name: operational stack or union result
+      licenses: >
+        A statement about what a specified composition of the mechanisms
+        achieves on the stated population, under the stated composition rule.
+      composition_rule_required: true
+      caveat: >
+        L6 under an OR rule is one composition. Deployed systems may compose
+        sequentially, with routing, with different thresholds, or with
+        downstream model behaviour in the loop. An OR union is not
+        automatically the deployed system's behaviour, and must not be
+        presented as such.
+
+  independence: >
+    The rungs are not strictly ordered attainment levels. An artifact may print
+    L6 without releasing L3. Each rung is recorded separately.
+
+  negative_kinds:
+    # These must never be collapsed into one another, or into a bare "no".
+    NOT_PUBLISHED:
+      means: the artifact was examined and does not report this
+    NOT_FOUND:
+      means: >
+        searched within the examined surfaces and not located; the artifact may
+        still report it elsewhere
+    NOT_PRESERVED:
+      means: the artifact reported it, but the evidence is no longer retrievable
+    NOT_RETRIEVABLE_IN_THIS_ENVIRONMENT:
+      means: >
+        blocked by access, licensing, gating, or network policy at check time;
+        says nothing about the artifact
+    CANNOT_BE_RECONSTRUCTED:
+      means: >
+        established that the published information is insufficient to recover
+        the quantity, not merely that it was not printed
+    NOT_APPLICABLE:
+      means: the quantity is not well defined for this artifact
+
+# ---------------------------------------------------------------------------
+# D. RECONSTRUCTION CLASS
+# ---------------------------------------------------------------------------
+reconstruction_classes:
+  DIRECTLY_REPORTED:
+    means: the artifact prints the joint quantity
+    requires: [L6]
+    evidence_required: a located passage or file printing the quantity
+  EXACTLY_RECONSTRUCTIBLE:
+    means: >
+      released item-level verdicts permit exact computation of the joint over
+      the full evaluated population
+    requires: [L2, L3]
+    evidence_required: >
+      released per-item verdicts covering every compared mechanism over the
+      full item set, with aligned item identifiers
+  PARTIALLY_IDENTIFIED:
+    means: >
+      the published information bounds the joint without point-identifying it.
+      This is the correct class for marginals-only artifacts: sharp
+      Frechet-Hoeffding bounds follow from the marginals, so the joint is
+      constrained, not unknown.
+    requires: [L1, L2]
+    evidence_required: comparable marginals over a shared item universe
+    note: >
+      Also the correct class for a partial item-level release: exact on the
+      released subset, bounded on the remainder.
+  NOT_IDENTIFIABLE:
+    means: >
+      established that even bounds are unavailable, because the shared basis
+      required to define the joint is absent
+    requires: []
+    evidence_required: a positive finding of incomparability, not a failed search
+  NOT_APPLICABLE:
+    means: the joint is not a well-defined object for this artifact
+    evidence_required: a named reason the quantity is ill-defined
+  UNVERIFIED:
+    means: which of the above holds has not been established
+    evidence_required: none — this is the honest default
+    counts_toward_disclosure_claims: false
+
+  law: >
+    A reconstruction class may never be assigned from a failed retrieval. If
+    evidence was not obtained, the class is UNVERIFIED and the record's state is
+    VERIFICATION_PENDING.
+
+# ---------------------------------------------------------------------------
+# E. PRESERVATION
+# ---------------------------------------------------------------------------
+preservation_states:
+  ARCHIVED_VERIFIED:
+    means: an archival capture was retrieved and checked at the recorded date
+  ARCHIVE_URL_RECORDED:
+    means: >
+      an archival URL is recorded but its liveness was not verified in this run
+  NO_ARCHIVE_RECORDED:
+    means: >
+      this census records no archival URL. A statement about this census, not
+      about whether an archive exists.
+  ARCHIVE_UNDETERMINED:
+    means: >
+      an archival check was attempted and did not complete. Never reported as
+      absence of an archive.
+
+# ---------------------------------------------------------------------------
+# F. FALSIFICATION AND TERMINATION — pre-registered
+# ---------------------------------------------------------------------------
+falsification:
+  headline_claim: >
+    Among public evaluations meeting the frozen criteria, most report
+    per-mechanism results without publishing or enabling the joint statistic a
+    deployed stack needs.
+
+  quantified_threshold:
+    measured_at_v0: "5 of 20 artifacts (25%) publish or enable the joint"
+    falsified_when: >
+      the fraction of qualifying artifacts publishing or enabling the joint
+      exceeds one half
+    artifacts_required_from_v0: 11
+    note: >
+      Computed from the v0 counts by scripts/verify_census.py arithmetic, not
+      asserted. Eleven further complete-joint artifacts, with no other change,
+      make the headline false by its own denominator.
+
+  rule_sensitivity_measured_at_v0:
+    # Alternative defensible inclusion rules, each recomputed with the same
+    # arithmetic. The qualitative claim survives all four; the fraction does not
+    # stay fixed, so the fraction is always reported with its rule.
+    finding: >
+      Under every alternative rule the majority still does not publish the
+      joint, so the qualitative claim is not an artifact of the inclusion rule.
+      The fraction moves from 25% to 31%, and the strictest academic reading
+      makes the problem look less severe rather than worse — vendor
+      publications are the weakest disclosers in this snapshot.
+    rules:
+      - rule: "all examined artifacts (baseline)"
+        N: 20
+        K: 5
+      - rule: "peer-reviewed papers and preprints only"
+        N: 13
+        K: 4
+      - rule: "exclude vendor publications"
+        N: 16
+        K: 5
+      - rule: "exclude repositories and leaderboards"
+        N: 17
+        K: 4
+      - rule: "require an unambiguous shared item set"
+        N: 15
+        K: 4
+
+  downgrade_conditions:
+    - >
+      Stacked or overlap reporting turns out to be common once the universe is
+      widened under v1: downgrade from active research programme to a finished
+      portfolio artifact.
+    - >
+      Repeated author contact produces no engagement, no independent use, and no
+      correction over a stated period: the reporting gap may be real and
+      uninteresting to the people who would have to close it.
+    - >
+      An existing artifact is found that already publishes the joint for a
+      majority of comparable evaluations: the premise was wrong.
+
+  termination_condition: >
+    If the disclosure distribution measured under v1 shows the majority already
+    publishing or enabling the joint, the census stops being a research
+    programme and is retained as a dated historical record. That outcome is a
+    result, not a failure, and must be published with the same prominence as the
+    original claim.
