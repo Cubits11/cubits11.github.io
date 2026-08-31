@@ -171,7 +171,7 @@ SITE_HEAD = '''<a class="skip" href="#main">Skip to content</a>
     <nav class="site-nav mono" aria-label="Site">
       <a href="/missing-column/">The Missing Column</a>
       <a href="/observatory/">Evidence</a>
-      <a href="/writing/" aria-current="page">Writing</a>
+      <a href="/writing/">Writing</a>
       <a href="/work/">Work with me</a>
       <a href="/resume/">About</a>
     </nav>

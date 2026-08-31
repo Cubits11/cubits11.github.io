@@ -145,7 +145,7 @@ tr.demo-allmiss th,tr.demo-allmiss td{color:var(--invalid)}
 <main class="container" id="main">
   
 <figure class="ladder-fig" id="ladder">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Minimum Joint Guardrail Disclosure ladder. Scroll horizontally to view all four disclosure levels.">
   <svg viewBox="0 0 660 260" role="img" aria-labelledby="ldt ldd">
   <title id="ldt">The minimum joint disclosure, as four ascending steps</title>
   <desc id="ldd">Four ascending steps. Step one: per-guard marginals — each
@@ -211,7 +211,7 @@ Errors/timeouts: &lt;n&gt;, scored as &lt;policy&gt;.</pre>
       (<span class="mono">python scripts/reanalyze_msbench.py</span>). This page
       demonstrates the BELLS-specific arithmetic because MC-002 binds this exact file
       and its five specialized supervisors:</p>
-    <div class="fig-scroll">
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="BELLS joint-disclosure results table. Scroll horizontally to view the full table.">
     <table class="census-table demo-table">
       <caption class="sr-only">The minimum joint disclosure computed on the released
         BELLS subset: per-guard catch rates, union, and all-miss over 82 harmful
@@ -252,11 +252,13 @@ Errors/timeouts: &lt;n&gt;, scored as &lt;policy&gt;.</pre>
       standard-library validator. Use the validator for semantic conformance:
       it checks declared evidence boundaries and arithmetic, not safety,
       calibration, route risk, or adaptive robustness.</p>
-    <table class="census-table">
-      <caption class="sr-only">MJGD v1 conformance fixtures and their validated states</caption>
-      <thead><tr><th scope="col">Illustrative fixture</th><th scope="col">Validator state</th><th scope="col">What that state means</th></tr></thead>
-      <tbody><tr><th scope="row">parallel-full-exposure.json</th><td class="mono">recomputed static</td><td>Complete binary full-exposure outcomes; every printed positive and benign count is recomputed.</td></tr><tr><th scope="row">sequential-route.json</th><td class="mono">held: route declaration</td><td>A routed or gated declaration is held, not collapsed into static full-exposure arithmetic.</td></tr><tr><th scope="row">partial-release.json</th><td class="mono">recomputed aggregate patterns</td><td>A complete controlled aggregate-pattern table; positive static results are recomputed without item identities.</td></tr><tr><th scope="row">aggregate-only.json</th><td class="mono">not identified</td><td>Marginals only; the exact finite all-miss identified set is shown instead of inventing a realized joint result.</td></tr><tr><th scope="row">missing-data.json</th><td class="mono">held: missing data</td><td>An explicit timeout, error, or non-exposure cell is held rather than silently scored.</td></tr></tbody>
-    </table>
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="MJGD v1 conformance fixtures table. Scroll horizontally to view all columns.">
+      <table class="census-table">
+        <caption class="sr-only">MJGD v1 conformance fixtures and their validated states</caption>
+        <thead><tr><th scope="col">Illustrative fixture</th><th scope="col">Validator state</th><th scope="col">What that state means</th></tr></thead>
+        <tbody><tr><th scope="row">parallel-full-exposure.json</th><td class="mono">recomputed static</td><td>Complete binary full-exposure outcomes; every printed positive and benign count is recomputed.</td></tr><tr><th scope="row">sequential-route.json</th><td class="mono">held: route declaration</td><td>A routed or gated declaration is held, not collapsed into static full-exposure arithmetic.</td></tr><tr><th scope="row">partial-release.json</th><td class="mono">recomputed aggregate patterns</td><td>A complete controlled aggregate-pattern table; positive static results are recomputed without item identities.</td></tr><tr><th scope="row">aggregate-only.json</th><td class="mono">not identified</td><td>Marginals only; the exact finite all-miss identified set is shown instead of inventing a realized joint result.</td></tr><tr><th scope="row">missing-data.json</th><td class="mono">held: missing data</td><td>An explicit timeout, error, or non-exposure cell is held rather than silently scored.</td></tr></tbody>
+      </table>
+    </div>
     <div class="precond"><strong>One recomputed fixture, not a benchmark result:</strong>
       4 positives, A catches 2, B catches
       2, any guard catches
@@ -265,7 +267,7 @@ Errors/timeouts: &lt;n&gt;, scored as &lt;policy&gt;.</pre>
       1. These are synthetic fixture counts,
       included to make the contract replayable rather than to characterize any
       deployed system.</div>
-    <pre>python scripts/validate_mjgd.py --test      # five fixture states + refusal tests
+    <pre style="max-width:100%;overflow-x:auto">python scripts/validate_mjgd.py --test      # five fixture states + refusal tests
 python scripts/validate_mjgd.py --fixtures  # inspect every committed fixture</pre>
   </section>
 

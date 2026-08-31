@@ -12,6 +12,7 @@
 <meta property="og:url" content="https://cubits11.github.io/stack-study/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
 <meta property="og:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
 <meta name="twitter:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
@@ -70,7 +71,7 @@
   .metric-zone{margin-top:1.5rem}
   .metric-zone h3{font-size:1.25rem}
   .metric-zone > p{color:var(--muted);font-size:.92rem;margin:.5rem 0 0}
-  .guard-wrap{overflow-x:auto;margin-top:1rem}
+  .guard-wrap{max-width:100%;overflow-x:auto;contain:paint;margin-top:1rem}
   .guard-table{width:100%;min-width:38rem;border-collapse:collapse;background:var(--bg)}
   .guard-table th,.guard-table td{border:1px solid var(--line);padding:.55rem .6rem;text-align:left;vertical-align:middle}
   .guard-table th{font:400 .63rem/1.25 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
@@ -82,6 +83,7 @@
   .form-actions{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;margin-top:1.45rem}
   .form-actions button[disabled]{opacity:.5;cursor:not-allowed}
   .preflight-status{min-height:1.5rem;color:var(--muted);font-size:.88rem;margin:.85rem 0 0}
+  .preflight-status:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
   .preflight-status.error{color:var(--invalid)}
   .preflight-status.ok{color:var(--evidence)}
   .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.4rem}
@@ -182,7 +184,7 @@
     <p class="sec-intro">The same product labels can appear in three different measurements. Select one;
       the workbench will make its scope visible in the resulting packet.</p>
 
-    <form id="study-form" novalidate>
+    <div id="study-form" role="form" aria-labelledby="workbench-title">
       <fieldset class="mode-grid">
         <legend class="sr-only">Observation mode</legend>
         <label class="mode-card">
@@ -232,7 +234,7 @@
           </div>
           <div class="field">
             <label for="denominator">Positive items in the declared population</label>
-            <input id="denominator" name="denominator" type="number" inputmode="numeric" min="1" step="1" placeholder="e.g. 1000">
+            <input id="denominator" name="denominator" type="number" inputmode="numeric" min="1" max="9007199254740991" step="1" placeholder="e.g. 1000">
           </div>
           <div class="field">
             <label for="configuration">Version / configuration / route digest</label>
@@ -261,14 +263,14 @@
         <div class="metric-zone" id="static-metrics">
           <h3>Static counts</h3>
           <p>Use counts, not percentages. The calculator will expose what follows from marginals alone, then show an exact static result only if you also retain the union.</p>
-          <div class="guard-wrap">
+          <div class="guard-wrap" tabindex="0" role="region" aria-label="Per-guard catch-count table. Scroll horizontally to view all fields.">
             <table class="guard-table">
               <caption class="sr-only">Per-guard catch counts on the declared positive population.</caption>
               <thead><tr><th scope="col">Guard / component</th><th scope="col">Pinned version or threshold</th><th scope="col">Catches among positives</th><th scope="col"><span class="sr-only">Remove guard</span></th></tr></thead>
               <tbody id="guard-rows">
-                <tr class="guard-row"><td><input aria-label="Guard 1 name" name="guard-label" type="text" autocomplete="off" placeholder="Guard A"></td><td><input aria-label="Guard 1 version or threshold" name="guard-config" type="text" autocomplete="off" placeholder="Version / threshold"></td><td><input aria-label="Guard 1 catches among positives" name="guard-catches" type="number" inputmode="numeric" min="0" step="1" placeholder="0"></td><td><button class="remove-guard" type="button" aria-label="Remove Guard 1">Remove</button></td></tr>
-                <tr class="guard-row"><td><input aria-label="Guard 2 name" name="guard-label" type="text" autocomplete="off" placeholder="Guard B"></td><td><input aria-label="Guard 2 version or threshold" name="guard-config" type="text" autocomplete="off" placeholder="Version / threshold"></td><td><input aria-label="Guard 2 catches among positives" name="guard-catches" type="number" inputmode="numeric" min="0" step="1" placeholder="0"></td><td><button class="remove-guard" type="button" aria-label="Remove Guard 2">Remove</button></td></tr>
-                <tr class="guard-row"><td><input aria-label="Guard 3 name" name="guard-label" type="text" autocomplete="off" placeholder="Guard C"></td><td><input aria-label="Guard 3 version or threshold" name="guard-config" type="text" autocomplete="off" placeholder="Version / threshold"></td><td><input aria-label="Guard 3 catches among positives" name="guard-catches" type="number" inputmode="numeric" min="0" step="1" placeholder="0"></td><td><button class="remove-guard" type="button" aria-label="Remove Guard 3">Remove</button></td></tr>
+                <tr class="guard-row"><td><input aria-label="Guard 1 name" name="guard-label" type="text" autocomplete="off" placeholder="Guard A"></td><td><input aria-label="Guard 1 version or threshold" name="guard-config" type="text" autocomplete="off" placeholder="Version / threshold"></td><td><input aria-label="Guard 1 catches among positives" name="guard-catches" type="number" inputmode="numeric" min="0" max="9007199254740991" step="1" placeholder="0"></td><td><button class="remove-guard" type="button" aria-label="Remove Guard 1">Remove</button></td></tr>
+                <tr class="guard-row"><td><input aria-label="Guard 2 name" name="guard-label" type="text" autocomplete="off" placeholder="Guard B"></td><td><input aria-label="Guard 2 version or threshold" name="guard-config" type="text" autocomplete="off" placeholder="Version / threshold"></td><td><input aria-label="Guard 2 catches among positives" name="guard-catches" type="number" inputmode="numeric" min="0" max="9007199254740991" step="1" placeholder="0"></td><td><button class="remove-guard" type="button" aria-label="Remove Guard 2">Remove</button></td></tr>
+                <tr class="guard-row"><td><input aria-label="Guard 3 name" name="guard-label" type="text" autocomplete="off" placeholder="Guard C"></td><td><input aria-label="Guard 3 version or threshold" name="guard-config" type="text" autocomplete="off" placeholder="Version / threshold"></td><td><input aria-label="Guard 3 catches among positives" name="guard-catches" type="number" inputmode="numeric" min="0" max="9007199254740991" step="1" placeholder="0"></td><td><button class="remove-guard" type="button" aria-label="Remove Guard 3">Remove</button></td></tr>
               </tbody>
             </table>
           </div>
@@ -276,17 +278,17 @@
           <div class="union-row">
             <div class="field">
               <label for="union-catches">Union catches among positives <span style="text-transform:none;letter-spacing:0">(optional, but identifies static all-miss)</span></label>
-              <input id="union-catches" name="union-catches" type="number" inputmode="numeric" min="0" step="1" placeholder="Items caught by at least one guard">
+              <input id="union-catches" name="union-catches" type="number" inputmode="numeric" min="0" max="9007199254740991" step="1" placeholder="Items caught by at least one guard">
             </div>
             <p class="union-note">Do not supply an independence estimate here. The union is an observed aggregate from this exact shared-item evaluation.</p>
           </div>
         </div>
 
         <div class="form-actions">
-          <button class="btn btn-solid" type="submit">Build evidence packet</button>
+          <button class="btn btn-solid" id="build-packet" type="button">Build evidence packet</button>
           <button class="btn" id="copy-packet" type="button" disabled>Copy packet</button>
         </div>
-        <p class="preflight-status" id="preflight-status" role="status" aria-live="polite">No calculation yet. This tool does not retain your entries.</p>
+        <p class="preflight-status" id="preflight-status" role="status" aria-live="polite" tabindex="-1">No calculation yet. This tool does not retain your entries.</p>
         <div class="result-grid" id="result-grid" hidden>
           <article class="result-card"><span class="mono">Observed scope</span><strong id="result-mode">—</strong><p id="result-mode-note">—</p></article>
           <article class="result-card"><span class="mono">Marginal-only all-miss interval</span><strong id="result-bounds">—</strong><p id="result-bounds-note">Finite, sharp feasibility bounds — not a confidence interval.</p></article>
@@ -295,7 +297,7 @@
         <pre class="packet" id="packet" hidden aria-label="Draft evidence packet"></pre>
         <aside class="boundary"><span class="mono">Hard boundary</span> A static union/all-miss count describes a declared full-exposure evaluation. It does not identify terminal deployed-route risk, false-positive burden, latency/cost, calibration, or adaptive resilience. Those are different estimands and need their own observations.</aside>
       </div>
-    </form>
+    </div>
   </section>
 
   <section class="container" aria-labelledby="contract-title">

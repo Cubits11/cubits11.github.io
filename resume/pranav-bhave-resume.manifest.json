@@ -1,0 +1,18 @@
+{
+  "artifact": "resume/pranav-bhave-resume.pdf",
+  "artifact_sha256": "10b2d3fe5a53f930adfbd23d1a88062ec0b6e91ed9459474ad34744cb0af67a8",
+  "renderer": "Google Chrome 151.0.7922.175",
+  "schema_version": 1,
+  "sources": {
+    "assets/fonts/fragment-mono.woff2": "4f4dc27f4a770c0d02fde800daa836c8adc0d1e423b28da74baaf0d1cc3ab96c",
+    "assets/fonts/fraunces-italic.woff2": "4af9c759c8059b53923b4b50ba377ba51029876e1af1ea757efb07bc67d97896",
+    "assets/fonts/fraunces-roman.woff2": "48282a415ec22e31beaf0a0666e6fae0c8cbddcd0b1f6e729f27c3ade8a64e43",
+    "assets/fonts/instrument-sans-roman.woff2": "6219bc4bfdfc5d9b2201dcdf046218b122a758f932e25ed5f168f929b7ca2311",
+    "assets/site.css": "9bf69579672ba4c7b1a5c673075b850415e23c697593edba279be39e5860ba45",
+    "assets/site.js": "e39497231f4496f4342f93881081ac4f8c3ea8d66709ad47317b3a95c8525988",
+    "resume/index.html": "36d92bb24e7fc5281b922e4b76cc831fb4e88e7701f763c5f5be6b07aeaa5b41",
+    "scripts/build_resume_pdf.py": "9a6d7db44265acc4e96a2057d734a8071c1c7260a2df8d517030c789cc2a7799",
+    "scripts/check_layout.py": "75510660ee224d3b6b7c5c1e95533d6d36f5ad00ecd789ce6c96cfb28fe34bb9",
+    "scripts/resume_artifact.py": "8cdadb72e30f40895870000a29bc81d9b57a4d3a00da5660ff878561500c82b9"
+  }
+}

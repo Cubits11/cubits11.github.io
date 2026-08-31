@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parent.parent
 BASELINE = "eb5423a0b9f5808dea57acfcc865074208a83085"
 CHECKS = (
     ("claim registry", "scripts/verify_claims.py"),
+    ("evidence retrieval state regressions", "scripts/test_evidence_state.py"),
     ("census", "scripts/verify_census.py"),
     ("ledger drift", "scripts/generate_ledger.py", "--check"),
     ("figure assertions", "scripts/verify_figures.py"),
@@ -29,6 +30,7 @@ CHECKS = (
     ("current fact surfaces", "scripts/verify_facts.py"),
     ("growth page drift", "scripts/generate_growth.py", "--check"),
     ("acquisition surfaces", "scripts/verify_growth.py"),
+    ("résumé artifact regressions", "scripts/test_resume_artifact.py"),
     ("sitemap drift", "scripts/generate_sitemap.py", "--check"),
     ("MJGD identities", "scripts/mjgd_reference.py", "--test"),
     ("MJGD v1 fixtures", "scripts/validate_mjgd.py", "--test"),
@@ -44,6 +46,34 @@ CHECKS = (
 
 WORKFLOW = ROOT / ".github" / "workflows" / "verify.yml"
 MANIFEST_JOB = "claims"
+
+
+def check_workflow_supply_chain() -> None:
+    """A release gate must not retrieve mutable action or package labels.
+
+    Branch tags are convenient aliases, not reproducible inputs: the named
+    action can change after the site commit is reviewed. The workflow therefore
+    records full immutable action revisions and its lone Python dependency at
+    an exact version. Keep the invariant here, alongside the clean-clone
+    replay, so a future convenience edit cannot quietly reopen that gap.
+    """
+    text = WORKFLOW.read_text(encoding="utf-8")
+    uses = re.findall(r"^\s*(?:-\s*)?uses:\s*[^@\s]+@([^\s#]+)", text, re.M)
+    if not uses:
+        raise SystemExit("verify workflow has no pinned actions to inspect")
+    mutable = sorted(ref for ref in uses if not re.fullmatch(r"[0-9a-f]{40}", ref))
+    if mutable:
+        raise SystemExit("verify workflow uses mutable action reference(s): "
+                         + ", ".join(mutable))
+    if len(uses) != 11:
+        raise SystemExit("verify workflow action inventory changed — review and "
+                         f"update the expected pinned-action count (found {len(uses)})")
+    packages = re.findall(r"^\s*- run: pip install (.+)$", text, re.M)
+    if packages != ["'PyYAML==6.0.3'"] * 3:
+        raise SystemExit("verify workflow's Python dependency must stay pinned "
+                         "to PyYAML==6.0.3 in each job")
+    print(f"ok    workflow supply chain: {len(uses)} actions pinned by SHA; "
+          "PyYAML==6.0.3")
 
 
 def check_manifest_parity() -> None:
@@ -166,6 +196,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     check_manifest_parity()
+    check_workflow_supply_chain()
     check_readme_entry_point()
     dirty = run(["git", "status", "--porcelain"], ROOT).strip()
     if dirty:

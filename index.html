@@ -13,10 +13,11 @@
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Pranav Bhave — name set in bone serif on an obsidian dossier card beside a framed outdoor portrait, with palette swatches sampled from the photograph">
+<meta property="og:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
 <meta property="og:site_name" content="Cubits11">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta name="twitter:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
 <meta name="robots" content="max-image-preview:large">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
@@ -78,8 +79,9 @@ body::after{ /* grain */
 .mc-motif td.mc-missing{border:1px dashed var(--review)}
 .mc-motif td.mc-missing .mono{color:var(--review);font-size:.64rem;letter-spacing:.06em}
 .mc-line{color:var(--muted);font-size:.95rem;max-width:52em;margin:1rem 0 0}
+.mc-scroll-cue{display:none}
 .mc-strip .cta-row{margin-top:1.2rem}
-@media (max-width:560px){.mc-motif{min-width:38rem}.mc-motif th,.mc-motif td{padding:.55rem .7rem}.mc-motif td{font-size:1rem}.mc-motif th{font-size:.7rem;letter-spacing:.06em}.mc-motif td.mc-missing .mono{font-size:.65rem;letter-spacing:.05em}}
+@media (max-width:560px){.mc-motif{min-width:38rem}.mc-motif th,.mc-motif td{padding:.55rem .7rem}.mc-motif td{font-size:1rem}.mc-motif th{font-size:.7rem;letter-spacing:.06em}.mc-motif td.mc-missing .mono{font-size:.65rem;letter-spacing:.05em}.mc-scroll-cue{display:block;color:var(--gold);font:400 .68rem/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;margin:.55rem 0 0}}
 .lede{font-size:clamp(.98rem,1.35vw,1.08rem);line-height:1.72;color:var(--muted);max-width:36em;margin-top:.9rem}
 .lede em{font-family:var(--serif);font-style:italic;font-size:1.06em;color:var(--ink);font-weight:480}
 .fang{margin-top:1.5rem;color:var(--gold)}
@@ -214,7 +216,7 @@ html:not(.js) .bounds-ctl{display:none}
         <p class="prop reveal" style="--d:.1s">Guardrail evaluations score each detector and
           usually omit what the declared stack misses together — the one number a deployment
           decision actually rests on.</p>
-        <div class="fig-scroll reveal" style="--d:.14s;margin-top:1.7rem">
+        <div class="fig-scroll reveal" style="--d:.14s;margin-top:1.7rem" tabindex="0" role="region" aria-label="Guardrail comparison table. Scroll horizontally to reach the unreported THE STACK column.">
           <table class="mc-motif">
             <caption class="sr-only">Illustrative: four guardrails with individual catch
               rates, and an unreported final column for a declared static composition.</caption>
@@ -222,6 +224,7 @@ html:not(.js) .bounds-ctl{display:none}
             <tbody><tr><td>91%</td><td>88%</td><td>94%</td><td>86%</td><td class="mc-missing"><span class="mono">not reported</span></td></tr></tbody>
           </table>
         </div>
+        <p class="mc-scroll-cue">Scroll horizontally to the missing final column →</p>
         <p class="lede reveal" style="--d:.16s">Illustrative numbers; the gap is the point —
           no arithmetic on the four printed columns recovers the fifth. I measure what AI
           guardrail stacks miss together, and build evidence systems that show exactly what
@@ -309,7 +312,7 @@ html:not(.js) .bounds-ctl{display:none}
       <strong>anywhere from 0% to 10%</strong> — multiplying the two rates quietly chose one
       world out of many, and never said so. Choose for yourself:</p>
 <figure class="bounds-fig reveal" style="--d:.1s" id="worlds">
-<div class="fig-scroll">
+<div class="fig-scroll" tabindex="0" role="region" aria-label="Feasible-worlds diagram showing the zero to ten percent joint-failure interval. Scroll horizontally to view the full diagram.">
 <svg viewBox="0 0 900 268" role="img" aria-labelledby="bft bfd">
 <title id="bft">Two 10 percent failure rates permit anywhere from 0 to 10 percent joint failure</title>
 <desc id="bfd">A rectangle of area one represents the population. Two shaded strips each cover ten percent of it, one per guardrail. Their overlap is the probability both fail on the same input. The overlap can be set anywhere from zero to ten percent while neither individual rate ever changes. A vertical cyan scale marks the full supported interval from 0 to 10 percent, with a dashed amber mark at 1 percent — the single value that assuming independence selects. The zero-overlap and full-overlap positions are the lower and upper endpoint witnesses.</desc>
@@ -655,7 +658,7 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
     <div class="container">
       <span>Ledger <b>v0.4</b> — generated from claims.yaml, drift-checked</span>
       <span>Triggers: <b>executable</b> where CI can watch, <b>manual</b> declared where it can't</span>
-      <span>Last owner review <b>2026-08-30</b></span>
+      <span>Last owner review <b>2026-08-31</b></span>
     </div>
   </div>
   <div class="container">
@@ -813,7 +816,7 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
 {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
-  "dateModified": "2026-08-30",
+  "dateModified": "2026-08-31",
   "mainEntity": {
     "@type": "Person",
     "name": "Pranav Bhave",

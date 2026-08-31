@@ -35,7 +35,7 @@
   "sameAs": "https://github.com/Cubits11/cubits11.github.io/blob/main/claims.yaml",
   "isAccessibleForFree": true,
   "creator": { "@type": "Person", "name": "Pranav Bhave", "url": "https://cubits11.github.io/" },
-  "dateModified": "2026-08-30",
+  "dateModified": "2026-08-31",
   "distribution": [{ "@type": "DataDownload", "encodingFormat": "application/yaml", "contentUrl": "https://cubits11.github.io/claims.yaml" }]
 }
 </script>
@@ -76,7 +76,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <a class="wordmark" href="/">Pranav Bhave</a>
     <nav class="site-nav mono" aria-label="Site">
       <a href="/missing-column/">The Missing Column</a>
-      <a href="/observatory/" aria-current="page">Evidence</a>
+      <a href="/observatory/">Evidence</a>
       <a href="/writing/">Writing</a>
       <a href="/work/">Work with me</a>
       <a href="/resume/">About</a>
@@ -103,7 +103,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
       CI's reach.</p>
     <div class="meta-row mono">
       <span>Schema v0.4</span>
-      <span>Last owner review: 2026-08-30</span>
+      <span>Last owner review: 2026-08-31</span>
       <span data-claim-count-state="current">17 claims</span>
       <span><a class="u" href="https://github.com/Cubits11/cubits11.github.io/actions/workflows/verify.yml">CI runs ↗</a></span>
     </div>
@@ -245,8 +245,8 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
       <h2 class="mono claim-id">SITE-002</h2>
       <span class="mono status">Supported within scope · Owner-verified</span>
     </div>
-    <p class="prop">This site&#x27;s claim registry is enforced in CI: verify_claims.py validates schema and bindings, executes the executable review triggers against live evidence, and fails the build when any claim passes its freshness window — on every push and weekly.</p>
-    <dl><dt>Scope</dt><dd>The verifier at the recorded content hash, and the public workflow that runs it. The generated-page and figure checks are separate steps in the same workflow (ledger, modules, observatory, figure geometry, internal links).</dd><dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py"><code>verify_claims.py</code></a><br><span class="note">Mutable link by design; the local-content trigger below detects edits.</span></dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Owner-verified</span><span class="dim"><span class="dim-k">support role</span>Site document</span><span class="dim"><span class="dim-k">maturity</span>Released</span></span></dd><dt>Reviewed</dt><dd>2026-08-30 · window 120 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when the verifier changes without a registry re-review</li><li><span class="mono tag tag-manual">manual</span> workflow triggers or cadence change</li></ul></dd><dt>Falsifier</dt><dd>A controlled violation of a required registry field, bound-evidence trigger, or review window reaches a successful named CI workflow, or the workflow no longer runs on pushes to main and weekly.<br><span class="note"><span class="mono">CONSEQUENCE</span> REJECT</span></dd><dt>Forbidden rescues</dt><dd><ul class="nc rescues"><li>do not cite a normal green run as evidence that violations are rejected</li><li>do not count a manual review or a generated-page drift check as automatic schema, trigger, or freshness enforcement</li><li>do not treat a warning-only or report-only job as a build failure</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>a green run verifies registry consistency and quiet triggers, never the truth of any claim&#x27;s content</li><li>triggers watch file content; semantic drift outside watched files remains a manual review event, and the ledger says so</li></ul></dd></dl>
+    <p class="prop">This site&#x27;s claim registry is enforced in CI: verify_claims.py validates schema and bindings, executes the executable review triggers against live evidence, and fails the build when any claim passes its freshness window. A required remote check that cannot be evaluated is non-passing rather than reported as quiet or refuted — on every push and weekly.</p>
+    <dl><dt>Scope</dt><dd>The verifier at the recorded content hash, and the public workflow that runs it. The generated-page and figure checks are separate steps in the same workflow (ledger, modules, observatory, figure geometry, internal links). A transport failure leaves a remote source unevaluated; an HTTP error response remains a failed liveness check.</dd><dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py"><code>verify_claims.py</code></a><br><span class="note">Mutable link by design; the local-content trigger below detects edits.</span></dd><dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Owner-verified</span><span class="dim"><span class="dim-k">support role</span>Site document</span><span class="dim"><span class="dim-k">maturity</span>Released</span></span></dd><dt>Reviewed</dt><dd>2026-08-31 · window 120 days</dd><dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when the verifier changes without a registry re-review</li><li><span class="mono tag tag-manual">manual</span> workflow triggers or cadence change</li></ul></dd><dt>Falsifier</dt><dd>A controlled violation of a required registry field, bound-evidence trigger, or review window reaches a successful named CI workflow, or the workflow no longer runs on pushes to main and weekly.<br><span class="note"><span class="mono">CONSEQUENCE</span> REJECT</span></dd><dt>Forbidden rescues</dt><dd><ul class="nc rescues"><li>do not cite a normal green run as evidence that violations are rejected</li><li>do not count a manual review or a generated-page drift check as automatic schema, trigger, or freshness enforcement</li><li>do not treat a warning-only or report-only job as a build failure</li></ul></dd><dt>Non-claims</dt><dd><ul class="nc"><li>a green run verifies registry consistency and quiet triggers, never the truth of any claim&#x27;s content</li><li>triggers watch file content; semantic drift outside watched files remains a manual review event, and the ledger says so</li><li>an unavailable remote source does not verify a binding, and its non-passing incomplete state is not a green build</li></ul></dd></dl>
   </article>
 </main>
 

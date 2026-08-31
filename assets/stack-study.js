@@ -7,8 +7,9 @@
 (function () {
   'use strict';
 
-  var form = document.getElementById('study-form');
-  if (!form) return;
+  var preflight = document.getElementById('study-form');
+  var buildPacket = document.getElementById('build-packet');
+  if (!preflight || !buildPacket) return;
 
   var modeInputs = Array.prototype.slice.call(
     document.querySelectorAll('input[name="execution-mode"]'));
@@ -27,6 +28,7 @@
   var resultBoundsNote = document.getElementById('result-bounds-note');
   var resultAllmiss = document.getElementById('result-allmiss');
   var resultAllmissNote = document.getElementById('result-allmiss-note');
+  var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER;
 
   var MODE = {
     shadow_full_exposure: {
@@ -53,10 +55,36 @@
     status.className = 'preflight-status' + (kind ? ' ' + kind : '');
   }
 
+  function clearInvalid() {
+    Array.prototype.slice.call(preflight.querySelectorAll('[aria-invalid="true"]'))
+      .forEach(function (field) {
+        field.removeAttribute('aria-invalid');
+        field.removeAttribute('aria-describedby');
+      });
+  }
+
+  function reportErrors(errors, fields) {
+    clearInvalid();
+    fields.forEach(function (field) {
+      if (!field) return;
+      field.setAttribute('aria-invalid', 'true');
+      field.setAttribute('aria-describedby', 'preflight-status');
+    });
+    setStatus(errors.join(' '), 'error');
+    status.focus();
+  }
+
   function integer(value) {
     if (value === '' || value === null || value === undefined) return null;
     var n = Number(value);
-    return Number.isInteger(n) ? n : null;
+    return Number.isSafeInteger(n) ? n : null;
+  }
+
+  function safeSum(values) {
+    return values.reduce(function (total, value) {
+      if (total === null || value > MAX_SAFE_INTEGER - total) return null;
+      return total + value;
+    }, 0);
   }
 
   function value(id) {
@@ -77,11 +105,13 @@
       .map(function (row, index) {
         var label = row.querySelector('[name="guard-label"]').value.trim();
         var config = row.querySelector('[name="guard-config"]').value.trim();
-        var catches = integer(row.querySelector('[name="guard-catches"]').value);
+        var input = row.querySelector('[name="guard-catches"]');
+        var catches = integer(input.value);
         return {
           label: label || 'Guard ' + (index + 1),
           config: config || 'not recorded',
-          catches: catches
+          catches: catches,
+          input: input
         };
       });
   }
@@ -119,7 +149,7 @@
     row.className = 'guard-row';
     row.innerHTML = '<td><input aria-label="Guard ' + n + ' name" name="guard-label" type="text" autocomplete="off" placeholder="Guard ' + String.fromCharCode(64 + Math.min(n, 26)) + '"></td>'
       + '<td><input aria-label="Guard ' + n + ' version or threshold" name="guard-config" type="text" autocomplete="off" placeholder="Version / threshold"></td>'
-      + '<td><input aria-label="Guard ' + n + ' catches among positives" name="guard-catches" type="number" inputmode="numeric" min="0" step="1" placeholder="0"></td>'
+      + '<td><input aria-label="Guard ' + n + ' catches among positives" name="guard-catches" type="number" inputmode="numeric" min="0" max="9007199254740991" step="1" placeholder="0"></td>'
       + '<td><button class="remove-guard" type="button" aria-label="Remove Guard ' + n + '">Remove</button></td>';
     guardRows.appendChild(row);
     row.querySelector('[name="guard-label"]').focus();
@@ -127,6 +157,7 @@
   }
 
   function modeChanged() {
+    clearInvalid();
     var mode = selectedMode();
     guidance.textContent = MODE[mode].guidance;
     staticMetrics.hidden = mode !== 'shadow_full_exposure';
@@ -167,10 +198,20 @@
 
   function requireDeclaration(n) {
     var errors = [];
-    if (!value('sut-label')) errors.push('Declare the system under test.');
-    if (!value('event-definition')) errors.push('Declare the positive event definition.');
-    if (n === null || n < 1) errors.push('Enter a positive integer denominator.');
-    return errors;
+    var fields = [];
+    if (!value('sut-label')) {
+      errors.push('Declare the system under test.');
+      fields.push(document.getElementById('sut-label'));
+    }
+    if (!value('event-definition')) {
+      errors.push('Declare the positive event definition.');
+      fields.push(document.getElementById('event-definition'));
+    }
+    if (n === null || n < 1) {
+      errors.push('Enter a positive safe integer denominator.');
+      fields.push(document.getElementById('denominator'));
+    }
+    return { errors: errors, fields: fields };
   }
 
   function renderPacket(lines) {
@@ -181,11 +222,16 @@
 
   function buildNonStaticPacket(mode) {
     var n = integer(value('denominator'));
-    var errors = requireDeclaration(n);
-    if (!value('route-id')) errors.push('Name a route or protocol identifier for this observation mode.');
+    var declaration = requireDeclaration(n);
+    var errors = declaration.errors;
+    var fields = declaration.fields;
+    if (!value('route-id')) {
+      errors.push('Name a route or protocol identifier for this observation mode.');
+      fields.push(document.getElementById('route-id'));
+    }
     if (errors.length) {
       invalidatePacket();
-      setStatus(errors.join(' '), 'error');
+      reportErrors(errors, fields);
       return;
     }
     var modeTitle = MODE[mode].title;
@@ -212,38 +258,60 @@
 
   function buildStaticPacket() {
     var n = integer(value('denominator'));
-    var errors = requireDeclaration(n);
+    var declaration = requireDeclaration(n);
+    var errors = declaration.errors;
+    var fields = declaration.fields;
     var guards = guardData();
     var incomplete = guards.filter(function (guard) { return guard.catches === null; });
-    if (!document.getElementById('same-items').checked) errors.push('Confirm that every guard used the same named population and event.');
-    if (!document.getElementById('full-exposure').checked) errors.push('Confirm full exposure, or switch to deployed-route mode.');
+    if (!document.getElementById('same-items').checked) {
+      errors.push('Confirm that every guard used the same named population and event.');
+      fields.push(document.getElementById('same-items'));
+    }
+    if (!document.getElementById('full-exposure').checked) {
+      errors.push('Confirm full exposure, or switch to deployed-route mode.');
+      fields.push(document.getElementById('full-exposure'));
+    }
     if (guards.length < 2) errors.push('Enter at least two guards.');
-    if (incomplete.length) errors.push('Enter an integer catch count for every listed guard.');
+    if (incomplete.length) {
+      errors.push('Enter a safe integer catch count for every listed guard.');
+      incomplete.forEach(function (guard) { fields.push(guard.input); });
+    }
     guards.forEach(function (guard) {
-      if (guard.catches !== null && (guard.catches < 0 || guard.catches > n)) {
+      if (n !== null && n >= 1 && guard.catches !== null
+          && (guard.catches < 0 || guard.catches > n)) {
         errors.push(guard.label + ' has a catch count outside 0–' + n + '.');
+        fields.push(guard.input);
       }
     });
     if (errors.length) {
       invalidatePacket();
-      setStatus(errors.join(' '), 'error');
+      reportErrors(errors, fields);
       return;
     }
 
     var catches = guards.map(function (guard) { return guard.catches; });
-    var sum = catches.reduce(function (total, catchCount) { return total + catchCount; }, 0);
+    var sum = safeSum(catches);
+    if (sum === null) {
+      invalidatePacket();
+      reportErrors(['The listed catch counts exceed exact integer precision when combined. Use smaller counts or a smaller declared population.'], guards.map(function (guard) { return guard.input; }));
+      return;
+    }
     var max = Math.max.apply(Math, catches);
     var lower = Math.max(0, n - sum);
     var upper = n - max;
     var unionRaw = value('union-catches');
     var union = integer(unionRaw);
-    if (unionRaw !== '' && union === null) errors.push('Union catches must be an integer when supplied.');
+    if (unionRaw !== '' && union === null) {
+      errors.push('Union catches must be a safe integer when supplied.');
+      fields.push(document.getElementById('union-catches'));
+    }
     if (union !== null && (union < max || union > Math.min(n, sum))) {
       errors.push('Union catches must be at least the largest guard count and no more than the denominator or sum of guard counts.');
+      fields.push(document.getElementById('union-catches'));
     }
     if (errors.length) {
       invalidatePacket();
-      setStatus(errors.join(' '), 'error');
+      reportErrors(errors, fields);
       return;
     }
 
@@ -286,8 +354,7 @@
     resultGrid.hidden = false;
   }
 
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
+  buildPacket.addEventListener('click', function () {
     var mode = selectedMode();
     if (mode === 'shadow_full_exposure') buildStaticPacket();
     else buildNonStaticPacket(mode);
@@ -295,7 +362,8 @@
 
   addGuard.addEventListener('click', addGuardRow);
   guardRows.addEventListener('click', removeGuard);
-  form.addEventListener('input', function () {
+  preflight.addEventListener('input', function () {
+    clearInvalid();
     if (!packet.hidden) {
       invalidatePacket();
       setStatus('Inputs changed. Build a fresh packet before copying it.', '');

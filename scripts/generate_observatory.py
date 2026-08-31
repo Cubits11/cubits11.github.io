@@ -192,7 +192,7 @@ h1{{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0
 .cap-prop{{font-family:var(--serif);font-size:.98rem;line-height:1.5;margin:0;color:var(--ink)}}
 .cap-slabs{{display:flex;flex-wrap:wrap;gap:.5rem}}
 .cap-meta{{display:flex;flex-direction:column;gap:.3rem;color:var(--muted)}}
-.cap-tags{{display:flex;gap:.4rem}}
+.cap-tags{{display:flex;flex-wrap:wrap;gap:.4rem;min-width:0}}
 .cap-foot{{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:.7rem;margin-top:auto;color:var(--muted)}}
 .clock{{width:1.5rem;height:1.5rem;flex:none}}
 .clock svg{{width:100%;height:100%;transform:rotate(-90deg)}}

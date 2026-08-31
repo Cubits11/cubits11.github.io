@@ -35,6 +35,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import facts  # noqa: E402
+import resume_artifact  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://cubits11.github.io"
@@ -57,7 +58,8 @@ REQUIRED_CTAS = {
         "/missing-column/disclosure/", "/work/"],
     "answers/what-does-the-second-guardrail-add/index.html": [
         "/missing-column/disclosure/", "/ledger/#MC-003"],
-    "missing-column/index.html": ["/missing-column/disclosure/", "/corrections/"],
+    "missing-column/index.html": ["/missing-column/disclosure/", "/corrections/",
+                                  "/missing-column/reproduce/"],
 }
 
 # Titles are the search result. A title that names an internal noun instead of
@@ -132,10 +134,22 @@ def check_metadata() -> None:
         for prop in ("og:title", "og:description", "og:image", "og:url"):
             if f'property="{prop}"' not in html:
                 fail(f"{rel}: missing {prop}")
+        og_image = tag(html, r'<meta property="og:image" content="(.*?)">')
+        og_image_alt = tag(html, r'<meta property="og:image:alt" content="(.*?)">')
         if 'name="twitter:card"' not in html:
             fail(f"{rel}: missing twitter:card")
-        if 'og:image:alt' not in html:
+        twitter_image = tag(html, r'<meta name="twitter:image" content="(.*?)">')
+        twitter_image_alt = tag(html, r'<meta name="twitter:image:alt" content="(.*?)">')
+        if not og_image_alt:
             fail(f"{rel}: og:image has no alt text")
+        if not twitter_image:
+            fail(f"{rel}: missing twitter:image")
+        elif og_image and twitter_image != og_image:
+            fail(f"{rel}: twitter:image differs from og:image")
+        if not twitter_image_alt:
+            fail(f"{rel}: twitter:image has no alt text")
+        elif og_image_alt and twitter_image_alt != og_image_alt:
+            fail(f"{rel}: twitter:image:alt differs from og:image:alt")
 
         for block in re.findall(
                 r'<script type="application/ld\+json">(.*?)</script>', html, re.S):
@@ -293,13 +307,7 @@ def check_identity() -> None:
 
 
 def check_resume_pdf() -> None:
-    """The downloadable résumé exists, is a PDF, and is not gated.
-
-    It is a print of resume/index.html, so it needs no separate content check —
-    but it does need to actually exist and actually be linked, because an
-    email-gated résumé costs exactly the reader who already decided to look
-    harder.
-    """
+    """The downloadable résumé is present, ungated, and source-bound."""
     pdf = ROOT / "resume" / "pranav-bhave-resume.pdf"
     if not pdf.exists():
         fail("resume/pranav-bhave-resume.pdf is missing — rebuild it with "
@@ -313,6 +321,8 @@ def check_resume_pdf() -> None:
     text = facts.visible_text(page)
     if "email me and" in text and "send" in text and "PDF" in text:
         fail("resume/index.html still gates the PDF behind an email request")
+    for error in resume_artifact.verify_manifest():
+        fail(f"résumé PDF provenance: {error}")
 
 
 def check_social_card() -> None:

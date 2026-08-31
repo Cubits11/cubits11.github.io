@@ -25,6 +25,8 @@ class Audit(HTMLParser):
         self.h1_count = 0
         self.main_ids: list[str | None] = []
         self.images_without_alt = 0
+        self.current_links: list[str | None] = []
+        self.figure_scrolls: list[dict[str, str | None]] = []
         self.has_skip = False
         self.has_viewport = False
 
@@ -38,6 +40,10 @@ class Audit(HTMLParser):
             self.main_ids.append(values.get("id"))
         if tag == "img" and "alt" not in values:
             self.images_without_alt += 1
+        if tag == "a" and values.get("aria-current") == "page":
+            self.current_links.append(values.get("href"))
+        if "fig-scroll" in (values.get("class") or "").split():
+            self.figure_scrolls.append(values)
         if tag == "meta" and values.get("name") == "viewport":
             content = values.get("content") or ""
             self.has_viewport = "width=device-width" in content and "user-scalable=no" not in content
@@ -51,6 +57,15 @@ def page_files() -> list[Path]:
         if ".git" not in p.parts and "docs" not in p.parts
         and "scripts" not in p.parts and ".venv" not in p.parts
     )
+
+
+def route_of(page: Path) -> str:
+    rel = page.relative_to(ROOT)
+    if rel.as_posix() == "index.html":
+        return "/"
+    if rel.name == "index.html":
+        return f"/{rel.parent.as_posix()}/"
+    return f"/{rel.as_posix()}"
 
 
 def audit_page(page: Path) -> list[str]:
@@ -74,6 +89,15 @@ def audit_page(page: Path) -> list[str]:
         errors.append(f"{rel}: duplicate id(s): {', '.join(repeated)}")
     if parser.images_without_alt:
         errors.append(f"{rel}: {parser.images_without_alt} image(s) without alt")
+    for index, scroll in enumerate(parser.figure_scrolls, start=1):
+        if scroll.get("tabindex") != "0" or scroll.get("role") != "region" \
+                or not (scroll.get("aria-label") or "").strip():
+            errors.append(f"{rel}: fig-scroll region {index} must be keyboard-focusable "
+                          "and have a concise accessible name")
+    for href in parser.current_links:
+        if href != route_of(page):
+            errors.append(f"{rel}: aria-current=page points to {href!r}, not this route "
+                          f"({route_of(page)!r})")
     if 'class="site-head"' in html and '/assets/site.js' not in html:
         errors.append(f"{rel}: site header lacks shared responsive-navigation behavior")
     return errors
@@ -85,6 +109,8 @@ def audit_preflight() -> list[str]:
     script = (ROOT / "assets" / "stack-study.js").read_text(encoding="utf-8")
     required_page = (
         'id="study-form"',
+        'role="form"',
+        'id="build-packet"',
         'value="shadow_full_exposure"',
         'value="deployed_route"',
         'value="adaptive_holdout"',
@@ -92,15 +118,24 @@ def audit_preflight() -> list[str]:
         'id="full-exposure"',
         'id="union-catches"',
         'id="packet"',
+        'tabindex="-1"',
+        'class="guard-wrap" tabindex="0" role="region"',
+        'aria-label="Per-guard catch-count table. Scroll horizontally to view all fields."',
     )
     for needle in required_page:
         if needle not in page:
             errors.append(f"stack-study/index.html: required preflight field missing: {needle}")
+    if '<form' in page:
+        errors.append("stack-study/index.html: local-only preflight must not use a native form")
     required_logic = (
         'Math.max(0, n - sum)',
         'var upper = n - max',
         'buildNonStaticPacket',
         'This mode intentionally emits no static stack result',
+        'Number.isSafeInteger',
+        'safeSum',
+        'reportErrors',
+        "buildPacket.addEventListener('click'",
         'navigator.clipboard.writeText',
     )
     for needle in required_logic:
@@ -110,6 +145,8 @@ def audit_preflight() -> list[str]:
     for needle in blocked_transport:
         if needle in script:
             errors.append(f"assets/stack-study.js: local-only tool must not contain {needle}")
+    if "addEventListener('submit'" in script:
+        errors.append("assets/stack-study.js: local-only preflight must not rely on native form submission")
     return errors
 
 

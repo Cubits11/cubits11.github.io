@@ -33,16 +33,21 @@ Checks, in order:
      historical count must be explicitly dated so it cannot impersonate the
      live record.
 
-Exit code 0 = registry verified; 1 = at least one check failed.
+Exit code 0 = registry verified; 1 = a confirmed check failed; 2 = required
+remote evidence could not be evaluated. Exit 2 is deliberately non-passing:
+unavailable evidence is neither a quiet trigger nor proof that a binding broke.
 """
 
 import datetime as dt
 import hashlib
+import http.client
 import pathlib
 import re
+import socket
 import subprocess
 import sys
 import tempfile
+import urllib.error
 import urllib.request
 
 import yaml
@@ -76,6 +81,7 @@ REQUIRED = {"id", "proposition", "scope", "dimensions", "support",
 FALSIFIER_CONSEQUENCES = {"NARROW", "REJECT", "HOLD"}
 
 failures: list[str] = []
+unknowns: list[str] = []
 
 # A number of claims is an unusually easy datum to leave behind in a hand-written
 # surface. The marker makes the state explicit: the public record is either
@@ -103,8 +109,28 @@ def fail(msg: str) -> None:
     print(f"FAIL  {msg}")
 
 
+def unknown(msg: str) -> None:
+    unknowns.append(msg)
+    print(f"UNKNOWN  {msg}")
+
+
 def ok(msg: str) -> None:
     print(f"ok    {msg}")
+
+
+def transport_failure(exc: BaseException) -> bool:
+    """Whether no usable response was received, rather than it failed us.
+
+    ``HTTPError`` subclasses ``URLError`` but means an HTTP response arrived.
+    Treating a 404, 429, or 500 as "unreachable" would erase evidence about
+    the support check itself. A genuine transport failure is unevaluated,
+    never a passing quiet state.
+    """
+    if isinstance(exc, urllib.error.HTTPError):
+        return False
+    return isinstance(exc, (urllib.error.URLError, TimeoutError, socket.timeout,
+                            socket.gaierror, ConnectionError, OSError,
+                            http.client.HTTPException))
 
 
 def fetch(url: str) -> bytes:
@@ -206,7 +232,14 @@ def check_trigger(cid: str, trig: dict) -> None:
             head = hashlib.sha256(fetch(
                 f"https://raw.githubusercontent.com/{repo}/HEAD/{path}")).hexdigest()
         except Exception as exc:  # noqa: BLE001
-            fail(f"{cid}: trigger fetch failed for {repo}/{path} ({exc})")
+            message = (f"{cid}: trigger source could not be reached for "
+                       f"{repo}/{path} ({exc}) — trigger state unevaluated, "
+                       "not quiet")
+            if transport_failure(exc):
+                unknown(message)
+            else:
+                fail(f"{cid}: trigger response could not be evaluated for "
+                     f"{repo}/{path} ({exc})")
             return
         if bound == head:
             ok(f"{cid}: evidence unchanged — {repo}/{path} matches bound ref")
@@ -240,19 +273,30 @@ def check_reachability(bindings: dict[str, list[tuple[str, str]]]) -> None:
                      f"https://github.com/{repo}.git", clone],
                     check=True, capture_output=True, timeout=120)
             except Exception as exc:  # noqa: BLE001
-                fail(f"reachability probe clone failed for {repo} ({exc})")
+                unknown(f"reachability probe could not clone {repo} ({exc}) "
+                        "— bound-commit ancestry unevaluated, not refuted")
                 continue
             for cid, commit in entries:
-                result = subprocess.run(
-                    ["git", "-C", clone, "merge-base", "--is-ancestor",
-                     commit, "HEAD"], capture_output=True)
+                try:
+                    result = subprocess.run(
+                        ["git", "-C", clone, "merge-base", "--is-ancestor",
+                         commit, "HEAD"], capture_output=True, timeout=30)
+                except Exception as exc:  # noqa: BLE001
+                    unknown(f"{cid}: reachability probe could not evaluate "
+                            f"{commit[:8]} in {repo} ({exc}) — ancestry "
+                            "unevaluated, not refuted")
+                    continue
                 if result.returncode == 0:
                     ok(f"{cid}: bound commit {commit[:8]} reachable from "
                        f"{repo}'s default branch")
-                else:
+                elif result.returncode == 1:
                     fail(f"{cid}: bound commit {commit[:8]} is NOT reachable "
                          f"from {repo}'s default branch — a dangling binding "
                          f"survives only as long as GitHub retains the object")
+                else:
+                    unknown(f"{cid}: reachability probe could not evaluate "
+                            f"{commit[:8]} in {repo} (git exit {result.returncode}) "
+                            "— ancestry unevaluated, not refuted")
 
 
 SELF_BLOB = "https://github.com/Cubits11/cubits11.github.io/blob/main/"
@@ -276,7 +320,12 @@ def check_url_liveness(cid: str, url: str) -> None:
         fetch(url)
         ok(f"{cid}: support URL resolves — {url}")
     except Exception as exc:  # noqa: BLE001
-        fail(f"{cid}: support URL unreachable ({exc}): {url}")
+        if transport_failure(exc):
+            unknown(f"{cid}: support URL could not be reached ({exc}): {url} "
+                    "— liveness unevaluated, not refuted")
+        else:
+            fail(f"{cid}: support URL did not meet the HTTP liveness check "
+                 f"({exc}): {url}")
 
 
 def check_public_claim_counts(expected: int, today: dt.date) -> None:
@@ -438,6 +487,11 @@ def main() -> int:
     if failures:
         print(f"{len(failures)} check(s) failed.")
         return 1
+    if unknowns:
+        print(f"Registry verification incomplete: {len(unknowns)} required "
+              "remote check(s) were unevaluated. This is non-passing, not a "
+              "quiet registry state.")
+        return 2
     print("Registry verified: shaped, falsifiers and forbidden rescues "
           "declared, bound, fresh, triggers quiet, support reachable, "
           "ledger covered.")

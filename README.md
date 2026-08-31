@@ -49,7 +49,8 @@ a generated page by hand and the drift check fails. Corrections are logged at
 ## Stack
 
 Hand-written HTML and CSS, ~4.5 KB of vanilla JavaScript (theme toggle,
-the feasible-worlds slider, scroll reveals, copy-email). No framework, no build step for the pages, no
+the feasible-worlds slider, scroll reveals, copy-email). No framework or client-side build; deterministic
+Python generators produce the registry- and census-derived static pages. No
 analytics, no cookies. Fonts (Fraunces, Instrument Sans, Fragment Mono) are
 self-hosted latin-subset woff2. The color system is sampled from the hero
 photograph — every design decision and its rationale is in `DESIGN.md`.

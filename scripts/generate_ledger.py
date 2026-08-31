@@ -214,7 +214,7 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
     <a class="wordmark" href="/">Pranav Bhave</a>
     <nav class="site-nav mono" aria-label="Site">
       <a href="/missing-column/">The Missing Column</a>
-      <a href="/observatory/" aria-current="page">Evidence</a>
+      <a href="/observatory/">Evidence</a>
       <a href="/writing/">Writing</a>
       <a href="/work/">Work with me</a>
       <a href="/resume/">About</a>

@@ -51,7 +51,8 @@ ROOT = Path(__file__).resolve().parent.parent
 WIDTHS = (360, 390, 768, 1280)
 
 # Pages a first-time visitor is most likely to land on from a campaign link.
-PAGES = ("/", "/missing-column/", "/work/",
+PAGES = ("/", "/missing-column/", "/missing-column/disclosure/",
+         "/observatory/", "/stack-study/", "/work/",
          "/answers/why-guardrail-miss-rates-do-not-multiply/",
          "/answers/how-to-evaluate-guardrails-you-plan-to-stack/",
          "/answers/what-does-the-second-guardrail-add/",

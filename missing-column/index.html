@@ -151,7 +151,7 @@ table.census-table tbody th{font-weight:520}
 .census-row .prop{font-family:var(--serif);font-size:1.02rem;line-height:1.55;margin:.5rem 0 .9rem}
 .census-row dl{display:grid;grid-template-columns:14rem 1fr;gap:.4rem 1.2rem;margin:0;font-size:.92rem}
 .census-row dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:.2rem}
-.census-row dd{margin:0;color:var(--ink)}
+.census-row dd{margin:0;color:var(--ink);min-width:0;overflow-wrap:anywhere}
 ul.nc{margin:.1rem 0 0;padding-left:1.1rem;color:var(--muted)}
 ul.nc li{margin:.2rem 0}
 .rc-fig{margin:1.8rem 0 0}
@@ -162,7 +162,7 @@ ul.nc li{margin:.2rem 0}
 .rcX{fill:var(--invalid);opacity:.8}
 .hmono,.rung-name{font-family:var(--mono);font-size:12px;fill:var(--muted)}
 .correct-route{margin-top:1.8rem;border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:1.2rem 1.4rem}
-@media (max-width:700px){.crit-grid{grid-template-columns:1fr}.census-row dl{grid-template-columns:1fr}.census-row dt{padding-top:.5rem}}
+@media (max-width:700px){.crit-grid{grid-template-columns:1fr}.census-row dl{grid-template-columns:minmax(0,1fr)}.census-row dt{padding-top:.5rem}}
 @media (max-width:560px){table.motif th,table.motif td{padding:.55rem .3rem}table.motif td{font-size:1.02rem}table.motif th{font-size:.5rem;letter-spacing:.04em}td.motif-missing .mono{font-size:.54rem;letter-spacing:.02em}}
 
 @media (max-width:600px){.wall-row{grid-template-columns:1fr}}
@@ -207,7 +207,7 @@ ul.nc li{margin:.2rem 0}
 <main class="container" id="main">
   
 <figure class="motif-fig" id="motif">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Illustrative guardrail comparison table with an unreported THE STACK column. Scroll horizontally to view the full table.">
   <table class="motif">
     <caption class="sr-only">An illustrative benchmark table: four guardrails
       with individual catch rates, and a final column for a declared
@@ -269,7 +269,7 @@ ul.nc li{margin:.2rem 0}
       observations beyond this static table.</p>
     
 <figure class="rc-fig" id="residual">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Illustration of two equal-marginal worlds with different residual coverage. Scroll horizontally to view the full diagram.">
   <svg viewBox="0 0 700 394" role="img" aria-labelledby="rcft rcfd">
   <title id="rcft">Identical individual rates, different residual coverage</title>
   <desc id="rcfd">Two panels, each showing an illustrative attack set of one
@@ -366,7 +366,7 @@ rates do not report it.</desc>
       <ul class="crit-list"><li><span class="mono crit-key">Named-products-only reading</span>The frozen multi-system criterion says &quot;separately attributable&quot; but does not specify whether a product or model name is required. The primary count treats a system as separately attributable when its source distinguishes and reports it consistently, even if it is anonymized. This post-freeze, stricter sensitivity requires a named product instead. Excludes <a class="u" href="#unit42-genai-platform-2025">unit42-genai-platform-2025</a>. <span class="mono">counterfactual N/M/K = 19/13/5; primary = 20/14/5</span></li></ul>
     </aside>
     
-    <div class="fig-scroll">
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="Missing Column Census table. Scroll horizontally to view all columns, including THE STACK.">
     <table class="census-table">
       <caption class="sr-only">The census: each public guardrail evaluation
         examined, with its joint-statistic status in the final column.</caption>
@@ -822,6 +822,9 @@ python scripts/mjgd_reference.py --test         # the disclosure arithmetic, tes
       and bound reproduction, re-run from a fresh clone of one commit — is one further
       command from the same shell: <span class="mono">python
       scripts/verify_clean_clone.py</span>.</p>
+    <p class="zone-intro" style="margin-top:.8rem">The independently reproducible
+      three-guard result is a separate, bounded packet: <a class="u"
+      href="/missing-column/reproduce/">reproduce MC-004 from its eight pinned files</a>.</p>
   </section>
 </main>
 <footer>

@@ -69,7 +69,7 @@ def render_motif() -> str:
     """The campaign mark: a real table whose last column is not filled in."""
     return '''
 <figure class="motif-fig" id="motif">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Illustrative guardrail comparison table with an unreported THE STACK column. Scroll horizontally to view the full table.">
   <table class="motif">
     <caption class="sr-only">An illustrative benchmark table: four guardrails
       with individual catch rates, and a final column for a declared
@@ -130,7 +130,7 @@ def render_residual_fig() -> str:
         y += 170
     return f'''
 <figure class="rc-fig" id="residual">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Illustration of two equal-marginal worlds with different residual coverage. Scroll horizontally to view the full diagram.">
   <svg viewBox="0 0 700 {y - 10}" role="img" aria-labelledby="rcft rcfd">
   <title id="rcft">Identical individual rates, different residual coverage</title>
   <desc id="rcfd">Two panels, each showing an illustrative attack set of one
@@ -170,7 +170,7 @@ def render_ladder_fig() -> str:
             f'</foreignObject>')
     return f'''
 <figure class="ladder-fig" id="ladder">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Minimum Joint Guardrail Disclosure ladder. Scroll horizontally to view all four disclosure levels.">
   <svg viewBox="0 0 660 260" role="img" aria-labelledby="ldt ldd">
   <title id="ldt">The minimum joint disclosure, as four ascending steps</title>
   <desc id="ldd">Four ascending steps. Step one: per-guard marginals — each
@@ -362,7 +362,7 @@ def render_census_table(examined: list) -> str:
         <td class="stack-cell"><span class="mono {pill}">{esc(cls)}</span>{scope_html}</td>
       </tr>''')
     return f'''
-    <div class="fig-scroll">
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="Missing Column Census table. Scroll horizontally to view all columns, including THE STACK.">
     <table class="census-table">
       <caption class="sr-only">The census: each public guardrail evaluation
         examined, with its joint-statistic status in the final column.</caption>
@@ -759,7 +759,7 @@ table.census-table tbody th{font-weight:520}
 .census-row .prop{font-family:var(--serif);font-size:1.02rem;line-height:1.55;margin:.5rem 0 .9rem}
 .census-row dl{display:grid;grid-template-columns:14rem 1fr;gap:.4rem 1.2rem;margin:0;font-size:.92rem}
 .census-row dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:.2rem}
-.census-row dd{margin:0;color:var(--ink)}
+.census-row dd{margin:0;color:var(--ink);min-width:0;overflow-wrap:anywhere}
 ul.nc{margin:.1rem 0 0;padding-left:1.1rem;color:var(--muted)}
 ul.nc li{margin:.2rem 0}
 .rc-fig{margin:1.8rem 0 0}
@@ -770,7 +770,7 @@ ul.nc li{margin:.2rem 0}
 .rcX{fill:var(--invalid);opacity:.8}
 .hmono,.rung-name{font-family:var(--mono);font-size:12px;fill:var(--muted)}
 .correct-route{margin-top:1.8rem;border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:1.2rem 1.4rem}
-@media (max-width:700px){.crit-grid{grid-template-columns:1fr}.census-row dl{grid-template-columns:1fr}.census-row dt{padding-top:.5rem}}
+@media (max-width:700px){.crit-grid{grid-template-columns:1fr}.census-row dl{grid-template-columns:minmax(0,1fr)}.census-row dt{padding-top:.5rem}}
 @media (max-width:560px){table.motif th,table.motif td{padding:.55rem .3rem}table.motif td{font-size:1.02rem}table.motif th{font-size:.5rem;letter-spacing:.04em}td.motif-missing .mono{font-size:.54rem;letter-spacing:.02em}}
 '''
 
@@ -949,6 +949,9 @@ python scripts/mjgd_reference.py --test         # the disclosure arithmetic, tes
       and bound reproduction, re-run from a fresh clone of one commit — is one further
       command from the same shell: <span class="mono">python
       scripts/verify_clean_clone.py</span>.</p>
+    <p class="zone-intro" style="margin-top:.8rem">The independently reproducible
+      three-guard result is a separate, bounded packet: <a class="u"
+      href="/missing-column/reproduce/">reproduce MC-004 from its eight pinned files</a>.</p>
   </section>
 </main>''' + PAGE_FOOT
 
@@ -1052,7 +1055,7 @@ def render_demonstration() -> str:
       (<span class="mono">python scripts/reanalyze_msbench.py</span>). This page
       demonstrates the BELLS-specific arithmetic because MC-002 binds this exact file
       and its five specialized supervisors:</p>
-    <div class="fig-scroll">
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="BELLS joint-disclosure results table. Scroll horizontally to view the full table.">
     <table class="census-table demo-table">
       <caption class="sr-only">The minimum joint disclosure computed on the released
         BELLS subset: per-guard catch rates, union, and all-miss over {n} harmful
@@ -1128,11 +1131,13 @@ def render_mjgd_v1_packet() -> str:
       standard-library validator. Use the validator for semantic conformance:
       it checks declared evidence boundaries and arithmetic, not safety,
       calibration, route risk, or adaptive robustness.</p>
-    <table class="census-table">
-      <caption class="sr-only">MJGD v1 conformance fixtures and their validated states</caption>
-      <thead><tr><th scope="col">Illustrative fixture</th><th scope="col">Validator state</th><th scope="col">What that state means</th></tr></thead>
-      <tbody>{''.join(rows)}</tbody>
-    </table>
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="MJGD v1 conformance fixtures table. Scroll horizontally to view all columns.">
+      <table class="census-table">
+        <caption class="sr-only">MJGD v1 conformance fixtures and their validated states</caption>
+        <thead><tr><th scope="col">Illustrative fixture</th><th scope="col">Validator state</th><th scope="col">What that state means</th></tr></thead>
+        <tbody>{''.join(rows)}</tbody>
+      </table>
+    </div>
     <div class="precond"><strong>One recomputed fixture, not a benchmark result:</strong>
       4 positives, A catches {positive["per_system_catches"]["a"]}, B catches
       {positive["per_system_catches"]["b"]}, any guard catches
@@ -1141,7 +1146,7 @@ def render_mjgd_v1_packet() -> str:
       {raw_result["benign"]["denominator"]}. These are synthetic fixture counts,
       included to make the contract replayable rather than to characterize any
       deployed system.</div>
-    <pre>python scripts/validate_mjgd.py --test      # five fixture states + refusal tests
+    <pre style="max-width:100%;overflow-x:auto">python scripts/validate_mjgd.py --test      # five fixture states + refusal tests
 python scripts/validate_mjgd.py --fixtures  # inspect every committed fixture</pre>
   </section>'''
 
@@ -1410,7 +1415,7 @@ FAIL  guard_…jsonl: sha256 …  != recorded …  — the bound artifact change
       <a class="u" href="https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/{esc(commit)}/results/full_run">PatrickKollman/Multimodal-Safeguard-Bench@{esc(commit[:12])} ↗</a>
       under <span class="mono">results/full_run/</span> (MIT-licensed upstream; cited
       and hash-verified here, never redistributed).</p>
-    <div class="fig-scroll">
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="MC-004 pinned release-file hashes table. Scroll horizontally to view file names and SHA-256 digests.">
     <table class="census-table">
       <caption class="sr-only">The eight pinned release files and their sha256 digests.</caption>
       <thead><tr><th scope="col">File</th><th scope="col">sha256</th></tr></thead>
