@@ -93,6 +93,7 @@ h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 
 .zone .zone-intro{color:var(--muted);max-width:46em}
 .zone h3{font-weight:520;margin:1.6rem 0 .5rem}
 .fig-scroll{overflow-x:auto}
+.fig-scroll:focus-visible{outline:2px solid var(--evidence,currentColor);outline-offset:3px}
 .wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
 .wall-row{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
 .wall-row:last-child{border-bottom:none}
@@ -150,8 +151,8 @@ table.census-table tbody th{font-weight:520}
 .claim-id{color:var(--gold);font-size:.72rem;font-weight:400;margin:0;letter-spacing:.09em}
 .census-row .prop{font-family:var(--serif);font-size:1.02rem;line-height:1.55;margin:.5rem 0 .9rem}
 .census-row dl{display:grid;grid-template-columns:14rem 1fr;gap:.4rem 1.2rem;margin:0;font-size:.92rem}
-.census-row dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:.2rem}
-.census-row dd{margin:0;color:var(--ink)}
+.census-row dt{min-width:0;overflow-wrap:anywhere;font-family:var(--mono);font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:.2rem}
+.census-row dd{margin:0;color:var(--ink);min-width:0;overflow-wrap:anywhere}
 ul.nc{margin:.1rem 0 0;padding-left:1.1rem;color:var(--muted)}
 ul.nc li{margin:.2rem 0}
 .rc-fig{margin:1.8rem 0 0}
@@ -207,7 +208,7 @@ ul.nc li{margin:.2rem 0}
 <main class="container" id="main">
   
 <figure class="motif-fig" id="motif">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Illustrative benchmark table, scrollable">
   <table class="motif">
     <caption class="sr-only">An illustrative benchmark table: four guardrails
       with individual catch rates, and a final column for a declared
@@ -269,7 +270,7 @@ ul.nc li{margin:.2rem 0}
       observations beyond this static table.</p>
     
 <figure class="rc-fig" id="residual">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Residual coverage figure, scrollable">
   <svg viewBox="0 0 700 394" role="img" aria-labelledby="rcft rcfd">
   <title id="rcft">Identical individual rates, different residual coverage</title>
   <desc id="rcfd">Two panels, each showing an illustrative attack set of one
@@ -366,7 +367,7 @@ rates do not report it.</desc>
       <ul class="crit-list"><li><span class="mono crit-key">Named-products-only reading</span>The frozen multi-system criterion says &quot;separately attributable&quot; but does not specify whether a product or model name is required. The primary count treats a system as separately attributable when its source distinguishes and reports it consistently, even if it is anonymized. This post-freeze, stricter sensitivity requires a named product instead. Excludes <a class="u" href="#unit42-genai-platform-2025">unit42-genai-platform-2025</a>. <span class="mono">counterfactual N/M/K = 19/13/5; primary = 20/14/5</span></li></ul>
     </aside>
     
-    <div class="fig-scroll">
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="The census table, scrollable">
     <table class="census-table">
       <caption class="sr-only">The census: each public guardrail evaluation
         examined, with its joint-statistic status in the final column.</caption>

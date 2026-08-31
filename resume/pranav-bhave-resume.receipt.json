@@ -1,0 +1,19 @@
+{
+  "artifact": "resume/pranav-bhave-resume.pdf",
+  "artifact_bytes": 199598,
+  "artifact_sha256": "3918483395198642548bb0587c8d92e010abb4edb6a0f533ddfb799ca9dfded0",
+  "built_at_utc": "2026-08-31T05:52:59Z",
+  "claim": "This PDF is a print of resume/index.html at the source digests above. It asserts nothing the page does not.",
+  "print_flags": [
+    "--headless",
+    "--no-pdf-header-footer",
+    "--force-prefers-reduced-motion",
+    "--virtual-time-budget=10000"
+  ],
+  "renderer": "Chromium 141.0.7390.37",
+  "sources": {
+    "assets/site.css": "374a281acab3bb63b87eb086b2ab1db43a6e20b6b788f24fc05df7b2c93b50d2",
+    "assets/site.js": "e39497231f4496f4342f93881081ac4f8c3ea8d66709ad47317b3a95c8525988",
+    "resume/index.html": "08e3abe574c75993e3ab8098d8f38ff2846237fc83a8cf947af92ce0ac44a76d"
+  }
+}

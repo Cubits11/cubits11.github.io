@@ -69,7 +69,7 @@ def render_motif() -> str:
     """The campaign mark: a real table whose last column is not filled in."""
     return '''
 <figure class="motif-fig" id="motif">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Illustrative benchmark table, scrollable">
   <table class="motif">
     <caption class="sr-only">An illustrative benchmark table: four guardrails
       with individual catch rates, and a final column for a declared
@@ -130,7 +130,7 @@ def render_residual_fig() -> str:
         y += 170
     return f'''
 <figure class="rc-fig" id="residual">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Residual coverage figure, scrollable">
   <svg viewBox="0 0 700 {y - 10}" role="img" aria-labelledby="rcft rcfd">
   <title id="rcft">Identical individual rates, different residual coverage</title>
   <desc id="rcfd">Two panels, each showing an illustrative attack set of one
@@ -170,7 +170,7 @@ def render_ladder_fig() -> str:
             f'</foreignObject>')
     return f'''
 <figure class="ladder-fig" id="ladder">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Minimum joint disclosure ladder figure, scrollable">
   <svg viewBox="0 0 660 260" role="img" aria-labelledby="ldt ldd">
   <title id="ldt">The minimum joint disclosure, as four ascending steps</title>
   <desc id="ldd">Four ascending steps. Step one: per-guard marginals — each
@@ -362,7 +362,7 @@ def render_census_table(examined: list) -> str:
         <td class="stack-cell"><span class="mono {pill}">{esc(cls)}</span>{scope_html}</td>
       </tr>''')
     return f'''
-    <div class="fig-scroll">
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="The census table, scrollable">
     <table class="census-table">
       <caption class="sr-only">The census: each public guardrail evaluation
         examined, with its joint-statistic status in the final column.</caption>
@@ -640,6 +640,7 @@ h1{{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0
 .zone .zone-intro{{color:var(--muted);max-width:46em}}
 .zone h3{{font-weight:520;margin:1.6rem 0 .5rem}}
 .fig-scroll{{overflow-x:auto}}
+.fig-scroll:focus-visible{{outline:2px solid var(--evidence,currentColor);outline-offset:3px}}
 .wall{{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}}
 .wall-row{{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}}
 .wall-row:last-child{{border-bottom:none}}
@@ -758,8 +759,8 @@ table.census-table tbody th{font-weight:520}
 .claim-id{color:var(--gold);font-size:.72rem;font-weight:400;margin:0;letter-spacing:.09em}
 .census-row .prop{font-family:var(--serif);font-size:1.02rem;line-height:1.55;margin:.5rem 0 .9rem}
 .census-row dl{display:grid;grid-template-columns:14rem 1fr;gap:.4rem 1.2rem;margin:0;font-size:.92rem}
-.census-row dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:.2rem}
-.census-row dd{margin:0;color:var(--ink)}
+.census-row dt{min-width:0;overflow-wrap:anywhere;font-family:var(--mono);font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:.2rem}
+.census-row dd{margin:0;color:var(--ink);min-width:0;overflow-wrap:anywhere}
 ul.nc{margin:.1rem 0 0;padding-left:1.1rem;color:var(--muted)}
 ul.nc li{margin:.2rem 0}
 .rc-fig{margin:1.8rem 0 0}
@@ -783,6 +784,9 @@ DISCLOSURE_CSS = '''
 .rc-caption{margin-top:.9rem;color:var(--muted);font-size:.92rem;max-width:52em}
 .rc-caption strong{color:var(--ink)}
 .fig-scroll{overflow-x:auto}
+.fig-scroll:focus-visible{outline:2px solid var(--evidence,currentColor);outline-offset:3px}
+pre{overflow-x:auto;max-width:100%}
+pre:focus-visible{outline:2px solid var(--evidence,currentColor);outline-offset:3px}
 .disc-list{margin:1.4rem 0 0;padding-left:0;list-style:none;counter-reset:disc}
 .disc-list li{counter-increment:disc;border:1px solid var(--line);border-left:2px solid var(--evidence);background:var(--surface);padding:.9rem 1.1rem;margin:.6rem 0}
 .disc-list li::before{content:counter(disc,decimal-leading-zero);font-family:var(--mono);color:var(--gold);font-size:.66rem;letter-spacing:.08em;display:block;margin-bottom:.3rem}
@@ -1052,7 +1056,7 @@ def render_demonstration() -> str:
       (<span class="mono">python scripts/reanalyze_msbench.py</span>). This page
       demonstrates the BELLS-specific arithmetic because MC-002 binds this exact file
       and its five specialized supervisors:</p>
-    <div class="fig-scroll">
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="BELLS demonstration table, scrollable">
     <table class="census-table demo-table">
       <caption class="sr-only">The minimum joint disclosure computed on the released
         BELLS subset: per-guard catch rates, union, and all-miss over {n} harmful
@@ -1128,11 +1132,13 @@ def render_mjgd_v1_packet() -> str:
       standard-library validator. Use the validator for semantic conformance:
       it checks declared evidence boundaries and arithmetic, not safety,
       calibration, route risk, or adaptive robustness.</p>
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="Disclosure comparison table, scrollable">
     <table class="census-table">
       <caption class="sr-only">MJGD v1 conformance fixtures and their validated states</caption>
       <thead><tr><th scope="col">Illustrative fixture</th><th scope="col">Validator state</th><th scope="col">What that state means</th></tr></thead>
       <tbody>{''.join(rows)}</tbody>
     </table>
+    </div>
     <div class="precond"><strong>One recomputed fixture, not a benchmark result:</strong>
       4 positives, A catches {positive["per_system_catches"]["a"]}, B catches
       {positive["per_system_catches"]["b"]}, any guard catches
@@ -1141,7 +1147,7 @@ def render_mjgd_v1_packet() -> str:
       {raw_result["benign"]["denominator"]}. These are synthetic fixture counts,
       included to make the contract replayable rather than to characterize any
       deployed system.</div>
-    <pre>python scripts/validate_mjgd.py --test      # five fixture states + refusal tests
+    <pre tabindex="0" role="region" aria-label="Validator commands, scrollable">python scripts/validate_mjgd.py --test      # five fixture states + refusal tests
 python scripts/validate_mjgd.py --fixtures  # inspect every committed fixture</pre>
   </section>'''
 
@@ -1257,7 +1263,7 @@ Errors/timeouts: <n>, scored as <policy>.'''
     <h2 id="tmpl-h">The paste-in row</h2>
     <p class="zone-intro">For a results table that already lists per-guard rates, the
       minimum viable disclosure is two added rows and three lines of caption:</p>
-    <pre>{esc(template)}</pre>
+    <pre tabindex="0" role="region" aria-label="Machine-readable disclosure template, scrollable">{esc(template)}</pre>
     <div class="precond"><strong>The row is meaningful only if:</strong> the denominator and
       event definition are stated; every guard scored the same items; every guard scored
       every item (or the gating is declared as the object of measurement); and
@@ -1410,7 +1416,7 @@ FAIL  guard_…jsonl: sha256 …  != recorded …  — the bound artifact change
       <a class="u" href="https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/{esc(commit)}/results/full_run">PatrickKollman/Multimodal-Safeguard-Bench@{esc(commit[:12])} ↗</a>
       under <span class="mono">results/full_run/</span> (MIT-licensed upstream; cited
       and hash-verified here, never redistributed).</p>
-    <div class="fig-scroll">
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="Pinned release files and digests, scrollable">
     <table class="census-table">
       <caption class="sr-only">The eight pinned release files and their sha256 digests.</caption>
       <thead><tr><th scope="col">File</th><th scope="col">sha256</th></tr></thead>

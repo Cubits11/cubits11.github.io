@@ -89,35 +89,56 @@ def main() -> int:
         print("FAIL  no examined rows selected")
         return 1
 
-    failures = 0
+    # Three outcomes that a single counter would libel as one. A request that
+    # never completed says nothing about whether a capture exists; reporting it
+    # as missing preservation would convert absence of evidence into evidence
+    # of absence, which is the exact error this repository exists to refuse.
+    unknown: list[str] = []   # the service did not answer — status undetermined
+    absent: list[str] = []    # the service answered: no usable capture
+    stale: list[str] = []     # a capture exists but predates the review
     for i, row in enumerate(rows):
         if i:
             time.sleep(args.sleep_seconds)
         row_id = row["id"]
         snapshot, error = request_snapshot(row["primary_url"], args.retries)
         if error:
-            failures += 1
-            print(f"FAIL  {row_id}: Wayback availability request failed: {error}")
+            unknown.append(row_id)
+            print(f"UNKNOWN  {row_id}: Wayback availability request did not complete "
+                  f"({error}). This is not evidence that a capture is missing.")
             continue
         if (not snapshot or str(snapshot.get("status")) != "200"
                 or not snapshot.get("url")):
-            failures += 1
-            print(f"FAIL  {row_id}: no HTTP 200 Wayback capture available")
+            absent.append(row_id)
+            print(f"FAIL  {row_id}: the availability API answered and reported no "
+                  "HTTP 200 capture")
             continue
         date = capture_date(snapshot)
         if args.freshness == "reviewed":
             reviewed = dt.date.fromisoformat(str(row["last_checked"]))
             if date is None or date < reviewed:
-                failures += 1
+                stale.append(row_id)
                 print(f"FAIL  {row_id}: capture {snapshot.get('timestamp')} predates "
                       f"review {reviewed.isoformat()} — {snapshot['url']}")
                 continue
         print(f"ok    {row_id}: {snapshot.get('timestamp')} — {snapshot['url']}")
 
-    if failures:
-        print(f"Wayback preflight failed: {failures}/{len(rows)} selected source(s) "
-              "lack the requested preservation level.")
+    determined = len(absent) + len(stale)
+    if determined:
+        print(f"Wayback preflight: {determined}/{len(rows)} selected source(s) were "
+              "checked and lack the requested preservation level "
+              f"({len(absent)} with no capture, {len(stale)} stale).")
+    if unknown:
+        print(f"Wayback preflight: {len(unknown)}/{len(rows)} source(s) UNDETERMINED "
+              f"— the service did not answer ({', '.join(unknown)}). Their "
+              "preservation state is unknown, not absent. Re-run before drawing "
+              "any conclusion.")
+    if determined:
         return 1
+    if unknown:
+        # Exit 2 keeps 'we could not tell' distinguishable from 'we checked and
+        # it is missing'. A caller that treats every non-zero exit the same is
+        # at least not being told a falsehood.
+        return 2
     print(f"Wayback preflight passed: {len(rows)} selected source(s) meet "
           f"freshness={args.freshness}. Inspect snapshots before treating them as evidence.")
     return 0

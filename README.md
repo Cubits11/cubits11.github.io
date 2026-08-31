@@ -1,6 +1,7 @@
 # cubits11.github.io
 
-Personal site of **Pranav Bhave** — AI assurance research, cloud security,
+Personal site of **Pranav Bhave** — AI Assurance · Security Engineering ·
+Evidence Systems; cloud security,
 claim governance. Live at [cubits11.github.io](https://cubits11.github.io/).
 
 ## Reproduce the claim in under a minute

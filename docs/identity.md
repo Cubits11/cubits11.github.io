@@ -19,7 +19,7 @@ currently computes; when the census changes, these change with it.
 |---|---|
 | Person | Pranav Bhave |
 | Memorable idea | The Missing Column |
-| Field | AI assurance · guardrail composition · evidence engineering |
+| Field | AI Assurance · Security Engineering · Evidence Systems |
 | Lab / public record | Cubits11 |
 | Proof systems | Missing Column Census · CC-Framework · Minimum Joint Guardrail Disclosure · public corrections · claim ledger |
 | Adjacent proof | Ghost-Ark and provenance limits |
@@ -56,16 +56,16 @@ prerequisites for caring.
 
 **50 words**
 
-> Pranav Bhave is an AI assurance researcher working on guardrail composition
-> and evidence engineering. He maintains the Missing Column Census, a
+> Pranav Bhave is an AI assurance and security engineer working on guardrail
+> composition and evidence systems. He maintains the Missing Column Census, a
 > source-bound inventory of which public guardrail evaluations preserve joint
 > evidence, and proposes the Minimum Joint Guardrail Disclosure — one table row
 > that makes a stack's behaviour reportable.
 
 **150 words**
 
-> Pranav Bhave is an AI assurance researcher working on guardrail composition,
-> statistical bounds, and evidence engineering. His flagship result is simple
+> Pranav Bhave is an AI assurance and security engineer working on guardrail
+> composition, statistical bounds, and evidence systems. His flagship result is simple
 > to state: guardrail evaluations publish a score for each detector and almost
 > never publish what the stack misses together — and that missing number cannot
 > be recovered from the published ones. Marginal miss rates identify a joint
@@ -111,8 +111,8 @@ prerequisites for caring.
 ### LinkedIn
 
 - **Headline:**
-  > AI assurance research — guardrail composition, statistical bounds, evidence
-  > engineering | Missing Column Census
+  > AI Assurance · Security Engineering · Evidence Systems — guardrail
+  > composition, statistical bounds | Missing Column Census
 - **About (opening):**
   > I measure what AI guardrail stacks miss together, and build evidence systems
   > that show exactly what data can and cannot establish.
@@ -157,7 +157,7 @@ prerequisites for caring.
 
 ### Email signature
 
-> Pranav Bhave · AI assurance research
+> Pranav Bhave · AI Assurance · Security Engineering · Evidence Systems
 > The Missing Column — what guardrail stacks miss together
 > https://cubits11.github.io/?utm_source=email&utm_medium=signature&utm_campaign=missing-column-launch&utm_content=sig
 
