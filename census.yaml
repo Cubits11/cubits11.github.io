@@ -1418,8 +1418,24 @@ benchmarks:
       - "Tables 8-10, Appendix C.2 — detection/FPR/latency/cost leaderboards (marginals)"
       - "Appendix G — 'one evaluation pass per supervisor'"
     contact_route: "hadrien [at] cesia [dot] org (printed); GitHub issues on CentreSecuriteIA/BELLS-O"
-    last_checked: "2026-08-27"
-    correction_history: []
+    last_checked: "2026-08-31"
+    correction_history:
+      - date: "2026-08-31"
+        change: >
+          Re-examination of the harness repository's full git history
+          (HEAD c56167c) found partial development-run outputs deleted
+          from the tree: ~101 hash-named azure_analyze_text per-item
+          responses and 717 index-named files under
+          lakera_guard_default_results on one content-moderation set —
+          where the lakera-labeled path holds OpenAI omni-moderation
+          output at one commit and Lakera output at another, dated
+          2025-11, months before publication. Adjudicated
+          non-qualifying as a per-item release: mislabeled system
+          attribution across commits, partial coverage, and
+          pre-publication churn defeat one-decision-per-item-per-system
+          identity. item_level_outcomes_released stays "no" for the
+          published evaluation; classification and all counts
+          unchanged.
     notes: >
       The starting brief's "28 guardrails from 17 providers" is confirmed
       on counts but mislabeled: roughly 11 of the 28 are frontier LLMs
