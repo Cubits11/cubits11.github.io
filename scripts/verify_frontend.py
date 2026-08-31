@@ -48,7 +48,8 @@ class Audit(HTMLParser):
 def page_files() -> list[Path]:
     return sorted(
         p for p in ROOT.rglob("*.html")
-        if ".git" not in p.parts and "docs" not in p.parts and "scripts" not in p.parts
+        if ".git" not in p.parts and "docs" not in p.parts
+        and "scripts" not in p.parts and ".venv" not in p.parts
     )
 
 

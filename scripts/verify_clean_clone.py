@@ -36,6 +36,7 @@ CHECKS = (
     ("pattern-count rank", "scripts/mjgd_pattern_rank.py"),
     ("mixture bounds", "scripts/mixture_bounds.py"),
     ("BELLS reproduction", "scripts/reanalyze_bells_subset.py"),
+    ("MSBench reproduction", "scripts/reanalyze_msbench.py"),
     ("internal links", "scripts/check_links.py"),
     ("frontend structural gates", "scripts/verify_frontend.py"),
 )

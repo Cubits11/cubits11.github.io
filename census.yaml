@@ -1418,8 +1418,24 @@ benchmarks:
       - "Tables 8-10, Appendix C.2 — detection/FPR/latency/cost leaderboards (marginals)"
       - "Appendix G — 'one evaluation pass per supervisor'"
     contact_route: "hadrien [at] cesia [dot] org (printed); GitHub issues on CentreSecuriteIA/BELLS-O"
-    last_checked: "2026-08-27"
-    correction_history: []
+    last_checked: "2026-08-31"
+    correction_history:
+      - date: "2026-08-31"
+        change: >
+          Re-examination of the harness repository's full git history
+          (HEAD c56167c) found partial development-run outputs deleted
+          from the tree: ~101 hash-named azure_analyze_text per-item
+          responses and 717 index-named files under
+          lakera_guard_default_results on one content-moderation set —
+          where the lakera-labeled path holds OpenAI omni-moderation
+          output at one commit and Lakera output at another, dated
+          2025-11, months before publication. Adjudicated
+          non-qualifying as a per-item release: mislabeled system
+          attribution across commits, partial coverage, and
+          pre-publication churn defeat one-decision-per-item-per-system
+          identity. item_level_outcomes_released stays "no" for the
+          published evaluation; classification and all counts
+          unchanged.
     notes: >
       The starting brief's "28 guardrails from 17 providers" is confirmed
       on counts but mislabeled: roughly 11 of the 28 are frontier LLMs
@@ -1633,7 +1649,7 @@ benchmarks:
       - "Sec. 5.3 — 'if any detector flags the sample as malicious, the ensemble classifies it as malicious'"
       - "Tables 5-7 — TPR/FPR including Ensemble-T and Ensemble-I rows"
     contact_route: "yinuo.liu@duke.edu and coauthors (printed); GitHub issues"
-    last_checked: "2026-08-27"
+    last_checked: "2026-08-31"
     correction_history:
       - date: "2026-08-27"
         change: >
@@ -1644,6 +1660,24 @@ benchmarks:
           GPT-4o. Corrected; this correction also withdrew a
           commercial-API clause from claim MC-001, per that claim's own
           forbidden rescues.
+      - date: "2026-08-31"
+        change: >
+          Re-examination of the code repository's full history found
+          per-detector text-modality result files committed in its first
+          commit (a0f1e712: result/text/{kad, promptarmor, embedding-t,
+          promptguard, datasentinel, ensemble}.jsonl — flagged-item id
+          lists per dataset over the same 991 malicious and 2,707 benign
+          segments) and removed in commit e1be3881 "remove result folder
+          from repository". The committed ensemble rows equal the exact
+          OR-union of the five base detectors' id lists in every dataset,
+          but the Embedding-T column flags zero items in all twelve
+          datasets and the repository's Embedding-T/Embedding-I models
+          and PromptArmor code were added or changed only after the
+          removal — a superseded intermediate run, not the published
+          evaluation's outcomes. item_level_outcomes_released therefore
+          stays "no" for the published Tables 5-7, and no joint statistic
+          is computed from the historical files; classification and all
+          counts unchanged.
     notes: >
       Scope is web-agent prompt injection, not general moderation.
 
