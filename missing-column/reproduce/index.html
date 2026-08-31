@@ -66,6 +66,7 @@ h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 
 .zone .zone-intro{color:var(--muted);max-width:46em}
 .zone h3{font-weight:520;margin:1.6rem 0 .5rem}
 .fig-scroll{overflow-x:auto}
+.fig-scroll:focus-visible{outline:2px solid var(--evidence,currentColor);outline-offset:3px}
 .wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
 .wall-row{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
 .wall-row:last-child{border-bottom:none}
@@ -177,7 +178,7 @@ FAIL  guard_…jsonl: sha256 …  != recorded …  — the bound artifact change
       <a class="u" href="https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run">PatrickKollman/Multimodal-Safeguard-Bench@fb6f32e6b50b ↗</a>
       under <span class="mono">results/full_run/</span> (MIT-licensed upstream; cited
       and hash-verified here, never redistributed).</p>
-    <div class="fig-scroll">
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="Pinned release files and digests, scrollable">
     <table class="census-table">
       <caption class="sr-only">The eight pinned release files and their sha256 digests.</caption>
       <thead><tr><th scope="col">File</th><th scope="col">sha256</th></tr></thead>

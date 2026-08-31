@@ -79,6 +79,31 @@ def audit_page(page: Path) -> list[str]:
     return errors
 
 
+
+# A container that scrolls horizontally is unreachable to a keyboard unless it
+# is focusable, and unnamed to a screen reader unless it carries an accessible
+# name. Both are cheap to assert and easy to forget when a new figure lands.
+SCROLLERS = ("fig-scroll", "guard-wrap")
+
+
+def audit_scroll_regions(page: Path) -> list[str]:
+    html = page.read_text(encoding="utf-8")
+    rel = page.relative_to(ROOT).as_posix()
+    errors: list[str] = []
+    for cls in SCROLLERS:
+        for match in re.finditer(rf'<div class="{cls}[^"]*"([^>]*)>', html):
+            attrs = match.group(1)
+            if 'tabindex="0"' not in attrs:
+                errors.append(f"{rel}: .{cls} scroll region is not keyboard-focusable (needs tabindex=\"0\")")
+            if 'aria-label' not in attrs and 'aria-labelledby' not in attrs:
+                errors.append(f"{rel}: .{cls} scroll region has no accessible name")
+    for match in re.finditer(r"<pre([^>]*)>", html):
+        attrs = match.group(1)
+        if "tabindex" in attrs and 'aria-label' not in attrs:
+            errors.append(f"{rel}: focusable <pre> has no accessible name")
+    return errors
+
+
 def audit_preflight() -> list[str]:
     errors: list[str] = []
     page = (ROOT / "stack-study" / "index.html").read_text(encoding="utf-8")
@@ -102,6 +127,13 @@ def audit_preflight() -> list[str]:
         'buildNonStaticPacket',
         'This mode intentionally emits no static stack result',
         'navigator.clipboard.writeText',
+        # Counts past 2^53-1 silently lose precision, so the bounds this tool
+        # prints would stop being the bounds it claims to compute.
+        'Number.isSafeInteger',
+        "/^[+-]?[0-9]+$/",
+        # An error announced politely can be missed entirely.
+        "isError ? 'alert' : 'status'",
+        "isError ? 'assertive' : 'polite'",
     )
     for needle in required_logic:
         if needle not in script:
@@ -117,12 +149,13 @@ def main() -> int:
     errors: list[str] = []
     for page in page_files():
         errors.extend(audit_page(page))
+        errors.extend(audit_scroll_regions(page))
     errors.extend(audit_preflight())
     if errors:
         for error in errors:
             print(f"FAIL  {error}")
         return 1
-    print(f"ok    frontend structural gates passed ({len(page_files())} pages; local preflight checked)")
+    print(f"ok    frontend structural gates passed ({len(page_files())} pages; local preflight checked; scroll regions keyboard-reachable)")
     return 0
 
 

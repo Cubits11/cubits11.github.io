@@ -49,14 +49,26 @@
   }
 
   function setStatus(message, kind) {
+    // An error a screen reader may never hear is not an error message. Errors
+    // interrupt (assertive + role=alert); ordinary progress stays polite.
+    var isError = kind === 'error';
+    status.setAttribute('role', isError ? 'alert' : 'status');
+    status.setAttribute('aria-live', isError ? 'assertive' : 'polite');
     status.textContent = message;
     status.className = 'preflight-status' + (kind ? ' ' + kind : '');
   }
 
   function integer(value) {
     if (value === '' || value === null || value === undefined) return null;
-    var n = Number(value);
-    return Number.isInteger(n) ? n : null;
+    var raw = String(value).trim();
+    // Plain decimal only. Number() would otherwise accept '0x10', '1e3' and
+    // '  12  ' as counts, and none of those is something a person typed as a
+    // number of items.
+    if (!/^[+-]?[0-9]+$/.test(raw)) return null;
+    var n = Number(raw);
+    // Beyond 2^53-1 integer arithmetic silently loses precision, so n - sum
+    // and n - max stop being the bounds this tool claims to compute.
+    return Number.isSafeInteger(n) ? n : null;
   }
 
   function value(id) {

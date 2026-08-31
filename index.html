@@ -209,12 +209,12 @@ html:not(.js) .bounds-ctl{display:none}
   <section class="hero" id="top">
     <div class="container hero-grid">
       <div>
-        <p class="kicker mono reveal">Pranav Bhave — AI assurance research</p>
+        <p class="kicker mono reveal">Pranav Bhave — AI Assurance · Security Engineering · Evidence Systems</p>
         <h1 class="hero-h1 reveal" style="--d:.06s">Four guardrails. Four scores.<br>One missing column.</h1>
         <p class="prop reveal" style="--d:.1s">Guardrail evaluations score each detector and
           usually omit what the declared stack misses together — the one number a deployment
           decision actually rests on.</p>
-        <div class="fig-scroll reveal" style="--d:.14s;margin-top:1.7rem">
+        <div class="fig-scroll reveal" style="--d:.14s;margin-top:1.7rem" tabindex="0" role="region" aria-label="Illustrative guardrail results table, scrollable">
           <table class="mc-motif">
             <caption class="sr-only">Illustrative: four guardrails with individual catch
               rates, and an unreported final column for a declared static composition.</caption>
@@ -309,7 +309,7 @@ html:not(.js) .bounds-ctl{display:none}
       <strong>anywhere from 0% to 10%</strong> — multiplying the two rates quietly chose one
       world out of many, and never said so. Choose for yourself:</p>
 <figure class="bounds-fig reveal" style="--d:.1s" id="worlds">
-<div class="fig-scroll">
+<div class="fig-scroll" tabindex="0" role="region" aria-label="Joint failure bounds figure, scrollable">
 <svg viewBox="0 0 900 268" role="img" aria-labelledby="bft bfd">
 <title id="bft">Two 10 percent failure rates permit anywhere from 0 to 10 percent joint failure</title>
 <desc id="bfd">A rectangle of area one represents the population. Two shaded strips each cover ten percent of it, one per guardrail. Their overlap is the probability both fail on the same input. The overlap can be set anywhere from zero to ten percent while neither individual rate ever changes. A vertical cyan scale marks the full supported interval from 0 to 10 percent, with a dashed amber mark at 1 percent — the single value that assuming independence selects. The zero-overlap and full-overlap positions are the lower and upper endpoint witnesses.</desc>

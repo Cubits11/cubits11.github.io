@@ -38,6 +38,9 @@ CHECKS = (
     ("BELLS reproduction", "scripts/reanalyze_bells_subset.py"),
     ("MSBench reproduction", "scripts/reanalyze_msbench.py"),
     ("internal links", "scripts/check_links.py"),
+    ("frontend structure and scroll regions", "scripts/verify_frontend.py"),
+    ("remote-evidence failure states", "scripts/verify_wayback_states.py"),
+    ("résumé PDF receipt", "scripts/verify_resume_receipt.py"),
     ("frontend structural gates", "scripts/verify_frontend.py"),
 )
 

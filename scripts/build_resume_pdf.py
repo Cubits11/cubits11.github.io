@@ -19,7 +19,10 @@ changes:
 from __future__ import annotations
 
 import argparse
+import datetime as dt
+import hashlib
 import http.server
+import json
 import socketserver
 import subprocess
 import sys
@@ -31,6 +34,25 @@ from check_layout import find_browser  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "resume" / "pranav-bhave-resume.pdf"
+RECEIPT = ROOT / "resume" / "pranav-bhave-resume.receipt.json"
+
+# The inputs that can change what the printed page says or how it lays out.
+# A PDF whose receipt no longer matches these is a second source of truth about
+# a person's history, which is exactly what this artifact refuses to be.
+SOURCES = ("resume/index.html", "assets/site.css", "assets/site.js")
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def renderer_identity(browser: str) -> str:
+    try:
+        out = subprocess.run([browser, "--version"], capture_output=True,
+                             text=True, timeout=30)
+        return (out.stdout or out.stderr).strip() or "unknown"
+    except Exception:
+        return "unknown"
 
 
 def serve(directory: Path) -> tuple[socketserver.TCPServer, int]:
@@ -77,7 +99,22 @@ def main() -> int:
     if header != b"%PDF-":
         print(f"FAIL  {OUT.name} is not a PDF")
         return 1
+    receipt = {
+        "artifact": OUT.relative_to(ROOT).as_posix(),
+        "artifact_sha256": sha256(OUT),
+        "artifact_bytes": OUT.stat().st_size,
+        "sources": {rel: sha256(ROOT / rel) for rel in SOURCES},
+        "renderer": renderer_identity(browser),
+        "print_flags": ["--headless", "--no-pdf-header-footer",
+                        "--force-prefers-reduced-motion",
+                        "--virtual-time-budget=10000"],
+        "built_at_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "claim": ("This PDF is a print of resume/index.html at the source digests "
+                  "above. It asserts nothing the page does not."),
+    }
+    RECEIPT.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
     print(f"wrote {OUT.relative_to(ROOT)} ({OUT.stat().st_size} bytes)")
+    print(f"wrote {RECEIPT.relative_to(ROOT)} (binds PDF to {len(SOURCES)} sources)")
     return 0
 
 

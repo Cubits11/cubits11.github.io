@@ -226,6 +226,7 @@ section{padding-block:clamp(4rem,9vh,7.5rem);scroll-margin-top:4.5rem}
 
 /* ---------- figure scroll guard (320px legibility) ---------- */
 .fig-scroll{overflow-x:auto}
+.fig-scroll:focus-visible{outline:2px solid var(--evidence,currentColor);outline-offset:3px}
 .fig-scroll > svg{min-width:640px}
 .fig-scroll > table{min-width:38rem}
 

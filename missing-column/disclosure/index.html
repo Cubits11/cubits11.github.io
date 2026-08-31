@@ -66,6 +66,7 @@ h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 
 .zone .zone-intro{color:var(--muted);max-width:46em}
 .zone h3{font-weight:520;margin:1.6rem 0 .5rem}
 .fig-scroll{overflow-x:auto}
+.fig-scroll:focus-visible{outline:2px solid var(--evidence,currentColor);outline-offset:3px}
 .wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
 .wall-row{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
 .wall-row:last-child{border-bottom:none}
@@ -85,6 +86,9 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
 .rc-caption{margin-top:.9rem;color:var(--muted);font-size:.92rem;max-width:52em}
 .rc-caption strong{color:var(--ink)}
 .fig-scroll{overflow-x:auto}
+.fig-scroll:focus-visible{outline:2px solid var(--evidence,currentColor);outline-offset:3px}
+pre{overflow-x:auto;max-width:100%}
+pre:focus-visible{outline:2px solid var(--evidence,currentColor);outline-offset:3px}
 .disc-list{margin:1.4rem 0 0;padding-left:0;list-style:none;counter-reset:disc}
 .disc-list li{counter-increment:disc;border:1px solid var(--line);border-left:2px solid var(--evidence);background:var(--surface);padding:.9rem 1.1rem;margin:.6rem 0}
 .disc-list li::before{content:counter(disc,decimal-leading-zero);font-family:var(--mono);color:var(--gold);font-size:.66rem;letter-spacing:.08em;display:block;margin-bottom:.3rem}
@@ -145,7 +149,7 @@ tr.demo-allmiss th,tr.demo-allmiss td{color:var(--invalid)}
 <main class="container" id="main">
   
 <figure class="ladder-fig" id="ladder">
-  <div class="fig-scroll">
+  <div class="fig-scroll" tabindex="0" role="region" aria-label="Minimum joint disclosure ladder figure, scrollable">
   <svg viewBox="0 0 660 260" role="img" aria-labelledby="ldt ldd">
   <title id="ldt">The minimum joint disclosure, as four ascending steps</title>
   <desc id="ldd">Four ascending steps. Step one: per-guard marginals — each
@@ -182,7 +186,7 @@ can be recomputed.</desc>
     <h2 id="tmpl-h">The paste-in row</h2>
     <p class="zone-intro">For a results table that already lists per-guard rates, the
       minimum viable disclosure is two added rows and three lines of caption:</p>
-    <pre>| System                  | Catch rate on the positive set |
+    <pre tabindex="0" role="region" aria-label="Machine-readable disclosure template, scrollable">| System                  | Catch rate on the positive set |
 |-------------------------|--------------------------------|
 | Guard A (version, thr.) | 91.0%  (910 / 1,000)           |
 | Guard B (version, thr.) | 88.0%  (880 / 1,000)           |
@@ -211,7 +215,7 @@ Errors/timeouts: &lt;n&gt;, scored as &lt;policy&gt;.</pre>
       (<span class="mono">python scripts/reanalyze_msbench.py</span>). This page
       demonstrates the BELLS-specific arithmetic because MC-002 binds this exact file
       and its five specialized supervisors:</p>
-    <div class="fig-scroll">
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="BELLS demonstration table, scrollable">
     <table class="census-table demo-table">
       <caption class="sr-only">The minimum joint disclosure computed on the released
         BELLS subset: per-guard catch rates, union, and all-miss over 82 harmful
@@ -252,11 +256,13 @@ Errors/timeouts: &lt;n&gt;, scored as &lt;policy&gt;.</pre>
       standard-library validator. Use the validator for semantic conformance:
       it checks declared evidence boundaries and arithmetic, not safety,
       calibration, route risk, or adaptive robustness.</p>
+    <div class="fig-scroll" tabindex="0" role="region" aria-label="Disclosure comparison table, scrollable">
     <table class="census-table">
       <caption class="sr-only">MJGD v1 conformance fixtures and their validated states</caption>
       <thead><tr><th scope="col">Illustrative fixture</th><th scope="col">Validator state</th><th scope="col">What that state means</th></tr></thead>
       <tbody><tr><th scope="row">parallel-full-exposure.json</th><td class="mono">recomputed static</td><td>Complete binary full-exposure outcomes; every printed positive and benign count is recomputed.</td></tr><tr><th scope="row">sequential-route.json</th><td class="mono">held: route declaration</td><td>A routed or gated declaration is held, not collapsed into static full-exposure arithmetic.</td></tr><tr><th scope="row">partial-release.json</th><td class="mono">recomputed aggregate patterns</td><td>A complete controlled aggregate-pattern table; positive static results are recomputed without item identities.</td></tr><tr><th scope="row">aggregate-only.json</th><td class="mono">not identified</td><td>Marginals only; the exact finite all-miss identified set is shown instead of inventing a realized joint result.</td></tr><tr><th scope="row">missing-data.json</th><td class="mono">held: missing data</td><td>An explicit timeout, error, or non-exposure cell is held rather than silently scored.</td></tr></tbody>
     </table>
+    </div>
     <div class="precond"><strong>One recomputed fixture, not a benchmark result:</strong>
       4 positives, A catches 2, B catches
       2, any guard catches
@@ -265,7 +271,7 @@ Errors/timeouts: &lt;n&gt;, scored as &lt;policy&gt;.</pre>
       1. These are synthetic fixture counts,
       included to make the contract replayable rather than to characterize any
       deployed system.</div>
-    <pre>python scripts/validate_mjgd.py --test      # five fixture states + refusal tests
+    <pre tabindex="0" role="region" aria-label="Validator commands, scrollable">python scripts/validate_mjgd.py --test      # five fixture states + refusal tests
 python scripts/validate_mjgd.py --fixtures  # inspect every committed fixture</pre>
   </section>
 
