@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-08-31"
+last_owner_review: "2026-08-30"
 
 claims:
   - id: CC-001
@@ -490,16 +490,16 @@ claims:
         shared_basis: 14
         threshold_not_contradicted: 12
         threshold_documented_full_exposure: 0
-    last_reviewed: "2026-08-31"
+    last_reviewed: "2026-08-30"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "362b3bfa7882e74853c24c672c1b2831d07fcd4f38c3b20fb3ad0433e7e0da44"
+        sha256: "56d940b8d6e9c44893ac63cd758c849a19e675dad1fc371f94a6803d78f381fa"
         note: >-
           fires when the census changes without a claim re-review;
-          re-reviewed 2026-08-31 after adding dated adjudication
+          re-reviewed 2026-08-30 after adding dated adjudication
           entries to the wainjectbench-2025 and bells-o-2026 rows
           (historical repository artifacts examined and rejected as
           per-item releases) — N/M/K and the M ladder recomputed
@@ -876,7 +876,7 @@ claims:
           lg4+lg3v: 33
           lg3v+sg2: 15
           lg4+lg3v+sg2: 8
-    last_reviewed: '2026-08-31'
+    last_reviewed: '2026-08-30'
     review_window_days: 60
     review_triggers:
       - type: remote_content_change

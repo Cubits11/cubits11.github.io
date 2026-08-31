@@ -1418,9 +1418,9 @@ benchmarks:
       - "Tables 8-10, Appendix C.2 — detection/FPR/latency/cost leaderboards (marginals)"
       - "Appendix G — 'one evaluation pass per supervisor'"
     contact_route: "hadrien [at] cesia [dot] org (printed); GitHub issues on CentreSecuriteIA/BELLS-O"
-    last_checked: "2026-08-31"
+    last_checked: "2026-08-30"
     correction_history:
-      - date: "2026-08-31"
+      - date: "2026-08-30"
         change: >
           Re-examination of the harness repository's full git history
           (HEAD c56167c) found partial development-run outputs deleted
@@ -1649,7 +1649,7 @@ benchmarks:
       - "Sec. 5.3 — 'if any detector flags the sample as malicious, the ensemble classifies it as malicious'"
       - "Tables 5-7 — TPR/FPR including Ensemble-T and Ensemble-I rows"
     contact_route: "yinuo.liu@duke.edu and coauthors (printed); GitHub issues"
-    last_checked: "2026-08-31"
+    last_checked: "2026-08-30"
     correction_history:
       - date: "2026-08-27"
         change: >
@@ -1660,7 +1660,7 @@ benchmarks:
           GPT-4o. Corrected; this correction also withdrew a
           commercial-API clause from claim MC-001, per that claim's own
           forbidden rescues.
-      - date: "2026-08-31"
+      - date: "2026-08-30"
         change: >
           Re-examination of the code repository's full history found
           per-detector text-modality result files committed in its first
