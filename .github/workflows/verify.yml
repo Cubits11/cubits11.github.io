@@ -79,6 +79,8 @@ jobs:
         run: python scripts/reanalyze_bells_subset.py
       - name: MC-004 reproduces from the bound public release
         run: python scripts/reanalyze_msbench.py
+      - name: Conditional-degeneracy diagnostic (OR-closure holds on the bound release)
+        run: python scripts/degeneracy.py
       - name: Internal links resolve (pages, anchors, fragments)
         run: python scripts/check_links.py
       - name: Frontend structural and local-only preflight gates

@@ -1,0 +1,43 @@
+# Qualified outcomes vs attention.
+#
+# Attention is a diagnostic. It tells you whether anyone saw the thing. It does
+# not tell you whether the thing was any good, and optimising for it is how a
+# research programme quietly becomes a content programme.
+#
+# A QUALIFIED outcome requires someone who is not the author to do work.
+# Nothing else counts. Zero is the honest starting value and is recorded as zero.
+
+qualified:
+  # someone reran the reproduction from source and reported a result
+  independent_reproductions: []
+  # a benchmark author confirmed or corrected one of our classifications
+  source_corrections: []
+  # a benchmark began publishing paired outcomes or per-conditioning FPR
+  paired_outcome_releases: []
+  # a change we proposed landed in someone else's repository
+  upstream_prs: []
+  # a human applied the protocol cold, without asking us what we meant
+  human_cold_runs: []
+
+diagnostics:
+  # Recorded because they are cheap, not because they are evidence.
+  # X exposes these in its own activity dashboard.
+  impressions: null
+  clicks: null
+  technical_interactions: 0     # replies that carried a number, source, or correction
+
+stop_rule:
+  threshold_interactions: 12
+  condition: >
+    If technical_interactions reaches 12 with qualified totalling 0, stop
+    replying. Move the effort to upstream contributions and direct author
+    outreach. The absence of qualified outcomes after real technical
+    engagement is itself a result about the audience, and is reported as one.
+
+kill_rule:
+  condition: >
+    If a widened v1 pilot shows paired/overlap reporting is already common,
+    decision conclusions are usually identified from marginals anyway, and
+    qualified outcomes remain zero, downgrade the census from an active
+    research programme to a finished portfolio artifact and say so publicly
+    with the same prominence as the original claim.
