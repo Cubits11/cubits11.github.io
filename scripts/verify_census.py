@@ -49,8 +49,9 @@ SOURCE_TYPES = {"preprint", "peer_reviewed_paper", "repository_or_leaderboard",
 RECONSTRUCTION_CLASSES = {"DIRECTLY_REPORTED", "EXACTLY_RECONSTRUCTIBLE",
                           "PARTIALLY_IDENTIFIED", "NOT_IDENTIFIABLE",
                           "NOT_APPLICABLE", "UNVERIFIED"}
-PRESERVATION_STATES = {"ARCHIVED_VERIFIED", "ARCHIVE_URL_RECORDED",
-                       "NO_ARCHIVE_RECORDED", "ARCHIVE_UNDETERMINED"}
+PRESERVATION_STATES = {"SOURCE_COMMIT_PINNED", "ARCHIVED_VERIFIED",
+                       "ARCHIVE_URL_RECORDED", "NO_ARCHIVE_RECORDED",
+                       "ARCHIVE_UNDETERMINED"}
 CENSUS_SCHEMA_VERSION = 3
 CRITERIA_CANONICALIZATION = (
     "JSON UTF-8; sort_keys=true; separators=(',', ':'); ensure_ascii=false; "

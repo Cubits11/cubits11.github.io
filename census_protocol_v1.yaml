@@ -18,10 +18,21 @@
 
 protocol:
   id: MC-PROTOCOL-V1
-  version: 1
+  version: 1.1
   status: prospective_frozen
-  written_before_first_v1_observation: true
-  supersedes: null
+  written_before_first_v1_observation: true   # refers to v1's authorship
+  supersedes: "v1 (unchanged in substance; twelve ambiguities repaired)"
+  provenance:
+    v1_authored: "before any v1 observation existed"
+    v1_1_authored: >
+      AFTER sentinel S001, in direct response to twelve undetermined judgement
+      points found by applying v1 to a real artifact and by an independent
+      adjudication of that application. v1.1 therefore makes NO claim to
+      predate the observation that produced it. It governs S002 onward.
+    governs: "observation S002 and later"
+    does_not_govern: >
+      S001, which stays classified under v1 with its ambiguity log attached, so
+      the record shows what the instrument did before it was repaired.
   applies_to: "census v1 collection"
   does_not_apply_to: "census v0 rows (historical snapshot; annotation only)"
 
@@ -61,17 +72,33 @@ universe:
         around LLM systems
     - key: method_detail
       text: >
-        provides enough methodological detail to place the artifact on the
-        disclosure ladder and assign a reconstruction class
+        states, or permits exact recovery of, ALL of: the item population and
+        its size; the class balance; the ground-truth event definition; and each
+        mechanism's decision rule or operating threshold.
+      note: >
+        v1 defined this as 'enough detail to place the artifact on the ladder
+        and assign a reconstruction class', which excluded nothing — every
+        artifact admits a placement (all rungs NOT_PUBLISHED) and every artifact
+        admits UNVERIFIED — and could only be evaluated after the classification
+        it was supposed to gate. The criterion is now positive and prior.
 
   exclusions:
     - key: per_mechanism_datasets
       text: each mechanism evaluated on a different dataset with no shared basis
       rationale: no joint object exists to report
-    - key: incomparable_thresholds
+    - key: incomparable_event_definitions
+      former_key: incomparable_thresholds
       text: >
-        mechanisms scored against different event definitions or different
-        ground-truth label sets
+        mechanisms scored against different ground-truth event definitions or
+        different ground-truth label sets
+      event_definition_means: >
+        the GROUND-TRUTH event (which items count as positives), not each
+        mechanism's own alarm condition. Mechanisms may raise alarms by
+        different internal rules and still share one event definition.
+      differing_operating_points: >
+        Mechanisms compared at different thresholds do NOT trigger this
+        exclusion. Record thresholds_comparable separately; a threshold mismatch
+        is a caveat on the joint, not a bar to defining it.
       rationale: >
         a union or all-miss statistic over such marginals is ill-defined, not
         merely unreported. These are INELIGIBLE for the ladder but are recorded
@@ -96,21 +123,70 @@ universe:
         mechanisms and items; retained as SUPERSEDED, never silently deleted
     - key: inaccessible_evidence
       text: >
-        evidence exists but could not be retrieved. NOT an exclusion for
-        absence — such candidates stay VERIFICATION_PENDING and are excluded
-        from counts with the reason recorded. Never counted as "does not report".
+        RETAINED AS A KEY FOR REFERENCE ONLY — this is NOT an exclusion and
+        never makes a record INELIGIBLE. See blocking_reasons.INACCESSIBLE_EVIDENCE.
+        Listed here because v1 wrongly placed it among the exclusions, which
+        contradicted its own text and the state machine. Never counted as
+        "does not report".
+      is_exclusion: false
     - key: partial_modal_evaluation
       text: >
         only one modality or subset evaluated per mechanism with no shared basis
         across the compared set
 
+  blocking_reasons:
+    # Reasons a record cannot be classified. NONE of these is an exclusion, and
+    # none may produce a negative disclosure finding. v1 put the first of these
+    # inside universe.exclusions, where INELIGIBLE's definition ('matches a
+    # named exclusion') contradicted the entry's own text.
+    INACCESSIBLE_EVIDENCE:
+      means: evidence exists but could not be retrieved
+      state: VERIFICATION_PENDING
+    NOT_RETRIEVABLE_IN_THIS_ENVIRONMENT:
+      means: blocked by access, licensing, gating, or network policy at check time
+      state: VERIFICATION_PENDING
+
+  uncheckable_inclusion_criterion: >
+    When an inclusion criterion cannot be checked, distinguish
+    CLASSIFICATION-BEARING fields (anything a rung, a negative kind, or a
+    reconstruction class depends on) from DESCRIPTIVE fields (counts, dates,
+    affiliations). A pending classification-bearing field forces
+    VERIFICATION_PENDING with the blocking_reason named. A pending descriptive
+    field does not: the record may be VERIFIED with that field recorded as
+    NOT_RETRIEVABLE_IN_THIS_ENVIRONMENT. An inclusion criterion satisfiable on
+    face evidence (e.g. a public URL that cannot be pinged) is met, with the
+    unchecked part recorded.
+
   edge_cases:
+    - case: mechanisms_may_share_an_underlying_model
+      rule: >
+        'Distinct' means separately deployable and separately attributable. Two
+        wrappers over the SAME underlying checkpoint are one mechanism, and the
+        artifact fails multi_mechanism. Where the underlying weights cannot be
+        established, record the criterion as met on face evidence with
+        distinctness_unverified: true, and never treat the resulting joint as
+        established.
+    - case: failure_handling_folded_into_a_marginal
+      rule: >
+        Where a mechanism's harness converts errors into a default verdict
+        (e.g. catching exceptions and recording 'not detected'), the published
+        marginal is the marginal of 'mechanism OR fallback'. If the fallback
+        RATE is unreported, set stack_reported_as_marginal and record that the
+        true mechanism-only marginal is bounded, not measured.
     - case: mechanism_is_itself_a_stack
       rule: >
         If a compared mechanism is internally composed of several components
         reported as one number with the combination rule unstated, the record is
         ELIGIBLE, and the fact is recorded as a stack_reported_as_marginal flag.
         This is evidence FOR the reporting problem, not grounds for exclusion.
+    - case: artifact_contradicts_itself
+      rule: >
+        Where one artifact reports the same quantity twice with different
+        values, precedence is: stated prose or table > generated figure or
+        plot; and within a kind, the later revision > the earlier. The conflict
+        MUST be recorded as internally_inconsistent: true with both values, and
+        any bound derived from that quantity must be reported under both
+        readings. A silently chosen figure is a fabricated precision.
     - case: artifact_publishes_complete_joint
       rule: >
         An artifact publishing full joint information is ELIGIBLE and is
@@ -119,6 +195,20 @@ universe:
       headline_effect: >
         Enough such artifacts would make the headline claim false. That is the
         intended falsification route and must not be blocked by rule choice.
+    - case: mutable_source_without_a_release
+      rule: >
+        For any mutable source with no tag or release — a repository's default
+        branch, a live leaderboard, a wiki — the ARTIFACT is the source observed
+        at a pinned revision: a commit SHA where one exists, otherwise a content
+        digest plus retrieval date. The repository as a whole is never the unit,
+        because it has no fixed content.
+    - case: exclusion_precedence_duplicate_vs_superseded
+      rule: >
+        duplicate_publication applies ONLY across distinct artifacts (the same
+        measurements republished elsewhere). superseded_version applies ONLY
+        within one artifact's own version history. They can therefore never fire
+        on the same facts. v1 allowed both to apply to successive commits of one
+        repository, giving earliest-wins and latest-wins simultaneously.
     - case: leaderboard_is_mutable
       rule: >
         A leaderboard is observed as a dated snapshot with a retrieval date and
@@ -230,6 +320,12 @@ disclosure_ladder:
     L5:
       name: sufficient higher-order or full joint information
       licenses: full joint distribution over the mechanism verdicts
+      when_two_mechanisms: >
+        With exactly two mechanisms there is no higher order: the full joint
+        over two binary verdicts IS the pairwise table, so L4 and L5 are the
+        same rung. Record L5 as NOT_APPLICABLE with reason
+        'identical to L4 at M=2', never as an independent negative finding.
+        L4's does_not_license clause about triples does not apply at M=2.
     L6:
       name: operational stack or union result
       licenses: >
@@ -247,7 +343,28 @@ disclosure_ladder:
     The rungs are not strictly ordered attainment levels. An artifact may print
     L6 without releasing L3. Each rung is recorded separately.
 
+  class_assignment_is_total: >
+    Because the rungs are independent, the reconstruction classes must cover
+    every attainable combination. Assign in this order, first match wins:
+      1. L6 attained                      -> DIRECTLY_REPORTED
+      2. L2 and L3 attained (full release)-> EXACTLY_RECONSTRUCTIBLE
+      3. the joint is ill-defined         -> NOT_APPLICABLE
+      4. positive incomparability finding -> NOT_IDENTIFIABLE
+      5. L1 and L2 attained               -> PARTIALLY_IDENTIFIED
+      6. anything else                    -> UNVERIFIED, with the uncovered
+                                             rung combination recorded verbatim
+    UNVERIFIED reached by rule 6 means the rule table has a hole and must be
+    reported as such. It does NOT mean evidence was not obtained.
+
   negative_kinds:
+    # Two FAMILIES, not one flat list. Every unattained rung takes exactly one
+    # disclosure-status kind, and optionally one quantity-status kind. They are
+    # not alternatives: 'the artifact did not print it' and 'the printed
+    # information cannot recover it' are different facts and are often both true.
+    #   disclosure-status: NOT_PUBLISHED, NOT_FOUND, NOT_PRESERVED,
+    #                      NOT_RETRIEVABLE_IN_THIS_ENVIRONMENT,
+    #                      COMPUTED_THEN_DISCARDED
+    #   quantity-status:   CANNOT_BE_RECONSTRUCTED, NOT_APPLICABLE
     # These must never be collapsed into one another, or into a bare "no".
     NOT_PUBLISHED:
       means: the artifact was examined and does not report this
@@ -267,6 +384,15 @@ disclosure_ladder:
         the quantity, not merely that it was not printed
     NOT_APPLICABLE:
       means: the quantity is not well defined for this artifact
+    COMPUTED_THEN_DISCARDED:
+      family: disclosure_status
+      means: >
+        The artifact's own released tooling derives the quantity during a run
+        and does not persist it. Distinct from NOT_PUBLISHED because the artifact
+        had the quantity in hand, and from CANNOT_BE_RECONSTRUCTED because a
+        third party can recover it by re-running modified code. It is the most
+        actionable finding available to an author: the repair is a serialisation
+        call, not a new experiment.
 
 # ---------------------------------------------------------------------------
 # D. RECONSTRUCTION CLASS
@@ -318,6 +444,12 @@ reconstruction_classes:
 # E. PRESERVATION
 # ---------------------------------------------------------------------------
 preservation_states:
+  SOURCE_COMMIT_PINNED:
+    means: >
+      The artifact is bound to an immutable content-addressed revision (e.g. a
+      git commit SHA) recorded in this census. A stronger binding than an
+      archival URL, because it is verifiable without trusting an archive.
+      Ranks above ARCHIVE_URL_RECORDED.
   ARCHIVED_VERIFIED:
     means: an archival capture was retrieved and checked at the recorded date
   ARCHIVE_URL_RECORDED:

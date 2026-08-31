@@ -1,0 +1,59 @@
+# SENTINEL S001 — primary reviewer classification (sealed before adjudication)
+# Reviewer: the same agent that authored protocol v1. This is exactly the
+# dependence the contact test exists to expose, and it is why an independent
+# adjudication follows.
+record:
+  sentinel_id: S001
+  candidate_id: chirag9127-prompt-injection-benchmarks
+  title: "Prompt Injection Detection Benchmark"
+  authors_or_org: "chirag9127 (independent)"
+  primary_url: "https://github.com/chirag9127/prompt_injection_benchmarks"
+  source_type: repository_or_leaderboard
+  retrieved_at: "2026-08-31"
+  retrieval_method: "git clone (HTTP egress blocked; git reachable)"
+  content_binding:
+    commit: "4c81a13"
+    last_commit_date: "2025-01-18"
+    files_enumerated: 10
+  selected_under: census_v1/SENTINEL_SELECTION_RULE.md
+  pre_registration_commit: d67a541c9fbf90bd9934c0ff078c9b7be32d88c1
+
+eligibility:
+  state: ELIGIBLE
+  public_access:        {value: yes, evidence: "public repository at a stable URL, no payment"}
+  multi_mechanism:      {value: yes, evidence: "two separately attributable detectors: LLM Guard PromptInjection scanner and Pytector (deberta), instantiated separately in main.py"}
+  shared_item_universe: {value: yes, evidence: "both detectors run inside one loop over load_dataset('deepset/prompt-injections', split='train'); each example is scored by both"}
+  per_mechanism_results:{value: yes, evidence: "README prints accuracy/precision/recall/F1/avg time per detector; BenchmarkResult also carries tp/fp/tn/fn"}
+  domain:               {value: yes, evidence: "prompt-injection detection around LLM systems"}
+  method_detail:        {value: yes, evidence: "full harness source released (main.py, threshold_optimization.py)"}
+
+ladder:
+  L1: {attained: yes, evidence: "per-detector accuracy/precision/recall/F1 in README; tp/fp/tn/fn in the save_results schema"}
+  L2: {attained: yes, evidence: "one dataset, one split, one label field, one binary event, and a single shared threshold of 0.034 applied to both detectors"}
+  L3: {attained: no, negative_kind: NOT_PUBLISHED,
+       evidence: "full tree enumerated (10 files); no per-item outputs committed. save_results() persists aggregate counts only and discards the per-example rows the harness computed."}
+  L4: {attained: no, negative_kind: NOT_PUBLISHED,
+       evidence: "no overlap, intersection, agreement or confusion analysis between the two detectors anywhere in code or README"}
+  L5: {attained: no, negative_kind: NOT_PUBLISHED,
+       evidence: "see JUDGEMENT J1 — with K=2 this rung is not independent of L4",
+       protocol_did_not_determine: true}
+  L6: {attained: no, negative_kind: NOT_PUBLISHED,
+       evidence: "no combined, union, ensemble or stacked result; 'both detectors' in the source refers to collecting scores separately and to choosing one shared threshold"}
+
+reconstruction:
+  class: PARTIALLY_IDENTIFIED
+  evidence: >
+    Comparable marginals over a shared item universe bound the joint by sharp
+    Frechet-Hoeffding limits without point-identifying it. Per-item verdicts
+    exist only in memory during a run and are discarded before persistence.
+
+preservation:
+  state: NO_ARCHIVE_RECORDED
+  evidence: "no archival URL recorded by this census"
+  protocol_did_not_determine: true   # see JUDGEMENT J3
+
+classification_summary: >
+  An eligible two-mechanism evaluation on a shared item set with a matched
+  threshold, publishing per-detector marginals and no joint quantity of any
+  kind. The released harness computes the per-item verdicts that would make the
+  joint exactly recoverable, then writes only aggregates.

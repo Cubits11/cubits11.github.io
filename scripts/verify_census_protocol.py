@@ -28,7 +28,8 @@ REQUIRED_STATES = {"DISCOVERED", "ELIGIBILITY_PENDING", "ELIGIBLE", "INELIGIBLE"
 REQUIRED_RUNGS = {"L1", "L2", "L3", "L4", "L5", "L6"}
 REQUIRED_NEGATIVE_KINDS = {"NOT_PUBLISHED", "NOT_FOUND", "NOT_PRESERVED",
                            "NOT_RETRIEVABLE_IN_THIS_ENVIRONMENT",
-                           "CANNOT_BE_RECONSTRUCTED", "NOT_APPLICABLE"}
+                           "CANNOT_BE_RECONSTRUCTED", "NOT_APPLICABLE",
+                           "COMPUTED_THEN_DISCARDED"}
 
 failures: list[str] = []
 
@@ -175,6 +176,62 @@ def main() -> int:
              "headline under alternative defensible inclusion rules")
     else:
         ok(f"headline recomputed under {len(rs)} alternative inclusion rules")
+
+    # v1.1 repairs — each one closes an ambiguity found by applying v1 to a
+    # real artifact. A repair that can silently disappear is not a repair.
+    u = p.get("universe") or {}
+    if not (u.get("blocking_reasons") or {}):
+        fail("universe.blocking_reasons must exist — v1 put inaccessible evidence "
+             "among the exclusions, where INELIGIBLE's definition contradicted it")
+    else:
+        ok(f"{len(u['blocking_reasons'])} blocking reasons are separated from exclusions")
+    inacc = [e for e in (u.get("exclusions") or []) if e.get("key") == "inaccessible_evidence"]
+    if inacc and inacc[0].get("is_exclusion") is not False:
+        fail("inaccessible_evidence must be marked is_exclusion: false")
+    if "classification-bearing" not in str(u.get("uncheckable_inclusion_criterion") or "").lower():
+        fail("universe.uncheckable_inclusion_criterion must distinguish "
+             "classification-bearing from descriptive fields")
+    else:
+        ok("an unretrievable descriptive field no longer blocks verification")
+    md = [c for c in (u.get("inclusion") or []) if c.get("key") == "method_detail"]
+    if md and "disclosure ladder" in str(md[0].get("text", "")):
+        fail("method_detail is still circular — it must state a positive minimum, "
+             "not refer to the classification it gates")
+    else:
+        ok("method_detail states a positive minimum rather than a circular one")
+    keys = {c.get("key") for c in (u.get("exclusions") or [])}
+    if "incomparable_thresholds" in keys:
+        fail("incomparable_thresholds key still mismatches its own text")
+    cases = {c.get("case") for c in (u.get("edge_cases") or [])}
+    for needed in ("mutable_source_without_a_release",
+                   "exclusion_precedence_duplicate_vs_superseded",
+                   "artifact_contradicts_itself",
+                   "failure_handling_folded_into_a_marginal",
+                   "mechanisms_may_share_an_underlying_model"):
+        if needed not in cases:
+            fail(f"universe.edge_cases must cover {needed}")
+    if len(cases & {"mutable_source_without_a_release",
+                    "exclusion_precedence_duplicate_vs_superseded",
+                    "artifact_contradicts_itself",
+                    "failure_handling_folded_into_a_marginal",
+                    "mechanisms_may_share_an_underlying_model"}) == 5:
+        ok("all five v1.1 edge cases present (artifact identity, precedence, "
+           "self-contradiction, fail-open, shared model)")
+    if not str((rungs.get("L5") or {}).get("when_two_mechanisms") or "").strip():
+        fail("L5 must say what it means when there are exactly two mechanisms")
+    else:
+        ok("L5 is defined at M=2 (identical to L4)")
+    if "first match wins" not in str(ladder.get("class_assignment_is_total") or "").lower():
+        fail("disclosure_ladder.class_assignment_is_total must give a total, "
+             "ordered assignment rule over rung combinations")
+    else:
+        ok("reconstruction class assignment is total over the rung lattice")
+    prov = (p.get("protocol") or {}).get("provenance") or {}
+    if "AFTER sentinel" not in str(prov.get("v1_1_authored") or ""):
+        fail("protocol.provenance must state honestly that v1.1 was written "
+             "after the observation that produced it")
+    else:
+        ok("v1.1 does not claim to predate the observation that produced it")
 
     if failures:
         print(f"\nProtocol verification failed: {len(failures)} problem(s).")
