@@ -16,6 +16,14 @@ on:
     - cron: "0 13 * * 1"
   workflow_dispatch:
 
+# Least privilege for every job that does not say otherwise. Only `deploy`
+# needs more than read, and it declares exactly what it needs. Without this
+# line each job inherits the repository's default token scope — which may be
+# read/write — and `lighthouse` runs a third-party action on pull_request.
+# Job-level `permissions:` replaces this wholesale, so deploy is unaffected.
+permissions:
+  contents: read
+
 jobs:
   claims:
     name: Claim registry

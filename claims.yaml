@@ -1339,7 +1339,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: scripts/verify_claims.py
-        sha256: "cc2427b8fd2bf9ae85f7176d3b0932eeb1d9c9aea993ee762f1a8b3e9345d8d8"
+        sha256: "9736b71389bf0ff1f3a26d03a1ed437c12a3d62c24da94c71306ae30e4a8171e"
         note: fires when the verifier changes without a registry re-review
       - type: manual
         enforcement: manual
@@ -1357,5 +1357,8 @@ claims:
     non_claims:
       - a green run verifies registry consistency and quiet triggers, never
         the truth of any claim's content
+      - an UNDETERMINED run (exit 2) blocks the build because a source was
+        never reached; it is not a finding about any binding, and must not be
+        read or recorded as a failed check
       - triggers watch file content; semantic drift outside watched files
         remains a manual review event, and the ledger says so

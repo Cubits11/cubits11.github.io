@@ -33,7 +33,12 @@ Checks, in order:
      historical count must be explicitly dated so it cannot impersonate the
      live record.
 
-Exit code 0 = registry verified; 1 = at least one check failed.
+Exit codes: 0 = registry verified; 1 = at least one check was evaluated and
+failed; 2 = nothing failed, but at least one check could not be evaluated
+because its source was never reached. 2 is not a pass — a gate must not
+proceed on an unknown — but it is not a refutation either, and neither the
+run log nor the ledger may record it as one. This mirrors verify_wayback.py;
+the states are pinned by verify_claims_states.py.
 """
 
 import datetime as dt
@@ -42,7 +47,9 @@ import pathlib
 import re
 import subprocess
 import sys
+import socket
 import tempfile
+import urllib.error
 import urllib.request
 
 import yaml
@@ -76,6 +83,7 @@ REQUIRED = {"id", "proposition", "scope", "dimensions", "support",
 FALSIFIER_CONSEQUENCES = {"NARROW", "REJECT", "HOLD"}
 
 failures: list[str] = []
+unknowns: list[str] = []
 
 # A number of claims is an unusually easy datum to leave behind in a hand-written
 # surface. The marker makes the state explicit: the public record is either
@@ -101,6 +109,32 @@ CLAIM_COUNT_SURFACES = {
 def fail(msg: str) -> None:
     failures.append(msg)
     print(f"FAIL  {msg}")
+
+
+def unknown(msg: str) -> None:
+    """Record a check whose source was never reached.
+
+    A source we could not reach is not a source that failed. Merging the two
+    lets an outage be recorded as a dead binding or a fired trigger — which is
+    the exact inference (absence of evidence read as evidence of absence) this
+    registry exists to refuse. Kept separate here for the same reason
+    verify_wayback.py keeps them separate.
+    """
+    unknowns.append(msg)
+    print(f"UNKNOWN  {msg}")
+
+
+def transport_failure(exc: BaseException) -> bool:
+    """True when the exception means the server was never reached.
+
+    HTTPError is tested first and deliberately excluded: it subclasses
+    URLError, and the server did answer — a 404 or 410 on a bound support URL
+    is a real finding about the binding, not a network condition.
+    """
+    if isinstance(exc, urllib.error.HTTPError):
+        return False
+    return isinstance(exc, (urllib.error.URLError, TimeoutError, ConnectionError,
+                            socket.timeout, socket.gaierror, OSError))
 
 
 def ok(msg: str) -> None:
@@ -206,7 +240,12 @@ def check_trigger(cid: str, trig: dict) -> None:
             head = hashlib.sha256(fetch(
                 f"https://raw.githubusercontent.com/{repo}/HEAD/{path}")).hexdigest()
         except Exception as exc:  # noqa: BLE001
-            fail(f"{cid}: trigger fetch failed for {repo}/{path} ({exc})")
+            # "TRIGGER FIRED" asserts that bound evidence changed upstream.
+            # A fetch that never completed asserts nothing of the kind, and
+            # must not be able to produce that same red on a flaky network.
+            report = unknown if transport_failure(exc) else fail
+            report(f"{cid}: trigger fetch did not complete for {repo}/{path} "
+                   f"({exc}) — evidence drift is unevaluated, not observed")
             return
         if bound == head:
             ok(f"{cid}: evidence unchanged — {repo}/{path} matches bound ref")
@@ -240,7 +279,9 @@ def check_reachability(bindings: dict[str, list[tuple[str, str]]]) -> None:
                      f"https://github.com/{repo}.git", clone],
                     check=True, capture_output=True, timeout=120)
             except Exception as exc:  # noqa: BLE001
-                fail(f"reachability probe clone failed for {repo} ({exc})")
+                unknown(f"reachability probe clone did not complete for {repo} "
+                        f"({exc}) — ancestry of its bound commit(s) is "
+                        f"unevaluated, not refuted")
                 continue
             for cid, commit in entries:
                 result = subprocess.run(
@@ -249,10 +290,18 @@ def check_reachability(bindings: dict[str, list[tuple[str, str]]]) -> None:
                 if result.returncode == 0:
                     ok(f"{cid}: bound commit {commit[:8]} reachable from "
                        f"{repo}'s default branch")
-                else:
+                elif result.returncode == 1:
+                    # git answered: the commit is not an ancestor. A verdict.
                     fail(f"{cid}: bound commit {commit[:8]} is NOT reachable "
                          f"from {repo}'s default branch — a dangling binding "
                          f"survives only as long as GitHub retains the object")
+                else:
+                    # git could not answer (unknown revision, broken probe).
+                    # That is not the same sentence as "not an ancestor".
+                    detail = result.stderr.decode("utf-8", "replace").strip()
+                    unknown(f"{cid}: ancestry probe for {commit[:8]} in {repo} "
+                            f"could not be evaluated (git exit "
+                            f"{result.returncode}: {detail or 'no detail'})")
 
 
 SELF_BLOB = "https://github.com/Cubits11/cubits11.github.io/blob/main/"
@@ -276,7 +325,11 @@ def check_url_liveness(cid: str, url: str) -> None:
         fetch(url)
         ok(f"{cid}: support URL resolves — {url}")
     except Exception as exc:  # noqa: BLE001
-        fail(f"{cid}: support URL unreachable ({exc}): {url}")
+        if transport_failure(exc):
+            unknown(f"{cid}: support URL was not reached ({exc}): {url} — "
+                    f"liveness unevaluated, not disproved")
+        else:
+            fail(f"{cid}: support URL returned an error ({exc}): {url}")
 
 
 def check_public_claim_counts(expected: int, today: dt.date) -> None:
@@ -349,6 +402,30 @@ def check_public_claim_counts(expected: int, today: dt.date) -> None:
                    f"claims.yaml ({expected})")
             else:
                 ok(f"{rel}: historical claim count is explicitly dated")
+
+
+def exit_code() -> int:
+    """Collapse the two buckets into this module's three-state exit contract.
+
+    Kept as its own function so verify_claims_states.py can execute the real
+    branch. A test that re-implements this logic would pass while the contract
+    silently regressed, which is the failure mode the contract exists to stop.
+    """
+    if failures:
+        print(f"{len(failures)} check(s) failed; {len(unknowns)} could not be "
+              f"evaluated.")
+        return 1
+    if unknowns:
+        print(f"0 check(s) failed; {len(unknowns)} could not be evaluated "
+              f"because the source was never reached. The registry is NOT "
+              f"verified — an unevaluated check is not a passing one — and "
+              f"this run is not a finding about any binding. Re-run from a "
+              f"network that can reach the listed sources.")
+        return 2
+    print("Registry verified: shaped, falsifiers and forbidden rescues "
+          "declared, bound, fresh, triggers quiet, support reachable, "
+          "ledger covered.")
+    return 0
 
 
 def main() -> int:
@@ -435,13 +512,7 @@ def main() -> int:
             fail(f"{cid}: not rendered in ledger/index.html")
 
     print()
-    if failures:
-        print(f"{len(failures)} check(s) failed.")
-        return 1
-    print("Registry verified: shaped, falsifiers and forbidden rescues "
-          "declared, bound, fresh, triggers quiet, support reachable, "
-          "ledger covered.")
-    return 0
+    return exit_code()
 
 
 if __name__ == "__main__":

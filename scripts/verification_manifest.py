@@ -47,6 +47,7 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("internal links", "scripts/check_links.py"),
     ("frontend structure and scroll regions", "scripts/verify_frontend.py"),
     ("remote-evidence failure states", "scripts/verify_wayback_states.py"),
+    ("claim-registry failure states", "scripts/verify_claims_states.py"),
     ("resume PDF receipt", "scripts/verify_resume_receipt.py"),
 )
 
@@ -78,6 +79,14 @@ def run_manifest(cwd: Path = ROOT) -> int:
     for label, *command in CHECKS:
         print(f"check {label}", flush=True)
         completed = subprocess.run([sys.executable, *command], cwd=cwd)
+        if completed.returncode == 2:
+            # A check that reserves exit 2 is saying "I could not evaluate
+            # this". It blocks exactly as firmly as a failure and is never
+            # recorded as one: the manifest's own log must not be the place an
+            # unknown gets promoted into a finding.
+            print(f"UNDETERMINED  {label}: {' '.join(command)} — blocking, "
+                  f"but not a finding about the evidence")
+            return completed.returncode
         if completed.returncode:
             print(f"FAIL  {label}: {' '.join(command)}")
             return completed.returncode

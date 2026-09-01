@@ -115,11 +115,17 @@ def check_readme_entry_point() -> None:
           f"scripts reachable; quoted numbers match the registry")
 
 
-def run(args: list[str], cwd: Path) -> str:
+def run(args: list[str], cwd: Path, undetermined_on_2: bool = False) -> str:
     completed = subprocess.run(args, cwd=cwd, text=True, capture_output=True)
     if completed.returncode:
         print(completed.stdout, end="")
         print(completed.stderr, end="", file=sys.stderr)
+        # Opt-in, because exit 2 only carries this meaning for the manifest's
+        # own checks — it means nothing of the kind coming back from git.
+        if undetermined_on_2 and completed.returncode == 2:
+            raise RuntimeError(
+                "command could not be evaluated (exit 2 — its source was "
+                "never reached; this is not a finding): " + " ".join(args))
         raise RuntimeError("command failed: " + " ".join(args))
     return completed.stdout
 
@@ -171,7 +177,7 @@ def main() -> int:
             return 1
         for label, *script in CHECKS:
             print(f"check {label}")
-            run([sys.executable, *script], target)
+            run([sys.executable, *script], target, undetermined_on_2=True)
 
     print(f"Clean-clone replay passed for {commit} (descends from {BASELINE[:12]}).")
     return 0
