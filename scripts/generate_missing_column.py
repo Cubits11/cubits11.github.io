@@ -839,10 +839,26 @@ def render_landing(data: dict) -> str:
     rows = data.get("benchmarks") or []
     examined = [r for r in rows if r["status"] == "examined"]
     under_review = [r for r in rows if r["status"] == "under_review"]
-    title = "The Missing Column — a guardrail evaluation census"
-    desc = ("A bounded, source-bound inventory of which public guardrail "
-            "evaluations preserve joint-evidence artifacts — union detection, "
-            "all-miss, or per-item outcomes — beside per-system scores.")
+    # Title and description carry the load-bearing numerals, derived from
+    # compute_counts — a hand-typed numeral here would be the schema-v3
+    # failure in a <title> tag.
+    m3 = counts["M_strata"]["threshold_documented_full_exposure"]
+    if counts["N"]:
+        # verify_growth.py gates these surfaces: title <= 72 chars,
+        # description 70-200.
+        title = (f"The Missing Column — {m3} of {counts['N']} at matched "
+                 f"thresholds (frozen {census['frozen_as_of']})")
+        desc = (f"Bounded, source-bound census (frozen "
+                f"{census['frozen_as_of']}): {m3} of {counts['N']} public "
+                f"guardrail evaluations document matched operating "
+                f"thresholds with full exposure; {counts['K']} preserve "
+                f"joint evidence.")
+    else:
+        title = "The Missing Column — a guardrail evaluation census"
+        desc = ("A bounded, source-bound inventory of which public guardrail "
+                "evaluations preserve joint-evidence artifacts — union "
+                "detection, all-miss, or per-item outcomes — beside "
+                "per-system scores.")
     releases = counts["present_by_scope"].get("computable_via_item_release", 0)
     release_note = f" ({releases} via data release)" if releases else ""
     snapshot = census["snapshot"]
@@ -876,7 +892,10 @@ def render_landing(data: dict) -> str:
     <h1>The missing column</h1>
     <p class="intro lede">Benchmarks commonly report what each detector catches on its own.
       To understand a deployed stack, you also need what those detectors catch — and miss —
-      <em>together</em>. That number is usually not published.</p>
+      <em>together</em>. That number is usually not published. In this census, frozen
+      {esc(census["frozen_as_of"])}, {fact_registry.fact_span("MC-001.M3", counts["M_strata"]["threshold_documented_full_exposure"])} of
+      {fact_registry.fact_span("MC-001.N", counts["N"])} evaluations record matched operating
+      thresholds together with full exposure.</p>
     <p class="intro">This is a bounded record of which public evaluations preserve the
       evidence needed to recover it. A static evaluation and a deployed route are different
       objects, so the record tracks what each artifact actually publishes rather than what a
