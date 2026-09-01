@@ -16,6 +16,19 @@ body:
       placeholder: MC-004
     validations:
       required: true
+  - type: dropdown
+    id: evidence_class
+    attributes:
+      label: Evidence class
+      description: >-
+        Use static-reconstruction for a recomputation from released static
+        outputs. Choose direct-route only for an item-level trace from a
+        route that was actually executed.
+      options:
+        - static-reconstruction
+        - direct-route
+    validations:
+      required: true
   - type: input
     id: commit
     attributes:

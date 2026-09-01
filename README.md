@@ -6,7 +6,25 @@ claim governance. Live at [cubits11.github.io](https://cubits11.github.io/).
 
 ## Reproduce the claims
 
-### First: MC-004 — released verdicts, recomputed
+### First: MC-001 — the Missing Column census
+
+The homepage begins with this bounded reporting claim: among 20 public
+guardrail evaluations meeting the frozen criteria, 14 establish a shared item
+set and common event definition, and 5 preserve a declared joint-evidence
+artifact. The 14 is a shared-basis rung, not proof of matched operating
+thresholds or full exposure; the stricter ladder is 14/12/0.
+
+```bash
+python3 -m pip install -r requirements.txt && python3 scripts/verify_census.py --counts
+```
+
+You should see `MC-001 expected counts match the census (N/M/K 20/14/5)` and
+`MC-001 M ladder matches the census (14/12/0)`, followed by `Census verified`.
+This is a source-bound census of reporting, not a vendor ranking, a population
+safety estimate, or a claim that any stack is safe or unsafe. Change a row,
+registered count, or frozen-criteria history and the verifier fails.
+
+### Second: MC-004 — released verdicts, recomputed
 
 The least favorable number comes first. On the release's pinned `full_run`
 image items, the static OR of the harness-normalized native `unsafe` bits is
@@ -25,7 +43,7 @@ The script verifies eight source hashes before it counts. Its scope, expected
 stdout, pinned source, and correction route are on
 [/missing-column/reproduce/](https://cubits11.github.io/missing-column/reproduce/).
 
-### Second: MC-002 — a five-guard receipt
+### Third: MC-002 — a five-guard receipt
 
 This command recomputes a joint miss from five vendors' released binary
 verdicts, and asserts it against the registered value so a mismatch fails

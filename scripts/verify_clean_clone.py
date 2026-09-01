@@ -49,15 +49,16 @@ def check_readme_entry_point() -> None:
 
     Rigour and legibility fail independently, and this repository had them
     at opposite extremes: fifteen gates, a clean-clone replay, and a rank
-    theorem, against a README whose only stated command served the website.
-    The headline result reproduces in under a second and named no entry
-    point, so the distance between "has a result" and "has an external
-    reproducer" was documentation, not evidence.
+    theorem, against a README whose first runnable lane described a different
+    claim from the public front door. The census headline was reproducible,
+    but a stranger was sent first to a later worked reconstruction instead.
+    The distance between "has a result" and "has an external reproducer" was
+    documentation, not evidence.
 
-    A front door rots faster than a proof. This asserts that every script
-    the entry section tells a stranger to run exists, and that the numbers
-    the section quotes are the ones the registry holds — so the paragraph
-    cannot drift away from the arithmetic it advertises.
+    A front door rots faster than a proof. This asserts that the first lane is
+    MC-001's census verifier, its headline and ladder agree with the registry,
+    every documented script exists, and MC-002's quoted figures still agree
+    with the registry.
     """
     text = README.read_text()
     if ENTRY_SECTION not in text:
@@ -76,6 +77,28 @@ def check_readme_entry_point() -> None:
 
     import yaml
     registry = yaml.safe_load((ROOT / "claims.yaml").read_text())
+    first_lane = re.search(r"^### First: MC-001.*?(?=^### |\Z)", section,
+                           flags=re.MULTILINE | re.DOTALL)
+    if first_lane is None:
+        raise SystemExit("README first lane is not MC-001, the homepage "
+                         "front-door claim")
+    if not named or named[0] != "scripts/verify_census.py":
+        raise SystemExit("README first command must run "
+                         "scripts/verify_census.py")
+    mc001 = next(c for c in registry["claims"] if c["id"] == "MC-001")
+    e001 = mc001["expected"]
+    census_literal = (f'{e001["n_examined"]}/{e001["m_shared_basis"]}/'
+                      f'{e001["k_present"]}')
+    if census_literal not in first_lane.group(0):
+        raise SystemExit("README first lane no longer quotes the registered "
+                         f"MC-001 headline ({census_literal})")
+    strata = e001["m_strata"]
+    ladder_literal = (f'{strata["shared_basis"]}/'
+                      f'{strata["threshold_not_contradicted"]}/'
+                      f'{strata["threshold_documented_full_exposure"]}')
+    if ladder_literal not in first_lane.group(0):
+        raise SystemExit("README first lane no longer quotes the registered "
+                         f"MC-001 ladder ({ladder_literal})")
     mc = next(c for c in registry["claims"] if c["id"] == "MC-002")
     e = mc["expected"]
     n = e["n_harmful"]
@@ -88,8 +111,8 @@ def check_readme_entry_point() -> None:
         if literal not in section:
             raise SystemExit(f"README entry section no longer quotes the "
                              f"{what} ({literal}) the registry holds")
-    print(f"ok    README entry point: {len(set(named))} scripts reachable, "
-          f"quoted numbers match the registry")
+    print(f"ok    README entry point: MC-001 first; {len(set(named))} "
+          f"scripts reachable; quoted numbers match the registry")
 
 
 def run(args: list[str], cwd: Path) -> str:
