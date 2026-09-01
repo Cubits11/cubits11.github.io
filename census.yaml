@@ -103,7 +103,7 @@ census:
       scripts/verify_census.py fails the build otherwise.
     protocol_for_new_observations: census_protocol_v1.yaml
   v0_row_lock:
-    sha256: "4d168483ca6d8c7039cdfbfea76f9c8fdbf13fda51ebcdb40d0275c02f043752"
+    sha256: "dbce972876cc1689f8ec318151a0b4a91c53a8f738091caa593c2b19ed439889"
     canonicalization: >-
       JSON UTF-8; sort_keys=true; separators=(',', ':'); ensure_ascii=false;
       benchmarks list sorted by id
@@ -226,6 +226,18 @@ census:
       candidates surfaced but not examined are listed under
       unexamined_candidates and excluded from every count
   revision_history:
+    - date: "2026-09-01"
+      change: >-
+        Contact routes de-harvested. Nine rows printed 20 author email
+        addresses verbatim in contact_route; census.yaml is served publicly as
+        machine-readable text/yaml at a crawlable URL, which made those rows a
+        scrapeable contact list. Addresses are now written in the [at]/[dot]
+        form this file already used elsewhere, so a human can still route a
+        correction while a harvester cannot lift the list. No evidential field,
+        classification, count, or ladder value changed: N/M/K remain 20/14/5.
+        Recorded here rather than as nine per-row corrections because nothing
+        about any source's evidence was corrected — only how this file
+        republishes third-party contact details. v0_row_lock re-minted.
     - date: "2026-08-31"
       change: >-
         Action-layer clarification for multimodal-safeguard-bench-2026. A
@@ -626,7 +638,7 @@ benchmarks:
       - "Figure 2 caption — 'Aegis learns to choose the best expert over the time horizon'"
       - "Figure 3 — 'EW with perturbation averaged over 20 trials'"
       - "Table 3 — per-system AUPRC/F1 on shared test sets"
-    contact_route: "shaonag@nvidia.com; prasoonv@nvidia.com; egalinkin@nvidia.com; cparisien@nvidia.com"
+    contact_route: "shaonag [at] nvidia [dot] com; prasoonv [at] nvidia [dot] com; egalinkin [at] nvidia [dot] com; cparisien [at] nvidia [dot] com (printed in the source, not republished machine-readably)"
     last_checked: "2026-08-27"
     correction_history: []
     notes: >
@@ -709,7 +721,7 @@ benchmarks:
       - "Abstract — comparison against ten strong existing open-source moderation models"
       - "Table 3 — F1 across public prompt/response-harm benchmarks"
       - "Table 4 — F1 on WildGuardTest including the adversarial split"
-    contact_route: "wade3han@snu.ac.kr; nouhad@allenai.org; kavelrao@cs.washington.edu"
+    contact_route: "wade3han [at] snu [dot] ac [dot] kr; nouhad [at] allenai [dot] org; kavelrao [at] cs [dot] washington [dot] edu (printed in the source, not republished machine-readably)"
     last_checked: "2026-08-27"
     correction_history: []
     notes: null
@@ -865,7 +877,7 @@ benchmarks:
     source_passages:
       - "Table 1 — Optimal F1 / AU-PRC vs LlamaGuard, WildGuard, GPT-4, OpenAI Mod API"
       - "Abstract — '+10.8% higher average AU-PRC compared to LlamaGuard1'"
-    contact_route: "shieldgemma-team@google.com"
+    contact_route: "shieldgemma-team [at] google [dot] com (printed in the source, not republished machine-readably)"
     last_checked: "2026-08-27"
     correction_history: []
     notes: null
@@ -941,7 +953,7 @@ benchmarks:
     source_passages:
       - "Table 2 — Moderation dataset F1 drops to 28.54-73.12 multilingual"
       - "conclusion — 'guardrails are still ineffective at handling multilingual toxicity'"
-    contact_route: "yangy96@seas.upenn.edu; sohamdan@microsoft.com; danr@seas.upenn.edu; lee@seas.upenn.edu"
+    contact_route: "yangy96 [at] seas [dot] upenn [dot] edu; sohamdan [at] microsoft [dot] com; danr [at] seas [dot] upenn [dot] edu; lee [at] seas [dot] upenn [dot] edu (printed in the source, not republished machine-readably)"
     last_checked: "2026-08-27"
     correction_history: []
     notes: null
@@ -1019,7 +1031,7 @@ benchmarks:
       - "Sec. 1 — 'comparing 13 models on 40 prompts and conversations safety datasets'"
       - "Table 3 — per-model F1/Recall"
       - "Sec. 3.5 — library 'saves the moderation outcomes in the specified output directory'"
-    contact_route: "elias.bassani@ec.europa.eu; ignacio.sanchez@ec.europa.eu; GitHub AmenRa/guardbench"
+    contact_route: "elias.bassani [at] ec [dot] europa [dot] eu; ignacio.sanchez [at] ec [dot] europa [dot] eu; GitHub AmenRa/guardbench (printed in the source, not republished machine-readably)"
     last_checked: "2026-08-27"
     correction_history: []
     notes: >
@@ -1105,7 +1117,7 @@ benchmarks:
       - "Table 2 — DeBERTa 0.996 AUC vs ProtectAI v2 0.569 AUC (in-distribution)"
       - "Table 3 — Perplexity 0.824 AUC / 0.001 F1 (out-of-distribution collapse)"
       - "conclusion — 'Currently, there is no one-size-fits-all solution'"
-    contact_route: "giulio.zizzo2@ibm.com; GitHub issues on IBM/Adversarial-Prompt-Evaluation"
+    contact_route: "giulio.zizzo2 [at] ibm [dot] com; GitHub issues on IBM/Adversarial-Prompt-Evaluation (printed in the source, not republished machine-readably)"
     last_checked: "2026-08-27"
     correction_history:
       - date: "2026-08-27"
@@ -1350,7 +1362,7 @@ benchmarks:
     source_passages:
       - "blog — integral score combines 'accuracy and runtime performance'"
       - "repo — 17 harm categories; leaderboard with macro-average metrics"
-    contact_route: "hello@whitecircle.ai; GitHub whitecircle/circle-guard-bench"
+    contact_route: "hello [at] whitecircle [dot] ai; GitHub whitecircle/circle-guard-bench (printed in the source, not republished machine-readably)"
     last_checked: "2026-08-27"
     correction_history: []
     notes: >
@@ -1928,7 +1940,7 @@ benchmarks:
     source_passages:
       - "Sec. 5.3 — 'if any detector flags the sample as malicious, the ensemble classifies it as malicious'"
       - "Tables 5-7 — TPR/FPR including Ensemble-T and Ensemble-I rows"
-    contact_route: "yinuo.liu@duke.edu and coauthors (printed); GitHub issues"
+    contact_route: "yinuo.liu [at] duke [dot] edu and coauthors (printed); GitHub issues"
     last_checked: "2026-08-30"
     correction_history:
       - date: "2026-08-27"
@@ -2032,7 +2044,7 @@ benchmarks:
     source_passages:
       - "overall table — Qwen Guard recall 0.8397 through MetaHateBERT recall 0.1579"
       - "'Recall is the critical metric for safety applications'"
-    contact_route: "reeturaj.harsh@domyn.com; bhaskarjit.sarmah@domyn.com; stefano.pasquali@domyn.com"
+    contact_route: "reeturaj.harsh [at] domyn [dot] com; bhaskarjit.sarmah [at] domyn [dot] com; stefano.pasquali [at] domyn [dot] com (printed in the source, not republished machine-readably)"
     last_checked: "2026-08-27"
     correction_history: []
     notes: null

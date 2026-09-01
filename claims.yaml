@@ -496,7 +496,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "4e61d5dfbe6e82acf4ae14693e41a00a97942c0a302a68aceb1328f451650ec8"
+        sha256: "f37b04de0e91f773608900a8bc91eac6adbd8f45b0ad8cc37e19dbcea322e03f"
         note: >-
           fires when the census changes without a claim re-review;
           re-reviewed 2026-08-31 after freezing v0 as a historical
