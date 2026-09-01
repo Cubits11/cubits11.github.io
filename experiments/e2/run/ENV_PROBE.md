@@ -21,6 +21,12 @@ Same-date reruns at this HEAD, all green: `check_freeze.py` (freeze
 holds), `calibrate.py --synthetic` (sweep exact at 0.0500), and
 `test_instrument.py` (nine properties, every planted violation caught).
 
+Addendum 2026-09-01 (gap named in review, closed): the probe venv lives
+in a session scratchpad and will vanish; the durable receipt is the
+committed lockfile `env-probe.freeze.txt` beside this file (`pip freeze`,
+40 packages, including mlx 0.32.2 pulled by mlx-lm). The box reproduces
+the environment from that file, not from this prose.
+
 ## What the box still does (this probe replaces none of it)
 
 `huggingface-cli login` (owner's account), authenticated downloads at
