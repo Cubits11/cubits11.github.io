@@ -1493,8 +1493,9 @@ FAIL  guard_…jsonl: sha256 …  != recorded …  — the bound artifact change
       first independent reproduction; a mismatching run is a correction, handled under
       the <a class="u" href="/corrections/">same-day correction policy</a> and credited
       where consent permits. Use the
-      <a class="u" href="{issue_url}">reproduction issue form ↗</a> (environment,
-      commit, command, stdout, match or mismatch) or
+      <a class="u" href="{issue_url}">reproduction issue form ↗</a> (evidence class:
+      <span class="mono">static-reconstruction</span> or <span class="mono">direct-route</span>;
+      environment, commit, command, stdout, match or mismatch) or
       <a class="u" href="mailto:bhavepranavwork@gmail.com">email</a>. The project-wide
       <a class="u" href="/distribution/outcomes.yaml">qualified-outcome ledger</a> currently
       records {qualified_outcomes} qualified external outcome{'s' if qualified_outcomes != 1 else ''};

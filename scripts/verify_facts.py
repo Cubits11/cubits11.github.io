@@ -117,9 +117,17 @@ def check_reproduce_packet(html_text: str, where: str) -> list[str]:
     need("--dir", "the offline mutation path")
     need(REPRO_ISSUE_FORM, "the reproduction issue form link")
     need("/corrections/", "the correction route")
-    if not (ROOT / ".github" / "ISSUE_TEMPLATE" / "reproduction.yml").exists():
+    issue_form = ROOT / ".github" / "ISSUE_TEMPLATE" / "reproduction.yml"
+    if not issue_form.exists():
         failures.append(f"{where}: the reproduction issue form it links "
                         f"does not exist in the repository")
+    else:
+        issue_form_text = issue_form.read_text()
+        for fragment in ("id: evidence_class", "static-reconstruction",
+                         "direct-route"):
+            if fragment not in issue_form_text:
+                failures.append(f"{where}: reproduction issue form lost "
+                                f"the evidence-class field {fragment!r}")
     return failures
 
 
