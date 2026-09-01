@@ -35,36 +35,12 @@ SEED = "MC-E2-PILOT-V1-FREEZE-2026-09-01"
 GUARDS = ("lg4", "lg3", "sg2b")
 
 
-def score_lg4(text: str) -> float:
-    """UNTESTED STUB — implement and shake out on the authorized box.
-
-    Method at pin (docs/E2_PILOT_V1_CUT.md): unsafe-token / policy
-    logit of meta-llama/Llama-Guard-4-12B @ 87acb4b9, documented at
-    pin. Blocked until the owner's `LG4 CONFIG:` sentence (see
-    PREFLIGHT.md) — BF16 does not fit the authorized 24 GB box.
-    """
-    raise NotImplementedError("lg4 adapter not shaken out; see PREFLIGHT.md")
-
-
-def score_lg3(text: str) -> float:
-    """UNTESTED STUB — implement and shake out on the authorized box.
-
-    Method at pin: first-token unsafe probability of
-    meta-llama/Llama-Guard-3-8B @ 7327bd9f (model card method).
-    """
-    raise NotImplementedError("lg3 adapter not shaken out; see PREFLIGHT.md")
-
-
-def score_sg2b(text: str) -> float:
-    """UNTESTED STUB — implement and shake out on the authorized box.
-
-    Method at pin: Yes-token probability from last-position logits of
-    google/shieldgemma-2b @ d1dffc9c (model card method).
-    """
-    raise NotImplementedError("sg2b adapter not shaken out; see PREFLIGHT.md")
-
-
-ADAPTERS = {"lg4": score_lg4, "lg3": score_lg3, "sg2b": score_sg2b}
+sys.path.insert(0, str(HERE))
+from adapters import SCORERS as ADAPTERS  # noqa: E402  box-gated; refuses
+# to load any weight unless E2_ON_AUTHORIZED_BOX=1 (LG4 additionally needs
+# the recorded 8-bit conversion per LG4_CONFIG.md). Real implementations,
+# not yet shaken out on the box; on-box synthetic shakeout is mandatory
+# before calibration.
 
 
 def verify_freeze() -> None:
