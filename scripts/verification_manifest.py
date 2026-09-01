@@ -18,6 +18,11 @@ ROOT = Path(__file__).resolve().parent.parent
 # The single deterministic verification surface. The workflow runs this
 # module directly; verify_clean_clone imports this tuple for its fresh clone.
 CHECKS: tuple[tuple[str, ...], ...] = (
+    # Offline first: the liveness classifier decides whether a red registry
+    # run is evidence about the bound evidence or about this runner's network.
+    # That branch never executes on an unrestricted box, so it is asserted
+    # against synthetic responses rather than trusted because CI went green.
+    ("claim registry liveness classification", "scripts/verify_claims.py", "--test"),
     ("claim registry", "scripts/verify_claims.py"),
     ("census", "scripts/verify_census.py"),
     ("census protocol v1", "scripts/verify_census_protocol.py"),

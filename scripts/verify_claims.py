@@ -76,6 +76,38 @@ REQUIRED = {"id", "proposition", "scope", "dimensions", "support",
 FALSIFIER_CONSEQUENCES = {"NARROW", "REJECT", "HOLD"}
 
 failures: list[str] = []
+holds: list[str] = []
+
+# Liveness is three-valued, not two. A support URL that answers 404 or 410 has
+# been withdrawn: that is an observation about the evidence, and it fails. A
+# support URL this runner could not reach — an egress policy answering 403 to
+# CONNECT, a proxy 407, a 429, a 5xx, a DNS or timeout error — has told the
+# runner nothing about the resource at all. Printing "unreachable" for that
+# second case reports a fact the run did not establish, and it is the same
+# error this registry forbids everywhere else: filling an unmeasured cell with
+# the convenient reading. The unmeasured cell here is "does this URL still
+# resolve for a reader," and a blocked runner does not get to answer it in
+# either direction.
+#
+# Indeterminate is not a free pass, because a blanket "network trouble does not
+# count" is precisely a forbidden rescue. It is discharged only by an
+# independent witness on a different host: the claim's own
+# remote_content_change trigger fetches the bound file at the bound ref from
+# raw.githubusercontent.com, and a success there proves that exact
+# (repository, commit) pair is still served publicly — which a deleted,
+# privatised, or history-rewritten repository could not do. With that witness
+# the run reports HOLD and continues; without it the run fails, and says the
+# state is indeterminate rather than asserting a withdrawal nobody observed.
+# On an unrestricted runner nothing is indeterminate and this path never
+# executes, so the gate is not loosened in the environment that enforces it.
+WITHDRAWN_CODES = frozenset({404, 410})
+GITHUB_OBJECT = re.compile(
+    r"^https://github\.com/(?P<repo>[^/]+/[^/]+)/"
+    r"(?:blob|tree|commit|raw)/(?P<ref>[0-9a-f]{7,40})(?:[/?#]|$)")
+
+# (repo, bound_ref) -> path of a file this run actually fetched from the raw
+# host at that ref. Written by the executable triggers, read by liveness.
+bound_ref_witnesses: dict[tuple[str, str], str] = {}
 
 # A number of claims is an unusually easy datum to leave behind in a hand-written
 # surface. The marker makes the state explicit: the public record is either
@@ -105,6 +137,41 @@ def fail(msg: str) -> None:
 
 def ok(msg: str) -> None:
     print(f"ok    {msg}")
+
+
+def hold(msg: str) -> None:
+    """Record a check the run could not perform, without scoring it either way."""
+    holds.append(msg)
+    print(f"hold  {msg}")
+
+
+def classify_probe(exc: Exception) -> tuple[str, str]:
+    """Name what a failed fetch established about the resource itself.
+
+    Only 404 and 410 are statements about the resource. Everything else —
+    authorisation, proxy policy, rate limits, server faults, transport errors
+    — is a statement about the path between this runner and the resource.
+    """
+    code = getattr(exc, "code", None)
+    if code in WITHDRAWN_CODES:
+        return "withdrawn", f"HTTP {code}"
+    if code is not None:
+        return "indeterminate", f"HTTP {code}"
+    return "indeterminate", str(exc)
+
+
+def witness_for(url: str) -> tuple[str, str, str] | None:
+    """Find a bound-ref fetch from this run that covers the URL's own object."""
+    match = GITHUB_OBJECT.match(str(url))
+    if not match:
+        return None
+    repo, ref = match.group("repo"), match.group("ref")
+    for (witness_repo, witness_ref), path in bound_ref_witnesses.items():
+        if witness_repo != repo:
+            continue
+        if witness_ref.startswith(ref) or ref.startswith(witness_ref):
+            return witness_repo, witness_ref, path
+    return None
 
 
 def fetch(url: str) -> bytes:
@@ -201,13 +268,28 @@ def check_trigger(cid: str, trig: dict) -> None:
     if ttype == "remote_content_change":
         repo, path, ref = trig.get("repo"), trig.get("path"), trig.get("bound_ref")
         try:
-            bound = hashlib.sha256(fetch(
-                f"https://raw.githubusercontent.com/{repo}/{ref}/{path}")).hexdigest()
-            head = hashlib.sha256(fetch(
-                f"https://raw.githubusercontent.com/{repo}/HEAD/{path}")).hexdigest()
+            bound_bytes = fetch(
+                f"https://raw.githubusercontent.com/{repo}/{ref}/{path}")
         except Exception as exc:  # noqa: BLE001
-            fail(f"{cid}: trigger fetch failed for {repo}/{path} ({exc})")
+            state, detail = classify_probe(exc)
+            fail(f"{cid}: bound-evidence fetch {state} for {repo}/{path} "
+                 f"({detail}) — the trigger did not run")
             return
+        # A second host answered for exactly the (repository, commit) pair a
+        # support URL can name. This is the only thing allowed to discharge an
+        # indeterminate liveness probe, so it is recorded where liveness reads
+        # it — and only ever on a fetch that actually succeeded.
+        bound_ref_witnesses.setdefault((str(repo), str(ref)), str(path))
+        try:
+            head_bytes = fetch(
+                f"https://raw.githubusercontent.com/{repo}/HEAD/{path}")
+        except Exception as exc:  # noqa: BLE001
+            state, detail = classify_probe(exc)
+            fail(f"{cid}: default-branch fetch {state} for {repo}/{path} "
+                 f"({detail}) — the trigger did not run")
+            return
+        bound = hashlib.sha256(bound_bytes).hexdigest()
+        head = hashlib.sha256(head_bytes).hexdigest()
         if bound == head:
             ok(f"{cid}: evidence unchanged — {repo}/{path} matches bound ref")
         else:
@@ -274,9 +356,22 @@ def check_url_liveness(cid: str, url: str) -> None:
         return
     try:
         fetch(url)
-        ok(f"{cid}: support URL resolves — {url}")
     except Exception as exc:  # noqa: BLE001
-        fail(f"{cid}: support URL unreachable ({exc}): {url}")
+        state, detail = classify_probe(exc)
+        if state == "withdrawn":
+            fail(f"{cid}: support URL withdrawn ({detail}): {url}")
+            return
+        witness = witness_for(url)
+        if witness is None:
+            fail(f"{cid}: support URL liveness indeterminate from this runner "
+                 f"({detail}) and no bound-ref witness covers it: {url}")
+            return
+        witness_repo, witness_ref, witness_path = witness
+        hold(f"{cid}: liveness indeterminate from this runner ({detail}); the "
+             f"bound object is still served — raw {witness_repo}@"
+             f"{witness_ref[:8]}/{witness_path}: {url}")
+        return
+    ok(f"{cid}: support URL resolves — {url}")
 
 
 def check_public_claim_counts(expected: int, today: dt.date) -> None:
@@ -435,14 +530,131 @@ def main() -> int:
             fail(f"{cid}: not rendered in ledger/index.html")
 
     print()
+    if holds:
+        print(f"{len(holds)} liveness probe(s) indeterminate from this runner "
+              f"and corroborated by a bound-ref witness on the raw host. A "
+              f"HOLD is not a liveness verification: it records that this "
+              f"runner could not test the reader-facing URL, and that the "
+              f"object it names had not been withdrawn.")
     if failures:
         print(f"{len(failures)} check(s) failed.")
         return 1
     print("Registry verified: shaped, falsifiers and forbidden rescues "
-          "declared, bound, fresh, triggers quiet, support reachable, "
-          "ledger covered.")
+          "declared, bound, fresh, triggers quiet, support resolved or "
+          "witness-held, ledger covered.")
+    return 0
+
+
+def _self_test() -> int:
+    """Offline assertions for the three-valued liveness rule.
+
+    The rule decides whether a red build is evidence about someone else's
+    repository or evidence about this runner's network. That distinction is
+    not observable on a green CI box — the only place it fires is a restricted
+    network — so it is asserted here against synthetic responses instead of
+    being trusted because a normal run passed. Nothing in this test touches
+    the network.
+    """
+    import contextlib
+    import io
+    import urllib.error
+
+    def http(code: int) -> urllib.error.HTTPError:
+        return urllib.error.HTTPError("https://example.invalid/x", code,
+                                      "synthetic", {}, None)
+
+    transport = urllib.error.URLError("Tunnel connection failed: 403 Forbidden")
+
+    cases = [
+        (http(404), "withdrawn"), (http(410), "withdrawn"),
+        (http(403), "indeterminate"), (http(407), "indeterminate"),
+        (http(429), "indeterminate"), (http(503), "indeterminate"),
+        (transport, "indeterminate"), (TimeoutError("timed out"), "indeterminate"),
+    ]
+    problems: list[str] = []
+    for exc, expected in cases:
+        state, _ = classify_probe(exc)
+        if state != expected:
+            problems.append(f"classify_probe({exc!r}) = {state}, expected {expected}")
+
+    saved_witnesses = dict(bound_ref_witnesses)
+    saved_failures, saved_holds = list(failures), list(holds)
+    saved_fetch = globals()["fetch"]
+    try:
+        bound_ref_witnesses.clear()
+        bound_ref_witnesses[("Owner/Repo", "a" * 40)] = "docs/x.md"
+
+        witness_cases = [
+            (f"https://github.com/Owner/Repo/commit/{'a' * 40}", True),
+            (f"https://github.com/Owner/Repo/blob/{'a' * 40}/docs/y.md", True),
+            ("https://github.com/Owner/Repo/commit/aaaaaaa", True),
+            (f"https://github.com/Other/Repo/commit/{'a' * 40}", False),
+            (f"https://github.com/Owner/Repo/commit/{'b' * 40}", False),
+            ("https://github.com/Owner/Repo", False),
+            ("https://academy.claude.com/tutorials/x", False),
+        ]
+        for url, expected_hit in witness_cases:
+            if (witness_for(url) is not None) != expected_hit:
+                problems.append(f"witness_for({url}) hit != {expected_hit}")
+
+        # End-to-end: the same 403, with and without a covering witness, must
+        # land on opposite sides of the build.
+        def raising(exc):
+            def _fetch(url: str) -> bytes:
+                raise exc
+            return _fetch
+
+        scenarios = [
+            (http(403), f"https://github.com/Owner/Repo/commit/{'a' * 40}", "hold"),
+            (http(403), f"https://github.com/Owner/Repo/commit/{'b' * 40}", "fail"),
+            (http(404), f"https://github.com/Owner/Repo/commit/{'a' * 40}", "fail"),
+            (transport, "https://academy.claude.com/tutorials/x", "fail"),
+        ]
+        for exc, url, expected in scenarios:
+            failures.clear()
+            holds.clear()
+            globals()["fetch"] = raising(exc)
+            with contextlib.redirect_stdout(io.StringIO()):
+                check_url_liveness("TEST", url)
+            got = "fail" if failures else ("hold" if holds else "ok")
+            if got != expected:
+                problems.append(f"liveness({exc!r}, {url}) = {got}, expected {expected}")
+
+        # A witness may only be recorded by a fetch that succeeded.
+        failures.clear()
+        holds.clear()
+        bound_ref_witnesses.clear()
+        globals()["fetch"] = raising(http(403))
+        with contextlib.redirect_stdout(io.StringIO()):
+            check_trigger("TEST", {"type": "remote_content_change",
+                                   "enforcement": "executable",
+                                   "repo": "Owner/Repo", "path": "docs/x.md",
+                                   "bound_ref": "c" * 40})
+        if bound_ref_witnesses:
+            problems.append("a failed bound-evidence fetch recorded a witness")
+        if not failures:
+            problems.append("a failed bound-evidence fetch did not fail the run")
+    finally:
+        globals()["fetch"] = saved_fetch
+        bound_ref_witnesses.clear()
+        bound_ref_witnesses.update(saved_witnesses)
+        failures.clear()
+        failures.extend(saved_failures)
+        holds.clear()
+        holds.extend(saved_holds)
+
+    for problem in problems:
+        print(f"FAIL  liveness classification: {problem}")
+    if problems:
+        print(f"{len(problems)} liveness classification assertion(s) failed.")
+        return 1
+    print(f"ok    liveness classification: {len(cases)} probe classes, "
+          f"{len(witness_cases)} witness lookups, {len(scenarios)} end-to-end "
+          f"outcomes, and the witness-only-on-success rule all hold")
     return 0
 
 
 if __name__ == "__main__":
+    if "--test" in sys.argv[1:]:
+        sys.exit(_self_test())
     sys.exit(main())

@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-08-31"
+last_owner_review: "2026-09-01"
 
 claims:
   - id: CC-001
@@ -1322,7 +1322,11 @@ claims:
       The verifier at the recorded content hash, and the public workflow
       that runs it. The generated-page and figure checks are separate
       steps in the same workflow (ledger, modules, observatory, figure
-      geometry, internal links).
+      geometry, internal links). Support-URL liveness is three-valued:
+      404 and 410 are withdrawals and fail; any other failed probe is
+      indeterminate, and clears only when the claim's own bound-ref
+      trigger fetched that exact repository and commit from the raw host,
+      in which case the run prints HOLD rather than a verdict.
     dimensions:
       visibility: public
       provenance: owner_verified
@@ -1333,13 +1337,13 @@ claims:
       url: "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py"
       commit: null
       note: "Mutable link by design; the local-content trigger below detects edits."
-    last_reviewed: "2026-08-30"
+    last_reviewed: "2026-09-01"
     review_window_days: 120
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: scripts/verify_claims.py
-        sha256: "cc2427b8fd2bf9ae85f7176d3b0932eeb1d9c9aea993ee762f1a8b3e9345d8d8"
+        sha256: "582c45e99adef0a5c8600eeb4d38509404d19d0691cd84242a3fe9990c6a7fe6"
         note: fires when the verifier changes without a registry re-review
       - type: manual
         enforcement: manual
@@ -1354,8 +1358,16 @@ claims:
       - do not cite a normal green run as evidence that violations are rejected
       - do not count a manual review or a generated-page drift check as automatic schema, trigger, or freshness enforcement
       - do not treat a warning-only or report-only job as a build failure
+      - do not read a HOLD as a resolved support URL, and do not read an
+        unreachable one as a withdrawn one; the run establishes neither
+      - do not discharge an indeterminate probe with anything but a
+        bound-ref fetch of that same repository and commit from the raw
+        host — "the network was flaky" is not a witness
     non_claims:
       - a green run verifies registry consistency and quiet triggers, never
         the truth of any claim's content
       - triggers watch file content; semantic drift outside watched files
         remains a manual review event, and the ledger says so
+      - a HOLD records that this runner could not test the reader-facing
+        URL and that the object it names had not been withdrawn; it is not
+        evidence that the URL resolves for a reader
