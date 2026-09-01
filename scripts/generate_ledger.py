@@ -72,6 +72,34 @@ def support_label(support: dict) -> str:
     return f'<a class="u" href="{esc(url)}"><code>{esc(name)}</code></a>'
 
 
+# The research object's own state, printed apart from the claim's evidential
+# status. A claim can be fully supported about a document whose study has
+# produced nothing; these two facts must not share a pill.
+STUDY_STATE_LABELS = {
+    "not_started": "NOT STARTED",
+    "untested": "UNTESTED",
+    "not_activated": "NOT ACTIVATED",
+    "dry_run_only": "DRY RUN ONLY",
+    "in_collection": "IN COLLECTION",
+    "complete": "COMPLETE",
+}
+
+
+def study_state_html(c: dict) -> str:
+    block = c.get("study_state")
+    if not block:
+        return ""
+    state = str(block.get("state", ""))
+    return (
+        f'<div class="study-state" data-study-state-for="{esc(c["id"])}" '
+        f'data-study-state="{esc(state)}">'
+        f'<span class="mono study-state-label">Study · {esc(block.get("object", ""))}'
+        f'</span> <span class="mono study-state-pill">'
+        f'{esc(STUDY_STATE_LABELS.get(state, state.upper()))}</span>'
+        f'<p class="study-state-note">{esc(" ".join(str(block.get("note", "")).split()))}</p>'
+        f'</div>')
+
+
 def render_claim(c: dict) -> str:
     d = c["dimensions"]
     status_cls = "status-hot" if d["evidential_status"] in ("inconclusive", "contradicted") \
@@ -137,6 +165,7 @@ def render_claim(c: dict) -> str:
       <span class="mono {status_cls}">{esc(label(d["evidential_status"]))} · {esc(label(d["provenance"]))}</span>
     </div>
     <p class="prop">{esc(c["proposition"])}</p>
+    {study_state_html(c)}
     <dl>{dl}</dl>
   </article>'''
 
@@ -198,6 +227,10 @@ h1{{font-size:clamp(2.2rem,5.5vw,3.4rem);line-height:1.05;margin:0 0 1rem;letter
 .claim{{border:1px solid var(--line-strong);background:var(--surface);margin:1.4rem 0;padding:clamp(1.2rem,3vw,1.8rem)}}
 .claim-head{{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.9rem}}
 .claim-id{{color:var(--gold);font-size:.68rem;font-weight:400;margin:0;line-height:inherit;letter-spacing:.09em}}
+.study-state{{border:1px solid var(--gold);border-left:3px solid var(--gold);background:transparent;padding:.7rem .85rem;margin:0 0 1rem;max-width:46em}}
+.study-state-label{{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}}
+.study-state-pill{{font-size:.72rem;letter-spacing:.08em;color:var(--gold);border:1px solid var(--gold);padding:.08rem .4rem;margin-left:.35rem}}
+.study-state-note{{font-size:.86rem;line-height:1.5;color:var(--muted);margin:.5rem 0 0}}
 .prop{{font-family:var(--serif);font-size:1.12rem;line-height:1.5;margin:0 0 1rem;max-width:42em}}
 dl{{display:grid;grid-template-columns:9.5rem 1fr;gap:.45rem 1.2rem;margin:0;font-size:.92rem}}
 dt{{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);padding-top:.15rem}}

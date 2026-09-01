@@ -98,33 +98,43 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
   </div>
 
   <div class="mv">
-    <span class="mono state-done">Moved · 2026-08-23</span>
-    <h2>The E2 instrument ran, and reported a null</h2>
-    <p>The full E2 measurement path — schema-conforming rows, the shared-item rule, one frozen
-      reduction, the excess-joint-failure estimand, and the pre-registered negative controls —
-      was exercised against three toy mechanisms. Sixty-six rows passed the real E2 validator
-      with zero violations; the observed dependence was indistinguishable from independence at
-      twenty-two items, and the controls behaved exactly. It is not E2, and it says so on its
-      face; what moved is that the instrument is proven and the cost of the real study is now a
-      number.</p>
+    <span class="mono state-frozen">E2 · UNTESTED — no conforming dataset collected</span>
+    <h2>E2 — the shared-item measurement contract</h2>
+    <p>CC-Framework's first empirical rung was frozen before any dataset was inspected. <b>No
+      conforming dataset has been collected, so there is no E2 result — no observation rows on
+      real guardrails, no dependence estimate, no independent labels.</b> That is the state of
+      the study. Everything below about the contract and its rehearsal is a statement about
+      documents and code, not about how deployed guardrails behave.</p>
+    <p>What the study still needs is on the record: externally hosted guardrails with recorded
+      version identity, a named population with clear data rights, reference labels adjudicated
+      by an independent party <em>before</em> any guardrail output is visible, real missingness,
+      and scale. The third of those is the one nobody can buy — it needs a person.</p>
     <div class="chips" style="margin-top:.9rem">
-      <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/327f0684f49768531594d593902ed8907fc717af/docs/research/E2_DRYRUN_FINDING.md">The dry-run finding ↗</a>
-      <a class="chip chip-internal" href="/ledger/#CC-006">Claim CC-006 →</a>
+      <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/0b9450251b6988fa23d8e6e4fb556a08b05e652e/docs/research/E2_MEASUREMENT_CONTRACT.md">The frozen contract ↗</a>
+      <a class="chip chip-internal" href="/ledger/#CC-005">Claim CC-005 →</a>
     </div>
   </div>
 
   <div class="mv">
-    <span class="mono state-frozen">Frozen · untested — by design</span>
-    <h2>E2 — the shared-item measurement contract</h2>
-    <p>CC-Framework's first empirical rung was frozen before any dataset was inspected, and no
-      conforming dataset has been collected. On 2026-08-23 the measurement pipeline was
-      rehearsed end to end on three synthetic mechanisms — a documented dry run, not E2 — which
-      validated the instrument and put a number on what real E2 costs: about 1,097 shared items
-      run through every guardrail to estimate the rates to within five points. That is the bar
-      the next artifact must clear. E2 stays frozen and untested until it does.</p>
+    <span class="mono state-done">Mechanical dry run · 2026-08-23 · not E2</span>
+    <h2>The pipeline was rehearsed on toy mechanisms, and returned a null</h2>
+    <p>On 2026-08-23 the measurement path — schema-conforming rows, the shared-item rule, one
+      frozen reduction, the excess-joint-failure estimand, and the pre-registered negative
+      controls — was executed against three toy Python filters in the repository. Sixty-six rows
+      passed the E2 validator with zero violations and the controls behaved as specified. At
+      twenty-two items the observed dependence was indistinguishable from independence: the
+      largest |Δ| was 0.050, <b>smaller than the 0.087 produced by the permutation control that
+      destroys real dependence</b>.</p>
+    <p>What this is not: it is not E2, not a result about any deployed guardrail, and not proof
+      that the instrument is ready. The dry run had zero missingness, so the contract's Layer E
+      path — the part real data most needs — never executed. The run also produced a planning
+      number: roughly 1,097 shared items per guardrail would estimate the <em>rates</em> to
+      within five points at 95%. <b>That is a rate-precision floor, not a sample size shown
+      sufficient to detect any particular dependence effect</b>, and no Δ-detection power
+      calculation has been done.</p>
     <div class="chips" style="margin-top:.9rem">
-      <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/0b9450251b6988fa23d8e6e4fb556a08b05e652e/docs/research/E2_MEASUREMENT_CONTRACT.md">The frozen contract ↗</a>
-      <a class="chip chip-internal" href="/ledger/#CC-005">Claim CC-005 →</a>
+      <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/327f0684f49768531594d593902ed8907fc717af/docs/research/E2_DRYRUN_FINDING.md">The dry-run finding ↗</a>
+      <a class="chip chip-internal" href="/ledger/#CC-006">Claim CC-006 →</a>
     </div>
   </div>
 

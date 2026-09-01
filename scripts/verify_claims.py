@@ -75,6 +75,17 @@ REQUIRED = {"id", "proposition", "scope", "dimensions", "support",
             "falsifier", "forbidden_rescues", "non_claims"}
 FALSIFIER_CONSEQUENCES = {"NARROW", "REJECT", "HOLD"}
 
+# The status of a claim and the status of the research object it describes are
+# different facts, and collapsing them is the most available way for an honest
+# registry to mislead a skimmer. "CC-005: supported within scope" is true — its
+# scope is a contract document. The study that document governs has collected
+# nothing. A reader who sees only the first pill concludes the opposite of the
+# truth, so a claim that speaks about a research object must declare that
+# object's own state, and the generated surfaces must render it separately from
+# the evidential-status pill.
+STUDY_STATES = {"not_started", "untested", "not_activated", "dry_run_only",
+                "in_collection", "complete"}
+
 failures: list[str] = []
 holds: list[str] = []
 
@@ -192,6 +203,31 @@ def check_dimensions(cid: str, dims: dict) -> None:
         fail(f"{cid}: 'attested' used as evidential_status — it is provenance")
     if dims.get("visibility") != "public":
         fail(f"{cid}: claims.yaml is public-only; private records must not be tracked here")
+
+
+def check_study_state(cid: str, claim: dict) -> bool:
+    """Validate an optional study_state block. Returns True when one is declared."""
+    block = claim.get("study_state")
+    if block is None:
+        return False
+    if not isinstance(block, dict):
+        fail(f"{cid}: study_state must be a mapping, got {type(block).__name__}")
+        return False
+    state = block.get("state")
+    if state not in STUDY_STATES:
+        fail(f"{cid}: study_state.state={state!r} not in {sorted(STUDY_STATES)}")
+    for field in ("object", "note"):
+        if not str(block.get(field) or "").strip():
+            fail(f"{cid}: study_state.{field} is required and must be non-empty")
+    if state in {"untested", "not_started", "not_activated", "dry_run_only"} \
+            and claim.get("dimensions", {}).get("evidential_status") == "supported_within_scope":
+        # Permitted, and exactly the case the separate rendering exists for:
+        # the claim is supported about a document while its study has no result.
+        ok(f"{cid}: claim supported within scope while its study is {state} — "
+           f"rendered as separate states, never as one")
+    else:
+        ok(f"{cid}: study state declared — {state}")
+    return True
 
 
 def check_support_rights(cid: str, support: dict) -> None:
@@ -456,6 +492,7 @@ def main() -> int:
 
     today = dt.date.today()
     ledger_html = (ROOT / "ledger" / "index.html").read_text()
+    observatory_html = (ROOT / "observatory" / "index.html").read_text()
     index_html = (ROOT / "index.html").read_text()
 
     owner_review = str(registry.get("last_owner_review", ""))
@@ -494,6 +531,7 @@ def main() -> int:
             continue
 
         check_dimensions(cid, claim["dimensions"])
+        declares_study_state = check_study_state(cid, claim)
         check_support_rights(cid, claim.get("support") or {})
         check_falsifier(cid, claim["falsifier"])
         check_forbidden_rescues(cid, claim["forbidden_rescues"])
@@ -528,6 +566,19 @@ def main() -> int:
             ok(f"{cid}: rendered in ledger")
         else:
             fail(f"{cid}: not rendered in ledger/index.html")
+
+        # A declared study state that no public surface prints is a private
+        # caveat, which is the failure mode this field exists to prevent.
+        if declares_study_state:
+            marker = f'data-study-state-for="{cid}"'
+            missing_from = [name for name, html in
+                            (("ledger", ledger_html), ("observatory", observatory_html))
+                            if marker not in html]
+            if missing_from:
+                fail(f"{cid}: study_state declared but not rendered in "
+                     f"{', '.join(missing_from)}")
+            else:
+                ok(f"{cid}: study state rendered separately in ledger and observatory")
 
     print()
     if holds:

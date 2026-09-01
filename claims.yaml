@@ -271,6 +271,18 @@ claims:
       support_role: document
       evidential_status: supported_within_scope
       maturity: released
+    study_state:
+      object: E2 — shared-item empirical guardrail pilot
+      state: untested
+      note: >
+        The claim above is supported within its scope because its scope is the
+        contract document and its executable conformance checks. The research
+        object those documents govern has produced nothing: no conforming
+        dataset, no observation rows on deployed guardrails, no dependence
+        estimate, and no independent labels. A reader who takes "supported
+        within scope" as a statement about guardrail behaviour has read the
+        claim status and missed the study status, which is why the two are
+        rendered separately.
     support:
       url: "https://github.com/Cubits11/cc-framework/blob/0b9450251b6988fa23d8e6e4fb556a08b05e652e/docs/research/E2_MEASUREMENT_CONTRACT.md"
       commit: "0b9450251b6988fa23d8e6e4fb556a08b05e652e"
@@ -326,6 +338,15 @@ claims:
       support_role: document
       evidential_status: supported_within_scope
       maturity: in_development
+    study_state:
+      object: E2 — shared-item empirical guardrail pilot
+      state: dry_run_only
+      note: >
+        What ran is a rehearsal against three toy Python filters inside the
+        repository, with zero missingness, so the contract's Layer E path never
+        executed. The rehearsal is not evidence that the instrument is ready
+        for real data, and it is not a result about any deployed guardrail. E2
+        itself remains untested.
     support:
       url: "https://github.com/Cubits11/cc-framework/blob/327f0684f49768531594d593902ed8907fc717af/docs/research/E2_DRYRUN_FINDING.md"
       commit: "327f0684f49768531594d593902ed8907fc717af"
@@ -1327,6 +1348,10 @@ claims:
       indeterminate, and clears only when the claim's own bound-ref
       trigger fetched that exact repository and commit from the raw host,
       in which case the run prints HOLD rather than a verdict.
+      The verifier also enforces the claim/study split: a claim that
+      declares a study_state must render that state on both the ledger and
+      the observatory, so a supported claim about a document cannot be
+      read as a result from a study that has collected nothing.
     dimensions:
       visibility: public
       provenance: owner_verified
@@ -1343,7 +1368,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: scripts/verify_claims.py
-        sha256: "582c45e99adef0a5c8600eeb4d38509404d19d0691cd84242a3fe9990c6a7fe6"
+        sha256: "bf64511918fb18d3d0b9c296fe0100a27fc023e6f0a0af5b6d91089435641620"
         note: fires when the verifier changes without a registry re-review
       - type: manual
         enforcement: manual
@@ -1363,6 +1388,9 @@ claims:
       - do not discharge an indeterminate probe with anything but a
         bound-ref fetch of that same repository and commit from the raw
         host — "the network was flaky" is not a witness
+      - do not read a claim's evidential status as the state of the study
+        it describes; a claim can be fully supported about a document
+        whose research object has produced no data
     non_claims:
       - a green run verifies registry consistency and quiet triggers, never
         the truth of any claim's content

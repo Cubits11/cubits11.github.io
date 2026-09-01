@@ -33,20 +33,78 @@ that still contradicts itself.
 **Visual:** `assets/img/og-missing-column.png` (the four-plus-one table)
 **Action:** open the census, find your own evaluation, correct the row if it is wrong
 **Claim scope:** a reporting fact about 20 examined artifacts — not a performance finding about anyone
-**Success signal:** a benchmark author replies, opens an issue, or corrects a row
+**Success signal:** a benchmark author replies, opens an issue, or corrects a row —
+`source_corrections` in `distribution/outcomes.yaml`, currently 0. Impressions are
+not a success signal and are not recorded as one.
+
+### Gate — every line must be true before this is posted
+
+This is a checklist, not a formality. The post sends strangers to pages that
+must already say what they mean.
+
+- [ ] The branch carrying `/answers/…`, `/work/`, and the corrected flagship is
+      merged and deployed. Publishing earlier sends people to a contradiction.
+- [ ] `/now/` leads with E2's own state, not with the toy rehearsal, and the
+      words "proven" and "validated" do not appear next to the dry run.
+- [ ] `/ledger/` and `/observatory/` render study state separately from claim
+      status, so "supported within scope" cannot be read as a result about
+      guardrails.
+- [ ] No unreleased or uncommitted study — a field test, a pilot, a local run —
+      is reachable from any public page. An unactivated run is not evidence.
+- [ ] `python3 scripts/verification_manifest.py` is green on the deployed commit.
+
+### The post — long form
 
 > Four guardrails. Four scores. One missing column.
 >
-> Guardrail evaluations publish a number for each detector and almost never
-> publish what the stack misses together — and you can't recover it from the
-> printed ones.
+> A stacked guardrail system fails when every guard misses the same item. That
+> number is the one a deployment actually needs, and it is not recoverable from
+> the per-guard scores that evaluations publish.
 >
-> I examined 20 public guardrail evaluations against primary sources. 5
-> preserve an artifact a joint statistic can be read or recomputed from. 0
-> document matched operating thresholds together with full exposure.
+> I read 20 public guardrail evaluations against their primary sources. 14
+> establish a shared item set and a common event definition. 5 preserve an
+> artifact a joint statistic can be read or recomputed from. 0 document matched
+> operating thresholds together with full exposure.
 >
-> Every row binds to its source. If yours is recorded wrong, the correction
-> route is on the page and I log every report the same day.
+> The reviewer is one person: me. The inclusion wording was locked in
+> repository history before any row was classified, every row binds to the
+> passage it came from, and the correction route is on the page. If your
+> evaluation is recorded wrong, tell me and it is logged the same day.
+>
+> Not a ranking, not a prevalence estimate, and not a claim that any stack is
+> unsafe.
+
+### The post — 280 characters
+
+Use this when the long form will not fit. It carries the same ladder and the
+same limit; nothing in it needs the long form as context.
+
+> I read 20 public guardrail evaluations against primary sources.
+>
+> 5 preserve an artifact you can compute a joint miss rate from.
+> 0 document matched thresholds with full exposure.
+>
+> One reviewer: me. Rows bind to sources; corrections logged same day.
+
+Body is 247 characters. X counts a shortened link as 23 plus a separating
+space, so the posted total is 271 of 280 — nine characters of margin. Re-count
+before editing a word.
+
+### Why this wording and not the earlier draft
+
+The earlier draft said evaluations "almost never" publish the joint number.
+The census says 5 of 20 preserve a usable artifact, which is 25% — "almost
+never" is a stronger sentence than the file supports, and the first reader to
+check would have found that. It also omitted the 14, which reads as picking the
+two most favorable rungs; the full ladder is 20 / 14 / 5 / 0 and the post now
+states three of them. It also omitted the single-reviewer limit, which is the
+first thing a skeptic finds and the last thing that should look concealed.
+
+**On expectations.** Rule 2 above is not decoration. An account with no audience
+gets approximately no reach on a first post, and this one is not written to
+travel — it is written to survive being checked by the twenty people who could
+correct a row. The reply opportunities later in this pack are the mechanism; the
+pinned post is the thing they land on afterwards.
 
 ---
 

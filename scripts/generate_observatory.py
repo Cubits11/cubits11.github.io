@@ -46,6 +46,34 @@ def status_pill_class(status: str) -> str:
     return "status"
 
 
+# The research object's own state, printed apart from the claim's evidential
+# status. A claim can be fully supported about a document whose study has
+# produced nothing; these two facts must not share a pill.
+STUDY_STATE_LABELS = {
+    "not_started": "NOT STARTED",
+    "untested": "UNTESTED",
+    "not_activated": "NOT ACTIVATED",
+    "dry_run_only": "DRY RUN ONLY",
+    "in_collection": "IN COLLECTION",
+    "complete": "COMPLETE",
+}
+
+
+def study_state_html(c: dict) -> str:
+    block = c.get("study_state")
+    if not block:
+        return ""
+    state = str(block.get("state", ""))
+    return (
+        f'<div class="study-state" data-study-state-for="{esc(c["id"])}" '
+        f'data-study-state="{esc(state)}">'
+        f'<span class="mono study-state-label">Study · {esc(block.get("object", ""))}'
+        f'</span> <span class="mono study-state-pill">'
+        f'{esc(STUDY_STATE_LABELS.get(state, state.upper()))}</span>'
+        f'<p class="study-state-note">{esc(" ".join(str(block.get("note", "")).split()))}</p>'
+        f'</div>')
+
+
 def render_capsule(c: dict) -> str:
     d = c["dimensions"]
     sup = c.get("support") or {}
@@ -77,6 +105,7 @@ def render_capsule(c: dict) -> str:
       <span class="clock" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="clock-track" cx="18" cy="18" r="15.5"/><circle class="clock-arc" cx="18" cy="18" r="15.5"/></svg></span>
     </div>
     <p class="cap-prop">{esc(prop)}</p>
+    {study_state_html(c)}
     <div class="cap-slabs">{slab}</div>
     <div class="cap-meta mono">
       <span>{esc(label(d["provenance"]))} · {esc(label(d["maturity"]))}</span>
@@ -189,6 +218,10 @@ h1{{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0
 .capsule-attested{{border-left-style:dashed;border-left-color:var(--line-strong)}}
 .cap-head{{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}}
 .cap-id{{color:var(--gold);font-size:.68rem;font-weight:400;margin:0;letter-spacing:.09em;margin-right:auto}}
+.study-state{{border:1px solid var(--gold);border-left:3px solid var(--gold);background:transparent;padding:.7rem .85rem;margin:0 0 1rem;max-width:46em}}
+.study-state-label{{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}}
+.study-state-pill{{font-size:.72rem;letter-spacing:.08em;color:var(--gold);border:1px solid var(--gold);padding:.08rem .4rem;margin-left:.35rem}}
+.study-state-note{{font-size:.86rem;line-height:1.5;color:var(--muted);margin:.5rem 0 0}}
 .cap-prop{{font-family:var(--serif);font-size:.98rem;line-height:1.5;margin:0;color:var(--ink)}}
 .cap-slabs{{display:flex;flex-wrap:wrap;gap:.5rem}}
 .cap-meta{{display:flex;flex-direction:column;gap:.3rem;color:var(--muted)}}
