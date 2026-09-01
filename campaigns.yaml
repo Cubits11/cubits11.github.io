@@ -1,5 +1,11 @@
 # The campaign ledger — every acquisition path this record deliberately opens.
 #
+# DISPATCH STATUS: HELD. This registry preserves prepared routes and outcome
+# definitions; it is not authorization to post, schedule, contact, or measure
+# a campaign. `docs/FRONTIER_ROADMAP.md` §5 currently declines new
+# social/visual work. Any future dispatch requires separate owner approval and
+# re-derivation at the dispatch commit.
+#
 # This file is the attribution source of truth. A link that is not built from a
 # row here is not attributable, and an unattributable visit cannot be counted
 # toward the first hundred qualified humans. scripts/verify_growth.py checks

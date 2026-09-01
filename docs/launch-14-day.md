@@ -1,5 +1,14 @@
 # The 14-day launch pack
 
+> **Status: HELD — no dispatch authorization.** This is retained as a shelf
+> artifact, not a current distribution instruction. `FRONTIER_ROADMAP.md` §5
+> explicitly declines further social/visual work in the current window. Do not
+> post, schedule, contact, or reuse its copy without a separate owner approval,
+> a fresh source re-derivation, and the release-gate checks then in force. This
+> draft predates the current pre-freeze-visibility sensitivity and must be
+> re-prosecuted line by line against `claims.yaml` and `census.yaml` before any
+> future use.
+
 Publish-ready copy for the first distribution cycle. Every item names its
 audience, its destination (campaign-tagged, built from `campaigns.yaml`), the
 action it is asking for, the scope of what it claims, and the signal that says
