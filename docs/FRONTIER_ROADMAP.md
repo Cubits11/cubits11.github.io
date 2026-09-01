@@ -229,7 +229,7 @@ cannot be quietly reframed as "inconclusive, needs more data."
 |---|---|---|
 | Days 1–14 | Corrective census release | M ladder printed; dual-review of all 20 rows recorded; retrieval and screening ledger published; PR CI and post-deploy gate green on the live site |
 | Days 15–30 | MJGD v1 schema + validator | Fixtures pass for parallel, sequential, partial-release, aggregate-only, and missing-data cases; one maintainer outside this repository tests or rejects it **on record** |
-| Days 31–45 | Frozen E2 protocol | One population, one event, three named systems, versions, thresholds, routes, data rights, stopping rules, and a sealed holdout — all tagged **before** any outcome is inspected |
+| Days 31–45 | Frozen E2 protocol | One population, one event, three named systems, versions, thresholds, data rights, stopping rules — Arm S (static, full exposure), all tagged **before** any outcome is inspected. Routes and a sealed holdout move to a later packet — amended 2026-09-01 when the E2 pilot froze (`docs/E2_PILOT_V1_CUT.md`, `experiments/e2/freeze/`); the original line also demanded routes and a sealed holdout in this window |
 | Days 46–70 | Prospective collection | Predeclared high-risk-stratum precision target met, or a declared STOP/HOLD with its reason; no silent missing cells; outcome, label, and configuration provenance retained |
 | Days 71–90 | Joint Evidence Packet | Deterministic replay; direct joint results shown against marginal-only bounds; uncertainty, benign burden, and route effects reported; one independent clean-environment reproduction |
 
