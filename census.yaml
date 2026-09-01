@@ -205,8 +205,9 @@ census:
         GitHub-recorded dates alone: repository created 2026-06-02, pinned
         snapshot dated 2026-07-13, repository public when examined. Those
         stamps record creation and content, not when the repository became
-        publicly visible, and checks on 2026-09-01 found no web-archive
-        capture of the repository at any date and no forks. This sensitivity
+        publicly visible; on 2026-09-01 the Wayback Machine's CDX index held
+        no capture of the repository at any date, the repository had no
+        forks, and no other archive was queried. This sensitivity
         does not assert that the row fails public_access. It states what the
         envelope becomes if that criterion is read post-freeze as requiring
         archive- or third-party-evidenced public visibility by the freeze
@@ -247,6 +248,17 @@ census:
       candidates surfaced but not examined are listed under
       unexamined_candidates and excluded from every count
   revision_history:
+    - date: "2026-09-01"
+      change: >-
+        Wayback precision. The pre-freeze-visibility-evidenced premise and
+        the earlier entry of this date said checks on 2026-09-01 "found no
+        web-archive capture"; the only archive queried was the Wayback
+        Machine's CDX index, which held no capture of the repository at any
+        date. archive.today and other archives were not queried. The premise
+        now names the archive checked; the earlier entry stands as written
+        rather than being silently reworded, per this record's correction
+        rule. No row, classification, count, or sensitivity envelope
+        changed.
     - date: "2026-09-01"
       change: >-
         Date-evidence sensitivity declared for the 2026-08-30 addition. The
