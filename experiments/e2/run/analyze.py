@@ -80,6 +80,72 @@ def delta(cc: dict, a: str, b: str) -> tuple[float, float, float, int]:
     return p11 - pa * pb, pa, pb, n
 
 
+def missingness_delta_bounds(per_item: dict, a: str, b: str) -> tuple[float, float]:
+    """Exact extremal Δ_ab over every completion of the missing cells.
+
+    Fixed part: items with both a and b observed. Free parts, per the
+    TRUE completion space (observed cells of partially missing items stay
+    fixed; only missing cells vary):
+      k1/k0 items with a missing and b observed 1/0 — choose j1/j0 set to 1
+      l1/l0 items with b missing and a observed 1/0 — choose i1/i0 set to 1
+      mb items with both missing — choose c11/c10/c01 pattern counts
+    Δ is linear in j0, i0 and bilinear in (c10, c01) given the rest, so
+    those sit at corners; j1, i1, c11 are scanned exhaustively. Proven
+    exact against brute-force enumeration in test_instrument.py.
+    """
+    n11 = na = nb = 0
+    k1 = k0 = l1 = l0 = mb = 0
+    n = len(per_item)
+    for v in per_item.values():
+        ha, hb = a in v, b in v
+        if ha and hb:
+            n11 += v[a] & v[b]
+            na += v[a]
+            nb += v[b]
+        elif hb:
+            k1 += v[b]
+            k0 += 1 - v[b]
+            nb += v[b]   # the observed b counts toward pB under EVERY fill
+        elif ha:
+            l1 += v[a]
+            l0 += 1 - v[a]
+            na += v[a]   # the observed a counts toward pA under EVERY fill
+        else:
+            mb += 1
+
+    def d(j1, j0, i1, i0, c11, c10, c01) -> float:
+        p11 = (n11 + j1 + i1 + c11) / n
+        pa = (na + j1 + j0 + c11 + c10) / n
+        pb = (nb + i1 + i0 + c11 + c01) / n
+        return p11 - pa * pb
+
+    lo, hi = math.inf, -math.inf
+    for j1 in range(k1 + 1):
+        for i1 in range(l1 + 1):
+            for c11 in range(mb + 1):
+                rest = mb - c11
+                for j0 in (0, k0):
+                    for i0 in (0, l0):
+                        # (c10, c01) on the simplex c10+c01 <= rest: Δ is
+                        # bilinear, linear along the axes, but QUADRATIC
+                        # along the hypotenuse — the product (A+c10)(B+c01)
+                        # with a fixed sum peaks at the balanced split, so
+                        # Δ's minimum can sit interior. Evaluate the three
+                        # corners AND the integer neighbourhood of that
+                        # interior optimum.
+                        cands = {(0, 0), (rest, 0), (0, rest)}
+                        A = na + j1 + j0 + c11
+                        Bv = nb + i1 + i0 + c11
+                        t = (Bv + rest - A) / 2
+                        for ti in (math.floor(t), math.ceil(t)):
+                            ti = max(0, min(rest, ti))
+                            cands.add((ti, rest - ti))
+                        for c10, c01 in cands:
+                            v = d(j1, j0, i1, i0, c11, c10, c01)
+                            lo, hi = min(lo, v), max(hi, v)
+    return lo, hi
+
+
 def delta_independent(cc: dict, a: str, b: str) -> float:
     """Control 5: a second route — contingency counts, not indicator means."""
     n11 = n10 = n01 = n00 = 0
@@ -111,10 +177,10 @@ def bootstrap_ci(cc: dict, a: str, b: str) -> tuple[float, float]:
     return deltas[int(0.025 * B)], deltas[int(0.975 * B) - 1]
 
 
-def analyze_stratum(name: str, cc: dict, missing_items: dict) -> dict:
+def analyze_stratum(name: str, cc: dict, per_item_all: dict) -> dict:
     n = len(cc)
     out = {"stratum": name, "complete_case_n": n,
-           "missing_items": len(missing_items)}
+           "items_with_missing_cells": len(per_item_all) - n}
     out["marginals"] = {
         g: {"p": sum(v[g] for v in cc.values()) / n,
             "wilson95": wilson(sum(v[g] for v in cc.values()), n)}
@@ -168,16 +234,14 @@ def analyze_stratum(name: str, cc: dict, missing_items: dict) -> dict:
         noise[str(rate)] = {f"{a}+{b}": delta(flipped, a, b)[0]
                             for a, b in PAIRS}
     out["label_noise_control"] = noise
-    bounds = {}
-    for a, b in PAIRS:
-        vals = []
-        for fill in (0, 1):
-            ext = dict(cc)
-            for i in missing_items:
-                ext[i] = {g: fill for g in GUARDS}
-            vals.append(delta(ext, a, b)[0])
-        bounds[f"{a}+{b}"] = sorted(vals)
-    out["missingness_bounds"] = bounds
+    # Exact extremal bounds over the true completion space: every item
+    # enters; observed cells stay fixed; only missing cells vary. The
+    # 2026-09-01 uniform-fill version was proven unsound by the battery
+    # (P6) and replaced — Δ is not monotone in the fill.
+    everything = dict(per_item_all)
+    out["missingness_bounds"] = {
+        f"{a}+{b}": missingness_delta_bounds(everything, a, b)
+        for a, b in PAIRS}
     return out
 
 
@@ -196,11 +260,13 @@ def main() -> int:
     tag = "SYNTHETIC" if synthetic else "REAL"
     report = {"mode": tag, "strata": []}
     for stratum, per_item in sorted(events.items()):
+        only_missing = set(missing.get(stratum, {})) - set(per_item)
+        per_item_all = {**{i: {} for i in only_missing}, **per_item}
         cc = complete_cases(per_item)
-        res = analyze_stratum(stratum, cc, missing.get(stratum, {}))
+        res = analyze_stratum(stratum, cc, per_item_all)
         report["strata"].append(res)
         print(f"[{tag}] {stratum}: complete-case n={res['complete_case_n']}, "
-              f"missing items={res['missing_items']}")
+              f"items with missing cells={res['items_with_missing_cells']}")
         for pair, pr in res["pairs"].items():
             print(f"[{tag}]   {pair}: Δ={pr['delta']:+.5f} "
                   f"boot95=({pr['bootstrap95'][0]:+.5f},"

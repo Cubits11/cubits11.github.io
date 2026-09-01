@@ -119,15 +119,19 @@ def main() -> int:
         sys.exit("real mode needs --config from a frozen calibration")
     sys.path.insert(0, str(HERE))
     from adapters import SCORERS  # gated: refuses off the authorized box
+    from items_text import benign_texts, harmful_texts
     cfg = json.loads(Path(args.config).read_text())
+    texts = {**benign_texts("evaluation"), **harmful_texts()}
     items = (read_items("items_benign_evaluation.csv", "benign_eval") +
              read_items("items_harmful.csv", "harmful"))
-    print(f"real collection: {len(items)} frozen items; adapters gated")
+    if {i["id"] for i in items} != set(texts):
+        sys.exit("frozen ids and verified texts disagree; refusing")
+    print(f"real collection: {len(items)} frozen, hash-verified items")
     run_id = "E2-PILOT-V1-RUN-1"
     with open(out / "rows.jsonl", "w") as fh:
         for item in items:
             for g in GUARDS:
-                score = SCORERS[g](item["id"])  # raises until on-box
+                score = SCORERS[g](texts[item["id"]])  # box-gated
                 emit_row(fh, run_id=run_id, item=item, guard=g, replicate=1,
                          score=score, threshold=cfg["results"][g]["threshold"],
                          status="observed", code="observed", synthetic=False)

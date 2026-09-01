@@ -118,10 +118,15 @@ def main() -> int:
 
     if not args.guard:
         sys.exit("real mode needs --guard; run on the authorized box only")
+    from items_text import benign_texts
+    texts = benign_texts("calibration")  # hash-verified against the freeze
     ids = calibration_ids()
-    print(f"calibration half: {len(ids)} frozen ids; guard {args.guard}")
+    if set(ids) != set(texts):
+        sys.exit("calibration ids and verified texts disagree; refusing")
+    print(f"calibration half: {len(ids)} frozen, hash-verified texts; "
+          f"guard {args.guard}")
     adapter = ADAPTERS[args.guard]
-    scores = {i: adapter(i) for i in ids}  # raises until shaken out
+    scores = {i: adapter(texts[i]) for i in ids}  # box-gated
     result = sweep(scores)
     (out / f"calibration_{args.guard}.json").write_text(
         json.dumps(result, indent=2))
