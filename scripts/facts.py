@@ -68,31 +68,27 @@ def as_int(token: str) -> int | None:
 
 
 def accepted_triples(data: dict | None = None) -> set[tuple[int, int, int]]:
-    """Every three-number envelope the record may state without a date.
+    """Every three-number envelope the record may state bare, with no context.
 
-    Three shapes are current: the primary N/M/K, the M ladder, and each
-    declared interpretation sensitivity — the last recomputed here from the
-    census rather than read off the page, so a sensitivity that drifts is a
-    failure and not an exemption.
+    Two shapes qualify: the primary N/M/K and the M ladder. Sensitivity
+    envelopes are deliberately NOT accepted bare: an alternative envelope may
+    be numerically identical to a superseded one (19/13/4 is both the
+    envelope this census rejected on 2026-08-30 and what the
+    pre-freeze-visibility-evidenced sensitivity computes), so a bare triple
+    cannot say which it means. A sensitivity envelope passes the triple
+    backstop only inside a declared-alternative context — near a date or the
+    word "sensitivity"/"counterfactual" — which is how the generated aside
+    and the dated revision entries state it. Sensitivity drift is caught
+    upstream by verify_census.check_interpretation_sensitivities, not here.
     """
     data = data or verify_census.load()
     counts = verify_census.compute_counts(data)
     strata = counts["M_strata"]
-    triples = {
+    return {
         (counts["N"], counts["M"], counts["K"]),
         (strata["shared_basis"], strata["threshold_not_contradicted"],
          strata["threshold_documented_full_exposure"]),
     }
-    for sensitivity in (data.get("census") or {}).get(
-            "interpretation_sensitivities") or []:
-        alt = verify_census.compute_counts(
-            data, set(sensitivity["exclude_benchmark_ids"]))
-        alt_strata = alt["M_strata"]
-        triples.add((alt["N"], alt["M"], alt["K"]))
-        triples.add((alt_strata["shared_basis"],
-                     alt_strata["threshold_not_contradicted"],
-                     alt_strata["threshold_documented_full_exposure"]))
-    return triples
 
 
 def registry(counts: dict | None = None) -> dict[str, int]:

@@ -206,9 +206,12 @@ census:
         snapshot dated 2026-07-13, repository public when examined. Those
         stamps record creation and content, not when the repository became
         publicly visible, and checks on 2026-09-01 found no web-archive
-        capture of the repository at any date and no forks. This stricter
-        post-freeze sensitivity excludes the row until its pre-freeze public
-        visibility is independently evidenced or stated by its author.
+        capture of the repository at any date and no forks. This sensitivity
+        does not assert that the row fails public_access. It states what the
+        envelope becomes if that criterion is read post-freeze as requiring
+        archive- or third-party-evidenced public visibility by the freeze
+        date. A statement from the row's author, or independent pre-cutoff
+        evidence, settles the reading either way.
       exclude_benchmark_ids: ["multimodal-safeguard-bench-2026"]
       expected:
         n_examined: 19
