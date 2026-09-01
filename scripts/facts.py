@@ -108,6 +108,7 @@ def registry(counts: dict | None = None) -> dict[str, int]:
         "MC-001.M1": strata["shared_basis"],
         "MC-001.M2": strata["threshold_not_contradicted"],
         "MC-001.M3": strata["threshold_documented_full_exposure"],
+        "MC-001.ABSENT": counts["by_classification"].get("ABSENT", 0),
         "MC-001.K": counts["K"],
         "MC-001.K.prints_composition_result": modes["prints_composition_result"],
         "MC-001.K.releases_computable_items": modes["releases_computable_items"],
@@ -192,7 +193,8 @@ REQUIRED_BINDINGS: dict[str, set[str]] = {
     "ledger/index.html": {"MC-001.N", "MC-001.M1", "MC-001.K"},
     "observatory/index.html": {"MC-001.N", "MC-001.M1", "MC-001.K"},
     "resume/index.html": {"MC-001.N", "MC-001.M1", "MC-001.K"},
-    "index.html": {"MC-001.N", "MC-001.K", "MC-001.M3"},
+    "index.html": {"MC-001.N", "MC-001.K", "MC-001.M3", "MC-001.M1",
+                   "MC-001.ABSENT"},
     "answers/why-guardrail-miss-rates-do-not-multiply/index.html": {
         "MC-001.N", "MC-001.K", "MC-001.M3"},
     "answers/how-to-evaluate-guardrails-you-plan-to-stack/index.html": {

@@ -496,14 +496,15 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "2ae92d0238eaa3f5a0d6cd82ceb670c804da76b0e364d301ab1b2590775100b5"
+        sha256: "07d95d31f6ffefbe78a728a213e8135d9574ff7d3dbb78a3826e6311c22cb7b2"
         note: >-
           fires when the census changes without a claim re-review;
           re-reviewed 2026-09-01 after declaring the
           pre-freeze-visibility-evidenced sensitivity: the row that moved
-          19/13/4 to 20/14/5 qualifies on GitHub-recorded dates that do not
-          record when its repository became publicly visible, and no
-          web-archive capture of it exists at any date (checked 2026-09-01).
+          19/13/4 to 20/14/5 is in the 20 on GitHub-recorded dates that do
+          not record when its repository became publicly visible; the
+          Wayback Machine's CDX index held no capture of it at any date when
+          checked on 2026-09-01, and no other archive was queried.
           The sensitivity's 19/13/4 alternative envelope is now asserted by
           verify_census.py rather than living in revision prose. No row,
           classification, evidence field, or primary count changed; N/M/K
