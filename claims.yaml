@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-08-31"
+last_owner_review: "2026-09-01"
 
 claims:
   - id: CC-001
@@ -490,25 +490,24 @@ claims:
         shared_basis: 14
         threshold_not_contradicted: 12
         threshold_documented_full_exposure: 0
-    last_reviewed: "2026-08-31"
+    last_reviewed: "2026-09-01"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "f37b04de0e91f773608900a8bc91eac6adbd8f45b0ad8cc37e19dbcea322e03f"
+        sha256: "06641efcaeaaabb90f7f17483f192f321e7741acccf715ecfb96a4e9fbe722c4"
         note: >-
           fires when the census changes without a claim re-review;
-          re-reviewed 2026-08-31 after freezing v0 as a historical
-          snapshot: every examined row annotated with protocol-v1
-          vocabulary (source_type, reconstruction class, preservation
-          state), a v0_row_lock minted so history cannot change
-          silently, and prospective v1 collection rules committed in
-          census_protocol_v1.yaml. The same-day semantic-scope correction to
-          MC-004 records its released values as adapter-bit arithmetic: a
-          counterfactual harness action, not a shared-event catch union. No
-          row classification or N/M/K value changed, and the M ladder remains
-          14/12/0.
+          re-reviewed 2026-09-01 after declaring the
+          pre-freeze-visibility-evidenced sensitivity: the row that moved
+          19/13/4 to 20/14/5 qualifies on GitHub-recorded dates that do not
+          record when its repository became publicly visible, and no
+          web-archive capture of it exists at any date (checked 2026-09-01).
+          The sensitivity's 19/13/4 alternative envelope is now asserted by
+          verify_census.py rather than living in revision prose. No row,
+          classification, evidence field, or primary count changed; N/M/K
+          remain 20/14/5 and the M ladder remains 14/12/0.
       - type: manual
         enforcement: manual
         event: >
