@@ -22,6 +22,7 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("census", "scripts/verify_census.py"),
     ("census protocol v1", "scripts/verify_census_protocol.py"),
     ("census invariant mutations", "scripts/verify_census_mutations.py"),
+    ("asset quarantine", "scripts/verify_quarantine.py"),
     ("ledger drift", "scripts/generate_ledger.py", "--check"),
     ("figure assertions", "scripts/verify_figures.py"),
     ("module drift", "scripts/generate_modules.py", "--check"),
