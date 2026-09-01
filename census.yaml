@@ -103,7 +103,7 @@ census:
       scripts/verify_census.py fails the build otherwise.
     protocol_for_new_observations: census_protocol_v1.yaml
   v0_row_lock:
-    sha256: "dbce972876cc1689f8ec318151a0b4a91c53a8f738091caa593c2b19ed439889"
+    sha256: "2e1b3247874724595fddbcd74962504748e7de4f60b326ab54e357f639719357"
     canonicalization: >-
       JSON UTF-8; sort_keys=true; separators=(',', ':'); ensure_ascii=false;
       benchmarks list sorted by id
@@ -248,6 +248,19 @@ census:
       candidates surfaced but not examined are listed under
       unexamined_candidates and excluded from every count
   revision_history:
+    - date: "2026-09-01"
+      change: >-
+        ml6-2026 preservation annotation: the row now records archive
+        capture 20260829070626 as ARCHIVE_URL_RECORDED. The capture is the
+        one produced by the row's own 2026-08-28 Save Page Now acceptance;
+        it was printed as an HTTP 200 capture meeting the
+        reviewed-freshness bar by the corrected two-index wayback gate on
+        2026-09-01, and a same-day independent liveness re-check was
+        throttled (HTTP 429) — which is why the state is
+        ARCHIVE_URL_RECORDED rather than ARCHIVED_VERIFIED, exactly as the
+        preservation vocabulary defines the distinction. No evidential
+        field, classification, count, or ladder value changed; N/M/K
+        remain 20/14/5. v0_row_lock re-minted.
     - date: "2026-09-01"
       change: >-
         Wayback precision. The pre-freeze-visibility-evidenced premise and
@@ -2195,9 +2208,16 @@ benchmarks:
       evidence: >-
         comparable marginals over a shared item universe bound the joint by sharp Frechet-Hoeffding limits without point-identifying it
     preservation:
-      state: NO_ARCHIVE_RECORDED
+      state: ARCHIVE_URL_RECORDED
+      archive_url: "https://web.archive.org/web/20260829070626/https://www.ml6.eu/en/blog/inside-ai-guardrails-a-benchmark-on-enterprise-llm-security"
       evidence: >-
-        this census records no archival URL for this row — a statement about the census, not about whether an archive exists
+        capture 20260829070626 (2026-08-29T07:06:26Z, following this row's
+        2026-08-28T14:27:45Z Save Page Now acceptance) was printed as an
+        HTTP 200 capture passing the reviewed-freshness bar by the
+        corrected two-index wayback gate on 2026-09-01; a same-day
+        independent liveness re-check was throttled (HTTP 429), so the URL
+        is recorded, not liveness-verified — upgrade to ARCHIVED_VERIFIED
+        only on an unthrottled green run
     status: examined
     title: "Inside AI Guardrails: a benchmark on enterprise LLM security"
     authors_or_org: "Cristóbal Sendín — ML6 (contributors Vrancken, Wehkamp, Van Der Burght)"
@@ -2263,15 +2283,26 @@ benchmarks:
       - "Executive summary — 'Cisco AI Defense achieved the best F1-score (0.845)'"
     contact_route: "https://www.ml6.eu/en/contact (no author emails printed)"
     last_checked: "2026-08-28"
-    correction_history: []
+    correction_history:
+      - date: "2026-09-01"
+        change: >
+          Preservation annotation only: NO_ARCHIVE_RECORDED became
+          ARCHIVE_URL_RECORDED, binding capture 20260829070626 — the one
+          the 2026-08-28 Save Page Now acceptance produced — after the
+          corrected two-index wayback gate printed it as an HTTP 200
+          capture meeting the reviewed-freshness bar on 2026-09-01. A
+          same-day liveness re-check was throttled (429), so the state is
+          deliberately ARCHIVE_URL_RECORDED, not ARCHIVED_VERIFIED. No
+          evidential field, classification, or count changed.
     notes: >
       Re-reviewed against the live source on 2026-08-28 after its HTTP
       Last-Modified value advanced. The cited table and sections remained
       present, so this row's classification is unchanged. A single Wayback
-      Save Page Now request was accepted at 2026-08-28T14:27:45Z, but neither
-      the availability endpoint nor CDX had returned a durable capture at
-      2026-08-28T14:28:15Z; no archived URL is claimed yet. Hold public
-      launch use of this source until a timestamped capture is confirmed.
+      Save Page Now request was accepted at 2026-08-28T14:27:45Z; the
+      capture it produced (20260829070626) was later printed by the
+      corrected wayback gate and is now recorded on this row (see
+      correction_history), with liveness verification still pending an
+      unthrottled run.
       An earlier working assumption that ML6's harness "necessarily computed"
       the union was wrong and is rejected: nothing in the post shows
       per-item retention or any union computation.
