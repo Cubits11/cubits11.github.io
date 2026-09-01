@@ -45,6 +45,15 @@ def main() -> int:
                           f"!= receipt {receipt['artifact_sha256'][:12]}…")
         if artifact.read_bytes()[:5] != b"%PDF-":
             errors.append(f"{receipt['artifact']}: not a PDF")
+        # Chromium resolves site-relative links against the local server used
+        # during the print build unless the resume names canonical URLs. A
+        # downloadable resume must never send a recruiter to a loopback host.
+        pdf_bytes = artifact.read_bytes()
+        for local_origin in (b"127.0.0.1", b"localhost"):
+            if local_origin in pdf_bytes:
+                errors.append(
+                    f"{receipt['artifact']}: contains a local link target "
+                    f"({local_origin.decode()}); rebuild with public URLs")
 
     for rel, expected in receipt["sources"].items():
         path = ROOT / rel

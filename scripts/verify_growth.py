@@ -57,7 +57,8 @@ REQUIRED_CTAS = {
         "/missing-column/disclosure/", "/work/"],
     "answers/what-does-the-second-guardrail-add/index.html": [
         "/missing-column/disclosure/", "/ledger/#MC-003"],
-    "missing-column/index.html": ["/missing-column/disclosure/", "/corrections/"],
+    "missing-column/index.html": ["/missing-column/disclosure/", "/corrections/",
+                                  "/missing-column/reproduce/"],
 }
 
 # Titles are the search result. A title that names an internal noun instead of
@@ -134,8 +135,20 @@ def check_metadata() -> None:
                 fail(f"{rel}: missing {prop}")
         if 'name="twitter:card"' not in html:
             fail(f"{rel}: missing twitter:card")
-        if 'og:image:alt' not in html:
+        og_image = tag(html, r'<meta property="og:image" content="(.*?)">')
+        twitter_image = tag(html, r'<meta name="twitter:image" content="(.*?)">')
+        if not twitter_image:
+            fail(f"{rel}: missing twitter:image")
+        elif og_image != twitter_image:
+            fail(f"{rel}: og:image and twitter:image name different cards")
+        og_alt = tag(html, r'<meta property="og:image:alt" content="(.*?)">')
+        twitter_alt = tag(html, r'<meta name="twitter:image:alt" content="(.*?)">')
+        if not og_alt:
             fail(f"{rel}: og:image has no alt text")
+        if not twitter_alt:
+            fail(f"{rel}: twitter:image has no alt text")
+        elif og_alt != twitter_alt:
+            fail(f"{rel}: og:image and twitter:image have different alt text")
 
         for block in re.findall(
                 r'<script type="application/ld\+json">(.*?)</script>', html, re.S):

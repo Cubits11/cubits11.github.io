@@ -77,26 +77,29 @@ def next_action(text: str, links: str) -> str:
   </div>'''
 
 
-def article_jsonld(title: str, desc: str, path: str, published: str) -> str:
+def article_jsonld(title: str, desc: str, path: str) -> str:
+    """Describe a real article without asserting invisible bylines or licenses."""
     return jsonld_script({
         "@context": "https://schema.org",
-        "@type": "TechArticle",
+        "@type": "Article",
         "headline": title,
         "description": desc,
         "url": f"{SITE}{path}",
-        "datePublished": published,
-        "dateModified": published,
         "inLanguage": "en",
         "isAccessibleForFree": True,
-        "author": {
-            "@type": "Person",
-            "name": "Pranav Bhave",
-            "url": SITE,
-            "sameAs": ["https://github.com/Cubits11"],
-        },
-        "publisher": {"@type": "Person", "name": "Pranav Bhave", "url": SITE},
         "mainEntityOfPage": {"@type": "WebPage", "@id": f"{SITE}{path}"},
-        "license": "https://creativecommons.org/licenses/by/4.0/",
+    })
+
+
+def webpage_jsonld(title: str, desc: str, path: str) -> str:
+    """Use WebPage markup for a service page rather than calling it an article."""
+    return jsonld_script({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": title,
+        "description": desc,
+        "url": f"{SITE}{path}",
+        "inLanguage": "en",
     })
 
 
@@ -109,7 +112,7 @@ def render_work() -> str:
             "certifications.")
     path = "/work/"
     head = page_head(title, desc, path, PAGE_CSS,
-                     jsonld=article_jsonld(title, desc, path, "2026-08-30"))
+                     jsonld=webpage_jsonld(title, desc, path))
     crumbs = breadcrumbs(("The record", "/"), ("Work with me", None))
 
     offers = [
@@ -254,7 +257,7 @@ def render_multiply(counts: dict) -> str:
             "an interval, and independence is one point inside it.")
     path = "/answers/why-guardrail-miss-rates-do-not-multiply/"
     head = page_head(title, desc, path, PAGE_CSS,
-                     jsonld=article_jsonld(title, desc, path, "2026-08-30"))
+                     jsonld=article_jsonld(title, desc, path))
     crumbs = breadcrumbs(("The record", "/"), ("Answers", None),
                          ("Why miss rates do not multiply", None))
     ratio = (mc2["all_miss"] / mc2["n_harmful"]) / (
@@ -378,7 +381,7 @@ def render_evaluate(counts: dict) -> str:
             "joint row per-detector scores cannot supply.")
     path = "/answers/how-to-evaluate-guardrails-you-plan-to-stack/"
     head = page_head(title, desc, path, PAGE_CSS,
-                     jsonld=article_jsonld(title, desc, path, "2026-08-30"))
+                     jsonld=article_jsonld(title, desc, path))
     crumbs = breadcrumbs(("The record", "/"), ("Answers", None),
                          ("Evaluating guardrails you plan to stack", None))
     strata = counts["M_strata"]
@@ -486,7 +489,7 @@ def render_second_guard(counts: dict) -> str:
             "Leave-one-out unions identify it without releasing raw items.")
     path = "/answers/what-does-the-second-guardrail-add/"
     head = page_head(title, desc, path, PAGE_CSS,
-                     jsonld=article_jsonld(title, desc, path, "2026-08-30"))
+                     jsonld=article_jsonld(title, desc, path))
     crumbs = breadcrumbs(("The record", "/"), ("Answers", None),
                          ("What the second guardrail adds", None))
     loo = mc2["leave_one_out_union"]
