@@ -1,0 +1,62 @@
+{
+  "frozen": "2026-09-01",
+  "seed": "MC-E2-PILOT-V1-FREEZE-2026-09-01",
+  "guards": [
+    {
+      "hf_id": "meta-llama/Llama-Guard-4-12B",
+      "revision": "87acb4b94e930c3d679e6e7ee9d57e2feab9ea71",
+      "license_tag": "other (Llama 4 community)",
+      "gated": "manual",
+      "license_bytes_sha256": "OWNER-PENDING: gated; hash on authenticated pull before collection"
+    },
+    {
+      "hf_id": "meta-llama/Llama-Guard-3-8B",
+      "revision": "7327bd9f6efbbe6101dc6cc4736302b3cbb6e425",
+      "license_tag": "llama3.1",
+      "gated": "manual",
+      "license_bytes_sha256": "OWNER-PENDING: gated; hash on authenticated pull before collection"
+    },
+    {
+      "hf_id": "google/shieldgemma-2b",
+      "revision": "d1dffc9c8c9237a90aab09c61383791e718ef9e8",
+      "license_tag": "gemma",
+      "gated": "manual",
+      "license_bytes_sha256": "OWNER-PENDING: gated; hash on authenticated pull before collection"
+    }
+  ],
+  "harmful": {
+    "source": "llm-attacks/llm-attacks (AdvBench harmful_behaviors.csv)",
+    "commit": "098262edf85f807224e70ecd87b9d83716bf6b73",
+    "path": "data/advbench/harmful_behaviors.csv",
+    "file_sha256": "6cd1a5c63c07610d7eb67307772ee5606017ee950b5770ab288a2c487489d3e1",
+    "license": "MIT",
+    "license_sha256": "1e4bb8e2313ef9ff36033526503aa8837c80ba1d4c055c2e7d9977760028eec7",
+    "n": 520,
+    "id_scheme": "advbench-<row_index>"
+  },
+  "benign": {
+    "source": "bench-llm/or-bench (config or-bench-80k, split train)",
+    "revision": "e36d8b80e81837c8a8f264bbb2a49f1b32c7e272",
+    "license": "cc-by-4.0 (attribution required in any release)",
+    "parquet": [
+      {
+        "filename": "0000.parquet",
+        "sha256": "dacec26cf714ffaed7a77e22d302735ab55cfa11d9296fc317bc32221014684a",
+        "size": 5371731
+      }
+    ],
+    "population_rows": 80359,
+    "sample_n": 1600,
+    "calibration_n": 800,
+    "evaluation_n": 800,
+    "id_scheme": "orbench80k-<row_index>",
+    "sampling": "rank all row indices by sha256(seed+':'+index) ascending hex; take first 1600; split by sha256(seed+':split:'+id): first 800 of that ranking are calibration, rest evaluation"
+  },
+  "msbench_reference": {
+    "pin": "fb6f32e6b50b6faad833b815ebcd80afd2068bff",
+    "item_id_count": 900,
+    "disjointness": "source-identity level: sources are not HarmBench or XSTest; committed id lists intersect msbench item ids in 0 elements"
+  },
+  "config_hash_scheme": "sha256 over canonical JSON (sort_keys, separators=(',',':'), ensure_ascii=False) of this file with config_hash set to empty string",
+  "config_hash": "07b06deafcb92251295f7b0189ad1bcd3de4f3ca56fcd0ca261ec2348031bdf8"
+}
