@@ -196,6 +196,24 @@ census:
         n_examined: 19
         m_shared_basis: 13
         k_present: 5
+    - id: pre-freeze-visibility-evidenced
+      label: "Independently evidenced pre-freeze visibility reading"
+      premise: >
+        The frozen public_access criterion requires public accessibility,
+        which for this v0 snapshot means on or before the frozen as-of date
+        2026-08-27. The row added by the 2026-08-30 correction qualifies on
+        GitHub-recorded dates alone: repository created 2026-06-02, pinned
+        snapshot dated 2026-07-13, repository public when examined. Those
+        stamps record creation and content, not when the repository became
+        publicly visible, and checks on 2026-09-01 found no web-archive
+        capture of the repository at any date and no forks. This stricter
+        post-freeze sensitivity excludes the row until its pre-freeze public
+        visibility is independently evidenced or stated by its author.
+      exclude_benchmark_ids: ["multimodal-safeguard-bench-2026"]
+      expected:
+        n_examined: 19
+        m_shared_basis: 13
+        k_present: 4
   search_protocol:
     executed: "2026-08-27"
     bounded: >
@@ -226,6 +244,24 @@ census:
       candidates surfaced but not examined are listed under
       unexamined_candidates and excluded from every count
   revision_history:
+    - date: "2026-09-01"
+      change: >-
+        Date-evidence sensitivity declared for the 2026-08-30 addition. The
+        row multimodal-safeguard-bench-2026 entered on GitHub-recorded dates
+        (repository created 2026-06-02, pinned snapshot dated 2026-07-13);
+        neither stamp records when the repository became publicly visible,
+        and checks on 2026-09-01 found no web-archive capture of the
+        repository at any date and no forks. That gap was prose in the
+        2026-08-30 entry; it is now the declared sensitivity
+        pre-freeze-visibility-evidenced, whose alternative envelope is
+        mechanically asserted: excluding the row yields N/M/K 19/13/4 and an
+        M ladder of 13/12/0, while the ABSENT classification count stays 14
+        because the excluded row is PRESENT. The two headline 14s — the
+        no-joint-artifact classification count and the shared-basis ladder
+        rung — are different partitions of the same 20 examined rows, and
+        only the second depends on this row. A statement from the row's
+        author is the evidence that would settle the reading either way. No
+        row, classification, evidence field, or primary count changed.
     - date: "2026-09-01"
       change: >-
         Contact routes de-harvested. Nine rows printed 20 author email
