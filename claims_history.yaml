@@ -1,0 +1,1489 @@
+version: 1
+kernel: E5A
+purpose: Declared transitions or nothing. A registered claim's commitment (proposition, scope, falsifier,
+  forbidden_rescues, non_claims, expected) may only change by appending a transition to this chain; scripts/claims_history.py
+  verify fails any live commitment the chain does not predict, any edit to accepted history, and any re-minted
+  genesis.
+non_claim: This kernel detects undeclared commitment changes under the repository's current verification
+  contract, from the genesis forward. It does not establish that an authorized actor cannot change the
+  verifier, the workflow, repository history, branch protection, or the trust model itself; it protected
+  nothing before the genesis; entries marked RETROSPECTIVE_RECONSTRUCTION are E5A's reading of git objects
+  and dated records, not contemporaneous declarations.
+canonicalization: 'commitment = {field: parsed value for field in (proposition, scope, falsifier, forbidden_rescues,
+  non_claims, expected) if present on the claim}; json.dumps(sort_keys=True, separators=('','', '':''),
+  ensure_ascii=False, allow_nan=False); UTF-8; SHA-256 hex'
+commitment_fields:
+- proposition
+- scope
+- falsifier
+- forbidden_rescues
+- non_claims
+- expected
+transition_types:
+- CLARIFY
+- CORRECT
+- EXPAND
+- NARROW
+- RETRACT
+- SUPERSEDE
+provenance_classes:
+- CONTEMPORANEOUS
+- RETROSPECTIVE_RECONSTRUCTION
+direction_bases:
+- DECLARED_HUMAN_JUDGMENT
+- MACHINE_CHECKED
+- NOT_MACHINE_DECIDABLE
+genesis:
+  anchor_commit: fd31559cadd674087e0106a788f62f6a9d0863d7
+  recorded_at: '2026-09-02'
+  note: 'the protected baseline: every registered claim''s full commitment as it stood at the anchor commit,
+    which is the revision this kernel''s first commit extends. Nothing before this line was protected
+    by the kernel.'
+  states:
+  - claim_id: CC-001
+    digest: 894a5a4b1067ca7100300cf8c3d26d0d571cf0a44ed89ed8d71a8f515258d35a
+    commitment:
+      proposition: 'cc.kernel.strict.frechet_bounds computes Fréchet–Hoeffding endpoint bounds for composed
+        binary guardrail failure from declared marginals; for marginals (0.10, 0.10) it returns [0.0,
+        0.10] for the AND event and [0.10, 0.20] for OR.
+
+        '
+      scope: 'The kernel module at the bound commit. Reproduced from a clean clone (venv, pip install,
+        execute, assert) most recently on 2026-08-23, and re-reproduced by CI on every push and weekly.
+        No claim about any deployed system.
+
+        '
+      falsifier:
+        condition: 'A clean-clone execution of the bound module on marginals (0.10, 0.10) returns AND
+          or OR bounds other than the recorded endpoints, beyond the stated tolerance.
+
+          '
+        consequence: REJECT
+      forbidden_rescues:
+      - do not substitute a different input, revision, or numerical tolerance after the failure
+      - do not treat a passing wrapper or test harness as evidence for the stated outputs if direct execution
+        disagrees
+      non_claims:
+      - does not certify any stacked system as safe
+      - does not recover or estimate the unknown dependence
+      - does not select a point inside the returned interval
+      expected:
+        marginals:
+        - 0.1
+        - 0.1
+        bounds:
+          and:
+          - 0.0
+          - 0.1
+          or:
+          - 0.1
+          - 0.2
+        tolerance: 1.0e-09
+  - claim_id: CC-002
+    digest: 7a9d298fa94bf591f7efe3c8f73d5c3a81de4dfafe91f757dd007768b071750b
+    commitment:
+      proposition: 'CC-Framework maintains a claim-boundary manifest mapping its public claims to validation
+        lanes, supporting files, and explicit non-claims.
+
+        '
+      scope: The manifest file at the bound commit on the default branch.
+      falsifier:
+        condition: 'The bound manifest no longer maps its public claims to validation lanes, supporting
+          files, and explicit non-claims as stated.
+
+          '
+        consequence: REJECT
+      forbidden_rescues:
+      - do not call partial or undocumented mappings complete manifest coverage
+      - do not substitute a different, unbound checklist or README after the manifest fails this condition
+      non_claims:
+      - the manifest's existence does not validate the claims it scopes
+  - claim_id: CC-003
+    digest: b1ae99b9b5d64d34ef655e1c65a9cf0f5c354383774e53fd1fae1aa5b654a962
+    commitment:
+      proposition: 'CC-Framework''s E1 dependence-evidence study established constructively that distributions
+        with identical singleton failure rates (0.5) and identical pairwise overlaps (0.25) can differ
+        in three-way failure probability — 0 under even parity, 0.25 under odd parity — so measuring every
+        pair does not identify a three-guardrail stack. E1 is synthetic; its recorded decision is Narrow.
+
+        '
+      scope: 'The frozen study document at the bound commit. Controlled synthetic generators only; no
+        real guardrail was measured.
+
+        '
+      falsifier:
+        condition: 'The frozen E1 construction fails to retain the stated equal singleton and pairwise
+          values while yielding the stated different three-way probabilities (0 under even parity and
+          0.25 under odd parity), or the bound study does not record the stated Narrow decision.
+
+          '
+        consequence: REJECT
+      forbidden_rescues:
+      - do not switch to different marginals, overlaps, or generators after failure and call it the same
+        construction
+      - do not turn failure of the concrete construction into a generic possibility claim without a new,
+        stated construction
+      non_claims:
+      - the parity construction demonstrates possibility, not frequency, in real guardrail stacks — no
+        claim of empirical prevalence
+      - nothing here validates the framework's practical or deployed value; "we validated CC" is prohibited
+        at every rung of the repository's evidence ladder
+      - the product-baseline failure directions observed in E1 are properties of the tested generators,
+        not universal constants
+  - claim_id: CC-004
+    digest: 278acc978967350fe1c010fb1d1380097165a300ebb9f6aa102464297a0bfde8
+    commitment:
+      proposition: 'For marginals (0.10, 0.10) and the both-fail query, cc.kernel.strict identify() returns
+        the sharp interval [0.0, 0.10] together with endpoint witness distributions that sum to one, are
+        nonnegative, satisfy both marginal constraints, and attain each endpoint — verified to 1e-9 from
+        a clean clone.
+
+        '
+      scope: 'The kernel identification module at the bound commit, re-verified by CI on every push and
+        weekly in the witness stage of scripts/reproduce_cc001.py. No claim about any deployed system.
+
+        '
+      falsifier:
+        condition: 'Bound identify() execution fails any stated interval, witness feasibility constraint,
+          marginal constraint, or endpoint-attainment assertion at the declared tolerance.
+
+          '
+        consequence: REJECT
+      forbidden_rescues:
+      - do not replace a failed endpoint witness with an interior distribution or a loose approximate
+        candidate
+      - do not waive a failed sum, nonnegativity, marginal, or attainment constraint by changing the tolerance
+        after the outcome
+      non_claims:
+      - endpoint witnesses are feasible mathematical worlds, not observed systems
+      - attainment does not select a point inside the interval or estimate the true dependence
+      expected:
+        marginals:
+        - 0.1
+        - 0.1
+        interval:
+        - 0.0
+        - 0.1
+        tolerance: 1.0e-09
+  - claim_id: CC-005
+    digest: 77e7f40b30f826418673460fd880bfe308af8b585476a75ff4577e03b9edb1d7
+    commitment:
+      proposition: 'CC-Framework''s E2 — the shared-item empirical guardrail pilot — is governed by a
+        measurement contract frozen before any dataset was inspected; no conforming dataset has been collected,
+        so E2 is untested, and the contract''s conformance checks are executable.
+
+        '
+      scope: 'The frozen contract document at the bound commit. Freezing is a discipline about how evidence
+        will be gathered; it is not evidence.
+
+        '
+      falsifier:
+        condition: 'Evidence shows that an eligible E2 dataset was inspected, selected against, or analyzed
+          before the contract was frozen, or that the stated executable conformance checks do not exist,
+          or that a conforming dataset has been collected while the claim remains marked untested.
+
+          '
+        consequence: NARROW
+      forbidden_rescues:
+      - do not relabel pre-freeze exposure as “not inspection” after learning its outcomes
+      - do not reissue a changed contract after data inspection and call it preregistered
+      - do not cite the synthetic rehearsal as a conforming empirical dataset
+      non_claims:
+      - freezing a contract establishes discipline, not results; E2 remains untested until conforming
+        observations exist
+      - conformance is not a clean bill of health, and the contract says so
+      - '"we validated CC" is prohibited at every rung of the evidence ladder'
+  - claim_id: CC-006
+    digest: 9d0678e5946781f508e44d23b4db24288287bc94d17526ef2d738f979d230259
+    commitment:
+      proposition: 'CC-Framework''s E2 measurement pipeline was rehearsed end to end on three synthetic
+        guardrail mechanisms: 66 observation rows conform to the frozen E2 schema with zero validator
+        violations, the pre-registered negative controls behave (the common-cause control attains pA(1-pA)
+        to 1e-9), and the finding records the result as a null at n=22 with a quantified cost for real
+        E2 (~1097 shared items for epsilon=0.05). E2 itself is not run.
+
+        '
+      scope: 'The dry-run finding document at the bound commit. Synthetic toy mechanisms only; not deployed
+        guardrails, not a real population, not E2.
+
+        '
+      falsifier:
+        condition: 'Replaying the bound dry-run artifacts fails to reproduce the stated 66 conforming
+          rows, zero validator violations, negative-control behavior, or the recorded n=22 null and cost
+          calculation, or shows that a real E2 run was represented as the synthetic rehearsal.
+
+          '
+        consequence: REJECT
+      forbidden_rescues:
+      - do not substitute a repaired corpus, changed mechanism, or updated harness for the bound dry run
+      - do not report a partial replay or a result under changed criteria as confirmation of the original
+        rehearsal
+      non_claims:
+      - this is not E2 and does not move E2 off untested; the mechanisms are toy filters in the repository,
+        not deployed guardrails
+      - the observed dependence is a null at this scale, not evidence of independence or of any real-guardrail
+        dependence
+      - validating the instrument establishes nothing about the safety, representativeness, or deployment
+        behavior of any real system
+  - claim_id: REL-001
+    digest: c2898999f9e4cb4720fb31c00d1aa089fad68c42361dbfd3c21c369d5a7f686f
+    commitment:
+      proposition: 'HYPOTHESIS — Among English-reading professionals who made or materially prepared a
+        go/hold recommendation for an AI-based system in paid work during the prior 12 months, an E2-derived
+        dependence-aware uncertainty presentation will increase HOLD decisions by at least 15 percentage
+        points relative to a stipulated-independence presentation of the same evidence.
+
+        '
+      scope: 'A preregistered, simulated practitioner decision task. It is untested, has no participant
+        data, and cannot activate until the first real conforming E2 result clears its frozen evidence,
+        legal, privacy, and ethics gates. It is not a claim about actual deployments, customer value,
+        safety, or general practitioner behavior.
+
+        '
+      falsifier:
+        condition: 'After exactly 360 randomized eligible practitioners and a passing missingness gate,
+          the upper endpoint of the frozen two-sided 95% Newcombe/Wilson interval for the Condition-B
+          minus Condition-A HOLD risk difference is below +15 percentage points.
+
+          '
+        consequence: REJECT
+      forbidden_rescues:
+      - do not redefine success as engagement, aesthetics, confidence, perceived sophistication, comprehension,
+        reading time, qualitative enthusiasm, or another secondary outcome
+      - do not change the 15-point threshold, E2 study or pair, task threshold, primary outcome, interval
+        method, sample target, stopping rule, or exclusions after outcomes are known
+      - do not use a post-hoc subgroup, relaxed eligibility screen, missingness filter, top-up, or rerun
+        to rescue an unfavorable primary result
+      - do not generalize a simulated task result to actual deployment, broad practitioner relevance,
+        customer value, adoption, or safety
+      non_claims:
+      - no practitioner decision, E2-derived participant packet, consent record, recruitment, or study
+        outcome exists yet
+      - this does not establish that dependence-aware evidence changes real deployment decisions, is generally
+        useful, or justifies its cost
+      - this is not a customer-demand, payment, adoption, safety, or certification claim
+  - claim_id: MC-001
+    digest: 36441f8cf7f59040a601e8d0581c2866d701bda7c99c91adbaab15c2ec6d1679
+    commitment:
+      proposition: 'As of 2026-08-27, among 20 public guardrail evaluations meeting the Missing Column
+        Census''s frozen inclusion criteria (v1), 14 establish a shared item set and a common event definition;
+        5 provide one of the census''s declared joint-evidence artifacts: a printed composition result
+        or per-item outcomes that make one directly computable.
+
+        '
+      scope: 'A census claim about public reporting, bounded by the documented search protocol documented
+        in census.yaml. Its literal inclusion wording is locked in repository history before row classification;
+        that is a reproducibility lock, not an independent preregistration. It covers the artifacts that
+        search found, not everything in existence; it says nothing about how well any evaluated system
+        or stack performs, and nothing about what the unmeasured joint statistics would show. N, M, and
+        K are recomputed mechanically from census.yaml by scripts/verify_census.py; this envelope''s expected
+        block is cross-checked against that computation in CI. Since census schema v3 the joint-evidence
+        mode counts in this note are derived the same way, from a declared joint_scope_additional field,
+        rather than counted by hand here; scripts/verify_facts.py binds every current census numeral on
+        every public page, and on the deployed page after release, to the quantity it asserts. M is a
+        ladder, not a comparability verdict: 14 document shared items and a common event definition, 12
+        have no stated threshold mismatch, and 0 document matched operating thresholds together with full
+        exposure. Nothing here asserts that the 14 are interchangeable at a common operating point; the
+        opposite is the finding. The 5 is an inclusive discovery count of noninterchangeable artifacts,
+        not an all-miss rate or a deployment conclusion. Four artifacts print at least one composition
+        result and two release aligned per-item outcomes from which joint statistics are directly computable;
+        one artifact does both, so those descriptions intentionally overlap. The frozen phrase "separately
+        attributable" did not specify whether a product or model name must be printed: the primary count
+        treats systems a source distinguishes and reports consistently as separately attributable even
+        when anonymized; the declared named-products-only sensitivity excludes Unit42 and mechanically
+        yields N/M/K = 19/13/5. A drafted further clause — that no printed joint statistic among the then-four
+        covers a commercial guardrail API — was withdrawn before publication when same-day adversarial
+        review produced a live counterexample under one defensible reading (WAInjectBench''s printed ensemble
+        includes GPT-4o prompted as a detector); this claim''s forbidden rescues bar narrowing "commercial"
+        after the fact, so the clause was dropped rather than reinterpreted, and the event is recorded
+        in the census revision history. On 2026-08-30, a post-release source audit found the distinct
+        Multimodal Safeguard Bench repository, whose currently public Git history carries a pre-cutoff
+        commit timestamp, and which the documented search had missed. That met this claim''s prior REJECT
+        falsifier: the 19/13/4 envelope is rejected and retained in census revision history. This 20/14/5
+        envelope is its corrected, superseding proposition, not a reinterpretation of the former count.
+
+        '
+      falsifier:
+        condition: 'A qualifying public evaluation meeting criteria v1 and published on or before 2026-08-27
+          is shown to be absent from this corrected census, or an examined row is shown to misreport its
+          source such that recomputed N, M, or K differ from the stated 20/14/5.
+
+          '
+        consequence: REJECT
+      forbidden_rescues:
+      - do not reinterpret "joint statistic" after a counterexample appears in order to keep the stated
+        counts
+      - do not reclassify an examined row without recording the change and its reason in the census correction
+        history
+      - do not treat the bounded-search disclaimer as license to ignore a demonstrated miss — a miss rejects
+        the current counts and the corrected census must state new ones
+      - do not cite readership, links, or reuse of the census as evidence of its accuracy
+      non_claims:
+      - does not claim any evaluated guardrail stack performs poorly; an unfilled column is a reporting
+        fact, not a performance finding
+      - does not claim the unmeasured joint statistics would reveal dependence; measuring instead of assuming
+        is the point
+      - does not audit the quality of any per-system evaluation beyond the fields each row records
+      - does not claim exhaustive coverage beyond the corrected, examined artifact set or coverage after
+        the stated date
+      expected:
+        n_examined: 20
+        m_shared_basis: 14
+        k_present: 5
+        m_strata:
+          shared_basis: 14
+          threshold_not_contradicted: 12
+          threshold_documented_full_exposure: 0
+  - claim_id: MC-002
+    digest: 32df5e5f1ed013cf87e59d0b987527b813f0c9558dabf4716d301a2e5280eaf2
+    commitment:
+      proposition: 'On the 170-prompt per-item subset publicly released with BELLS''s 2025 misuse-detection
+        evaluation (pinned commit below), the five specialized supervisors — Lakera Guard, Prompt Guard,
+        LangKit, NeMo Guardrails, LLM Guard — have an OR-union of released binary verdict columns that
+        flags 73 of the 82 prompts labelled harmful, leaving 9 all-miss (11.0%). The product of their
+        individual miss rates is 3.5%; the release-recomputed all-miss rate is about 3.1× that independence
+        plug-in on this file. The same OR-union flags 19 of the 50 benign prompts.
+
+        '
+      scope: 'Exactly the released file at the bound commit: 170 of the evaluation''s 990 non-adversarial
+        prompts (the study''s ~4,165 adversarial prompts have no per-item release), selected by the authors
+        under an unstated rule. Counting arithmetic only, at the vendors'' released binary verdicts; no
+        population estimate, no uncertainty interval, and no claim about any system''s true rates is offered
+        or licensed. Computed by scripts/reanalyze_bells_subset.py from scripts/mjgd_reference.py; the
+        expected block below is what CI re-asserts against the downloaded, hash-verified file.
+
+        '
+      falsifier:
+        condition: 'Recomputing from the bound, hash-verified file yields any count different from the
+          expected block, or the file at the pinned ref no longer matches the recorded sha256, or the
+          released columns are shown not to be the labelled systems'' verdicts.
+
+          '
+        consequence: REJECT
+      forbidden_rescues:
+      - do not substitute a different subset, column set, or harm-level filter to preserve the numbers
+      - do not fold borderline prompts into either denominator after seeing the results
+      - do not recast this subset arithmetic as a population estimate, with or without an interval, if
+        the primary counts are challenged
+      - do not cite the release-recomputed-to-plug-in ratio without the selection caveat that scopes it
+      non_claims:
+      - the subset is author-selected with an unstated rule — nothing here estimates any system's true
+        rate, and no confidence interval is offered because the sampled population is undefined
+      - not a ranking or endorsement of any vendor; the released verdicts are at unstated default configurations
+      - says nothing about adversarial prompts, which dominate the full evaluation and have no per-item
+        release
+      - the release-recomputed-to-plug-in ratio describes this subset's arithmetic, not a general law
+        of guardrail dependence
+      - not an observed deployed five-guard stack; interpreting this static OR aggregation as a stack
+        requires the separate full-exposure, parallel, fixed-operating-point assumptions
+      expected:
+        n_prompts: 170
+        n_harmful: 82
+        per_guard_catches:
+          lakera_guard: 52
+          prompt_guard: 5
+          langkit: 25
+          nemo: 70
+          llm_guard: 0
+        union_detection: 73
+        all_miss: 9
+        n_benign: 50
+        benign_union_flagged: 19
+        per_guard_benign_flags:
+          lakera_guard: 7
+          prompt_guard: 0
+          langkit: 8
+          nemo: 10
+          llm_guard: 0
+        n_borderline: 38
+        leave_one_out_union:
+          lakera_guard: 70
+          prompt_guard: 73
+          langkit: 73
+          nemo: 55
+          llm_guard: 73
+  - claim_id: MC-003
+    digest: 1985013d67e92daf10097adff1c2c2203d9edc20dd038c338e0ccf7f3b81a0bf
+    commitment:
+      proposition: 'For k guardrails scored on a common item set at a common operating point under block-on-any
+        composition, the rate at which every guard misses the same item is fixed by the published per-guard
+        miss rates only up to the interval [max(0, Σp − (k−1)), min p], and every point of that interval
+        is attained by some joint law with those marginals. Marginals prove non-degradation of a static
+        OR composition relative to its best member, but, when that identified set is non-degenerate, they
+        do not identify strictly positive incremental benefit. They also identify a positive lower bound
+        on static benign union-flag rate when any member has a positive benign flag rate. On the BELLS
+        2025 partial per-item release — 82 prompts labelled harmful — the exact finite identified set
+        is {0/82 … 12/82}; MC-002 recomputes 9/82 all-miss from the hash-verified released verdict file.
+        Marginal catch counts plus the union identify only bounds on each guard''s exclusive full-stack
+        coverage; the registered leave-one-out unions identify the realized values: NeMo 18, Lakera 3,
+        and LangKit, Prompt Guard, and LLM Guard 0 on this stratum.
+
+        '
+      scope: 'The mathematics is classical — Bonferroni for the lower endpoint, monotonicity for the upper,
+        Fréchet for sharpness — and nothing here claims to have derived it. What is contributed is the
+        application: pricing, in probability units, what marginal-only guardrail reporting leaves undetermined,
+        and identifying leave-one-out unions as a compact privacy-preserving disclosure of exclusive full-stack
+        coverage. They do not identify pairwise or higher-order overlap, Shapley values, or causal structure.
+        Every statement is conditional on block-on-any composition, per-item decisions that are functions
+        of the item alone, a fixed population, full exposure, and a fixed operating point; it says nothing
+        about sequential routes where downstream measurement is censored by upstream blocks, agentic systems
+        where an intervention changes the trajectory, or any vendor''s product. The empirical half is
+        one stratum of one author-selected subset: 82 harmful prompts, with 50 benign and 38 borderline
+        held as separate strata and never folded in. It is a BELLS-specific reproduction, not an assertion
+        that BELLS is the census''s only per-item outcome release. scripts/reanalyze_bells_subset.py re-computes
+        the BELLS counts from the hash-verified upstream file in CI; scripts/identification.py checks
+        the stated identification transformations against that registered envelope.
+
+        '
+      falsifier:
+        condition: 'A joint law with the stated marginals achieves an all-miss rate outside the interval;
+          an exact finite catch-set arrangement lies outside the stated finite grid or exclusive-coverage
+          bounds; or recomputing from the bound BELLS file yields any count different from the expected
+          block.
+
+          '
+        consequence: REJECT
+      forbidden_rescues:
+      - do not change the composition rule after the fact to preserve the direction of the result
+      - do not restate "identified only up to" as "estimated to be" — a bound is not an estimate
+      - do not quote where a release-recomputed value sits inside the interval as a score or a percentage
+        of a gap closed; the endpoints come from adversarial couplings with no detector-behavioural content
+      - do not cite the zero-exclusive-coverage results as a vendor ranking, a causal attribution, or
+        evidence about any product outside this stratum
+      - do not fold the borderline stratum into either denominator to change any figure
+      non_claims:
+      - no new mathematics is claimed; the bounds are Fréchet's and the lower endpoint is Bonferroni's
+      - not a claim that guardrails in general fail together — this stratum cannot separate shared blind
+        spots from prompt-difficulty heterogeneity
+      - not a vendor evaluation; the released verdicts are at unstated default configurations, and one
+        supervisor fires exactly once in the 170 released rows
+      - the identified interval is what the marginals leave open, not a prediction about any deployed
+        stack
+      - leave-one-out unions identify only exclusive full-stack coverage; they do not identify pairwise
+        or higher-order overlap, Shapley values, or causal contribution
+      - says nothing about adversarial prompts, which dominate the full evaluation and have no per-item
+        release
+      expected:
+        identified_set_lower: 0
+        identified_set_upper: 12
+        identified_set_size: 13
+        release_recomputed_all_miss: 9
+        denominator: 82
+        benign_burden_floor_pct: 20
+        improvement_floor_pct: 0
+        members_zero_exclusive_full_stack_coverage: 3
+        aggregate_unique_contribution_bounds:
+          lakera_guard:
+          - 0
+          - 3
+          prompt_guard:
+          - 0
+          - 3
+          langkit:
+          - 0
+          - 3
+          nemo:
+          - 0
+          - 21
+          llm_guard:
+          - 0
+          - 0
+  - claim_id: MC-004
+    digest: b8ea2d9431167cb8d28e7cf235d6a1b8b7ad86e6dbe60859415d7f18eabdbb4f
+    commitment:
+      proposition: 'On the per-item guard-verdict files publicly released with Multimodal Safeguard Bench''s
+        full_run (pinned commit below; six verdict files and the release''s two printed-metric files hash-verified),
+        the three guards — Llama Guard 4, Llama Guard 3 Vision, ShieldGemma 2 — have harness-normalized
+        native `unsafe` labels whose static Boolean OR is 1 on 192 of 200 harmful-labelled text items
+        (8 all-zero rows, 4.0%) and all 200 harmful-labelled image items (0 all-zero rows), while the
+        same OR is 1 on 32 of 250 benign-labelled text items (12.8%) and every one of 250 benign-labelled
+        image items. Llama Guard 3 Vision alone has a 1-bit on all 250 released benign image items. The
+        complete 2^3 native-label pattern table, leave-one-out bit ORs, and unique bit contributions for
+        each released stratum are bound below. The release prints per-guard metrics and two two-guard
+        compositions; it prints no three-guard bit OR, no all-zero-row count, no leave-one-out table,
+        and no pattern decomposition — and every recomputed quantity that overlaps what it does print
+        is asserted equal to the printed value.
+
+        '
+      scope: 'Exactly the six committed verdict files of the full_run directory at the bound commit: 400
+        harmful and 500 benign items, each stratum half text and half image, one Boolean `blocked` adapter
+        bit per item per guard. Let L be the release''s harmful/benign label, A_s each guard''s native
+        `unsafe` predicate, B_s the harness mapping of that predicate to `blocked`, and O = OR_s B_s.
+        The bound arithmetic reports B and O conditional on L. Because the harness uses `blocked` items
+        to suppress target generation, O is also a valid counterfactual harness-block decision for these
+        released rows under a fixed block-on-any rule. It does not establish a source-defined translation
+        from every A_s to one shared catch event E: Llama Guard 3 Vision is a multimodal prompt/response
+        classifier, while ShieldGemma 2 is an image-only three-policy classifier, and the pipeline merely
+        maps each native `unsafe` label to `blocked`. Counting arithmetic only, at the guards'' released
+        native operating rules (the Llama guards emit labels autoregressively; ShieldGemma 2 blocks above
+        a 0.5 policy-violation probability; the source documents no matched operating-point calibration,
+        so M-ladder threshold comparability is unchanged). ShieldGemma 2''s text-item bits are deterministic
+        passes as committed and documented upstream, which is why its text column is zero — an explicit
+        released outcome, not missing data. Strata are computed exactly as released and never folded;
+        file totals are sums of the bound strata and carry no additional content. Computed by scripts/reanalyze_msbench.py
+        from scripts/mjgd_reference.py; the expected block below is what CI re-asserts against the downloaded,
+        hash-verified files.
+
+        '
+      falsifier:
+        condition: 'Recomputing from the bound, hash-verified files yields any count different from the
+          expected block, or any pinned file no longer matches its recorded sha256, or any recomputed
+          quantity that overlaps the release''s printed metrics disagrees with the printed value, or the
+          committed blocked columns are shown not to be the named guards'' verdicts.
+
+          '
+        consequence: REJECT
+      forbidden_rescues:
+      - do not fold text and image strata — or harmful and benign files — into pooled denominators to
+        move any figure; the strata are bound exactly as released
+      - do not substitute verdicts from the release's other run directories (adaptive_run, carrier sweeps,
+        rendering probes) to preserve a number bound to full_run
+      - do not reinterpret ShieldGemma 2's deterministic text passes as missing data to shrink a denominator
+        after seeing the results
+      - do not cite the benign-image 250/250 union without attributing it to Llama Guard 3 Vision's 250/250
+        column, and do not cite the harmful strata without the benign strata
+      - do not call an OR of the harness-normalized native labels a shared-event catch union, stack safety
+        result, or three-independent- guard finding unless a source-defined event translation is added
+      - do not recast these file counts as population estimates, with or without an interval, if the primary
+        counts are challenged
+      non_claims:
+      - 'not a shared-event catch statistic: the common `blocked` bit is a harness normalization of distinct
+        native predicates, and no source-defined translation to a common event E has been identified'
+      - not a population estimate — the items derive from HarmBench and XSTest under the release's own
+        construction, and no interval is offered because no sampled population is defined
+      - not a ranking, endorsement, or indictment of any guard or vendor; the verdicts are at native,
+        unmatched operating rules
+      - not an observed deployed three-guard stack; interpreting the OR aggregation as a stack requires
+        the separate full-exposure, parallel, fixed-operating-point assumptions
+      - says nothing about the release's carrier-prompt, adversarial-UAP, or cross-VLM runs, which are
+        separate artifacts with their own contracts
+      - the counts are about the committed verdict bytes; the release's own changelog documents that ShieldGemma
+        2's image scores are sensitive to the text-rendering stack, so nothing here predicts what any
+        guard would do under a different rendering environment
+      - the zero three-guard image all-zero-bit count is a counting fact about these 200 released image
+        items, not evidence of general image attack safety
+      expected:
+        harmful_text:
+          n: 200
+          per_guard:
+            llama_guard_4: 185
+            llama_guard_3_vision: 178
+            shield_gemma_2: 0
+          union: 192
+          all_miss: 8
+          leave_one_out_union:
+            llama_guard_4: 178
+            llama_guard_3_vision: 185
+            shield_gemma_2: 192
+          patterns:
+            none: 8
+            lg4: 14
+            lg3v: 7
+            lg4+lg3v: 171
+        harmful_image:
+          n: 200
+          per_guard:
+            llama_guard_4: 164
+            llama_guard_3_vision: 200
+            shield_gemma_2: 174
+          union: 200
+          all_miss: 0
+          leave_one_out_union:
+            llama_guard_4: 200
+            llama_guard_3_vision: 194
+            shield_gemma_2: 200
+          patterns:
+            lg3v: 6
+            lg4+lg3v: 20
+            lg3v+sg2: 30
+            lg4+lg3v+sg2: 144
+        benign_text:
+          n: 250
+          per_guard:
+            llama_guard_4: 18
+            llama_guard_3_vision: 25
+            shield_gemma_2: 0
+          union: 32
+          all_miss: 218
+          leave_one_out_union:
+            llama_guard_4: 25
+            llama_guard_3_vision: 18
+            shield_gemma_2: 32
+          patterns:
+            none: 218
+            lg4: 7
+            lg3v: 14
+            lg4+lg3v: 11
+        benign_image:
+          n: 250
+          per_guard:
+            llama_guard_4: 41
+            llama_guard_3_vision: 250
+            shield_gemma_2: 23
+          union: 250
+          all_miss: 0
+          leave_one_out_union:
+            llama_guard_4: 250
+            llama_guard_3_vision: 56
+            shield_gemma_2: 250
+          patterns:
+            lg3v: 194
+            lg4+lg3v: 33
+            lg3v+sg2: 15
+            lg4+lg3v+sg2: 8
+  - claim_id: AF-001
+    digest: 2a719230bd2c57ce675a1440556cd9ed0130e38dbb446454f3cd287c30dab7a5
+    commitment:
+      proposition: 'Anthropic''s AI Fluency Index reports overall prevalences for the 11 of its framework''s
+        24 behaviours that are directly observable in conversations, and percentage-point differences
+        for conversations that produced an artifact, but not the artifact share and not which comparison
+        group the differences are against. Those published numbers therefore do not identify the subgroup
+        rates — but they do bound them. Under every feasible artifact share and under either reading of
+        the comparison, fact-checking is between 30% and 43% less prevalent in artifact conversations,
+        a far larger effect than the stated 3.7 percentage points suggests on a base rate of 8.7%. The
+        three behaviours that rise in artifact conversations are Description behaviours; the three that
+        fall are Discernment behaviours.
+
+        '
+      scope: 'Arithmetic on the figures published in the Index summary, nothing more. A pooled rate is
+        a mixture of its subgroups, so a stated overall rate and a stated between-group difference bound
+        each subgroup rate and their ratio; scripts/mixture_bounds.py computes those bounds in closed
+        form and cross-checks them against a sweep. This is a re-expression of published numbers on a
+        relative scale, not a re-analysis of the underlying conversations, to which this record has no
+        access. It inherits every limitation the report declares: the findings are correlational, and
+        the report states that users may perform fluency behaviours mentally without expressing them conversationally
+        — so a fall in transcript-visible checking cannot be separated from checking that moved off-platform,
+        which is where checking an artifact ordinarily goes. The measured evaluation gap is confounded
+        with a measurement gap and these numbers cannot separate them. The framework is CC BY-NC-SA 4.0,
+        copyright 2025 Rick Dakan, Joseph Feller, and Anthropic PBC; it is cited and analysed here, never
+        redistributed or productised.
+
+        '
+      falsifier:
+        condition: 'The report states an artifact share or comparison group under which the relative reduction
+          falls outside [30%, 43%]; or a published figure differs from the transcription; or the closed-form
+          bound disagrees with a direct sweep over feasible shares.
+
+          '
+        consequence: NARROW
+      forbidden_rescues:
+      - do not widen the stated interval after the fact to accommodate a figure that falls outside it
+      - do not restate the bound as an estimate of the artifact-conversation rate
+      - do not present the Description-rises / Discernment-falls pattern as causal, or as evidence that
+        artifacts reduce evaluation rather than relocate it
+      - do not repackage the framework's behaviour taxonomy into any commercial or certification artifact;
+        the licence is NonCommercial ShareAlike
+      non_claims:
+      - not a criticism of the Index; the observability boundary and the correlational limits are the
+        report's own declared statements
+      - not a claim about any individual's competence, and not a measure of anyone's diligence
+      - not evidence that artifact production causes less checking — the published marginals cannot separate
+        a behaviour change from a measurement change
+      - no access to the underlying conversations; this is arithmetic on a published summary
+      expected:
+        n_conversations: 9830
+        behaviours_total: 24
+        behaviours_observable: 11
+        checks_facts_overall_pct: 8.7
+        checks_facts_artifact_diff_pp: -3.7
+        checks_facts_reduction_min_pct: 29
+        checks_facts_reduction_max_pct: 43
+        behaviours_rising: 3
+        behaviours_falling: 3
+  - claim_id: GA-001
+    digest: 49acc16aadaaaefea0aadc537b0ed22dfda3accaf68d8e960ed0ed68e1c25f6e
+    commitment:
+      proposition: 'Ghost-Ark is a verifier and measurement harness for the provenance limits of AI-governance
+        receipts — a research artifact of the S2 Lab, Penn State — whose stated thesis is that receipt
+        soundness is a ternary relation Sound(C, Σ, P): a receipt identifies an execution only up to the
+        kernel of its whole parse → canonicalize → digest pipeline, so soundness does not persist by default
+        as the pathology alphabet grows or the consumer set widens.
+
+        '
+      scope: The repository README and thesis document at the bound commit.
+      falsifier:
+        condition: 'A source-level review of the bound thesis shows that it does not state soundness as
+          a ternary relation over the whole parse → canonicalize → digest pipeline, or does not identify
+          Ghost-Ark as the stated S2 Lab research artifact.
+
+          '
+        consequence: NARROW
+      forbidden_rescues:
+      - do not replace a whole-pipeline claim with a canonicalizer-only claim after the condition fires
+      - do not treat verifier acceptance or a pathology-free sample as evidence of semantic safety, authorization,
+        or correctness
+      non_claims:
+      - a verifying receipt does not establish that the governed action was safe, authorized, or semantically
+        correct
+      - kernel collisions in real canonicalizers are demonstrated as possible, not as prevalent — the
+        repository's E12 sample found 0 of 64 real payloads carrying any pathology class
+      - not hardened for deployment; not post-quantum secure
+  - claim_id: GV-001
+    digest: 33ecb8570400b2a500739f2ed993fb44a1e4ffb737692b51b09b1f87853f5c0f
+    commitment:
+      proposition: 'Ghost Visualizer is a seven-scene React/Vite visual essay ("Why AI Safety Scores Lie")
+        that computes marginals, OR composition, Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt
+        object from deterministic sample rows, with an Evidence Mode for inspection.
+
+        '
+      scope: 'The repository at the bound commit. Runs locally; there is no hosted deployment, so the
+        site links source, not a live demo.
+
+        '
+      falsifier:
+        condition: 'A local run from the bound revision lacks the stated seven scenes, deterministic sample-row
+          computations, or Evidence Mode for inspection.
+
+          '
+        consequence: NARROW
+      forbidden_rescues:
+      - do not count hard-coded or mocked screenshots as deterministic computations
+      - do not recast a local-only source project as a hosted interactive demo
+      non_claims:
+      - not an AI-safety certificate; no deployment-readiness claim
+      - its own public-readiness review scores it for private serious-contact demo use; the site therefore
+        links source rather than exhibiting its media as a flagship
+  - claim_id: GCE-001
+    digest: 06ec07bb8b9abb11424fa2e1058ffde1389b2cbddb8d784673edc3d4ce68e347
+    commitment:
+      proposition: 'GCE — the Guardrail Composability Explorer — is a coursework MVP demo (AI-285) for
+        toggling guardrails and observing composed behavior. Its front-door composability-coefficient
+        framing is superseded by CC-Framework''s dependence-aware partial identification, whose metric
+        taxonomy classifies the older coefficient family as legacy/deprecated. GCE is preserved as intellectual
+        lineage, not current theory.
+
+        '
+      scope: 'The supersession record. It is bound to the superseding taxonomy document, not to GCE''s
+        repository; GCE itself is linked from /archive/ as a historical artifact.
+
+        '
+      falsifier:
+        condition: 'The bound superseding taxonomy no longer classifies the coefficient family as deprecated
+          legacy, or no longer supports the stated dependence-aware supersession.
+
+          '
+        consequence: NARROW
+      forbidden_rescues:
+      - do not treat the existence of legacy code or UI as evidence that its framing remains current theory
+      - do not substitute a generic preference for newer methods for a recorded theoretical supersession
+      non_claims:
+      - supersession is a statement about theoretical framing, not about the correctness of GCE's code
+        or its value as coursework
+      - no current-research claim is made by or for GCE
+  - claim_id: SITE-001
+    digest: 2d45c9927850ce2f2996d5abeacc1128186cf86c733ddfd804f3e313fcf3c977
+    commitment:
+      proposition: 'This site''s palette token pairs were computed to pass WCAG AA contrast (most AAA),
+        and manual QA passes covered light/dark themes, desktop and mobile layouts, keyboard focus, reduced
+        motion, and no-JS rendering, as recorded in DESIGN.md.
+
+        '
+      scope: 'Manual and scripted checks recorded in DESIGN.md. No instrumented field performance data
+        exists — the site runs no analytics by design.
+
+        '
+      falsifier:
+        condition: 'Recomputing the listed palette pairs under WCAG contrast rules finds any claimed AA
+          pass absent, or the recorded QA does not include the stated rendering, mode, and interaction
+          checks.
+
+          '
+        consequence: NARROW
+      forbidden_rescues:
+      - do not replace a failed palette pair with another color pairing or viewport and retain the original
+        claim
+      - do not treat visual preference or casual inspection as a substitute for WCAG computation or the
+        listed QA checks
+      non_claims:
+      - no field CLS/LCP/CrUX measurements are claimed
+      - '"zero third-party runtime requests" describes page code, not hosting infrastructure (GitHub Pages,
+        DNS, TLS remain dependencies)'
+  - claim_id: SITE-002
+    digest: cf86b4ba9e146e000e246abe31420a0788b3f51afc029f490007cd9bfef7e4e4
+    commitment:
+      proposition: 'This site''s claim registry is enforced in CI: verify_claims.py validates schema and
+        bindings, executes the executable review triggers against live evidence, and fails the build when
+        any claim passes its freshness window — on every push and weekly.
+
+        '
+      scope: 'The verifier at the recorded content hash, and the public workflow that runs it. The generated-page
+        and figure checks are separate steps in the same workflow (ledger, modules, observatory, figure
+        geometry, internal links).
+
+        '
+      falsifier:
+        condition: 'A controlled violation of a required registry field, bound-evidence trigger, or review
+          window reaches a successful named CI workflow, or the workflow no longer runs on pushes to main
+          and weekly.
+
+          '
+        consequence: REJECT
+      forbidden_rescues:
+      - do not cite a normal green run as evidence that violations are rejected
+      - do not count a manual review or a generated-page drift check as automatic schema, trigger, or
+        freshness enforcement
+      - do not treat a warning-only or report-only job as a build failure
+      non_claims:
+      - a green run verifies registry consistency and quiet triggers, never the truth of any claim's content
+      - an UNDETERMINED run (exit 2) blocks the build because a source was never reached; it is not a
+        finding about any binding, and must not be read or recorded as a failed check
+      - triggers watch file content; semantic drift outside watched files remains a manual review event,
+        and the ledger says so
+  digest: 1ebe94609f903a04062a83deb8575a0ac5f2ed6c9e28d4018d37a136e052a474
+reconstruction:
+  method: digest-level commitment events along the first-parent line of the accepted branch, re-derived
+    from git objects on every verify; a transition counts as strict-Scar-eligible when its before and
+    after states are re-derivable from git, the same first-parent change adds one contiguous block to
+    a dated record file (census.yaml, corrections/index.html, DESIGN.md, notes/) naming the claim id and
+    carrying the commit date, and a coherent transition type is declared here
+  evidence_class: repository-internal (git objects, git dates, dated prose entries); no out-of-repository
+    witness is asserted
+  preexisting_transition_count: 38
+  strict_scar_eligible_count: 9
+  qualifying_transition_locators:
+  - CC-001@cf57f2c7baf4:2026-08-20:CLARIFY
+  - SITE-001@cf57f2c7baf4:2026-08-20:CORRECT
+  - MC-001@1ba6d8cbba6f:2026-08-27:NARROW
+  - MC-001@0e7ee61e6bfc:2026-08-28:NARROW
+  - MC-002@0e7ee61e6bfc:2026-08-28:NARROW
+  - MC-001@06a714fc3710:2026-08-30:CORRECT
+  - MC-001@69364148b813:2026-08-30:CLARIFY
+  - MC-004@f6110584fc1b:2026-08-31:CORRECT
+  - MC-004@679523d5b8dc:2026-08-31:CLARIFY
+entries:
+- kind: transition
+  claim_id: CC-001
+  from_digest: a3e0ad9757833bb30dda633d45cfe6e3a16630c0541bdb8b64a369d09e542a86
+  to_digest: 1237f90c112c45b29146325b716f94e47dba21933037fabbdc051d0530dba48d
+  transition_type: CLARIFY
+  event_at: '2026-08-20'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:cf57f2c7baf4225143694b583df6255bde594752
+  - DESIGN.md:Changelog v0.2 (2026-08-20)
+  reason: scope restated in the v0.2 audit (reproduction date, CI re-reproduction); proposition unchanged
+    [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 1ebe94609f903a04062a83deb8575a0ac5f2ed6c9e28d4018d37a136e052a474
+  digest: 629ebcf8c17ff9b3a329889658076235433e10fd84a1630ff7ab6e16c3332c5b
+- kind: transition
+  claim_id: BIO-001
+  from_digest: 80fa8123aaa00718941f37d80cf01525267d6578926c78cc1ccec8ac5abde625
+  to_digest: 7d7fcfafccdb3133771ee0886b7a3621aab352080cd9755fe5ab38881930dfe4
+  transition_type: CLARIFY
+  event_at: '2026-08-20'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:cf57f2c7baf4225143694b583df6255bde594752
+  - DESIGN.md:Changelog v0.2 (2026-08-20)
+  reason: scope restated in the v0.2 audit; proposition unchanged [retrospective classification by E5A,
+    2026-09-02]
+  previous_transition_digest: 629ebcf8c17ff9b3a329889658076235433e10fd84a1630ff7ab6e16c3332c5b
+  digest: 31dcf454945796977b80f5af8a7d4bfedd84dced6c3c923e1962f0c97a28967f
+- kind: transition
+  claim_id: SITE-001
+  from_digest: 1ad25b913263ba7510cc0cf26eeb8fa8baa689e9266cf74444c04fc205fec9e6
+  to_digest: 396658117ac86a6bb8696bfe6e2083655f241b75f312b2056da6f1813fe73c97
+  transition_type: CORRECT
+  event_at: '2026-08-20'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:cf57f2c7baf4225143694b583df6255bde594752
+  - DESIGN.md:Changelog v0.2 (2026-08-20)
+  reason: v0.2 audit de-absolutized the site's measured claims (no instrumented CLS/LCP; manual passes
+    only) [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 31dcf454945796977b80f5af8a7d4bfedd84dced6c3c923e1962f0c97a28967f
+  digest: 83dc7c39a497add87298bf5d726e11c0ed306953ed77b9c1f1106f9959658150
+- kind: transition
+  claim_id: CC-001
+  from_digest: 1237f90c112c45b29146325b716f94e47dba21933037fabbdc051d0530dba48d
+  to_digest: 845687de014d5607d390eac1ef9fc0a65961bf145365361692bbe7e42b0e2c73
+  transition_type: CLARIFY
+  event_at: '2026-08-23'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:6179e4741b85bf28ad268088fef555db41b219da
+  - claims.yaml:schema v0.3 header note
+  - docs/site-system/AUDIT.md:P0-1
+  reason: re-bound to a main-reachable cc-framework commit with content verified byte-identical; structured
+    expected block added; kernel outputs unchanged [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 83dc7c39a497add87298bf5d726e11c0ed306953ed77b9c1f1106f9959658150
+  digest: 1cf5c88209f96cedee86e05acf4e8ae10551471c2123c8ccbfbf30da34912d11
+- kind: transition
+  claim_id: GA-001
+  from_digest: 667725c5e41992b2c6e4bf0b3a57211e7f46fe3099b115928913214924c13233
+  to_digest: 81a0b7e694d91a3633817b6cca50defc06cd2fc719b6c7e1475aae34d3af4152
+  transition_type: CLARIFY
+  event_at: '2026-08-23'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:6179e4741b85bf28ad268088fef555db41b219da
+  - DESIGN.md:Changelog v0.4 (2026-08-23)
+  reason: proposition and non-claims refined to the thesis document at its bound commit [retrospective
+    classification by E5A, 2026-09-02]
+  previous_transition_digest: 1cf5c88209f96cedee86e05acf4e8ae10551471c2123c8ccbfbf30da34912d11
+  digest: 00112fb9a825c94e8edaffd1c8dae1ff5f0274ca3903fa34c5c27c0f86884500
+- kind: transition
+  claim_id: GV-001
+  from_digest: 006f23c616f1a45ace08445eca2695dbddaf183fd255e3a59c54e21d9d9e10d6
+  to_digest: 3292a0136833ffdc5e98a8b4fd85a0fda58ba2047dd32b5de6f19f4dccc24d23
+  transition_type: CLARIFY
+  event_at: '2026-08-23'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:6179e4741b85bf28ad268088fef555db41b219da
+  - DESIGN.md:Changelog v0.4 (2026-08-23)
+  reason: non-claims refined (local visual essay, source linked) [retrospective classification by E5A,
+    2026-09-02]
+  previous_transition_digest: 00112fb9a825c94e8edaffd1c8dae1ff5f0274ca3903fa34c5c27c0f86884500
+  digest: a758b42d2dbdafb09795ecc64d2946a77fe99fe79c6d62fbcfb35ee52d87b885
+- kind: transition
+  claim_id: SITE-002
+  from_digest: e9dd163bdf229a665f15d9baa8794e95899645448f046d06ecc1f7ad0fa9c929
+  to_digest: 6f40d9e0f970c746e3073c250f8434a271ea9648e078144a9cdf744f05bcd807
+  transition_type: CLARIFY
+  event_at: '2026-08-23'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:7ea5a5dabffb4d191881e9f33ae02b3df667b7bc
+  - DESIGN.md:Changelog v0.4 (2026-08-23)
+  reason: scope names the separate generated-page and figure checks in the same workflow [retrospective
+    classification by E5A, 2026-09-02]
+  previous_transition_digest: a758b42d2dbdafb09795ecc64d2946a77fe99fe79c6d62fbcfb35ee52d87b885
+  digest: 17d2802e45242ad9c8d221d8b16ff80c1e1c13540e92558685b786b0d2ee7a9d
+- kind: transition
+  claim_id: CC-001
+  from_digest: 845687de014d5607d390eac1ef9fc0a65961bf145365361692bbe7e42b0e2c73
+  to_digest: 894a5a4b1067ca7100300cf8c3d26d0d571cf0a44ed89ed8d71a8f515258d35a
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 17d2802e45242ad9c8d221d8b16ff80c1e1c13540e92558685b786b0d2ee7a9d
+  digest: 8335d1c0be2b8807d1916a3e420dbcf2c8d4f4843585ed3f794d086942ebe4be
+- kind: transition
+  claim_id: CC-002
+  from_digest: 4e503a004ca8aff6c415a0f1ca4c583bdd5c2f708b8ebcbfded803d37b74e02a
+  to_digest: 7a9d298fa94bf591f7efe3c8f73d5c3a81de4dfafe91f757dd007768b071750b
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 8335d1c0be2b8807d1916a3e420dbcf2c8d4f4843585ed3f794d086942ebe4be
+  digest: 82318a9a39e9e58ccbd4f8f4883af651cd915e6fe8b44e7eb811d58691e60449
+- kind: transition
+  claim_id: CC-003
+  from_digest: 220f3a1ea858b2030888d5e7c2070f7aa2dc3dcb446d9fa01343a7b7617d916d
+  to_digest: b1ae99b9b5d64d34ef655e1c65a9cf0f5c354383774e53fd1fae1aa5b654a962
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 82318a9a39e9e58ccbd4f8f4883af651cd915e6fe8b44e7eb811d58691e60449
+  digest: 7612aaf0ca40efbe8bb111e9f916046765a2829ca17d09c1248f84c7e09fea94
+- kind: transition
+  claim_id: CC-004
+  from_digest: fc09fd0efe6f467288751efe112e0185d2ddd5c8d7f7dcb590f147703c001819
+  to_digest: 278acc978967350fe1c010fb1d1380097165a300ebb9f6aa102464297a0bfde8
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 7612aaf0ca40efbe8bb111e9f916046765a2829ca17d09c1248f84c7e09fea94
+  digest: 4f70d5874cf4c41cf744cc5ba3adbf43f10a98213821d087fee0afc1122572ed
+- kind: transition
+  claim_id: CC-005
+  from_digest: e089f87a91930f60862c64b15f4b7316d73bb4024406540d54e2e2e2df4d80fd
+  to_digest: 77e7f40b30f826418673460fd880bfe308af8b585476a75ff4577e03b9edb1d7
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 4f70d5874cf4c41cf744cc5ba3adbf43f10a98213821d087fee0afc1122572ed
+  digest: cbf142a86dacc883763f1c7f86b4d36b782b3ff389b58c35a0c5787a74a71a3e
+- kind: transition
+  claim_id: CC-006
+  from_digest: 1a767fc94168d621eb3ae38cee957558b3ecd2718b8acf807abbd53f7f61c9af
+  to_digest: 9d0678e5946781f508e44d23b4db24288287bc94d17526ef2d738f979d230259
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: cbf142a86dacc883763f1c7f86b4d36b782b3ff389b58c35a0c5787a74a71a3e
+  digest: ed827fe39efc4b950635bfd809736c71a0a824a1b3f316a5c695d138b70cea60
+- kind: transition
+  claim_id: GA-001
+  from_digest: 81a0b7e694d91a3633817b6cca50defc06cd2fc719b6c7e1475aae34d3af4152
+  to_digest: 49acc16aadaaaefea0aadc537b0ed22dfda3accaf68d8e960ed0ed68e1c25f6e
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: ed827fe39efc4b950635bfd809736c71a0a824a1b3f316a5c695d138b70cea60
+  digest: 42f9cd8ed4b87cd3e6972416856f0e070eaec2d1e6d178441961c826f3d20a57
+- kind: transition
+  claim_id: AS-001
+  from_digest: 1b81b27c2b3569f86f04d42925e396d2b049d87c573a1e869d0808c0dd6ceaf0
+  to_digest: 527720c5f208ad056e702c8351bd094771691a0c7ba1ecd945626dccee81b765
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 42f9cd8ed4b87cd3e6972416856f0e070eaec2d1e6d178441961c826f3d20a57
+  digest: 588b0ca1570ce42420c3e12be921544748dc3018052b6febcf0fb87ddba6b2e8
+- kind: transition
+  claim_id: GV-001
+  from_digest: 3292a0136833ffdc5e98a8b4fd85a0fda58ba2047dd32b5de6f19f4dccc24d23
+  to_digest: 33ecb8570400b2a500739f2ed993fb44a1e4ffb737692b51b09b1f87853f5c0f
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 588b0ca1570ce42420c3e12be921544748dc3018052b6febcf0fb87ddba6b2e8
+  digest: 7037853ce2c72d5f895a1ddcaa066ded220fbe58b7ce64b96611b0acd645240a
+- kind: transition
+  claim_id: GCE-001
+  from_digest: 26b4e009c5615a1110327ed18940b385182240943eaf6159473cee6cc0d5f2a0
+  to_digest: 06ec07bb8b9abb11424fa2e1058ffde1389b2cbddb8d784673edc3d4ce68e347
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 7037853ce2c72d5f895a1ddcaa066ded220fbe58b7ce64b96611b0acd645240a
+  digest: 4e6cea117721aa11d165a052b53cb2b8bca6f5d3e9e1836498a9c0a10f3a032a
+- kind: transition
+  claim_id: BIO-001
+  from_digest: 7d7fcfafccdb3133771ee0886b7a3621aab352080cd9755fe5ab38881930dfe4
+  to_digest: 628b0971286017b5a2ee6ac1f8f22f622e54df72f83d779ae1c4a256c30e4a4b
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 4e6cea117721aa11d165a052b53cb2b8bca6f5d3e9e1836498a9c0a10f3a032a
+  digest: ce21197987ef65d172020c3cf7537858ece227386ae65499880ec732e8650872
+- kind: transition
+  claim_id: CRED-001
+  from_digest: c7fe2eccf4ac2fb9c42acea35bad1ef6bea7ac93ed733860b6da063b8e79c8b6
+  to_digest: 7df87b52c369ebd41c13c05344012a49f803085b8a9b72793e8897797742255a
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: ce21197987ef65d172020c3cf7537858ece227386ae65499880ec732e8650872
+  digest: 7c8d2b2d6128259b763ad632153605f069c30019bb48f1c7e92f85dc4d656d3d
+- kind: transition
+  claim_id: SITE-001
+  from_digest: 396658117ac86a6bb8696bfe6e2083655f241b75f312b2056da6f1813fe73c97
+  to_digest: 2d45c9927850ce2f2996d5abeacc1128186cf86c733ddfd804f3e313fcf3c977
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 7c8d2b2d6128259b763ad632153605f069c30019bb48f1c7e92f85dc4d656d3d
+  digest: b65fb8c7f2ccaed58cb3269589a3cce892ad3d9380dfe7591bd2e3f15b19189b
+- kind: transition
+  claim_id: SITE-002
+  from_digest: 6f40d9e0f970c746e3073c250f8434a271ea9648e078144a9cdf744f05bcd807
+  to_digest: e7b210f6af88354aaa209322f2368e4e78a9e9fd745936fd94591f6dabf5e8ea
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:4f6a87f98e6cfe46b9045a5fd0b697169cc5e0ff
+  - claims.yaml:schema v0.4 header note
+  - git commit message 4f6a87f
+  reason: schema v0.4 added the challenge record — a falsifier with a fixed consequence and typed forbidden
+    rescues — to an unchanged proposition [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: b65fb8c7f2ccaed58cb3269589a3cce892ad3d9380dfe7591bd2e3f15b19189b
+  digest: abc84ab2cbe5848e23db5bb0087602e73e46308909d29c8cc10701dfa8fabe27
+- kind: transition
+  claim_id: MC-001
+  from_digest: b4cbc67b9de702f695299b660100d664af8ac7f5c3df3acf06f0c30e63a7bcd6
+  to_digest: 11c368a5b2b778d8e9479505abcdfa2dd224ff9a0c79e549682a7dd1b048492d
+  transition_type: CLARIFY
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:7d2bd8394601ed23cc71b8fd092df077057de1b5
+  - git commit message 7d2bd83
+  reason: proposition states the release-versus-print distinction for the joint-evidence count; N/M/K
+    unchanged [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: abc84ab2cbe5848e23db5bb0087602e73e46308909d29c8cc10701dfa8fabe27
+  digest: 28ab68818e96f1088cfeaa7ae558d90eb565a323ad39338eab215e0eaa06e3af
+- kind: transition
+  claim_id: MC-001
+  from_digest: 11c368a5b2b778d8e9479505abcdfa2dd224ff9a0c79e549682a7dd1b048492d
+  to_digest: 7e5b8254d143cae19f0a2d025aeb92fab3afd3141b1d99a1f63bd9e7f0540c89
+  transition_type: NARROW
+  event_at: '2026-08-27'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:1ba6d8cbba6fb825c80fb03067db10b1798da3fd
+  - census.yaml:revision_history[2026-08-27] (fresh-context adversarial verification)
+  reason: adversarial verification withdrew the commercial-API clause rather than reinterpreting it, as
+    the claim's forbidden rescues require; falsifier and rescues restated [retrospective classification
+    by E5A, 2026-09-02]
+  previous_transition_digest: 28ab68818e96f1088cfeaa7ae558d90eb565a323ad39338eab215e0eaa06e3af
+  digest: 8ff21c8eb20a684d689feee7931b16a389cd4dbf4ef217b2b512977188aef9ed
+- kind: transition
+  claim_id: MC-001
+  from_digest: 7e5b8254d143cae19f0a2d025aeb92fab3afd3141b1d99a1f63bd9e7f0540c89
+  to_digest: e325b72379dbb1d3034817f0074478c6e70d46cdff09817f8afd87d9df7b0828
+  transition_type: NARROW
+  event_at: '2026-08-28'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:eb5423a0b9f5808dea57acfcc865074208a83085
+  - census.yaml:revision_history[2026-08-28] (M ontology correction)
+  reason: M becomes a ladder (shared basis / no stated threshold mismatch / matched thresholds with full
+    exposure); expected block gains the ladder; a weakening of what the headline implies [retrospective
+    classification by E5A, 2026-09-02]
+  previous_transition_digest: 8ff21c8eb20a684d689feee7931b16a389cd4dbf4ef217b2b512977188aef9ed
+  digest: 101d72d28f94aff631a11dbcdf038581caeaf246fde79a2833ec037c8beac201
+- kind: transition
+  claim_id: MC-001
+  from_digest: e325b72379dbb1d3034817f0074478c6e70d46cdff09817f8afd87d9df7b0828
+  to_digest: 3db2d81ab19ad41cf6f4f38ab73ab658cf32a6b5f5b2c61e430b11cf4286043a
+  transition_type: NARROW
+  event_at: '2026-08-28'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:0e7ee61e6bfc2004cebd5e6e7d0eb54c035493ab
+  - census.yaml:revision_history[2026-08-28] (adversarial release audit)
+  - corrections/index.html
+  reason: the primary proposition drops the word 'comparable' for the mechanical shared-item/common-event
+    basis and calls the joint-evidence count a heterogeneous discovery count [retrospective classification
+    by E5A, 2026-09-02]
+  previous_transition_digest: 101d72d28f94aff631a11dbcdf038581caeaf246fde79a2833ec037c8beac201
+  digest: 3db3d7b41cb814a9797d963ee84ae2df3a4ccf6b2fb08aa5af6c4b4fbd8684f0
+- kind: transition
+  claim_id: MC-002
+  from_digest: 3bfa97b1613370e22173e10f0196a8f3a2aa6bc9e58d9efac0dcf0300f7cf7ee
+  to_digest: 12c36b2f5c29540571c8bc6f2201987af51e324a811c27d9c9a13d500771f79f
+  transition_type: NARROW
+  event_at: '2026-08-28'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:0e7ee61e6bfc2004cebd5e6e7d0eb54c035493ab
+  - census.yaml:revision_history[2026-08-28]
+  - corrections/index.html
+  reason: 'forbidden rescues and non-claims hardened: no population recast, selection caveat required
+    with the ratio [retrospective classification by E5A, 2026-09-02]'
+  previous_transition_digest: 3db3d7b41cb814a9797d963ee84ae2df3a4ccf6b2fb08aa5af6c4b4fbd8684f0
+  digest: 6eedb888c6fd02b6806c684b6ee46b1ad188e12a739863a4e3104e85c89fabf8
+- kind: transition
+  claim_id: MC-002
+  from_digest: 12c36b2f5c29540571c8bc6f2201987af51e324a811c27d9c9a13d500771f79f
+  to_digest: 07c21ac1b49d72990bcc86694a37deab9599f3bca108235d33b3cdf9f8f7df0d
+  transition_type: CLARIFY
+  event_at: '2026-08-28'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:6cf423e120c382bcb3b19416926527e28e652e54
+  - git commit message 6cf423e
+  reason: leave-one-out unions and benign flags registered as expected values re-asserted in CI; counts
+    unchanged [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: 6eedb888c6fd02b6806c684b6ee46b1ad188e12a739863a4e3104e85c89fabf8
+  digest: aa01f775399dc4ba9ba19dfb29903ba7b759dbf698e43f371f7b605ea7fc531e
+- kind: transition
+  claim_id: MC-002
+  from_digest: 07c21ac1b49d72990bcc86694a37deab9599f3bca108235d33b3cdf9f8f7df0d
+  to_digest: 32df5e5f1ed013cf87e59d0b987527b813f0c9558dabf4716d301a2e5280eaf2
+  transition_type: CLARIFY
+  event_at: '2026-08-28'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:a8d9319a56a6ea53454830c9481ea11f910ba64f
+  - git commit message a8d9319 (tighten identification and provenance boundaries)
+  reason: wording of the release-recomputed ratio and its scope; counts unchanged [retrospective classification
+    by E5A, 2026-09-02]
+  previous_transition_digest: aa01f775399dc4ba9ba19dfb29903ba7b759dbf698e43f371f7b605ea7fc531e
+  digest: f545766fb265ad50db3460aa0086beb4e08c98c330278ff5f359bbe0101baaef
+- kind: transition
+  claim_id: MC-003
+  from_digest: c552423756a47c3150acf19a6b34813a618ae82cfdb86db695ce0fae5404e945
+  to_digest: 5c07cf584c011c8f0d9d04ea94cdcce5ac3ee8eddcae136d1e7e759e7ff28b7a
+  transition_type: CORRECT
+  event_at: '2026-08-28'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:a8d9319a56a6ea53454830c9481ea11f910ba64f
+  - git commit message a8d9319
+  reason: the two-consequences sentence claiming marginals can never certify strict improvement was replaced
+    by the non-degradation statement (direction corrected); falsifier restated to finite catch-set and
+    exclusive-coverage bounds; no dated in-record declaration exists for this change [retrospective classification
+    by E5A, 2026-09-02]
+  previous_transition_digest: f545766fb265ad50db3460aa0086beb4e08c98c330278ff5f359bbe0101baaef
+  digest: c1814120e28855d779398c9a846dfd80dc9f39b945a6ec757d2ba7bc569502be
+- kind: transition
+  claim_id: AS-001
+  from_digest: 527720c5f208ad056e702c8351bd094771691a0c7ba1ecd945626dccee81b765
+  to_digest: null
+  transition_type: RETRACT
+  event_at: '2026-08-28'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:a8d9319a56a6ea53454830c9481ea11f910ba64f
+  - DESIGN.md:'subsequent privacy correction removed private records from the public registry'
+  reason: private record removed from the public registry (privacy correction) [retrospective classification
+    by E5A, 2026-09-02]
+  previous_transition_digest: c1814120e28855d779398c9a846dfd80dc9f39b945a6ec757d2ba7bc569502be
+  digest: a5fbb7ee71d3cb3340916adde838544f0d30f11fcb0b682277a1022fd18b0a1e
+- kind: transition
+  claim_id: BIO-001
+  from_digest: 628b0971286017b5a2ee6ac1f8f22f622e54df72f83d779ae1c4a256c30e4a4b
+  to_digest: null
+  transition_type: RETRACT
+  event_at: '2026-08-28'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:a8d9319a56a6ea53454830c9481ea11f910ba64f
+  - DESIGN.md:'subsequent privacy correction removed private records from the public registry'
+  reason: private record removed from the public registry (privacy correction) [retrospective classification
+    by E5A, 2026-09-02]
+  previous_transition_digest: a5fbb7ee71d3cb3340916adde838544f0d30f11fcb0b682277a1022fd18b0a1e
+  digest: 7daf5e687a6ee26b85c7ff9979640a36faca0e96f61de041b67bf0a94185a046
+- kind: transition
+  claim_id: CRED-001
+  from_digest: 7df87b52c369ebd41c13c05344012a49f803085b8a9b72793e8897797742255a
+  to_digest: null
+  transition_type: RETRACT
+  event_at: '2026-08-28'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:a8d9319a56a6ea53454830c9481ea11f910ba64f
+  - DESIGN.md:'subsequent privacy correction removed private records from the public registry'
+  reason: private record removed from the public registry (privacy correction) [retrospective classification
+    by E5A, 2026-09-02]
+  previous_transition_digest: 7daf5e687a6ee26b85c7ff9979640a36faca0e96f61de041b67bf0a94185a046
+  digest: b29bbd2645beb6a5e919b5093e8a43ccfd873132d7e6aae806181c546d486059
+- kind: transition
+  claim_id: MC-001
+  from_digest: 3db2d81ab19ad41cf6f4f38ab73ab658cf32a6b5f5b2c61e430b11cf4286043a
+  to_digest: b95d32376ee4896920a75049ef0c12afb190731ba802f05bf4c900e332828a76
+  transition_type: CORRECT
+  event_at: '2026-08-30'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:06a714fc3710590996019b81df65df840ae36217
+  - census.yaml:revision_history[2026-08-30] (post-release source audit)
+  - corrections/index.html
+  - DESIGN.md:Correction review — 2026-08-30 (MSBench)
+  reason: 'the registered REJECT falsifier fired: a missed qualifying artifact moved N/M/K from 19/13/4
+    to 20/14/5; the superseded envelope is retained as rejected [retrospective classification by E5A,
+    2026-09-02]'
+  previous_transition_digest: b29bbd2645beb6a5e919b5093e8a43ccfd873132d7e6aae806181c546d486059
+  digest: cac247fda81d36a30484d3434d5be803b65047e75c2047cb1136c3e4cb89d919
+- kind: transition
+  claim_id: MC-003
+  from_digest: 5c07cf584c011c8f0d9d04ea94cdcce5ac3ee8eddcae136d1e7e759e7ff28b7a
+  to_digest: 1985013d67e92daf10097adff1c2c2203d9edc20dd038c338e0ccf7f3b81a0bf
+  transition_type: CLARIFY
+  event_at: '2026-08-30'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:06a714fc3710590996019b81df65df840ae36217
+  - DESIGN.md:Correction review — 2026-08-30 (MSBench)
+  reason: scope names the BELLS demonstration as a BELLS-specific partial-release reproduction, not the
+    census's only per-item release [retrospective classification by E5A, 2026-09-02]
+  previous_transition_digest: cac247fda81d36a30484d3434d5be803b65047e75c2047cb1136c3e4cb89d919
+  digest: a7d4080b7698d9d5019d4894c0ca8dccb2bc558ae299fccb81d8c0df3675242f
+- kind: transition
+  claim_id: MC-001
+  from_digest: b95d32376ee4896920a75049ef0c12afb190731ba802f05bf4c900e332828a76
+  to_digest: 36441f8cf7f59040a601e8d0581c2866d701bda7c99c91adbaab15c2ec6d1679
+  transition_type: CLARIFY
+  event_at: '2026-08-30'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:69364148b813cd88572f9555c638d78224d8b36a
+  - census.yaml:revision_history[2026-08-30] (schema v3)
+  reason: scope names the derived joint-evidence modes after schema v3; counts unchanged [retrospective
+    classification by E5A, 2026-09-02]
+  previous_transition_digest: a7d4080b7698d9d5019d4894c0ca8dccb2bc558ae299fccb81d8c0df3675242f
+  digest: 2184aa8cc7934cc4708a7043fca0e1c91c64a143137d177d703366975016e533
+- kind: transition
+  claim_id: MC-004
+  from_digest: 2428a23b695617007e32c92f4a088fd95a81cb1bab4bcba3fd29a51e89a2b6ce
+  to_digest: 24d090baebfe922164d544f377f618e23b416525ba7a9cb21cf2d31f82bbd3d8
+  transition_type: CORRECT
+  event_at: '2026-08-31'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:f6110584fc1bb2dfd513428cd3688a9849adec2d
+  - census.yaml:revision_history[2026-08-31] (semantic-scope correction)
+  - corrections/index.html
+  - DESIGN.md:Semantic correction — 2026-08-31
+  reason: 'semantic-scope correction: the harness-normalized native labels are adapter-bit arithmetic,
+    not a shared-event catch union; a forbidden rescue added to that effect; counts unchanged [retrospective
+    classification by E5A, 2026-09-02]'
+  previous_transition_digest: 2184aa8cc7934cc4708a7043fca0e1c91c64a143137d177d703366975016e533
+  digest: b3230020aee9bd68a256e99283d3321c15d17920c21948a892c5483103da3949
+- kind: transition
+  claim_id: MC-004
+  from_digest: 24d090baebfe922164d544f377f618e23b416525ba7a9cb21cf2d31f82bbd3d8
+  to_digest: b8ea2d9431167cb8d28e7cf235d6a1b8b7ad86e6dbe60859415d7f18eabdbb4f
+  transition_type: CLARIFY
+  event_at: '2026-08-31'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:679523d5b8dce40b64f8224271fce5b65718abf3
+  - census.yaml:revision_history[2026-08-31] (action-layer clarification)
+  reason: scope records the harness action layer separately from safety semantics [retrospective classification
+    by E5A, 2026-09-02]
+  previous_transition_digest: b3230020aee9bd68a256e99283d3321c15d17920c21948a892c5483103da3949
+  digest: 9d14e4232aef9a8f0798de4354e61a76fae2585ab43256677ae8b45ff0ad6941
+- kind: transition
+  claim_id: SITE-002
+  from_digest: e7b210f6af88354aaa209322f2368e4e78a9e9fd745936fd94591f6dabf5e8ea
+  to_digest: cf86b4ba9e146e000e246abe31420a0788b3f51afc029f490007cd9bfef7e4e4
+  transition_type: CLARIFY
+  event_at: '2026-09-01'
+  recorded_at: '2026-09-02'
+  provenance_class: RETROSPECTIVE_RECONSTRUCTION
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - git:9f5cec278aa2bcddc8bd48e2d5a2c3d69f0fd636
+  - git commit message 9f5cec2
+  reason: 'non-claim added: a source the verifier could not reach is not a binding that failed [retrospective
+    classification by E5A, 2026-09-02]'
+  previous_transition_digest: 9d14e4232aef9a8f0798de4354e61a76fae2585ab43256677ae8b45ff0ad6941
+  digest: ad2d8af4f4e14c887a2286a60581174094843569d940d3daa17578fdd2171074
