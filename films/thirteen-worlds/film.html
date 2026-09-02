@@ -1,0 +1,158 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Thirteen Worlds, One File</title>
+<link rel="stylesheet" href="../lib/tokens.css">
+<!--
+  Thirteen Worlds, One File — Cohort A, film 2.
+  Grammar: a mechanical counting instrument. Five rods, one per released
+  verdict column; 82 positions, one per prompt labelled harmful; a bead is a
+  miss. A column where every rod carries a bead is a prompt every guard
+  missed. The bead COUNTS are the release's (MC-002). Where the beads sit is
+  what the five published rates do not say — so one rod slides, and the
+  all-miss count walks through every world the marginals permit: 0 … 12.
+  The union then fixes the count at 9. It does not fix the positions.
+-->
+<div id="stage"></div>
+<script src="../lib/film.js"></script>
+<script>
+'use strict';
+const { H, TOK } = Film;
+const { k, sm, win, eio, eo3, eo5, lerp, text, line, disc, ring, kicker, stamp, locator, ledgerTag, measure, hexA } = H;
+
+const DUR = 36;
+let N, GUARDS, LABELS, MISSES, UNION, ALLMISS, LO, HI, SETSIZE, IND_RATE, IND_PROMPTS, RATIO, ALLMISS_RATE, COMMIT, CONT, NB, NBORDER;
+let RODS; // [{g, label, misses, start(s) }] sorted by misses ascending; the smallest rod slides
+
+const T_SLIDE0 = 5.0, T_SLIDE1 = 15.0;   // the small rod walks from the right end to the left end
+const T_UNION = 22.0;                     // the union arrives and pins the count
+
+function setup({ fact }) {
+  N = fact('MC-002.n_harmful');
+  GUARDS = fact('MC-002.guards'); LABELS = fact('MC-002.guard_labels');
+  MISSES = fact('MC-002.per_guard_misses');
+  UNION = fact('MC-002.union_detection'); ALLMISS = fact('MC-002.all_miss');
+  LO = fact('MC-003.identified_set_lower'); HI = fact('MC-003.identified_set_upper'); SETSIZE = fact('MC-003.identified_set_size');
+  CONT = fact('MC-003.continuous_set');
+  IND_RATE = fact('MC-002.independence_plugin_rate'); IND_PROMPTS = fact('MC-002.independence_plugin_prompts');
+  RATIO = fact('MC-002.ratio_recomputed_to_plugin'); ALLMISS_RATE = fact('MC-002.all_miss_rate');
+  COMMIT = fact('MC-002.support_commit');
+  NB = fact('MC-002.n_benign'); NBORDER = fact('MC-002.n_borderline');
+  RODS = GUARDS.map(g => ({ g, label: LABELS[g], misses: MISSES[g] })).sort((a, b) => a.misses - b.misses);
+  // every rod but the smallest keeps its beads as a block from position 0;
+  // the smallest rod's block slides. Its start s runs N-m … 0.
+}
+
+/* block start for rod i at time t; only rod 0 (fewest misses) moves */
+function rodStart(i, t) {
+  if (i !== 0) return 0;
+  const m = RODS[0].misses;
+  const s0 = N - m; // right end
+  if (t < T_UNION) return Math.round(lerp(s0, 0, eio(k(t, T_SLIDE0, T_SLIDE1))));
+  // the union pins the all-miss count at ALLMISS: the intersection with the next-smallest block
+  // [0, m2) has size min(s+m, m2) - s = ALLMISS  →  s = m2 - ALLMISS
+  const m2 = RODS[1].misses;
+  const target = m2 - ALLMISS;
+  return Math.round(lerp(0, target, eio(k(t, T_UNION + 0.3, T_UNION + 1.6))));
+}
+function beadAt(i, col, t) { const s = rodStart(i, t); return col >= s && col < s + RODS[i].misses; }
+function allMissCount(t) { let n = 0; for (let c = 0; c < N; c++) if (RODS.every((_, i) => beadAt(i, c, t))) n++; return n; }
+
+function render(t, g, L, { fact }) {
+  const u = L.u;
+  const x0 = L.vertical ? 80 * u : 230 * u, x1 = L.vertical ? L.W - 80 * u : L.W - 200 * u;
+  const cw = (x1 - x0) / N;                                     // column width
+  const rowY = i => (L.vertical ? 520 * u : 300 * u) + i * (L.vertical ? 120 * u : 88 * u);
+  const br = Math.min(cw * 0.42, 9 * u);                       // bead radius
+  const colX = c => x0 + (c + 0.5) * cw;
+
+  kicker(g, `BELLS 2025 · ${N} PROMPTS LABELLED HARMFUL · FIVE RELEASED VERDICT COLUMNS`, L.m + 20 * u, L.vertical ? 150 * u : 120 * u, { size: 18 * u, maxW: L.W - 2 * L.m - 40 * u });
+  text(g, 'a bead is a miss. a column every rod fills is a prompt every guard missed.', L.m + 20 * u, L.vertical ? 190 * u : 158 * u, { font: 'sans', size: 21 * u, color: TOK.muted, maxW: L.W - 2 * L.m - 40 * u });
+
+  // all-miss columns: amber bands behind the rods (a fact about the arrangement, labelled)
+  const amc = allMissCount(t);
+  const topY = rowY(0) - 26 * u, botY = rowY(RODS.length - 1) + 26 * u;
+  for (let c = 0; c < N; c++) {
+    if (RODS.every((_, i) => beadAt(i, c, t)) && t > 2.6) {
+      g.fillStyle = hexA(TOK.review, 0.28); g.fillRect(colX(c) - cw / 2, topY, cw, botY - topY);
+    }
+  }
+  // rods and beads
+  RODS.forEach((r, i) => {
+    const y = rowY(i);
+    const rodIn = sm(t, 0.2 + i * 0.25, 0.9 + i * 0.25, eo3);
+    line(g, x0, y, x1, y, TOK.lineStrong, 2 * u);
+    const lbl = `${r.label}  ${r.misses}/${N} missed`;
+    text(g, lbl, x0, y - 20 * u, { font: 'mono', size: 15 * u, color: i === 0 ? TOK.ink : TOK.muted, alpha: rodIn, track: 0.04, maxW: (x1 - x0) * 0.6 });
+    const s = rodStart(i, t);
+    for (let c = 0; c < N; c++) {
+      const has = c >= s && c < s + r.misses;
+      const pour = eo5(k(t, 0.05 + i * 0.22 + (c / N) * 0.8, 0.3 + i * 0.22 + (c / N) * 0.8));
+      if (has) disc(g, colX(c), y, br * pour, TOK.ink, 1);
+      else ring(g, colX(c), y, br * 0.45 * pour, TOK.lineStrong, 1.5 * u, 1);
+    }
+  });
+  // slide hint on the moving rod
+  const hint = win(t, T_SLIDE0 - 1.2, T_SLIDE1, 0.4, 1.0);
+  text(g, '← where these twelve sit is not in the published rates', colX(rodStart(0, t)) - cw, rowY(0) + 34 * u, { font: 'mono', size: 14 * u, color: TOK.review, alpha: hint, track: 0.04, maxW: 620 * u, align: 'left' });
+
+  // ---- the count and the identified set ----
+  const cy = L.vertical ? rowY(4) + 210 * u : 760 * u;
+  const cIn = sm(t, 2.6, 3.2);
+  text(g, 'ALL FIVE MISS THE SAME PROMPT', x0, cy - 62 * u, { font: 'mono', size: 18 * u, color: TOK.muted, alpha: cIn, track: 0.1, maxW: 700 * u });
+  const big = 84 * u;
+  text(g, String(amc), x0, cy + 22 * u, { font: 'serif', size: big, weight: 500, color: TOK.ink, alpha: cIn });
+  const bw = measure(g, String(amc), { font: 'serif', size: big, weight: 500 });
+  text(g, `/ ${N}`, x0 + bw + 16 * u, cy + 22 * u, { font: 'mono', size: 30 * u, color: TOK.muted, alpha: cIn });
+  // axis 0..HI+? : the finite identified set
+  const axX0 = L.vertical ? x0 : x0 + 420 * u, axX1 = L.vertical ? x1 : x1;
+  const axY = L.vertical ? cy + 150 * u : cy - 6 * u;
+  const setIn = sm(t, 3.4, 4.2, eo3);
+  const px = v => lerp(axX0, axX1, v / 14);
+  g.save(); g.globalAlpha = setIn;
+  g.fillStyle = hexA(TOK.evidence, 0.2); g.fillRect(px(LO), axY - 8 * u, px(HI) - px(LO), 16 * u);
+  line(g, px(LO), axY, px(HI), axY, TOK.evidence, 3 * u);
+  for (let v = 0; v <= 14; v++) { line(g, px(v), axY - (v <= HI ? 10 : 5) * u, px(v), axY + (v <= HI ? 10 : 5) * u, v <= HI ? TOK.evidence : TOK.lineStrong, 1.5 * u); }
+  [0, 4, 8, 12].forEach(v => text(g, String(v), px(v), axY + 32 * u, { font: 'mono', size: 15 * u, color: TOK.muted, align: 'center' }));
+  text(g, `{${LO}, …, ${HI}} of ${N} — ${SETSIZE} worlds from the five published miss rates`, axX0, axY - 28 * u, { font: 'mono', size: 16 * u, color: TOK.evidence, track: 0.04, maxW: axX1 - axX0 });
+  text(g, `continuous set [${H.pct(CONT[0], 2)}, ${H.pct(CONT[1], 2)}] = [max(0, Σp−4), min p]`, axX0, axY + 60 * u, { font: 'mono', size: 14 * u, color: TOK.muted, track: 0.04, maxW: axX1 - axX0 });
+  g.restore();
+  // the count dot walks the axis
+  if (setIn > 0) { disc(g, px(amc), axY, 9 * u, TOK.bg); disc(g, px(amc), axY, 7 * u, TOK.ink); }
+  // endpoint stamps
+  const upA = win(t, T_SLIDE1 - 1.6, T_UNION - 0.2, 0.4, 0.5);
+  stamp(g, `UPPER ENDPOINT = min p = ${HI}/${N} = ${H.pct(HI / N, 2)}`, px(HI) - 10 * u, axY - 70 * u, { size: 14 * u, color: TOK.evidence, alpha: upA, angle: -0.04 });
+  // the independence plug-in: a ghost that cannot be a column
+  const indA = win(t, 18.0, T_UNION + 0.2, 0.5, 0.4);
+  if (indA > 0) {
+    const xi = px(IND_PROMPTS);
+    line(g, xi, axY - 40 * u, xi, axY + 22 * u, TOK.review, 3 * u, [6, 4]);
+    text(g, `independence would expect ${IND_PROMPTS.toFixed(2)} prompts (${H.pct(IND_RATE, 2)})`, xi + 12 * u, axY - 48 * u, { font: 'mono', size: 15 * u, color: TOK.review, alpha: indA, track: 0.04, maxW: 620 * u });
+    text(g, 'a model’s point — not a whole prompt, not a count', xi + 12 * u, axY - 30 * u, { font: 'mono', size: 14 * u, color: TOK.review, alpha: indA, track: 0.04, maxW: 620 * u });
+  }
+  // ---- the union arrives ----
+  const unA = sm(t, T_UNION, T_UNION + 0.6, eo3);
+  if (unA > 0) {
+    const uy = topY - 44 * u;
+    line(g, x0, uy, lerp(x0, x1, unA), uy, TOK.evidence, 4 * u);
+    text(g, `released verdicts, OR across the five columns: ${UNION} of ${N} flagged`, x0, uy - 14 * u, { font: 'mono', size: 16 * u, color: TOK.evidence, alpha: unA, track: 0.04, maxW: x1 - x0 });
+    const pin = sm(t, T_UNION + 1.6, T_UNION + 2.2);
+    stamp(g, `RELEASE-RECOMPUTED · ${ALLMISS}/${N} = ${H.pct(ALLMISS_RATE, 1)}`, L.vertical ? L.cx : x1 - 250 * u, L.vertical ? uy - 60 * u : uy - 18 * u, { size: 16 * u, color: TOK.evidence, alpha: pin, angle: -0.04 });
+    text(g, `the union fixes the count at ${N} − ${UNION} = ${ALLMISS}. it does not fix the positions.`, x0, L.vertical ? cy + 330 * u : cy + 92 * u, { font: 'sans', size: 22 * u, color: TOK.ink, alpha: pin, maxW: x1 - x0 });
+    text(g, `${H.pct(ALLMISS_RATE, 1)} vs the plug-in ${H.pct(IND_RATE, 1)} — ${RATIO.toFixed(2)}× on this file. arithmetic on a subset, not a law.`, x0, L.vertical ? cy + 366 * u : cy + 124 * u, { font: 'mono', size: 15 * u, color: TOK.muted, alpha: sm(t, T_UNION + 3.0, T_UNION + 3.6), track: 0.03, maxW: x1 - x0 });
+  }
+  // ---- scope and locator ----
+  const scA = sm(t, 29.0, 29.8);
+  ledgerTag(g, L, 'COUNTS OBSERVED · POSITIONS CONSTRUCTED', `${N} author-selected prompts · ${NB} benign and ${NBORDER} borderline held apart · not a population estimate, not a ranking · beads: one arrangement consistent with the counts, not the released rows`, scA, 'right');
+  locator(g, L, [`MC-002 · MC-003 · BELLS release @ ${COMMIT.slice(0, 8)} · python3 scripts/reanalyze_bells_subset.py`, 'cubits11.github.io/missing-column'], sm(t, 32.6, 33.2));
+}
+
+Film.define({
+  id: 'thirteen-worlds', title: 'Thirteen Worlds, One File',
+  duration: DUR, fps: 30, poster_t: 27.0,
+  claimFrames: [
+    { t: 16.5, label: 'the sliding rod nested: all-miss reads 12/82, the upper endpoint min p, with the finite identified set {0…12} on the axis' },
+    { t: 27.0, label: 'the union (73/82) pins the all-miss count at 9/82 while the independence plug-in (2.87 prompts) sits off-grid' }
+  ],
+  setup, render
+});
+</script>

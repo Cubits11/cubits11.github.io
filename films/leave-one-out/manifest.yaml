@@ -1,0 +1,84 @@
+id: leave-one-out
+title: Leave One Out
+cohort: A
+grammar: light — eighty-two windows, five lamps, one shutter at a time
+duration_s: 34
+thesis: >
+  Marginal catch counts plus the union only bound what each guard alone
+  catches; the released leave-one-out unions identify it — 18, 3, 0, 0, 0 —
+  so three of five supervisors add no exclusive coverage on this stratum.
+epistemic_operation: >
+  aggregate-only bounds (marginals + union) versus identification by k
+  leave-one-out scalars; what a second guardrail catches that the others miss.
+claim: >
+  On the 82 prompts labelled harmful in the released BELLS subset, the OR of
+  released verdicts flags 73; removing NeMo Guardrails leaves 55 flagged
+  (exclusive coverage 18), removing Lakera Guard leaves 70 (3), and removing
+  LangKit, Prompt Guard, or LLM Guard leaves 73 (0). From catch counts and
+  the union alone those exclusive counts are only bounded: NeMo 0–21, Lakera
+  0–3, LangKit 0–3, Prompt Guard 0–3, LLM Guard 0.
+scope: >
+  Exactly the released file at the bound commit; counting arithmetic at the
+  vendors' released binary verdicts. The lamp counts, union, and leave-one-out
+  unions are registered values re-asserted against the hash-verified file in
+  CI (MC-002); the bounds are MC-003's. Which windows each lamp lights is a
+  construction satisfying every registered count and all five leave-one-out
+  unions; the released rows are never redistributed, and pairwise overlaps
+  are neither registered nor claimed.
+status: supported_within_scope — bound to MC-002 and MC-003; window positions constructed
+evidence:
+  - {fact: MC-002.n_harmful, kind: OBSERVED, value: 82}
+  - {fact: MC-002.guards, kind: REGISTRY, value: [lakera_guard, prompt_guard, langkit, nemo, llm_guard]}
+  - {fact: MC-002.guard_labels, kind: REGISTRY, value: {lakera_guard: Lakera Guard, prompt_guard: Prompt Guard, langkit: LangKit, nemo: NeMo Guardrails, llm_guard: LLM Guard}}
+  - {fact: MC-002.per_guard_catches, kind: OBSERVED, value: {lakera_guard: 52, prompt_guard: 5, langkit: 25, nemo: 70, llm_guard: 0}}
+  - {fact: MC-002.union_detection, kind: OBSERVED, value: 73}
+  - {fact: MC-002.all_miss, kind: OBSERVED, value: 9}
+  - {fact: MC-002.leave_one_out_union, kind: OBSERVED, value: {lakera_guard: 70, prompt_guard: 73, langkit: 73, nemo: 55, llm_guard: 73}}
+  - {fact: MC-002.exclusive_full_stack_coverage, kind: DERIVED, value: {lakera_guard: 3, langkit: 0, llm_guard: 0, nemo: 18, prompt_guard: 0}}
+  - fact: MC-002.constructed_arrangement
+    kind: CONSTRUCTED
+    value: [0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 11, 11, 11, 11, 11, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+  - {fact: MC-003.aggregate_unique_contribution_bounds, kind: PROVED, value: {lakera_guard: [0, 3], prompt_guard: [0, 3], langkit: [0, 3], nemo: [0, 21], llm_guard: [0, 0]}}
+  - {fact: MC-003.members_zero_exclusive_full_stack_coverage, kind: OBSERVED, value: 3}
+  - {fact: MC-002.support_commit, kind: REGISTRY, value: 507566c5a4606c8e3dec0bd59a5c5fde62594951}
+objects:
+  - object: the five lamps with catch counts, the lit total 73/82, the 9 dark windows
+    status: OBSERVED
+    note: MC-002 registered counts, re-asserted against the hash-verified release in CI
+  - object: which window each lamp lights
+    status: CONSTRUCTED
+    note: 82 five-bit masks satisfying per-guard catches, the union, and all five leave-one-out unions, then a seeded shuffle of positions
+  - object: the aggregate-only bounds beside each lamp (0–21, 0–3, …)
+    status: PROVED
+    note: MC-003 expected block, checked by scripts/identification.py
+  - object: the windows that go dark under each shutter (18, 3, 0, 0, 0)
+    status: DERIVED
+    note: union − leave-one-out union; identical to the count on the constructed wall by construction
+evidence_commits:
+  - claim: MC-002
+    repo: CentreSecuriteIA/bells_leaderboard
+    commit: 507566c5a4606c8e3dec0bd59a5c5fde62594951
+falsifier: >
+  Recomputing from the bound, hash-verified file yields any per-guard catch,
+  union, or leave-one-out union different from the expected block (MC-002,
+  REJECT); or an exact finite catch-set arrangement lies outside the stated
+  exclusive-coverage bounds (MC-003, REJECT); or the constructed wall fails
+  any registered count — bind_facts.py asserts every constraint before the
+  film can read it.
+non_claims:
+  - not a vendor ranking, a causal attribution, or evidence about any product outside this stratum
+  - the released verdicts are at unstated default configurations; one supervisor fires exactly once in the released rows
+  - leave-one-out unions identify exclusive full-stack coverage only; not pairwise or higher-order overlap, Shapley values, or ensemble structure
+  - window positions are a construction; the released rows are not redistributed and the true overlaps beyond the registered aggregates are not shown
+  - says nothing about adversarial prompts, which dominate the evaluation and have no per-item release
+claim_frames:
+  - t: 12.0
+    shows: all five lamps on — 73/82 lit, 9 dark; aggregate-only bounds on exclusive coverage beside each lamp
+  - t: 16.3
+    shows: NeMo Guardrails shuttered — 18 windows go dark, 55/82 still lit by the other four
+  - t: 29.0
+    shows: the summary line — 3 of 5 lamps light nothing the others don't, on this stratum; identified values beside each lamp
+render:
+  fps: 30
+  formats: [master, vertical]
+  poster_t: 16.3

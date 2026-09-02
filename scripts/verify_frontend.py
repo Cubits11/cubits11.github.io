@@ -50,6 +50,7 @@ def page_files() -> list[Path]:
         p for p in ROOT.rglob("*.html")
         if ".git" not in p.parts and "docs" not in p.parts
         and "scripts" not in p.parts and ".venv" not in p.parts
+        and "films" not in p.parts  # canvas films are not site pages; scripts/films/verify_films.py audits them
     )
 
 

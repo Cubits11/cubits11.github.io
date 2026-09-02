@@ -1,0 +1,122 @@
+id: the-missing-column-census
+title: The Missing Column, Counted
+cohort: A
+grammar: brutalist information design — one table, twenty rows, the column that is usually empty
+duration_s: 40
+thesis: >
+  Of 20 public guardrail evaluations meeting frozen criteria, 14 report no
+  joint-evidence artifact and 0 document matched operating thresholds with
+  full exposure; the count is a fact about reporting inside a bounded
+  search, corrected once in public and declared with its sensitivity.
+epistemic_operation: >
+  classification against frozen criteria → mechanical counts; a ladder of
+  strata rather than one verdict; a falsifier that fired and was recorded;
+  bounded search ≠ universal absence.
+claim: >
+  As of 2026-08-27, among 20 examined public evaluations, 14 establish a
+  shared item set and common event definition, 12 state no threshold
+  mismatch, 0 document matched thresholds with full exposure; 5 provide a
+  declared joint-evidence artifact (4 print a composition result, 2 release
+  computable per-item outcomes, 1 does both), 14 report none, 1 is not
+  comparable. The 19/13/4 envelope was rejected on 2026-08-30 by the claim's
+  own falsifier and retained in the revision history; a declared sensitivity
+  (archive-evidenced pre-freeze visibility) computes 19/13/4.
+scope: >
+  A census of reporting bounded by its documented search protocol, classified
+  by a single primary reviewer with no second review yet. It says nothing
+  about how any evaluated system or stack performs. Every count on screen is
+  verify_census.compute_counts on census.yaml; the per-row ladder flags use
+  the identical predicates and are asserted to reproduce 14/12/0.
+status: supported_within_scope — bound to MC-001; counts derived from census.yaml at bind time
+evidence:
+  - fact: MC-001.rows
+    kind: REGISTRY
+    value:
+      - {id: openai-holistic-2022, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: llama-guard-2023, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: aegis-2024, classification: PRESENT, joint_scope: printed_partial_stack, joint_scope_additional: [], shared_basis: false, threshold_not_contradicted: false, threshold_documented_full_exposure: false}
+      - {id: wildguard-2024, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: false, threshold_not_contradicted: false, threshold_documented_full_exposure: false}
+      - {id: lakera-pint-2024, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: false, threshold_not_contradicted: false, threshold_documented_full_exposure: false}
+      - {id: shieldgemma-2024, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: false, threshold_not_contradicted: false, threshold_documented_full_exposure: false}
+      - {id: upenn-multilingual-2024, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: guardbench-2024, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: ibm-adversarial-prompt-2025, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: neuraltrust-2025, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: llamafirewall-2025, classification: PRESENT, joint_scope: printed_full_stack, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: circleguardbench-2025, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: false, threshold_not_contradicted: false, threshold_documented_full_exposure: false}
+      - {id: unit42-genai-platform-2025, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: bells-misuse-2025, classification: PRESENT, joint_scope: computable_via_item_release, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: bells-o-2026, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: multimodal-safeguard-bench-2026, classification: PRESENT, joint_scope: computable_via_item_release, joint_scope_additional: [printed_partial_stack], shared_basis: true, threshold_not_contradicted: false, threshold_documented_full_exposure: false}
+      - {id: wainjectbench-2025, classification: PRESENT, joint_scope: printed_full_stack, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: domyn-open-guards-2026, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: true, threshold_documented_full_exposure: false}
+      - {id: truefoundry-2026, classification: NOT_COMPARABLE, joint_scope: none, joint_scope_additional: [], shared_basis: false, threshold_not_contradicted: false, threshold_documented_full_exposure: false}
+      - {id: ml6-2026, classification: ABSENT, joint_scope: none, joint_scope_additional: [], shared_basis: true, threshold_not_contradicted: false, threshold_documented_full_exposure: false}
+  - {fact: MC-001.N, kind: DERIVED, value: 20}
+  - {fact: MC-001.M1, kind: DERIVED, value: 14}
+  - {fact: MC-001.M2, kind: DERIVED, value: 12}
+  - {fact: MC-001.M3, kind: DERIVED, value: 0}
+  - {fact: MC-001.K, kind: DERIVED, value: 5}
+  - {fact: MC-001.ABSENT, kind: DERIVED, value: 14}
+  - {fact: MC-001.NOT_COMPARABLE, kind: DERIVED, value: 1}
+  - {fact: MC-001.K.prints_composition_result, kind: DERIVED, value: 4}
+  - {fact: MC-001.K.releases_computable_items, kind: DERIVED, value: 2}
+  - {fact: MC-001.K.does_both, kind: DERIVED, value: 1}
+  - {fact: MC-001.excluded, kind: DERIVED, value: 9}
+  - {fact: MC-001.unexamined, kind: DERIVED, value: 15}
+  - {fact: MC-001.frozen_as_of, kind: REGISTRY, value: "2026-08-27"}
+  - {fact: MC-001.criteria_version, kind: REGISTRY, value: 1}
+  - {fact: MC-001.adjudication_mode, kind: REGISTRY, value: single_primary_reviewer}
+  - {fact: MC-001.correction, kind: REGISTRY, value: {date: "2026-08-30", from: [19, 13, 4], to: [20, 14, 5], row_added: multimodal-safeguard-bench-2026}}
+  - fact: MC-001.sensitivities
+    kind: REGISTRY
+    value:
+      - {id: named-products-only, label: Named-products-only reading, envelope: [19, 13, 5]}
+      - {id: pre-freeze-visibility-evidenced, label: Independently evidenced pre-freeze visibility reading, envelope: [19, 13, 4]}
+objects:
+  - object: the twenty row ids and their classification cells
+    status: REGISTRY
+    note: one reviewer's first-pass classification of each public source against frozen criteria v1
+  - object: the per-system dashes in the second column
+    status: ILLUSTRATIVE
+    note: presence marks only — no score from any source is shown
+  - object: the tallies 14 / 5 / 1, the K split 4 / 2 / 1, and the ladder 14 / 12 / 0
+    status: DERIVED
+    note: verify_census.compute_counts and scripts/facts.registry
+  - object: the correction stamp 19/13/4 → 20/14/5 dated 2026-08-30
+    status: REGISTRY
+    note: census.yaml revision_history; the rejected envelope is retained there
+  - object: the sensitivity envelope 19/13/4
+    status: REGISTRY
+    note: a declared alternative reading, shown only beside the word sensitivity and never bare
+  - object: the edge-of-search panel — 20 / 9 / 15
+    status: DERIVED
+    note: examined, exclusions, unexamined candidates in census.yaml
+evidence_commits:
+  - claim: MC-001
+    repo: Cubits11/cubits11.github.io
+    commit: 6a6f587a2c0a5dbd1e8fea065c383938877fe3b0
+falsifier: >
+  A qualifying public evaluation meeting criteria v1 and published on or
+  before 2026-08-27 is shown absent from the census, or a row misreports its
+  source such that recomputed N, M, or K differ from 20/14/5 (MC-001, REJECT);
+  or scripts/verify_census.py --counts prints counts other than the ones on
+  screen — in which case bind_facts.py --check fails before this film can be
+  re-rendered.
+non_claims:
+  - does not claim any evaluated guardrail or stack performs poorly; an unfilled column is a reporting fact, not a performance finding
+  - does not claim the unmeasured joint statistics would reveal dependence
+  - does not audit the quality of any per-system evaluation; the per-system dashes carry no scores
+  - does not claim exhaustive coverage beyond the examined set; the 15 unexamined candidates are unknown, not absent
+  - the sensitivity envelope is never a bare replacement for 20/14/5
+claim_frames:
+  - t: 11.5
+    shows: the joint-evidence column complete — 14 not reported, 5 present, 1 not comparable, of 20
+  - t: 23.5
+    shows: the ladder tallied 14 / 12 / 0 with the sentence "0 of 20 document matched operating thresholds with full exposure"
+  - t: 34.0
+    shows: the edge-of-search panel — 20 examined, 9 excluded, 15 unexamined
+render:
+  fps: 30
+  formats: [master, vertical]
+  poster_t: 23.5

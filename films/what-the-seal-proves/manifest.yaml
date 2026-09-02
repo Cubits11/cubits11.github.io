@@ -1,0 +1,81 @@
+id: what-the-seal-proves
+title: What the Seal Proves
+cohort: A
+grammar: paper receipts through a three-station press; a seal whose light stops at a line
+duration_s: 34
+thesis: >
+  Two receipts that differ in bytes can share one digest after parse →
+  canonicalize → digest, so a verifying seal identifies an execution only up
+  to that pipeline's kernel; and even a verified seal establishes nothing
+  about whether the governed action was safe, authorized, or correct.
+epistemic_operation: >
+  a receipt reaching the boundary of what it proves; provenance (bytes match)
+  separated from safety, authorization, and semantic correctness.
+claim: >
+  The film's toy pipeline maps the byte strings {"amount": 1.0, "to":
+  "acct-7"} and {"to": "acct-7", "amount": 1} — whose raw SHA-256 digests
+  differ — to one canonical string {"amount":1,"to":"acct-7"} with SHA-256
+  2cdfe08c…; and, per the registered non-claim of GA-001, a verifying receipt
+  does not establish that the governed action was safe, authorized, or
+  semantically correct.
+scope: >
+  The digests are real SHA-256 values over exactly the bytes shown, computed
+  by scripts/films/bind_facts.py with the film's own toy canonicalizer (sort
+  keys, whole-valued floats become ints). They illustrate the kernel idea and
+  are not Ghost-Ark's canonicalizer, corpus, or measurements. The boundary
+  sentence is quoted verbatim from claims.yaml (GA-001 non_claims). Ghost-Ark
+  is cited at its bound commit and nothing is built on it (its licence is
+  unstated; commercial_reuse unknown is terminal).
+status: DOCUMENT + CONSTRUCTED — GA-001 quoted at its registered commit; example digests computed at bind time
+evidence:
+  - {fact: RECEIPT.raw_a, kind: CONSTRUCTED, value: '{"amount": 1.0, "to": "acct-7"}'}
+  - {fact: RECEIPT.raw_b, kind: CONSTRUCTED, value: '{"to": "acct-7", "amount": 1}'}
+  - {fact: RECEIPT.canonical, kind: CONSTRUCTED, value: '{"amount":1,"to":"acct-7"}'}
+  - {fact: RECEIPT.digest_raw_a, kind: DERIVED, value: f51f700956972a5fcc41474df886d1d5b1a338f01d43ad6210beb83432dad3da}
+  - {fact: RECEIPT.digest_raw_b, kind: DERIVED, value: 93353ccf984a3b017c3fdabe28f3e010036cd69422100cb1340539aba689da9c}
+  - {fact: RECEIPT.digest_canonical, kind: DERIVED, value: 2cdfe08c931c3bd0f3821a0e96dcf8fcb6f07791cbbdec36c1908bc224d0783e}
+  - fact: GA-001.non_claims
+    kind: DOCUMENT
+    value:
+      - a verifying receipt does not establish that the governed action was safe, authorized, or semantically correct
+      - kernel collisions in real canonicalizers are demonstrated as possible, not as prevalent — the repository's E12 sample found 0 of 64 real payloads carrying any pathology class
+      - not hardened for deployment; not post-quantum secure
+  - {fact: GA-001.support_commit, kind: REGISTRY, value: 98c90d8296580f08dd8b6e38fdd2abd7039ec651}
+objects:
+  - object: the two receipts, their raw digests, the canonical string and its digest
+    status: CONSTRUCTED
+    note: real SHA-256 over the bytes shown; the film's own toy canonicalizer
+  - object: the three stations PARSE → CANONICALIZE → DIGEST
+    status: ILLUSTRATIVE
+    note: the pipeline shape named by the GA-001 thesis; not a rendering of any specific implementation
+  - object: the seal, the VERIFIED stamp, the boundary line and the three dark doors
+    status: ILLUSTRATIVE
+    note: a staging of the registered non-claim; no deployed receipt system is depicted
+  - object: the quoted boundary sentence
+    status: DOCUMENT
+    note: claims.yaml GA-001 non_claims[0], verbatim
+evidence_commits:
+  - claim: GA-001
+    repo: PSUCyberSecurityLab/ghost-ark
+    commit: 98c90d8296580f08dd8b6e38fdd2abd7039ec651
+falsifier: >
+  sha256 of the shown raw bytes A and B are equal, or sha256 of the canonical
+  bytes differs from the value on screen (recomputable with any SHA-256
+  tool); or the bound thesis no longer states soundness as a ternary relation
+  over the whole parse → canonicalize → digest pipeline (GA-001, NARROW); or
+  the registry's GA-001 non-claim no longer reads as quoted, in which case
+  bind_facts.py --check fails before a re-render.
+non_claims:
+  - not a statement about any deployed receipt system, and not a measurement of Ghost-Ark's canonicalizer or corpus
+  - the toy canonicalizer is the film's; nothing here is built on the lab repository, whose licence is unstated
+  - kernel collisions in real canonicalizers are shown as possible, not prevalent
+  - verifier acceptance is never treated here as evidence of semantic safety, authorization, or correctness
+claim_frames:
+  - t: 16.8
+    shows: two receipts with different raw digests now share one canonical digest under the seal
+  - t: 24.0
+    shows: the verified seal, the boundary line, and the three dark doors SAFE? AUTHORIZED? CORRECT? — not established by the receipt
+render:
+  fps: 30
+  formats: [master, vertical]
+  poster_t: 24.0

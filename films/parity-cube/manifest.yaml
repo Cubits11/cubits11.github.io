@@ -1,0 +1,78 @@
+id: parity-cube
+title: The Parity Cube
+cohort: A
+grammar: geometry — eight outcomes as cube corners, pairwise evidence as the cube's shadows
+duration_s: 32
+thesis: >
+  Two distributions over three guards can have identical single-guard and
+  identical pairwise failure rates and still differ in how often all three
+  fail together; measuring every pair does not identify the stack.
+epistemic_operation: >
+  joint evidence at order two (every pair) fails to identify an order-three
+  event; a constructive counterexample, not a frequency.
+claim: >
+  Uniform mass on the four even-parity outcomes and uniform mass on the four
+  odd-parity outcomes both give every guard a failure rate of 0.5 and every
+  pair a both-fail rate of 0.25, while the three-way failure probability is
+  0 under even parity and 0.25 under odd parity.
+scope: >
+  CC-003's frozen E1 construction (controlled synthetic generators; no real
+  guardrail measured; recorded decision Narrow). The moments shown are
+  re-asserted numerically by scripts/films/bind_facts.py from the two
+  constructed distributions.
+status: supported_within_scope — bound to CC-003 at its registered commit; synthetic construction
+evidence:
+  - fact: CC-003.singleton
+    kind: PROVED
+    value: 0.5
+  - fact: CC-003.pairwise
+    kind: PROVED
+    value: 0.25
+  - fact: CC-003.triple_even
+    kind: PROVED
+    value: 0.0
+  - fact: CC-003.triple_odd
+    kind: PROVED
+    value: 0.25
+  - fact: CC-003.even_atoms
+    kind: CONSTRUCTED
+    value: {"000": 0.25, "011": 0.25, "101": 0.25, "110": 0.25}
+  - fact: CC-003.odd_atoms
+    kind: CONSTRUCTED
+    value: {"001": 0.25, "010": 0.25, "100": 0.25, "111": 0.25}
+  - fact: CC-003.support_commit
+    kind: REGISTRY
+    value: ee61a710243c74ec49d5896167d0913327e6b5d3
+objects:
+  - object: the two cubes and the mass on their corners
+    status: CONSTRUCTED
+    note: the E1 parity pair; a mathematical construction, not an observed system
+  - object: the pairwise walls (both-fail 0.25 on every pair) and the singles line (0.50)
+    status: PROVED
+    note: projections of the constructed distributions, asserted to 1e-9 at bind time
+  - object: the all-three-fail corner, 0 versus 0.25
+    status: PROVED
+    note: CC-003 proposition
+evidence_commits:
+  - claim: CC-003
+    repo: Cubits11/cc-framework
+    commit: ee61a710243c74ec49d5896167d0913327e6b5d3
+falsifier: >
+  The frozen E1 construction fails to retain equal singleton (0.5) and
+  pairwise (0.25) values while yielding three-way probabilities 0 (even) and
+  0.25 (odd), or the bound study does not record the Narrow decision (CC-003,
+  REJECT); or the moments drawn on screen differ from those recomputed from
+  the atoms — bind_facts.py asserts them before the film can read them.
+non_claims:
+  - the parity pair demonstrates possibility, not frequency, in real guardrail stacks; no empirical prevalence is claimed
+  - nothing here validates the framework's practical or deployed value; "we validated CC" is prohibited at every rung
+  - no real guardrail, vendor, or deployment appears; E1 is synthetic
+claim_frames:
+  - t: 14.0
+    shows: two cubes with identical singles (0.50) and identical pairwise both-fail (0.25) drawn under each
+  - t: 20.5
+    shows: the all-three-fail corner labelled 0 in world E and 0.25 in world O
+render:
+  fps: 30
+  formats: [master, vertical]
+  poster_t: 20.5

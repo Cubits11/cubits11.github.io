@@ -1,0 +1,78 @@
+{
+ "film": "thirteen-worlds",
+ "format": "master",
+ "title": "Thirteen Worlds, One File",
+ "rendered_from_head": "6a6f587a2c0a5dbd1e8fea065c383938877fe3b0",
+ "rendered_on": "2026-09-01",
+ "inputs": {
+  "film.html": "405230d433e9c35cdab9ead79860d0eceef1f25d678cc76dc2b6961b5b6103f8",
+  "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
+  "films/data/facts.json": "66d6947b96f99559c04a7b20c59ba73ffd4ccae17fd13c2a9fad517450a605d7"
+ },
+ "runtime": {
+  "chrome": "152.0.7977.65",
+  "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
+  "crf": 20
+ },
+ "fps": 30,
+ "frames": 1081,
+ "duration_s": 36,
+ "width": 1920,
+ "height": 1080,
+ "frames_digest": "09cff90f7bbb563325f5edd749ce149eec2e6748199c4249ebe5afae1281cb7d",
+ "determinism": {
+  "sampled_frames": 5,
+  "identical": true
+ },
+ "text_overflows": [],
+ "facts_used": [
+  "MC-002.all_miss",
+  "MC-002.all_miss_rate",
+  "MC-002.guard_labels",
+  "MC-002.guards",
+  "MC-002.independence_plugin_prompts",
+  "MC-002.independence_plugin_rate",
+  "MC-002.n_benign",
+  "MC-002.n_borderline",
+  "MC-002.n_harmful",
+  "MC-002.per_guard_misses",
+  "MC-002.ratio_recomputed_to_plugin",
+  "MC-002.support_commit",
+  "MC-002.union_detection",
+  "MC-003.continuous_set",
+  "MC-003.identified_set_lower",
+  "MC-003.identified_set_size",
+  "MC-003.identified_set_upper"
+ ],
+ "outputs": {
+  "master": "renders/thirteen-worlds__master.mp4",
+  "master_sha256": "67484de68633cfe62921446e836d887b77d9ddab017d5774fa7261e6dd7513d2",
+  "master_bytes": 1090591,
+  "master_duration_probe_s": 36.03,
+  "poster": "renders/thirteen-worlds__master.poster.png",
+  "poster_t": 27,
+  "stills": [
+   "renders/stills/master-open.jpg",
+   "renders/stills/master-q1.jpg",
+   "renders/stills/master-mid.jpg",
+   "renders/stills/master-q3.jpg",
+   "renders/stills/master-end.jpg"
+  ],
+  "claim_frames": [
+   {
+    "n": 1,
+    "t": 16.5,
+    "label": "the sliding rod nested: all-miss reads 12/82, the upper endpoint min p, with the finite identified set {0\u202612} on the axis",
+    "still": "renders/stills/master-claim-01.jpg"
+   },
+   {
+    "n": 2,
+    "t": 27,
+    "label": "the union (73/82) pins the all-miss count at 9/82 while the independence plug-in (2.87 prompts) sits off-grid",
+    "still": "renders/stills/master-claim-02.jpg"
+   }
+  ]
+ },
+ "render_seconds": 86.4
+}

@@ -1,0 +1,1257 @@
+{
+ "_generated_by": "scripts/films/bind_facts.py — DO NOT EDIT; regenerate and re-inspect the films",
+ "_inputs": {
+  "census.yaml": "625530cf6be634c31519b3715b09f1fa856c9900b692e2b8acc67fde05545678",
+  "claims.yaml": "4d8927f5c6c34d60bcaab8c275a5c39d4bb5c5f09b79007698ff854521eb9702"
+ },
+ "_kinds": [
+  "OBSERVED",
+  "DERIVED",
+  "PROVED",
+  "CONSTRUCTED",
+  "REGISTRY",
+  "DOCUMENT"
+ ],
+ "facts": {
+  "AF-001.behaviours_falling": {
+   "claim": "AF-001",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:AF-001.expected (closed form checked by scripts/mixture_bounds.py)",
+   "value": 3
+  },
+  "AF-001.behaviours_observable": {
+   "claim": "AF-001",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:AF-001.expected (closed form checked by scripts/mixture_bounds.py)",
+   "value": 11
+  },
+  "AF-001.behaviours_rising": {
+   "claim": "AF-001",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:AF-001.expected (closed form checked by scripts/mixture_bounds.py)",
+   "value": 3
+  },
+  "AF-001.behaviours_total": {
+   "claim": "AF-001",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:AF-001.expected (closed form checked by scripts/mixture_bounds.py)",
+   "value": 24
+  },
+  "AF-001.checks_facts_artifact_diff_pp": {
+   "claim": "AF-001",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:AF-001.expected (closed form checked by scripts/mixture_bounds.py)",
+   "value": -3.7
+  },
+  "AF-001.checks_facts_overall_pct": {
+   "claim": "AF-001",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:AF-001.expected (closed form checked by scripts/mixture_bounds.py)",
+   "value": 8.7
+  },
+  "AF-001.checks_facts_reduction_max_pct": {
+   "claim": "AF-001",
+   "kind": "PROVED",
+   "source": "claims.yaml:AF-001.expected (closed form checked by scripts/mixture_bounds.py)",
+   "value": 43
+  },
+  "AF-001.checks_facts_reduction_min_pct": {
+   "claim": "AF-001",
+   "kind": "PROVED",
+   "source": "claims.yaml:AF-001.expected (closed form checked by scripts/mixture_bounds.py)",
+   "value": 29
+  },
+  "AF-001.n_conversations": {
+   "claim": "AF-001",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:AF-001.expected (closed form checked by scripts/mixture_bounds.py)",
+   "value": 9830
+  },
+  "CC-001.and_bounds": {
+   "claim": "CC-001",
+   "kind": "PROVED",
+   "source": "claims.yaml:CC-001.expected.bounds.and (reproduced in CI by scripts/reproduce_cc001.py)",
+   "value": [
+    0.0,
+    0.1
+   ]
+  },
+  "CC-001.independence_and": {
+   "claim": "CC-001",
+   "kind": "DERIVED",
+   "note": "an assumption-world, not an estimate",
+   "source": "product of CC-001.marginals — the value ONE assumption (independence) selects",
+   "value": 0.010000000000000002
+  },
+  "CC-001.marginals": {
+   "claim": "CC-001",
+   "kind": "REGISTRY",
+   "note": "declared illustrative input to the kernel; not a measured system",
+   "source": "claims.yaml:CC-001.expected.marginals",
+   "value": [
+    0.1,
+    0.1
+   ]
+  },
+  "CC-001.or_bounds": {
+   "claim": "CC-001",
+   "kind": "PROVED",
+   "source": "claims.yaml:CC-001.expected.bounds.or",
+   "value": [
+    0.1,
+    0.2
+   ]
+  },
+  "CC-001.support_commit": {
+   "claim": "CC-001",
+   "kind": "REGISTRY",
+   "source": "claims.yaml:CC-001.support.commit",
+   "value": "167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
+  },
+  "CC-003.even_atoms": {
+   "claim": "CC-003",
+   "kind": "CONSTRUCTED",
+   "note": "E1 is synthetic — a possibility proof, not a frequency claim about real stacks",
+   "source": "uniform mass on the four even-parity outcomes; singleton/pairwise moments asserted here",
+   "value": {
+    "000": 0.25,
+    "011": 0.25,
+    "101": 0.25,
+    "110": 0.25
+   }
+  },
+  "CC-003.odd_atoms": {
+   "claim": "CC-003",
+   "kind": "CONSTRUCTED",
+   "source": "uniform mass on the four odd-parity outcomes; moments asserted here",
+   "value": {
+    "001": 0.25,
+    "010": 0.25,
+    "100": 0.25,
+    "111": 0.25
+   }
+  },
+  "CC-003.pairwise": {
+   "claim": "CC-003",
+   "kind": "PROVED",
+   "source": "claims.yaml:CC-003.proposition (asserted numerically here)",
+   "value": 0.25
+  },
+  "CC-003.singleton": {
+   "claim": "CC-003",
+   "kind": "PROVED",
+   "source": "claims.yaml:CC-003.proposition (asserted numerically here)",
+   "value": 0.5
+  },
+  "CC-003.support_commit": {
+   "claim": "CC-003",
+   "kind": "REGISTRY",
+   "source": "claims.yaml:CC-003.support.commit",
+   "value": "ee61a710243c74ec49d5896167d0913327e6b5d3"
+  },
+  "CC-003.triple_even": {
+   "claim": "CC-003",
+   "kind": "PROVED",
+   "source": "claims.yaml:CC-003.proposition",
+   "value": 0.0
+  },
+  "CC-003.triple_odd": {
+   "claim": "CC-003",
+   "kind": "PROVED",
+   "source": "claims.yaml:CC-003.proposition",
+   "value": 0.25
+  },
+  "CC-004.feasible_q_grid": {
+   "claim": "CC-004",
+   "kind": "PROVED",
+   "source": "eleven feasible both-fail values from lower to upper endpoint; each has a witness of the same form",
+   "value": [
+    0.0,
+    0.01,
+    0.02,
+    0.03,
+    0.04,
+    0.05,
+    0.06,
+    0.07,
+    0.08,
+    0.09,
+    0.1
+   ]
+  },
+  "CC-004.interval": {
+   "claim": "CC-004",
+   "kind": "PROVED",
+   "source": "claims.yaml:CC-004.expected.interval (witness stage of scripts/reproduce_cc001.py)",
+   "value": [
+    0.0,
+    0.1
+   ]
+  },
+  "CC-004.witness_lower": {
+   "claim": "CC-004",
+   "kind": "PROVED",
+   "source": "constructed from CC-001.marginals; sums to 1, nonnegative, satisfies both marginals, attains the lower endpoint (asserted here)",
+   "value": [
+    0.8,
+    0.1,
+    0.1,
+    0.0
+   ]
+  },
+  "CC-004.witness_upper": {
+   "claim": "CC-004",
+   "kind": "PROVED",
+   "source": "constructed from CC-001.marginals; attains the upper endpoint (asserted here)",
+   "value": [
+    0.9,
+    0.0,
+    0.0,
+    0.1
+   ]
+  },
+  "GA-001.non_claims": {
+   "claim": "GA-001",
+   "kind": "DOCUMENT",
+   "source": "claims.yaml:GA-001.non_claims",
+   "value": [
+    "a verifying receipt does not establish that the governed action was safe, authorized, or semantically correct",
+    "kernel collisions in real canonicalizers are demonstrated as possible, not as prevalent — the repository's E12 sample found 0 of 64 real payloads carrying any pathology class",
+    "not hardened for deployment; not post-quantum secure"
+   ]
+  },
+  "GA-001.proposition": {
+   "claim": "GA-001",
+   "kind": "DOCUMENT",
+   "source": "claims.yaml:GA-001.proposition (bound to the S2 Lab thesis at its commit)",
+   "value": "Ghost-Ark is a verifier and measurement harness for the provenance limits of AI-governance receipts — a research artifact of the S2 Lab, Penn State — whose stated thesis is that receipt soundness is a ternary relation Sound(C, Σ, P): a receipt identifies an execution only up to the kernel of its whole parse → canonicalize → digest pipeline, so soundness does not persist by default as the pathology alphabet grows or the consumer set widens."
+  },
+  "GA-001.support_commit": {
+   "claim": "GA-001",
+   "kind": "REGISTRY",
+   "source": "claims.yaml:GA-001.support.commit",
+   "value": "98c90d8296580f08dd8b6e38fdd2abd7039ec651"
+  },
+  "GA-001.support_url": {
+   "claim": "GA-001",
+   "kind": "REGISTRY",
+   "source": "claims.yaml:GA-001.support.url",
+   "value": "https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md"
+  },
+  "MC-001.ABSENT": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 14
+  },
+  "MC-001.K": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 5
+  },
+  "MC-001.K.computable_via_item_release": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 2
+  },
+  "MC-001.K.does_both": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 1
+  },
+  "MC-001.K.printed_full_stack": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 2
+  },
+  "MC-001.K.printed_partial_stack": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 1
+  },
+  "MC-001.K.prints_composition_result": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 4
+  },
+  "MC-001.K.releases_computable_items": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 2
+  },
+  "MC-001.M": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 14
+  },
+  "MC-001.M1": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 14
+  },
+  "MC-001.M2": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 12
+  },
+  "MC-001.M3": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 0
+  },
+  "MC-001.N": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+   "value": 20
+  },
+  "MC-001.NOT_COMPARABLE": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "compute_counts.by_classification",
+   "value": 1
+  },
+  "MC-001.adjudication_mode": {
+   "claim": "MC-001",
+   "kind": "REGISTRY",
+   "note": "single primary reviewer; no independent second review exists yet",
+   "source": "census.yaml:census.adjudication_status.mode",
+   "value": "single_primary_reviewer"
+  },
+  "MC-001.correction": {
+   "claim": "MC-001",
+   "kind": "REGISTRY",
+   "note": "the claim's own REJECT falsifier fired; the superseding envelope is a correction, not a reinterpretation",
+   "source": "census.yaml:census.revision_history (entry dated 2026-08-30); the rejected envelope is retained there",
+   "value": {
+    "date": "2026-08-30",
+    "from": [
+     19,
+     13,
+     4
+    ],
+    "row_added": "multimodal-safeguard-bench-2026",
+    "to": [
+     20,
+     14,
+     5
+    ]
+   }
+  },
+  "MC-001.criteria_version": {
+   "claim": "MC-001",
+   "kind": "REGISTRY",
+   "source": "census.yaml:census.criteria_version",
+   "value": 1
+  },
+  "MC-001.excluded": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "compute_counts: len(exclusions)",
+   "value": 9
+  },
+  "MC-001.frozen_as_of": {
+   "claim": "MC-001",
+   "kind": "REGISTRY",
+   "source": "census.yaml:census.frozen_as_of",
+   "value": "2026-08-27"
+  },
+  "MC-001.rows": {
+   "claim": "MC-001",
+   "kind": "REGISTRY",
+   "note": "classifications are one reviewer's first-pass reading of each public source",
+   "source": "census.yaml examined rows; per-row ladder flags use the identical predicates as compute_counts",
+   "value": [
+    {
+     "classification": "ABSENT",
+     "id": "openai-holistic-2022",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "ABSENT",
+     "id": "llama-guard-2023",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "PRESENT",
+     "id": "aegis-2024",
+     "joint_scope": "printed_partial_stack",
+     "joint_scope_additional": [],
+     "shared_basis": false,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": false
+    },
+    {
+     "classification": "ABSENT",
+     "id": "wildguard-2024",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": false,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": false
+    },
+    {
+     "classification": "ABSENT",
+     "id": "lakera-pint-2024",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": false,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": false
+    },
+    {
+     "classification": "ABSENT",
+     "id": "shieldgemma-2024",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": false,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": false
+    },
+    {
+     "classification": "ABSENT",
+     "id": "upenn-multilingual-2024",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "ABSENT",
+     "id": "guardbench-2024",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "ABSENT",
+     "id": "ibm-adversarial-prompt-2025",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "ABSENT",
+     "id": "neuraltrust-2025",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "PRESENT",
+     "id": "llamafirewall-2025",
+     "joint_scope": "printed_full_stack",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "ABSENT",
+     "id": "circleguardbench-2025",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": false,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": false
+    },
+    {
+     "classification": "ABSENT",
+     "id": "unit42-genai-platform-2025",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "PRESENT",
+     "id": "bells-misuse-2025",
+     "joint_scope": "computable_via_item_release",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "ABSENT",
+     "id": "bells-o-2026",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "PRESENT",
+     "id": "multimodal-safeguard-bench-2026",
+     "joint_scope": "computable_via_item_release",
+     "joint_scope_additional": [
+      "printed_partial_stack"
+     ],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": false
+    },
+    {
+     "classification": "PRESENT",
+     "id": "wainjectbench-2025",
+     "joint_scope": "printed_full_stack",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "ABSENT",
+     "id": "domyn-open-guards-2026",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": true
+    },
+    {
+     "classification": "NOT_COMPARABLE",
+     "id": "truefoundry-2026",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": false,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": false
+    },
+    {
+     "classification": "ABSENT",
+     "id": "ml6-2026",
+     "joint_scope": "none",
+     "joint_scope_additional": [],
+     "shared_basis": true,
+     "threshold_documented_full_exposure": false,
+     "threshold_not_contradicted": false
+    }
+   ]
+  },
+  "MC-001.sensitivities": {
+   "claim": "MC-001",
+   "kind": "REGISTRY",
+   "note": "declared alternative readings; never a bare replacement for the primary envelope",
+   "source": "census.yaml:census.interpretation_sensitivities[].expected",
+   "value": [
+    {
+     "envelope": [
+      19,
+      13,
+      5
+     ],
+     "id": "named-products-only",
+     "label": "Named-products-only reading"
+    },
+    {
+     "envelope": [
+      19,
+      13,
+      4
+     ],
+     "id": "pre-freeze-visibility-evidenced",
+     "label": "Independently evidenced pre-freeze visibility reading"
+    }
+   ]
+  },
+  "MC-001.unexamined": {
+   "claim": "MC-001",
+   "kind": "DERIVED",
+   "source": "compute_counts: len(unexamined_candidates)",
+   "value": 15
+  },
+  "MC-002.all_miss": {
+   "claim": "MC-002",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+   "value": 9
+  },
+  "MC-002.all_miss_rate": {
+   "claim": "MC-002",
+   "kind": "DERIVED",
+   "source": "all_miss / n_harmful",
+   "value": 0.109756
+  },
+  "MC-002.benign_union_flagged": {
+   "claim": "MC-002",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+   "value": 19
+  },
+  "MC-002.constructed_arrangement": {
+   "claim": "MC-002",
+   "kind": "CONSTRUCTED",
+   "note": "one feasible arrangement, not the released rows; pairwise overlaps are not registered and are not identified by these aggregates",
+   "source": "82 five-bit catch masks (bit i = MC-002.guards[i]) satisfying per-guard catches, union, and all leave-one-out unions — asserted here",
+   "value": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    1,
+    1,
+    1,
+    12,
+    12,
+    12,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    13,
+    11,
+    11,
+    11,
+    11,
+    11,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9
+   ]
+  },
+  "MC-002.exclusive_full_stack_coverage": {
+   "claim": "MC-002",
+   "kind": "DERIVED",
+   "source": "union_detection − leave_one_out_union[g] (removal-relative; not a residual, not a ranking)",
+   "value": {
+    "lakera_guard": 3,
+    "langkit": 0,
+    "llm_guard": 0,
+    "nemo": 18,
+    "prompt_guard": 0
+   }
+  },
+  "MC-002.guard_labels": {
+   "claim": "MC-002",
+   "kind": "REGISTRY",
+   "source": "names as printed by the release",
+   "value": {
+    "lakera_guard": "Lakera Guard",
+    "langkit": "LangKit",
+    "llm_guard": "LLM Guard",
+    "nemo": "NeMo Guardrails",
+    "prompt_guard": "Prompt Guard"
+   }
+  },
+  "MC-002.guards": {
+   "claim": "MC-002",
+   "kind": "REGISTRY",
+   "source": "column order of the residual chain in scripts/reanalyze_bells_subset.py",
+   "value": [
+    "lakera_guard",
+    "prompt_guard",
+    "langkit",
+    "nemo",
+    "llm_guard"
+   ]
+  },
+  "MC-002.independence_plugin_prompts": {
+   "claim": "MC-002",
+   "kind": "DERIVED",
+   "source": "independence_plugin_rate × n_harmful",
+   "value": 2.8657
+  },
+  "MC-002.independence_plugin_rate": {
+   "claim": "MC-002",
+   "kind": "DERIVED",
+   "note": "a model's point, not a count; on an 82-item file it is not even an integer number of prompts",
+   "source": "product of per-guard miss rates — the value the independence model would select",
+   "value": 0.034947
+  },
+  "MC-002.leave_one_out_union": {
+   "claim": "MC-002",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+   "value": {
+    "lakera_guard": 70,
+    "langkit": 73,
+    "llm_guard": 73,
+    "nemo": 55,
+    "prompt_guard": 73
+   }
+  },
+  "MC-002.n_benign": {
+   "claim": "MC-002",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+   "value": 50
+  },
+  "MC-002.n_borderline": {
+   "claim": "MC-002",
+   "kind": "OBSERVED",
+   "note": "a third stratum, named so it is never folded into either denominator",
+   "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+   "value": 38
+  },
+  "MC-002.n_harmful": {
+   "claim": "MC-002",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+   "value": 82
+  },
+  "MC-002.n_prompts": {
+   "claim": "MC-002",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+   "value": 170
+  },
+  "MC-002.per_guard_benign_flags": {
+   "claim": "MC-002",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+   "value": {
+    "lakera_guard": 7,
+    "langkit": 8,
+    "llm_guard": 0,
+    "nemo": 10,
+    "prompt_guard": 0
+   }
+  },
+  "MC-002.per_guard_catches": {
+   "claim": "MC-002",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+   "value": {
+    "lakera_guard": 52,
+    "langkit": 25,
+    "llm_guard": 0,
+    "nemo": 70,
+    "prompt_guard": 5
+   }
+  },
+  "MC-002.per_guard_misses": {
+   "claim": "MC-002",
+   "kind": "DERIVED",
+   "source": "n_harmful − per_guard_catches",
+   "value": {
+    "lakera_guard": 30,
+    "langkit": 57,
+    "llm_guard": 82,
+    "nemo": 12,
+    "prompt_guard": 77
+   }
+  },
+  "MC-002.ratio_recomputed_to_plugin": {
+   "claim": "MC-002",
+   "kind": "DERIVED",
+   "note": "describes this subset's arithmetic, not a law; cite only with the selection caveat",
+   "source": "all_miss_rate / independence_plugin_rate",
+   "value": 3.1406
+  },
+  "MC-002.support_commit": {
+   "claim": "MC-002",
+   "kind": "REGISTRY",
+   "source": "claims.yaml:MC-002.support.commit",
+   "value": "507566c5a4606c8e3dec0bd59a5c5fde62594951"
+  },
+  "MC-002.support_url": {
+   "claim": "MC-002",
+   "kind": "REGISTRY",
+   "source": "claims.yaml:MC-002.support.url",
+   "value": "https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv"
+  },
+  "MC-002.union_detection": {
+   "claim": "MC-002",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+   "value": 73
+  },
+  "MC-003.aggregate_unique_contribution_bounds": {
+   "claim": "MC-003",
+   "kind": "PROVED",
+   "note": "what catch marginals plus the union alone can say about each guard's exclusive coverage",
+   "source": "claims.yaml:MC-003.expected (checked by scripts/identification.py)",
+   "value": {
+    "lakera_guard": [
+     0,
+     3
+    ],
+    "langkit": [
+     0,
+     3
+    ],
+    "llm_guard": [
+     0,
+     0
+    ],
+    "nemo": [
+     0,
+     21
+    ],
+    "prompt_guard": [
+     0,
+     3
+    ]
+   }
+  },
+  "MC-003.benign_burden_floor_pct": {
+   "claim": "MC-003",
+   "kind": "PROVED",
+   "source": "claims.yaml:MC-003.expected (checked by scripts/identification.py)",
+   "value": 20
+  },
+  "MC-003.benign_union_rate": {
+   "claim": "MC-002",
+   "kind": "DERIVED",
+   "source": "benign_union_flagged / n_benign",
+   "value": 0.38
+  },
+  "MC-003.benign_union_set": {
+   "claim": "MC-003",
+   "kind": "PROVED",
+   "source": "[max f_i, min(1, Σ f_i)] on MC-002.per_guard_benign_flags / n_benign",
+   "value": [
+    0.2,
+    0.5
+   ]
+  },
+  "MC-003.continuous_set": {
+   "claim": "MC-003",
+   "kind": "PROVED",
+   "source": "[max(0, Σp − (k−1)), min p] on MC-002.per_guard_misses / n_harmful (asserted here)",
+   "value": [
+    0.0,
+    0.146341
+   ]
+  },
+  "MC-003.identified_set_lower": {
+   "claim": "MC-003",
+   "kind": "PROVED",
+   "source": "claims.yaml:MC-003.expected (checked by scripts/identification.py)",
+   "value": 0
+  },
+  "MC-003.identified_set_size": {
+   "claim": "MC-003",
+   "kind": "PROVED",
+   "source": "claims.yaml:MC-003.expected (checked by scripts/identification.py)",
+   "value": 13
+  },
+  "MC-003.identified_set_upper": {
+   "claim": "MC-003",
+   "kind": "PROVED",
+   "source": "claims.yaml:MC-003.expected (checked by scripts/identification.py)",
+   "value": 12
+  },
+  "MC-003.improvement_floor_pct": {
+   "claim": "MC-003",
+   "kind": "PROVED",
+   "source": "claims.yaml:MC-003.expected (checked by scripts/identification.py)",
+   "value": 0
+  },
+  "MC-003.members_zero_exclusive_full_stack_coverage": {
+   "claim": "MC-003",
+   "kind": "OBSERVED",
+   "source": "claims.yaml:MC-003.expected (checked by scripts/identification.py)",
+   "value": 3
+  },
+  "MC-004.benign_image": {
+   "claim": "MC-004",
+   "kind": "OBSERVED",
+   "note": "harness-normalized native `unsafe` bits; an OR of them is not a shared-event catch statistic",
+   "source": "claims.yaml:MC-004.expected (re-asserted against eight hash-verified files by scripts/reanalyze_msbench.py)",
+   "value": {
+    "all_miss": 0,
+    "leave_one_out_union": {
+     "llama_guard_3_vision": 56,
+     "llama_guard_4": 250,
+     "shield_gemma_2": 250
+    },
+    "n": 250,
+    "patterns": {
+     "lg3v": 194,
+     "lg3v+sg2": 15,
+     "lg4+lg3v": 33,
+     "lg4+lg3v+sg2": 8
+    },
+    "per_guard": {
+     "llama_guard_3_vision": 250,
+     "llama_guard_4": 41,
+     "shield_gemma_2": 23
+    },
+    "union": 250
+   }
+  },
+  "MC-004.benign_text": {
+   "claim": "MC-004",
+   "kind": "OBSERVED",
+   "note": "harness-normalized native `unsafe` bits; an OR of them is not a shared-event catch statistic",
+   "source": "claims.yaml:MC-004.expected (re-asserted against eight hash-verified files by scripts/reanalyze_msbench.py)",
+   "value": {
+    "all_miss": 218,
+    "leave_one_out_union": {
+     "llama_guard_3_vision": 18,
+     "llama_guard_4": 25,
+     "shield_gemma_2": 32
+    },
+    "n": 250,
+    "patterns": {
+     "lg3v": 14,
+     "lg4": 7,
+     "lg4+lg3v": 11,
+     "none": 218
+    },
+    "per_guard": {
+     "llama_guard_3_vision": 25,
+     "llama_guard_4": 18,
+     "shield_gemma_2": 0
+    },
+    "union": 32
+   }
+  },
+  "MC-004.harmful_image": {
+   "claim": "MC-004",
+   "kind": "OBSERVED",
+   "note": "harness-normalized native `unsafe` bits; an OR of them is not a shared-event catch statistic",
+   "source": "claims.yaml:MC-004.expected (re-asserted against eight hash-verified files by scripts/reanalyze_msbench.py)",
+   "value": {
+    "all_miss": 0,
+    "leave_one_out_union": {
+     "llama_guard_3_vision": 194,
+     "llama_guard_4": 200,
+     "shield_gemma_2": 200
+    },
+    "n": 200,
+    "patterns": {
+     "lg3v": 6,
+     "lg3v+sg2": 30,
+     "lg4+lg3v": 20,
+     "lg4+lg3v+sg2": 144
+    },
+    "per_guard": {
+     "llama_guard_3_vision": 200,
+     "llama_guard_4": 164,
+     "shield_gemma_2": 174
+    },
+    "union": 200
+   }
+  },
+  "MC-004.harmful_text": {
+   "claim": "MC-004",
+   "kind": "OBSERVED",
+   "note": "harness-normalized native `unsafe` bits; an OR of them is not a shared-event catch statistic",
+   "source": "claims.yaml:MC-004.expected (re-asserted against eight hash-verified files by scripts/reanalyze_msbench.py)",
+   "value": {
+    "all_miss": 8,
+    "leave_one_out_union": {
+     "llama_guard_3_vision": 185,
+     "llama_guard_4": 178,
+     "shield_gemma_2": 192
+    },
+    "n": 200,
+    "patterns": {
+     "lg3v": 7,
+     "lg4": 14,
+     "lg4+lg3v": 171,
+     "none": 8
+    },
+    "per_guard": {
+     "llama_guard_3_vision": 178,
+     "llama_guard_4": 185,
+     "shield_gemma_2": 0
+    },
+    "union": 192
+   }
+  },
+  "MC-004.support_commit": {
+   "claim": "MC-004",
+   "kind": "REGISTRY",
+   "source": "claims.yaml:MC-004.support.commit",
+   "value": "fb6f32e6b50b6faad833b815ebcd80afd2068bff"
+  },
+  "RECEIPT.canonical": {
+   "claim": "GA-001",
+   "kind": "CONSTRUCTED",
+   "note": "the film's own pipeline, not Ghost-Ark's; nothing is built on the lab's repository",
+   "source": "this script's toy canonicalizer (sort keys, whole floats → ints)",
+   "value": "{\"amount\":1,\"to\":\"acct-7\"}"
+  },
+  "RECEIPT.digest_canonical": {
+   "claim": "GA-001",
+   "kind": "DERIVED",
+   "source": "sha256 of RECEIPT.canonical bytes — identical for both inputs",
+   "value": "2cdfe08c931c3bd0f3821a0e96dcf8fcb6f07791cbbdec36c1908bc224d0783e"
+  },
+  "RECEIPT.digest_raw_a": {
+   "claim": "GA-001",
+   "kind": "DERIVED",
+   "source": "sha256 of RECEIPT.raw_a bytes",
+   "value": "f51f700956972a5fcc41474df886d1d5b1a338f01d43ad6210beb83432dad3da"
+  },
+  "RECEIPT.digest_raw_b": {
+   "claim": "GA-001",
+   "kind": "DERIVED",
+   "source": "sha256 of RECEIPT.raw_b bytes",
+   "value": "93353ccf984a3b017c3fdabe28f3e010036cd69422100cb1340539aba689da9c"
+  },
+  "RECEIPT.raw_a": {
+   "claim": "GA-001",
+   "kind": "CONSTRUCTED",
+   "source": "this script; a toy receipt payload",
+   "value": "{\"amount\": 1.0, \"to\": \"acct-7\"}"
+  },
+  "RECEIPT.raw_b": {
+   "claim": "GA-001",
+   "kind": "CONSTRUCTED",
+   "source": "this script; same fields, different bytes (key order, 1.0 vs 1)",
+   "value": "{\"to\": \"acct-7\", \"amount\": 1}"
+  },
+  "REGISTRY.claims": {
+   "kind": "REGISTRY",
+   "note": "passing a review window means review is due and the build fails; it does not adjudicate falsity",
+   "source": "claims.yaml: last_reviewed + review_window_days per claim",
+   "value": [
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "CC-001",
+     "last_reviewed": "2026-08-24",
+     "maturity": "released",
+     "provenance": "machine_generated_owner_executed",
+     "review_due": "2026-12-22",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "CC-002",
+     "last_reviewed": "2026-08-24",
+     "maturity": "released",
+     "provenance": "owner_authored",
+     "review_due": "2026-12-22",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "CC-003",
+     "last_reviewed": "2026-08-24",
+     "maturity": "released",
+     "provenance": "owner_authored",
+     "review_due": "2026-12-22",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "CC-004",
+     "last_reviewed": "2026-08-24",
+     "maturity": "released",
+     "provenance": "machine_generated_owner_executed",
+     "review_due": "2026-12-22",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "CC-005",
+     "last_reviewed": "2026-08-24",
+     "maturity": "released",
+     "provenance": "owner_authored",
+     "review_due": "2026-12-22",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "CC-006",
+     "last_reviewed": "2026-08-24",
+     "maturity": "in_development",
+     "provenance": "owner_authored",
+     "review_due": "2026-12-22",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "untested",
+     "id": "REL-001",
+     "last_reviewed": "2026-08-24",
+     "maturity": "experimental",
+     "provenance": "owner_attested",
+     "review_due": "2026-09-23",
+     "review_window_days": 30
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "MC-001",
+     "last_reviewed": "2026-09-01",
+     "maturity": "experimental",
+     "provenance": "owner_authored",
+     "review_due": "2026-10-31",
+     "review_window_days": 60
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "MC-002",
+     "last_reviewed": "2026-08-28",
+     "maturity": "experimental",
+     "provenance": "machine_generated_owner_executed",
+     "review_due": "2026-10-27",
+     "review_window_days": 60
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "MC-003",
+     "last_reviewed": "2026-08-30",
+     "maturity": "experimental",
+     "provenance": "machine_generated_owner_executed",
+     "review_due": "2026-10-29",
+     "review_window_days": 60
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "MC-004",
+     "last_reviewed": "2026-08-31",
+     "maturity": "experimental",
+     "provenance": "machine_generated_owner_executed",
+     "review_due": "2026-10-30",
+     "review_window_days": 60
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "AF-001",
+     "last_reviewed": "2026-08-28",
+     "maturity": "experimental",
+     "provenance": "machine_generated_owner_executed",
+     "review_due": "2026-11-26",
+     "review_window_days": 90
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "GA-001",
+     "last_reviewed": "2026-08-24",
+     "maturity": "in_development",
+     "provenance": "lab_repository",
+     "review_due": "2026-12-22",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "GV-001",
+     "last_reviewed": "2026-08-24",
+     "maturity": "in_development",
+     "provenance": "owner_authored",
+     "review_due": "2026-12-22",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "GCE-001",
+     "last_reviewed": "2026-08-24",
+     "maturity": "superseded",
+     "provenance": "owner_authored",
+     "review_due": "2027-08-24",
+     "review_window_days": 365
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "SITE-001",
+     "last_reviewed": "2026-08-31",
+     "maturity": "released",
+     "provenance": "owner_verified",
+     "review_due": "2026-12-29",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "SITE-002",
+     "last_reviewed": "2026-08-30",
+     "maturity": "released",
+     "provenance": "owner_verified",
+     "review_due": "2026-12-28",
+     "review_window_days": 120
+    }
+   ]
+  },
+  "REGISTRY.last_owner_review": {
+   "kind": "REGISTRY",
+   "source": "claims.yaml:last_owner_review",
+   "value": "2026-09-01"
+  },
+  "REGISTRY.version": {
+   "kind": "REGISTRY",
+   "source": "claims.yaml:version",
+   "value": "0.4"
+  }
+ }
+}

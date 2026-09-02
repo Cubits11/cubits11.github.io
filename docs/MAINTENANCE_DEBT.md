@@ -48,3 +48,17 @@ pins are functionally fine today. This is a deadline, not a defect.
 a standalone change, and require: claim registry green, clean-clone replay
 green, Pages deploy green, and deployed smoke green. If any fails, revert to the
 pins in this table, which are known green as of merge `a6bf3a2`.
+
+## Observed 2026-09-01 (film laboratory branch) — `reproduce_cc001.py` cannot run on a PEP 668 host
+
+`scripts/reproduce_cc001.py` installs the cloned cc-framework with
+`python3 -m pip install -e` into whatever interpreter runs it. On a Homebrew
+Python 3.14 host that is an "externally managed environment", pip refuses,
+and the script exits with a `CalledProcessError` before the kernel assertion
+runs. CI's runner is not externally managed, so the gate is green there; the
+local replay documented in README is not. Recorded, not fixed: the fix (a
+throwaway venv inside the script's temp directory, then run the assertion
+with that venv's interpreter) belongs in a change whose only job is that
+change, so a red clean-clone replay keeps one candidate cause. Not a defect
+in any claim; CC-001/CC-004 values used by `films/` are read from claims.yaml's
+expected block, not recomputed on this host.

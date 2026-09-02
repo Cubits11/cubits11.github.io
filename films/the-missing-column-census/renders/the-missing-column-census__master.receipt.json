@@ -1,0 +1,85 @@
+{
+ "film": "the-missing-column-census",
+ "format": "master",
+ "title": "The Missing Column, Counted",
+ "rendered_from_head": "6a6f587a2c0a5dbd1e8fea065c383938877fe3b0",
+ "rendered_on": "2026-09-01",
+ "inputs": {
+  "film.html": "7a9e7b7f640baf137305d2356e33af1fbe57d3a92fbcd8308261a8c63e29e2c8",
+  "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
+  "films/data/facts.json": "66d6947b96f99559c04a7b20c59ba73ffd4ccae17fd13c2a9fad517450a605d7"
+ },
+ "runtime": {
+  "chrome": "152.0.7977.65",
+  "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
+  "crf": 20
+ },
+ "fps": 30,
+ "frames": 1201,
+ "duration_s": 40,
+ "width": 1920,
+ "height": 1080,
+ "frames_digest": "494babc24b0e0d2d38ae86af7a8dfefd529b352e1ae03c1c24e87054dc7d915e",
+ "determinism": {
+  "sampled_frames": 5,
+  "identical": true
+ },
+ "text_overflows": [],
+ "facts_used": [
+  "MC-001.ABSENT",
+  "MC-001.K",
+  "MC-001.K.does_both",
+  "MC-001.K.prints_composition_result",
+  "MC-001.K.releases_computable_items",
+  "MC-001.M1",
+  "MC-001.M2",
+  "MC-001.M3",
+  "MC-001.N",
+  "MC-001.NOT_COMPARABLE",
+  "MC-001.adjudication_mode",
+  "MC-001.correction",
+  "MC-001.criteria_version",
+  "MC-001.excluded",
+  "MC-001.frozen_as_of",
+  "MC-001.rows",
+  "MC-001.sensitivities",
+  "MC-001.unexamined"
+ ],
+ "outputs": {
+  "master": "renders/the-missing-column-census__master.mp4",
+  "master_sha256": "dd256d68e813eb4d01b10672f302efa166ae3ab8c1df4c4c6b1114b08212a291",
+  "master_bytes": 1363820,
+  "master_duration_probe_s": 40.03,
+  "poster": "renders/the-missing-column-census__master.poster.png",
+  "poster_t": 23.5,
+  "stills": [
+   "renders/stills/master-open.jpg",
+   "renders/stills/master-q1.jpg",
+   "renders/stills/master-mid.jpg",
+   "renders/stills/master-q3.jpg",
+   "renders/stills/master-end.jpg"
+  ],
+  "claim_frames": [
+   {
+    "n": 1,
+    "t": 11.5,
+    "label": "the joint-evidence column complete: 14 not reported, 5 present, 1 not comparable, of 20",
+    "still": "renders/stills/master-claim-01.jpg"
+   },
+   {
+    "n": 2,
+    "t": 23.5,
+    "label": "the ladder tallied 14 / 12 / 0 with the sentence \u201c0 of 20 document matched operating thresholds with full exposure\u201d",
+    "still": "renders/stills/master-claim-02.jpg"
+   },
+   {
+    "n": 3,
+    "t": 34,
+    "label": "the edge of the search: 20 examined, 9 excluded, 15 unexamined",
+    "still": "renders/stills/master-claim-03.jpg"
+   }
+  ]
+ },
+ "render_seconds": 50.4
+}

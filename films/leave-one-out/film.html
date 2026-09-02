@@ -1,0 +1,168 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Leave One Out</title>
+<link rel="stylesheet" href="../lib/tokens.css">
+<!--
+  Leave One Out — Cohort A, film 5.
+  Grammar: light. Eighty-two windows in a dark wall; five lamps, one per
+  released verdict column; a window is lit when any lamp that catches it is
+  on. Marginal counts plus the union only BOUND each lamp's exclusive light.
+  Shutter one lamp and count what goes dark — that number is identified by
+  the released leave-one-out unions: 18, 3, 0, 0, 0. Window positions are
+  one arrangement consistent with every registered count; the released rows
+  are not redistributed.
+-->
+<div id="stage"></div>
+<script src="../lib/film.js"></script>
+<script>
+'use strict';
+const { H, TOK } = Film;
+const { k, sm, win, eio, eo3, eo5, lerp, text, line, disc, ring, kicker, stamp, locator, ledgerTag, shuffled, hexA, measure } = H;
+
+const DUR = 34;
+let N, GUARDS, LABELS, CATCH, UNION, ALLMISS, LOO, EXCL, MASKS, BOUNDS, ZERO, COMMIT;
+let ORDER;      // presentation order of the shutter beat: largest exclusive first
+let POS;        // window index → mask
+const COLS = 12, ROWS_ = 7;
+const T_LAMP0 = 1.0, T_LAMP_STEP = 1.1;     // lamps switch on in column order
+const T_BOUNDS = 9.6, T_SHUT0 = 14.5, T_SHUT_STEP = 2.4, T_SUM = 27.0;
+
+function setup({ fact }) {
+  N = fact('MC-002.n_harmful'); GUARDS = fact('MC-002.guards'); LABELS = fact('MC-002.guard_labels');
+  CATCH = fact('MC-002.per_guard_catches'); UNION = fact('MC-002.union_detection'); ALLMISS = fact('MC-002.all_miss');
+  LOO = fact('MC-002.leave_one_out_union'); EXCL = fact('MC-002.exclusive_full_stack_coverage');
+  MASKS = fact('MC-002.constructed_arrangement');
+  BOUNDS = fact('MC-003.aggregate_unique_contribution_bounds'); ZERO = fact('MC-003.members_zero_exclusive_full_stack_coverage');
+  COMMIT = fact('MC-002.support_commit');
+  POS = shuffled(MASKS, 0x1A5E);
+  ORDER = GUARDS.slice().sort((a, b) => EXCL[b] - EXCL[a]);
+}
+
+const bit = (mask, gi) => (mask >> gi) & 1;
+/* which lamp is shuttered at time t (index into ORDER) or -1 */
+function shuttered(t) {
+  for (let n = 0; n < ORDER.length; n++) {
+    const a = T_SHUT0 + n * T_SHUT_STEP;
+    if (t >= a + 0.25 && t < a + T_SHUT_STEP - 0.25) return n;
+  }
+  return -1;
+}
+function lampOn(gi, t) {
+  const on = t >= T_LAMP0 + gi * T_LAMP_STEP;
+  const s = shuttered(t);
+  return on && !(s >= 0 && ORDER[s] === GUARDS[gi]);
+}
+
+function render(t, g, L, { fact }) {
+  const u = L.u;
+  // wall geometry
+  const cellW = L.vertical ? 76 * u : 86 * u, cellH = L.vertical ? 76 * u : 66 * u;
+  const wallW = COLS * cellW, wallH = ROWS_ * cellH;
+  const wx = L.vertical ? (L.W - wallW) / 2 : 120 * u, wy = L.vertical ? 470 * u : 300 * u;
+  // lamps
+  const lampY = L.vertical ? 300 * u : 200 * u;
+  const lampX0 = L.vertical ? L.m + 10 * u : 120 * u, lampGap = L.vertical ? (L.W - 2 * L.m - 20 * u) / 5 : 300 * u;
+
+  kicker(g, `BELLS 2025 · ${N} PROMPTS LABELLED HARMFUL · FIVE RELEASED VERDICT COLUMNS`, L.m + 20 * u, L.vertical ? 150 * u : 110 * u, { size: 18 * u, maxW: L.W - 2 * L.m - 40 * u });
+  text(g, 'a window is a prompt. a lamp is a guard. a lit window is a prompt some guard caught.', L.m + 20 * u, L.vertical ? 190 * u : 146 * u, { font: 'sans', size: 21 * u, color: TOK.muted, maxW: L.W - 2 * L.m - 40 * u });
+
+  // lit state per window
+  const s = shuttered(t);
+  const shutG = s >= 0 ? GUARDS.indexOf(ORDER[s]) : -1;
+  let lit = 0, goneDark = 0;
+  const litNow = [], litFull = [];
+  for (let i = 0; i < N; i++) {
+    const m = POS[i];
+    let any = false, anyFull = false;
+    for (let gi = 0; gi < GUARDS.length; gi++) {
+      if (!bit(m, gi)) continue;
+      if (t >= T_LAMP0 + gi * T_LAMP_STEP) anyFull = true;
+      if (lampOn(gi, t)) any = true;
+    }
+    litNow.push(any); litFull.push(anyFull);
+    if (any) lit++;
+    if (anyFull && !any) goneDark++;
+  }
+  // the wall
+  for (let i = 0; i < COLS * ROWS_; i++) {
+    const cx = wx + (i % COLS) * cellW + cellW / 2, cy = wy + Math.floor(i / COLS) * cellH + cellH / 2;
+    if (i >= N) continue;
+    const w = cellW * 0.62, h = cellH * 0.56;
+    const on = litNow[i], wasOn = litFull[i];
+    // glow when lit
+    if (on) {
+      const gl = g.createRadialGradient(cx, cy, 2, cx, cy, w * 0.95);
+      gl.addColorStop(0, hexA(TOK.evidence, 0.55)); gl.addColorStop(1, hexA(TOK.evidence, 0));
+      g.fillStyle = gl; g.fillRect(cx - w, cy - w, 2 * w, 2 * w);
+      g.fillStyle = TOK.evidence; g.fillRect(cx - w / 2, cy - h / 2, w, h);
+    } else {
+      g.fillStyle = wasOn ? hexA(TOK.review, 0.35) : TOK.surface; g.fillRect(cx - w / 2, cy - h / 2, w, h);
+      g.strokeStyle = wasOn ? TOK.review : TOK.lineStrong; g.lineWidth = 1.5 * u; g.strokeRect(cx - w / 2, cy - h / 2, w, h);
+    }
+  }
+  // lamps
+  GUARDS.forEach((gname, gi) => {
+    const x = lampX0 + gi * lampGap;
+    const onSince = T_LAMP0 + gi * T_LAMP_STEP;
+    const a = sm(t, 0.2 + gi * 0.1, 0.6 + gi * 0.1);
+    const on = lampOn(gi, t), armed = t >= onSince;
+    const isShut = shutG === gi;
+    // fixture
+    disc(g, x + 10 * u, lampY, 9 * u, on ? TOK.evidence : TOK.lineStrong, a);
+    if (on) { const gl = g.createRadialGradient(x + 10 * u, lampY, 2, x + 10 * u, lampY, 40 * u); gl.addColorStop(0, hexA(TOK.evidence, 0.5)); gl.addColorStop(1, hexA(TOK.evidence, 0)); g.fillStyle = gl; g.fillRect(x - 40 * u, lampY - 40 * u, 100 * u, 80 * u); }
+    if (isShut) { g.fillStyle = TOK.bg; g.fillRect(x - 4 * u, lampY - 14 * u, 30 * u, 28 * u); line(g, x - 4 * u, lampY - 14 * u, x + 26 * u, lampY + 14 * u, TOK.review, 2 * u); line(g, x - 4 * u, lampY + 14 * u, x + 26 * u, lampY - 14 * u, TOK.review, 2 * u); }
+    text(g, LABELS[gname], x + 30 * u, lampY + 6 * u, { font: 'mono', size: L.vertical ? 12 * u : 15 * u, color: isShut ? TOK.review : (armed ? TOK.ink : TOK.muted), alpha: a, track: 0.03, maxW: lampGap - 34 * u });
+    text(g, `catches ${CATCH[gname]}/${N}`, x + 30 * u, lampY + 28 * u, { font: 'mono', size: L.vertical ? 12 * u : 14 * u, color: TOK.muted, alpha: a * sm(t, onSince, onSince + 0.3), maxW: lampGap - 34 * u });
+    // aggregate-only bounds, then the identified exclusive count
+    const bA = win(t, T_BOUNDS + gi * 0.15, T_SHUT0 + 0.2, 0.4, 0.3);
+    const b = BOUNDS[gname];
+    text(g, L.vertical ? `excl. ${b[0]}–${b[1]} bounded` : `exclusive: ${b[0]}–${b[1]}  (bounded)`, x + 30 * u, lampY + 50 * u, { font: 'mono', size: L.vertical ? 11 * u : 14 * u, color: TOK.muted, alpha: bA, maxW: lampGap - 34 * u });
+    const n = ORDER.indexOf(gname);
+    const idA = sm(t, T_SHUT0 + n * T_SHUT_STEP + 0.9, T_SHUT0 + n * T_SHUT_STEP + 1.3);
+    text(g, L.vertical ? `excl. ${EXCL[gname]} identified` : `exclusive: ${EXCL[gname]}  (identified)`, x + 30 * u, lampY + 50 * u, { font: 'mono', size: L.vertical ? 11 * u : 14 * u, color: EXCL[gname] > 0 ? TOK.evidence : TOK.review, alpha: idA, maxW: lampGap - 34 * u });
+  });
+
+  // readouts
+  const ry = L.vertical ? wy + wallH + 120 * u : wy + wallH + 90 * u;
+  const rIn = sm(t, T_LAMP0, T_LAMP0 + 0.4);
+  const big = 74 * u;
+  text(g, 'LIT BY AT LEAST ONE LAMP', L.m + 20 * u, ry - 54 * u, { font: 'mono', size: 16 * u, color: TOK.muted, alpha: rIn, track: 0.1 });
+  text(g, String(lit), L.m + 20 * u, ry + 22 * u, { font: 'serif', size: big, weight: 500, color: TOK.ink, alpha: rIn });
+  const bw = measure(g, String(lit), { font: 'serif', size: big, weight: 500 });
+  text(g, `/ ${N}`, L.m + 20 * u + bw + 14 * u, ry + 22 * u, { font: 'mono', size: 28 * u, color: TOK.muted, alpha: rIn });
+  const unionA = sm(t, T_LAMP0 + 4 * T_LAMP_STEP + 0.6, T_LAMP0 + 4 * T_LAMP_STEP + 1.1);
+  text(g, `${N - UNION} stay dark: every lamp missed them (all-miss ${ALLMISS}/${N})`, L.m + 20 * u, ry + 58 * u, { font: 'mono', size: 15 * u, color: TOK.ink, alpha: unionA, track: 0.02, maxW: L.vertical ? L.W - 2 * L.m : 620 * u });
+  // shutter readout
+  if (s >= 0) {
+    const gname = ORDER[s];
+    const a = sm(t, T_SHUT0 + s * T_SHUT_STEP + 0.25, T_SHUT0 + s * T_SHUT_STEP + 0.6);
+    const rx = L.vertical ? L.m + 20 * u : 1240 * u, ry2 = L.vertical ? ry + 150 * u : 640 * u;
+    text(g, `SHUTTER ${LABELS[gname].toUpperCase()}`, rx, ry2 - 54 * u, { font: 'mono', size: 16 * u, color: TOK.review, alpha: a, track: 0.1, maxW: 700 * u });
+    text(g, `−${goneDark}`, rx, ry2 + 22 * u, { font: 'serif', size: big, weight: 500, color: goneDark > 0 ? TOK.review : TOK.muted, alpha: a });
+    const w2 = measure(g, `−${goneDark}`, { font: 'serif', size: big, weight: 500 });
+    text(g, `go dark · ${LOO[gname]}/${N} still lit by the other four`, rx + w2 + 14 * u, ry2 + 22 * u, { font: 'mono', size: 18 * u, color: TOK.muted, alpha: a, maxW: 700 * u });
+    text(g, 'what only this lamp lit — removal-relative, not a residual', rx, ry2 + 58 * u, { font: 'mono', size: 14 * u, color: TOK.muted, alpha: a, track: 0.02, maxW: 700 * u });
+  }
+  // bounds explanation
+  const bx = win(t, T_BOUNDS, T_SHUT0 + 0.2, 0.5, 0.3);
+  H.paragraph(g, 'from the five counts and the union alone, each lamp’s exclusive light is only bounded — not identified.', L.m + 20 * u, L.vertical ? ry + 110 * u : ry + 100 * u, { font: 'sans', size: 21 * u, color: TOK.ink, alpha: bx, maxW: L.W - 2 * L.m - 40 * u, lineHeight: 28 * u });
+  // summary
+  const sumA = sm(t, T_SUM, T_SUM + 0.7, eo3);
+  const sy = L.vertical ? L.H - 400 * u : 340 * u, sxx = L.vertical ? L.m + 20 * u : 1240 * u, sw = L.vertical ? L.W - 2 * L.m - 40 * u : 560 * u;
+  H.paragraph(g, `${ZERO} of 5 lamps light nothing the others don’t — on this stratum.`, sxx, sy, { font: 'serif', size: 30 * u, weight: 500, color: TOK.ink, alpha: sumA, maxW: sw, lineHeight: 38 * u });
+  H.paragraph(g, 'the released leave-one-out unions identify what the marginals only bounded.', sxx, sy + (L.vertical ? 90 : 130) * u, { font: 'sans', size: 21 * u, color: TOK.muted, alpha: sumA, maxW: sw, lineHeight: 28 * u });
+  ledgerTag(g, L, 'COUNTS OBSERVED · POSITIONS CONSTRUCTED', `${N} author-selected prompts · released binary verdicts · not a ranking · one arrangement consistent with every registered count; rows not redistributed`, sm(t, 4.0, 4.6), 'right');
+  locator(g, L, [`MC-002 · MC-003 · BELLS release @ ${COMMIT.slice(0, 8)} · python3 scripts/reanalyze_bells_subset.py`, 'cubits11.github.io/missing-column'], sm(t, 30.6, 31.2));
+}
+
+Film.define({
+  id: 'leave-one-out', title: 'Leave One Out',
+  duration: DUR, fps: 30, poster_t: 16.3,
+  claimFrames: [
+    { t: 12.0, label: 'all five lamps on: 73/82 lit, 9 dark; aggregate-only bounds on exclusive coverage beside each lamp' },
+    { t: 16.3, label: 'NeMo shuttered: 18 windows go dark, 55/82 still lit by the other four' },
+    { t: 29.0, label: 'summary: 3 of 5 lamps have zero exclusive coverage on this stratum; identified values beside each lamp' }
+  ],
+  setup, render
+});
+</script>

@@ -1,0 +1,152 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>The Parity Cube</title>
+<link rel="stylesheet" href="../lib/tokens.css">
+<!--
+  The Parity Cube — Cohort A, film 3.
+  Grammar: geometry. Three guards give eight outcomes: the corners of a cube.
+  Put mass ¼ on the four EVEN corners, or ¼ on the four ODD corners. Every
+  shadow the cube throws on a wall (every pair of guards) is identical; every
+  single-guard projection is identical. Only the corner where all three fail
+  differs: 0 in one world, ¼ in the other. Every number is CC-003's.
+-->
+<div id="stage"></div>
+<script src="../lib/film.js"></script>
+<script>
+'use strict';
+const { H, TOK } = Film;
+const { k, sm, win, eio, eo3, eo5, lerp, text, line, disc, ring, kicker, stamp, locator, ledgerTag, hexA } = H;
+
+const DUR = 32;
+let SINGLE, PAIR, T_EVEN, T_ODD, EVEN, ODD, COMMIT;
+const CORNERS = ['000', '001', '010', '011', '100', '101', '110', '111'];
+const EDGES = [];
+CORNERS.forEach((a, i) => CORNERS.forEach((b, j) => { if (i < j && [...a].filter((ch, n) => ch !== b[n]).length === 1) EDGES.push([i, j]); }));
+
+function setup({ fact }) {
+  SINGLE = fact('CC-003.singleton'); PAIR = fact('CC-003.pairwise');
+  T_EVEN = fact('CC-003.triple_even'); T_ODD = fact('CC-003.triple_odd');
+  EVEN = fact('CC-003.even_atoms'); ODD = fact('CC-003.odd_atoms');
+  COMMIT = fact('CC-003.support_commit');
+}
+
+/* 3D: A → x, B → z (depth), C → y (up); yaw then tilt; orthographic */
+function project(bits, yaw, tilt, R, cx, cy) {
+  const x = bits[0] === '1' ? 1 : -1, z = bits[1] === '1' ? 1 : -1, y = bits[2] === '1' ? 1 : -1;
+  const X = x * Math.cos(yaw) + z * Math.sin(yaw), Z = -x * Math.sin(yaw) + z * Math.cos(yaw);
+  const Y = y * Math.cos(tilt) - Z * Math.sin(tilt), Zd = y * Math.sin(tilt) + Z * Math.cos(tilt);
+  return { sx: cx + X * R, sy: cy - Y * R, depth: Zd };
+}
+const massOf = (world, bits) => world[bits] || 0;
+/* pairwise projection: mass on corner (i,j) of the wall for guards (p,q) */
+function pairMass(world, p, q, bi, bj) { let m = 0; for (const b of CORNERS) if (b[p] === bi && b[q] === bj) m += massOf(world, b); return m; }
+function singleMass(world, p, bi) { let m = 0; for (const b of CORNERS) if (b[p] === bi) m += massOf(world, b); return m; }
+
+function drawCube(g, world, cx, cy, R, yaw, tilt, alpha, L, o) {
+  if (alpha <= 0.001) return;
+  const u = L.u;
+  const P = CORNERS.map(b => project(b, yaw, tilt, R, cx, cy));
+  g.save(); g.globalAlpha *= alpha;
+  EDGES.forEach(([i, j]) => line(g, P[i].sx, P[i].sy, P[j].sx, P[j].sy, TOK.lineStrong, 1.5 * u));
+  // corners, back to front
+  const order = [...P.keys()].sort((a, b) => P[a].depth - P[b].depth);
+  order.forEach(i => {
+    const b = CORNERS[i], m = massOf(world, b), p = P[i];
+    const grow = o.grow ? o.grow(i) : 1;
+    const isTriple = b === '111';
+    if (m > 0) {
+      disc(g, p.sx, p.sy, R * 0.115 * grow, TOK.bg);
+      disc(g, p.sx, p.sy, R * 0.10 * grow, isTriple && o.hilite ? TOK.review : TOK.ink);
+    } else {
+      disc(g, p.sx, p.sy, R * 0.115 * grow, TOK.bg);
+      ring(g, p.sx, p.sy, R * 0.075 * grow, isTriple && o.hilite ? TOK.review : TOK.muted, 2 * u);
+    }
+    if (o.labels) text(g, b, p.sx + R * 0.13, p.sy - R * 0.08, { font: 'mono', size: 13 * u, color: TOK.muted, alpha: o.labels });
+  });
+  // the all-three-fail corner label
+  if (o.hilite) {
+    const p = P[7], m = massOf(world, '111');
+    text(g, `all three fail: ${m === 0 ? '0' : m.toFixed(2)}`, p.sx + R * 0.16, p.sy + R * 0.02, { font: 'mono', size: 17 * u, color: TOK.review, alpha: o.hilite, track: 0.04, maxW: 330 * u });
+  }
+  g.restore();
+}
+
+/* the three pairwise walls beneath a cube, plus the singles line */
+function drawShadows(g, world, cx, y, S, alpha, L) {
+  if (alpha <= 0.001) return;
+  const u = L.u;
+  const pairs = [[0, 1, 'A·B'], [0, 2, 'A·C'], [1, 2, 'B·C']];
+  const gap = S * 0.55, total = 3 * S + 2 * gap, x0 = cx - total / 2;
+  g.save(); g.globalAlpha *= alpha;
+  pairs.forEach(([p, q, name], n) => {
+    const x = x0 + n * (S + gap);
+    g.strokeStyle = TOK.lineStrong; g.lineWidth = 1.5 * u; g.strokeRect(x, y, S, S);
+    ['0', '1'].forEach(bi => ['0', '1'].forEach(bj => {
+      const m = pairMass(world, p, q, bi, bj);
+      const px = x + (bi === '1' ? S : 0), py = y + (bj === '1' ? 0 : S);
+      disc(g, px, py, S * 0.085 + S * 0.32 * m, TOK.bg);
+      disc(g, px, py, S * 0.06 + S * 0.32 * m, TOK.ink);
+    }));
+    text(g, name, x + S / 2, y + S + 26 * u, { font: 'mono', size: 14 * u, color: TOK.muted, align: 'center', track: 0.08 });
+    text(g, `both fail ${pairMass(world, p, q, '1', '1').toFixed(2)}`, x + S / 2, y + S + 46 * u, { font: 'mono', size: 12 * u, color: TOK.evidence, align: 'center', maxW: S + gap + 10 * u });
+  });
+  const singles = ['A', 'B', 'C'].map((n, p) => `${n} fails ${singleMass(world, p, '1').toFixed(2)}`).join('   ·   ');
+  text(g, singles, cx, y - 22 * u, { font: 'mono', size: 13 * u, color: TOK.evidence, align: 'center', maxW: total + 140 * u });
+  g.restore();
+}
+
+function render(t, g, L, { fact }) {
+  const u = L.u;
+  const R = L.vertical ? 150 * u : 175 * u;
+  const yaw0 = 0.55, yaw = yaw0 + 0.16 * t;
+  // at the reveal, both cubes turn so the 111 corner faces the camera
+  const face = sm(t, 16.0, 19.0, eio);
+  const yawF = lerp(yaw, Math.PI * 0.25 + 0.35, face), tilt = lerp(0.42, 0.55, face);
+  const cxE = L.vertical ? L.cx : 560 * u, cxO = L.vertical ? L.cx : 1360 * u;
+  const cyE = L.vertical ? 470 * u : 430 * u, cyO = L.vertical ? 1160 * u : 430 * u;
+  const shY = (cy) => cy + R + (L.vertical ? 150 * u : 160 * u);
+  const S = L.vertical ? 70 * u : 90 * u;
+
+  kicker(g, 'THREE GUARDS · EIGHT OUTCOMES · ONE CUBE', L.m + 20 * u, L.vertical ? 150 * u : 120 * u, { size: 18 * u, maxW: L.W - 2 * L.m });
+
+  // even world
+  const eIn = sm(t, 0.2, 1.2, eo3);
+  const growE = i => eo5(k(t, 0.3 + i * 0.12, 0.7 + i * 0.12));
+  drawCube(g, EVEN, cxE, cyE, R, yawF, tilt, eIn, L, { grow: growE, labels: win(t, 1.4, 7.0, 0.4, 0.6), hilite: sm(t, 19.2, 19.8) });
+  text(g, 'WORLD E · mass ¼ on the four even corners', cxE, shY(cyE) - 52 * u, { font: 'mono', size: 15 * u, color: TOK.muted, align: 'center', alpha: eIn, track: 0.06, maxW: 700 * u });
+  drawShadows(g, EVEN, cxE, shY(cyE), S, sm(t, 3.0, 4.2, eo3), L);
+  // odd world
+  const oIn = sm(t, 7.0, 8.0, eo3);
+  const growO = i => eo5(k(t, 7.1 + i * 0.12, 7.5 + i * 0.12));
+  drawCube(g, ODD, cxO, cyO, R, yawF, tilt, oIn, L, { grow: growO, labels: win(t, 8.2, 12.0, 0.4, 0.6), hilite: sm(t, 19.2, 19.8) });
+  text(g, 'WORLD O · mass ¼ on the four odd corners', cxO, shY(cyO) - 52 * u, { font: 'mono', size: 15 * u, color: TOK.muted, align: 'center', alpha: oIn, track: 0.06, maxW: 700 * u });
+  drawShadows(g, ODD, cxO, shY(cyO), S, sm(t, 9.5, 10.7, eo3), L);
+
+  // the equals between the shadow rows
+  const eqA = sm(t, 12.0, 12.8);
+  if (!L.vertical) {
+    text(g, '=', L.cx, shY(cyE) + S * 0.62, { font: 'serif', size: 64 * u, color: TOK.evidence, align: 'center', alpha: eqA });
+    text(g, 'same singles. same pairs.', L.cx, shY(cyE) + S * 0.62 + 60 * u, { font: 'sans', size: 24 * u, weight: 500, color: TOK.evidence, align: 'center', alpha: eqA, maxW: 600 * u });
+  } else {
+    text(g, '= same singles. same pairs.', L.cx, (cyE + cyO) / 2 + 95 * u, { font: 'sans', size: 24 * u, weight: 500, color: TOK.evidence, align: 'center', alpha: eqA, maxW: L.W - 2 * L.m });
+  }
+  // the reveal
+  const tA = sm(t, 20.2, 21.0, eo3);
+  text(g, 'Every pair measured. The stack still unknown.', L.cx, L.vertical ? L.H - 300 * u : 985 * u, { font: 'serif', size: L.vertical ? 40 * u : 52 * u, weight: 500, color: TOK.ink, align: 'center', alpha: tA * (1 - sm(t, 28.2, 28.8)), maxW: L.W - 2 * L.m });
+  text(g, `all three fail together: ${T_EVEN} in world E, ${T_ODD.toFixed(2)} in world O — the pairs cannot tell them apart`, L.cx, L.vertical ? L.H - 250 * u : 1030 * u, { font: 'mono', size: 16 * u, color: TOK.review, align: 'center', alpha: sm(t, 21.5, 22.2) * (1 - sm(t, 28.2, 28.8)), track: 0.03, maxW: L.W - 2 * L.m });
+  // the ledger and locator
+  const ledA = sm(t, 24.0, 24.8);
+  ledgerTag(g, L, 'CONSTRUCTED · SYNTHETIC', 'E1 parity oracle — a possibility proof for three guards, not a frequency claim about real stacks · recorded decision: Narrow', ledA, 'right');
+  locator(g, L, [`CC-003 · cc-framework @ ${COMMIT.slice(0, 8)} · docs/research/E1_DEPENDENCE_EVIDENCE_STUDY.md`, 'cubits11.github.io/modules/002-pairwise-is-not-enough'], sm(t, 28.8, 29.4));
+}
+
+Film.define({
+  id: 'parity-cube', title: 'The Parity Cube',
+  duration: DUR, fps: 30, poster_t: 20.5,
+  claimFrames: [
+    { t: 14.0, label: 'two cubes, identical singles (0.50) and identical pairwise both-fail (0.25) under each' },
+    { t: 20.5, label: 'the all-three-fail corner labelled 0 in world E and 0.25 in world O' }
+  ],
+  setup, render
+});
+</script>
