@@ -1,0 +1,22 @@
+# Dispatch log — what has actually been sent, by the owner, and when.
+# The assistant sends nothing. An entry here is the owner's report; the
+# permalink is the evidence. A SENT entry without a permalink is flagged by
+# scripts/verify_consequence.py until the owner records it. Silence is
+# retained as NO_OBSERVED_RESPONSE, never rewritten as rejection.
+version: 1
+dispatches:
+  - id: ibm-contribution
+    dossier: distribution/dossiers/ibm-adversarial-prompt-2025.md
+    draft: "distribution/DISPATCH.md → A (message) and B (patch contrib/ape_joint.py)"
+    target: "IBM/Adversarial-Prompt-Evaluation — issue tracker"
+    status: SENT_PENDING_RESPONSE
+    sent_by: owner
+    reported: "2026-09-02"
+    sent_at_commit: ca3e97569a8749f7594bb1daf7a23f1b94e1efb8
+    permalink: null            # OWNER_TO_RECORD — the issue URL; also add it to outcomes.yaml technical_interaction_log (3/12)
+    message_as_sent: null      # OWNER_TO_RECORD if it differs from DISPATCH.md section A
+    adjudication:
+      - {at: "T+7d",   rule: "observe only; do not nudge. Silent → start GuardBench as an independent replication case"}
+      - {at: "T+14–21d", rule: "one follow-up at most (DISPATCH.md E, the one-integer ask)"}
+      - {after: "follow-up", rule: "retain NO_OBSERVED_RESPONSE; never rewrite silence as rejection"}
+    outcome: null

@@ -25,6 +25,11 @@ contract:
   question: >
     Did a real member of a target audience reach the record through a named
     path, and did they perform an intent action once here?
+  # After E3.1 the sharper research question, because every zero can now be
+  # localised to a layer rather than meaning "nothing happened":
+  boundary_question: >
+    At which boundary does external work stop — exposure, comprehension,
+    verification intent, execution, or institutional adoption?
   qualified_human: >
     A member of at least one target audience who arrives through an
     attributable source and performs one intent action: reads the flagship
@@ -89,6 +94,7 @@ destinations:
   corrections: "/corrections/"
   home: "/"
   try: "/try/"
+  try_a: "/try/#try-a"
   try_counterexample: "/try/#counterexample"
 
 # Baseline, established before anything ships. Observed values only.
@@ -295,33 +301,67 @@ campaigns:
     audience: "AI evaluation researchers and guardrail engineers on X"
     surface: x
     utm: {source: x, medium: social, campaign: e3-films, content: same-scores}
-    destination: try
+    destination: try_a
     intended_action: "run TRY-A and file the result, match or mismatch"
     success_signal: "one reproduction issue filed by someone who is not the author"
     preregistered: true
     status: prepared
-    design: descriptive
+    design: ecological_descriptive
     design_note: >
-      A sequential comparison on one account is not a randomized experiment:
-      audience, ranking, time, competing posts and platform allocation all
-      vary with the intended variable. This row supports a decision, not a
-      causal identification; a later randomized design would need real
-      random assignment of viewers.
+      An organic post on one account cannot identify a creative effect:
+      creative, time, current followers, ranking, network state, competing
+      events and account history change together, and the platform's
+      recommendation uses recent and long-term engagement features, so
+      sequential posts do not have exchangeable audiences. This row asks an
+      ecological question about the actual account and answers it
+      descriptively. A causal creative comparison is possible later through
+      the platform's randomized creative A/B facility (mutually exclusive
+      audiences, two-week flights) — but that characterises promoted delivery
+      to a chosen audience, not this organic researcher network, and is used
+      only if this organic run establishes enough value to justify paying
+      for identification.
     hypothesis: >
-      When the Same Scores feed cut (two worlds, identical scores) is the
-      opening representation, more /try/ referrals per impression are
-      observed than in the prior description-first baseline.
-    changed_representation: "opening representation (feed cut versus description); CTA, destination and copy held fixed"
-    changed_variable: "opening representation only (feed cut versus description); CTA, destination and copy held fixed"
-    primary_diagnostic: "experiment-entry clicks / landing visits (owner-read from X analytics and GitHub referrers; denominators recorded)"
+      Ecological question: released through the actual account, does the
+      Same Scores feed object produce observable attention, verification
+      intent, and external execution? Not: did video cause an improvement
+      over prose.
+    changed_representation: "the feed object itself (an 11-second square cut of one operation with one action)"
+    changed_variable: "none identified causally; the object is released and observed"
+    artifact: "films/same-scores__social-square/renders/same-scores__social-square__square.mp4"
+    post_copy: "distribution/launch-units.yaml → unit same-scores__social-square → post_draft (link kept in the post: the objective is attributable technical action, not reach)"
+    prerequisite: "cold comprehension gate passed (distribution/launch-units.yaml → cold_test_gate; ≥5 cold viewers; no repeated semantic failure)"
+    measurement_layers:
+      - {layer: exposure,              observable: "impressions",                       source: "X Post Activity Dashboard", meaning: "the platform served the post"}
+      - {layer: attention,             observable: "video view rate",                    source: "X Video Activity Dashboard", meaning: "≥2 s at ≥50 % viewability, or expand/unmute, under the platform's definition"}
+      - {layer: sustained_attention,   observable: "retention rate",                     source: "X Video Activity Dashboard", meaning: "average percentage watched"}
+      - {layer: completed_attention,   observable: "completion rate",                    source: "X Video Activity Dashboard", meaning: "viewer finished the 11 s"}
+      - {layer: verification_intent,   observable: "link clicks",                        source: "X Post Activity Dashboard", meaning: "a PROXY for intent; registered at click time, not a verified /try/ landing — the site tracks nothing"}
+      - {layer: site_arrival,          observable: "UNKNOWN",                            source: "none (no site tracking)",   meaning: "not observable"}
+      - {layer: experiment_start,      observable: "UNKNOWN",                            source: "none",                      meaning: "not observable"}
+      - {layer: experiment_completion, observable: "voluntary reports only",             source: "issues",                    meaning: "external work"}
+      - {layer: reproduction,          observable: "verified submitted result",          source: "distribution/outcomes.yaml", meaning: "QUALIFIED"}
+    primary_diagnostic: "link clicks / impressions (verification-intent proxy), with view, retention and completion rates alongside; all with denominators"
     qualified_target: ">= 1 independent reproduction of TRY-A or TRY-B filed via the reproduction template"
     observation_window_days: 14
+    snapshots:
+      - {at: "T+36h", use: "primary stabilised initial snapshot — platform analytics may fluctuate for up to 36 h"}
+      - {at: "T+7d",  use: "distribution tail + technical interactions"}
+      - {at: "T+14d", use: "close the campaign"}
+    no_touch_rules:
+      - "before T+36h: look, do not change strategy on the numbers"
+      - "do not delete, edit, repost, pin mid-window, or add hashtags"
+      - "answer substantive technical questions naturally; manufacture nothing"
+      - "a factual defect found by anyone outranks experimental cleanliness: correct it immediately and mark the campaign interrupted"
     decision_rule: >
-      Qualified target met: keep the film-first opening for the next film.
-      Clicks but no experiment start: landing/friction failure — change one
-      element of /try/, not the film. Starts but no filed result: intake
-      failure — change the report route. No clicks: hook/audience failure —
-      change the audience before changing the film.
+      Read against the decision matrix (campaigns.yaml → decision_matrix)
+      jointly with the IBM contribution. Low impressions do not indict the
+      film: distribution can fail before enough humans encounter it; do not
+      redesign Same Scores if the few who saw it understood it (cold trials).
+      Clicks but no filed result cannot yet be localised (a click is not a
+      verified landing): test reproduction and intake friction before the
+      creative. High completion with near-zero clicks: the transition from
+      film to action is weak. Poor watch and poor clicks: opening, audience
+      or distribution. Likes are recorded and control nothing.
 
   - id: x-film-thirteen-worlds
     audience: "benchmark authors and people who have read the BELLS paper"
@@ -447,3 +487,20 @@ funnel:
   # Dated observations, appended by the owner, never estimated. Each names the
   # stage, the campaign id, the numerator, the denominator, and the source.
   observations: []   # {date, campaign, stage, value, denominator, source, note}
+
+# ---------------------------------------------------------------------------
+# Decision matrix for the first two external experiments, written before
+# either has an outcome. Read jointly; likes are recorded and control nothing.
+# ---------------------------------------------------------------------------
+decision_matrix:
+  experiments: [ibm-contribution, x-film-same-scores]
+  rows:
+    - {ibm: qualified,            same_scores: qualified,                         update: "strong signal — reproduce both lanes: GuardBench next, and the next evidence-bound film only if evidence asks for one"}
+    - {ibm: qualified,            same_scores: "attention, no reproduction",       update: "direct expert contribution works; public conversion unproven — prioritise upstream work"}
+    - {ibm: no_observed_response, same_scores: "independent rerun",                update: "public discovery works; IBM silence is target-specific or censored — expand researcher distribution"}
+    - {ibm: no_observed_response, same_scores: "clicks, no result",                update: "cannot localise yet (a click is not a verified landing) — test reproduction and intake friction"}
+    - {ibm: no_observed_response, same_scores: "high completion, near-zero clicks", update: "the film holds attention; the film→action transition is weak"}
+    - {ibm: no_observed_response, same_scores: "poor watch, poor clicks",          update: "opening, audience, or distribution is the candidate problem"}
+    - {ibm: source_correction,    same_scores: any,                               update: "stop promotion of the affected claim; adjudicate immediately"}
+    - {ibm: "0 qualified after adequate repeated exposure", same_scores: "0 qualified after adequate repeated exposure", update: "stop building media; shift to direct upstream contributions and cold applications of the protocol"}
+  ibm_follow_up: "one follow-up at most, around week 2–3; afterwards retain NO_OBSERVED_RESPONSE — silence is never rewritten as rejection"

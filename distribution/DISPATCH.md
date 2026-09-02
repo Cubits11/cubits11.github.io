@@ -1,10 +1,11 @@
 # Dispatch-ready drafts — PREPARED, NOT SENT
 
-Every item below is ready to send and has not been sent. The owner sends;
-nothing in this repository sends anything. Re-derive every numeral at the
+The owner sends; nothing in this repository sends anything. Items A and B
+were reported sent by the owner on 2026-09-02 (permalink to be recorded in
+`distribution/dispatch-log.yaml`); the rest have not been sent. Re-derive every numeral at the
 dispatch commit (`python3 scripts/verification_manifest.py` green first).
 
-## A. IBM contribution ask — PREPARED — NOT SENT
+## A. IBM contribution ask — SENT (owner-reported 2026-09-02) — RESPONSE PENDING
 
 Channel: a single issue on `IBM/Adversarial-Prompt-Evaluation`. Attach or
 link `contrib/ape_joint.py` as the proposed `scripts/main_joint_report.py`.
@@ -26,7 +27,7 @@ link `contrib/ape_joint.py` as the proposed `scripts/main_joint_report.py`.
 > useful result is one line: for any two defences on either data file, the
 > union and all-miss counts over the malicious prompts.
 
-## B. The patch — PREPARED — NOT SENT
+## B. The patch — SENT (owner-reported 2026-09-02, attached to A) — RESPONSE PENDING
 
 `contrib/ape_joint.py` — tested by `contrib/test_joint_reporters.py` (brute-force
 agreement, every input-contract refusal via the CLI with the declared exit
@@ -37,13 +38,16 @@ status, `.json` filename normalisation, pickle trust boundary disclosed).
 Artifact: `films/same-scores__social-square/renders/same-scores__social-square__square.mp4`
 (1080×1080, 11 s, silent). Text (from `distribution/launch-units.yaml`, unit `same-scores__social-square`):
 
-> Two guardrails. Each misses 10 of 100. How many of the 100 do they jointly
-> miss? Anywhere from 0 to 10 — the scores never move. Independence picks 1%;
-> nothing in the scores does. 11 s, sound off. Run the 60-second proof
-> yourself: cubits11.github.io/try
+> Two guardrails each miss 10%.
+> From those two scores alone, their joint miss rate can be anywhere from 0% to 10%.
+> 1% is what independence selects — not what the scores imply.
+> Constructed example. Run the 60-second proof: cubits11.github.io/try/#try-a
 
-No thread. No biography. No second film. Campaign `x-film-same-scores`
-(design: descriptive); record the dispatch date in `campaigns.yaml` readings.
+No thread. No biography. No second film. IBM is not mentioned or tagged.
+Campaign `x-film-same-scores` (design: ecological_descriptive). Prerequisite:
+the cold comprehension gate in `distribution/launch-units.yaml` has passed.
+Before posting, freeze the account's baseline analytics; record snapshots at
+T+36h, T+7d, T+14d in `campaigns.yaml` funnel observations with denominators.
 
 ## D. Canonical URLs
 

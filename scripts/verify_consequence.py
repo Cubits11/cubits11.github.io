@@ -220,12 +220,23 @@ def check_dispatch() -> None:
     for section in ("## A.", "## B.", "## C.", "## D.", "## E."):
         if section not in text:
             fail(f"DISPATCH.md lacks section {section}")
+    log = yaml.safe_load((ROOT / "distribution" / "dispatch-log.yaml").read_text())
+    sent_ids = {d["id"] for d in log.get("dispatches", []) if str(d.get("status", "")).startswith("SENT")}
     for heading in re.findall(r"^## [A-C].*$|^## E.*$", text, re.M):
-        if "PREPARED — NOT SENT" not in heading:
-            fail(f"DISPATCH.md heading not marked PREPARED — NOT SENT: {heading}")
-    if re.search(r"\bSENT\b(?!\s*$)", text.replace("NOT SENT", "")):
-        fail("DISPATCH.md claims something was sent")
-    ok("DISPATCH.md: every draft marked PREPARED — NOT SENT")
+        if "PREPARED — NOT SENT" in heading:
+            continue
+        if "SENT (owner-reported" in heading and "RESPONSE PENDING" in heading and "ibm-contribution" in sent_ids:
+            continue
+        fail(f"DISPATCH.md heading is neither PREPARED — NOT SENT nor a logged owner-reported dispatch: {heading}")
+    for d in log.get("dispatches", []):
+        for f in ("id", "dossier", "target", "status", "sent_by", "reported", "sent_at_commit", "adjudication"):
+            if f not in d:
+                fail(f"dispatch-log {d.get('id')}: missing {f}")
+        if str(d.get("status", "")).startswith("SENT") and not d.get("permalink"):
+            print(f"warn  dispatch-log {d['id']}: SENT without a permalink — owner must record the issue URL (and add it to outcomes.yaml technical_interaction_log)")
+        if d.get("sent_by") != "owner":
+            fail(f"dispatch-log {d.get('id')}: only the owner sends")
+    ok(f"DISPATCH.md and dispatch-log agree: {len(sent_ids)} owner-reported dispatch(es), the rest PREPARED — NOT SENT")
 
 
 def main() -> int:

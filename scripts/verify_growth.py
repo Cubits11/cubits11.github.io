@@ -244,8 +244,8 @@ def check_campaigns() -> None:
                     fail(f"campaign {cid}: preregistered but missing {field}")
             if row.get("status") not in ("prepared", "dispatched", "closed"):
                 fail(f"campaign {cid}: status must be prepared, dispatched or closed")
-            if row.get("design") not in ("descriptive", "quasi_experimental", "randomized"):
-                fail(f"campaign {cid}: preregistered rows declare design: descriptive | quasi_experimental | randomized")
+            if row.get("design") not in ("descriptive", "ecological_descriptive", "quasi_experimental", "randomized"):
+                fail(f"campaign {cid}: preregistered rows declare design: descriptive | ecological_descriptive | quasi_experimental | randomized")
             if row.get("design") != "randomized":
                 for word in ("causes", "will produce", "will increase", "proves that"):
                     if word in str(row.get("hypothesis", "")):

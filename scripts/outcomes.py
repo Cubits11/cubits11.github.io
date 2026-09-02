@@ -27,7 +27,8 @@ QUALIFIED_BUCKETS = (
 )
 INTERACTION_FIELDS = ("date", "kind", "url", "summary")
 ENTRY_FIELDS = ("date", "kind", "actor", "artifact", "agreed", "consequence", "claim")
-TRIAL_FIELDS = ("date", "film", "viewer", "answer", "scored", "source")
+TRIAL_FIELDS = ("date", "film", "viewer", "answers", "scores", "source")
+TRIAL_QUESTIONS = ("fixed_changed", "real_guardrails", "one_percent")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
@@ -93,8 +94,15 @@ def validate(data: object) -> dict:
         where = f"diagnostics.cold_comprehension_trials[{index}]"
         if not isinstance(trial, dict) or set(trial) != set(TRIAL_FIELDS):
             raise ValueError(f"{where} must contain exactly " + ", ".join(TRIAL_FIELDS))
-        if trial["scored"] not in ("pass", "fail"):
-            raise ValueError(f"{where}.scored must be pass or fail, scored by the pre-registered rule")
+        for key in ("answers", "scores"):
+            if not isinstance(trial[key], dict) or set(trial[key]) != set(TRIAL_QUESTIONS):
+                raise ValueError(f"{where}.{key} must carry exactly the frozen questions {TRIAL_QUESTIONS}")
+        for q, v in trial["scores"].items():
+            if v not in ("pass", "fail"):
+                raise ValueError(f"{where}.scores.{q} must be pass or fail, scored by the pre-registered rule")
+        for q, v in trial["answers"].items():
+            if not isinstance(v, str) or not v.strip():
+                raise ValueError(f"{where}.answers.{q} must be the viewer's verbatim answer")
         if not DATE.match(str(trial["date"])):
             raise ValueError(f"{where}.date must be YYYY-MM-DD")
 
@@ -145,8 +153,15 @@ def main() -> int:
     for item in diagnostics["technical_interaction_log"]:
         print(f"  interaction {item['date']} {item['kind']}: {item['url']}")
     trials = diagnostics.get("cold_comprehension_trials", [])
-    passed = sum(1 for t in trials if t["scored"] == "pass")
-    print(f"  {'cold_comprehension_trials':28s} {len(trials):3d}  (pass {passed}) — diagnostic, never an outcome")
+    print(f"  {'cold_comprehension_trials':28s} {len(trials):3d}  — diagnostic, never an outcome")
+    if trials:
+        for q in TRIAL_QUESTIONS:
+            fails = sum(1 for t in trials if t["scores"][q] == "fail")
+            print(f"    {q:26s} pass {len(trials) - fails:2d}  fail {fails:2d}")
+        repeated = [q for q in TRIAL_QUESTIONS if sum(1 for t in trials if t["scores"][q] == "fail") >= 2]
+        enough = len(trials) >= 5
+        print("  cold test gate: " + ("HOLD — repeated semantic failure on " + ", ".join(repeated) if repeated
+              else ("PASS — no repeated semantic failure" if enough else f"PENDING — {5 - len(trials)} more viewers needed")))
 
     rule = data["stop_rule"]
     interactions = technical_interactions(data)

@@ -15,6 +15,26 @@
 # cold_comprehension_trials, never as a qualified outcome.
 
 version: 1
+# Cold comprehension gate (frozen before any viewer answers). A film is
+# published to a feed only after 5–8 people who have not worked on the
+# project view it once, sound off, with no explanation, and answer the three
+# questions below verbatim. Trials are UX diagnostics, never population
+# research: no p-values, no effect claims; recorded in outcomes.yaml as
+# cold_comprehension_trials. The easiness failure mode is the one to catch:
+# a viewer who leaves believing the film showed what real guardrails jointly
+# miss is worse than a slightly confused viewer.
+cold_test_gate:
+  min_viewers: 5
+  max_viewers: 8
+  questions:
+    - {id: fixed_changed, text: "What stayed fixed, and what changed?"}
+    - {id: real_guardrails, text: "Does this video show the observed joint failure rate of two real guardrails?", correct: "No — it is a constructed identification example"}
+    - {id: one_percent, text: "What is the 1% point?", correct: "The value selected by independence, not a value implied by the two marginals"}
+  scoring:
+    fixed_changed: "PASS only if both (a) the per-guard scores/marginals as fixed and (b) the joint count/overlap as changing are named"
+    real_guardrails: "PASS only if the answer is no (constructed, illustrative, not real data); any yes, or 'real guardrails' is FAIL"
+    one_percent: "PASS only if the answer ties 1% to independence/an assumption/multiplying the scores; 'the true rate', 'the answer', 'what they miss' is FAIL"
+  publish_rule: "HOLD the feed release if 2 or more viewers FAIL the same question; otherwise publish. A HOLD triggers one revision and a fresh cold set, never a rescore."
 cta_family:
   - "Don't trust the animation. Run it."
   - "Try the 60-second reproduction."
@@ -254,9 +274,13 @@ units:
       point at 1% labelled independence picks 1%. Then: DON'T TRUST THE FILM.
       RUN THE 60-SECOND PROOF. cubits11.github.io/try.
     post_draft: >
-      Two guardrails. Each misses 10 of 100. How many of the 100 do they
-      jointly miss? Anywhere from 0 to 10 — the scores never move.
-      Independence picks 1%; nothing in the scores does. 11 s, sound off.
-      Run the 60-second proof yourself: cubits11.github.io/try
+      Two guardrails each miss 10%.
+      From those two scores alone, their joint miss rate can be anywhere from 0% to 10%.
+      1% is what independence selects — not what the scores imply.
+      Constructed example. Run the 60-second proof: cubits11.github.io/try/#try-a
+    post_notes: "object → identified set → hidden assumption → scope → action. No acronym, no biography, no launch language, no claim that guards empirically fail together. The link stays in the post: the objective is attributable technical action, not reach. Branding does not get the first three seconds; the contradiction does."
     comprehension_question: "With the sound off: what stayed fixed, and what changed?"
-    scoring_rule: "PASS only if the answer names both (a) the per-guard scores or marginals as fixed and (b) the number of items both guards miss (or the overlap) as changing. Naming only one is FAIL. Scored before any explanation is given."
+    adversarial_questions:
+      - {id: real_guardrails, text: "Does this video show the observed joint failure rate of two real guardrails?", correct: "No — a constructed identification example"}
+      - {id: one_percent, text: "What is the 1% point?", correct: "The value selected by independence, not a value implied by the two marginals"}
+    scoring_rule: "As cold_test_gate.scoring; frozen before viewing; scored before any explanation is given."

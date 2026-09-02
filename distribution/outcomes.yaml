@@ -39,7 +39,9 @@ diagnostics:
   # diagnostic about whether a film teaches its operation; it is NEVER a
   # qualified outcome and never a cold run. Question and scoring rule are
   # fixed in distribution/launch-units.yaml before any viewer answers.
-  cold_comprehension_trials: []   # {date, film, viewer: anonymous|name, answer, scored: pass|fail, source}
+  # {date, film, viewer: anonymous|name, answers: {question_id: verbatim}, scores: {question_id: pass|fail}, source}
+  # question ids and scoring rules are frozen in distribution/launch-units.yaml → cold_test_gate.
+  cold_comprehension_trials: []
   # An invitation or open issue is diagnostic only; it is never credited as
   # an external reproduction, correction, release, PR, or cold run.
   technical_interactions: 2     # replies that carried a number, source, or correction
