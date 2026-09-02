@@ -143,8 +143,8 @@ function render(t, g, L, { fact }) {
   ring(g, cx, cy, 78 * u, TOK.evidence, 5 * u, a); ring(g, cx, cy, 64 * u, TOK.evidence, 1.5 * u, a);
   text(g, 'sha256', cx, cy - 10 * u, { font: 'mono', size: 13 * u, color: TOK.evidence, align: 'center', alpha: a, track: 0.16 });
   text(g, D_C.slice(0, 8), cx, cy + 16 * u, { font: 'mono', size: 18 * u, color: TOK.evidence, align: 'center', alpha: a, track: 0.06 });
-  stamp(g, 'VERIFIED · BYTES MATCH', cx, cy + 130 * u, { size: 17 * u, color: TOK.evidence, alpha: sm(t, T_CUT + 0.6, T_CUT + 1.1), angle: -0.05 });
-  text(g, 'what the seal proves: these bytes are these bytes.', cx, cy + 190 * u, { font: 'sans', size: 22 * u, weight: 500, color: TOK.ink, align: 'center', alpha: sm(t, T_CUT + 1.2, T_CUT + 1.8), maxW: L.vertical ? L.W - 2 * L.m : 700 * u });
+  stamp(g, 'VERIFIED · CANONICAL BYTES MATCH', cx, cy + 130 * u, { size: 17 * u, color: TOK.evidence, alpha: sm(t, T_CUT + 0.6, T_CUT + 1.1), angle: -0.05 });
+  text(g, 'what the seal proves: the canonical bytes are these bytes.', cx, cy + 190 * u, { font: 'sans', size: 22 * u, weight: 500, color: TOK.ink, align: 'center', alpha: sm(t, T_CUT + 1.2, T_CUT + 1.8), maxW: L.vertical ? L.W - 2 * L.m : 700 * u });
   // the boundary line
   const bA = sm(t, T_CUT + 2.6, T_CUT + 3.2);
   if (L.vertical) line(g, L.m, by, L.W - L.m, by, TOK.review, 3 * u, [12, 8]); else line(g, bx, 160 * u, bx, L.H - 120 * u, TOK.review, 3 * u, [12, 8]);

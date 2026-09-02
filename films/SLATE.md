@@ -55,7 +55,7 @@ Dated 2026-09-01. Gate: conceptual_clarity ≥ 8, epistemic_integrity ≥ 8, dis
 
 ### 1. Same Scores, Different Worlds (`same-scores-different-worlds`) — cohort_a
 
-- **thesis:** Two guards that each miss 10 of 100 can miss the same item anywhere from 0 to 10 times; the scores never move while the joint count runs the whole interval.
+- **thesis:** Two guards that each miss 10 of 100 can jointly miss anywhere from 0 to 10 of the 100 items; the scores never move while the joint count runs the whole interval.
 - **epistemic operation:** fixed marginals with moving overlap → a set of feasible worlds; endpoint witnesses; an assumption selecting one point
 - **visual mechanism:** a paper population sheet; ink discs (guard A misses) and ink rings (guard B misses); rings hop from disjoint cells onto disc cells while both counters stay pinned at 10/100
 - **why motion:** the hop IS the argument — the same score, a different item; a static figure can only show two worlds, motion shows that every world in between is reachable without touching a score
@@ -70,7 +70,7 @@ Dated 2026-09-01. Gate: conceptual_clarity ≥ 8, epistemic_integrity ≥ 8, dis
 
 ### 2. Thirteen Worlds, One File (`thirteen-worlds`) — cohort_a
 
-- **thesis:** Five published miss rates pin the BELLS all-miss count only to {0 … 12} of 82; a union fixes it at 9, and independence's 2.87 prompts was never a world.
+- **thesis:** Five published miss rates pin the BELLS all-miss count only to {0 … 12} of 82; a union fixes it at 9; the independence plug-in (3.49%, 2.87 prompts in expectation) is a model's point, not an observed integer count.
 - **epistemic operation:** marginals → sharp finite identified set → a union aggregate identifies the count → positions remain unidentified
 - **visual mechanism:** five bead rods, 82 positions; bead counts are the release's; the smallest rod slides and the all-miss columns light amber as it enters the others' beads
 - **why motion:** the count walks through all thirteen values only because ONE rod moves — motion shows which quantity the marginals leave free
@@ -130,7 +130,7 @@ Dated 2026-09-01. Gate: conceptual_clarity ≥ 8, epistemic_integrity ≥ 8, dis
 
 ### 6. What the Seal Proves (`what-the-seal-proves`) — cohort_a
 
-- **thesis:** Two receipts that differ in bytes share one digest after parse → canonicalize → digest; a verified seal proves bytes match and nothing past that line.
+- **thesis:** Two byte-different receipts canonicalize to one digest-bound representation after parse → canonicalize → digest; a verified seal proves the canonical bytes match and nothing past that line.
 - **epistemic operation:** a receipt reaching the boundary of what it proves; provenance separated from safety, authorization and correctness
 - **visual mechanism:** two paper receipts through three rollers, merging into one card under one seal; then the seal's light spreading to a dashed boundary with three dark doors beyond
 - **why motion:** the merge is the kernel — two objects becoming indistinguishable has to happen in front of the viewer; the light must be seen to stop

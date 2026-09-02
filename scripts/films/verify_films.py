@@ -10,8 +10,9 @@ For each films/<slug>/manifest.yaml:
     number on screen can never drift from claims.yaml / census.yaml
   * every object on screen is labelled with one of OBSERVED / DERIVED / PROVED
     / CONSTRUCTED / ILLUSTRATIVE / UNKNOWN / REGISTRY / DOCUMENT
-  * a master render exists with a receipt: duration within one frame of the
-    manifest, resolution 1920×1080, zero text overflows, determinism check
+  * the primary render (render.primary — master by default, square for a feed
+    cut) exists with a receipt: duration within one frame of the manifest,
+    the format's resolution, zero text overflows, determinism check
     passed, and the receipt's input hashes match the current film source and
     facts file (a stale render fails)
   * every declared claim frame has its still on disk
@@ -82,15 +83,41 @@ def check_film(d: Path, facts: dict) -> None:
     if not m["falsifier"]:
         fail(f"{slug}: falsifier missing")
 
-    receipt_path = d / "renders" / f"{slug}__master.receipt.json"
+    render_spec = m.get("render") or {}
+    primary = render_spec.get("primary", "master")
+    dims = {"master": (1920, 1080), "vertical": (1080, 1920), "square": (1080, 1080)}[primary]
+    receipt_path = d / "renders" / f"{slug}__{primary}.receipt.json"
     if not receipt_path.exists():
-        fail(f"{slug}: no master render receipt ({receipt_path.relative_to(ROOT)})")
+        fail(f"{slug}: no {primary} render receipt ({receipt_path.relative_to(ROOT)})")
         return
     r = json.loads(receipt_path.read_text())
     if abs(r["duration_s"] - dur) > 1.0 / r["fps"] + 1e-9:
         fail(f"{slug}: rendered duration {r['duration_s']}s != manifest {dur}s")
-    if (r["width"], r["height"]) != (1920, 1080):
-        fail(f"{slug}: master resolution {r['width']}x{r['height']} is not 1920x1080")
+    if (r["width"], r["height"]) != dims:
+        fail(f"{slug}: {primary} resolution {r['width']}x{r['height']} is not {dims[0]}x{dims[1]}")
+    if render_spec.get("kind") == "social":
+        # a feed cut: 8–12 s, phone previews on disk, a real route, registered campaign and experiment
+        if not 8 <= dur <= 12:
+            fail(f"{slug}: social cut is {dur}s; the feed law is 8–12 s")
+        previews = r["outputs"].get("phone_previews") or []
+        if len(previews) < len(m["claim_frames"]):
+            fail(f"{slug}: {len(previews)} phone previews for {len(m['claim_frames'])} claim frames — render with the phone-preview path")
+        for pv in previews:
+            if not (d / pv).exists():
+                fail(f"{slug}: phone preview missing {pv}")
+        route = m.get("cta_route", "")
+        if not (ROOT / route.strip("/") / "index.html").exists():
+            fail(f"{slug}: cta_route {route!r} is not a committed page")
+        campaigns = {row["id"] for row in yaml.safe_load((ROOT / "campaigns.yaml").read_text())["campaigns"]}
+        if m.get("campaign") not in campaigns:
+            fail(f"{slug}: campaign {m.get('campaign')!r} is not registered")
+        experiments = {e["id"] for e in yaml.safe_load((ROOT / "distribution" / "experiments.yaml").read_text())["experiments"]}
+        if m.get("experiment") not in experiments:
+            fail(f"{slug}: experiment {m.get('experiment')!r} is not registered")
+        if m.get("derived_from") and not (ROOT / "films" / m["derived_from"] / "manifest.yaml").exists():
+            fail(f"{slug}: derived_from {m['derived_from']} has no manifest")
+        if not m.get("text_budget", {}).get("essential"):
+            fail(f"{slug}: a social cut must declare its essential text budget")
     if r["text_overflows"]:
         fail(f"{slug}: {len(r['text_overflows'])} text overflow(s) in render: {r['text_overflows'][:2]}")
     if not r["determinism"]["identical"]:

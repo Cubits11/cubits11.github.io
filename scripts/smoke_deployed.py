@@ -167,6 +167,47 @@ def check_once(site: str) -> list[str]:
     else:
         failures.append(
             "deployed page does not name the canonical correction-policy route")
+    # /try/: the experiment surface must serve, promise the canonical TRY-A
+    # final line, show the ledger's actual qualified counts, and route to
+    # film assets that resolve. A deployed /try/ that promises a line the
+    # script does not print, or a count the ledger does not hold, is a lie
+    # at the exact point of contact.
+    try_url = urljoin(f"{site}/", "try/")
+    try_body = bodies.get(try_url)
+    if try_body is None:
+        failures.append(f"{try_url} did not serve")
+    else:
+        try_html = try_body.decode("utf-8", "replace")
+        try_text = facts.visible_text(try_html)
+        import yaml  # noqa: WPS433 — local import keeps the smoke stdlib-light when /try/ is absent
+        experiments = yaml.safe_load((ROOT / "distribution" / "experiments.yaml").read_text())
+        for exp in experiments["experiments"]:
+            if exp["expected_final_line"] in try_text:
+                print(f"ok    deployed /try/ promises {exp['id']}'s canonical final line")
+            else:
+                failures.append(f"deployed /try/ does not promise {exp['id']}'s final line {exp['expected_final_line']!r}")
+        import outcomes as outcomes_ledger  # noqa: E402
+        ledger = outcomes_ledger.load()
+        for bucket in outcomes_ledger.QUALIFIED_BUCKETS:
+            needle = f"<td>{bucket.replace('_', ' ')}</td><td>{len(ledger['qualified'][bucket])}</td>"
+            if needle in try_html:
+                print(f"ok    deployed external status shows {bucket} = {len(ledger['qualified'][bucket])}")
+            else:
+                failures.append(f"deployed /try/ external status does not show {bucket} = {len(ledger['qualified'][bucket])}")
+        for asset in re.findall(r'(?:src|poster|href)="(/films/[^"]+)"', try_html):
+            asset_url = urljoin(f"{site}/", asset.lstrip("/"))
+            req = urllib.request.Request(asset_url, method="HEAD", headers={"User-Agent": "cubits11-smoke"})
+            try:
+                with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
+                    status = resp.status
+            except urllib.error.HTTPError as exc:
+                status = exc.code
+            except Exception as exc:  # network
+                status = f"unreachable: {exc}"
+            if status == 200:
+                print(f"ok    film asset serves: {asset}")
+            else:
+                failures.append(f"film asset {asset} returned {status}")
     corrections_url = urljoin(f"{site}/", "corrections/")
     corrections = bodies.get(corrections_url)
     if corrections is None:

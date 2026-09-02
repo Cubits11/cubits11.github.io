@@ -4,12 +4,12 @@ cohort: A
 grammar: paper receipts through a three-station press; a seal whose light stops at a line
 duration_s: 34
 thesis: >
-  Two receipts that differ in bytes can share one digest after parse →
-  canonicalize → digest, so a verifying seal identifies an execution only up
+  Two byte-different receipts can canonicalize to one digest-bound
+  representation after parse → canonicalize → digest, so a verifying seal identifies an execution only up
   to that pipeline's kernel; and even a verified seal establishes nothing
   about whether the governed action was safe, authorized, or correct.
 epistemic_operation: >
-  a receipt reaching the boundary of what it proves; provenance (bytes match)
+  a receipt reaching the boundary of what it proves; provenance (the canonical bytes match)
   separated from safety, authorization, and semantic correctness.
 claim: >
   The film's toy pipeline maps the byte strings {"amount": 1.0, "to":

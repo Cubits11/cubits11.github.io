@@ -300,11 +300,19 @@ campaigns:
     success_signal: "one reproduction issue filed by someone who is not the author"
     preregistered: true
     status: prepared
+    design: descriptive
+    design_note: >
+      A sequential comparison on one account is not a randomized experiment:
+      audience, ranking, time, competing posts and platform allocation all
+      vary with the intended variable. This row supports a decision, not a
+      causal identification; a later randomized design would need real
+      random assignment of viewers.
     hypothesis: >
-      Researchers shown the Same Scores film (two worlds, identical scores)
-      before any repository description will open /try/ and start TRY-A more
-      often than researchers shown a repository description.
-    changed_variable: "opening representation only (film versus description); CTA, destination and copy held fixed"
+      When the Same Scores feed cut (two worlds, identical scores) is the
+      opening representation, more /try/ referrals per impression are
+      observed than in the prior description-first baseline.
+    changed_representation: "opening representation (feed cut versus description); CTA, destination and copy held fixed"
+    changed_variable: "opening representation only (feed cut versus description); CTA, destination and copy held fixed"
     primary_diagnostic: "experiment-entry clicks / landing visits (owner-read from X analytics and GitHub referrers; denominators recorded)"
     qualified_target: ">= 1 independent reproduction of TRY-A or TRY-B filed via the reproduction template"
     observation_window_days: 14
@@ -324,10 +332,11 @@ campaigns:
     success_signal: "one TRY-B reproduction filed, or a BELLS author confirms or corrects the row"
     preregistered: true
     status: prepared
+    design: descriptive
     hypothesis: >
-      A released-data film that names the file and the count (9 of 82) will
-      produce more reconstruction attempts than an abstract-bounds film,
-      because the object is downloadable.
+      With a released-data film that names the file and the count (9 of 82)
+      as the opening, more reconstruction attempts are observed than after
+      the abstract-bounds film; the object is downloadable.
     changed_variable: "the film only (released-data bridge versus constructed proof); destination and CTA held fixed"
     primary_diagnostic: "TRY-B reproduction issues / landing visits"
     qualified_target: ">= 1 independent TRY-B reproduction, or 1 source correction from a BELLS author"
@@ -343,7 +352,8 @@ campaigns:
     success_signal: "a substantive methodological counterexample or a reproduction filed"
     preregistered: true
     status: prepared
-    hypothesis: "A proof-object film reaches a methods audience the census film does not; the diagnostic is who replies, not how many"
+    design: descriptive
+    hypothesis: "With a proof-object film, replies from a methods audience are observed that the census film did not draw; the diagnostic is who replies, not how many"
     changed_variable: "audience only; film format held to the same grammar (a constructed proof)"
     primary_diagnostic: "technical replies carrying a derivation, number, or counterexample / total replies"
     qualified_target: ">= 1 counterexample issue or reproduction filed"
@@ -359,7 +369,8 @@ campaigns:
     success_signal: "one row correction, one author confirmation, or one TRY-C candidate row filed"
     preregistered: true
     status: prepared
-    hypothesis: "Replying on an author's own announcement with their row and the correction route produces more corrections than any broadcast (one card per week; ml6-2026 stays on hold)"
+    design: descriptive
+    hypothesis: "Replying on an author's own announcement with their row and the correction route is followed by more corrections than broadcasts have been (one card per week; ml6-2026 stays on hold)"
     changed_variable: "channel only (reply on the author's thread versus broadcast); the ask is unchanged: if the row is wrong, say so"
     primary_diagnostic: "author replies / cards sent"
     qualified_target: ">= 1 source correction or author confirmation recorded in outcomes.yaml"
@@ -375,7 +386,8 @@ campaigns:
     success_signal: "a reply describing a stack where a leave-one-out union was measured, or a paired-outcome release"
     preregistered: true
     status: prepared
-    hypothesis: "A decision-consequence film (what removing a guard costs) produces more practitioner replies than a bounds film"
+    design: descriptive
+    hypothesis: "With a decision-consequence film (what removing a guard costs) as the opening, more practitioner replies are observed than after a bounds film"
     changed_variable: "the film's operation (removal) only; destination and CTA held fixed"
     primary_diagnostic: "practitioner replies naming their own stack / landing visits"
     qualified_target: ">= 1 paired-outcome release or reproduction"
@@ -391,7 +403,8 @@ campaigns:
     success_signal: "a substantive reply about a real receipt system's kernel"
     preregistered: true
     status: prepared
-    hypothesis: "The provenance film opens a separate sequence; its audience does not overlap the guardrail audience and it must not be measured against the same funnel"
+    design: descriptive
+    hypothesis: "The provenance film opens a separate sequence; its audience is expected not to overlap the guardrail audience, so it is not measured against the same funnel"
     changed_variable: "audience and topic — a separate sequence, not a variant of the guardrail experiment"
     primary_diagnostic: "replies from receipt/attestation engineers / total replies"
     qualified_target: "none pre-registered for this window; a Ghost-Ark-lab confirmation of the boundary sentence would count as a source correction or confirmation"
@@ -426,6 +439,11 @@ funnel:
     - {pattern: "completions but few results submitted", diagnosis: "result-intake failure", change: "the report route or template"}
     - {pattern: "technical discussion but no execution", diagnosis: "the CTA asks for thought rather than work", change: "the CTA to a command"}
     - {pattern: "external rerun, correction, release, or PR", diagnosis: "qualified consequence", change: "record it in outcomes.yaml; then decide"}
+  # The first transition the record cannot observe. Everything up to a /try/
+  # visit leaves a trace somewhere (impressions, referrals); whether a visitor
+  # then runs a command leaves none until they file a result. So:
+  first_unobserved_transition: "try_visit → experiment_start"
+  bottleneck_location: "UNKNOWN until external evidence arrives"
   # Dated observations, appended by the owner, never estimated. Each names the
   # stage, the campaign id, the numerator, the denominator, and the source.
   observations: []   # {date, campaign, stage, value, denominator, source, note}

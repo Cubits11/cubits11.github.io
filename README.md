@@ -13,8 +13,9 @@ before you run anything. Don't trust the graphic; reproduce it.
 ```bash
 git clone https://github.com/Cubits11/cubits11.github.io.git && cd cubits11.github.io
 python3 scripts/try_same_scores.py      # 60 s, standard library: two worlds from the same two scores
-python3 scripts/reanalyze_bells_subset.py   # 3 min, PyYAML + network: a released file recomputed under a hash
-python3 scripts/try_audit.py            # 15 min: the disclosure test on an evaluation you know
+python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt   # PyYAML, for the next line only
+python3 scripts/reanalyze_bells_subset.py   # 3 min, network: a released file recomputed under a hash
+python3 scripts/try_audit.py            # 15 min, standard library: the disclosure test on an evaluation you know
 ```
 
 A different result is the most useful thing you can send:

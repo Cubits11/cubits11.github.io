@@ -211,8 +211,26 @@ def check_try_page(templates: dict) -> None:
     ok(f"try/index.html: {len(links)} intake links name real templates and fields")
 
 
+def check_dispatch() -> None:
+    path = ROOT / "distribution" / "DISPATCH.md"
+    if not path.exists():
+        fail("distribution/DISPATCH.md missing")
+        return
+    text = path.read_text()
+    for section in ("## A.", "## B.", "## C.", "## D.", "## E."):
+        if section not in text:
+            fail(f"DISPATCH.md lacks section {section}")
+    for heading in re.findall(r"^## [A-C].*$|^## E.*$", text, re.M):
+        if "PREPARED — NOT SENT" not in heading:
+            fail(f"DISPATCH.md heading not marked PREPARED — NOT SENT: {heading}")
+    if re.search(r"\bSENT\b(?!\s*$)", text.replace("NOT SENT", "")):
+        fail("DISPATCH.md claims something was sent")
+    ok("DISPATCH.md: every draft marked PREPARED — NOT SENT")
+
+
 def main() -> int:
     templates = load_templates()
+    check_dispatch()
     ok(f"issue templates: {', '.join(sorted(templates))}")
     exp = check_experiments(templates)
     check_launch_units(exp["ids"])

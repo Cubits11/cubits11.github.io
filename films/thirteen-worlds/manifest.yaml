@@ -6,7 +6,8 @@ duration_s: 36
 thesis: >
   The five published miss rates of the BELLS supervisors pin the all-miss
   count only to {0 … 12} of 82 — thirteen worlds; a same-denominator union
-  fixes it at 9, and independence's 2.87 prompts was never one of the worlds.
+  fixes it at 9; the independence plug-in (3.49%, equivalent to 2.87 prompts
+  in expectation) is a model's point, not an observed integer count.
 epistemic_operation: >
   marginals → finite identified set (sharp bounds, endpoint attained) →
   a union aggregate identifies the count → positions remain unidentified.

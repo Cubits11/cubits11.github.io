@@ -1,0 +1,105 @@
+id: same-scores__social-square
+title: Same Scores — social square
+cohort: A-derivative
+grammar: the master's paper-and-ink sheet, compressed to one perceptual event for a phone feed
+duration_s: 11
+derived_from: same-scores-different-worlds
+thesis: >
+  Two guards that each miss 10 of 100 items can jointly miss anywhere from
+  0 to 10 of the 100 items; the two scores never move while the joint count
+  runs the whole interval, and multiplying them selects one world.
+epistemic_operation: >
+  fixed marginals with moving overlap → a set of feasible worlds; an
+  assumption (independence) selects one point.
+claim: >
+  For marginals (0.10, 0.10) the both-fail probability is identified only to
+  [0.0, 0.10]; both endpoints are attained by explicit joint distributions
+  that satisfy the marginals; independence names 0.01, a point inside that
+  set it was never entitled to.
+scope: >
+  Identical to the master film's: a declared illustrative input (CC-001) and
+  the kernel's bounds and witnesses (CC-001, CC-004), reproduced from a clean
+  clone in CI. The population and which items each guard misses are
+  illustrative constructions (the master's seed); no measured system appears.
+  The cut removes the per-world atom vectors, the endpoint-witness stamps,
+  the ledger tags and the registry locator; each is one click away at /try/.
+status: supported_within_scope — bound to CC-001 and CC-004 at their registered commit
+evidence:
+  - fact: CC-001.marginals
+    kind: REGISTRY
+    value: [0.1, 0.1]
+  - fact: CC-001.and_bounds
+    kind: PROVED
+    value: [0.0, 0.1]
+  - fact: CC-001.independence_and
+    kind: DERIVED
+    value: 0.010000000000000002
+  - fact: CC-004.witness_lower
+    kind: PROVED
+    value: [0.8, 0.1, 0.1, 0.0]
+  - fact: CC-004.witness_upper
+    kind: PROVED
+    value: [0.9, 0.0, 0.0, 0.1]
+objects:
+  - object: the 100-cell sheet and which cells each guard misses
+    status: ILLUSTRATIVE
+  - object: the two readouts A MISSES 10/100 and B MISSES 10/100, marked FIXED
+    status: REGISTRY
+    note: the declared input of CC-001; they do not change in any frame
+  - object: the BOTH MISS counter running 0 → 10
+    status: PROVED
+    note: the start and end states are CC-004's endpoint witnesses; every intermediate state is feasible by the same construction
+  - object: the interval 0%–10% over the dimmed sheet
+    status: PROVED
+    note: CC-001 bounds
+  - object: the amber point at 1% labelled independence picks
+    status: DERIVED
+    note: the product of the marginals — what one assumption selects, not an answer
+  - object: the closing action
+    status: ILLUSTRATIVE
+    note: a route, not a claim
+evidence_commits:
+  - claim: CC-001
+    repo: Cubits11/cc-framework
+    commit: 167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+  - claim: CC-004
+    repo: Cubits11/cc-framework
+    commit: 167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+falsifier: >
+  A clean-clone execution of the bound kernel on marginals (0.10, 0.10)
+  returns AND bounds other than [0.0, 0.10], or a witness that fails a
+  marginal check at tolerance 1e-9 (CC-001 / CC-004, REJECT); or any
+  rendered frame shows a readout other than 10/100 for either guard while
+  the BOTH counter moves — checkable frame by frame.
+non_claims:
+  - does not certify any stacked system as safe, and shows no measured system
+  - does not estimate or recover the true dependence between any two guards
+  - does not select a point inside the interval; the amber point is what one assumption would select
+  - the population and the arrangement are illustrations of feasible worlds, not data
+text_budget:
+  essential: ["A MISSES 10/100", "B MISSES 10/100", "BOTH MISS 0→10/100", "SAME SCORES. DIFFERENT WORLDS.", "0% … 10%", "independence picks 1%", "DON'T TRUST THE FILM. RUN THE 60-SECOND PROOF", "cubits11.github.io/try"]
+  supporting: ["FIXED", "every value: a possible world", "one assumption. one point."]
+  provenance: ["/try/ (bound facts, falsifier, non-claims, claim ids)"]
+claim_frames:
+  - t: 0.3
+    shows: opening — A 10/100, B 10/100, both 0/100, nothing has moved
+  - t: 3.2
+    shows: mid-transition — five rings landed, readouts unchanged
+  - t: 6.2
+    shows: opposite endpoint — both 10/100 with the two readouts unchanged
+  - t: 7.4
+    shows: the name — SAME SCORES. DIFFERENT WORLDS.
+  - t: 9.6
+    shows: the interval 0–10% with the amber point at 1% labelled as what independence picks
+  - t: 10.8
+    shows: the action — DON'T TRUST THE FILM. RUN THE 60-SECOND PROOF. cubits11.github.io/try
+render:
+  kind: social
+  primary: square
+  fps: 30
+  formats: [square]
+  poster_t: 10.8
+  loop: "first and last frames are static holds; the seam is a hard reset to the opening state"
+cta_route: "/try/"
+campaign: x-film-same-scores
+experiment: TRY-A

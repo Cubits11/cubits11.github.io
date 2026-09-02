@@ -102,13 +102,13 @@ def save_still(frame_png: Path, out_jpg: Path) -> None:
     Image.open(frame_png).convert("RGB").save(out_jpg, "JPEG", quality=90, optimize=True)
 
 
-def contact_sheet(stills: list[Path], out: Path, labels: list[str]) -> None:
+def contact_sheet(stills: list[Path], out: Path, labels: list[str], thumb: int = 640) -> None:
     from PIL import Image, ImageDraw
     ims = [Image.open(p).convert("RGB") for p in stills]
     if not ims:
         return
     w, h = ims[0].size
-    tw = 640
+    tw = thumb
     th = round(h * tw / w)
     cols = min(3, len(ims))
     rows = (len(ims) + cols - 1) // cols
@@ -200,6 +200,18 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
             save_still(frames / f"f{i:05d}.png", p)
             claim_stills.append({"n": n, "t": cf["t"], "label": cf.get("label", ""), "still": str(p.relative_to(film_dir))})
         contact_sheet(still_paths, renders / f"{stem}.sheet.jpg", labels)
+        # phone previews: the feed shows a square at roughly 390 CSS px; the acceptance
+        # test for essential text is practical legibility on THESE files, not on the master
+        phone = []
+        if fmt == "square":
+            from PIL import Image
+            phone_dir = stills_dir
+            for p_src in still_paths + [stills_dir / c["still"].split("/")[-1] for c in claim_stills]:
+                out_p = phone_dir / f"phone-{p_src.name}"
+                Image.open(p_src).convert("RGB").resize((390, 390), Image.LANCZOS).save(out_p, "JPEG", quality=92)
+                phone.append(str(out_p.relative_to(film_dir)))
+            sheet_in = [film_dir / c["still"] for c in claim_stills]
+            contact_sheet(sheet_in, renders / f"{stem}.phone-sheet.jpg", [c["label"][:60] for c in claim_stills], thumb=390)
 
         receipt = {
             "film": slug, "format": fmt, "title": meta["title"],
@@ -223,6 +235,7 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
                 "poster": str(poster.relative_to(film_dir)), "poster_t": meta["poster_t"],
                 "stills": [str(p.relative_to(film_dir)) for p in still_paths],
                 "claim_frames": claim_stills,
+                "phone_previews": phone,
             },
             "render_seconds": round(time.time() - t_start, 1),
         }

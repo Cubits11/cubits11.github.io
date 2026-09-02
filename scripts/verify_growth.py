@@ -244,6 +244,12 @@ def check_campaigns() -> None:
                     fail(f"campaign {cid}: preregistered but missing {field}")
             if row.get("status") not in ("prepared", "dispatched", "closed"):
                 fail(f"campaign {cid}: status must be prepared, dispatched or closed")
+            if row.get("design") not in ("descriptive", "quasi_experimental", "randomized"):
+                fail(f"campaign {cid}: preregistered rows declare design: descriptive | quasi_experimental | randomized")
+            if row.get("design") != "randomized":
+                for word in ("causes", "will produce", "will increase", "proves that"):
+                    if word in str(row.get("hypothesis", "")):
+                        fail(f"campaign {cid}: a {row['design']} design cannot state {word!r} — remove the causal language")
             if not isinstance(row.get("observation_window_days"), int):
                 fail(f"campaign {cid}: observation_window_days must be an integer")
         url = campaign_url(data["site"], destinations[row["destination"]], utm)
@@ -274,6 +280,10 @@ def check_campaigns() -> None:
             fail(f"funnel stage {s.get('id')}: needs a source and what it reads")
     if not funnel.get("interpretation"):
         fail("campaigns.yaml funnel has no interpretation table — the diagnosis must be mechanical")
+    if funnel.get("first_unobserved_transition") != "try_visit → experiment_start":
+        fail("campaigns.yaml funnel must name the first unobserved transition (try_visit → experiment_start)")
+    if str(funnel.get("bottleneck_location", "")).upper().startswith("UNKNOWN") is False and not funnel.get("observations"):
+        fail("campaigns.yaml funnel names a bottleneck location with no observations — it is UNKNOWN until evidence arrives")
     campaign_ids = {row.get("id") for row in data["campaigns"]}
     for index, obs in enumerate(funnel.get("observations") or []):
         where = f"funnel.observations[{index}]"

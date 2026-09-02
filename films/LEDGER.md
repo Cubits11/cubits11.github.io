@@ -78,3 +78,29 @@ source and the runtime, never by hand-editing a frame.
 - The Benign Floor will be the hardest to keep silent-legible: a floor drawn before the data is a temporal claim, and the film must show the order, not just the levels.
 - Review Due will read as "false" unless the red lamp is paired with REVIEW DUE at poster size; predict one pass to get that pairing right.
 - Frozen Before Seen is the direct replacement for Experiment 1's fabricated protocol bar; predict it is the cheapest film of the cohort and the one most likely to be mistaken for a preregistration claim — the "lock proves preservation, not ignorance" line must be on the poster frame.
+
+## E3.1 — the feed-native derivative (2026-09-01)
+
+Prediction, written before the first render: the master's grammar compressed to a
+square would carry the invariant on its own if the two readouts were large and
+literally motionless, and the phone-size gate would fail first on supporting
+text, not on the readouts.
+
+| pass | observed on the 390 px previews | changed variable |
+|---|---|---|
+| 1 | readouts, BOTH counter, reveal and CTA all legible at phone size; the amber point was absent from the interval frame (it landed 0.0 s after the claim frame); the independence label sat on the axis and collided with the caption; DIFFERENT WORLDS. and the CTA overflowed their boxes | point lands 0.4 s earlier; caption and ticks above the axis, independence labels below; reveal 54 px; CTA band full width |
+| 2 | one supporting caption 31 px over the sheet edge; the CTA began fading in inside the interval claim frame | caption 28 px; CTA starts at 9.9 s; claim frames re-timed |
+| 3 | 0 overflows, deterministic; every ESSENTIAL item readable on the phone sheet; FIXED and the two supporting captions are ~11 px at phone size and are classified SUPPORTING | — |
+
+What the cut removes relative to the master: the per-world atom vectors, the
+endpoint-witness stamps, the ledger tags, the kicker, the registry locator,
+and the whole first act's scoreboard prose. What survives: two readouts, one
+moving arrangement, one counter, one name, one interval with one point, one
+action. Every surviving motion changes information: the hop changes the
+arrangement, the counter changes the joint count, the dim shifts attention to
+the interval, the point lands, the CTA appears. Nothing drifts.
+
+Lesson recorded: the prediction held on the readouts and failed on timing —
+a claim frame declared at the exact second an object begins to appear
+captures its absence. Claim frames must be declared after the eased arrival,
+not at its start.

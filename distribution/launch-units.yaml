@@ -18,7 +18,7 @@ version: 1
 cta_family:
   - "Don't trust the animation. Run it."
   - "Try the 60-second reproduction."
-  - "Bring me a counterexample."
+  - "Bring me a counterexample — a benchmark the census missed, a row that misreads its source, a bound that fails."
   - "If you get a different result, I will place the correction beside the claim."
 
 units:
@@ -31,7 +31,7 @@ units:
     experiment_url: "/try/#try-a"
     poster: "films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png"
     master: "films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4"
-    claim_sentence: "Two guards that each miss 10 of 100 items can miss the same item anywhere from 0 to 10 times in 100 — the two scores never move."
+    claim_sentence: "Two guards that each miss 10 of 100 items can jointly miss anywhere from 0 to 10 of the 100 items — the two scores never move."
     technical_paragraph: >
       For marginal miss rates p and q, the both-miss probability is identified
       only to [max(0, p+q−1), min(p, q)]; both endpoints are attained by
@@ -49,8 +49,8 @@ units:
       above an axis from 0% to 10% with a small amber tick at 1% labelled the
       world independence assumes.
     post_draft: >
-      Two guardrails. Each misses 10 of 100. How many do they miss together?
-      Anywhere from 0 to 10 — the two scores never move. Independence picks
+      Two guardrails. Each misses 10 of 100. How many of the 100 do they
+      jointly miss? Anywhere from 0 to 10 — the two scores never move. Independence picks
       1%; nothing in the scores does. 30 s, sound off. Run it yourself in 60 s:
       cubits11.github.io/try
     comprehension_question: "With the sound off: what stayed fixed, and what changed?"
@@ -65,7 +65,7 @@ units:
     experiment_url: "/try/#try-b"
     poster: "films/thirteen-worlds/renders/thirteen-worlds__master.poster.png"
     master: "films/thirteen-worlds/renders/thirteen-worlds__master.mp4"
-    claim_sentence: "Five published miss rates pin the BELLS all-miss count only to 0…12 of 82; the released file's union fixes it at 9, and independence's 2.87 prompts was never one of the worlds."
+    claim_sentence: "Five published miss rates pin the BELLS all-miss count only to 0…12 of 82; the released file's union fixes it at 9; the independence plug-in is 3.49%, equivalent to 2.87 prompts in expectation — a model's point, not an observed integer count."
     technical_paragraph: >
       On the 82 prompts labelled harmful in the released BELLS subset, the
       five per-guard miss counts identify the static all-miss count only up to
@@ -85,7 +85,8 @@ units:
     post_draft: >
       Five guardrail miss rates are public. From those alone, how many of 82
       prompts did all five miss? Anything from 0 to 12. The released file says
-      9. Independence would have said 2.87 prompts — not even a whole prompt.
+      9. The independence plug-in says 3.49% — 2.87 prompts in expectation,
+      not an observed count.
       Recompute it from the pinned file in 3 minutes: cubits11.github.io/try
     comprehension_question: "With the sound off: what did the published rates leave open, and what closed it?"
     scoring_rule: "PASS only if the answer says the rates left a range (or several possible counts) open and that the union or the released file closed it to one count. Scored before any explanation."
@@ -107,7 +108,7 @@ units:
       probability is 0 under even parity and 0.25 under odd parity. A
       constructive possibility proof from CC-Framework's synthetic E1 study
       (CC-003, decision Narrow) — not a frequency claim about real stacks.
-    cta: "Bring me a counterexample: two distributions with the same pairs and the same triple — or run the two-guard case yourself in 60 s."
+    cta: "Try to break the construction: recompute every singleton, every pair, and the triple from the two atom tables. If an advertised equality fails, file it. Then the open question: what additional statistic is sufficient to identify the triple?"
     accessible_description: >
       Two wireframe cubes. Each corner is one outcome of three guards; filled
       discs mark outcomes that carry probability. Under each cube three small
@@ -120,7 +121,7 @@ units:
       Measure every pair of three guardrails. Same singles, same pairs, same
       everything you can see — and the stack still fails together 0% of the
       time in one world and 25% in the other. Pairs don't identify the triple.
-      Counterexample welcome: cubits11.github.io/try
+      Recompute every equality yourself; if one fails, file it: cubits11.github.io/try
     comprehension_question: "With the sound off: what is identical between the two cubes, and what differs?"
     scoring_rule: "PASS only if the answer names the pairwise (or per-guard) rates as identical and the all-three-fail corner (or triple) as different. Scored before any explanation."
 
@@ -141,7 +142,7 @@ units:
       1; the comparability ladder reads 14 / 12 / 0. The claim's own falsifier
       fired once (19/13/4 → 20/14/5 on 2026-08-30) and the rejected envelope
       is retained. Every count is recomputed from census.yaml in CI (MC-001).
-    cta: "If a row about your evaluation is wrong, say so — corrections land dated in the public file. Or audit an evaluation the census missed in 15 minutes."
+    cta: "If I classified your evaluation and the row is wrong, correct it — corrections land dated in the public file. Or audit an evaluation the census missed in 15 minutes."
     accessible_description: >
       A dark table of twenty rows, each a public evaluation's id. A joint-
       evidence column fills row by row with PRESENT in cyan or not reported in
@@ -151,10 +152,11 @@ units:
       correction stamp marks one row; a final panel reads 20 examined, 9
       excluded, 15 unexamined.
     post_draft: >
-      Twenty public guardrail evaluations. Fourteen never report what the
-      stack misses together. Zero document matched thresholds with full
-      exposure. One row is about your evaluation — if it is wrong, say so and
-      the correction lands beside the count: cubits11.github.io/try#counterexample
+      Under the frozen census criteria, 14 of 20 public guardrail evaluations
+      provide no qualifying joint-evidence artifact, and 0 document matched
+      thresholds with full exposure. If I classified your evaluation and the
+      row is wrong, correct it — it lands beside the count, dated:
+      cubits11.github.io/try#counterexample
     comprehension_question: "With the sound off: what does the last column count, and what does the 0 mean?"
     scoring_rule: "PASS only if the answer says the column counts evaluations that report (or document) the stack's joint result, and that the 0 is about reporting or documentation, not about any guard performing badly. Scored before any explanation."
 
@@ -200,7 +202,7 @@ units:
     experiment_url: "/modules/003-kernel-of-a-receipt/"
     poster: "films/what-the-seal-proves/renders/what-the-seal-proves__master.poster.png"
     master: "films/what-the-seal-proves/renders/what-the-seal-proves__master.mp4"
-    claim_sentence: "Two receipts that differ in bytes share one digest after parse → canonicalize → digest; a verified seal proves the bytes match and nothing past that line."
+    claim_sentence: "Two byte-different receipts canonicalize to the same digest-bound representation; a verified seal proves the canonical bytes match — not that the action was safe, authorized, or correct."
     technical_paragraph: >
       A receipt identifies an execution only up to the kernel of its whole
       parse → canonicalize → digest pipeline; the film's toy canonicalizer
@@ -218,9 +220,43 @@ units:
       nothing past this line; beyond it three dark doors read SAFE?,
       AUTHORIZED?, CORRECT? — not established by the receipt.
     post_draft: >
-      Two different receipts. One digest. The seal verifies — and proves
-      exactly that the bytes match. Safe? Authorized? Correct? Not
+      Two byte-different receipts. One digest. The seal verifies — and proves
+      exactly that the canonical bytes match. Safe? Authorized? Correct? Not
       established. Digests are real SHA-256; recompute them with any tool:
       cubits11.github.io/ledger/#GA-001
     comprehension_question: "With the sound off: what did the seal prove, and what did it not prove?"
     scoring_rule: "PASS only if the answer says the seal proved the bytes (or documents) matched and did not prove safety, authorization or correctness (any one of the three suffices). Scored before any explanation."
+
+  - film: same-scores__social-square
+    sequence: feed
+    order: 1
+    campaign: x-film-same-scores
+    experiment: TRY-A
+    evidence_url: "/ledger/#CC-001"
+    experiment_url: "/try/#try-a"
+    poster: "films/same-scores__social-square/renders/same-scores__social-square__square.poster.png"
+    master: "films/same-scores__social-square/renders/same-scores__social-square__square.mp4"
+    claim_sentence: "Two guards that each miss 10 of 100 items can jointly miss anywhere from 0 to 10 of the 100 items — the two scores never move."
+    technical_paragraph: >
+      The 11-second feed cut of Same Scores, Different Worlds: the two
+      readouts are fixed, only the overlap arrangement changes, the joint
+      count runs 0 → 10, then the interval [0, 10%] appears with the point
+      independence selects (1%). Bound to CC-001 and CC-004; the master and
+      the full contract are one click away at /try/.
+    cta: "Don't trust the film. Run the 60-second proof: cubits11.github.io/try"
+    accessible_description: >
+      A square frame. Two large readouts at the top read A MISSES 10 / 100 and
+      B MISSES 10 / 100 above a rule marked FIXED. A paper grid of 100 cells
+      holds ten ink discs and ten ink rings; the rings hop onto the discs one
+      by one while a large counter at the bottom, BOTH MISS, climbs from 0 to
+      10 of 100. The words SAME SCORES. DIFFERENT WORLDS. appear. The grid dims
+      and a cyan interval from 0% to 10% is drawn across it with an amber
+      point at 1% labelled independence picks 1%. Then: DON'T TRUST THE FILM.
+      RUN THE 60-SECOND PROOF. cubits11.github.io/try.
+    post_draft: >
+      Two guardrails. Each misses 10 of 100. How many of the 100 do they
+      jointly miss? Anywhere from 0 to 10 — the scores never move.
+      Independence picks 1%; nothing in the scores does. 11 s, sound off.
+      Run the 60-second proof yourself: cubits11.github.io/try
+    comprehension_question: "With the sound off: what stayed fixed, and what changed?"
+    scoring_rule: "PASS only if the answer names both (a) the per-guard scores or marginals as fixed and (b) the number of items both guards miss (or the overlap) as changing. Naming only one is FAIL. Scored before any explanation is given."

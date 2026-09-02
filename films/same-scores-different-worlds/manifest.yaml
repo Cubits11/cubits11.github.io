@@ -4,9 +4,9 @@ cohort: A
 grammar: paper and ink — a population sheet, ink discs and rings
 duration_s: 30
 thesis: >
-  Two guards that each miss 10 of 100 items can miss the same item anywhere
-  from 0 to 10 times in 100; the two scores never move while the joint
-  count runs the whole interval, and multiplying them selects one world.
+  Two guards that each miss 10 of 100 items can jointly miss anywhere from
+  0 to 10 of the 100 items; the two scores never move while the joint count
+  runs the whole interval, and multiplying them selects one world.
 epistemic_operation: >
   fixed marginals with moving overlap → a set of feasible worlds; endpoint
   witnesses attain both ends; an assumption (independence) selects one point.
