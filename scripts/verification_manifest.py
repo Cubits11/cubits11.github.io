@@ -55,6 +55,8 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("film slate gate", "scripts/films/slate.py", "--check"),
     ("experiment surface drift", "scripts/generate_try.py", "--check"),
     ("external-consequence system", "scripts/verify_consequence.py"),
+    ("worldspace drift", "scripts/generate_worldspace.py", "--check"),
+    ("worldspace instrument", "scripts/verify_worldspace.py"),
     ("research index drift", "scripts/generate_research_index.py", "--check"),
     ("prepared joint reporters", "contrib/test_joint_reporters.py"),
 )

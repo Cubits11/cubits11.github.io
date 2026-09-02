@@ -211,6 +211,38 @@ def check_once(site: str) -> list[str]:
                 print(f"ok    film asset serves: {asset}")
             else:
                 failures.append(f"film asset {asset} returned {status}")
+    # /worldspace/: the instrument must serve with its embedded data, its
+    # runtime, its poster, and the same canonical TRY-A final line /try/ promises.
+    ws_url = urljoin(f"{site}/", "worldspace/")
+    ws_body = bodies.get(ws_url)
+    if ws_body is None:
+        failures.append(f"{ws_url} did not serve")
+    else:
+        ws_html = ws_body.decode("utf-8", "replace")
+        if 'id="ws-data"' in ws_html and 'data-readout="a"' in ws_html:
+            print("ok    deployed /worldspace/ carries its embedded worlds and readouts")
+        else:
+            failures.append("deployed /worldspace/ lacks its embedded data or readouts")
+        import yaml  # noqa: WPS433
+        try_a = next(e for e in yaml.safe_load((ROOT / "distribution" / "experiments.yaml").read_text())["experiments"] if e["id"] == "TRY-A")
+        if " ".join(try_a["expected_final_line"].split()) in " ".join(facts.visible_text(ws_html).split()):
+            print("ok    deployed /worldspace/ routes to TRY-A's canonical final line")
+        else:
+            failures.append("deployed /worldspace/ does not print TRY-A's canonical final line")
+        for asset in ("worldspace/worldspace.js", "worldspace/qa/poster-1200x630.png"):
+            asset_url = urljoin(f"{site}/", asset)
+            req = urllib.request.Request(asset_url, method="HEAD", headers={"User-Agent": "cubits11-smoke"})
+            try:
+                with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
+                    status = resp.status
+            except urllib.error.HTTPError as exc:
+                status = exc.code
+            except Exception as exc:  # network
+                status = f"unreachable: {exc}"
+            if status == 200:
+                print(f"ok    instrument asset serves: /{asset}")
+            else:
+                failures.append(f"instrument asset /{asset} returned {status}")
     corrections_url = urljoin(f"{site}/", "corrections/")
     corrections = bodies.get(corrections_url)
     if corrections is None:
