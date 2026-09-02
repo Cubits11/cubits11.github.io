@@ -70,7 +70,7 @@ def render() -> str:
     for e in experiments["experiments"]:
         L.append(f"| {e['id']} | {e['minutes']} | `{e['command']}` | `{e['expected_final_line']}` |")
     L += ["", "## Communication artifacts", "",
-          "Six deterministic films under `films/` (manifests bind every number to the registries; see `films/README.md`); launch units in `distribution/launch-units.yaml` (status PREPARED); the experiment surface at `/try/`.", ""]
+          "Six deterministic films under `films/` (manifests bind every number to the registries; see `films/README.md`); launch units in `distribution/launch-units.yaml` (status PREPARED); the experiment surface at `/try/`; the interactive instrument at `/worldspace/` (experiment E4 — `worldspace/manifest.yaml` binds every number, string and visible object; available, not yet validated with users).", ""]
     return "\n".join(L)
 
 

@@ -154,6 +154,8 @@ def render(data: dict, ledger: dict, facts: dict, counts: dict) -> str:
       <div>
         <p><strong>{esc(same.get("title", "Same Scores, Different Worlds"))}.</strong> {esc(same.get("thesis", "").strip())}</p>
         <p class="mono" style="color:var(--muted);font-size:.8rem">Every number in the film is read from the claim registry; the film's manifest and render receipt are in <a class="u" href="https://github.com/Cubits11/cubits11.github.io/tree/main/films/same-scores-different-worlds">films/same-scores-different-worlds/</a>. Don't trust the animation. Run it: experiment A is the same construction as a script.</p>
+        <p><a class="btn btn-solid" href="/worldspace/">Enter Worldspace</a></p>
+        <p class="mono" style="color:var(--muted);font-size:.8rem">The same proof as an instrument: predict, then move the misses yourself. The scores never move while the number both miss runs the whole interval.</p>
       </div>
     </div>
   </section>
@@ -208,6 +210,7 @@ def render(data: dict, ledger: dict, facts: dict, counts: dict) -> str:
       <li>2 seconds — the poster above: same scores, different worlds.</li>
       <li>30 seconds — the film, sound off.</li>
       <li>60 seconds — experiment A, the same construction as a script.</li>
+      <li>2 minutes — <a class="u" href="/worldspace/">Worldspace</a>, the same proof as an instrument: predict, then move the misses yourself.</li>
       <li>3 minutes — experiment B, a released file recomputed under a hash.</li>
       <li>15 minutes — experiment C, the disclosure test on an evaluation you know.</li>
       <li>the explanation — <a class="u" href="/answers/why-guardrail-miss-rates-do-not-multiply/">why miss rates do not multiply</a> · <a class="u" href="/answers/what-does-the-second-guardrail-add/">what the second guard adds</a>.</li>

@@ -18,6 +18,12 @@ python3 scripts/reanalyze_bells_subset.py   # 3 min, network: a released file re
 python3 scripts/try_audit.py            # 15 min, standard library: the disclosure test on an evaluation you know
 ```
 
+Or enter the same proof as an instrument before you run anything:
+[cubits11.github.io/worldspace](https://cubits11.github.io/worldspace/) —
+predict, then move the misses yourself; the two scores never move while the
+number both miss runs the whole interval. Available, not yet validated with
+users (`worldspace/LEDGER.md`).
+
 A different result is the most useful thing you can send:
 [file it](https://github.com/Cubits11/cubits11.github.io/issues/new?template=reproduction.yml).
 A counterexample, a benchmark the census missed, or joint outcomes you can

@@ -1,0 +1,391 @@
+# WORLDSPACE — the machine-readable manifest of the public instrument at /worldspace/.
+#
+# Everything a visitor can read on the page is declared here once: the fact
+# bindings, the visible-object → mathematical-meaning map, the interaction
+# states, every string, the falsifier, the non-claims, the reduced-motion
+# equivalence, the critical screenshots, the outbound evidence route, and the
+# frozen cold-test protocol. scripts/generate_worldspace.py renders the page
+# from this file and films/data/facts.json (never retyping a number);
+# scripts/verify_worldspace.py fails the build when a binding drifts from the
+# registries, a declared string is missing from the page, a route is dead, or
+# the QA receipt is stale.
+#
+# Status vocabulary (docs and films share it): OBSERVED · DERIVED · PROVED ·
+# CONSTRUCTED · ILLUSTRATIVE · REGISTRY · UNKNOWN.
+
+id: worldspace
+version: 1
+experiment: E4
+route: /worldspace/
+title: WORLDSPACE
+page_title: "Worldspace — the worlds two guardrail scores leave open"
+page_description: >-
+  Two guards each miss 10 of 100. Drag the misses: the scores never move while
+  the number both miss runs 0 to 10. Enter the space of worlds the scores
+  license, then run the 60-second proof yourself.
+proposition: >-
+  Two marginal guardrail scores need not identify what the guards miss
+  together: the declared scores (0.10, 0.10) identify the both-miss rate only
+  to the interval [0.00, 0.10]; both endpoints are attained by explicit joint
+  distributions; independence selects 0.01, one point inside.
+changed_variable: >-
+  passive visualization → direct epistemic manipulation. The visitor predicts,
+  then moves the misses themselves; the contradiction (same scores, different
+  joint count) is produced by their own action before any sentence explains it.
+claims: [CC-001, CC-004]
+source_revision: "recorded at capture time in worldspace/qa/receipt.json (git_head)"
+
+# ---------------------------------------------------------------- bindings
+# Each value must equal films/data/facts.json (which bind_facts.py --check
+# keeps equal to claims.yaml). The verifier compares value and kind.
+evidence:
+  - fact: CC-001.marginals
+    kind: REGISTRY
+    value: [0.1, 0.1]
+  - fact: CC-001.and_bounds
+    kind: PROVED
+    value: [0.0, 0.1]
+  - fact: CC-001.or_bounds
+    kind: PROVED
+    value: [0.1, 0.2]
+  - fact: CC-001.independence_and
+    kind: DERIVED
+    value: 0.010000000000000002
+  - fact: CC-004.witness_lower
+    kind: PROVED
+    value: [0.8, 0.1, 0.1, 0.0]
+  - fact: CC-004.witness_upper
+    kind: PROVED
+    value: [0.9, 0.0, 0.0, 0.1]
+  - fact: CC-004.feasible_q_grid
+    kind: PROVED
+    value: [0.0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1]
+  - fact: CC-001.support_commit
+    kind: REGISTRY
+    value: 167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+  # the exit route to experiment B names three registered BELLS numbers
+  - fact: MC-003.identified_set_size
+    kind: PROVED
+    value: 13
+  - fact: MC-002.all_miss
+    kind: OBSERVED
+    value: 9
+  - fact: MC-002.n_harmful
+    kind: OBSERVED
+    value: 82
+
+# ------------------------------------------------------------ constructions
+constructed:
+  population:
+    n: 100
+    side: 10
+    status: ILLUSTRATIVE
+    seed: 12648430          # 0xC0FFEE — the master film's arrangement, reproduced by the same shuffle
+    source: films/same-scores-different-worlds/film.html (shuffled(cells, 0xC0FFEE); A = first 10, B homes = next 10)
+    note: which ten cells each guard misses is an illustration; only the counts are declared inputs
+  specimens:
+    status: CONSTRUCTED
+    seed: 1470549          # 0x166F15 — WORLDSPACE's own field seed
+    per_column: 14
+    phone_per_column: 6
+    note: >-
+      a sample of arrangements, the same number at every position 0…10. Equal
+      columns state attainment (every position is realised by concrete
+      worlds) and nothing about likelihood; the sample is never drawn as a
+      distribution over the interval.
+  count:
+    status: DERIVED
+    formula: "C(100,10)^2 — the number of (A-set, B-set) pairs with |A| = |B| = 10"
+    value: "299646813477716088257473600"
+    display: "2.9965 × 10^26"
+    note: >-
+      pure combinatorics on the constructed population; it is what "the scores
+      license the whole space" means in this example, and it is not a
+      statement about any real stack
+  counting_measure_note:
+    status: DERIVED
+    text: >-
+      If every one of those arrangements were equally likely, the expected
+      number both miss would be exactly 1 of 100 — the independence point.
+      That is what the assumption asserts, and what the two scores alone do
+      not.
+
+# ------------------------------------------- visible object → mathematical meaning
+objects:
+  - object: readout GUARD A · MISSES 10 / 100
+    meaning: the marginal P(A misses) = 0.10 — the declared input of CC-001
+    status: REGISTRY
+    behaviour: never changes in any state
+  - object: readout GUARD B · MISSES 10 / 100
+    meaning: the marginal P(B misses) = 0.10 — the declared input of CC-001
+    status: REGISTRY
+    behaviour: never changes in any state
+  - object: readout BOTH MISS q / 100
+    meaning: the joint P(A and B miss) for the world on screen; q of the 100 items carry both a disc and a ring
+    status: PROVED
+    behaviour: the only readout that moves; q ∈ {0 … 10}, structurally — rings are never created, destroyed or stacked
+  - object: the 100-cell sheet
+    meaning: the finite population; one cell = one item
+    status: ILLUSTRATIVE
+  - object: ten ink discs
+    meaning: the items guard A misses; fixed
+    status: ILLUSTRATIVE
+  - object: ten ink rings
+    meaning: the items guard B misses; the visitor moves them
+    status: ILLUSTRATIVE
+  - object: a ring resting on a disc
+    meaning: one item both guards miss — one unit of the joint count
+    status: PROVED
+  - object: the stamp LOWER ENDPOINT · WITNESS at q = 0
+    meaning: the distribution π = (0.80, 0.10, 0.10, 0.00) attaining the lower bound
+    status: PROVED
+    binding: CC-004.witness_lower
+  - object: the stamp UPPER ENDPOINT · WITNESS at q = 10
+    meaning: the distribution π = (0.90, 0.00, 0.00, 0.10) attaining the upper bound
+    status: PROVED
+    binding: CC-004.witness_upper
+  - object: the field of specimen sheets in eleven columns
+    meaning: concrete arrangements with the same scorecard, placed by how many items both miss; a sample of C(100,10)^2 arrangements
+    status: CONSTRUCTED
+  - object: the cyan axis 0 … 10
+    meaning: the identified set [0.00, 0.10] — every value attained
+    status: PROVED
+    binding: CC-001.and_bounds
+  - object: the dashed tail 11 … 100
+    meaning: values the two scores exclude; no arrangement with these scores has them
+    status: PROVED
+  - object: the gold tile YOUR WORLD
+    meaning: the visitor's own arrangement, placed at its column
+    status: ILLUSTRATIVE
+  - object: the marker YOU PREDICTED n
+    meaning: the visitor's committed prediction as a coordinate on the same axis; never scored, never shamed
+    status: OBSERVED
+    note: observed from the visitor, kept in memory only — nothing is stored or sent
+  - object: the amber point INDEPENDENCE at 1
+    meaning: the product 0.10 × 0.10 = 0.01, the value one assumption selects
+    status: DERIVED
+    binding: CC-001.independence_and
+  - object: the switch ASSUME INDEPENDENCE
+    meaning: adopting the assumption — the field collapses to the one position it selects; releasing it reopens the field
+    status: DERIVED
+  - object: the closing action and its command
+    meaning: a route to an executable reproduction of the same interval (TRY-A), not a claim
+    status: ILLUSTRATIVE
+
+# ------------------------------------------------------------- interaction
+states:
+  - id: predict
+    dominant_question: HOW MANY COULD BOTH MISS?
+    dominant_object: the two readouts
+    change: the visitor commits a prediction (or declines)
+  - id: touch
+    dominant_question: what moves when a ring lands on a disc?
+    dominant_object: the sheet
+    change: BOTH MISS changes; the two scores do not
+  - id: field
+    dominant_question: how many worlds print this scorecard?
+    dominant_object: the field on the axis
+    change: the sheet becomes one specimen among many; the axis is the identified set
+  - id: assume
+    dominant_question: what does one assumption do to the space?
+    dominant_object: the amber point
+    change: the field collapses to one position and reopens
+  - id: exit
+    dominant_question: how do I check this without trusting the page?
+    dominant_object: the command
+    change: none — a route
+
+interaction_paths:
+  pointer: drag any ring onto any free cell; a ring on a disc counts once; rings never stack
+  touch: the same drag, or tap a ring to hop it onto the next free disc (and back)
+  keyboard: Tab to a ring and press Enter or Space to hop it; the range input SET HOW MANY BOTH MISS sets the count directly; arrow keys on the range move the world across the field
+  no_precision_required: true
+  hover_required: false
+  minimum_target_css_px: 32
+
+reduced_motion:
+  rule: >-
+    every transition becomes an immediate state change; no property animates;
+    the pull-back into the field is a cut; the collapse under the assumption is
+    a cut; the information in every state is identical to the animated path
+  detection: "matchMedia('(prefers-reduced-motion: reduce)') plus the CSS media query"
+  no_flashing: true
+  no_autoplay: true
+
+sound:
+  default: off
+  opt_in: one button, SOUND OFF / SOUND ON; nothing plays before that gesture
+  encoding: a short tone whose pitch rises with the joint count when a ring lands or leaves a disc; one low tone when the field opens; one high tone when the amber point lands; a downward glide on collapse and an upward one on reopening
+  assets: none — Web Audio oscillators only
+
+# ------------------------------------------------------------------- text
+strings:
+  h1: WORLDSPACE
+  h1_sub: the worlds two scores leave open
+  readout_a: GUARD A · MISSES
+  readout_b: GUARD B · MISSES
+  readout_both: BOTH MISS
+  denominator: "/ 100"
+  fixed: FIXED
+  question: HOW MANY COULD BOTH MISS?
+  predict_label: "Your prediction, a whole number from 0 to 100"
+  commit: COMMIT
+  no_guess: enter without a guess
+  skip: skip to the proof
+  touch_hint: Drag a ring onto a disc.
+  set_label: SET HOW MANY BOTH MISS
+  invariant: THE SCORES DIDN'T MOVE.
+  name_1: SAME SCORES.
+  name_2: DIFFERENT WORLD.
+  witness_lower: LOWER ENDPOINT · WITNESS
+  witness_upper: UPPER ENDPOINT · WITNESS
+  open: OPEN WORLDSPACE
+  field_title: THE SCORES LICENSE THE WHOLE SPACE.
+  field_count: "{count} arrangements print this scorecard · {shown} shown, a sample · every position attained"
+  axis_unit: of 100 both miss
+  axis_tail: "11 … 100 · no world with these scores"
+  your_world: YOUR WORLD
+  predicted: "YOU PREDICTED {n}"
+  predicted_outside: "YOU PREDICTED {n} · outside every world with these scores"
+  predicted_independence: "YOU PREDICTED {n} · the point independence selects"
+  move_label: MOVE YOUR WORLD
+  independence: INDEPENDENCE
+  independence_product: "10% × 10% = 1%"
+  one_assumption: ONE ASSUMPTION.
+  one_point: ONE POINT.
+  assume: ASSUME INDEPENDENCE
+  assume_on: One assumption selects one position. The scores did not.
+  excluded: EXCLUDED BY THE ASSUMPTION
+  continue: CONTINUE
+  inspect_specimen: INSPECT A SPECIMEN
+  specimen_caption: "A 10 / 100 · B 10 / 100 · BOTH {q} / 100 · one arrangement of many"
+  back: BACK
+  sound_off: SOUND OFF
+  sound_on: SOUND ON
+  exit_1: DON'T TRUST WORLDSPACE.
+  exit_2: RUN THE 60-SECOND PROOF.
+  exit_lead: The same construction as a script, standard library only. It prints the interval, both endpoint worlds and the one point independence picks — and fails loudly if the registry disagrees.
+  run_a: Run experiment A
+  inspect_claim: Inspect the claim
+  inspect_code: Inspect the code
+  report: Report a disagreement
+  thirteen: "A real file, next: five published miss rates leave {thirteen} worlds; the released union leaves {nine} of {eighty_two}."
+  run_b: Run experiment B
+  status_strip: CONSTRUCTED EXAMPLE · scores declared (CC-001) · interval and endpoint worlds PROVED (CC-001, CC-004) · no measured guardrail appears
+  boundaries_summary: WHAT THIS DOES NOT SHOW
+  static_lead: Two worlds with the same scores. Both are witnessed; every count between them is attained.
+  static_axis: "every value a world permits · 0% to 10% · independence picks 1%"
+
+ledger_tags:
+  predict: CONSTRUCTED EXAMPLE · two declared scores (CC-001) · no measured guardrail
+  touch: ILLUSTRATIVE POPULATION · scores REGISTRY (CC-001) · endpoint worlds PROVED (CC-004)
+  field: SPECIMENS CONSTRUCTED, a sample · axis PROVED (CC-001) · count DERIVED
+  assume: INDEPENDENCE DERIVED · an assumption-world, not an estimate
+  exit: ROUTE · scripts/try_same_scores.py prints the same interval from the same registry
+
+# ------------------------------------------------------------------ routes
+routes:
+  primary: /try/#try-a
+  claim: /ledger/#CC-001
+  witnesses: /ledger/#CC-004
+  code: https://github.com/Cubits11/cubits11.github.io/tree/main/worldspace
+  experiment_b: /try/#try-b
+  disagree_template: reproduction.yml
+  disagree_prefill:
+    experiment: TRY-A
+    claim: CC-001
+    command: python3 scripts/try_same_scores.py
+    title: "Reproduction: TRY-A — mismatch"
+    outcome: "Mismatch — a FAIL line, a different count, or a nonzero exit"
+
+# ------------------------------------------------------ epistemic contract
+falsifier: >-
+  A clean-clone execution of the bound kernel on marginals (0.10, 0.10)
+  returns AND bounds other than [0.00, 0.10], or a witness that fails
+  nonnegativity, the unit sum, either marginal, or endpoint attainment at
+  tolerance 1e-9 (CC-001 / CC-004, consequence REJECT); or any reachable state
+  of the instrument shows a readout other than 10 / 100 for either guard, a
+  BOTH MISS value outside 0 … 10, a specimen whose scores are not 10 / 10, or
+  a world whose atoms disagree with the registered witness form — each checked
+  by scripts/verify_worldspace.py against the generated page and the QA receipt.
+
+non_claims:
+  - nothing here measures a real guardrail; the population, the discs and the rings are a construction, and the two scores are declared inputs
+  - real stacks with other scores have other intervals; this page says nothing about the joint failure rate of any deployed pair
+  - independence is not shown to be false; it is an assumption-world, named — the scores alone can neither confirm nor refute it
+  - a bound is not an estimate and no point inside the interval is selected; the interval is what the two scores leave open, not a prediction
+  - the count of arrangements is combinatorics on this constructed population, not a prevalence, a probability, or a claim about any evaluation
+  - this is not a safety assessment of any system, and the animation adds no evidence beyond what the registry binds — the script the page routes to prints the same interval
+
+adversarial_misreadings:
+  A_joint_is_one_percent: the amber point is labelled INDEPENDENCE and described as what one assumption selects; the switch shows the selection being made and released; the exit boundary repeats it
+  B_real_guardrails_range: CONSTRUCTED EXAMPLE stands in the status strip and the ledger tag of every state; the boundary names real stacks as out of scope
+  C_independence_is_false: the switch language is select/release, never wrong; the boundary states the scores cannot refute it
+  D_measured_outcomes: the population is tagged ILLUSTRATIVE and the field CONSTRUCTED, a sample; no vendor, benchmark or product is named on the page
+  E_animation_proves_more_than_code: the closing action is the script that prints the same interval; the verifier asserts the page's worlds against the registry; the receipt records what was rendered
+  F_all_assumptions_bad: the boundary says the criticism is a silent assumption, not assumption itself; the amber world is drawn with the same care as every other
+
+# ------------------------------------------------------------- verification
+critical_states:
+  - {id: predict, viewports: [desktop, phone], reduced_motion: [false, true]}
+  - {id: touch-0, viewports: [desktop, phone], reduced_motion: [false, true]}
+  - {id: touch-5, viewports: [desktop, phone], reduced_motion: [false]}
+  - {id: touch-10, viewports: [desktop, phone], reduced_motion: [false, true]}
+  - {id: field, viewports: [desktop, phone, tablet, phone-large, desktop-large], reduced_motion: [false, true]}
+  - {id: assume, viewports: [desktop, phone], reduced_motion: [false, true]}
+  - {id: exit, viewports: [desktop, phone], reduced_motion: [false]}
+viewports:
+  desktop: [1440, 900]
+  desktop-large: [1920, 1080]
+  tablet: [780, 844]
+  phone-large: [430, 932]
+  phone: [390, 844]
+
+performance_budget:
+  html_bytes_max: 70000
+  js_bytes_max: 34000
+  new_font_files: 0
+  images_fetched_on_load: 0
+  third_party_requests: 0
+  first_render_ms_max_local: 800
+
+# ---------------------------------------------------------- cold-test protocol
+# FROZEN before any viewer answers. Responses are recorded verbatim in
+# distribution/outcomes.yaml → diagnostics.cold_comprehension_trials with
+# film: worldspace. Scoring rules are not rewritten after responses.
+cold_test:
+  viewers_min: 5
+  viewers_max: 8
+  conditions: sound off, no prior explanation, the visitor alone with the page, the observer silent until the questions
+  questions:
+    - id: prediction
+      when: before interaction
+      text: "If A misses 10/100 and B misses 10/100, how many do you think both miss?"
+      scoring: recorded verbatim; never scored
+    - id: fixed_changed
+      when: after the core interaction
+      text: "What stayed fixed, and what changed?"
+      scoring: PASS only if both (a) the two per-guard scores/marginals are named as fixed and (b) the joint count/overlap is named as changing
+    - id: real_guardrails
+      when: after the field
+      text: "Does this show the observed joint failure rate of two real guardrails?"
+      scoring: PASS only if the answer is no (constructed, illustrative, an example, not real data); any yes, or 'real guardrails', is FAIL
+    - id: one_percent
+      when: after the amber point
+      text: "What does the 1% point mean?"
+      scoring: PASS only if the answer ties 1% to independence, an assumption, or multiplying the scores; 'the true rate', 'the answer', 'what they miss' is FAIL
+    - id: agency
+      when: after the exit
+      text: "What would you check next if you did not trust this?"
+      scoring: recorded verbatim; PASS only if the answer names running the script, reading the claim, or an independent check; never used to gate publication
+  publish_rule: >-
+    HOLD if 2 or more viewers FAIL the same scored question; a HOLD triggers
+    one revision and a fresh cold set, never a rescore. Cold comprehension is
+    diagnostic, not qualified external reproduction.
+  what_counts_against_the_experiment:
+    - repeated confusion about constructed vs empirical
+    - failure to name what stayed fixed
+    - reading independence as the true answer
+    - the interaction obscuring rather than clarifying the proof
+    - a static poster outperforming the interactive instrument on the same questions
+    - the phone interaction failing

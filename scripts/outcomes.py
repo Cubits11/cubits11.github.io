@@ -29,6 +29,10 @@ INTERACTION_FIELDS = ("date", "kind", "url", "summary")
 ENTRY_FIELDS = ("date", "kind", "actor", "artifact", "agreed", "consequence", "claim")
 TRIAL_FIELDS = ("date", "film", "viewer", "answers", "scores", "source")
 TRIAL_QUESTIONS = ("fixed_changed", "real_guardrails", "one_percent")
+# WORLDSPACE's frozen protocol (worldspace/manifest.yaml → cold_test) records two
+# further answers verbatim; they are never scored, so they may appear only in
+# `answers`, never in `scores`.
+TRIAL_OPTIONAL_ANSWERS = ("prediction", "agency")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
@@ -95,8 +99,11 @@ def validate(data: object) -> dict:
         if not isinstance(trial, dict) or set(trial) != set(TRIAL_FIELDS):
             raise ValueError(f"{where} must contain exactly " + ", ".join(TRIAL_FIELDS))
         for key in ("answers", "scores"):
-            if not isinstance(trial[key], dict) or set(trial[key]) != set(TRIAL_QUESTIONS):
-                raise ValueError(f"{where}.{key} must carry exactly the frozen questions {TRIAL_QUESTIONS}")
+            allowed = set(TRIAL_QUESTIONS) | (set(TRIAL_OPTIONAL_ANSWERS) if key == "answers" else set())
+            if (not isinstance(trial[key], dict) or not set(TRIAL_QUESTIONS) <= set(trial[key])
+                    or not set(trial[key]) <= allowed):
+                raise ValueError(f"{where}.{key} must carry exactly the frozen questions {TRIAL_QUESTIONS}"
+                                 + (f" (plus, verbatim and unscored, any of {TRIAL_OPTIONAL_ANSWERS})" if key == "answers" else ""))
         for q, v in trial["scores"].items():
             if v not in ("pass", "fail"):
                 raise ValueError(f"{where}.scores.{q} must be pass or fail, scored by the pre-registered rule")

@@ -41,6 +41,8 @@ diagnostics:
   # fixed in distribution/launch-units.yaml before any viewer answers.
   # {date, film, viewer: anonymous|name, answers: {question_id: verbatim}, scores: {question_id: pass|fail}, source}
   # question ids and scoring rules are frozen in distribution/launch-units.yaml → cold_test_gate.
+  # WORLDSPACE trials (film: worldspace) follow worldspace/manifest.yaml → cold_test and may add
+  # the verbatim, never-scored answers `prediction` and `agency`.
   cold_comprehension_trials: []
   # An invitation or open issue is diagnostic only; it is never credited as
   # an external reproduction, correction, release, PR, or cold run.
