@@ -1,0 +1,68 @@
+{
+ "film": "same-scores-different-worlds",
+ "format": "master",
+ "title": "Same Scores, Different Worlds",
+ "rendered_from_head": "6a6f587a2c0a5dbd1e8fea065c383938877fe3b0",
+ "rendered_on": "2026-09-01",
+ "inputs": {
+  "film.html": "4de64c269e84e80b04a3e77fc022fd5e0025fa507cadadb1440d6098eb4b4d4e",
+  "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
+  "films/data/facts.json": "66d6947b96f99559c04a7b20c59ba73ffd4ccae17fd13c2a9fad517450a605d7"
+ },
+ "runtime": {
+  "chrome": "152.0.7977.65",
+  "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
+  "crf": 20
+ },
+ "fps": 30,
+ "frames": 901,
+ "duration_s": 30,
+ "width": 1920,
+ "height": 1080,
+ "frames_digest": "3ac17cad96905f60aa234358235d6d1c06e39dbf122043e76585077c28875ee3",
+ "determinism": {
+  "sampled_frames": 5,
+  "identical": true
+ },
+ "text_overflows": [],
+ "facts_used": [
+  "CC-001.and_bounds",
+  "CC-001.independence_and",
+  "CC-001.marginals",
+  "CC-001.support_commit",
+  "CC-004.feasible_q_grid",
+  "CC-004.witness_lower",
+  "CC-004.witness_upper"
+ ],
+ "outputs": {
+  "master": "renders/same-scores-different-worlds__master.mp4",
+  "master_sha256": "77dcc0f9eb15ff248c1b95cf684ab5e5f236d7fbba1d87b387a1f5c9120806c1",
+  "master_bytes": 660697,
+  "master_duration_probe_s": 30.03,
+  "poster": "renders/same-scores-different-worlds__master.poster.png",
+  "poster_t": 20,
+  "stills": [
+   "renders/stills/master-open.jpg",
+   "renders/stills/master-q1.jpg",
+   "renders/stills/master-mid.jpg",
+   "renders/stills/master-q3.jpg",
+   "renders/stills/master-end.jpg"
+  ],
+  "claim_frames": [
+   {
+    "n": 1,
+    "t": 14.6,
+    "label": "both marginals pinned at 10/100 while both-miss reads 10/100 \u2014 the upper endpoint witness",
+    "still": "renders/stills/master-claim-01.jpg"
+   },
+   {
+    "n": 2,
+    "t": 20,
+    "label": "two worlds with identical scores; the licensed interval 0%\u201310% with independence as one amber point",
+    "still": "renders/stills/master-claim-02.jpg"
+   }
+  ]
+ },
+ "render_seconds": 55.5
+}

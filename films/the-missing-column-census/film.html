@@ -1,0 +1,181 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>The Missing Column, Counted</title>
+<link rel="stylesheet" href="../lib/tokens.css">
+<!--
+  The Missing Column, Counted — Cohort A, film 4.
+  Grammar: brutalist information design — one table, twenty rows, and the
+  column that is usually empty. Every count is compute_counts' (MC-001);
+  every row flag uses the identical predicates. The film also shows the
+  ladder (14/12/0), the dated correction (19/13/4 → 20/14/5), the declared
+  sensitivity, and the edge of the search — because a bounded search proves
+  absence only inside its own light.
+-->
+<div id="stage"></div>
+<script src="../lib/film.js"></script>
+<script>
+'use strict';
+const { H, TOK } = Film;
+const { k, sm, win, eio, eo3, eo5, lerp, text, line, disc, ring, kicker, stamp, locator, ledgerTag, dashRect, hexA, measure } = H;
+
+const DUR = 40;
+let ROWS, N, M1, M2, M3, K, ABSENT, NC, KP, KR, KB, EXCL, UNEX, FROZEN, CRIT, MODE, CORR, SENS;
+
+function setup({ fact }) {
+  ROWS = fact('MC-001.rows');
+  N = fact('MC-001.N'); M1 = fact('MC-001.M1'); M2 = fact('MC-001.M2'); M3 = fact('MC-001.M3');
+  K = fact('MC-001.K'); ABSENT = fact('MC-001.ABSENT'); NC = fact('MC-001.NOT_COMPARABLE');
+  KP = fact('MC-001.K.prints_composition_result'); KR = fact('MC-001.K.releases_computable_items'); KB = fact('MC-001.K.does_both');
+  EXCL = fact('MC-001.excluded'); UNEX = fact('MC-001.unexamined');
+  FROZEN = fact('MC-001.frozen_as_of'); CRIT = fact('MC-001.criteria_version'); MODE = fact('MC-001.adjudication_mode');
+  CORR = fact('MC-001.correction'); SENS = fact('MC-001.sensitivities');
+}
+
+const T_JOINT0 = 4.0, T_JOINT_STEP = 0.32;      // joint column fills row by row
+const T_LADDER = [14.5, 17.5, 20.5];             // three rungs
+const T_CORR = 25.0, T_SEARCH = 31.0, T_LOC = 36.5;
+
+function render(t, g, L, { fact }) {
+  const u = L.u;
+  const rowH = L.vertical ? 48 * u : 30 * u;
+  const tableX = L.vertical ? L.m : 120 * u;
+  const tableW = L.vertical ? L.W - 2 * L.m : L.W - 240 * u;
+  const headY = L.vertical ? 370 * u : 176 * u;
+  const idW = L.vertical ? 330 * u : 360 * u;
+  const cols = L.vertical
+    ? [{ key: 'sys', x: idW, w: 110 * u, head: 'PER-SYSTEM' }, { key: 'joint', x: idW + 120 * u, w: 180 * u, head: 'JOINT EVIDENCE' },
+       { key: 'l1', x: idW + 320 * u, w: 110 * u, head: 'SHARED' }, { key: 'l2', x: idW + 440 * u, w: 110 * u, head: 'THRESH.' }, { key: 'l3', x: idW + 560 * u, w: 110 * u, head: 'MATCHED' }]
+    : [{ key: 'sys', x: idW, w: 220 * u, head: 'PER-SYSTEM RESULTS' }, { key: 'joint', x: idW + 240 * u, w: 260 * u, head: 'JOINT EVIDENCE' },
+       { key: 'l1', x: idW + 530 * u, w: 230 * u, head: 'SHARED ITEMS + EVENT' }, { key: 'l2', x: idW + 780 * u, w: 250 * u, head: 'THRESHOLD NOT CONTRADICTED' }, { key: 'l3', x: idW + 1050 * u, w: 270 * u, head: 'MATCHED + FULL EXPOSURE' }];
+  const searchDim = 1 - 0.72 * sm(t, T_SEARCH, T_SEARCH + 0.8);
+
+  kicker(g, `MISSING COLUMN CENSUS · CRITERIA v${CRIT} FROZEN ${FROZEN} · ${N} EXAMINED`, tableX, L.vertical ? 250 * u : 120 * u, { size: 18 * u, maxW: tableW });
+  text(g, 'every public evaluation scores each system. which ones preserve what the stack does together?', tableX, L.vertical ? 290 * u : 148 * u, { font: 'sans', size: 21 * u, color: TOK.muted, maxW: tableW });
+
+  // header
+  g.save(); g.globalAlpha = searchDim;
+  line(g, tableX, headY + 10 * u, tableX + tableW, headY + 10 * u, TOK.lineStrong, 2 * u);
+  text(g, 'ROW', tableX, headY, { font: 'mono', size: 13 * u, color: TOK.muted, track: 0.1 });
+  cols.forEach(c => {
+    const show = c.key === 'sys' ? sm(t, 1.8, 2.2) : c.key === 'joint' ? sm(t, T_JOINT0 - 0.6, T_JOINT0 - 0.2) : sm(t, T_LADDER[+c.key[1] - 1] - 0.6, T_LADDER[+c.key[1] - 1] - 0.2);
+    text(g, c.head, tableX + c.x, headY, { font: 'mono', size: 12 * u, color: c.key === 'joint' ? TOK.gold : TOK.muted, track: 0.06, alpha: show, maxW: c.w });
+  });
+  // rows
+  ROWS.forEach((r, i) => {
+    const y = headY + 24 * u + (i + 1) * rowH;
+    const rIn = sm(t, 0.15 + i * 0.07, 0.35 + i * 0.07);
+    line(g, tableX, y + 10 * u, tableX + tableW, y + 10 * u, TOK.line, 1);
+    text(g, r.id, tableX, y, { font: 'mono', size: L.vertical ? 15 * u : 15 * u, color: TOK.ink, alpha: rIn, maxW: idW - 10 * u });
+    // per-system marks: abstract dashes — presence, never a score
+    const sysIn = sm(t, 2.0 + i * 0.05, 2.4 + i * 0.05);
+    const c0 = cols[0];
+    for (let j = 0; j < 4; j++) line(g, tableX + c0.x + j * (c0.w / 4.6), y - 6 * u, tableX + c0.x + j * (c0.w / 4.6) + c0.w / 6, y - 6 * u, TOK.ink, 5 * u * sysIn);
+    // the joint column
+    const c1 = cols[1];
+    const jIn = sm(t, T_JOINT0 + i * T_JOINT_STEP, T_JOINT0 + i * T_JOINT_STEP + 0.2);
+    if (jIn > 0) {
+      const bx = tableX + c1.x, by = y - rowH * 0.62, bw = c1.w - 20 * u, bh = rowH * 0.78;
+      if (r.classification === 'PRESENT') {
+        g.save(); g.globalAlpha *= jIn; g.fillStyle = hexA(TOK.evidence, 0.18); g.fillRect(bx, by, bw, bh); g.restore();
+        disc(g, bx + 14 * u, y - 5 * u, 5 * u, TOK.evidence, jIn);
+        text(g, 'PRESENT', bx + 28 * u, y, { font: 'mono', size: 13 * u, color: TOK.evidence, alpha: jIn, track: 0.08 });
+      } else if (r.classification === 'ABSENT') {
+        g.save(); g.globalAlpha *= jIn; dashRect(g, bx, by, bw, bh, TOK.review, [6, 4], 1.5 * u); g.restore();
+        text(g, 'not reported', bx + 14 * u, y, { font: 'mono', size: 13 * u, color: TOK.review, alpha: jIn, track: 0.04 });
+      } else {
+        g.save(); g.globalAlpha *= jIn; g.strokeStyle = TOK.muted; g.lineWidth = 1 * u;
+        for (let s = 0; s < bw + bh; s += 8 * u) { g.beginPath(); g.moveTo(bx + Math.max(0, s - bh), by + Math.min(s, bh)); g.lineTo(bx + Math.min(s, bw), by + Math.max(0, s - bw)); g.stroke(); }
+        g.restore();
+        text(g, 'NOT COMPARABLE', bx + 14 * u, y, { font: 'mono', size: 12 * u, color: TOK.ink, alpha: jIn, track: 0.04, maxW: bw - 20 * u });
+      }
+    }
+    // the ladder rungs
+    [['l1', r.shared_basis], ['l2', r.threshold_not_contradicted], ['l3', r.threshold_documented_full_exposure]].forEach(([key, on], n) => {
+      const c = cols[2 + n];
+      const a = sm(t, T_LADDER[n] + i * 0.05, T_LADDER[n] + i * 0.05 + 0.2);
+      if (a <= 0) return;
+      const cx = tableX + c.x + 16 * u;
+      if (on) { disc(g, cx, y - 5 * u, 6 * u, TOK.evidence, a); }
+      else { ring(g, cx, y - 5 * u, 5 * u, TOK.lineStrong, 1.5 * u, a); }
+    });
+    // the correction marker on the added row
+    if (r.id === CORR.row_added) {
+      const ca = sm(t, T_CORR, T_CORR + 0.5);
+      if (ca > 0) {
+        g.save(); g.globalAlpha *= ca; g.fillStyle = hexA(TOK.invalid, 0.12); g.fillRect(tableX - 10 * u, y - rowH * 0.7, tableW + 20 * u, rowH * 0.95); g.restore();
+        line(g, tableX - 10 * u, y - rowH * 0.7, tableX - 10 * u, y + rowH * 0.25, TOK.invalid, 4 * u);
+      }
+    }
+  });
+  g.restore();
+
+  // tallies under the joint column
+  const tallyY = headY + 24 * u + (N + 1) * rowH + 30 * u;
+  const jointDone = sm(t, T_JOINT0 + N * T_JOINT_STEP + 0.2, T_JOINT0 + N * T_JOINT_STEP + 0.7);
+  g.save(); g.globalAlpha = searchDim;
+  const jx = tableX + cols[1].x;
+  text(g, `${ABSENT} not reported · ${K} present · ${NC} not comparable`, tableX, tallyY, { font: 'mono', size: 15 * u, color: TOK.ink, alpha: jointDone, track: 0.03, maxW: L.vertical ? tableW : 640 * u });
+  text(g, `of the ${K} present: ${KP} print a composition result · ${KR} release per-item outcomes · ${KB} does both`, tableX, tallyY + 24 * u, { font: 'mono', size: 13 * u, color: TOK.muted, alpha: sm(t, 12.0, 12.6), track: 0.03, maxW: L.vertical ? tableW : 880 * u });
+  // ladder tallies
+  [[M1, 0], [M2, 1], [M3, 2]].forEach(([v, n]) => {
+    const c = cols[2 + n];
+    const a = sm(t, T_LADDER[n] + N * 0.05 + 0.2, T_LADDER[n] + N * 0.05 + 0.6);
+    text(g, String(v), tableX + c.x + 4 * u, tallyY + 8 * u, { font: 'serif', size: 44 * u, weight: 500, color: v === 0 ? TOK.review : TOK.ink, alpha: a });
+  });
+  g.restore();
+
+  // the ladder sentence
+  const l3done = sm(t, T_LADDER[2] + N * 0.05 + 0.8, T_LADDER[2] + N * 0.05 + 1.4, eo3);
+  const sentY = L.vertical ? tallyY + 110 * u : tallyY + 92 * u;
+  const sA0 = l3done * (1 - sm(t, T_SEARCH, T_SEARCH + 0.4));
+  const sh = H.paragraph(g, `${M3} of ${N} document matched operating thresholds with full exposure.`, tableX, sentY, { font: 'serif', size: L.vertical ? 34 * u : 38 * u, weight: 500, color: TOK.ink, alpha: sA0, maxW: tableW, lineHeight: (L.vertical ? 40 : 44) * u });
+  H.paragraph(g, `M is a ladder, not a verdict: ${M1} share items and an event · ${M2} state no threshold mismatch · ${M3} document matched thresholds and full exposure`, tableX, sentY + sh - (L.vertical ? 4 : 14) * u, { font: 'mono', size: 13 * u, color: TOK.muted, alpha: sA0, maxW: tableW, lineHeight: 19 * u });
+
+  // the correction beat
+  const cA = sm(t, T_CORR + 0.4, T_CORR + 1.0) * (1 - sm(t, T_SEARCH, T_SEARCH + 0.4));
+  if (cA > 0) {
+    const cy = L.vertical ? sentY + 150 * u : sentY + 76 * u;
+    const tx = L.vertical ? tableX : tableX + 250 * u, ty = L.vertical ? cy + 44 * u : cy + 5 * u, tw = L.vertical ? tableW : tableW - 250 * u;
+    stamp(g, `CORRECTION ${CORR.date}`, tableX + 120 * u, cy, { size: 15 * u, color: TOK.invalid, alpha: cA, angle: -0.03 });
+    const ch = H.paragraph(g, `the claim's own falsifier fired: a row the documented search missed · ${CORR.from.join('/')} → ${CORR.to.join('/')} · the rejected envelope stays in the revision history`, tx, ty, { font: 'mono', size: 13 * u, color: TOK.ink, alpha: cA, maxW: tw, lineHeight: 19 * u });
+    const s2 = SENS.find(s => s.id === 'pre-freeze-visibility-evidenced');
+    if (s2) H.paragraph(g, `declared sensitivity, archive-evidenced visibility before the freeze: ${s2.envelope.join('/')} · ${MODE.replace(/_/g, ' ')} · no second review yet`, tx, ty + ch + 4 * u, { font: 'mono', size: 13 * u, color: TOK.muted, alpha: sm(t, T_CORR + 1.4, T_CORR + 2.0) * cA, maxW: tw, lineHeight: 19 * u });
+  }
+
+  // the edge of the search
+  const sA = sm(t, T_SEARCH + 0.2, T_SEARCH + 1.0, eo3);
+  if (sA > 0) {
+    const bx = L.vertical ? tableX : tableX + tableW * 0.18, bw = L.vertical ? tableW : tableW * 0.64;
+    const by = L.vertical ? L.H - 660 * u : 300 * u, bh = L.vertical ? 400 * u : 460 * u;
+    g.save(); g.globalAlpha = sA;
+    g.fillStyle = hexA(TOK.bg, 0.86); g.fillRect(bx, by, bw, bh);
+    dashRect(g, bx, by, bw, bh, TOK.evidence, [10, 6], 2 * u);
+    text(g, 'THE EDGE OF THE SEARCH', bx + 40 * u, by + 60 * u, { font: 'mono', size: 17 * u, color: TOK.evidence, track: 0.12 });
+    const lines = [
+      [`${N}`, 'examined — inside the light'],
+      [`${EXCL}`, 'excluded by the frozen rules — named, not counted'],
+      [`${UNEX}`, 'candidates not examined — not absent, not present: unknown'],
+    ];
+    lines.forEach(([n, s], i) => {
+      const y = by + 140 * u + i * 76 * u;
+      text(g, n, bx + 40 * u, y, { font: 'serif', size: 54 * u, weight: 500, color: i === 2 ? TOK.muted : TOK.ink });
+      text(g, s, bx + 130 * u, y - 10 * u, { font: 'sans', size: 22 * u, color: i === 2 ? TOK.muted : TOK.ink, maxW: bw - 170 * u });
+    });
+    text(g, 'an absence found by a bounded search is an absence inside the search.', bx + 40 * u, by + bh - 48 * u, { font: 'serif', size: 26 * u, style: 'italic', color: TOK.ink, maxW: bw - 80 * u });
+    g.restore();
+  }
+  ledgerTag(g, L, 'COUNTS DERIVED FROM census.yaml', `single primary reviewer · a census of reporting, not of performance`, sm(t, 3.0, 3.6), 'right', 'top');
+  locator(g, L, [`MC-001 · python3 scripts/verify_census.py --counts`, 'cubits11.github.io/missing-column'], sm(t, T_LOC, T_LOC + 0.6));
+}
+
+Film.define({
+  id: 'the-missing-column-census', title: 'The Missing Column, Counted',
+  duration: DUR, fps: 30, poster_t: 23.5,
+  claimFrames: [
+    { t: 11.5, label: 'the joint-evidence column complete: 14 not reported, 5 present, 1 not comparable, of 20' },
+    { t: 23.5, label: 'the ladder tallied 14 / 12 / 0 with the sentence “0 of 20 document matched operating thresholds with full exposure”' },
+    { t: 34.0, label: 'the edge of the search: 20 examined, 9 excluded, 15 unexamined' }
+  ],
+  setup, render
+});
+</script>

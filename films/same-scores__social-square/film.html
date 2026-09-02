@@ -1,0 +1,126 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Same Scores — social square</title>
+<link rel="stylesheet" href="../lib/tokens.css">
+<!--
+  Same Scores, Different Worlds — feed-native derivative (1080×1080, 11 s).
+  One proof compressed to one perceptual event: two readouts that never move,
+  one arrangement that does, one counter that runs 0 → 10, then the name of
+  what happened, the point independence would pick, and one action.
+  No logo, no title card, no project vocabulary before the phenomenon.
+  Every number is read from films/data/facts.json (CC-001, CC-004); the cell
+  arrangement is the master film's (same seed).
+-->
+<div id="stage"></div>
+<script src="../lib/film.js"></script>
+<script>
+'use strict';
+const { H, TOK } = Film;
+const { k, sm, eio, eo3, eo5, lerp, text, line, disc, ring, measure, shuffled, hexA } = H;
+
+const DUR = 11.0;
+const N = 100, SIDE = 10;
+let P1, P2, LO, HI, IND, A_CELLS, B_HOME;
+const T_HOP0 = 0.7, HOP = 0.5, HOP_DUR = 0.34;      // ten hops, 0.7 → 5.7 s
+const T_NAME = 6.5, T_AXIS = 8.2, T_CTA = 9.9;
+
+function setup({ fact }) {
+  [P1, P2] = fact('CC-001.marginals');
+  [LO, HI] = fact('CC-001.and_bounds');
+  IND = fact('CC-001.independence_and');
+  fact('CC-004.witness_lower'); fact('CC-004.witness_upper');   // the two end states drawn below are these witnesses
+  const cells = shuffled([...Array(N).keys()], 0xC0FFEE);        // identical arrangement to the master
+  A_CELLS = cells.slice(0, Math.round(P1 * N));
+  B_HOME = cells.slice(Math.round(P1 * N), Math.round(P1 * N) + Math.round(P2 * N));
+}
+const cellXY = (i, x0, y0, c) => [x0 + (i % SIDE) * c + c / 2, y0 + Math.floor(i / SIDE) * c + c / 2];
+const hopU = (t, i) => eio(k(t, T_HOP0 + i * HOP, T_HOP0 + i * HOP + HOP_DUR));
+const landed = t => B_HOME.reduce((n, _, i) => n + (hopU(t, i) >= 1 ? 1 : 0), 0);
+
+function readout(g, label, num, den, x, y, w, alpha) {
+  // essential at phone size: label ≥ 40 px (≈14 px at 390 wide), number 96 px (≈35 px)
+  text(g, label, x, y, { font: 'mono', size: 40, color: TOK.muted, track: 0.08, alpha, maxW: w });
+  text(g, String(num), x, y + 104, { font: 'serif', size: 104, weight: 500, color: TOK.ink, alpha });
+  const nw = measure(g, String(num), { font: 'serif', size: 104, weight: 500 });
+  text(g, `/ ${den}`, x + nw + 14, y + 104, { font: 'mono', size: 44, color: TOK.muted, alpha });
+}
+
+function render(t, g, L, { fact }) {
+  const W = L.W;
+  // ---- band A: the two readouts that never move ----
+  readout(g, 'A MISSES', Math.round(P1 * N), N, 80, 90, 440, 1);
+  readout(g, 'B MISSES', Math.round(P2 * N), N, 580, 90, 440, 1);
+  line(g, 80, 232, W - 80, 232, TOK.lineStrong, 2);
+  text(g, 'FIXED', W - 80, 226, { font: 'mono', size: 30, color: TOK.evidence, align: 'right', track: 0.14 });
+
+  // ---- band B: the sheet ----
+  const c = 54, gw = SIDE * c, gx = (W - gw) / 2, gy = 278, pad = 18;
+  const dim = 1 - 0.72 * sm(t, T_AXIS, T_AXIS + 0.6);
+  g.save(); g.globalAlpha = dim;
+  g.fillStyle = TOK.paper; g.fillRect(gx - pad, gy - pad, gw + 2 * pad, gw + 2 * pad);
+  for (let i = 0; i <= SIDE; i++) { line(g, gx + i * c, gy, gx + i * c, gy + gw, TOK.paperLine, 1); line(g, gx, gy + i * c, gx + gw, gy + i * c, TOK.paperLine, 1); }
+  const r = c * 0.24;
+  A_CELLS.forEach(cell => { const [x, y] = cellXY(cell, gx, gy, c); disc(g, x, y, r, TOK.paperInk, 1); });
+  B_HOME.forEach((home, i) => {
+    const u = hopU(t, i);
+    const [hx, hy] = cellXY(home, gx, gy, c), [ax, ay] = cellXY(A_CELLS[i], gx, gy, c);
+    const x = lerp(hx, ax, u), y = lerp(hy, ay, u) - Math.sin(u * Math.PI) * c * 0.5;
+    ring(g, x, y, r * 1.6 * (1 + 0.15 * Math.sin(u * Math.PI)), TOK.paperInk, 4.5, 1);
+  });
+  g.restore();
+
+  // ---- band C: the joint count, then the name ----
+  const q = landed(t);
+  const cy = 878;
+  text(g, 'BOTH MISS', 80, cy, { font: 'mono', size: 40, color: TOK.muted, track: 0.08 });
+  text(g, String(q), 80, cy + 118, { font: 'serif', size: 120, weight: 500, color: q === 0 || q === SIDE ? TOK.ink : TOK.ink });
+  const qw = measure(g, String(q), { font: 'serif', size: 120, weight: 500 });
+  text(g, `/ ${N}`, 80 + qw + 16, cy + 118, { font: 'mono', size: 44, color: TOK.muted });
+  const nameA = sm(t, T_NAME, T_NAME + 0.5, eo3);
+  text(g, 'SAME SCORES.', W - 80, cy + 34, { font: 'serif', size: 54, weight: 600, color: TOK.ink, align: 'right', alpha: nameA, maxW: 600 });
+  text(g, 'DIFFERENT WORLDS.', W - 80, cy + 104, { font: 'serif', size: 54, weight: 600, color: TOK.gold, align: 'right', alpha: nameA, maxW: 600 });
+
+  // ---- over the dimmed sheet: the licensed interval and the one point independence picks ----
+  const axA = sm(t, T_AXIS + 0.2, T_AXIS + 0.9, eo3);
+  if (axA > 0) {
+    const ax0 = gx + 20, ax1 = gx + gw - 20, ay = gy + 170;
+    const px = v => lerp(ax0, ax1, v / HI);
+    g.save(); g.globalAlpha = axA;
+    text(g, 'every value: a possible world', (ax0 + ax1) / 2, ay - 76, { font: 'mono', size: 28, color: TOK.evidence, align: 'center', track: 0.04, maxW: gw });
+    text(g, `${Math.round(LO * 100)}%`, px(LO), ay - 30, { font: 'mono', size: 36, color: TOK.ink, align: 'center' });
+    text(g, `${Math.round(HI * 100)}%`, px(HI), ay - 30, { font: 'mono', size: 36, color: TOK.ink, align: 'center' });
+    g.fillStyle = hexA(TOK.evidence, 0.28); g.fillRect(px(LO), ay - 12, px(HI) - px(LO), 24);
+    line(g, px(LO), ay, px(HI), ay, TOK.evidence, 5);
+    const pA = sm(t, T_AXIS + 0.6, T_AXIS + 1.0, eo5);
+    line(g, px(IND), ay + 14, px(IND), ay + 44, TOK.review, 4 * pA);
+    disc(g, px(IND), ay, 16 * pA, TOK.bg); disc(g, px(IND), ay, 12 * pA, TOK.review);
+    text(g, `independence picks ${Math.round(IND * 100)}%`, px(IND) - 14, ay + 84, { font: 'mono', size: 38, color: TOK.review, alpha: pA, track: 0.03, maxW: 600 });
+    text(g, 'one assumption. one point.', px(IND) - 14, ay + 128, { font: 'mono', size: 30, color: TOK.review, alpha: pA, track: 0.03, maxW: 600 });
+    g.restore();
+  }
+  // ---- the action ----
+  const ctaA = sm(t, T_CTA, T_CTA + 0.5, eo3);
+  if (ctaA > 0) {
+    g.save(); g.globalAlpha = ctaA;
+    g.fillStyle = TOK.bg; g.fillRect(60, gy + 340, W - 120, 218);
+    text(g, "DON'T TRUST THE FILM.", W / 2, gy + 418, { font: 'serif', size: 56, weight: 600, color: TOK.ink, align: 'center', maxW: W - 160 });
+    text(g, 'RUN THE 60-SECOND PROOF', W / 2, gy + 476, { font: 'mono', size: 40, color: TOK.ink, align: 'center', track: 0.06, maxW: W - 160 });
+    text(g, 'cubits11.github.io/try', W / 2, gy + 534, { font: 'mono', size: 48, color: TOK.gold, align: 'center', track: 0.02, maxW: W - 160 });
+    g.restore();
+  }
+}
+
+Film.define({
+  id: 'same-scores__social-square', title: 'Same Scores — social square',
+  duration: DUR, fps: 30, poster_t: 10.8,
+  claimFrames: [
+    { t: 0.3, label: 'opening: A 10/100, B 10/100, both 0/100 — nothing has moved yet' },
+    { t: 3.2, label: 'mid-transition: half the rings have landed; the readouts have not changed' },
+    { t: 6.2, label: 'opposite endpoint: both 10/100 with the two readouts unchanged' },
+    { t: 7.4, label: 'the name: SAME SCORES. DIFFERENT WORLDS.' },
+    { t: 9.6, label: 'the interval 0–10% with the amber point at 1% labelled as what independence picks' },
+    { t: 10.8, label: "the action: DON'T TRUST THE FILM. RUN THE 60-SECOND PROOF. cubits11.github.io/try" }
+  ],
+  setup, render
+});
+</script>

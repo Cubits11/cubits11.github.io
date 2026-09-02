@@ -1,19 +1,33 @@
 name: Reproduction run — match or mismatch
 description: >-
-  File the result of running a registered reproduction (for example
-  scripts/reanalyze_msbench.py for claim MC-004, or
-  scripts/reanalyze_bells_subset.py for MC-002). Both outcomes are wanted:
-  a match becomes the claim's independent-reproduction record; a mismatch
-  is handled as a correction under the same-day correction policy.
-title: "Reproduction: <claim id> — <match|mismatch>"
+  File the result of running an experiment from /try/ or a registered
+  reproduction script. Both outcomes are wanted: a match becomes the
+  claim's independent-reproduction record; a mismatch is handled as a
+  correction under the same-day correction policy and is credited beside
+  the claim it corrects.
+title: "Reproduction: <experiment or claim id> — <match|mismatch>"
 labels: ["reproduction"]
 body:
+  - type: markdown
+    attributes:
+      value: >-
+        You do not need to know this repository's vocabulary. Paste what
+        you ran and what it printed. A different result is the most useful
+        thing you can send.
+  - type: input
+    id: experiment
+    attributes:
+      label: Experiment id
+      description: From /try/ — TRY-A (60-second proof), TRY-B (3-minute reconstruction), TRY-C (15-minute audit) — or leave blank if you ran a script directly.
+      placeholder: TRY-B
+    validations:
+      required: false
   - type: input
     id: claim
     attributes:
       label: Claim id
-      description: Which registered claim did you reproduce? (see /ledger/)
-      placeholder: MC-004
+      description: The registered claim the experiment names (see /ledger/), e.g. CC-001, MC-002, MC-004.
+      placeholder: MC-002
     validations:
       required: true
   - type: dropdown
@@ -22,8 +36,8 @@ body:
       label: Evidence class
       description: >-
         Use static-reconstruction for a recomputation from released static
-        outputs. Choose direct-route only for an item-level trace from a
-        route that was actually executed.
+        outputs (every /try/ experiment). Choose direct-route only for an
+        item-level trace from a route that was actually executed.
       options:
         - static-reconstruction
         - direct-route
@@ -47,7 +61,7 @@ body:
     id: command
     attributes:
       label: Exact command you ran
-      placeholder: python scripts/reanalyze_msbench.py
+      placeholder: python3 scripts/reanalyze_bells_subset.py
     validations:
       required: true
   - type: dropdown
@@ -71,7 +85,7 @@ body:
     id: credit
     attributes:
       label: Credit permission
-      description: Matching runs are recorded as the claim's reproduction record; mismatches are credited in the correction history.
+      description: Matching runs are recorded as the claim's reproduction record; mismatches are credited in the correction history. Either way the ledger entry names you only if you say so here.
       options:
         - "Yes — credit me by the name on this GitHub account"
         - "No — record the run without naming me"

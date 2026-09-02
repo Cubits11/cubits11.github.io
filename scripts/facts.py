@@ -199,6 +199,7 @@ REQUIRED_BINDINGS: dict[str, set[str]] = {
         "MC-001.N", "MC-001.K", "MC-001.M3"},
     "answers/how-to-evaluate-guardrails-you-plan-to-stack/index.html": {
         "MC-001.N", "MC-001.M1", "MC-001.M2", "MC-001.M3"},
+    "try/index.html": {"MC-001.N", "MC-001.K", "MC-001.ABSENT", "MC-001.M3"},
 }
 
 TRIPLE = re.compile(r"(\d{1,3})\s*/\s*(\d{1,3})\s*/\s*(\d{1,3})")

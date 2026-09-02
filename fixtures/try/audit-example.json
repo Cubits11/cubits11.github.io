@@ -1,0 +1,16 @@
+{
+  "id": "example-eval-2026",
+  "title": "A worked example: an evaluation that prints a full-stack union row",
+  "url": "https://example.org/an-evaluation-that-prints-the-stack",
+  "public_access": "yes",
+  "n_systems": 3,
+  "shared_item_universe": "yes",
+  "per_mechanism_results": "yes",
+  "domain": "yes",
+  "same_event_definition": "yes",
+  "thresholds_comparable": "unstated",
+  "all_systems_saw_all_items": "yes",
+  "joint_printed": "full_stack",
+  "items_released": "no",
+  "public_before_freeze": "unstated"
+}

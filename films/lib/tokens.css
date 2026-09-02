@@ -1,0 +1,13 @@
+/* Film runtime tokens — the site's own dark tokens (assets/site.css) and its
+   vendored faces, so every film carries the same provenance as the pages.
+   Semantic layer (never by colour alone): evidence cyan = bound/derived;
+   review amber = assumption / unfilled / needs review; invalid red =
+   rejected / forbidden; graphite = unknown; gold = identity locator only. */
+@font-face{font-family:'Fraunces';src:url('../../assets/fonts/fraunces-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:block}
+@font-face{font-family:'Fraunces';src:url('../../assets/fonts/fraunces-italic.woff2') format('woff2');font-weight:100 900;font-style:italic;font-display:block}
+@font-face{font-family:'Instrument Sans';src:url('../../assets/fonts/instrument-sans-roman.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:block}
+@font-face{font-family:'Fragment Mono';src:url('../../assets/fonts/fragment-mono.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+#stage{position:absolute;left:0;top:0;transform-origin:0 0;background:#0B0F0A}
+#stage canvas{display:block}
+#hud{position:fixed;left:12px;bottom:10px;font:12px 'Fragment Mono',monospace;color:#9AA391;letter-spacing:.08em;pointer-events:none;opacity:.8}

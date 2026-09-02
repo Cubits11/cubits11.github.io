@@ -50,6 +50,13 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("remote-evidence failure states", "scripts/verify_wayback_states.py"),
     ("claim-registry failure states", "scripts/verify_claims_states.py"),
     ("resume PDF receipt", "scripts/verify_resume_receipt.py"),
+    ("film facts current", "scripts/films/bind_facts.py", "--check"),
+    ("film manifests and renders", "scripts/films/verify_films.py"),
+    ("film slate gate", "scripts/films/slate.py", "--check"),
+    ("experiment surface drift", "scripts/generate_try.py", "--check"),
+    ("external-consequence system", "scripts/verify_consequence.py"),
+    ("research index drift", "scripts/generate_research_index.py", "--check"),
+    ("prepared joint reporters", "contrib/test_joint_reporters.py"),
 )
 
 

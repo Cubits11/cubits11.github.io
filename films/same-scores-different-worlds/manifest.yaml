@@ -1,0 +1,88 @@
+id: same-scores-different-worlds
+title: Same Scores, Different Worlds
+cohort: A
+grammar: paper and ink — a population sheet, ink discs and rings
+duration_s: 30
+thesis: >
+  Two guards that each miss 10 of 100 items can jointly miss anywhere from
+  0 to 10 of the 100 items; the two scores never move while the joint count
+  runs the whole interval, and multiplying them selects one world.
+epistemic_operation: >
+  fixed marginals with moving overlap → a set of feasible worlds; endpoint
+  witnesses attain both ends; an assumption (independence) selects one point.
+claim: >
+  For marginals (0.10, 0.10) the both-fail probability is identified only to
+  [0.0, 0.10]; both endpoints are attained by explicit joint distributions
+  that satisfy the marginals; independence names 0.01, a point inside that
+  set it was never entitled to.
+scope: >
+  A declared illustrative input (CC-001) and the kernel's bounds and witnesses
+  (CC-001, CC-004), reproduced from a clean clone of the bound cc-framework
+  commit in CI. The 100-item population and which items each guard misses are
+  illustrative constructions; no measured system appears.
+status: supported_within_scope — bound to CC-001 and CC-004 at their registered commit
+evidence:
+  - fact: CC-001.marginals
+    kind: REGISTRY
+    value: [0.1, 0.1]
+  - fact: CC-001.and_bounds
+    kind: PROVED
+    value: [0.0, 0.1]
+  - fact: CC-001.independence_and
+    kind: DERIVED
+    value: 0.010000000000000002
+  - fact: CC-004.witness_lower
+    kind: PROVED
+    value: [0.8, 0.1, 0.1, 0.0]
+  - fact: CC-004.witness_upper
+    kind: PROVED
+    value: [0.9, 0.0, 0.0, 0.1]
+  - fact: CC-004.feasible_q_grid
+    kind: PROVED
+    value: [0.0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1]
+  - fact: CC-001.support_commit
+    kind: REGISTRY
+    value: 167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+objects:
+  - object: the 100-item population sheet and which cells each guard misses
+    status: ILLUSTRATIVE
+  - object: the two marginal miss counts, 10/100 each
+    status: REGISTRY
+    note: the declared input of CC-001, not a measurement
+  - object: the both-miss interval 0%–10% drawn on the axis
+    status: PROVED
+    note: CC-001 bounds, reproduced in CI
+  - object: the two end worlds (π lower and π upper) and their both-miss counts 0 and 10
+    status: PROVED
+    note: CC-004 endpoint witnesses; each intermediate world on the sweep is feasible by the same construction
+  - object: the amber tick at 1%
+    status: DERIVED
+    note: the product of the marginals — what the independence assumption selects
+evidence_commits:
+  - claim: CC-001
+    repo: Cubits11/cc-framework
+    commit: 167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+  - claim: CC-004
+    repo: Cubits11/cc-framework
+    commit: 167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+falsifier: >
+  A clean-clone execution of the bound kernel on marginals (0.10, 0.10)
+  returns AND bounds other than [0.0, 0.10], or a witness distribution that
+  fails nonnegativity, the unit sum, either marginal, or endpoint attainment
+  at tolerance 1e-9 (CC-001 / CC-004 falsifiers, consequence REJECT); or the
+  film's rendered counters show a both-miss count outside 0–10 while the
+  marginal counters read 10 — checked by re-rendering the claim frames.
+non_claims:
+  - does not certify any stacked system as safe, and shows no measured system
+  - does not estimate or recover the true dependence between any two guards
+  - does not select a point inside the interval; the amber tick is what one assumption would select, not an answer
+  - the population and the item arrangements are illustrations of feasible worlds, not data
+claim_frames:
+  - t: 14.6
+    shows: both marginal counters pinned at 10/100 while the both-miss counter reads 10/100 — the upper endpoint witness
+  - t: 20.0
+    shows: two sheets with identical score lines and different both-miss counts; the licensed interval 0%–10% with independence as one amber point
+render:
+  fps: 30
+  formats: [master, vertical]
+  poster_t: 20.0

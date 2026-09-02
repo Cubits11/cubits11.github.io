@@ -366,7 +366,8 @@ def render_multiply(counts: dict) -> str:
     {next_action(
         "See which evaluations preserve the joint evidence and which do not — "
         "every row bound to its primary source, with a correction route.",
-        btn("/missing-column/", "Inspect the census", True)
+        btn("/try/#try-a", "Run the 60-second proof", True)
+        + btn("/missing-column/", "Inspect the census")
         + btn("/missing-column/disclosure/", "Publish the missing row")
         + btn("/essays/when-marginals-are-not-enough/", "The five-minute proof"))}
   </div>
@@ -474,6 +475,7 @@ def render_evaluate(counts: dict) -> str:
         "If your evaluation is already published, the census records where it "
         "stands and how to correct the record if a row misreads it.",
         btn("/missing-column/disclosure/", "Get the disclosure template", True)
+        + btn("/try/#try-c", "Audit an evaluation in 15 minutes")
         + btn("/missing-column/#census", "Find your evaluation")
         + btn("/work/", "Work with me"))}
   </div>
@@ -571,7 +573,8 @@ def render_second_guard(counts: dict) -> str:
     {next_action(
         "The Minimum Joint Guardrail Disclosure specifies the residual-coverage "
         "and leave-one-out rows, with a tested reference implementation.",
-        btn("/missing-column/disclosure/", "Publish the missing row", True)
+        btn("/try/#try-b", "Recompute it from the released file", True)
+        + btn("/missing-column/disclosure/", "Publish the missing row")
         + btn("/missing-column/#residual-zone", "See the residual figure")
         + btn("/ledger/#MC-003", "Read the identification claim"))}
   </div>

@@ -1,0 +1,125 @@
+id: thirteen-worlds
+title: Thirteen Worlds, One File
+cohort: A
+grammar: mechanical counting instrument — five rods, eighty-two positions, beads
+duration_s: 36
+thesis: >
+  The five published miss rates of the BELLS supervisors pin the all-miss
+  count only to {0 … 12} of 82 — thirteen worlds; a same-denominator union
+  fixes it at 9; the independence plug-in (3.49%, equivalent to 2.87 prompts
+  in expectation) is a model's point, not an observed integer count.
+epistemic_operation: >
+  marginals → finite identified set (sharp bounds, endpoint attained) →
+  a union aggregate identifies the count → positions remain unidentified.
+claim: >
+  On the 82 prompts labelled harmful in the released BELLS subset, the five
+  per-guard miss counts (12, 30, 57, 77, 82) identify the static all-miss
+  count only up to {0/82 … 12/82}; the released OR-union flags 73, so the
+  all-miss count is 9 (11.0%); the independence plug-in is 3.49%, or 2.87
+  prompts, and the recomputed rate is 3.14× that plug-in on this file.
+scope: >
+  Exactly the released file at the bound commit, counting arithmetic at the
+  vendors' released binary verdicts. The bead COUNTS per rod, the union, and
+  the all-miss count are registered values re-asserted against the
+  hash-verified file in CI (MC-002). The bead POSITIONS are a construction:
+  every arrangement shown satisfies the five counts, and the final one also
+  satisfies the union; the released rows are never redistributed. No
+  population estimate, no vendor ranking, no claim about adversarial prompts.
+status: supported_within_scope — bound to MC-002 (counts) and MC-003 (identification); positions constructed
+evidence:
+  - fact: MC-002.n_harmful
+    kind: OBSERVED
+    value: 82
+  - fact: MC-002.guards
+    kind: REGISTRY
+    value: [lakera_guard, prompt_guard, langkit, nemo, llm_guard]
+  - fact: MC-002.guard_labels
+    kind: REGISTRY
+    value: {lakera_guard: Lakera Guard, prompt_guard: Prompt Guard, langkit: LangKit, nemo: NeMo Guardrails, llm_guard: LLM Guard}
+  - fact: MC-002.per_guard_misses
+    kind: DERIVED
+    value: {lakera_guard: 30, prompt_guard: 77, langkit: 57, nemo: 12, llm_guard: 82}
+  - fact: MC-002.union_detection
+    kind: OBSERVED
+    value: 73
+  - fact: MC-002.all_miss
+    kind: OBSERVED
+    value: 9
+  - fact: MC-003.identified_set_lower
+    kind: PROVED
+    value: 0
+  - fact: MC-003.identified_set_upper
+    kind: PROVED
+    value: 12
+  - fact: MC-003.identified_set_size
+    kind: PROVED
+    value: 13
+  - fact: MC-003.continuous_set
+    kind: PROVED
+    value: [0.0, 0.146341]
+  - fact: MC-002.independence_plugin_rate
+    kind: DERIVED
+    value: 0.034947
+  - fact: MC-002.independence_plugin_prompts
+    kind: DERIVED
+    value: 2.8657
+  - fact: MC-002.ratio_recomputed_to_plugin
+    kind: DERIVED
+    value: 3.1406
+  - fact: MC-002.all_miss_rate
+    kind: DERIVED
+    value: 0.109756
+  - fact: MC-002.support_commit
+    kind: REGISTRY
+    value: 507566c5a4606c8e3dec0bd59a5c5fde62594951
+  - fact: MC-002.n_benign
+    kind: OBSERVED
+    value: 50
+  - fact: MC-002.n_borderline
+    kind: OBSERVED
+    value: 38
+objects:
+  - object: the five rods, their labels and bead counts (misses per released column)
+    status: OBSERVED
+    note: 82 − registered catches; re-asserted against the hash-verified file by scripts/reanalyze_bells_subset.py
+  - object: where each rod's beads sit, including the sliding rod
+    status: CONSTRUCTED
+    note: one contiguous-block arrangement per moment; every position shown satisfies the five counts
+  - object: the amber all-miss columns and the running count
+    status: DERIVED
+    note: the intersection of the drawn blocks; the count walks exactly the finite identified set
+  - object: the axis {0 … 12} and the continuous set [0%, 14.63%]
+    status: PROVED
+    note: MC-003, checked by scripts/identification.py
+  - object: the amber dashed marker at 2.87 prompts
+    status: DERIVED
+    note: independence plug-in — a model's point, not a count
+  - object: the union bar (73/82) and the pinned count 9/82
+    status: OBSERVED
+    note: MC-002 registered union and all-miss
+evidence_commits:
+  - claim: MC-002
+    repo: CentreSecuriteIA/bells_leaderboard
+    commit: 507566c5a4606c8e3dec0bd59a5c5fde62594951
+falsifier: >
+  Recomputing from the bound, hash-verified file yields any per-guard catch
+  count, union, or all-miss different from the expected block (MC-002,
+  REJECT); or a joint law with the five stated miss rates attains an all-miss
+  rate outside [0, 12/82] (MC-003, REJECT); or the film's sliding rod ever
+  produces an all-miss count outside {0 … 12} — checkable by re-rendering
+  and reading the counter at every frame.
+non_claims:
+  - not an observed deployed five-guard stack; the OR of released columns is a static aggregation
+  - not a population estimate and not a confidence interval; the subset was author-selected under an unstated rule
+  - not a ranking or endorsement of any vendor; verdicts are at unstated default configurations
+  - the bead positions are not the released rows; pairwise overlaps are not identified by the aggregates shown and are not claimed
+  - the 3.14× ratio describes this subset's arithmetic, not a law of guardrail dependence
+claim_frames:
+  - t: 16.5
+    shows: the sliding rod nested — all-miss reads 12/82 (the upper endpoint, min p) with the finite identified set {0…12} drawn on the axis
+  - t: 27.0
+    shows: the union bar 73/82 pins the all-miss count at 9/82; the independence marker at 2.87 prompts sits between integers
+render:
+  fps: 30
+  formats: [master, vertical]
+  poster_t: 27.0

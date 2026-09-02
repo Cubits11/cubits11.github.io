@@ -1,0 +1,69 @@
+{
+ "film": "what-the-seal-proves",
+ "format": "vertical",
+ "title": "What the Seal Proves",
+ "rendered_from_head": "2fac154349bb3546445f10f0e3110ab2eeb9eefc",
+ "rendered_on": "2026-09-01",
+ "inputs": {
+  "film.html": "c1823ae24b7c2668b8ecb4e35f9cee7e129d8a329efdae904e23f00648430178",
+  "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
+  "films/data/facts.json": "66d6947b96f99559c04a7b20c59ba73ffd4ccae17fd13c2a9fad517450a605d7"
+ },
+ "runtime": {
+  "chrome": "152.0.7977.65",
+  "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
+  "crf": 20
+ },
+ "fps": 30,
+ "frames": 1021,
+ "duration_s": 34,
+ "width": 1080,
+ "height": 1920,
+ "frames_digest": "0bcb7b6a1ed1611660becbcd5286a2834fabf6a0457725dd413652c4e0e6f283",
+ "determinism": {
+  "sampled_frames": 5,
+  "identical": true
+ },
+ "text_overflows": [],
+ "facts_used": [
+  "GA-001.non_claims",
+  "GA-001.support_commit",
+  "RECEIPT.canonical",
+  "RECEIPT.digest_canonical",
+  "RECEIPT.digest_raw_a",
+  "RECEIPT.digest_raw_b",
+  "RECEIPT.raw_a",
+  "RECEIPT.raw_b"
+ ],
+ "outputs": {
+  "master": "renders/what-the-seal-proves__vertical.mp4",
+  "master_sha256": "2a0663a050b348079ea5aefc49ecea1ad7bc95a2c29d9a1ac20515a5ab83b53b",
+  "master_bytes": 837776,
+  "master_duration_probe_s": 34.03,
+  "poster": "renders/what-the-seal-proves__vertical.poster.png",
+  "poster_t": 24,
+  "stills": [
+   "renders/stills/vertical-open.jpg",
+   "renders/stills/vertical-q1.jpg",
+   "renders/stills/vertical-mid.jpg",
+   "renders/stills/vertical-q3.jpg",
+   "renders/stills/vertical-end.jpg"
+  ],
+  "claim_frames": [
+   {
+    "n": 1,
+    "t": 16.8,
+    "label": "two receipts with different raw digests now share one canonical digest under the seal",
+    "still": "renders/stills/vertical-claim-01.jpg"
+   },
+   {
+    "n": 2,
+    "t": 24,
+    "label": "the verified seal, the boundary line, and the three dark doors: SAFE? AUTHORIZED? CORRECT? \u2014 not established by the receipt",
+    "still": "renders/stills/vertical-claim-02.jpg"
+   }
+  ]
+ },
+ "render_seconds": 67.1
+}

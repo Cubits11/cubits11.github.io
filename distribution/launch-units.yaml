@@ -1,0 +1,262 @@
+# Launch units — one compact package per existing film (P5).
+#
+# STATUS: PREPARED. Nothing here has been posted. The owner dispatches; the
+# assistant posts nothing. Every unit terminates in an action, never in
+# "learn more". Every numeral in a unit is one the registry binds (the
+# generator of /try/ renders the same facts); post text is re-derived at the
+# dispatch commit. scripts/verify_consequence.py checks that each unit names
+# an existing film, poster, master, manifest, campaign id, experiment id and
+# evidence route, and that the comprehension question and scoring rule exist
+# before any trial is recorded.
+#
+# Cold-comprehension protocol (P14): the question is asked with sound off and
+# no explanation; the scoring rule below is fixed now and not revised after
+# seeing answers; a trial is recorded in outcomes.yaml diagnostics as
+# cold_comprehension_trials, never as a qualified outcome.
+
+version: 1
+cta_family:
+  - "Don't trust the animation. Run it."
+  - "Try the 60-second reproduction."
+  - "Bring me a counterexample — a benchmark the census missed, a row that misreads its source, a bound that fails."
+  - "If you get a different result, I will place the correction beside the claim."
+
+units:
+  - film: same-scores-different-worlds
+    sequence: guardrail
+    order: 1
+    campaign: x-film-same-scores
+    experiment: TRY-A
+    evidence_url: "/ledger/#CC-001"
+    experiment_url: "/try/#try-a"
+    poster: "films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png"
+    master: "films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4"
+    claim_sentence: "Two guards that each miss 10 of 100 items can jointly miss anywhere from 0 to 10 of the 100 items — the two scores never move."
+    technical_paragraph: >
+      For marginal miss rates p and q, the both-miss probability is identified
+      only to [max(0, p+q−1), min(p, q)]; both endpoints are attained by
+      explicit joint distributions with exactly those marginals (Fréchet–
+      Hoeffding), so the published scores license the whole interval and the
+      product p·q is what one assumption — independence — selects inside it.
+      The bound kernel is re-verified from a clean clone in CI (CC-001, CC-004).
+    cta: "Don't trust the animation. Run it: python3 scripts/try_same_scores.py — 60 seconds, standard library."
+    accessible_description: >
+      A paper sheet of 100 squares. Ten filled ink discs mark items guard A
+      misses; ten ink rings mark items guard B misses. The rings hop onto the
+      discs one at a time while two counters stay pinned at 10 of 100; a third
+      counter, both miss the same item, rises from 0 to 10. Then two sheets
+      side by side with identical score lines and different joint counts,
+      above an axis from 0% to 10% with a small amber tick at 1% labelled the
+      world independence assumes.
+    post_draft: >
+      Two guardrails. Each misses 10 of 100. How many of the 100 do they
+      jointly miss? Anywhere from 0 to 10 — the two scores never move. Independence picks
+      1%; nothing in the scores does. 30 s, sound off. Run it yourself in 60 s:
+      cubits11.github.io/try
+    comprehension_question: "With the sound off: what stayed fixed, and what changed?"
+    scoring_rule: "PASS only if the answer names both (a) the per-guard scores or marginals as fixed and (b) the number of items both guards miss (or the overlap) as changing. Naming only one is FAIL. Scored before any explanation is given."
+
+  - film: thirteen-worlds
+    sequence: guardrail
+    order: 2
+    campaign: x-film-thirteen-worlds
+    experiment: TRY-B
+    evidence_url: "/ledger/#MC-002"
+    experiment_url: "/try/#try-b"
+    poster: "films/thirteen-worlds/renders/thirteen-worlds__master.poster.png"
+    master: "films/thirteen-worlds/renders/thirteen-worlds__master.mp4"
+    claim_sentence: "Five published miss rates pin the BELLS all-miss count only to 0…12 of 82; the released file's union fixes it at 9; the independence plug-in is 3.49%, equivalent to 2.87 prompts in expectation — a model's point, not an observed integer count."
+    technical_paragraph: >
+      On the 82 prompts labelled harmful in the released BELLS subset, the
+      five per-guard miss counts identify the static all-miss count only up to
+      {0/82 … 12/82}; the OR of the released verdict columns flags 73, so the
+      all-miss count is 9 (11.0%); the independence plug-in is 3.49%, or 2.87
+      prompts. Counting arithmetic on one author-selected stratum at released
+      binary verdicts — not a population estimate, not a ranking (MC-002, MC-003).
+    cta: "Reconstruct it from the public file in 3 minutes: python3 scripts/reanalyze_bells_subset.py — the file is hash-verified before a count is taken."
+    accessible_description: >
+      Five horizontal rods, one per released verdict column, each carrying
+      black beads for the prompts that column missed. The shortest rod, twelve
+      beads, slides from right to left; wherever all five rods carry a bead,
+      an amber band lights and a counter climbs from 0 to 12 over an axis
+      labelled the thirteen worlds. A cyan bar arrives reading 73 of 82
+      flagged; the counter settles at 9 and the sentence reads: the union
+      fixes the count, not the positions.
+    post_draft: >
+      Five guardrail miss rates are public. From those alone, how many of 82
+      prompts did all five miss? Anything from 0 to 12. The released file says
+      9. The independence plug-in says 3.49% — 2.87 prompts in expectation,
+      not an observed count.
+      Recompute it from the pinned file in 3 minutes: cubits11.github.io/try
+    comprehension_question: "With the sound off: what did the published rates leave open, and what closed it?"
+    scoring_rule: "PASS only if the answer says the rates left a range (or several possible counts) open and that the union or the released file closed it to one count. Scored before any explanation."
+
+  - film: parity-cube
+    sequence: guardrail
+    order: 3
+    campaign: x-film-parity-cube
+    experiment: TRY-A
+    evidence_url: "/ledger/#CC-003"
+    experiment_url: "/try/#try-a"
+    poster: "films/parity-cube/renders/parity-cube__master.poster.png"
+    master: "films/parity-cube/renders/parity-cube__master.mp4"
+    claim_sentence: "Two distributions over three guards can share every single and every pairwise failure rate and still differ in how often all three fail together."
+    technical_paragraph: >
+      Uniform mass on the four even-parity outcomes and uniform mass on the
+      four odd-parity outcomes both give every guard a failure rate of 0.5 and
+      every pair a both-fail rate of 0.25, while the three-way failure
+      probability is 0 under even parity and 0.25 under odd parity. A
+      constructive possibility proof from CC-Framework's synthetic E1 study
+      (CC-003, decision Narrow) — not a frequency claim about real stacks.
+    cta: "Try to break the construction: recompute every singleton, every pair, and the triple from the two atom tables. If an advertised equality fails, file it. Then the open question: what additional statistic is sufficient to identify the triple?"
+    accessible_description: >
+      Two wireframe cubes. Each corner is one outcome of three guards; filled
+      discs mark outcomes that carry probability. Under each cube three small
+      squares show the pairwise both-fail rates, all 0.25, and a line reads A
+      fails 0.50, B fails 0.50, C fails 0.50. An equals sign sits between the
+      two rows of squares. The corner where all three fail is a ring in the
+      left cube, labelled 0, and an amber disc in the right cube, labelled
+      0.25.
+    post_draft: >
+      Measure every pair of three guardrails. Same singles, same pairs, same
+      everything you can see — and the stack still fails together 0% of the
+      time in one world and 25% in the other. Pairs don't identify the triple.
+      Recompute every equality yourself; if one fails, file it: cubits11.github.io/try
+    comprehension_question: "With the sound off: what is identical between the two cubes, and what differs?"
+    scoring_rule: "PASS only if the answer names the pairwise (or per-guard) rates as identical and the all-three-fail corner (or triple) as different. Scored before any explanation."
+
+  - film: the-missing-column-census
+    sequence: guardrail
+    order: 4
+    campaign: x-film-missing-column-census
+    experiment: TRY-C
+    evidence_url: "/missing-column/"
+    experiment_url: "/try/#try-c"
+    poster: "films/the-missing-column-census/renders/the-missing-column-census__master.poster.png"
+    master: "films/the-missing-column-census/renders/the-missing-column-census__master.mp4"
+    claim_sentence: "Of 20 public guardrail evaluations meeting frozen criteria, 14 report no joint-evidence artifact and 0 document matched operating thresholds with full exposure."
+    technical_paragraph: >
+      A census of reporting, not of performance: twenty examined artifacts
+      classified by one reviewer under criteria frozen 2026-08-27; the
+      joint-evidence column is present in 5, absent in 14, not comparable in
+      1; the comparability ladder reads 14 / 12 / 0. The claim's own falsifier
+      fired once (19/13/4 → 20/14/5 on 2026-08-30) and the rejected envelope
+      is retained. Every count is recomputed from census.yaml in CI (MC-001).
+    cta: "If I classified your evaluation and the row is wrong, correct it — corrections land dated in the public file. Or audit an evaluation the census missed in 15 minutes."
+    accessible_description: >
+      A dark table of twenty rows, each a public evaluation's id. A joint-
+      evidence column fills row by row with PRESENT in cyan or not reported in
+      dashed amber; one row is hatched NOT COMPARABLE. Three further columns
+      fill with dots and tally 14, 12, and an amber 0 under the sentence 0 of
+      20 document matched operating thresholds with full exposure. A dated red
+      correction stamp marks one row; a final panel reads 20 examined, 9
+      excluded, 15 unexamined.
+    post_draft: >
+      Under the frozen census criteria, 14 of 20 public guardrail evaluations
+      provide no qualifying joint-evidence artifact, and 0 document matched
+      thresholds with full exposure. If I classified your evaluation and the
+      row is wrong, correct it — it lands beside the count, dated:
+      cubits11.github.io/try#counterexample
+    comprehension_question: "With the sound off: what does the last column count, and what does the 0 mean?"
+    scoring_rule: "PASS only if the answer says the column counts evaluations that report (or document) the stack's joint result, and that the 0 is about reporting or documentation, not about any guard performing badly. Scored before any explanation."
+
+  - film: leave-one-out
+    sequence: guardrail
+    order: 5
+    campaign: x-film-leave-one-out
+    experiment: TRY-B
+    evidence_url: "/ledger/#MC-003"
+    experiment_url: "/try/#try-b"
+    poster: "films/leave-one-out/renders/leave-one-out__master.poster.png"
+    master: "films/leave-one-out/renders/leave-one-out__master.mp4"
+    claim_sentence: "Marginal catch counts plus the union only bound what each guard alone catches; the released leave-one-out unions identify it — 18, 3, 0, 0, 0."
+    technical_paragraph: >
+      On the 82 prompts labelled harmful in the released BELLS subset, the OR
+      of released verdicts flags 73; removing NeMo Guardrails leaves 55
+      (exclusive coverage 18), removing Lakera Guard leaves 70 (3), and
+      removing LangKit, Prompt Guard, or LLM Guard leaves 73 (0). From counts
+      and the union alone those are only bounded (NeMo 0–21, others 0–3 or 0).
+      Removal-relative, not a residual; not a vendor ranking (MC-002, MC-003).
+    cta: "Measure it on your own stack: a leave-one-out union is k numbers and no item release. Or reconstruct this one in 3 minutes."
+    accessible_description: >
+      A dark wall of 82 windows and five lamps, one per guard. Lamps switch on
+      in turn and windows glow cyan; a counter reads 73 of 82 lit, 9 stay dark.
+      One lamp is shuttered and 18 windows drop to amber dark with the readout
+      minus 18; the next lamp shutters 3; the last three shutter 0. A closing
+      line reads: 3 of 5 lamps light nothing the others don't — on this
+      stratum.
+    post_draft: >
+      Five guardrails, 82 prompts, 73 caught. Switch off NeMo: 18 go dark.
+      Switch off Lakera: 3. Switch off the other three: nothing changes. The
+      published rates could not tell you this; five leave-one-out numbers can.
+      Recompute it from the released file: cubits11.github.io/try
+    comprehension_question: "With the sound off: what happened when a lamp was covered, and what did the numbers beside the lamps become?"
+    scoring_rule: "PASS only if the answer says covering a lamp showed how many items only that guard caught (went dark), and that the numbers went from a range to a single value. Scored before any explanation."
+
+  - film: what-the-seal-proves
+    sequence: provenance
+    order: 1
+    campaign: x-film-what-the-seal-proves
+    experiment: null
+    evidence_url: "/ledger/#GA-001"
+    experiment_url: "/modules/003-kernel-of-a-receipt/"
+    poster: "films/what-the-seal-proves/renders/what-the-seal-proves__master.poster.png"
+    master: "films/what-the-seal-proves/renders/what-the-seal-proves__master.mp4"
+    claim_sentence: "Two byte-different receipts canonicalize to the same digest-bound representation; a verified seal proves the canonical bytes match — not that the action was safe, authorized, or correct."
+    technical_paragraph: >
+      A receipt identifies an execution only up to the kernel of its whole
+      parse → canonicalize → digest pipeline; the film's toy canonicalizer
+      collapses two byte-different payloads to one real SHA-256, and the
+      registered non-claim of GA-001 is quoted verbatim: a verifying receipt
+      does not establish that the governed action was safe, authorized, or
+      semantically correct. Ghost-Ark is cited at its bound commit; nothing is
+      built on it.
+    cta: "Recompute the digests with any SHA-256 tool: the two raw payloads differ, the canonical bytes match. Then tell me what your receipt system's kernel is."
+    accessible_description: >
+      Two paper receipts with different JSON bytes and different sha256 lines
+      pass through three vertical gates labelled PARSE, CANONICALIZE and
+      DIGEST, merge into one card, and receive one seal. Then the seal's cyan
+      light spreads to an amber dashed line labelled the receipt proves
+      nothing past this line; beyond it three dark doors read SAFE?,
+      AUTHORIZED?, CORRECT? — not established by the receipt.
+    post_draft: >
+      Two byte-different receipts. One digest. The seal verifies — and proves
+      exactly that the canonical bytes match. Safe? Authorized? Correct? Not
+      established. Digests are real SHA-256; recompute them with any tool:
+      cubits11.github.io/ledger/#GA-001
+    comprehension_question: "With the sound off: what did the seal prove, and what did it not prove?"
+    scoring_rule: "PASS only if the answer says the seal proved the bytes (or documents) matched and did not prove safety, authorization or correctness (any one of the three suffices). Scored before any explanation."
+
+  - film: same-scores__social-square
+    sequence: feed
+    order: 1
+    campaign: x-film-same-scores
+    experiment: TRY-A
+    evidence_url: "/ledger/#CC-001"
+    experiment_url: "/try/#try-a"
+    poster: "films/same-scores__social-square/renders/same-scores__social-square__square.poster.png"
+    master: "films/same-scores__social-square/renders/same-scores__social-square__square.mp4"
+    claim_sentence: "Two guards that each miss 10 of 100 items can jointly miss anywhere from 0 to 10 of the 100 items — the two scores never move."
+    technical_paragraph: >
+      The 11-second feed cut of Same Scores, Different Worlds: the two
+      readouts are fixed, only the overlap arrangement changes, the joint
+      count runs 0 → 10, then the interval [0, 10%] appears with the point
+      independence selects (1%). Bound to CC-001 and CC-004; the master and
+      the full contract are one click away at /try/.
+    cta: "Don't trust the film. Run the 60-second proof: cubits11.github.io/try"
+    accessible_description: >
+      A square frame. Two large readouts at the top read A MISSES 10 / 100 and
+      B MISSES 10 / 100 above a rule marked FIXED. A paper grid of 100 cells
+      holds ten ink discs and ten ink rings; the rings hop onto the discs one
+      by one while a large counter at the bottom, BOTH MISS, climbs from 0 to
+      10 of 100. The words SAME SCORES. DIFFERENT WORLDS. appear. The grid dims
+      and a cyan interval from 0% to 10% is drawn across it with an amber
+      point at 1% labelled independence picks 1%. Then: DON'T TRUST THE FILM.
+      RUN THE 60-SECOND PROOF. cubits11.github.io/try.
+    post_draft: >
+      Two guardrails. Each misses 10 of 100. How many of the 100 do they
+      jointly miss? Anywhere from 0 to 10 — the scores never move.
+      Independence picks 1%; nothing in the scores does. 11 s, sound off.
+      Run the 60-second proof yourself: cubits11.github.io/try
+    comprehension_question: "With the sound off: what stayed fixed, and what changed?"
+    scoring_rule: "PASS only if the answer names both (a) the per-guard scores or marginals as fixed and (b) the number of items both guards miss (or the overlap) as changing. Naming only one is FAIL. Scored before any explanation is given."

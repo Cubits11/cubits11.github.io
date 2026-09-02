@@ -1,0 +1,326 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: census.yaml · renderer: scripts/generate_missing_column.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Try it: reproduce the missing column in 60 seconds, 3 minutes, or 15</title>
+<meta name="description" content="Three experiments anyone can run in 60 seconds, 3 minutes, or 15: two worlds from the same guardrail scores, a released file recomputed, an evaluation audited. Commands, expected results, falsifiers.">
+<link rel="canonical" href="https://cubits11.github.io/try/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Try it: reproduce the missing column in 60 seconds, 3 minutes, or 15">
+<meta property="og:description" content="Three experiments anyone can run in 60 seconds, 3 minutes, or 15: two worlds from the same guardrail scores, a released file recomputed, an evaluation audited. Commands, expected results, falsifiers.">
+<meta property="og:url" content="https://cubits11.github.io/try/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta property="og:site_name" content="Cubits11">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
+<meta name="twitter:image:alt" content="A benchmark table with four filled guardrail columns and an empty fifth column labelled THE STACK">
+<meta name="robots" content="max-image-preview:large">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Try it: reproduce the missing column in 60 seconds, 3 minutes, or 15",
+  "description": "Three experiments anyone can run in 60 seconds, 3 minutes, or 15: two worlds from the same guardrail scores, a released file recomputed, an evaluation audited. Commands, expected results, falsifiers.",
+  "url": "https://cubits11.github.io/try/",
+  "inLanguage": "en"
+}
+</script>
+<script defer src="/assets/site.js"></script>
+<style>
+body{font-size:1rem;line-height:1.65}
+.container{width:min(1060px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.68rem}
+header.page{padding:7.9rem 0 2.2rem}
+h1{font-weight:520;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.04;margin:0 0 1rem;letter-spacing:-.018em}
+.intro{color:var(--muted);max-width:48em}
+.zone{margin-top:4rem;border-top:1px solid var(--line);padding-top:2rem}
+.zone h2{font-weight:520;font-size:clamp(1.5rem,3vw,2.1rem);margin:0 0 .6rem;letter-spacing:-.01em}
+.zone .zone-intro{color:var(--muted);max-width:46em}
+.zone h3{font-weight:520;margin:1.6rem 0 .5rem}
+.fig-scroll{overflow-x:auto}
+.lede{font-size:1.14rem;line-height:1.5}
+.snapshot-note{margin-top:1rem;padding:.7rem .9rem;border-left:2px solid var(--line-strong);
+  color:var(--muted);font-size:.88rem}
+.epi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(15rem,100%),1fr));
+  gap:1rem;margin-top:1rem}
+.epi{border:1px solid var(--line);padding:.85rem 1rem;min-width:0}
+.epi h3{font:400 .64rem/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 .4rem}
+.epi p{margin:0;font-size:.9rem}
+.fig-scroll:focus-visible{outline:2px solid var(--evidence,currentColor);outline-offset:3px}
+.wall{margin-top:1.6rem;border:1px solid var(--line-strong);background:var(--surface)}
+.wall-row{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
+.wall-row:last-child{border-bottom:none}
+.wall-id{color:var(--gold);overflow-wrap:anywhere}
+.manual-list{margin:1.2rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.92rem}
+.manual-list li{margin:.35rem 0}
+.ur-title{margin:0 0 .3rem}
+.ur-note{margin:0;color:var(--muted);font-size:.92rem}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem}
+
+.try-hero{font-family:var(--serif);font-size:clamp(1.9rem,4.6vw,3.1rem);line-height:1.08;letter-spacing:-.01em;margin:.2rem 0 .6rem}
+.try-hero b{color:var(--gold);font-weight:520}
+.q{font-size:clamp(1.05rem,2vw,1.28rem);line-height:1.5;max-width:36em;color:var(--muted)}
+.exp{border:1px solid var(--line-strong);background:var(--surface);padding:1.5rem 1.5rem 1.3rem;margin-top:1.4rem;scroll-margin-top:5.5rem}
+.exp h3{margin:0;font-size:1.25rem}
+.exp .meta{color:var(--muted);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;margin:.35rem 0 1rem}
+.exp dl{margin:0;display:grid;grid-template-columns:9.5rem 1fr;gap:.5rem 1rem;font-size:.94rem}
+.exp dt{color:var(--gold);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding-top:.25rem}
+.exp dd{margin:0;color:var(--muted)}
+.exp dd.ink{color:var(--ink)}
+.exp pre{margin:0;padding:.7rem .9rem;background:var(--bg);border:1px solid var(--line);overflow-x:auto;font-size:.86rem;line-height:1.5}
+.exp .row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.1rem}
+.ext-status{border:1px solid var(--line-strong);background:var(--surface);padding:1.3rem 1.5rem;margin-top:1.4rem}
+.ext-status table{border-collapse:collapse;width:100%;max-width:34rem;font-variant-numeric:tabular-nums}
+.ext-status td{padding:.35rem 0;border-bottom:1px solid var(--line)}
+.ext-status td:last-child{text-align:right;font-family:var(--serif);font-size:1.35rem}
+.ext-status .diag{color:var(--muted);font-size:.9rem;margin:.9rem 0 0}
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.8rem;margin-top:1.2rem}
+.routes a{display:block;border:1px solid var(--line-strong);background:var(--surface);padding:.9rem 1rem;text-decoration:none;color:var(--ink);font-size:.95rem}
+.routes a:hover{border-color:var(--gold)}
+.routes a span{display:block;color:var(--muted);font-size:.78rem;margin-top:.25rem}
+.film{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:1.6rem;align-items:start;margin-top:1.2rem}
+.film video{width:100%;height:auto;display:block;border:1px solid var(--line-strong);background:#0B0F0A}
+.ladder{margin:1rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.94rem}
+.ladder li{margin:.3rem 0}
+@media (max-width:720px){.exp dl{grid-template-columns:1fr}.exp dt{padding-top:.6rem}.film{grid-template-columns:1fr}}
+
+@media (max-width:600px){.wall-row{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/missing-column/">The Missing Column</a>
+      <a href="/observatory/">Evidence</a>
+      <a href="/writing/">Writing</a>
+      <a href="/work/">Work with me</a>
+      <a href="/resume/">About</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span><b>Try it</b> — three experiments, each with its command, expected result, and falsifier</span>
+    <span>a result, not a compliment</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "The record",
+      "item": "https://cubits11.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Try it"
+    }
+  ]
+}
+</script>
+    <h1 class="try-hero">DON'T TRUST THE GRAPHIC.<br><b>REPRODUCE IT.</b></h1>
+    <p class="q">Do published per-guard scores determine what the stack misses together? Below: a 60-second proof, a 3-minute reconstruction from a public file, and a 15-minute audit you can run on an evaluation you know. Each says what it needs, what it should print, what would prove it wrong, and what it does not claim — before you run anything.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <section class="zone" id="film" aria-labelledby="film-h" style="margin-top:0;border-top:none;padding-top:0">
+    <h2 id="film-h">Thirty seconds, sound off</h2>
+    <div class="film">
+      <video controls preload="none" playsinline poster="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png" aria-label="Same Scores, Different Worlds — a 30-second film">
+        <source src="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4" type="video/mp4">
+      </video>
+      <div>
+        <p><strong>Same Scores, Different Worlds.</strong> Two guards that each miss 10 of 100 items can jointly miss anywhere from 0 to 10 of the 100 items; the two scores never move while the joint count runs the whole interval, and multiplying them selects one world.</p>
+        <p class="mono" style="color:var(--muted);font-size:.8rem">Every number in the film is read from the claim registry; the film's manifest and render receipt are in <a class="u" href="https://github.com/Cubits11/cubits11.github.io/tree/main/films/same-scores-different-worlds">films/same-scores-different-worlds/</a>. Don't trust the animation. Run it: experiment A is the same construction as a script.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="zone" id="experiments" aria-labelledby="exp-h">
+    <h2 id="exp-h">Three experiments</h2>
+    
+    <article class="exp" id="try-a" aria-labelledby="try-a-h">
+      <h3 id="try-a-h">60-second proof — Same Scores, Different Worlds</h3>
+      <p class="meta mono">TRY-A · about 1 minute · claims <a class="u" href="/ledger/#CC-001">CC-001</a>, <a class="u" href="/ledger/#CC-004">CC-004</a></p>
+      <dl>
+        <dt>Question</dt><dd class="ink">Do two published miss rates determine how often both guards miss the same item?</dd>
+        <dt>Needs</dt><dd>Python 3.10 or newer and this repository. No packages, no network.</dd>
+        <dt>Run</dt><dd><pre><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
+python3 scripts/try_same_scores.py</code></pre></dd>
+        <dt>Variant</dt><dd><code>python3 scripts/try_same_scores.py --marginals 0.05 0.02   # any two rates; labelled CONSTRUCTED</code></dd>
+        <dt>Expected</dt><dd class="ink">final line: <code>MATCH  TRY-A  marginals 0.10/0.10  both-miss interval [0.00, 0.10]  endpoints attained  independence 0.01 is one point</code></dd>
+        <dt>Bound to</dt><dd>CC-001.marginals = <code>[0.1, 0.1]</code> (REGISTRY); CC-001.and_bounds = <code>[0.0, 0.1]</code> (PROVED); CC-004.witness_lower = <code>[0.8, 0.1, 0.1, 0.0]</code> (PROVED); CC-004.witness_upper = <code>[0.9, 0.0, 0.0, 0.1]</code> (PROVED); CC-001.independence_and = <code>0.010000000000000002</code> (DERIVED)</dd>
+        <dt>Status</dt><dd>PROVED — Fréchet–Hoeffding bounds; both endpoint worlds are re-verified from a clean clone of the bound kernel in CI (CC-001, CC-004).</dd>
+        <dt>Falsifier</dt><dd>A joint distribution with marginals 0.10 and 0.10 whose both-miss probability lies outside [0.00, 0.10], or a witness the script prints that fails a marginal check, or the bound kernel returning other endpoints.</dd>
+        <dt>Non-claim</dt><dd>Nothing here measures a real guardrail; the population is a construction and no point inside the interval is selected. Independence is what one assumption chooses, not what the scores imply.</dd>
+        <dt>Film</dt><dd><a class="u" href="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4">Same Scores, Different Worlds</a> — Two guards that each miss 10 of 100 items can jointly miss anywhere from 0 to 10 of the 100 items; the two scores never move while the joint count runs the whole interval, and multiplying them selects one world.</dd>
+      </dl>
+      <div class="row">
+        <a class="btn btn-solid" href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=reproduction.yml&amp;experiment=TRY-A&amp;claim=CC-001&amp;command=python3+scripts%2Ftry_same_scores.py&amp;title=Reproduction%3A+TRY-A+%E2%80%94+mismatch&amp;outcome=Mismatch+%E2%80%94+a+FAIL+line%2C+a+different+count%2C+or+a+nonzero+exit">I got a different result</a>
+        <a class="btn" href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=reproduction.yml&amp;experiment=TRY-A&amp;claim=CC-001&amp;command=python3+scripts%2Ftry_same_scores.py&amp;title=Reproduction%3A+TRY-A+%E2%80%94+match&amp;outcome=Match+%E2%80%94+exit+0%2C+final+line+matched+the+page%27s+expected+output">It matched — record it</a>
+        <a class="btn" href="/answers/why-guardrail-miss-rates-do-not-multiply/">Go deeper</a>
+      </div>
+    </article>
+    <article class="exp" id="try-b" aria-labelledby="try-b-h">
+      <h3 id="try-b-h">3-minute reconstruction — the released BELLS file</h3>
+      <p class="meta mono">TRY-B · about 3 minutes · claims <a class="u" href="/ledger/#MC-002">MC-002</a>, <a class="u" href="/ledger/#MC-003">MC-003</a></p>
+      <dl>
+        <dt>Question</dt><dd class="ink">From a public per-item release, how many of 82 harmful prompts did all five supervisors miss — and what did the five published miss rates alone permit?</dd>
+        <dt>Needs</dt><dd>Python 3.10 or newer, `pip install -r requirements.txt` (PyYAML only), and network access to fetch one pinned CSV from GitHub. The file is hash-verified before a single count is taken.</dd>
+        <dt>Run</dt><dd><pre><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
+python3 scripts/reanalyze_bells_subset.py</code></pre></dd>
+        <dt>Variant</dt><dd><code>python3 scripts/identification.py --bells   # the identification envelope, offline</code></dd>
+        <dt>Expected</dt><dd class="ink">final line: <code>MC-002 reproduced: the missing column, computed from the bound public release, matches the registered claim.</code></dd>
+        <dt>Bound to</dt><dd>MC-002.union_detection = <code>73</code> (OBSERVED); MC-002.all_miss = <code>9</code> (OBSERVED); MC-002.n_harmful = <code>82</code> (OBSERVED); MC-003.identified_set_lower = <code>0</code> (PROVED); MC-003.identified_set_upper = <code>12</code> (PROVED); MC-002.independence_plugin_prompts = <code>2.8657</code> (DERIVED)</dd>
+        <dt>Status</dt><dd>OBSERVED counts on one released file (hash-verified, pinned commit); PROVED identified set from the marginals. Counting arithmetic, not a population estimate.</dd>
+        <dt>Falsifier</dt><dd>Recomputing from the pinned, hash-verified file yields any per-guard count, union, or all-miss different from the registered expected block; or the file at the pinned ref no longer matches its recorded sha256.</dd>
+        <dt>Non-claim</dt><dd>One author-selected 82-prompt stratum at unstated default configurations: not a vendor ranking, not a population estimate, not an observed deployed stack, and nothing about the adversarial prompts that have no per-item release.</dd>
+        <dt>Film</dt><dd><a class="u" href="/films/thirteen-worlds/renders/thirteen-worlds__master.mp4">Thirteen Worlds, One File</a> — The five published miss rates of the BELLS supervisors pin the all-miss count only to {0 … 12} of 82 — thirteen worlds; a same-denominator union fixes it at 9; the independence plug-in (3.49%, equivalent to 2.87 prompts in expectation) is a model&#x27;s point, not an observed integer count.</dd>
+      </dl>
+      <div class="row">
+        <a class="btn btn-solid" href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=reproduction.yml&amp;experiment=TRY-B&amp;claim=MC-002&amp;command=python3+scripts%2Freanalyze_bells_subset.py&amp;title=Reproduction%3A+TRY-B+%E2%80%94+mismatch&amp;outcome=Mismatch+%E2%80%94+a+FAIL+line%2C+a+different+count%2C+or+a+nonzero+exit">I got a different result</a>
+        <a class="btn" href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=reproduction.yml&amp;experiment=TRY-B&amp;claim=MC-002&amp;command=python3+scripts%2Freanalyze_bells_subset.py&amp;title=Reproduction%3A+TRY-B+%E2%80%94+match&amp;outcome=Match+%E2%80%94+exit+0%2C+final+line+matched+the+page%27s+expected+output">It matched — record it</a>
+        <a class="btn" href="/answers/what-does-the-second-guardrail-add/">Go deeper</a>
+      </div>
+    </article>
+    <article class="exp" id="try-c" aria-labelledby="try-c-h">
+      <h3 id="try-c-h">15-minute audit — apply the disclosure test to another evaluation</h3>
+      <p class="meta mono">TRY-C · about 15 minutes · claims <a class="u" href="/ledger/#MC-001">MC-001</a></p>
+      <dl>
+        <dt>Question</dt><dd class="ink">Does an evaluation you know preserve what its compared systems miss together, or only what each misses alone?</dd>
+        <dt>Needs</dt><dd>Python 3.10 or newer, this repository, and one public evaluation of two or more guardrails that you can read. The script asks the census&#x27;s frozen questions and classifies from your answers; it never reads the source for you.</dd>
+        <dt>Run</dt><dd><pre><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
+python3 scripts/try_audit.py</code></pre></dd>
+        <dt>Variant</dt><dd><code>python3 scripts/try_audit.py --answers fixtures/try/audit-example.json   # a worked example, no prompts</code></dd>
+        <dt>Expected</dt><dd class="ink">final line: <code>AUDIT  TRY-C  example-eval-2026  PRESENT  printed_full_stack  rung=threshold_not_contradicted  (worked example, not a census row)</code></dd>
+        <dt>Bound to</dt><dd>MC-001.N = <code>20</code> (DERIVED); MC-001.K = <code>5</code> (DERIVED); MC-001.ABSENT = <code>14</code> (DERIVED); MC-001.M3 = <code>0</code> (DERIVED)</dd>
+        <dt>Status</dt><dd>PROCEDURE — the same frozen criteria (v1) and predicates the census applies; your answers are OBSERVED by you, the classification is DERIVED from them, and a candidate row is a proposal until reviewed.</dd>
+        <dt>Falsifier</dt><dd>An evaluation that meets criteria v1, was public on or before 2026-08-27, and is absent from the census rejects the current count; an examined row whose source contradicts its recorded fields is corrected in the revision history.</dd>
+        <dt>Non-claim</dt><dd>A classification is a reporting fact about the artifact, never a performance finding about any system; a single audit by one person is a first-pass reading, exactly as the census&#x27;s own rows are.</dd>
+        <dt>Film</dt><dd><a class="u" href="/films/the-missing-column-census/renders/the-missing-column-census__master.mp4">The Missing Column, Counted</a> — Of 20 public guardrail evaluations meeting frozen criteria, 14 report no joint-evidence artifact and 0 document matched operating thresholds with full exposure; the count is a fact about reporting inside a bounded search, corrected once in public and declared with its sensitivity.</dd>
+      </dl>
+      <div class="row">
+        <a class="btn btn-solid" href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=counterexample.yml&amp;kind=I+found+a+benchmark+the+census+missed+%28a+candidate+row%29&amp;experiment=TRY-C">I got a different result</a>
+        <a class="btn" href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=counterexample.yml&amp;kind=I+found+a+benchmark+that+already+reports+the+stack+%28a+row+the+census+should+have+as+PRESENT%29&amp;experiment=TRY-C">It matched — record it</a>
+        <a class="btn" href="/missing-column/">Go deeper</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="zone" id="status" aria-labelledby="status-h">
+    <h2 id="status-h">External status</h2>
+    <div class="ext-status">
+      <p class="mono" style="margin:0 0 .6rem;color:var(--muted);font-size:.78rem;letter-spacing:.06em">QUALIFIED OUTCOMES — work done by someone who is not the author · bound to distribution/outcomes.yaml</p>
+      <table><tr><td>independent reproductions</td><td>0</td></tr><tr><td>source corrections</td><td>0</td></tr><tr><td>paired outcome releases</td><td>0</td></tr><tr><td>upstream prs</td><td>0</td></tr><tr><td>human cold runs</td><td>0</td></tr></table>
+      <p class="diag">Diagnostics, kept apart and never counted as outcomes: technical interactions 2; blinded comprehension trials 0. Zero is the recorded value. Be the first independent rerun → <a class="u" href="#try-a">experiment A</a>.</p>
+    </div>
+  </section>
+
+  <section class="zone" id="report" aria-labelledby="report-h">
+    <h2 id="report-h">Report what you found</h2>
+    <p class="zone-intro">Prefilled forms, no vocabulary required. A different result is the most useful thing you can send; it is placed beside the claim it disagrees with, dated, and credited if you want it to be.</p>
+    <div class="routes">
+      <a href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=reproduction.yml&amp;title=Reproduction%3A+%3Cexperiment%3E+%E2%80%94+match&amp;outcome=Match+%E2%80%94+exit+0%2C+final+line+matched+the+page%27s+expected+output">I reproduced it<span>match — becomes the claim's independent-reproduction record</span></a>
+      <a href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=reproduction.yml&amp;title=Reproduction%3A+%3Cexperiment%3E+%E2%80%94+mismatch&amp;outcome=Mismatch+%E2%80%94+a+FAIL+line%2C+a+different+count%2C+or+a+nonzero+exit">I got a different result<span>handled as a correction the same day</span></a>
+      <a href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=counterexample.yml&amp;kind=I+found+a+counterexample+to+a+registered+claim">I found a counterexample<span>to a claim, a bound, or a classification</span></a>
+      <a href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=counterexample.yml&amp;kind=I+found+a+benchmark+that+already+reports+the+stack+%28a+row+the+census+should+have+as+PRESENT%29">A benchmark already reports this<span>the census would count it PRESENT</span></a>
+      <a href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=counterexample.yml&amp;kind=I+can+provide+item-level+or+joint+outcomes+for+an+evaluation">I can provide joint outcomes<span>ids and bits are enough; no prompt text</span></a>
+      <a href="https://github.com/Cubits11/cubits11.github.io/compare">I want to contribute a patch<span>the pull-request template is three lines</span></a>
+    </div>
+  </section>
+
+  <section class="zone" id="counterexample" aria-labelledby="cx-h">
+    <h2 id="cx-h">Bring a counterexample</h2>
+    <p class="zone-intro">This is an open research problem with a correction path, not a request for help. The census examined <span data-fact="MC-001.N" data-fact-state="current">20</span> public evaluations: <span data-fact="MC-001.K" data-fact-state="current">5</span> preserve a joint-evidence artifact, <span data-fact="MC-001.ABSENT" data-fact-state="current">14</span> report none, and <span data-fact="MC-001.M3" data-fact-state="current">0</span> document matched operating thresholds with full exposure. Each of the following would update the programme and be recorded with the prominence of the claim it changes:</p>
+    <ul class="ladder">
+      <li>an evaluation that meets the frozen criteria, was public on or before 2026-08-27, and is missing — the count changes (it has changed once already);</li>
+      <li>a row whose source contradicts its recorded fields — the row is corrected, dated, in the public file;</li>
+      <li>joint evidence for any examined evaluation — union, all-miss, leave-one-out, or aligned per-item outcomes — the row moves to PRESENT;</li>
+      <li>a narrower identified region for a registered bound, or a joint law that escapes one — the claim is narrowed or rejected under its registered falsifier;</li>
+      <li>a supposed missing column that is already present — the strongest kind of correction.</li>
+    </ul>
+    <div class="row" style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.1rem">
+      <a class="btn btn-solid" href="https://github.com/Cubits11/cubits11.github.io/issues/new?template=counterexample.yml">Bring it</a>
+      <a class="btn" href="/missing-column/">Read the census</a>
+      <a class="btn" href="/corrections/">How corrections are handled</a>
+    </div>
+  </section>
+
+  <section class="zone" id="deeper" aria-labelledby="deeper-h">
+    <h2 id="deeper-h">Depth on demand</h2>
+    <ol class="ladder">
+      <li>2 seconds — the poster above: same scores, different worlds.</li>
+      <li>30 seconds — the film, sound off.</li>
+      <li>60 seconds — experiment A, the same construction as a script.</li>
+      <li>3 minutes — experiment B, a released file recomputed under a hash.</li>
+      <li>15 minutes — experiment C, the disclosure test on an evaluation you know.</li>
+      <li>the explanation — <a class="u" href="/answers/why-guardrail-miss-rates-do-not-multiply/">why miss rates do not multiply</a> · <a class="u" href="/answers/what-does-the-second-guardrail-add/">what the second guard adds</a>.</li>
+      <li>the essay — <a class="u" href="/essays/when-marginals-are-not-enough/">when marginals are not enough</a>.</li>
+      <li>the record — <a class="u" href="/missing-column/">the census</a> · <a class="u" href="/ledger/">every claim with its falsifier</a> · <a class="u" href="https://github.com/Cubits11/cubits11.github.io">the repository</a>.</li>
+    </ol>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono">
+      <a class="u" href="/missing-column/">The Missing Column</a>
+      <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
+      <a class="u" href="/answers/why-guardrail-miss-rates-do-not-multiply/">Why miss rates do not multiply</a>
+      <a class="u" href="/answers/how-to-evaluate-guardrails-you-plan-to-stack/">Evaluating stacked guardrails</a>
+      <a class="u" href="/answers/what-does-the-second-guardrail-add/">What the second guard adds</a>
+      <a class="u" href="/corrections/">Corrections policy</a>
+      <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/observatory/">Claim observatory</a>
+      <a class="u" href="/modules/">Modules</a>
+      <a class="u" href="/archive/">Archive</a>
+      <a class="u" href="/stack-study/">Study preflight</a>
+      <a class="u" href="/work/">Work with me</a>
+      <a class="u" href="/">← The record</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>

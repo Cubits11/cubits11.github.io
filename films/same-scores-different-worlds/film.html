@@ -1,0 +1,198 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Same Scores, Different Worlds</title>
+<link rel="stylesheet" href="../lib/tokens.css">
+<!--
+  Same Scores, Different Worlds — Cohort A, film 1.
+  Grammar: paper and ink. A population of 100 items on a sheet; two guards
+  each miss exactly 10 of them, always. Only WHICH ten changes. The number
+  of items both miss runs from 0 to 10 while the two scores never move.
+  Every number is read from films/data/facts.json (CC-001, CC-004).
+-->
+<div id="stage"></div>
+<script src="../lib/film.js"></script>
+<script>
+'use strict';
+const { H, TOK } = Film;
+const { k, sm, win, eio, eo3, eo5, lerp, text, line, disc, ring, kicker, stamp, locator, ledgerTag, shuffled, measure } = H;
+
+const DUR = 30;
+const N = 100, SIDE = 10;
+let P1, P2, LO, HI, IND, WL, WU, QGRID, COMMIT;
+let A_CELLS, B_HOME;               // A's ten missed items; B's ten disjoint homes
+const T_SWEEP0 = 3.6, HOP = 1.0, HOP_DUR = 0.55; // ring i hops at T_SWEEP0 + i*HOP
+const T_SPLIT = 15.0;
+
+function setup({ fact }) {
+  [P1, P2] = fact('CC-001.marginals');
+  [LO, HI] = fact('CC-001.and_bounds');
+  IND = fact('CC-001.independence_and');
+  WL = fact('CC-004.witness_lower');
+  WU = fact('CC-004.witness_upper');
+  QGRID = fact('CC-004.feasible_q_grid');
+  COMMIT = fact('CC-001.support_commit');
+  const cells = shuffled([...Array(N).keys()], 0xC0FFEE);
+  A_CELLS = cells.slice(0, Math.round(P1 * N));
+  B_HOME = cells.slice(Math.round(P1 * N), Math.round(P1 * N) + Math.round(P2 * N));
+}
+
+const cellXY = (i, x0, y0, c) => [x0 + (i % SIDE) * c + c / 2, y0 + Math.floor(i / SIDE) * c + c / 2];
+
+/* how many of B's rings have landed on A's discs at time t (fractional mid-hop) */
+function hopU(t, i) { const T = T_SWEEP0 + i * HOP; return eio(k(t, T, T + HOP_DUR)); }
+function qLanded(t) { let q = 0; for (let i = 0; i < B_HOME.length; i++) if (hopU(t, i) >= 1) q++; return q; }
+function qCont(t) { let q = 0; for (let i = 0; i < B_HOME.length; i++) q += hopU(t, i); return q; }
+
+/* the population sheet: paper, faint cells, ink marks */
+function drawSheet(g, x0, y0, c, t, opts) {
+  const { aIn, bIn, forcedQ, alpha } = opts;
+  const pad = c * 0.55, W = SIDE * c + 2 * pad;
+  g.save(); g.globalAlpha *= alpha;
+  g.fillStyle = TOK.paper; g.fillRect(x0 - pad, y0 - pad, W, W);
+  g.strokeStyle = TOK.paperLine; g.lineWidth = 1;
+  for (let i = 0; i <= SIDE; i++) {
+    line(g, x0 + i * c, y0, x0 + i * c, y0 + SIDE * c, TOK.paperLine, 1);
+    line(g, x0, y0 + i * c, x0 + SIDE * c, y0 + i * c, TOK.paperLine, 1);
+  }
+  const r = c * 0.24;
+  // A: filled ink discs, stamped in one by one
+  A_CELLS.forEach((cell, i) => {
+    const u = forcedQ == null ? eo5(k(aIn, i * 0.07, i * 0.07 + 0.25)) : 1;
+    if (u <= 0) return;
+    const [x, y] = cellXY(cell, x0, y0, c);
+    disc(g, x, y, r * (1.25 - 0.25 * u), TOK.paperInk, u);
+  });
+  // B: ink rings; each hops from its home onto one of A's cells
+  B_HOME.forEach((home, i) => {
+    let u = forcedQ == null ? hopU(t, i) : (i < forcedQ ? 1 : 0);
+    const vis = forcedQ == null ? eo5(k(bIn, i * 0.07, i * 0.07 + 0.25)) : 1;
+    if (vis <= 0) return;
+    const [hx, hy] = cellXY(home, x0, y0, c), [ax, ay] = cellXY(A_CELLS[i], x0, y0, c);
+    const x = lerp(hx, ax, u), y = lerp(hy, ay, u) - Math.sin(u * Math.PI) * c * 0.45; // a lift while airborne
+    const scale = 1 + Math.sin(u * Math.PI) * 0.18;
+    ring(g, x, y, r * 1.55 * scale, TOK.paperInk, Math.max(2, c * 0.075), vis);
+  });
+  g.restore();
+}
+
+function counter(g, label, num, den, x, y, o) {
+  const { u, size, pinned, color, alpha, maxW } = o;
+  text(g, label, x, y, { font: 'mono', size: size * 0.42, color: TOK.muted, alpha, track: 0.1, maxW: maxW });
+  const numS = String(num);
+  text(g, numS, x, y + size * 1.05, { font: 'serif', size, weight: 500, color: color || TOK.ink, alpha, maxW: size * 2.2 });
+  const w = measure(g, numS, { font: 'serif', size, weight: 500 });
+  text(g, `/ ${den}`, x + w + size * 0.18, y + size * 1.05, { font: 'mono', size: size * 0.42, color: TOK.muted, alpha });
+  if (pinned) text(g, '· pinned', x + w + size * 0.18 + measure(g, `/ ${den}`, { font: 'mono', size: size * 0.42 }) + size * 0.2, y + size * 1.05, { font: 'mono', size: size * 0.34, color: TOK.evidence, alpha, track: 0.1 });
+}
+
+function axis(g, x0, x1, y, t, L, alpha, dotQ, showInd, indBelow) {
+  if (alpha <= 0.001) return;
+  const px = q => lerp(x0, x1, (q - 0) / (SIDE));
+  g.save(); g.globalAlpha *= alpha;
+  // the licensed interval: every value from LO to HI is a feasible world
+  const xa = px(LO * N), xb = px(HI * N);
+  g.fillStyle = H.hexA(TOK.evidence, 0.22); g.fillRect(xa, y - 7 * L.u, xb - xa, 14 * L.u);
+  line(g, xa, y, xb, y, TOK.evidence, 3 * L.u);
+  for (let q = 0; q <= SIDE; q++) {
+    line(g, px(q), y - 9 * L.u, px(q), y + 9 * L.u, TOK.evidence, 1.5 * L.u);
+    if (q % 5 === 0) text(g, q + '%', px(q), y + 30 * L.u, { font: 'mono', size: 16 * L.u, color: TOK.muted, align: 'center' });
+  }
+  if (showInd > 0) {
+    const xi = px(IND * N);
+    const d = indBelow ? 1 : -1;
+    line(g, xi, y - 26 * L.u, xi, y + 26 * L.u, TOK.review, 3 * L.u, [6, 4]);
+    const y1 = indBelow ? y + 62 * L.u : y - 38 * L.u, y2 = indBelow ? y + 84 * L.u : y - 58 * L.u;
+    const ax = indBelow ? 'left' : 'center', xx = indBelow ? xi + 14 * L.u : xi;
+    text(g, `${H.pct(P1)} × ${H.pct(P2)} = ${H.pct(IND)}`, xx, y1, { font: 'mono', size: 17 * L.u, color: TOK.review, align: ax, alpha: showInd, track: 0.04 });
+    text(g, 'the world independence assumes — one assumption, one point', xx, y2, { font: 'mono', size: 15 * L.u, color: TOK.review, align: ax, alpha: showInd, track: 0.06, maxW: 700 * L.u });
+  }
+  if (dotQ != null) { disc(g, px(dotQ), y, 9 * L.u, TOK.bg); disc(g, px(dotQ), y, 7 * L.u, TOK.ink); }
+  g.restore();
+}
+
+function render(t, g, L, { fact }) {
+  const u = L.u;
+  const c = L.vertical ? 72 * u : 64 * u;                // cell size
+  const sheetW = SIDE * c;
+  // ---- act 1: one sheet, the sweep ----
+  const act1 = t < T_SPLIT ? 1 : 0;
+  if (act1 > 0) {
+    const gx = L.vertical ? (L.W - sheetW) / 2 : 180 * u;
+    const gy = L.vertical ? 230 * u : (L.H - sheetW) / 2;
+    const sheetIn = 1;
+    drawSheet(g, gx, gy, c, t, { aIn: t + 0.15, bIn: t - 1.4, forcedQ: null, alpha: act1 });
+
+    // scoreboard
+    const sx = L.vertical ? L.m + 40 * u : 1010 * u;
+    const sy = L.vertical ? gy + sheetW + 130 * u : 290 * u;
+    const size = 74 * u, rowGap = 150 * u;
+    kicker(g, 'ONE POPULATION · 100 ITEMS · TWO GUARDS', sx, L.vertical ? 150 * u : 140 * u, { size: 19 * u, alpha: sheetIn * act1, maxW: L.vertical ? L.W - 2 * L.m - 60 * u : 800 * u });
+    const aShow = sm(t, 0.6, 1.0), bShow = sm(t, 1.7, 2.1), qShow = sm(t, 2.6, 3.0);
+    const nA = Math.round(A_CELLS.length * sm(t, 0.5, 1.1)), nB = Math.round(B_HOME.length * sm(t, 1.6, 2.2));
+    counter(g, 'GUARD A · MISSES', nA, N, sx, sy, { size, pinned: aShow >= 1, alpha: aShow * act1 });
+    counter(g, 'GUARD B · MISSES', nB, N, sx, sy + rowGap, { size, pinned: bShow >= 1, alpha: bShow * act1 });
+    const q = qLanded(t);
+    const witness = (q === 0 && t < T_SWEEP0 + 0.2) || (q === SIDE);
+    counter(g, 'BOTH MISS THE SAME ITEM', q, N, sx, sy + 2 * rowGap, { size, alpha: qShow * act1, color: TOK.ink });
+    if (witness && t > 2.9) {
+      const wa = q === SIDE ? sm(t, T_SWEEP0 + 9 * HOP + HOP_DUR, T_SWEEP0 + 9 * HOP + HOP_DUR + 0.3) : sm(t, 2.9, 3.3) * (1 - sm(t, T_SWEEP0, T_SWEEP0 + 0.2));
+      stamp(g, q === SIDE ? 'UPPER ENDPOINT · WITNESS' : 'LOWER ENDPOINT · WITNESS', sx + 500 * u, sy + 2 * rowGap + 62 * u, { size: 16 * u, color: TOK.evidence, alpha: wa * act1, angle: -0.05 });
+    }
+    // axis under the counters
+    const ay = sy + 3 * rowGap - 10 * u;
+    const ax0 = sx, ax1 = L.vertical ? L.W - L.m - 40 * u : sx + 720 * u;
+    const indShow = win(t, T_SWEEP0 + 0.6, T_SWEEP0 + 3.2, 0.4, 0.5);
+    axis(g, ax0, ax1, ay, t, L, qShow * act1, qCont(t), indShow);
+    text(g, 'both-miss rate every world permits', ax0, ay + 62 * u, { font: 'mono', size: 15 * u, color: TOK.evidence, alpha: qShow * act1, track: 0.08, maxW: ax1 - ax0 });
+    ledgerTag(g, L, 'ILLUSTRATIVE POPULATION', 'marginals declared (CC-001) · interval and witnesses proved (CC-004)', sheetIn * act1, 'right');
+  }
+
+  // ---- act 2: the split ----
+  const act2 = t >= T_SPLIT ? 1 : 0;
+  if (act2 > 0) {
+    const c2 = L.vertical ? 36 * u : 36 * u;
+    const gw = SIDE * c2, pad = c2 * 0.55;
+    const gap = L.vertical ? 70 * u : 260 * u;
+    const gx0 = (L.W - 2 * gw - gap) / 2;
+    const gy = L.vertical ? 560 * u : 262 * u;
+    const worlds = [{ x: gx0, q: 0, w: WL, name: 'WORLD L' }, { x: gx0 + gw + gap, q: SIDE, w: WU, name: 'WORLD U' }];
+    const titleIn = sm(t, T_SPLIT + 0.1, T_SPLIT + 0.8, eo3);
+    text(g, 'Same scores. Different worlds.', L.cx, L.vertical ? 330 * u : 160 * u, { font: 'serif', size: L.vertical ? 62 * u : 76 * u, weight: 500, color: TOK.ink, align: 'center', alpha: titleIn, maxW: L.W - 2 * L.m });
+    const lyScore = gy + gw + pad + 50 * u, lyBoth = lyScore + 66 * u, lyPi = lyBoth + 38 * u;
+    worlds.forEach((w, i) => {
+      const wIn = sm(t, T_SPLIT + 0.2 + i * 0.25, T_SPLIT + 0.7 + i * 0.25, eo3);
+      drawSheet(g, w.x, gy, c2, t, { forcedQ: w.q, alpha: wIn });
+      const cx = w.x + gw / 2;
+      text(g, w.name, cx, gy - pad - 20 * u, { font: 'mono', size: 17 * u, color: TOK.muted, align: 'center', alpha: wIn, track: 0.12 });
+      text(g, `A ${A_CELLS.length}/${N}   ·   B ${B_HOME.length}/${N}`, cx, lyScore, { font: 'mono', size: 21 * u, color: TOK.ink, align: 'center', alpha: wIn, maxW: gw + pad * 2 });
+      text(g, `both ${w.q}/${N}`, cx, lyBoth, { font: 'serif', size: 48 * u, weight: 500, color: TOK.ink, align: 'center', alpha: wIn });
+      text(g, `π = (${w.w.map(v => v.toFixed(2)).join(', ')})`, cx, lyPi, { font: 'mono', size: 15 * u, color: TOK.muted, align: 'center', alpha: wIn, maxW: gw + pad * 2 });
+    });
+    // equal scores, unequal joint counts
+    const eqIn = sm(t, T_SPLIT + 1.0, T_SPLIT + 1.5);
+    text(g, '=', L.cx, lyScore + 2 * u, { font: 'serif', size: 44 * u, color: TOK.evidence, align: 'center', alpha: eqIn });
+    text(g, '≠', L.cx, lyBoth + 2 * u, { font: 'serif', size: 52 * u, color: TOK.review, align: 'center', alpha: sm(t, T_SPLIT + 1.3, T_SPLIT + 1.8) });
+    // the interval the scores license
+    const barIn = sm(t, T_SPLIT + 2.0, T_SPLIT + 2.8, eo3);
+    const ay = L.vertical ? lyPi + 190 * u : 868 * u;
+    const ax0 = L.vertical ? L.m + 40 * u : 460 * u, ax1 = L.vertical ? L.W - L.m - 40 * u : L.W - 460 * u;
+    text(g, `the two scores license the whole interval, ${H.pct(LO)} to ${H.pct(HI)}`, L.cx, ay - 52 * u, { font: 'sans', size: 24 * u, weight: 500, color: TOK.evidence, align: 'center', alpha: barIn, maxW: ax1 - ax0 + 200 * u });
+    axis(g, ax0, ax1, ay, t, L, barIn, null, sm(t, T_SPLIT + 3.0, T_SPLIT + 3.6) * (L.vertical ? 1 : 1 - sm(t, DUR - 4.2, DUR - 3.8)), true);
+    const ledIn = sm(t, T_SPLIT + 6.5, T_SPLIT + 7.2);
+    ledgerTag(g, L, 'POPULATION ILLUSTRATIVE', 'both endpoint worlds and the interval verified from a clean clone, tolerance 1e-9', ledIn, 'right');
+    const locIn = sm(t, DUR - 4.0, DUR - 3.4);
+    locator(g, L, [`CC-001 · CC-004 · cc-framework kernel @ ${COMMIT.slice(0, 8)} · python3 scripts/reproduce_cc001.py`, 'cubits11.github.io/modules/001-marginals'], locIn);
+  }
+}
+
+Film.define({
+  id: 'same-scores-different-worlds',
+  title: 'Same Scores, Different Worlds',
+  duration: DUR, fps: 30, poster_t: 20.0,
+  claimFrames: [
+    { t: 14.6, label: 'both marginals pinned at 10/100 while both-miss reads 10/100 — the upper endpoint witness' },
+    { t: 20.0, label: 'two worlds with identical scores; the licensed interval 0%–10% with independence as one amber point' }
+  ],
+  setup, render
+});
+</script>

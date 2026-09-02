@@ -69,7 +69,7 @@ contract:
 vocabulary:
   utm_source: [x, linkedin, hn, github, email, lobsters, reddit, direct]
   utm_medium: [social, reply, profile, outreach, forum, readme, signature]
-  utm_campaign: [missing-column-launch, disclosure-adoption, work-with-me]
+  utm_campaign: [missing-column-launch, disclosure-adoption, work-with-me, e3-films]
   utm_content: []   # free text per row, validated as slug-shaped
 
 # Destinations, by funnel stage. Every campaign row must name one of these.
@@ -88,6 +88,8 @@ destinations:
   ledger_mc003: "/ledger/#MC-003"
   corrections: "/corrections/"
   home: "/"
+  try: "/try/"
+  try_counterexample: "/try/#counterexample"
 
 # Baseline, established before anything ships. Observed values only.
 baseline:
@@ -283,6 +285,165 @@ campaigns:
     intended_action: "one low-friction path from existing correspondence"
     success_signal: "a reply mentioning the missing column"
 
+  # ---------------------------------------------------------------------------
+  # E3 — film-to-experiment campaigns. PREREGISTERED: hypothesis, changed
+  # variable, diagnostics, qualified target, window and decision rule are
+  # written here before any post exists. Status is PREPARED until the owner
+  # dispatches; the assistant posts nothing. One variable changes per campaign.
+  # ---------------------------------------------------------------------------
+  - id: x-film-same-scores
+    audience: "AI evaluation researchers and guardrail engineers on X"
+    surface: x
+    utm: {source: x, medium: social, campaign: e3-films, content: same-scores}
+    destination: try
+    intended_action: "run TRY-A and file the result, match or mismatch"
+    success_signal: "one reproduction issue filed by someone who is not the author"
+    preregistered: true
+    status: prepared
+    design: descriptive
+    design_note: >
+      A sequential comparison on one account is not a randomized experiment:
+      audience, ranking, time, competing posts and platform allocation all
+      vary with the intended variable. This row supports a decision, not a
+      causal identification; a later randomized design would need real
+      random assignment of viewers.
+    hypothesis: >
+      When the Same Scores feed cut (two worlds, identical scores) is the
+      opening representation, more /try/ referrals per impression are
+      observed than in the prior description-first baseline.
+    changed_representation: "opening representation (feed cut versus description); CTA, destination and copy held fixed"
+    changed_variable: "opening representation only (feed cut versus description); CTA, destination and copy held fixed"
+    primary_diagnostic: "experiment-entry clicks / landing visits (owner-read from X analytics and GitHub referrers; denominators recorded)"
+    qualified_target: ">= 1 independent reproduction of TRY-A or TRY-B filed via the reproduction template"
+    observation_window_days: 14
+    decision_rule: >
+      Qualified target met: keep the film-first opening for the next film.
+      Clicks but no experiment start: landing/friction failure — change one
+      element of /try/, not the film. Starts but no filed result: intake
+      failure — change the report route. No clicks: hook/audience failure —
+      change the audience before changing the film.
+
+  - id: x-film-thirteen-worlds
+    audience: "benchmark authors and people who have read the BELLS paper"
+    surface: x
+    utm: {source: x, medium: social, campaign: e3-films, content: thirteen-worlds}
+    destination: try
+    intended_action: "run TRY-B against the pinned released file"
+    success_signal: "one TRY-B reproduction filed, or a BELLS author confirms or corrects the row"
+    preregistered: true
+    status: prepared
+    design: descriptive
+    hypothesis: >
+      With a released-data film that names the file and the count (9 of 82)
+      as the opening, more reconstruction attempts are observed than after
+      the abstract-bounds film; the object is downloadable.
+    changed_variable: "the film only (released-data bridge versus constructed proof); destination and CTA held fixed"
+    primary_diagnostic: "TRY-B reproduction issues / landing visits"
+    qualified_target: ">= 1 independent TRY-B reproduction, or 1 source correction from a BELLS author"
+    observation_window_days: 14
+    decision_rule: "as x-film-same-scores; a mismatch is handled as a correction the same day and is a success of the route, not a failure of the film"
+
+  - id: x-film-parity-cube
+    audience: "researchers in dependence, identification and evaluation methodology"
+    surface: x
+    utm: {source: x, medium: social, campaign: e3-films, content: parity-cube}
+    destination: try
+    intended_action: "run TRY-A with their own marginals; challenge the higher-order claim"
+    success_signal: "a substantive methodological counterexample or a reproduction filed"
+    preregistered: true
+    status: prepared
+    design: descriptive
+    hypothesis: "With a proof-object film, replies from a methods audience are observed that the census film did not draw; the diagnostic is who replies, not how many"
+    changed_variable: "audience only; film format held to the same grammar (a constructed proof)"
+    primary_diagnostic: "technical replies carrying a derivation, number, or counterexample / total replies"
+    qualified_target: ">= 1 counterexample issue or reproduction filed"
+    observation_window_days: 14
+    decision_rule: "as x-film-same-scores"
+
+  - id: x-film-missing-column-census
+    audience: "authors of the twenty examined evaluations"
+    surface: x
+    utm: {source: x, medium: reply, campaign: e3-films, content: missing-column-census}
+    destination: try_counterexample
+    intended_action: "correct a row, or confirm it, or run TRY-C on another evaluation"
+    success_signal: "one row correction, one author confirmation, or one TRY-C candidate row filed"
+    preregistered: true
+    status: prepared
+    design: descriptive
+    hypothesis: "Replying on an author's own announcement with their row and the correction route is followed by more corrections than broadcasts have been (one card per week; ml6-2026 stays on hold)"
+    changed_variable: "channel only (reply on the author's thread versus broadcast); the ask is unchanged: if the row is wrong, say so"
+    primary_diagnostic: "author replies / cards sent"
+    qualified_target: ">= 1 source correction or author confirmation recorded in outcomes.yaml"
+    observation_window_days: 28
+    decision_rule: "a correction is the best outcome; silence after one card is the default and is not chased"
+
+  - id: x-film-leave-one-out
+    audience: "teams deciding whether to add a second detector"
+    surface: x
+    utm: {source: x, medium: social, campaign: e3-films, content: leave-one-out}
+    destination: try
+    intended_action: "run TRY-B; measure a leave-one-out union on their own stack"
+    success_signal: "a reply describing a stack where a leave-one-out union was measured, or a paired-outcome release"
+    preregistered: true
+    status: prepared
+    design: descriptive
+    hypothesis: "With a decision-consequence film (what removing a guard costs) as the opening, more practitioner replies are observed than after a bounds film"
+    changed_variable: "the film's operation (removal) only; destination and CTA held fixed"
+    primary_diagnostic: "practitioner replies naming their own stack / landing visits"
+    qualified_target: ">= 1 paired-outcome release or reproduction"
+    observation_window_days: 14
+    decision_rule: "as x-film-same-scores"
+
+  - id: x-film-what-the-seal-proves
+    audience: "provenance, attestation and receipt-system engineers"
+    surface: x
+    utm: {source: x, medium: social, campaign: e3-films, content: what-the-seal-proves}
+    destination: ledger
+    intended_action: "read GA-001 and its non-claims; challenge the boundary"
+    success_signal: "a substantive reply about a real receipt system's kernel"
+    preregistered: true
+    status: prepared
+    design: descriptive
+    hypothesis: "The provenance film opens a separate sequence; its audience is expected not to overlap the guardrail audience, so it is not measured against the same funnel"
+    changed_variable: "audience and topic — a separate sequence, not a variant of the guardrail experiment"
+    primary_diagnostic: "replies from receipt/attestation engineers / total replies"
+    qualified_target: "none pre-registered for this window; a Ghost-Ark-lab confirmation of the boundary sentence would count as a source correction or confirmation"
+    observation_window_days: 28
+    decision_rule: "do not fold into the guardrail funnel; report separately or not at all"
+
 # Observed results. One row per reading, each naming where the number came
 # from. Empty until a real source is read; an empty list is an honest baseline.
 readings: []
+
+# ---------------------------------------------------------------------------
+# The conversion funnel (P4). No client-side analytics exist and none are
+# added: every stage is read by the owner from platform-native sources and
+# recorded here as a dated observation WITH its denominator and source. The
+# interpretation table is mechanical so the diagnosis cannot be argued after
+# the fact. Stages, in order:
+# ---------------------------------------------------------------------------
+funnel:
+  stages:
+    - {id: exposure,          source: "X analytics impressions; LinkedIn impressions",         reads: "impressions"}
+    - {id: film_view,         source: "X video views (or link clicks to the film)",             reads: "views"}
+    - {id: research_visit,    source: "GitHub Insights → Traffic referrers (14-day window)",    reads: "referred visits"}
+    - {id: try_visit,         source: "GitHub Insights → Traffic; /try/ is a Pages route, so only repository referrals are observable", reads: "referred visits (proxy)"}
+    - {id: experiment_start,  source: "unobservable without instrumentation; counted only when a reporter says so", reads: "self-reported"}
+    - {id: completion,        source: "reproduction issues (match or mismatch)",                 reads: "issues filed"}
+    - {id: result_submitted,  source: "issues with the reproduction or counterexample template", reads: "issues filed"}
+    - {id: qualified_outcome, source: "distribution/outcomes.yaml (verified entries only)",    reads: "entries"}
+  interpretation:
+    - {pattern: "high exposure, low film_view or research_visit", diagnosis: "hook or audience failure", change: "audience or opening representation — one at a time"}
+    - {pattern: "research_visit but few try_visit", diagnosis: "landing-page or friction failure", change: "one element of the landing page's route to /try/"}
+    - {pattern: "experiment starts but few completions", diagnosis: "reproduction failure", change: "the reproduction path (P0), never the copy"}
+    - {pattern: "completions but few results submitted", diagnosis: "result-intake failure", change: "the report route or template"}
+    - {pattern: "technical discussion but no execution", diagnosis: "the CTA asks for thought rather than work", change: "the CTA to a command"}
+    - {pattern: "external rerun, correction, release, or PR", diagnosis: "qualified consequence", change: "record it in outcomes.yaml; then decide"}
+  # The first transition the record cannot observe. Everything up to a /try/
+  # visit leaves a trace somewhere (impressions, referrals); whether a visitor
+  # then runs a command leaves none until they file a result. So:
+  first_unobserved_transition: "try_visit → experiment_start"
+  bottleneck_location: "UNKNOWN until external evidence arrives"
+  # Dated observations, appended by the owner, never estimated. Each names the
+  # stage, the campaign id, the numerator, the denominator, and the source.
+  observations: []   # {date, campaign, stage, value, denominator, source, note}

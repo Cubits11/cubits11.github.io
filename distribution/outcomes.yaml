@@ -19,11 +19,27 @@ qualified:
   # a human applied the protocol cold, without asking us what we meant
   human_cold_runs: []
 
+# Entry shape for any qualified bucket (validated by scripts/outcomes.py):
+#   - date: "YYYY-MM-DD"          when the external work was verified, not seen
+#     kind: <bucket-specific>      e.g. match | mismatch | row-correction | release | merged-pr | cold-run
+#     actor: "<public name>" | anonymous
+#     artifact: "https://…"        the issue, PR, release, or log a reader can open
+#     agreed: true | false         did the external result agree with the record?
+#     consequence: "<what changed: a claim, a count, a page — or 'none, recorded'>"
+#     claim: "<claim or row id>"
+# A disagreement is recorded with at least the prominence of the claim it
+# disagrees with, and the claim's correction history links back here.
+
 diagnostics:
   # Recorded because they are cheap, not because they are evidence.
   # X exposes these in its own activity dashboard.
   impressions: null
   clicks: null
+  # Blinded comprehension trials on the films (P14). Each trial is a
+  # diagnostic about whether a film teaches its operation; it is NEVER a
+  # qualified outcome and never a cold run. Question and scoring rule are
+  # fixed in distribution/launch-units.yaml before any viewer answers.
+  cold_comprehension_trials: []   # {date, film, viewer: anonymous|name, answer, scored: pass|fail, source}
   # An invitation or open issue is diagnostic only; it is never credited as
   # an external reproduction, correction, release, PR, or cold run.
   technical_interactions: 2     # replies that carried a number, source, or correction
