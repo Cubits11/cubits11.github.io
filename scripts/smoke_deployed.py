@@ -181,8 +181,11 @@ def check_once(site: str) -> list[str]:
         try_text = facts.visible_text(try_html)
         import yaml  # noqa: WPS433 — local import keeps the smoke stdlib-light when /try/ is absent
         experiments = yaml.safe_load((ROOT / "distribution" / "experiments.yaml").read_text())
+        # visible_text collapses runs of whitespace; the canonical final lines
+        # carry double spaces, so compare both sides whitespace-normalised
+        norm_try = " ".join(try_text.split())
         for exp in experiments["experiments"]:
-            if exp["expected_final_line"] in try_text:
+            if " ".join(exp["expected_final_line"].split()) in norm_try:
                 print(f"ok    deployed /try/ promises {exp['id']}'s canonical final line")
             else:
                 failures.append(f"deployed /try/ does not promise {exp['id']}'s final line {exp['expected_final_line']!r}")
