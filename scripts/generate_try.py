@@ -41,11 +41,11 @@ CSS = """
 .exp dd.ink{color:var(--ink)}
 .exp pre{margin:0;padding:.7rem .9rem;background:var(--bg);border:1px solid var(--line);overflow-x:auto;font-size:.86rem;line-height:1.5}
 .exp .row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.1rem}
-.status{border:1px solid var(--line-strong);background:var(--surface);padding:1.3rem 1.5rem;margin-top:1.4rem}
-.status table{border-collapse:collapse;width:100%;max-width:34rem;font-variant-numeric:tabular-nums}
-.status td{padding:.35rem 0;border-bottom:1px solid var(--line)}
-.status td:last-child{text-align:right;font-family:var(--serif);font-size:1.35rem}
-.status .diag{color:var(--muted);font-size:.9rem;margin:.9rem 0 0}
+.ext-status{border:1px solid var(--line-strong);background:var(--surface);padding:1.3rem 1.5rem;margin-top:1.4rem}
+.ext-status table{border-collapse:collapse;width:100%;max-width:34rem;font-variant-numeric:tabular-nums}
+.ext-status td{padding:.35rem 0;border-bottom:1px solid var(--line)}
+.ext-status td:last-child{text-align:right;font-family:var(--serif);font-size:1.35rem}
+.ext-status .diag{color:var(--muted);font-size:.9rem;margin:.9rem 0 0}
 .routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.8rem;margin-top:1.2rem}
 .routes a{display:block;border:1px solid var(--line-strong);background:var(--surface);padding:.9rem 1rem;text-decoration:none;color:var(--ink);font-size:.95rem}
 .routes a:hover{border-color:var(--gold)}
@@ -165,7 +165,7 @@ def render(data: dict, ledger: dict, facts: dict, counts: dict) -> str:
 
   <section class="zone" id="status" aria-labelledby="status-h">
     <h2 id="status-h">External status</h2>
-    <div class="status">
+    <div class="ext-status">
       <p class="mono" style="margin:0 0 .6rem;color:var(--muted);font-size:.78rem;letter-spacing:.06em">QUALIFIED OUTCOMES — work done by someone who is not the author · bound to distribution/outcomes.yaml</p>
       <table>{rows}</table>
       <p class="diag">Diagnostics, kept apart and never counted as outcomes: technical interactions {interactions}; blinded comprehension trials {trials}. Zero is the recorded value. Be the first independent rerun → <a class="u" href="#try-a">experiment A</a>.</p>
