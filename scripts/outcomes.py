@@ -10,6 +10,7 @@ Run: python scripts/outcomes.py
 from __future__ import annotations
 
 import pathlib
+import re
 import sys
 
 import yaml
@@ -25,6 +26,9 @@ QUALIFIED_BUCKETS = (
     "human_cold_runs",
 )
 INTERACTION_FIELDS = ("date", "kind", "url", "summary")
+ENTRY_FIELDS = ("date", "kind", "actor", "artifact", "agreed", "consequence", "claim")
+TRIAL_FIELDS = ("date", "film", "viewer", "answer", "scored", "source")
+DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
 def validate(data: object) -> dict:
@@ -42,6 +46,19 @@ def validate(data: object) -> dict:
             raise ValueError(f"qualified outcome bucket is missing: {bucket}")
         if not isinstance(qualified[bucket], list):
             raise ValueError(f"qualified outcome bucket must be a list: {bucket}")
+        for index, entry in enumerate(qualified[bucket]):
+            where = f"qualified.{bucket}[{index}]"
+            if not isinstance(entry, dict) or set(entry) != set(ENTRY_FIELDS):
+                raise ValueError(f"{where} must contain exactly " + ", ".join(ENTRY_FIELDS))
+            if not DATE.match(str(entry["date"])):
+                raise ValueError(f"{where}.date must be YYYY-MM-DD")
+            if not isinstance(entry["agreed"], bool):
+                raise ValueError(f"{where}.agreed must be true or false — a disagreement is a first-class entry")
+            if not str(entry["artifact"]).startswith(("https://", "http://")):
+                raise ValueError(f"{where}.artifact must be an HTTP(S) URL a reader can open")
+            for field in ("kind", "actor", "consequence", "claim"):
+                if not isinstance(entry[field], str) or not entry[field].strip():
+                    raise ValueError(f"{where}.{field} must be a non-empty string")
 
     diagnostics = data.get("diagnostics")
     if not isinstance(diagnostics, dict):
@@ -68,6 +85,18 @@ def validate(data: object) -> dict:
                 )
         if not item["url"].startswith(("https://", "http://")):
             raise ValueError(f"technical_interaction_log[{index}].url must be an HTTP(S) URL")
+
+    trials = diagnostics.get("cold_comprehension_trials", [])
+    if not isinstance(trials, list):
+        raise ValueError("cold_comprehension_trials must be a list")
+    for index, trial in enumerate(trials):
+        where = f"diagnostics.cold_comprehension_trials[{index}]"
+        if not isinstance(trial, dict) or set(trial) != set(TRIAL_FIELDS):
+            raise ValueError(f"{where} must contain exactly " + ", ".join(TRIAL_FIELDS))
+        if trial["scored"] not in ("pass", "fail"):
+            raise ValueError(f"{where}.scored must be pass or fail, scored by the pre-registered rule")
+        if not DATE.match(str(trial["date"])):
+            raise ValueError(f"{where}.date must be YYYY-MM-DD")
 
     rule = data.get("stop_rule")
     if not isinstance(rule, dict):
@@ -115,6 +144,9 @@ def main() -> int:
         print(f"  {key:28s} {'—' if value is None else value}")
     for item in diagnostics["technical_interaction_log"]:
         print(f"  interaction {item['date']} {item['kind']}: {item['url']}")
+    trials = diagnostics.get("cold_comprehension_trials", [])
+    passed = sum(1 for t in trials if t["scored"] == "pass")
+    print(f"  {'cold_comprehension_trials':28s} {len(trials):3d}  (pass {passed}) — diagnostic, never an outcome")
 
     rule = data["stop_rule"]
     interactions = technical_interactions(data)

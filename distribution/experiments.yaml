@@ -1,0 +1,91 @@
+# The experiment entry surface — source of truth for /try/.
+#
+# Three escalating experiments a stranger can run before understanding the
+# programme. /try/index.html is GENERATED from this file by
+# scripts/generate_try.py (--check fails on drift); scripts/verify_consequence.py
+# executes the offline experiments and asserts their final lines against what
+# the page promises, checks every command path exists, every claim id is
+# registered, and every report route names a real issue template and field.
+#
+# Numbers never live here. An experiment names the fact ids it displays and
+# the generator reads films/data/facts.json (itself derived from claims.yaml
+# and census.yaml under bind_facts.py --check).
+#
+# The one public question this surface is organised around:
+#   Do published per-guard scores determine what the stack misses together?
+
+version: 1
+question: "Do published per-guard scores determine what the stack misses together?"
+headline: "DON'T TRUST THE GRAPHIC. REPRODUCE IT."
+repo: "https://github.com/Cubits11/cubits11.github.io"
+
+experiments:
+  - id: TRY-A
+    slug: same-scores
+    title: "60-second proof — Same Scores, Different Worlds"
+    minutes: 1
+    question: "Do two published miss rates determine how often both guards miss the same item?"
+    film: same-scores-different-worlds
+    claims: [CC-001, CC-004]
+    input: "Python 3.10 or newer and this repository. No packages, no network."
+    command: "python3 scripts/try_same_scores.py"
+    variant: "python3 scripts/try_same_scores.py --marginals 0.05 0.02   # any two rates; labelled CONSTRUCTED"
+    expected_facts: [CC-001.marginals, CC-001.and_bounds, CC-004.witness_lower, CC-004.witness_upper, CC-001.independence_and]
+    # The final line the script prints on a match; the generator renders it and
+    # verify_consequence asserts the script actually prints it.
+    expected_final_line: "MATCH  TRY-A  marginals 0.10/0.10  both-miss interval [0.00, 0.10]  endpoints attained  independence 0.01 is one point"
+    epistemic_status: "PROVED — Fréchet–Hoeffding bounds; both endpoint worlds are re-verified from a clean clone of the bound kernel in CI (CC-001, CC-004)."
+    falsifier: "A joint distribution with marginals 0.10 and 0.10 whose both-miss probability lies outside [0.00, 0.10], or a witness the script prints that fails a marginal check, or the bound kernel returning other endpoints."
+    non_claim: "Nothing here measures a real guardrail; the population is a construction and no point inside the interval is selected. Independence is what one assumption chooses, not what the scores imply."
+    report_agree: {template: reproduction.yml, prefill: {experiment: TRY-A, claim: "CC-001", command: "python3 scripts/try_same_scores.py"}}
+    report_disagree: {template: reproduction.yml, prefill: {experiment: TRY-A, claim: "CC-001", command: "python3 scripts/try_same_scores.py"}}
+    deeper: "/answers/why-guardrail-miss-rates-do-not-multiply/"
+
+  - id: TRY-B
+    slug: thirteen-worlds
+    title: "3-minute reconstruction — the released BELLS file"
+    minutes: 3
+    question: "From a public per-item release, how many of 82 harmful prompts did all five supervisors miss — and what did the five published miss rates alone permit?"
+    film: thirteen-worlds
+    claims: [MC-002, MC-003]
+    input: "Python 3.10 or newer, `pip install -r requirements.txt` (PyYAML only), and network access to fetch one pinned CSV from GitHub. The file is hash-verified before a single count is taken."
+    command: "python3 scripts/reanalyze_bells_subset.py"
+    variant: "python3 scripts/identification.py --bells   # the identification envelope, offline"
+    expected_facts: [MC-002.union_detection, MC-002.all_miss, MC-002.n_harmful, MC-003.identified_set_lower, MC-003.identified_set_upper, MC-002.independence_plugin_prompts]
+    expected_final_line: "MC-002 reproduced: the missing column, computed from the bound public release, matches the registered claim."
+    epistemic_status: "OBSERVED counts on one released file (hash-verified, pinned commit); PROVED identified set from the marginals. Counting arithmetic, not a population estimate."
+    falsifier: "Recomputing from the pinned, hash-verified file yields any per-guard count, union, or all-miss different from the registered expected block; or the file at the pinned ref no longer matches its recorded sha256."
+    non_claim: "One author-selected 82-prompt stratum at unstated default configurations: not a vendor ranking, not a population estimate, not an observed deployed stack, and nothing about the adversarial prompts that have no per-item release."
+    report_agree: {template: reproduction.yml, prefill: {experiment: TRY-B, claim: "MC-002", command: "python3 scripts/reanalyze_bells_subset.py"}}
+    report_disagree: {template: reproduction.yml, prefill: {experiment: TRY-B, claim: "MC-002", command: "python3 scripts/reanalyze_bells_subset.py"}}
+    deeper: "/answers/what-does-the-second-guardrail-add/"
+
+  - id: TRY-C
+    slug: audit
+    title: "15-minute audit — apply the disclosure test to another evaluation"
+    minutes: 15
+    question: "Does an evaluation you know preserve what its compared systems miss together, or only what each misses alone?"
+    film: the-missing-column-census
+    claims: [MC-001]
+    input: "Python 3.10 or newer, this repository, and one public evaluation of two or more guardrails that you can read. The script asks the census's frozen questions and classifies from your answers; it never reads the source for you."
+    command: "python3 scripts/try_audit.py"
+    variant: "python3 scripts/try_audit.py --answers fixtures/try/audit-example.json   # a worked example, no prompts"
+    expected_facts: [MC-001.N, MC-001.K, MC-001.ABSENT, MC-001.M3]
+    expected_final_line: "AUDIT  TRY-C  example-eval-2026  PRESENT  printed_full_stack  rung=threshold_not_contradicted  (worked example, not a census row)"
+    epistemic_status: "PROCEDURE — the same frozen criteria (v1) and predicates the census applies; your answers are OBSERVED by you, the classification is DERIVED from them, and a candidate row is a proposal until reviewed."
+    falsifier: "An evaluation that meets criteria v1, was public on or before 2026-08-27, and is absent from the census rejects the current count; an examined row whose source contradicts its recorded fields is corrected in the revision history."
+    non_claim: "A classification is a reporting fact about the artifact, never a performance finding about any system; a single audit by one person is a first-pass reading, exactly as the census's own rows are."
+    report_agree: {template: counterexample.yml, prefill: {kind: "I found a benchmark that already reports the stack (a row the census should have as PRESENT)", experiment: TRY-C}}
+    report_disagree: {template: counterexample.yml, prefill: {kind: "I found a benchmark the census missed (a candidate row)", experiment: TRY-C}}
+    deeper: "/missing-column/"
+
+# The films route into the experiments; the experiments route back into
+# evidence. Order is the default launch sequence (P5); the provenance film is
+# a separate sequence.
+film_routes:
+  - {film: same-scores-different-worlds, experiment: TRY-A, evidence: "/ledger/#CC-001"}
+  - {film: thirteen-worlds, experiment: TRY-B, evidence: "/ledger/#MC-002"}
+  - {film: parity-cube, experiment: TRY-A, evidence: "/ledger/#CC-003"}
+  - {film: the-missing-column-census, experiment: TRY-C, evidence: "/missing-column/"}
+  - {film: leave-one-out, experiment: TRY-B, evidence: "/ledger/#MC-003"}
+  - {film: what-the-seal-proves, experiment: null, evidence: "/ledger/#GA-001", sequence: provenance}

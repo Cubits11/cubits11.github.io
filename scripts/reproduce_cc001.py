@@ -4,8 +4,9 @@
 Reads the bound commit and the structured `expected` blocks from claims.yaml
 (single source of truth — the proposition's numbers and the executed
 assertion cannot silently diverge), clones cc-framework at exactly that
-revision, installs it into the current environment, executes the kernel, and
-asserts:
+revision, installs it into a disposable virtual environment created inside
+the temporary clone directory (never into the invoking interpreter), executes
+the kernel there, and asserts:
 
   CC-001 — frechet_bounds returns the registry's recorded AND/OR intervals.
   CC-004 — identify() returns the recorded interval together with endpoint
@@ -99,10 +100,21 @@ def main() -> int:
         run("git", "clone", "--quiet", "--filter=blob:none",
             "https://github.com/Cubits11/cc-framework.git", repo)
         run("git", "checkout", "--quiet", commit, cwd=repo)
-        run(sys.executable, "-m", "pip", "install", "--quiet", "-e", repo)
+        # The kernel is installed into a disposable virtual environment inside
+        # the temporary directory, never into the interpreter that invoked this
+        # script. Installing into the invoking interpreter failed on any
+        # externally managed Python (PEP 668 — Homebrew, Debian, Fedora), so
+        # the README's local replay was red on exactly the machines an outsider
+        # is likely to own. The venv is deleted with the temporary directory.
+        venv = pathlib.Path(tmp) / "venv"
+        run(sys.executable, "-m", "venv", str(venv))
+        py = str(venv / ("Scripts" if sys.platform == "win32" else "bin") /
+                 ("python.exe" if sys.platform == "win32" else "python"))
+        run(py, "-m", "pip", "install", "--quiet", "--disable-pip-version-check",
+            "-e", repo)
         # A fresh interpreter, deliberately: editable-install path hooks only
         # take effect for processes started after the install.
-        run(sys.executable, "-c", SNIPPET, json.dumps(spec))
+        run(py, "-c", SNIPPET, json.dumps(spec))
 
     print("CC-001 + CC-004 REPRODUCED: clean clone at the bound commit "
           "returns the registry's recorded bounds and witness properties.")

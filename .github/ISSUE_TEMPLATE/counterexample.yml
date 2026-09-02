@@ -1,0 +1,75 @@
+name: Counterexample, missed benchmark, or joint outcomes
+description: >-
+  Bring evidence that changes the record: a counterexample to a claim, a
+  benchmark the census missed, a benchmark that already reports the stack,
+  a narrower identified region, or item-level / joint outcomes you can
+  provide. A correction is placed beside the claim it corrects, dated,
+  with this issue linked.
+title: "counterexample: <what it changes>"
+labels: ["counterexample"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        This is an open research problem with a correction path, not a
+        request for encouragement. State what you found and where a
+        reader can check it. Disagreement is first-class here.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What are you bringing?
+      options:
+        - "I found a counterexample to a registered claim"
+        - "I found a benchmark the census missed (a candidate row)"
+        - "I found a benchmark that already reports the stack (a row the census should have as PRESENT)"
+        - "A census row misreads its source"
+        - "I can provide item-level or joint outcomes for an evaluation"
+        - "I found a narrower identified region or a tighter bound"
+        - "I want to contribute a patch (say what it changes)"
+    validations:
+      required: true
+  - type: input
+    id: experiment
+    attributes:
+      label: Experiment id (if you came from /try/)
+      placeholder: TRY-C
+    validations:
+      required: false
+  - type: input
+    id: target
+    attributes:
+      label: Claim id or census row id this changes
+      description: e.g. MC-001, MC-003, or a row id such as guardbench-2024. Leave blank for a new candidate row.
+    validations:
+      required: false
+  - type: input
+    id: source
+    attributes:
+      label: Public URL where the evidence can be read
+      description: A paper, table, repository file, or release. Pinned to a version or commit if it can be.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What the source shows, in your words
+      description: Quote the table, sentence, or file that carries the evidence. For a candidate row, paste the candidate YAML that `python3 scripts/try_audit.py --yaml` printed.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: consequence
+    attributes:
+      label: What you think it changes
+      description: A count, a classification, a bound, a claim's scope — say which, and how. If unsure, say unsure.
+    validations:
+      required: true
+  - type: dropdown
+    id: credit
+    attributes:
+      label: Credit permission
+      options:
+        - "Yes — credit me by the name on this GitHub account"
+        - "No — record the correction without naming me"
+    validations:
+      required: true

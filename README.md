@@ -4,6 +4,27 @@ Personal site of **Pranav Bhave** — AI Assurance · Security Engineering ·
 Evidence Systems; cloud security,
 claim governance. Live at [cubits11.github.io](https://cubits11.github.io/).
 
+## Try it first
+
+[cubits11.github.io/try](https://cubits11.github.io/try/) — three experiments,
+each printed with its command, expected final line, falsifier and non-claim
+before you run anything. Don't trust the graphic; reproduce it.
+
+```bash
+git clone https://github.com/Cubits11/cubits11.github.io.git && cd cubits11.github.io
+python3 scripts/try_same_scores.py      # 60 s, standard library: two worlds from the same two scores
+python3 scripts/reanalyze_bells_subset.py   # 3 min, PyYAML + network: a released file recomputed under a hash
+python3 scripts/try_audit.py            # 15 min: the disclosure test on an evaluation you know
+```
+
+A different result is the most useful thing you can send:
+[file it](https://github.com/Cubits11/cubits11.github.io/issues/new?template=reproduction.yml).
+A counterexample, a benchmark the census missed, or joint outcomes you can
+provide: [bring it](https://github.com/Cubits11/cubits11.github.io/issues/new?template=counterexample.yml).
+Qualified outcomes — reproductions, corrections, releases, merged patches,
+cold runs by people who are not the author — are recorded in
+`distribution/outcomes.yaml` and rendered on `/try/`; zero is shown as zero.
+
 ## Reproduce the claims
 
 ### First: MC-001 — the Missing Column census
@@ -73,6 +94,15 @@ flag rate to `[20.00%, 50.00%]`: **a floor that is strictly positive.** It
 actually lands at `38.00%`. From published marginals alone one can prove this
 stack burdens legitimate users, and cannot prove it catches a single harmful
 item its best member would have missed.
+
+`scripts/reproduce_cc001.py` (CC-001 and CC-004, the bound kernel) clones
+cc-framework at its bound commit and installs it into a disposable virtual
+environment inside the temporary clone, so it runs on externally managed
+Pythons (Homebrew, Debian, Fedora) without touching your interpreter:
+
+```bash
+python3 scripts/reproduce_cc001.py
+```
 
 To re-run every gate the way CI does, from a clean clone of a given commit:
 
@@ -171,7 +201,13 @@ scripts/generate_observatory.py  claims.yaml → observatory (CI drift-checks)
 scripts/verify_claims.py    registry verifier: bindings, triggers, freshness
 scripts/verify_figures.py   figure geometry assertions (Fig. 02 + essay)
 scripts/verify_frontend.py  static frontend structure + local-only preflight gate
-scripts/reproduce_cc001.py  clean-clone reproduction of CC-001 + CC-004
+scripts/reproduce_cc001.py  clean-clone reproduction of CC-001 + CC-004 (disposable venv)
+try/                        the experiment surface — GENERATED from distribution/experiments.yaml
+scripts/try_same_scores.py  TRY-A: two worlds from the same marginals, standard library
+scripts/try_audit.py        TRY-C: the disclosure test on an evaluation you know
+distribution/               outcomes ledger, experiments, launch units, dossiers, external-events procedure
+contrib/                    prepared joint-statistics reporters for two public harnesses (patches, unsent)
+films/                      six deterministic evidence-bound films (see films/README.md)
 scripts/validate_mjgd.py    MJGD v1 packet validator + fixture/refusal tests
 schemas/mjgd-v1.schema.json MJGD v1 schema documentation (validator is the contract)
 fixtures/mjgd-v1/           illustrative complete, aggregate, marginal, route, and hold packets

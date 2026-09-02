@@ -62,3 +62,9 @@ with that venv's interpreter) belongs in a change whose only job is that
 change, so a red clean-clone replay keeps one candidate cause. Not a defect
 in any claim; CC-001/CC-004 values used by `films/` are read from claims.yaml's
 expected block, not recomputed on this host.
+
+**Resolved 2026-09-01 (branch claude/external-consequence-e3).** Reproduced
+on this host (Python 3.14.6, `EXTERNALLY-MANAGED` present) and fixed:
+`reproduce_cc001.py` now creates a venv inside its temporary clone directory
+and installs and executes there. Verified green on the same host after the
+change; CI's runner is unaffected. Documentation updated in README.

@@ -59,7 +59,16 @@ REQUIRED_CTAS = {
         "/missing-column/disclosure/", "/ledger/#MC-003"],
     "missing-column/index.html": ["/missing-column/disclosure/", "/corrections/",
                                   "/missing-column/reproduce/"],
+    # The experiment surface must keep its three routes: the census (depth),
+    # the intake (a result can be filed), and the counterexample route.
+    "try/index.html": ["/missing-column/",
+                       "https://github.com/Cubits11/cubits11.github.io/issues/new?template=reproduction.yml",
+                       "https://github.com/Cubits11/cubits11.github.io/issues/new?template=counterexample.yml"],
 }
+PREREGISTERED_FIELDS = ("hypothesis", "changed_variable", "primary_diagnostic",
+                        "qualified_target", "observation_window_days", "decision_rule", "status")
+FUNNEL_STAGES = ("exposure", "film_view", "research_visit", "try_visit", "experiment_start",
+                 "completion", "result_submitted", "qualified_outcome")
 
 # Titles are the search result. A title that names an internal noun instead of
 # the question a reader typed is a discoverability defect, not a style choice.
@@ -229,6 +238,14 @@ def check_campaigns() -> None:
         if utm.get("content") and not SLUG.match(str(utm["content"])):
             fail(f"campaign {cid}: utm_content={utm['content']!r} is not "
                  f"slug-shaped")
+        if row.get("preregistered"):
+            for field in PREREGISTERED_FIELDS:
+                if not row.get(field):
+                    fail(f"campaign {cid}: preregistered but missing {field}")
+            if row.get("status") not in ("prepared", "dispatched", "closed"):
+                fail(f"campaign {cid}: status must be prepared, dispatched or closed")
+            if not isinstance(row.get("observation_window_days"), int):
+                fail(f"campaign {cid}: observation_window_days must be an integer")
         url = campaign_url(data["site"], destinations[row["destination"]], utm)
         parsed = urlsplit(url)
         if parsed.scheme != "https" or parsed.netloc != "cubits11.github.io":
@@ -244,6 +261,33 @@ def check_campaigns() -> None:
     if data["targets"].get("directional") is not True:
         fail("campaigns.yaml targets must be labelled directional — at n=100 "
              "nothing here is significant")
+
+    funnel = data.get("funnel")
+    if not isinstance(funnel, dict):
+        fail("campaigns.yaml has no funnel section — the conversion funnel must be declared before it is read")
+        return
+    stage_ids = tuple(s.get("id") for s in funnel.get("stages", []))
+    if stage_ids != FUNNEL_STAGES:
+        fail(f"campaigns.yaml funnel stages are {stage_ids}, expected the declared order {FUNNEL_STAGES}")
+    for s in funnel.get("stages", []):
+        if not s.get("source") or not s.get("reads"):
+            fail(f"funnel stage {s.get('id')}: needs a source and what it reads")
+    if not funnel.get("interpretation"):
+        fail("campaigns.yaml funnel has no interpretation table — the diagnosis must be mechanical")
+    campaign_ids = {row.get("id") for row in data["campaigns"]}
+    for index, obs in enumerate(funnel.get("observations") or []):
+        where = f"funnel.observations[{index}]"
+        for field in ("date", "campaign", "stage", "value", "denominator", "source"):
+            if field not in obs:
+                fail(f"{where}: missing {field} — an observation without a denominator or source is an estimate")
+        if obs.get("stage") not in FUNNEL_STAGES:
+            fail(f"{where}: stage {obs.get('stage')!r} is not a declared stage")
+        if obs.get("campaign") not in campaign_ids:
+            fail(f"{where}: campaign {obs.get('campaign')!r} is not a registered campaign")
+        for field in ("value", "denominator"):
+            v = obs.get(field)
+            if not (isinstance(v, int) and not isinstance(v, bool)) and v != "unavailable":
+                fail(f"{where}.{field} must be an integer that was read, or the word 'unavailable'")
 
 
 def check_launch_pack() -> None:
