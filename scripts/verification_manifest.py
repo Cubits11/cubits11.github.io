@@ -19,6 +19,9 @@ ROOT = Path(__file__).resolve().parent.parent
 # module directly; verify_clean_clone imports this tuple for its fresh clone.
 CHECKS: tuple[tuple[str, ...], ...] = (
     ("claim registry", "scripts/verify_claims.py"),
+    ("claim-history kernel", "scripts/claims_history.py", "verify"),
+    ("claim-history mutants", "scripts/claims_history.py", "--test"),
+    ("claim-history reconstruction", "scripts/claims_history.py", "reconstruct", "--check"),
     ("census", "scripts/verify_census.py"),
     ("census protocol v1", "scripts/verify_census_protocol.py"),
     ("census invariant mutations", "scripts/verify_census_mutations.py"),

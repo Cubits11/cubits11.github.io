@@ -147,6 +147,13 @@ CC-001 + CC-004 (bounds and endpoint witnesses) are re-reproduced from a
 clean clone on every push and weekly. What v0.2 merely asserted is
 documented in
 [Noetic Log 001](https://cubits11.github.io/notes/noetic-log-001/).
+Since 2026-09-02 a claim's commitment (proposition, scope, falsifier,
+forbidden rescues, non-claims, expected values) can change only by appending a
+declared transition to `claims_history.yaml`; `scripts/claims_history.py
+verify` fails any undeclared change, any edit to accepted history, and any
+re-minted baseline, from that genesis forward — it protected nothing before
+it existed, and it does not bind an actor who can change the verifier, the
+workflow, or the history in the same act.
 
 ## Run locally
 
