@@ -1,0 +1,17 @@
+{
+  "repository": "AbrarAlotaibi/defense-correlation",
+  "commit": "f517218b5eb3cf4d2896b37b83316e56ec87d6ce",
+  "license": "MIT",
+  "recorded": "at first fetch by analyze.py --selection --source alotaibi7",
+  "files": {
+    "gold.jsonl": "0108fa100392a10186bc45a722dff9971a9384c35bb44c6939701fca2d282d48",
+    "confound_check.json": "4d30d629160b5012762e6cdd9a22940023c36d3ed831dab0bddb1fb6e3f13f65",
+    "stage04_llamaguard_benign.jsonl": "acd8cbab2ffbb42f43b44bb0e4c0301e0eeefde3700d0e488c8a3566866170bf",
+    "stage04_ppl_filter_benign.jsonl": "19d25426a3d9107d787f4b81834c6923ef260647af5e3400630d0134c13ddf97",
+    "stage04_probe_benign.jsonl": "ac1ae6d6b7b2c3150f424e0356f8033d3ee8ea8eb826cafb2be16d1526cecf5b",
+    "stage04_probe_b_benign.jsonl": "999010a34ba58205af84e1cc5be7e7c71f957070bc079c7408573385c97e400a",
+    "stage04_refusal_prime_benign.jsonl": "161582f88f1d334ae9ec722b624135831519ac5221d883ef8875bf152463e4a2",
+    "stage04_smoothllm_benign.jsonl": "dc154825762bde750a5200a514b6f52e44eceb5baf76e1b6e3128739ac44421e",
+    "stage04_token_anomaly_benign.jsonl": "e015c0a5a7a9e07899052aeae9cc55655cb00fb44d23f26952272737f355e67a"
+  }
+}

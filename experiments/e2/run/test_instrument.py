@@ -258,8 +258,77 @@ def p9() -> None:
           "permutation band on all three pairs", ok)
 
 
+# P10 — planted inversion: the marginal-best candidate overlaps the incumbent
+#       almost entirely while a weaker candidate is disjoint; the selection
+#       code must pick the weaker one on the joint, report the flip and the
+#       exact known regret, and the independent calculator must agree — and
+#       must refuse a corrupted primary.
+def p10() -> None:
+    from analyze import selection_independent, selection_stats
+    n = 200
+    catch = {f"i{k}": {"A": int(k < 120), "X": int(k < 130),
+                       "Y": int(k >= 100), "Z": int(k < 50)} for k in range(n)}
+    benign = {f"b{k}": {"A": 0, "X": 0, "Y": 0, "Z": 0} for k in range(20)}
+
+    def table(guards: list) -> dict:
+        return {"source": "synthetic", "label": "planted_inversion",
+                "guards": guards,
+                "catch": {i: {g: v[g] for g in guards} for i, v in catch.items()},
+                "benign": {i: {g: v[g] for g in guards} for i, v in benign.items()},
+                "operating_point": "synthetic", "event": "synthetic",
+                "item_id_scheme": "synthetic", "locator": "synthetic",
+                "prediction_pairs": None}
+    t = table(["A", "X", "Y", "Z"])
+    st = selection_stats(t)
+    selection_independent(t, st)
+    a = {r["incumbent"]: r for r in st["incumbents"]}["A"]
+    caught = (a["marginal_choice"] == "X" and a["joint_choice"] == "Y"
+              and a["flip"] and a["regret_items"] == 70
+              and a["U_marg"] == 130 and a["U_joint"] == 200
+              and a["ci95_items"][0] > 0)
+    t2 = table(["A", "X", "Z"])            # remove the disjoint candidate
+    st2 = selection_stats(t2)
+    selection_independent(t2, st2)
+    a2 = {r["incumbent"]: r for r in st2["incumbents"]}["A"]
+    quiet = (not a2["flip"]) and a2["regret_items"] == 0
+    st["incumbents"][0]["regret_items"] += 1        # corrupt the primary
+    try:
+        selection_independent(t, st)
+        refused = False
+    except AssertionError:
+        refused = True
+    if caught:
+        print("planted inversion caught")
+    check("P10 planted inversion caught (X marginal-best, Y joint-best, "
+          "regret exactly 70/200, CI>0); no inversion reported without Y; "
+          "independent calculator refuses a corrupted primary",
+          caught and quiet and refused)
+
+
+# P11 — Mantel–Haenszel stratified odds ratio is exact on a hand-built
+#       two-stratum table (MH = 4.6), with the stratifier read from the
+#       third guard's misses.
+def p11() -> None:
+    from analyze import mh_odds_ratio
+    items: dict = {}
+
+    def add(prefix: str, a11: int, a10: int, a01: int, a00: int, cmiss: int) -> None:
+        for lbl, (ma, mb), cnt in (("11", (1, 1), a11), ("10", (1, 0), a10),
+                                   ("01", (0, 1), a01), ("00", (0, 0), a00)):
+            for k in range(cnt):
+                items[f"{prefix}{lbl}{k}"] = {"a": 1 - ma, "b": 1 - mb, "c": 1 - cmiss}
+    add("s1", 3, 1, 1, 5, 0)      # (3·5/10)/(1·1/10)
+    add("s2", 2, 2, 2, 4, 1)      # (2·4/10)/(2·2/10)  →  (1.5+0.8)/(0.1+0.4) = 4.6
+    crude, mh, k = mh_odds_ratio(items, sorted(items), "a", "b", ["c"])
+    pooled = ((5 + 0.5) * (9 + 0.5)) / ((3 + 0.5) * (3 + 0.5))
+    check("P11 MH stratified OR exact (4.6) on a hand-built two-stratum "
+          "table; crude Haldane OR matches the pooled table",
+          abs(mh - 4.6) < 1e-12 and k == 2 and abs(crude - pooled) < 1e-12,
+          f"mh {mh:.6f} crude {crude:.6f}")
+
+
 def main() -> int:
-    for f in (p1, p2, p3, p4, p5, p6, p7, p8, p9):
+    for f in (p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11):
         f()
     if failures:
         print(f"{len(failures)} property/properties failed.")
