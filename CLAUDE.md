@@ -25,7 +25,7 @@ out loud first.
 python3 scripts/verification_manifest.py
 ```
 
-44 deterministic checks; exit 0 or the change is not ready.
+46 deterministic checks; exit 0 or the change is not ready.
 
 ## Conventions CI enforces
 

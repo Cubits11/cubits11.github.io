@@ -1,0 +1,42 @@
+{
+ "instrument": "necromancer",
+ "experiment": "PC-001",
+ "frozen": "2026-09-02",
+ "rule": "Nothing under inputs changes after a human answers. An edit to any of them after that voids the affected result under the manifest's forbidden_rescues.",
+ "seed": "PC-001-NECROMANCER-2026-09-02",
+ "arms": {
+  "1": "A",
+  "2": "B",
+  "3": "A",
+  "4": "B",
+  "5": "A",
+  "6": "B",
+  "7": "B",
+  "8": "A",
+  "9": "B",
+  "10": "A"
+ },
+ "instrument_hash": "be77f8830a3031f017d67128cda857dff28ee84a73b4aa1a692e8958fc0f3d50",
+ "keys_sha256": "c251608e1640074ab340d778bbe41e0f653fbafab56d3a047dce413cf94cd08b",
+ "keys_note": "sha256 of the withheld key file (pre and cold cases). The file is committed to this directory only after every response is in.",
+ "decision_rule": {
+  "continue_if": "median_A − median_B ≥ 2",
+  "narrow_if": "1 ≤ median_A − median_B < 2 → narrow to the two-way sort (rescue vs not-rescue)",
+  "kill_if": [
+   "median_A − median_B < 1",
+   "either arm's cold median fails to beat (is not strictly greater than) its own pre-task median"
+  ],
+  "conclude_only_if": "n ≥ 8 with 4 to 5 per arm, scored once at the return deadline in PILOT.md; below that, scripts/trial_score.py exits 2 and nothing is concluded",
+  "medians": "standard median; with 4 per arm a median can be a half-integer, and the bands above are stated so every value falls in exactly one"
+ },
+ "primary_outcome": "correct sorts out of eight on the cold transfer case",
+ "inputs": {
+  "trials/necromancer/manifest.yaml": "f50d57818125b714ef830d9d826303290f30d1bd6e73502098eedaaabae66e64",
+  "trials/necromancer/cases.json": "b50a29d1b09572ed50de50d20bfc482a693b6e3da173c2f38854524965038f63",
+  "trials/necromancer/index.html": "23953f6306ab180d5c6df5817568e8c436a4162199db5cd5b85085fb9854cfdf",
+  "trials/necromancer/trial.js": "375d6b5304b219ae365ef3b51175381aaa6313ebd46e2b5c712d1ebb54b207bc",
+  "trials/necromancer/pilot/PILOT.md": "fdbcf9193719198058170fcea2bb6aa000eba9a8cfc0febcc80d52b0b14622a9",
+  "scripts/trial_score.py": "3b5a53eb1e0182dec3bd5d5318c4404ec5776028c8a6021c45912accdbc07308",
+  "scripts/generate_trial.py": "fd9b9588e3ac7ff78d9eb31aad617fc25d231471091e0128db271dede6e8f57b"
+ }
+}

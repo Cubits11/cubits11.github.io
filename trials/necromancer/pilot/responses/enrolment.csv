@@ -1,0 +1,2 @@
+# first line, written by hand on the day Message 1 goes out: sent=<YYYY-MM-DD>,deadline=<YYYY-MM-DD>
+# then one row per acceptance, in arrival order: slot,timestamp,contact

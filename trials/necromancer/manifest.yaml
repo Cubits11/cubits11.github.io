@@ -1,0 +1,532 @@
+# TRIAL IV · THE NECROMANCER — the machine-readable manifest of the public
+# instrument at /trials/necromancer/.
+#
+# Everything a learner can read on the page is declared here once: the trained
+# case, its eight moves, the rule each move derives from and the repository
+# file that enforces that rule, the two bare cases (pre-task and cold
+# transfer, keys withheld), every string, the arm-assignment seed, the frozen
+# decision rule, the mythic objects with their deletion tests, the falsifier,
+# and the non-claims. scripts/generate_trial.py renders the page from this
+# file; scripts/verify_trial.py fails the build when a rule source drifts, a
+# declared string is missing, a bare case leaks a key, the arm table moves, or
+# the pilot freeze is stale.
+#
+# Status vocabulary: OBSERVED · DERIVED · HYPOTHESIS · CONSTRUCTED · REGISTRY.
+
+id: necromancer
+version: 1
+experiment: PC-001
+trial: IV
+route: /trials/necromancer/
+title: THE NECROMANCER
+page_title: "Trial IV · The Necromancer — can you refuse to save your own result?"
+page_description: >-
+  A 20-minute trial. You publish a claim, seal what would defeat it, and the
+  evidence arrives against you. Eight moves: some raise the dead claim, some
+  correct it, some bury too much. Sort them.
+proposition: >-
+  A 20-minute experience built from this repository's enforced conventions
+  causes a person to sort post-result moves correctly into forbidden rescue,
+  legitimate correction, and unwarranted surrender — on a claim they have
+  never seen, in a field they do not work in, with the mythology stripped out.
+status: HYPOTHESIS
+changed_variable: >-
+  when the learner commits the rescue surface (falsifier, fixed consequence,
+  forbidden moves) — before the decisive evidence (arm A) or after it (arm B).
+  Identical claim, result, moves and clock. The seal's content is the
+  learner's own in both arms; the stamp on the seal names the arm, and the
+  debrief mirror reflects what the learner ticked, so both are downstream of
+  the manipulation, not part of it.
+
+# --------------------------------------------------------------- the three bins
+bins:
+  - id: rescue
+    label: FORBIDDEN RESCUE
+    short: rescue
+    test: keeps the claim standing by moving something that was frozen before the evidence, or by substituting a favourable proxy for the direct test
+  - id: correction
+    label: LEGITIMATE CORRECTION
+    short: correction
+    test: the evidence licenses it; it would be made identically had the result been favourable; nothing frozen moves; it leaves a record
+  - id: surrender
+    label: UNWARRANTED SURRENDER
+    short: surrender
+    test: retracts more than the evidence touched — treats an unevaluated check as a refutation, or buries claims the evidence did not reach
+
+governing_rule: >-
+  Fix the consequence before the evidence. After the evidence, nothing frozen
+  moves, and nothing the evidence did not touch falls.
+two_questions:
+  - Would I make this move if the result had been favourable?
+  - Does the evidence touch what this move changes or retracts?
+
+# ---------------------------------------------------------------- the trained case
+# The mythology stays on this case only. Every mythic object is listed under
+# mythic_objects with the epistemic operation it performs and the deletion
+# test that keeps it on the page.
+trained:
+  id: trained
+  field: content filtering
+  title: THE STACK
+  setting:
+    - >-
+      You run two content filters, A and B, in front of a system. An item
+      gets through only if both filters let it through.
+    - >-
+      On a frozen set of 100 harmful items you measured each filter alone:
+      A misses 10 of 100. B misses 10 of 100. You have not yet measured them
+      together.
+    - >-
+      You multiplied. Ten percent of ten percent is one in a hundred. You
+      wrote the claim below and published it under your own name.
+  claim: "The stack misses at most 2 of 100 harmful items."
+  claim_short: AT MOST 2 OF 100
+  prediction_prompt: "Before you publish — how many of the 100 do you expect both filters to miss?"
+  seal:
+    falsifier: >-
+      A joint run on the same 100 items, at the frozen thresholds, finds both
+      filters missing more than 2.
+    consequence_prompt: "If that happens, what did you commit to?"
+    consequences:
+      - id: REJECT
+        gloss: the claim is struck and the transition recorded beside it
+      - id: NARROW
+        gloss: the claim shrinks to whatever the run establishes, with a new falsifier
+      - id: HOLD
+        gloss: nothing further is published until the instrument is re-run at the frozen configuration
+    forbidden_prompt: "Which moves do you forbid yourself, whatever the run shows?"
+    forbidden_candidates:
+      - id: f_items
+        text: Changing which of the 100 items count, after the run
+        binding: true
+      - id: f_threshold
+        text: Changing a threshold or tolerance, after the run
+        binding: true
+      - id: f_restate
+        text: Restating what the claim was about, after the run
+        binding: true
+      - id: f_rerun
+        text: Re-running once at exactly the frozen configuration
+        binding: false
+      - id: f_record
+        text: Recording the result beside the claim, dated
+        binding: false
+      - id: f_scores
+        text: Withdrawing the single-filter scores if the stack claim fails
+        binding: false
+  evidence:
+    - >-
+      The joint run, on the frozen 100 items at the frozen thresholds: both
+      filters missed 9 of 100. Not 1. Not 2.
+    - >-
+      A alone missed 10 of 100 and B alone missed 10 of 100 — both
+      single-filter scores reproduced exactly.
+    - >-
+      Check 3 of 3, the re-derivation of B's threshold from its calibration
+      file, could not be evaluated: the file's source was unreachable at run
+      time. Exit 2.
+    - >-
+      The 9 items both filters missed are listed by id. Seven of the 9 carry
+      the source's own label "borderline".
+  # order: no two adjacent moves share a key; the first move is not a rescue
+  moves:
+    - id: m1
+      template: replicate_frozen
+      key: correction
+      text: >-
+        I run the joint measurement a second time on the same 100 items,
+        same thresholds, same pinned revision, exactly as I would have for a
+        favourable count, and record whatever the second run gives.
+    - id: m2
+      template: exclude
+      key: rescue
+      text: >-
+        Seven of the nine were borderline by the source's own label. I remove
+        the borderline items from the harmful set, recount the joint misses,
+        and report the count that remains.
+    - id: m3
+      template: execute
+      key: correction
+      text: >-
+        I carry out the consequence I sealed before the run, and record
+        today's date, the 9 of 100, and the run's hash beside the original
+        claim, which now stands as marked.
+    - id: m4
+      template: unevaluable_as_failure
+      key: surrender
+      text: >-
+        Check 3 could not be evaluated. I count that as a failure of B's
+        threshold and withdraw B's 10-of-100 score together with the stack
+        claim; a threshold I could not re-derive is not one I can quote.
+    - id: m5
+      template: tolerance
+      key: rescue
+      text: >-
+        A count on 100 items is noisy. I widen the claim's tolerance to ±10
+        items, under which 9 is consistent with the published 2, and keep the
+        claim as stated.
+    - id: m6
+      template: narrow_stronger
+      key: correction
+      text: >-
+        The published claim does not survive the run. In its place I register
+        only what the run established — on these 100 items at these thresholds
+        the stack misses 9 — with what would overturn it: a rerun that differs.
+    - id: m7
+      template: redefine
+      key: rescue
+      text: >-
+        The claim was always about typical harmful items, not borderline
+        ones. I restate it as "at most 2 of 100 typical items" and note the
+        run included atypical items.
+    - id: m8
+      template: overreach
+      key: surrender
+      text: >-
+        If the stack claim was wrong, my single-filter scores rest on the same
+        instrument. I withdraw A's and B's scores too and stop quoting numbers
+        for filters.
+
+# ------------------------------------------- the rule behind each template
+# Source material is the repository's enforced behaviour, not its prose:
+# each entry names the file that enforces the rule and quotes a phrase that
+# scripts/verify_trial.py asserts is present in that file. A rule whose
+# source drifts fails the build.
+templates:
+  - id: exclude
+    key: rescue
+    name: EXCLUDE AFTER SEEING
+    rule: >-
+      Items are never dropped or relabelled after their outcomes are known.
+      A missingness code assigned before the run stays; one assigned after
+      the run is recorded as post-run and is never moved to pre-run.
+    sources:
+      - {path: experiments/e2/freeze/PREREG_SELECTION.md, quote: "`excluded_post` is never"}
+      - {path: claims.yaml, quote: "do not fold borderline prompts into either denominator after seeing the results"}
+    mirror: f_items
+  - id: tolerance
+    key: rescue
+    name: WIDEN AFTER SEEING
+    rule: >-
+      A threshold, tolerance, or input changed after the outcome is visible
+      is a forbidden rescue; the affected result is not reported. Figures are
+      re-derived to a tolerance fixed before they exist.
+    sources:
+      - {path: claims.yaml, quote: "do not substitute a different input, revision, or numerical tolerance after the failure"}
+      - {path: ARTIFACTS/12-WEEK-PROGRAM.md, quote: "Any threshold changed after outcomes are seen"}
+    mirror: f_threshold
+  - id: redefine
+    key: rescue
+    name: RESTATE AFTER SEEING
+    rule: >-
+      A hypothesis, estimand or criterion reinterpreted after a counterexample
+      appears, in order to keep the stated result, is a forbidden rescue. What
+      the claim is about is fixed when it is registered.
+    sources:
+      - {path: claims.yaml, quote: "do not reinterpret \"joint statistic\" after a counterexample appears in order to keep the stated counts"}
+      - {path: CLAUDE.md, quote: "criterion changed after outcomes are"}
+    mirror: f_restate
+  - id: execute
+    key: correction
+    name: EXECUTE THE SEALED CONSEQUENCE
+    rule: >-
+      The consequence — NARROW, REJECT or HOLD — is fixed before the falsifier
+      is evaluated. When the condition fires, that consequence is carried out
+      and the transition is declared beside the claim. Declared transitions or
+      nothing.
+    sources:
+      - {path: claims.yaml, quote: "fixed before that condition"}
+      - {path: claims_history.yaml, quote: "Declared transitions or nothing."}
+    mirror: f_record
+  - id: narrow_stronger
+    key: correction
+    name: NARROW TO WHAT WAS MEASURED
+    rule: >-
+      A claim that shrinks to what an executed run established, with its own
+      new falsifier, is better supported than the claim it replaces: it rests
+      on an output, not an assumption. Narrow is a recorded decision, not a
+      retreat.
+    sources:
+      - {path: claims.yaml, quote: "its recorded decision is Narrow"}
+      - {path: claims.yaml, quote: "does not select a point inside the returned interval"}
+    mirror: null
+  - id: replicate_frozen
+    key: correction
+    name: REPLAY AT THE FROZEN CONFIGURATION
+    rule: >-
+      A result is re-executed from a clean clone at the bound revision with
+      the same commands in the same order, before and after it is favourable.
+      Direct execution decides; a passing wrapper does not overrule it.
+    sources:
+      - {path: scripts/verification_manifest.py, quote: "same commands in the same"}
+      - {path: claims.yaml, quote: "do not treat a passing wrapper or test harness as evidence for the stated outputs if direct execution disagrees"}
+    mirror: f_rerun
+  - id: unevaluable_as_failure
+    key: surrender
+    name: COUNT THE UNKNOWN AS A FAILURE
+    rule: >-
+      Exit 2 is not a pass and not a failure. It means a check could not be
+      evaluated because its source was unreachable. A gate must not proceed
+      on an unknown, and neither the log nor the ledger may record it as a
+      refutation.
+    sources:
+      - {path: CLAUDE.md, quote: "may record it as a refutation"}
+      - {path: scripts/verification_manifest.py, quote: "not a finding about the evidence"}
+    mirror: null
+  - id: overreach
+    key: surrender
+    name: BURY WHAT THE EVIDENCE DID NOT TOUCH
+    rule: >-
+      Each claim carries its own falsifier. A fired falsifier is a finding
+      about the proposition it names; it does not adjudicate its neighbours,
+      and a score that reproduced in the same run is not withdrawn by it.
+    sources:
+      - {path: docs/EPISTEMIC_TAGS.md, quote: "it does not adjudicate falsity"}
+      - {path: claims.yaml, quote: "the condition that defeats the proposition as stated"}
+    mirror: f_scores
+
+# ----------------------------------------------------------- mythic objects
+# Every mythic object performs an epistemic operation. The deletion test
+# states what changes in the learner's decision if the object is removed;
+# an object whose deletion leaves the decision unchanged is deleted.
+mythic_objects:
+  - object: THE SEAL
+    operation: >-
+      the learner's own choice of consequence and forbidden moves, made at a
+      fixed moment, hashed into the receipt and shown back unedited beside
+      every move they later sort; the hash is tamper-evidence for the
+      receipt, not pedagogy
+    deletion_test: >-
+      without a commitment of the learner's own there is no mirror — "you
+      forbade this and then called it a correction" cannot be drawn. The bare
+      cases carry an author's commitment instead, by design: whether the
+      learner can check moves against a commitment that is not theirs is the
+      transfer under test
+    status: CONSTRUCTED
+  - object: THE NECROMANCER
+    operation: >-
+      the name of the arm to refuse — raising a dead claim by moving what was
+      frozen — posed as a question about the learner's own hand; the moves in
+      every case are first person, which is a fixed property of the
+      instrument, not part of the mythology
+    deletion_test: >-
+      the cold case is this deletion test executed: it carries no name, no
+      ceremony, no publication. If the cold score does not beat the pre-task
+      score, the name did nothing that survives its removal, and the pilot
+      says KILL
+    status: HYPOTHESIS
+
+# ---------------------------------------------------------------- bare cases
+# Two cases with the mythology stripped: no seal ceremony, no necromancer, no
+# first-person publication. The learner reads a setting, a claim, the
+# commitment the case's author made before the evidence, four bullets of
+# evidence, and sorts eight moves. Keys are withheld from this file and from
+# the page: they live in trials/necromancer/pilot/keys.json, whose sha256 is
+# committed in trials/necromancer/pilot/freeze.json before any human answers.
+# Move order in each case is as authored; verify_trial.py asserts no two
+# adjacent moves share a key and the first move is not a rescue.
+cases_file: trials/necromancer/cases.json
+
+# -------------------------------------------------------------- the pilot
+pilot:
+  seed: "PC-001-NECROMANCER-2026-09-02"
+  slots: 10
+  arms:
+    A: commits the seal before the evidence
+    B: commits the seal after the evidence, before the moves
+  assignment: >-
+    within each consecutive pair of enrolment slots (1,2), (3,4), … the slot
+    with the lower sha256(seed + ":" + slot), as a hex string, is arm A and
+    the other is arm B — so every even prefix of the enrolment order is
+    balanced and eight acceptances give four and four. The table is embedded
+    in the page and recomputed by the verifier; the runtime only looks it up. A person's slot is the order in which their acceptance
+    arrived, recorded with its timestamp in pilot/responses/enrolment.csv
+    before the slot is sent; the owner does not choose slots.
+  per_arm_min: 4
+  per_arm_max: 5
+  n_min_to_conclude: 8
+  primary_outcome: correct sorts out of eight on the cold transfer case
+  secondary_outcomes:
+    - the pre-task score (correct sorts out of eight, before any instruction)
+    - the trained-case score
+    - the seal (consequence chosen; forbidden candidates ticked)
+    - the updated claim, verbatim
+    - the governing rule recalled unaided, verbatim
+    - confidence, 1 to 5, after the cold case
+    - self-reported help from the trained case, 1 to 5
+    - per-phase and total time
+  decision_rule:
+    continue_if: "median_A − median_B ≥ 2"
+    narrow_if: "1 ≤ median_A − median_B < 2 → narrow to the two-way sort (rescue vs not-rescue)"
+    kill_if:
+      - "median_A − median_B < 1"
+      - "either arm's cold median fails to beat (is not strictly greater than) its own pre-task median"
+    conclude_only_if: "n ≥ 8 with 4 to 5 per arm, scored once at the return deadline in PILOT.md; below that, scripts/trial_score.py exits 2 and nothing is concluded"
+    medians: "standard median; with 4 per arm a median can be a half-integer, and the bands above are stated so every value falls in exactly one"
+  forbidden_rescues:
+    - writing more curriculum, a second trial, a certificate, or a landing page
+    - renaming a failure a "pilot design finding"
+    - relaxing the decision rule after seeing a number
+    - recruiting until the number moves
+    - substituting an easier transfer case
+    - concluding from reactions, confidence, time, or the trained case
+    - concluding from n below eight
+    - concluding anything before humans answer
+  receipt_route: >-
+    the page stores nothing and sends nothing; the learner copies the receipt
+    at the end and returns it by replying to the invitation; the owner commits
+    it under trials/necromancer/pilot/responses/ and runs scripts/trial_score.py
+
+# ------------------------------------------------------------------ phases
+phases:
+  - {id: enrol, label: ENROL, minutes: 1}
+  - {id: pre, label: PRE-TASK, minutes: 3}
+  - {id: claim, label: THE CLAIM, minutes: 1.5}
+  - {id: seal, label: THE SEAL, minutes: 1.5}
+  - {id: evidence, label: THE EVIDENCE, minutes: 1}
+  - {id: sort, label: THE NECROMANCER, minutes: 3.5}
+  - {id: debrief, label: THE DEBRIEF, minutes: 3}
+  - {id: update, label: THE CLAIM, minutes: 1.5}
+  - {id: cold, label: COLD CASE, minutes: 3}
+  - {id: receipt, label: RECEIPT, minutes: 1}
+clock_minutes: 20
+
+# ------------------------------------------------------------------- text
+strings:
+  h1: THE NECROMANCER
+  h1_kicker: TRIAL IV
+  h1_sub: Can you refuse to save your own result?
+  enrol_lead: >-
+    Twenty minutes. You will publish a claim, seal what would defeat it, and
+    watch the evidence arrive against you. Nothing you type is stored or
+    sent; at the end you copy a receipt and return it yourself.
+  enrol_label: "Your enrolment number, from the invitation (1 to 10)"
+  enrol_button: BEGIN
+  enrol_error: "Enter a whole number from 1 to 10."
+  enrol_arm: "ENROLLED · SLOT {slot}"
+  pre_lead: >-
+    Before the trained case. Read the setting, the claim, what its author
+    committed to before the figures, and the figures. Then sort each of the
+    eight moves into one bin. There is no feedback on this one.
+  case_setting: THE SETTING
+  case_claim: THE CLAIM, AS PUBLISHED
+  case_commitment: SEALED BEFORE THE EVIDENCE
+  case_commitment_bare: COMMITTED BEFORE THE FIGURES
+  case_falsifier: FALSIFIER
+  case_consequence: CONSEQUENCE
+  case_forbidden: FORBIDDEN
+  case_evidence: THE EVIDENCE
+  case_moves: EIGHT MOVES · SORT EACH INTO ONE BIN
+  sort_progress: "{done} of 8 sorted"
+  sort_submit: SUBMIT THE SORT
+  sort_incomplete: "Sort all eight before submitting."
+  claim_lead: >-
+    This one is yours. Read it as if you wrote it.
+  handle_label: "Publish under a name or a handle (optional)"
+  prediction_label: "Your expectation, a whole number from 0 to 100"
+  publish: PUBLISH
+  published: PUBLISHED
+  seal_lead_before: >-
+    The joint run has not happened. Before it does, seal what would defeat
+    the claim, what you will do if it does, and what you forbid yourself.
+  seal_lead_after: >-
+    The joint run has happened and you have read it. Before you choose a
+    move, seal what would have defeated the claim, what you commit to now,
+    and what you forbid yourself.
+  seal_falsifier_label: THE FALSIFIER
+  seal_button: SEAL
+  seal_incomplete: "Choose a consequence and tick at least one forbidden move."
+  sealed: "SEALED · sha256 {hash} · {time}"
+  evidence_lead: THE RUN CAME BACK.
+  evidence_continue: CONTINUE
+  sort_lead: >-
+    Eight moves, in your own voice. Some would raise the dead claim. Some
+    correct it. Some bury more than the run touched. Your seal is beside you.
+  your_seal: YOUR SEAL
+  debrief_lead: THE KEY
+  debrief_score: "{n} of 8 sorted correctly"
+  debrief_mirror: "You forbade this in your seal and then sorted it as a {bin}."
+  debrief_mirror_none: "Nothing you forbade in your seal was sorted as anything other than a rescue."
+  debrief_overreach: "Your seal forbade this. The rule does not — a seal binds you against rescues, not against corrections."
+  publish_continue: CONTINUE
+  seal_continue: CONTINUE
+  leave_warning: "Leaving this page loses the whole record; nothing is stored."
+  debrief_you: YOU
+  debrief_key: KEY
+  debrief_rule: THE RULE
+  debrief_source: ENFORCED BY
+  debrief_governing: THE GOVERNING RULE
+  debrief_continue: CONTINUE
+  update_lead: >-
+    Write the claim as it stands now, in one sentence.
+  update_label: "The claim, as it stands"
+  recall_lead: >-
+    Without looking back: what is the rule?
+  recall_label: "The governing rule, in your words"
+  update_button: CONTINUE
+  update_incomplete: "Write both before continuing."
+  cold_lead: >-
+    Another field. Nothing here is named. Sort the eight moves. No feedback.
+  reactions_lead: TWO QUESTIONS, THEN THE RECEIPT
+  confidence_label: "How confident are you in your cold-case sort? 1 = guessing, 5 = certain"
+  helped_label: "How much did the trained case help with the cold one? 1 = not at all, 5 = decisively"
+  comment_label: "Anything else (optional)"
+  finish: FINISH
+  receipt_lead: >-
+    This is the whole record. Copy it and return it by replying to the
+    invitation. Nothing was stored or sent.
+  copy: COPY THE RECEIPT
+  copied: COPIED
+  elapsed: ELAPSED
+  clock_budget: "of {minutes} min"
+  bins_legend: THE THREE BINS
+  nojs: >-
+    Trial IV needs JavaScript to run; it stores nothing and sends nothing.
+    The protocol, the rule, and the non-claims below stand without it.
+  boundaries_summary: WHAT THIS DOES NOT SHOW
+  status_strip: "HYPOTHESIS · PC-001 · no human has answered · the pilot is frozen at trials/necromancer/pilot/"
+
+# ------------------------------------------------------------------ routes
+routes:
+  pilot: https://github.com/Cubits11/cubits11.github.io/blob/main/trials/necromancer/pilot/PILOT.md
+  ledger: /ledger/
+  worldspace: /worldspace/
+  code: https://github.com/Cubits11/cubits11.github.io/tree/main/trials/necromancer
+
+# ------------------------------------------------------ epistemic contract
+falsifier: >-
+  With n ≥ 8 enrolled learners (4 to 5 per arm, assigned by the frozen seed),
+  arm A's median correct sorts on the cold transfer case does not exceed arm
+  B's median by 2 or more (consequence NARROW at exactly 1, KILL at 0 or
+  below); or either arm's cold median is not strictly greater than its own
+  pre-task median (consequence KILL); or any reachable state of the
+  instrument shows a bare case with its key, a trained-case move without its
+  rule and source, an arm table other than the seeded one, or a receipt that
+  omits the instrument hash — each checked by scripts/verify_trial.py.
+
+non_claims:
+  - nothing here asserts the method works; the three-way post-result sort is the wedge under test, not a result
+  - nothing here is novel, a standard, or certifiable; prior art exists in evidence-first AI assurance and in reproducible-research teaching
+  - the trained case is constructed; the two filters, the 100 items and the 9 misses are declared inputs, not a measurement of any system
+  - the two bare cases are constructed by a fresh-context author from a fixed template; their difficulty match is asserted by structure, not measured
+  - a pilot of eight to ten people decides CONTINUE, NARROW or KILL for this lesson and nothing beyond it; it does not estimate an effect size
+  - reactions, confidence, time, self-report and the trained-case score are recorded in full and decide nothing
+  - the receipt is self-reported by the learner and unverifiable beyond its hash; the pilot assumes good faith and says so
+  - TRIAL IV is a name from the owner's registry entry PC-001; no trials I to III exist and none is promised
+  - the trained case's key and the template names are in the page source before the trained sort; the debrief shows them anyway. The bare-case keys are not in the source
+  - the manifest and the case file are public, so a learner who reads them before answering knows the split and the move order; the invitation asks them not to, and the pilot cannot detect it
+
+adversarial_misreadings:
+  A_the_lesson_works: the status strip says HYPOTHESIS and that no human has answered; the falsifier names the kill
+  B_this_is_a_course: TRIAL IV is one slice; the non-claims say so; no second trial, certificate or landing page exists
+  C_the_repo_certifies_people: no score is stored, no badge issued; the receipt is a record the learner returns, not a credential
+  D_the_cases_are_real_data: the trained case is tagged constructed; the bare cases name no real organisation
+  E_surrender_is_always_wrong: the correction arm includes REJECT executed as sealed; surrender is retracting beyond the evidence, not retracting
+  F_rescue_is_any_rerun: REPLAY AT THE FROZEN CONFIGURATION is a correction; the debrief names the test — nothing frozen moves
+
+performance_budget:
+  html_bytes_max: 90000
+  js_bytes_max: 30000
+  new_font_files: 0
+  images_fetched_on_load: 0
+  third_party_requests: 0
