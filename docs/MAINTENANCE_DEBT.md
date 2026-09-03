@@ -9,7 +9,7 @@ warning trades reproducibility for tidiness.
 
 ## MD-001 · Pinned actions declare the deprecated Node 20 runtime
 
-**Opened** 2026-08-31 · **Severity** low (warning, not failure) · **Status** closing — pins bumped 2026-09-03 in a standalone change; resolution recorded below once the four gates are green
+**Opened** 2026-08-31 · **Severity** low (warning, not failure) · **Status** resolved 2026-09-03
 
 **Observed.** Every CI run emits:
 
@@ -70,6 +70,17 @@ at the SHA: `configure-pages@45bfe019` (v6) `node24`; `deploy-pages@368f8252`
 `upload-artifact@bbbca2dd` (v7.0.0) `node24`; `lighthouse-ci-action@3e7e23fb`
 already `node24`. Moved in a second standalone change after the first was
 green, so each run still has one candidate cause.
+
+**Resolved 2026-09-03.** Two standalone pushes, each required to keep
+claim registry, clean-clone replay, Pages deploy and deployed smoke green,
+and each did (workflow runs `33711110127` for `1675f07`, `33711303824` for
+`533661d`; every job `success`). The warning itself was read from the
+check-run annotations, not inferred: before the change every job carried
+"Node.js 20 is deprecated … actions/checkout@11d5960a…" (run
+`33710923297`); after the first push only the deploy job carried it, naming
+`configure-pages@983d7736…` (run `33711110127`); after the second push no
+job carried any Node or deprecation annotation (run `33711303824`). The
+pins in the table above remain the known-green fallback for a revert.
 
 ## Observed 2026-09-01 (film laboratory branch) — `reproduce_cc001.py` cannot run on a PEP 668 host
 

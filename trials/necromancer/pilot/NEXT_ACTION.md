@@ -2,13 +2,13 @@
 
 OWNER-ACTION · open since 2026-09-02 · zero receipts · the pilot cannot produce a row until this is done.
 
-**Push `main` so `/trials/necromancer/` is live, then send Message 1 of
-`INVITATION.md` to ten people, today, and write the date sent and the
-14-day deadline on the first line of
+**Send Message 1 of `INVITATION.md` to ten people, today, and write the
+date sent and the 14-day deadline on the first line of
 `trials/necromancer/pilot/responses/enrolment.csv`.**
 
-The push is the precondition; the message is the action. Neither has been
-done by anyone but the owner, and nothing here does it.
+`/trials/necromancer/` went live on 2026-09-03 (merge c71125b, CI run
+33710923297 green, deployed page carries the frozen instrument hash
+`be77f883…`). Sending the message is the owner's hand; nothing here does it.
 
 That message is the only thing between this repository and its first human
 observation. Nothing else on this page moves the count.
