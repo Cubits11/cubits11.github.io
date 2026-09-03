@@ -59,6 +59,18 @@ exist upstream (`checkout` v6/v7, `setup-python` v7); they were not taken
 because this record's verified counterparts are the ones above, and a
 second unverified jump would give a red run two candidate causes.
 
+**Second closing change, 2026-09-03.** The record above listed only the two
+actions the `claims` and `reproduce` jobs warned about. Re-reading every pin
+in `verify.yml` the same way found two more `node20` declarations in the
+deploy job: `configure-pages@983d7736` (v5) and `deploy-pages@d6db9016`
+(v4); `upload-pages-artifact@7b1f4a76` (v4) is composite but wraps
+`upload-artifact@ea165f8d` (v4.6.2). Verified counterparts, `action.yml` read
+at the SHA: `configure-pages@45bfe019` (v6) `node24`; `deploy-pages@368f8252`
+(v5.0.1) `node24`; `upload-pages-artifact@fc324d35` (v5) wraps
+`upload-artifact@bbbca2dd` (v7.0.0) `node24`; `lighthouse-ci-action@3e7e23fb`
+already `node24`. Moved in a second standalone change after the first was
+green, so each run still has one candidate cause.
+
 ## Observed 2026-09-01 (film laboratory branch) — `reproduce_cc001.py` cannot run on a PEP 668 host
 
 `scripts/reproduce_cc001.py` installs the cloned cc-framework with
