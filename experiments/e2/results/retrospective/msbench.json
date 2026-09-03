@@ -1,0 +1,301 @@
+{
+  "mode": "RETROSPECTIVE",
+  "first_line": "native points, unmatched, retrospective",
+  "source": "msbench",
+  "seed": "MC-E2-PILOT-V1-FREEZE-2026-09-01",
+  "bootstrap_B": 2000,
+  "regret_definition": "R(A) = U(A,J(A)) \u2212 U(A,M(A)) in items of the harmful stratum; M = argmax marginal catch (tie: fewer benign flags), J = argmax measured union (tie: lower benign union); remaining ties: earlier column",
+  "tables": [
+    {
+      "source": "msbench",
+      "stratum": "harmful_text",
+      "n": 200,
+      "guards": [
+        "llama_guard_4",
+        "llama_guard_3_vision",
+        "shield_gemma_2"
+      ],
+      "operating_point": "native (harness-normalized `blocked` bit at the release's fixed action layer)",
+      "event": "catch = blocked on a harmful item; benign flag = blocked on a benign item; not a shared-event catch statistic (MC-004)",
+      "item_id_scheme": "release item_id",
+      "locator": "https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_harmful.jsonl sha256:d416962d2f1a4e762fd2aee27ce6f61cbe3c4e56256542cf19cb389bce4da036 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_harmful.jsonl sha256:777e189833d7c689fa7ebc8ef45f47617053e27f7f3f92de497ce37e180b3c1e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_harmful.jsonl sha256:069bd28f30050684e2ce52f17570f8c75ea1e13f12d8277054068f776b7cdfe4 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_benign.jsonl sha256:b8fdbe4cff31fbc9e0d06a5fffd7a71325d89a60cd5b44f61fc340d9d5e16d42 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_benign.jsonl sha256:73a46fd7b3fac53e85c22aee27380b13f7935195273c3ffd18b9a3e39166358e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_benign.jsonl sha256:72bd24530b976438aab251efdf23f2a5d2bb1abdc8edff236da6fca76f292970",
+      "catch_counts": {
+        "llama_guard_4": 185,
+        "llama_guard_3_vision": 178,
+        "shield_gemma_2": 0
+      },
+      "benign_flag_counts": {
+        "llama_guard_4": 18,
+        "llama_guard_3_vision": 25,
+        "shield_gemma_2": 0
+      },
+      "benign_n": 250,
+      "incumbents": [
+        {
+          "incumbent": "llama_guard_4",
+          "incumbent_catch": 185,
+          "marginal_choice": "llama_guard_3_vision",
+          "joint_choice": "llama_guard_3_vision",
+          "flip": false,
+          "regret_items": 0,
+          "regret_points": 0.0,
+          "U_marg": 192,
+          "U_joint": 192,
+          "benign_union_marg": 32,
+          "benign_union_joint": 32,
+          "ci95_items": [
+            0,
+            0
+          ],
+          "ci_excludes_zero": false,
+          "marginal_tie": false,
+          "joint_tie": false,
+          "n": 200,
+          "operating_point": "native (harness-normalized `blocked` bit at the release's fixed action layer)",
+          "stratum": "harmful_text",
+          "locator": "https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_harmful.jsonl sha256:d416962d2f1a4e762fd2aee27ce6f61cbe3c4e56256542cf19cb389bce4da036 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_harmful.jsonl sha256:777e189833d7c689fa7ebc8ef45f47617053e27f7f3f92de497ce37e180b3c1e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_harmful.jsonl sha256:069bd28f30050684e2ce52f17570f8c75ea1e13f12d8277054068f776b7cdfe4 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_benign.jsonl sha256:b8fdbe4cff31fbc9e0d06a5fffd7a71325d89a60cd5b44f61fc340d9d5e16d42 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_benign.jsonl sha256:73a46fd7b3fac53e85c22aee27380b13f7935195273c3ffd18b9a3e39166358e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_benign.jsonl sha256:72bd24530b976438aab251efdf23f2a5d2bb1abdc8edff236da6fca76f292970"
+        },
+        {
+          "incumbent": "llama_guard_3_vision",
+          "incumbent_catch": 178,
+          "marginal_choice": "llama_guard_4",
+          "joint_choice": "llama_guard_4",
+          "flip": false,
+          "regret_items": 0,
+          "regret_points": 0.0,
+          "U_marg": 192,
+          "U_joint": 192,
+          "benign_union_marg": 32,
+          "benign_union_joint": 32,
+          "ci95_items": [
+            0,
+            0
+          ],
+          "ci_excludes_zero": false,
+          "marginal_tie": false,
+          "joint_tie": false,
+          "n": 200,
+          "operating_point": "native (harness-normalized `blocked` bit at the release's fixed action layer)",
+          "stratum": "harmful_text",
+          "locator": "https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_harmful.jsonl sha256:d416962d2f1a4e762fd2aee27ce6f61cbe3c4e56256542cf19cb389bce4da036 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_harmful.jsonl sha256:777e189833d7c689fa7ebc8ef45f47617053e27f7f3f92de497ce37e180b3c1e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_harmful.jsonl sha256:069bd28f30050684e2ce52f17570f8c75ea1e13f12d8277054068f776b7cdfe4 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_benign.jsonl sha256:b8fdbe4cff31fbc9e0d06a5fffd7a71325d89a60cd5b44f61fc340d9d5e16d42 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_benign.jsonl sha256:73a46fd7b3fac53e85c22aee27380b13f7935195273c3ffd18b9a3e39166358e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_benign.jsonl sha256:72bd24530b976438aab251efdf23f2a5d2bb1abdc8edff236da6fca76f292970"
+        },
+        {
+          "incumbent": "shield_gemma_2",
+          "incumbent_catch": 0,
+          "marginal_choice": "llama_guard_4",
+          "joint_choice": "llama_guard_4",
+          "flip": false,
+          "regret_items": 0,
+          "regret_points": 0.0,
+          "U_marg": 185,
+          "U_joint": 185,
+          "benign_union_marg": 18,
+          "benign_union_joint": 18,
+          "ci95_items": [
+            0,
+            0
+          ],
+          "ci_excludes_zero": false,
+          "marginal_tie": false,
+          "joint_tie": false,
+          "n": 200,
+          "operating_point": "native (harness-normalized `blocked` bit at the release's fixed action layer)",
+          "stratum": "harmful_text",
+          "locator": "https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_harmful.jsonl sha256:d416962d2f1a4e762fd2aee27ce6f61cbe3c4e56256542cf19cb389bce4da036 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_harmful.jsonl sha256:777e189833d7c689fa7ebc8ef45f47617053e27f7f3f92de497ce37e180b3c1e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_harmful.jsonl sha256:069bd28f30050684e2ce52f17570f8c75ea1e13f12d8277054068f776b7cdfe4 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_benign.jsonl sha256:b8fdbe4cff31fbc9e0d06a5fffd7a71325d89a60cd5b44f61fc340d9d5e16d42 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_benign.jsonl sha256:73a46fd7b3fac53e85c22aee27380b13f7935195273c3ffd18b9a3e39166358e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_benign.jsonl sha256:72bd24530b976438aab251efdf23f2a5d2bb1abdc8edff236da6fca76f292970"
+        }
+      ],
+      "pairs": [
+        {
+          "a": "llama_guard_4",
+          "b": "llama_guard_3_vision",
+          "p_miss_a": 0.075,
+          "p_miss_b": 0.11,
+          "delta": 0.03175,
+          "crude_or_haldane": 13.404597701149426,
+          "mh_or": 13.959183673469388,
+          "mh_strata": 1,
+          "measurable": true,
+          "in_prediction_set": true
+        },
+        {
+          "a": "llama_guard_4",
+          "b": "shield_gemma_2",
+          "p_miss_a": 0.075,
+          "p_miss_b": 1.0,
+          "delta": 0.0,
+          "crude_or_haldane": 0.08355795148247978,
+          "mh_or": null,
+          "mh_strata": 2,
+          "measurable": false,
+          "in_prediction_set": false
+        },
+        {
+          "a": "llama_guard_3_vision",
+          "b": "shield_gemma_2",
+          "p_miss_a": 0.11,
+          "p_miss_b": 1.0,
+          "delta": 0.0,
+          "crude_or_haldane": 0.12605042016806722,
+          "mh_or": null,
+          "mh_strata": 2,
+          "measurable": false,
+          "in_prediction_set": false
+        }
+      ],
+      "frechet_all_miss_count_set": [
+        0,
+        15
+      ],
+      "incumbents_with_flip": 0,
+      "incumbents_with_regret_gt0": 0,
+      "pairs_undefined_mh": 0,
+      "summary_line": "regret max 0 items (0.0%) \u00b7 incumbents with CI>0: 0/3 \u00b7 pairs with stratified OR \u2265 1.5: 1/1"
+    },
+    {
+      "source": "msbench",
+      "stratum": "harmful_image",
+      "n": 200,
+      "guards": [
+        "llama_guard_4",
+        "llama_guard_3_vision",
+        "shield_gemma_2"
+      ],
+      "operating_point": "native (harness-normalized `blocked` bit at the release's fixed action layer)",
+      "event": "catch = blocked on a harmful item; benign flag = blocked on a benign item; not a shared-event catch statistic (MC-004)",
+      "item_id_scheme": "release item_id",
+      "locator": "https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_harmful.jsonl sha256:d416962d2f1a4e762fd2aee27ce6f61cbe3c4e56256542cf19cb389bce4da036 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_harmful.jsonl sha256:777e189833d7c689fa7ebc8ef45f47617053e27f7f3f92de497ce37e180b3c1e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_harmful.jsonl sha256:069bd28f30050684e2ce52f17570f8c75ea1e13f12d8277054068f776b7cdfe4 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_benign.jsonl sha256:b8fdbe4cff31fbc9e0d06a5fffd7a71325d89a60cd5b44f61fc340d9d5e16d42 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_benign.jsonl sha256:73a46fd7b3fac53e85c22aee27380b13f7935195273c3ffd18b9a3e39166358e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_benign.jsonl sha256:72bd24530b976438aab251efdf23f2a5d2bb1abdc8edff236da6fca76f292970",
+      "catch_counts": {
+        "llama_guard_4": 164,
+        "llama_guard_3_vision": 200,
+        "shield_gemma_2": 174
+      },
+      "benign_flag_counts": {
+        "llama_guard_4": 41,
+        "llama_guard_3_vision": 250,
+        "shield_gemma_2": 23
+      },
+      "benign_n": 250,
+      "incumbents": [
+        {
+          "incumbent": "llama_guard_4",
+          "incumbent_catch": 164,
+          "marginal_choice": "llama_guard_3_vision",
+          "joint_choice": "llama_guard_3_vision",
+          "flip": false,
+          "regret_items": 0,
+          "regret_points": 0.0,
+          "U_marg": 200,
+          "U_joint": 200,
+          "benign_union_marg": 250,
+          "benign_union_joint": 250,
+          "ci95_items": [
+            0,
+            0
+          ],
+          "ci_excludes_zero": false,
+          "marginal_tie": false,
+          "joint_tie": false,
+          "n": 200,
+          "operating_point": "native (harness-normalized `blocked` bit at the release's fixed action layer)",
+          "stratum": "harmful_image",
+          "locator": "https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_harmful.jsonl sha256:d416962d2f1a4e762fd2aee27ce6f61cbe3c4e56256542cf19cb389bce4da036 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_harmful.jsonl sha256:777e189833d7c689fa7ebc8ef45f47617053e27f7f3f92de497ce37e180b3c1e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_harmful.jsonl sha256:069bd28f30050684e2ce52f17570f8c75ea1e13f12d8277054068f776b7cdfe4 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_benign.jsonl sha256:b8fdbe4cff31fbc9e0d06a5fffd7a71325d89a60cd5b44f61fc340d9d5e16d42 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_benign.jsonl sha256:73a46fd7b3fac53e85c22aee27380b13f7935195273c3ffd18b9a3e39166358e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_benign.jsonl sha256:72bd24530b976438aab251efdf23f2a5d2bb1abdc8edff236da6fca76f292970"
+        },
+        {
+          "incumbent": "llama_guard_3_vision",
+          "incumbent_catch": 200,
+          "marginal_choice": "shield_gemma_2",
+          "joint_choice": "llama_guard_4",
+          "flip": true,
+          "regret_items": 0,
+          "regret_points": 0.0,
+          "U_marg": 200,
+          "U_joint": 200,
+          "benign_union_marg": 250,
+          "benign_union_joint": 250,
+          "ci95_items": [
+            0,
+            0
+          ],
+          "ci_excludes_zero": false,
+          "marginal_tie": false,
+          "joint_tie": true,
+          "n": 200,
+          "operating_point": "native (harness-normalized `blocked` bit at the release's fixed action layer)",
+          "stratum": "harmful_image",
+          "locator": "https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_harmful.jsonl sha256:d416962d2f1a4e762fd2aee27ce6f61cbe3c4e56256542cf19cb389bce4da036 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_harmful.jsonl sha256:777e189833d7c689fa7ebc8ef45f47617053e27f7f3f92de497ce37e180b3c1e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_harmful.jsonl sha256:069bd28f30050684e2ce52f17570f8c75ea1e13f12d8277054068f776b7cdfe4 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_benign.jsonl sha256:b8fdbe4cff31fbc9e0d06a5fffd7a71325d89a60cd5b44f61fc340d9d5e16d42 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_benign.jsonl sha256:73a46fd7b3fac53e85c22aee27380b13f7935195273c3ffd18b9a3e39166358e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_benign.jsonl sha256:72bd24530b976438aab251efdf23f2a5d2bb1abdc8edff236da6fca76f292970"
+        },
+        {
+          "incumbent": "shield_gemma_2",
+          "incumbent_catch": 174,
+          "marginal_choice": "llama_guard_3_vision",
+          "joint_choice": "llama_guard_3_vision",
+          "flip": false,
+          "regret_items": 0,
+          "regret_points": 0.0,
+          "U_marg": 200,
+          "U_joint": 200,
+          "benign_union_marg": 250,
+          "benign_union_joint": 250,
+          "ci95_items": [
+            0,
+            0
+          ],
+          "ci_excludes_zero": false,
+          "marginal_tie": false,
+          "joint_tie": false,
+          "n": 200,
+          "operating_point": "native (harness-normalized `blocked` bit at the release's fixed action layer)",
+          "stratum": "harmful_image",
+          "locator": "https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_harmful.jsonl sha256:d416962d2f1a4e762fd2aee27ce6f61cbe3c4e56256542cf19cb389bce4da036 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_harmful.jsonl sha256:777e189833d7c689fa7ebc8ef45f47617053e27f7f3f92de497ce37e180b3c1e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_harmful.jsonl sha256:069bd28f30050684e2ce52f17570f8c75ea1e13f12d8277054068f776b7cdfe4 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_4_benign.jsonl sha256:b8fdbe4cff31fbc9e0d06a5fffd7a71325d89a60cd5b44f61fc340d9d5e16d42 | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_llama_guard_3_vision_benign.jsonl sha256:73a46fd7b3fac53e85c22aee27380b13f7935195273c3ffd18b9a3e39166358e | https://raw.githubusercontent.com/PatrickKollman/Multimodal-Safeguard-Bench/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run/guard_shield_gemma_2_benign.jsonl sha256:72bd24530b976438aab251efdf23f2a5d2bb1abdc8edff236da6fca76f292970"
+        }
+      ],
+      "pairs": [
+        {
+          "a": "llama_guard_4",
+          "b": "llama_guard_3_vision",
+          "p_miss_a": 0.18,
+          "p_miss_b": 0.0,
+          "delta": 0.0,
+          "crude_or_haldane": 4.506849315068493,
+          "mh_or": null,
+          "mh_strata": 2,
+          "measurable": false,
+          "in_prediction_set": false
+        },
+        {
+          "a": "llama_guard_4",
+          "b": "shield_gemma_2",
+          "p_miss_a": 0.18,
+          "p_miss_b": 0.13,
+          "delta": 0.006599999999999998,
+          "crude_or_haldane": 1.5021991203518592,
+          "mh_or": 1.4400000000000002,
+          "mh_strata": 1,
+          "measurable": true,
+          "in_prediction_set": true
+        },
+        {
+          "a": "llama_guard_3_vision",
+          "b": "shield_gemma_2",
+          "p_miss_a": 0.0,
+          "p_miss_b": 0.13,
+          "delta": 0.0,
+          "crude_or_haldane": 6.584905660377358,
+          "mh_or": null,
+          "mh_strata": 2,
+          "measurable": false,
+          "in_prediction_set": false
+        }
+      ],
+      "frechet_all_miss_count_set": [
+        0,
+        0
+      ],
+      "incumbents_with_flip": 1,
+      "incumbents_with_regret_gt0": 0,
+      "pairs_undefined_mh": 0,
+      "summary_line": "regret max 0 items (0.0%) \u00b7 incumbents with CI>0: 0/3 \u00b7 pairs with stratified OR \u2265 1.5: 0/1"
+    }
+  ],
+  "report_sha256_of_content": "d52d25ac070547ca3a3586aee2a88a6d88dc9f88ac47bb5c0c2c46f9d4351b79"
+}
