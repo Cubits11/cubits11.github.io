@@ -9,7 +9,7 @@ warning trades reproducibility for tidiness.
 
 ## MD-001 · Pinned actions declare the deprecated Node 20 runtime
 
-**Opened** 2026-08-31 · **Severity** low (warning, not failure) · **Status** open
+**Opened** 2026-08-31 · **Severity** low (warning, not failure) · **Status** closing — pins bumped 2026-09-03 in a standalone change; resolution recorded below once the four gates are green
 
 **Observed.** Every CI run emits:
 
@@ -48,6 +48,16 @@ pins are functionally fine today. This is a deadline, not a defect.
 a standalone change, and require: claim registry green, clean-clone replay
 green, Pages deploy green, and deployed smoke green. If any fails, revert to the
 pins in this table, which are known green as of merge `a6bf3a2`.
+
+**Closing change, 2026-09-03.** Re-verified upstream via the GitHub contents
+API on the day of the change (`action.yml` at each SHA): `checkout@fbc6f399`
+declares `node24`, `setup-python@ece7cb06` (= `v6` = `v6.3.0`) declares
+`node24`; the old pins still declare `node20`. All 4 checkout and 3
+setup-python uses in `verify.yml` moved to those SHAs, full-SHA pinning and
+the `# v5` / `# v6` comments kept, nothing else in the change. Newer majors
+exist upstream (`checkout` v6/v7, `setup-python` v7); they were not taken
+because this record's verified counterparts are the ones above, and a
+second unverified jump would give a red run two candidate causes.
 
 ## Observed 2026-09-01 (film laboratory branch) — `reproduce_cc001.py` cannot run on a PEP 668 host
 
