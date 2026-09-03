@@ -1487,3 +1487,108 @@ entries:
     classification by E5A, 2026-09-02]'
   previous_transition_digest: 9d14e4232aef9a8f0798de4354e61a76fae2585ab43256677ae8b45ff0ad6941
   digest: ad2d8af4f4e14c887a2286a60581174094843569d940d3daa17578fdd2171074
+- kind: registration
+  claim_id: MC-005
+  digest_of_commitment: 9f12c3a9bc6fa383bca0fadfcb1e7354cfca176888396ff98408f0fafcd96144
+  commitment:
+    proposition: 'On the released BELLS 2025 per-item verdict file (pinned commit below, sha256-verified
+      before any count), harmful stratum n = 82, at the eleven systems'' native unmatched operating points,
+      marginal-selection regret R(A) = U(A, J(A)) − U(A, M(A)) is at most 2 items (2.4 points) for every
+      incumbent, and no incumbent''s 95% bootstrap CI on R excludes zero — 0 of 11. M(A) is the partner
+      with the highest marginal catch (tie: fewer benign flags); J(A) is the partner with the highest
+      measured union with A (tie: lower benign union). For the five specialized supervisors, M(A) and
+      J(A) name the same partner for 5 of 5 incumbents, every regret is 0, and every CI is [0, 0]. On
+      the same rows and in the same run, pairwise excess joint miss Δ = p11 − pA·pB is positive in 45
+      of 45 non-degenerate pairs, and 23 of the 36 pairs with a defined Mantel–Haenszel ratio keep a difficulty-stratified
+      odds ratio ≥ 1.5. Measuring the joint moved the residual-risk arithmetic on this file and changed
+      no selection whose interval excludes zero.
+
+      '
+    scope: 'Retrospective counting arithmetic and a fixed-pick bootstrap on one released file, not a measurement
+      this repository performed: the bits are BELLS''s, produced by BELLS, at operating points BELLS chose.
+      No model was loaded and no frozen E2 item was touched. Catch is the released verdict column''s positive;
+      a benign flag is the same column positive on the benign stratum; the union U(A, X) is the Boolean
+      OR of two verdict columns on the harmful stratum. Bootstrap: B = 2000, seed MC-E2-PILOT-V1-FREEZE-2026-09-01,
+      picks held fixed at the full-data M(A) and J(A), so the interval is on the union difference of those
+      two named candidates and not on a re-selected pair — a convention the governing contract did not
+      specify and this record declares (discrepancy D4 of the run report). Mantel–Haenszel ratios stratify
+      on item difficulty as "misses among the other nine systems"; a ratio with a positive numerator and
+      zero discordant mass is recorded as +inf and counted as ≥ 1.5, and a 0/0 ratio is undefined and
+      excluded from both counts — 17 and 9 of the 45 pairs respectively (discrepancy D3). Computed by
+      experiments/e2/run/analyze.py --selection --source bells11; recomputed independently from the raw
+      released rows outside the reporting path by experiments/e2/results/retrospective/independent_t1.py,
+      which agrees on every pick, union, regret and benign union exactly. Executed by the owner on 2026-09-02;
+      the expected block below is not yet re-asserted by CI on every push, and this record says so rather
+      than implying a continuous gate it does not have.
+
+      '
+    falsifier:
+      condition: 'Recomputing from the bound, hash-verified file under the definitions stated in scope
+        yields any different marginal pick, joint pick, union, regret point, or a different count of incumbents
+        whose 95% CI excludes zero; or the file no longer matches its recorded sha256; or the independent
+        recomputation outside the reporting path disagrees on any of those quantities.
+
+        '
+      consequence: REJECT
+    forbidden_rescues:
+    - do not re-derive M(A) or J(A) inside bootstrap resamples, or change B or the seed, to move an interval
+      after seeing it
+    - do not change either tie-break rule — marginal by fewer benign flags, joint by lower benign union
+      — after the picks are visible
+    - do not drop incumbents whose regret is 0, or restrict to the six general-purpose models, to raise
+      the reported maximum regret
+    - do not pool the harmful and benign strata, or substitute the full 170-row file for the 82-row harmful
+      stratum, to move any figure
+    - do not restate "0 of 11 CIs exclude zero" as evidence that regret is zero; on this sample it is
+      no detectable departure, and the two are not the same statement
+    - do not introduce a matched operating point, a calibrated FPR target, or a benign-flag budget after
+      the fact to preserve the regret figure; the native-point result stands as recorded
+    - do not cite the Δ > 0 in 45 of 45 pairs without the regret result computed on the same rows in the
+      same run
+    - do not re-point this record's support locator at a path under experiments/<e>/results/ to make the
+      evidence ledger read a non-zero own-measurement count
+    non_claims:
+    - not a measurement this repository performed; the verdict bits are BELLS's own released outputs,
+      and this record establishes that the owner can recompute a released matrix, not that the owner can
+      measure a guard
+    - not a finding that selection regret is zero — 0 of 11 intervals excluding zero is no detectable
+      departure on 82 items, not an absence of an effect
+    - not a population estimate; 82 rows under BELLS's own construction, with no sampled population defined
+      and no interval offered for one
+    - not a matched-operating-point comparison; the eleven systems run at their released native rules,
+      so the M-ladder comparability status of this source is unchanged
+    - not a ranking, endorsement, or indictment of any system or vendor
+    - not an observed deployed stack; the union is Boolean arithmetic on released verdict columns under
+      the separate full-exposure, parallel, fixed-point assumptions
+    - says nothing about E2's preregistered measurement, which has produced zero observation rows and
+      remains blocked on an owner action; this record cannot substitute for that result
+    - the Mantel-Haenszel counts are a frozen statistic of this contract, not BELLS's analysis and not
+      a test BELLS ran
+    expected:
+      stratum: harmful[all11]
+      n: 82
+      operating_point: native
+      bootstrap_B: 2000
+      max_regret_items: 2
+      max_regret_points: 2.4
+      incumbents_total: 11
+      incumbents_with_ci_excluding_zero: 0
+      specialized_supervisors: 5
+      specialized_with_regret_zero: 5
+      delta_positive_pairs: 45
+      delta_nondegenerate_pairs: 45
+      mh_defined_pairs: 36
+      mh_ge_1_5: 23
+      mh_infinite: 17
+      mh_undefined: 9
+  recorded_at: '2026-09-03'
+  provenance_class: CONTEMPORANEOUS
+  evidence_refs:
+  - git:dd36c1a
+  - experiments/e2/results/retrospective/REPORT.md
+  - sha256:7c6405884c5e688bdf4dc84a12b2b0b4d007a9109dd27126f04871eff84dce38
+  reason: 'registration: W1 retrospective selection regret on the BELLS-11 released harmful stratum, executed
+    2026-09-02; the commitment leads with the result least favourable to the programme''s thesis (0 of
+    11 intervals exclude zero)'
+  previous_transition_digest: ad2d8af4f4e14c887a2286a60581174094843569d940d3daa17578fdd2171074
+  digest: ccffd4a18a3daffa6db61816d639c6d950b3f9c3cc09d034871daba83111c62a
