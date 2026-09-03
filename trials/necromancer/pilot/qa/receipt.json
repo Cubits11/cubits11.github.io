@@ -1,0 +1,393 @@
+{
+ "instrument": "necromancer",
+ "captured": "2026-09-02",
+ "git_head": "fe43bdcef41f1f0c8103fc6d815a93e8204a2f77",
+ "inputs": {
+  "trials/necromancer/index.html": "23953f6306ab180d5c6df5817568e8c436a4162199db5cd5b85085fb9854cfdf",
+  "trials/necromancer/trial.js": "375d6b5304b219ae365ef3b51175381aaa6313ebd46e2b5c712d1ebb54b207bc",
+  "trials/necromancer/manifest.yaml": "f50d57818125b714ef830d9d826303290f30d1bd6e73502098eedaaabae66e64",
+  "trials/necromancer/cases.json": "b50a29d1b09572ed50de50d20bfc482a693b6e3da173c2f38854524965038f63"
+ },
+ "runs": [
+  {
+   "arm": "A",
+   "slot": 1,
+   "phases": [
+    {
+     "id": "enrol"
+    },
+    {
+     "id": "pre"
+    },
+    {
+     "id": "claim"
+    },
+    {
+     "id": "seal"
+    },
+    {
+     "id": "evidence"
+    },
+    {
+     "id": "sort"
+    },
+    {
+     "id": "debrief"
+    },
+    {
+     "id": "update"
+    },
+    {
+     "id": "cold"
+    },
+    {
+     "id": "receipt"
+    }
+   ],
+   "assertions": {
+    "js_active": true,
+    "static_hidden_when_js": true,
+    "arm_from_table": true,
+    "clock_visible": true,
+    "pre_no_key_in_dom": true,
+    "published_stamp": true,
+    "seal_lead_matches_arm": true,
+    "seal_hashed": true,
+    "evidence_four_bullets": true,
+    "seal_beside_moves": true,
+    "debrief_score_recomputed": true,
+    "debrief_eight_rules": true,
+    "debrief_sources_named": true,
+    "mirror_logic": true,
+    "cold_no_mythology": true,
+    "copied_shown": true,
+    "receipt_instrument_hash": true,
+    "receipt_phase_order": true,
+    "receipt_complete": true,
+    "no_horizontal_overflow": true,
+    "third_party_requests_zero": true,
+    "keyboard_radio_moves": true
+   },
+   "receipt": {
+    "instrument": "necromancer",
+    "version": 1,
+    "experiment": "PC-001",
+    "instrument_hash": "be77f8830a3031f017d67128cda857dff28ee84a73b4aa1a692e8958fc0f3d50",
+    "slot": 1,
+    "arm": "A",
+    "started": "2026-09-03T02:24:31.230Z",
+    "finished": "2026-09-03T02:24:40.283Z",
+    "total_seconds": 9,
+    "phases": [
+     {
+      "id": "enrol",
+      "seconds": 0
+     },
+     {
+      "id": "pre",
+      "seconds": 1
+     },
+     {
+      "id": "claim",
+      "seconds": 1
+     },
+     {
+      "id": "seal",
+      "seconds": 2
+     },
+     {
+      "id": "evidence",
+      "seconds": 0
+     },
+     {
+      "id": "sort",
+      "seconds": 0
+     },
+     {
+      "id": "debrief",
+      "seconds": 2
+     },
+     {
+      "id": "update",
+      "seconds": 0
+     },
+     {
+      "id": "cold",
+      "seconds": 2
+     },
+     {
+      "id": "receipt",
+      "seconds": 1
+     }
+    ],
+    "pre": {
+     "m1": "correction",
+     "m2": "rescue",
+     "m3": "surrender",
+     "m4": "correction",
+     "m5": "rescue",
+     "m6": "surrender",
+     "m7": "correction",
+     "m8": "rescue"
+    },
+    "handle": "qa",
+    "prediction": 1,
+    "seal": {
+     "falsifier": "A joint run on the same 100 items, at the frozen thresholds, finds both filters missing more than 2.",
+     "consequence": "REJECT",
+     "forbidden": [
+      "f_items",
+      "f_threshold",
+      "f_rerun"
+     ],
+     "at": "2026-09-03T02:24:33.297Z",
+     "slot": 1,
+     "arm": "A",
+     "before_evidence": true,
+     "instrument": "be77f8830a3031f017d67128cda857dff28ee84a73b4aa1a692e8958fc0f3d50",
+     "hash": "568a6af45f5c52619525bf78d396b31444330eca5934cf22ef8b17856c103946"
+    },
+    "trained": {
+     "m1": "rescue",
+     "m2": "rescue",
+     "m3": "correction",
+     "m4": "surrender",
+     "m5": "rescue",
+     "m6": "correction",
+     "m7": "correction",
+     "m8": "surrender"
+    },
+    "updated_claim": "The stack misses 9 of these 100 at these thresholds.",
+    "rule_recall": "Fix the consequence before; afterwards move nothing frozen and bury nothing untouched.",
+    "cold": {
+     "m1": "correction",
+     "m2": "rescue",
+     "m3": "surrender",
+     "m4": "correction",
+     "m5": "rescue",
+     "m6": "surrender",
+     "m7": "correction",
+     "m8": "rescue"
+    },
+    "confidence": 4,
+    "helped": 3,
+    "comment": "qa run"
+   },
+   "requests": 8
+  },
+  {
+   "arm": "B",
+   "slot": 2,
+   "phases": [
+    {
+     "id": "enrol"
+    },
+    {
+     "id": "pre"
+    },
+    {
+     "id": "claim"
+    },
+    {
+     "id": "evidence"
+    },
+    {
+     "id": "seal"
+    },
+    {
+     "id": "sort"
+    },
+    {
+     "id": "debrief"
+    },
+    {
+     "id": "update"
+    },
+    {
+     "id": "cold"
+    },
+    {
+     "id": "receipt"
+    }
+   ],
+   "assertions": {
+    "js_active": true,
+    "static_hidden_when_js": true,
+    "arm_from_table": true,
+    "clock_visible": true,
+    "pre_no_key_in_dom": true,
+    "published_stamp": true,
+    "evidence_four_bullets": true,
+    "seal_lead_matches_arm": true,
+    "seal_hashed": true,
+    "seal_beside_moves": true,
+    "debrief_score_recomputed": true,
+    "debrief_eight_rules": true,
+    "debrief_sources_named": true,
+    "mirror_logic": true,
+    "cold_no_mythology": true,
+    "copied_shown": true,
+    "receipt_instrument_hash": true,
+    "receipt_phase_order": true,
+    "receipt_complete": true,
+    "no_horizontal_overflow": true,
+    "third_party_requests_zero": true,
+    "keyboard_radio_moves": true
+   },
+   "receipt": {
+    "instrument": "necromancer",
+    "version": 1,
+    "experiment": "PC-001",
+    "instrument_hash": "be77f8830a3031f017d67128cda857dff28ee84a73b4aa1a692e8958fc0f3d50",
+    "slot": 2,
+    "arm": "B",
+    "started": "2026-09-03T02:24:42.543Z",
+    "finished": "2026-09-03T02:24:53.274Z",
+    "total_seconds": 11,
+    "phases": [
+     {
+      "id": "enrol",
+      "seconds": 0
+     },
+     {
+      "id": "pre",
+      "seconds": 1
+     },
+     {
+      "id": "claim",
+      "seconds": 1
+     },
+     {
+      "id": "evidence",
+      "seconds": 0
+     },
+     {
+      "id": "seal",
+      "seconds": 1
+     },
+     {
+      "id": "sort",
+      "seconds": 2
+     },
+     {
+      "id": "debrief",
+      "seconds": 2
+     },
+     {
+      "id": "update",
+      "seconds": 0
+     },
+     {
+      "id": "cold",
+      "seconds": 2
+     },
+     {
+      "id": "receipt",
+      "seconds": 1
+     }
+    ],
+    "pre": {
+     "m1": "correction",
+     "m2": "rescue",
+     "m3": "surrender",
+     "m4": "correction",
+     "m5": "rescue",
+     "m6": "surrender",
+     "m7": "correction",
+     "m8": "rescue"
+    },
+    "handle": "qa",
+    "prediction": 1,
+    "seal": {
+     "falsifier": "A joint run on the same 100 items, at the frozen thresholds, finds both filters missing more than 2.",
+     "consequence": "REJECT",
+     "forbidden": [
+      "f_items",
+      "f_threshold",
+      "f_rerun"
+     ],
+     "at": "2026-09-03T02:24:45.092Z",
+     "slot": 2,
+     "arm": "B",
+     "before_evidence": false,
+     "instrument": "be77f8830a3031f017d67128cda857dff28ee84a73b4aa1a692e8958fc0f3d50",
+     "hash": "a3c7ccc90cda4b52903a0758b25a8d7bbf01ce822b97517ba86a983e21aa88be"
+    },
+    "trained": {
+     "m1": "rescue",
+     "m2": "rescue",
+     "m3": "correction",
+     "m4": "surrender",
+     "m5": "rescue",
+     "m6": "correction",
+     "m7": "correction",
+     "m8": "surrender"
+    },
+    "updated_claim": "The stack misses 9 of these 100 at these thresholds.",
+    "rule_recall": "Fix the consequence before; afterwards move nothing frozen and bury nothing untouched.",
+    "cold": {
+     "m1": "correction",
+     "m2": "rescue",
+     "m3": "surrender",
+     "m4": "correction",
+     "m5": "rescue",
+     "m6": "surrender",
+     "m7": "correction",
+     "m8": "rescue"
+    },
+    "confidence": 4,
+    "helped": 3,
+    "comment": "qa run"
+   },
+   "requests": 8
+  }
+ ],
+ "screenshots": [
+  "A-enrol.jpg",
+  "A-pre.jpg",
+  "A-pre-sorted.jpg",
+  "A-claim.jpg",
+  "A-seal.jpg",
+  "A-sealed.jpg",
+  "A-evidence.jpg",
+  "A-sort.jpg",
+  "A-trained-sorted.jpg",
+  "A-debrief.jpg",
+  "A-update.jpg",
+  "A-cold.jpg",
+  "A-cold-sorted.jpg",
+  "A-receipt.jpg",
+  "A-receipt.jpg",
+  "B-enrol.jpg",
+  "B-pre.jpg",
+  "B-pre-sorted.jpg",
+  "B-claim.jpg",
+  "B-evidence.jpg",
+  "B-seal.jpg",
+  "B-sealed.jpg",
+  "B-sort.jpg",
+  "B-trained-sorted.jpg",
+  "B-debrief.jpg",
+  "B-update.jpg",
+  "B-cold.jpg",
+  "B-cold-sorted.jpg",
+  "B-receipt.jpg",
+  "B-receipt.jpg"
+ ],
+ "console_errors": [],
+ "page_errors": [],
+ "performance": {
+  "html_bytes": 50806,
+  "js_bytes": 17860,
+  "third_party_requests": 0,
+  "images_fetched_on_load": 0,
+  "new_font_files": 0
+ },
+ "budget": {
+  "html_bytes_max": 90000,
+  "js_bytes_max": 30000,
+  "new_font_files": 0,
+  "images_fetched_on_load": 0,
+  "third_party_requests": 0
+ }
+}

@@ -61,6 +61,8 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("worldspace drift", "scripts/generate_worldspace.py", "--check"),
     ("worldspace instrument", "scripts/verify_worldspace.py"),
     ("research index drift", "scripts/generate_research_index.py", "--check"),
+    ("trial IV drift", "scripts/generate_trial.py", "--check"),
+    ("trial IV instrument and pilot freeze", "scripts/verify_trial.py"),
     ("prepared joint reporters", "contrib/test_joint_reporters.py"),
 )
 

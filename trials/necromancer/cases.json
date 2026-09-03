@@ -1,0 +1,114 @@
+{
+ "schema": "necromancer.cases.v1",
+ "note": "Bare cases: keys and rationales withheld. sha256 of the key file is committed in trials/necromancer/pilot/freeze.json before any human answers.",
+ "cases": [
+  {
+   "id": "pre",
+   "field": "Bakery",
+   "title": "New Flour Trial",
+   "setting": "You run a small bakery. In April you switched your sourdough loaf to a new flour, hoping to cut customer complaints, which had been running at about 9 a week. You published a claim about the new flour and fixed your commitment before any of the six trial weeks were counted. The counts are now in.",
+   "claim": "With the new flour, complaints about the sourdough loaf fall to fewer than 3 a week in every one of the six trial weeks.",
+   "commitment": {
+    "falsifier": "Any trial week with 3 or more complaints defeats the claim.",
+    "consequence": "REJECT",
+    "forbidden": [
+     "Any change, once the figures are in, to what is counted, where the line sits, or what the claim covers."
+    ]
+   },
+   "evidence": [
+    "Weekly complaint counts over the six weeks were 2, 6, 7, 2, 5 and 1; four of the six weeks reached 3 or more.",
+    "Every complaint was logged in the same book, at the same counter and for the same sourdough loaf as before the change; weeks 2, 3 and 5 fell during the town's summer fair.",
+    "The taste-panel score planned for week 4 could not be evaluated: the panel's score sheet was mislaid and has not been found.",
+    "Loaf weight, checked daily, stayed within 10 grams of target in all six weeks, as it did on the old flour."
+   ],
+   "moves": [
+    {
+     "id": "m1",
+     "text": "I mark the claim rejected, the consequence fixed in advance, and write the date, the six weekly counts and the change beside the original claim on the shop notice board."
+    },
+    {
+     "id": "m2",
+     "text": "I set aside weeks 2, 3 and 5, the three fair weeks that produced the failing counts, and tally the remaining three weeks, which all come in under 3."
+    },
+    {
+     "id": "m3",
+     "text": "I count the mislaid taste-panel sheet as a failure and, on that basis, withdraw my separate claim that the new flour tastes no different from the old."
+    },
+    {
+     "id": "m4",
+     "text": "I withdraw the claim and record instead what the six weeks showed, 2, 6, 7, 2, 5 and 1 complaints a week; a recount of the same book giving other figures would overturn it."
+    },
+    {
+     "id": "m5",
+     "text": "I set the weekly limit at under 8 in place of under 3 and read the six counts against that line, under which every one of the weeks passes."
+    },
+    {
+     "id": "m6",
+     "text": "I withdraw the new flour from every bread we make, retract the loaf-weight result with it, and return the whole shop to the old supplier from next week."
+    },
+    {
+     "id": "m7",
+     "text": "I count the six weeks a second time from the same book, same limit, same loaf, exactly as I would have for a good result, and record whichever figures the second count gives."
+    },
+    {
+     "id": "m8",
+     "text": "I read the claim as one about our regular weekday customers, whose complaints stayed under 3 in every week, and record that on that reading the claim stands."
+    }
+   ]
+  },
+  {
+   "id": "cold",
+   "field": "Bus operations",
+   "title": "Route 4 Timetable",
+   "setting": "You manage a small town bus depot. In March you moved route 4 from every 20 minutes to every 15 in the morning peak, to stop buses arriving late; before the change about 30 percent of peak arrivals were more than five minutes late. You published a claim and fixed your commitment before the first four weeks were counted. The figures are now in.",
+   "claim": "On the 15-minute timetable, fewer than 10 percent of morning-peak arrivals on route 4 are more than five minutes late in each of the first four weeks.",
+   "commitment": {
+    "falsifier": "Any of the four weeks with a late share above 10 percent defeats the claim.",
+    "consequence": "REJECT",
+    "forbidden": [
+     "Any change, once the figures are in, to what is counted, where the line sits, or what the claim covers."
+    ]
+   },
+   "evidence": [
+    "The planned check of driver duty sheets for week 2 could not be evaluated: the depot's copies went to head office and were not returned.",
+    "Passenger numbers on route 4, counted by the same machines, rose 12 percent against the previous month; the claim did not rest on this figure.",
+    "The weekly late shares were 8, 17, 21 and 14 percent; three of the four weeks were above 10 percent.",
+    "All counts come from the same ticket-machine clock and the same twelve stops used before the change; six roadworks days across weeks 2, 3 and 4 hold most of the late arrivals."
+   ],
+   "moves": [
+    {
+     "id": "m1",
+     "text": "I have the four weeks recounted on the same twelve stops, peak hour, five-minute line and machine clock, the step I take for a good result too, and I record whatever the recount gives."
+    },
+    {
+     "id": "m2",
+     "text": "I restate the claim as covering the town-centre stops, where the late share stayed under 10 percent in each week, and keep it published in that form."
+    },
+    {
+     "id": "m3",
+     "text": "I pull the 15-minute timetable, strike the 12 percent passenger figure from the record, and put every route at the depot back on its old frequency from Monday."
+    },
+    {
+     "id": "m4",
+     "text": "I record the claim as rejected, the outcome fixed for it beforehand, and enter the date, the four late-share percentages and the change on the depot notice next to the original wording."
+    },
+    {
+     "id": "m5",
+     "text": "I take ten minutes rather than five as the line for a late arrival and reread the four weeks against it, which brings each week below 10 percent."
+    },
+    {
+     "id": "m6",
+     "text": "I log the unreturned duty sheets as a failed check, and on the strength of that entry I withdraw my separate claim about drivers keeping their planned rest breaks."
+    },
+    {
+     "id": "m7",
+     "text": "I withdraw the published claim and put in its place the four measured late shares, 8, 17, 21 and 14 percent; a fresh reading of the same machine records that differs would overturn it."
+    },
+    {
+     "id": "m8",
+     "text": "I remove the six roadworks days, the days carrying the late arrivals that failed the claim, from the count and report each week on its remaining days, all under 10 percent."
+    }
+   ]
+  }
+ ]
+}
