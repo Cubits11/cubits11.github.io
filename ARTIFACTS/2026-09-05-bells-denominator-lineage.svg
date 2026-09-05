@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 880" width="1440" height="880" role="img" aria-labelledby="t d">
+<title id="t">Where the BELLS denominators sit</title>
+<desc id="d">Six populations drawn to one scale: the paper’s described 990; the 1080 and 1077-row pool files in upstream history; the leaderboard aggregate’s 1041 (pool minus Miscellaneous); the 174 and 170-row playground subsets. Counts only.</desc>
+<style>
+:root{--bg:#F1EDE2;--surface:#F8F5EC;--ink:#14170F;--muted:#565E4E;--line:#DCD5C2;--strong:#C2BAA2;--evidence:#175F6B;--review:#7E4E12;--invalid:#993127;--gold:#755A2C}
+@media (prefers-color-scheme: dark){:root{--bg:#0B0F0A;--surface:#11150F;--ink:#EDE8DA;--muted:#9AA391;--line:#232A20;--strong:#39422F;--evidence:#7FC4CF;--review:#E9A23B;--invalid:#E4796F;--gold:#C9A15E}}
+.bg{fill:var(--surface)}
+text{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:var(--ink)}
+.title{font-family:Georgia,"Times New Roman",serif;font-size:26px;fill:var(--ink)}
+.sub{font-size:12.5px;fill:var(--muted)}
+.eyebrow{font-size:10.5px;letter-spacing:.08em;fill:var(--gold)}
+.rowname{font-size:13px;fill:var(--ink)}
+.rowsub{font-size:11px;fill:var(--muted)}
+.total{font-size:12px;fill:var(--ink)}
+.count{font-size:11px}
+.in-dark{fill:var(--surface)}
+.in-light{fill:var(--ink)}
+.seg-harmful{fill:var(--ink)}
+.seg-benign{fill:var(--muted)}
+.seg-borderline{fill:var(--strong)}
+.seg-text{fill:none;stroke:var(--invalid);stroke-width:1.2;stroke-dasharray:4 3}
+.tag{font-size:10px;letter-spacing:.06em}
+.tag.evidence,.rule.evidence{fill:var(--evidence)}
+.tag.review,.rule.review{fill:var(--review)}
+.tag.invalid,.rule.invalid{fill:var(--invalid)}
+.axis{stroke:var(--line);stroke-width:1}
+.tick{font-size:10px;fill:var(--muted)}
+.legend{font-size:11px;fill:var(--muted)}
+.foot{font-size:10px;fill:var(--muted)}
+</style>
+<rect class="bg" x="0" y="0" width="1440" height="880"/>
+<text class="eyebrow" x="48" y="34">BELLS 2025 · MISUSE DETECTION · OBSERVATION CUT 0 · 2026-09-05</text>
+<text class="title" x="48" y="66">Where the BELLS denominators sit</text>
+<text class="sub" x="48" y="88">Six populations on one scale. Every bar is a count of prompts; no bar is a rate.</text>
+<line class="axis" x1="48.0" y1="104" x2="48.0" y2="109"/>
+<text class="tick" x="48.0" y="100" text-anchor="middle">0</text>
+<line class="axis" x1="326.2" y1="104" x2="326.2" y2="109"/>
+<text class="tick" x="326.2" y="100" text-anchor="middle">250</text>
+<line class="axis" x1="604.5" y1="104" x2="604.5" y2="109"/>
+<text class="tick" x="604.5" y="100" text-anchor="middle">500</text>
+<line class="axis" x1="882.7" y1="104" x2="882.7" y2="109"/>
+<text class="tick" x="882.7" y="100" text-anchor="middle">750</text>
+<line class="axis" x1="1161.0" y1="104" x2="1161.0" y2="109"/>
+<text class="tick" x="1161.0" y="100" text-anchor="middle">1,000</text>
+<line class="axis" x1="48" y1="104" x2="1250" y2="104"/>
+<g class="row" data-state="text">
+<rect class="rule invalid" x="34" y="118" width="3" height="84"/>
+<text class="tag invalid" x="48" y="128">○ TEXT ONLY</text>
+<text class="rowname" x="48" y="145">Paper, arXiv 2507.06282 — non-adversarial set as described</text>
+<text class="rowsub" x="48" y="160">§3 and App. 0.B.2: “990 prompts … 330 benign / 330 borderline / 330 harmful”. No released file has this composition.</text>
+<rect class="seg-text" x="48.0" y="168" width="365.3" height="22" rx="0"><title>harmful 330 of 990 — arXiv 2507.06282 (text only)</title></rect>
+<text class="count in-light" x="54.0" y="183">330</text>
+<rect class="seg-text" x="415.3" y="168" width="365.3" height="22" rx="0"><title>benign 330 of 990 — arXiv 2507.06282 (text only)</title></rect>
+<text class="count in-light" x="421.3" y="183">330</text>
+<rect class="seg-text" x="782.6" y="168" width="367.3" height="22" rx="4"><title>borderline 330 of 990 — arXiv 2507.06282 (text only)</title></rect>
+<text class="count in-light" x="788.6" y="183">330</text>
+<text class="total" x="1159.8" y="183">= 990</text>
+</g>
+<g class="row" data-state="file">
+<rect class="rule evidence" x="34" y="228" width="3" height="84"/>
+<text class="tag evidence" x="48" y="238">● HASH-VERIFIED FILE</text>
+<text class="rowname" x="48" y="255">Pool v0 · non_adversarial_prompts.csv @ 0fc3d6d3 · 2025-02-18</text>
+<text class="rowsub" x="48" y="270">12 harm categories incl. Miscellaneous. Prompt Guard and LangKit columns are constant 1 — placeholders, not verdicts.</text>
+<rect class="seg-harmful" x="48.0" y="278" width="398.7" height="22"><title>harmful 360 of 1080 — sha256 b3d5553510f0…</title></rect>
+<text class="count in-dark" x="54.0" y="293">360</text>
+<rect class="seg-benign" x="448.7" y="278" width="398.7" height="22"><title>benign 360 of 1080 — sha256 b3d5553510f0…</title></rect>
+<text class="count in-dark" x="454.7" y="293">360</text>
+<path class="seg-borderline" d="M849.3,278 H1246.0 a4,4 0 0 1 4,4 V296 a4,4 0 0 1 -4,4 H849.3 Z"><title>borderline 360 of 1080 — sha256 b3d5553510f0…</title></path>
+<text class="count in-light" x="855.3" y="293">360</text>
+<text class="total" x="1260.0" y="293">= 1,080</text>
+</g>
+<g class="row" data-state="file">
+<rect class="rule evidence" x="34" y="338" width="3" height="84"/>
+<text class="tag evidence" x="48" y="348">● HASH-VERIFIED FILE</text>
+<text class="rowname" x="48" y="365">Pool · non_adversarial_prompts.csv @ d6ebd0e5 · 2025-02-18</text>
+<text class="rowsub" x="48" y="380">Same pool, 3 rows fewer. Lakera, NeMo and LLM Guard columns carry real verdicts; the other two are still placeholders.</text>
+<rect class="seg-harmful" x="48.0" y="388" width="396.4" height="22"><title>harmful 358 of 1077 — sha256 a8d2e4ea69b3…</title></rect>
+<text class="count in-dark" x="54.0" y="403">358</text>
+<rect class="seg-benign" x="446.4" y="388" width="397.6" height="22"><title>benign 359 of 1077 — sha256 a8d2e4ea69b3…</title></rect>
+<text class="count in-dark" x="452.4" y="403">359</text>
+<path class="seg-borderline" d="M846.0,388 H1242.7 a4,4 0 0 1 4,4 V406 a4,4 0 0 1 -4,4 H846.0 Z"><title>borderline 360 of 1077 — sha256 a8d2e4ea69b3…</title></path>
+<text class="count in-light" x="852.0" y="403">360</text>
+<text class="total" x="1256.7" y="403">= 1,077</text>
+</g>
+<g class="row" data-state="derived">
+<rect class="rule review" x="34" y="448" width="3" height="84"/>
+<text class="tag review" x="48" y="458">◐ DERIVED</text>
+<text class="rowname" x="48" y="475">Leaderboard aggregate population · safeguard_evaluation_results.csv @ dde32a3d → 507566c5</text>
+<text class="rowsub" x="48" y="490">= pool d6ebd0e5 minus its 36 Miscellaneous rows (30 harmful · 6 benign). Numerators match 9/9 for Lakera, NeMo, LLM Guard; untestable for Prompt Guard</text>
+<text class="rowsub" x="48" y="504">and LangKit.</text>
+<rect class="seg-harmful" x="48.0" y="512" width="363.1" height="22"><title>harmful 328 of 1041 — denominators inferred from the aggregate’s fractions; sha256 6935166c5663…</title></rect>
+<text class="count in-dark" x="54.0" y="527">328</text>
+<rect class="seg-benign" x="413.1" y="512" width="390.9" height="22"><title>benign 353 of 1041 — denominators inferred from the aggregate’s fractions; sha256 6935166c5663…</title></rect>
+<text class="count in-dark" x="419.1" y="527">353</text>
+<path class="seg-borderline" d="M805.9,512 H1202.6 a4,4 0 0 1 4,4 V530 a4,4 0 0 1 -4,4 H805.9 Z"><title>borderline 360 of 1041 — denominators inferred from the aggregate’s fractions; sha256 6935166c5663…</title></path>
+<text class="count in-light" x="811.9" y="527">360</text>
+<text class="total" x="1216.6" y="527">= 1,041</text>
+</g>
+<g class="row" data-state="file">
+<rect class="rule evidence" x="34" y="558" width="3" height="84"/>
+<text class="tag evidence" x="48" y="568">● HASH-VERIFIED FILE</text>
+<text class="rowname" x="48" y="585">Playground subset · non_adversarial_prompts.csv @ 077555d9 · 2025-02-19</text>
+<text class="rowsub" x="48" y="600">Commit subject “smaller dataset for playground”. SELECTION RULE: UNKNOWN. Superseded.</text>
+<rect class="seg-harmful" x="48.0" y="608" width="93.7" height="22"><title>harmful 86 of 174 — sha256 7fa0fbf5885e…</title></rect>
+<text class="count in-dark" x="54.0" y="623">86</text>
+<rect class="seg-benign" x="143.7" y="608" width="53.6" height="22"><title>benign 50 of 174 — sha256 7fa0fbf5885e…</title></rect>
+<text class="count in-dark" x="149.7" y="623">50</text>
+<path class="seg-borderline" d="M199.4,608 H237.7 a4,4 0 0 1 4,4 V626 a4,4 0 0 1 -4,4 H199.4 Z"><title>borderline 38 of 174 — sha256 7fa0fbf5885e…</title></path>
+<text class="count in-light" x="205.4" y="623">38</text>
+<text class="total" x="251.7" y="623">= 174</text>
+</g>
+<g class="row" data-state="file">
+<rect class="rule evidence" x="34" y="668" width="3" height="84"/>
+<text class="tag evidence" x="48" y="678">● HASH-VERIFIED FILE</text>
+<text class="rowname" x="48" y="695">Playground subset · non_adversarial_prompts.csv @ b20aeed5 = 507566c5 (head) · 2025-03-22</text>
+<text class="rowsub" x="48" y="710">The file MC-002 binds. A fresh draw from the d6ebd0e5 pool (170/170 present), sharing only 74–76 questions with the 174. SELECTION RULE: UNKNOWN.</text>
+<rect class="seg-harmful" x="48.0" y="718" width="89.3" height="22"><title>harmful 82 of 170 — sha256 791dd4b0a168…</title></rect>
+<text class="count in-dark" x="54.0" y="733">82</text>
+<rect class="seg-benign" x="139.3" y="718" width="53.6" height="22"><title>benign 50 of 170 — sha256 791dd4b0a168…</title></rect>
+<text class="count in-dark" x="145.3" y="733">50</text>
+<path class="seg-borderline" d="M194.9,718 H233.2 a4,4 0 0 1 4,4 V736 a4,4 0 0 1 -4,4 H194.9 Z"><title>borderline 38 of 170 — sha256 791dd4b0a168…</title></path>
+<text class="count in-light" x="200.9" y="733">38</text>
+<text class="total" x="247.2" y="733">= 170</text>
+</g>
+<rect class="seg-harmful" x="48" y="759" width="14" height="10" rx="2"/>
+<text class="legend" x="68" y="768">harmful</text>
+<rect class="seg-benign" x="152" y="759" width="14" height="10" rx="2"/>
+<text class="legend" x="172" y="768">benign</text>
+<rect class="seg-borderline" x="248" y="759" width="14" height="10" rx="2"/>
+<text class="legend" x="268" y="768">borderline</text>
+<rect class="seg-text" x="376" y="759" width="14" height="10"/>
+<text class="legend" x="396" y="768">described in text, no file</text>
+<text class="legend" x="616" y="768">left tag = evidential state, in words: ● hash-verified file · ◐ derived · ○ text only</text>
+<text class="foot" x="48" y="792">Source: python3 scripts/bells_denominators.py --json (CentreSecuriteIA/bells_leaderboard, pinned by commit and sha256). Packet: ARTIFACTS/2026-09-05-FABLE-5.1-OBS-CUT.md.</text>
+<text class="foot" x="48" y="806">Counts describe released files at their released labels, not any system’s true rate. Selection rule for the playground subsets: UNKNOWN.</text>
+</svg>

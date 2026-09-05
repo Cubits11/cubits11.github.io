@@ -185,6 +185,42 @@ def main() -> int:
                                "harmful_verdict_agreement": agree}
         report["head_lineage"] = lineage
 
+    # Aggregate population identification. Hypothesis: the leaderboard aggregate
+    # (dde32a3d onward) is the d6ebd0e5 pool minus its "Miscellaneous" rows.
+    # Test: for every supervisor whose pool column carries real verdicts, the
+    # count of released 1s in the remaining rows must equal the aggregate's
+    # numerator at the inferred denominator, in every stratum.
+    pool = data.get(("d6ebd0e5", "data/non_adversarial_prompts.csv"))
+    agg_rows = data.get(("507566c5", "data/safeguard_evaluation_results.csv"))
+    if pool and agg_rows:
+        keep = [r for r in pool if r["category"] != "Miscellaneous"]
+        removed = collections.Counter(r["harm_level"] for r in pool if r["category"] == "Miscellaneous")
+        remaining = collections.Counter(r["harm_level"] for r in keep)
+        agg = {r["safeguard"]: r for r in agg_rows}
+        names = {"lakera_guard": "Lakera", "nemo": "NeMo", "llm_guard": "LLM Guard",
+                 "prompt_guard": "Prompt Guard", "langkit": "LangKit"}
+        cols = {"harmful": "harmful_non-adversarial", "benign": "benign_non-adversarial",
+                "borderline": "borderline_non-adversarial"}
+        placeholders = {g for g in SPECIALIZED if len({r[g].strip() for r in pool}) == 1}
+        tests = []
+        for g in SPECIALIZED:
+            for lvl in STRATA:
+                count = sum(r[g].strip() == "1" for r in keep if r["harm_level"] == lvl)
+                numerator = round(float(agg[names[g]][cols[lvl]]) * remaining[lvl])
+                tests.append({"guard": g, "stratum": lvl, "pool_minus_misc_count": count,
+                              "aggregate_numerator": numerator,
+                              "testable": g not in placeholders,
+                              "match": (g not in placeholders) and count == numerator})
+        testable = [t for t in tests if t["testable"]]
+        report["aggregate_identification"] = {
+            "hypothesis": "aggregate population = d6ebd0e5 pool minus Miscellaneous rows",
+            "removed_rows": {s: removed.get(s, 0) for s in STRATA},
+            "remaining_rows": {s: remaining.get(s, 0) for s in STRATA},
+            "placeholder_columns_in_pool": sorted(placeholders),
+            "tests": tests,
+            "testable_matches": f"{sum(t['match'] for t in testable)}/{len(testable)}",
+        }
+
     if args.json:
         print(json.dumps(report, indent=2))
     else:
@@ -212,6 +248,18 @@ def main() -> int:
             print(f"\nmetacognitive_results.csv @ 507566c5: {meta['n_rows']} rows, "
                   f"{meta['unique_prompts']} unique prompts, {meta['non_adversarial_unique_prompts']} "
                   f"non-adversarial; models {meta['models']}")
+        ident = report.get("aggregate_identification")
+        if ident:
+            rm, rem = ident["removed_rows"], ident["remaining_rows"]
+            print(f"\nAggregate identification — {ident['hypothesis']}: removes "
+                  f"{rm['harmful']} harmful + {rm['benign']} benign + {rm['borderline']} borderline, "
+                  f"leaving {rem['harmful']}/{rem['benign']}/{rem['borderline']}; numerator matches "
+                  f"{ident['testable_matches']} (untestable: {', '.join(ident['placeholder_columns_in_pool'])} "
+                  f"are placeholders in the pool file)")
+            for t in ident["tests"]:
+                if t["testable"]:
+                    print(f"  {t['guard']:13s} {t['stratum']:10s} pool-minus-Misc {t['pool_minus_misc_count']:3d} "
+                          f"vs aggregate {t['aggregate_numerator']:3d}  {'MATCH' if t['match'] else 'DIFFER'}")
         if head:
             print("\nHead 170-row file against its ancestors (harmful stratum verdict agreement, "
                   "per specialized column, over shared questions):")
