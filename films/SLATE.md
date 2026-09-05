@@ -38,6 +38,7 @@ Dated 2026-09-01. Gate: conceptual_clarity ≥ 8, epistemic_integrity ≥ 8, dis
 | 30 | What the Union Hides | cohort_c | shadow play | 8 | 8 | 9 | 8 | 7 | 8 | 9 | 9 | 8.2 |
 | 31 | 250 of 250 | cohort_c | industrial machinery | 8 | 7 | 8 | 8 | 6 | 7 | 9 | 8 | 7.6 |
 | 32 | The Missing Column — trailer | cohort_a | montage of the record's own beats | 8 | 6 | 9 | 8 | 8 | 8 | 10 | 8 | 8.1 |
+| 33 | The Stack | cohort_a | physical stack | 9 | 7 | 9 | 9 | 8 | 8 | 10 | 8 | 8.5 |
 
 ## Killed and replaced
 
@@ -533,4 +534,19 @@ Dated 2026-09-01. Gate: conceptual_clarity ≥ 8, epistemic_integrity ≥ 8, dis
 - **implementation:** Canvas 2D, films/lib runtime, master only
 - **complexity:** M
 - **grammar:** montage of the record's own beats
+
+### 33. The Stack (`the-stack`) — cohort_a
+
+- **thesis:** Two guard plates that each let 10 of 100 items through can jointly let anywhere from 0 to 10 reach the pile; both counters stay pinned while the pile runs the interval.
+- **epistemic operation:** fixed marginals with moving overlap → feasible worlds; endpoint witnesses; an assumption selecting one point — staged as the deployer's own stack
+- **visual mechanism:** a tray of 100 items over two plates; A's ten fall to a shelf; B's rings migrate from items A caught to items A missed, and each landing drops one item through B into the pile
+- **why motion:** the pile must be seen to fill while both counters do not move; a still frame shows one stack, motion shows that every stack between is reachable without touching a score
+- **opening image:** 100 items above two labelled plates, both counters 10/100
+- **turn:** the pile is 0, then a ring lands and the first item falls through both plates
+- **final image:** the dimmed stack under the interval 0–10% with the amber 1%, the sentence, the locator
+- **evidence dependency:** `CC-001.marginals`, `CC-001.and_bounds`, `CC-001.independence_and`, `CC-004.witness_lower`, `CC-004.witness_upper`
+- **misunderstanding risk:** a viewer reads the plates as a routed pipeline where B never sees what A stopped — the scope and a non-claim name that estimand as different, and every item reaches both plates on screen
+- **implementation:** Canvas 2D, films/lib runtime, master only
+- **complexity:** M
+- **grammar:** physical stack
 

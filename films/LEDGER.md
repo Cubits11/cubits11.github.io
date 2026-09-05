@@ -108,3 +108,7 @@ not at its start.
 ## 2026-09-05 — the-missing-column-trailer (master, 34 s)
 
 Prediction before render: the census act is the weakest beat because four numerals with qualifiers compete for one frame; the Same Scores act will carry the open. Observed on the contact sheet: the open, the endpoint, the axis and the close read cleanly; the census act stages its four rows sequentially and the third row (0, in review amber) is the only coloured numeral, which is the intended emphasis. One overflow class (DIFFERENT WORLDS. at 54 px against a 1920 frame) fixed by sizing the name to 41 px at x = 1420; second render 0 overflows, determinism ok, 16 facts bound, 7 claim frames. Not published to any feed: the cold-comprehension gate in distribution/launch-units.yaml applies to this cut as to every other, and no cold trial has been scored.
+
+## 2026-09-05 — the-stack (master, 45 s) — section 2 of the flagship
+
+Prediction before render: the risk is the pipeline misreading (plate B never sees what A stopped); the mitigation is that every item visibly reaches both plates and the scope names sequential routing as a different estimand. Observed on the contact sheet: the tray, the two plates, the shelf of A's ten misses, and the pile read as one mechanism; the pile counter fills as rings land while both plate counters stay pinned. First render 4,520 overflows from five captions sized for a wider column; shortened to fit 520 px; second render 0 overflows, determinism ok, 5 facts bound, 7 claim frames. Not dispatched.

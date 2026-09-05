@@ -1,0 +1,153 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>The Stack</title>
+<link rel="stylesheet" href="../lib/tokens.css">
+<!--
+  THE STACK (1920×1080, 45 s, silent). Section 2 of the flagship.
+  One hundred items fall through two guard plates. Plate A stops 90 and lets 10 through;
+  plate B stops 90 and lets 10 through. The pile under both plates is the joint miss —
+  the thing a scorecard never shows. The film moves B's ten misses from items A caught to
+  items A missed; the pile runs 0 → 10 while both plate counters stay pinned at 10/100.
+  Then the licensed interval and the one point independence would pick.
+  Every number is read from films/data/facts.json (CC-001, CC-004). Items are illustrative.
+-->
+<div id="stage"></div>
+<script src="../lib/film.js"></script>
+<script>
+'use strict';
+const { H, TOK } = Film;
+const { k, sm, eio, eo3, eo5, lerp, text, paragraph, line, disc, ring, measure, shuffled, hexA, kicker, locator, ledgerTag, roundRect } = H;
+
+const DUR = 45.0, N = 100, SIDE = 10;
+let P1, P2, LO, HI, IND, A_CELLS, B_HOME;
+const T_FALL_A = 5.0, T_FALL_B = 11.0, T_HOP0 = 17.0, HOP = 0.9, HOP_DUR = 0.5, T_AXIS = 30.0, T_SENT = 36.0, T_LOC = 40.0;
+
+function setup({ fact }) {
+  [P1, P2] = fact('CC-001.marginals');
+  [LO, HI] = fact('CC-001.and_bounds');
+  IND = fact('CC-001.independence_and');
+  fact('CC-004.witness_lower'); fact('CC-004.witness_upper');
+  const cells = shuffled([...Array(N).keys()], 0xC0FFEE);
+  A_CELLS = cells.slice(0, Math.round(P1 * N));
+  B_HOME = cells.slice(Math.round(P1 * N), Math.round(P1 * N) + Math.round(P2 * N));
+}
+const hopU = (t, i) => eio(k(t, T_HOP0 + i * HOP, T_HOP0 + i * HOP + HOP_DUR));
+const landed = t => B_HOME.reduce((n, _, i) => n + (hopU(t, i) >= 1 ? 1 : 0), 0);
+
+// geometry
+const TX = 720, TY = 96, C = 40, TW = SIDE * C;           // tray
+const PLATE_A = 560, PLATE_B = 740, PILE_Y = 900;          // plate baselines
+const cellXY = i => [TX + (i % SIDE) * C + C / 2, TY + Math.floor(i / SIDE) * C + C / 2];
+const laneX = i => TX + 30 + i * ((TW - 60) / 9);          // ten lanes under the plates
+
+function readout(g, label, num, den, x, y, color) {
+  text(g, label, x, y, { font: 'mono', size: 24, color: TOK.muted, track: 0.1, maxW: 460 });
+  text(g, String(num), x, y + 92, { font: 'serif', size: 100, weight: 500, color: color || TOK.ink });
+  const nw = measure(g, String(num), { font: 'serif', size: 100, weight: 500 });
+  text(g, `/ ${den}`, x + nw + 14, y + 92, { font: 'mono', size: 38, color: TOK.muted });
+}
+function plate(g, y, label, catches, alpha) {
+  g.save(); g.globalAlpha *= alpha;
+  g.fillStyle = TOK.surface; g.fillRect(TX - 40, y - 26, TW + 80, 52);
+  line(g, TX - 40, y - 26, TX + TW + 40, y - 26, TOK.lineStrong, 2); line(g, TX - 40, y + 26, TX + TW + 40, y + 26, TOK.lineStrong, 2);
+  text(g, label, TX - 60, y + 8, { font: 'mono', size: 24, color: TOK.ink, align: 'right', track: 0.1 });
+  text(g, `stops ${catches} · lets ${N - catches} through`, TX + TW + 60, y + 8, { font: 'mono', size: 22, color: TOK.muted, maxW: 520 });
+  g.restore();
+}
+
+function render(t, g, L) {
+  const fallA = sm(t, T_FALL_A, T_FALL_A + 2.2, eio), fallB = sm(t, T_FALL_B, T_FALL_B + 2.2, eio);
+  const dim = 1 - 0.72 * sm(t, T_AXIS, T_AXIS + 0.6);
+  // left: readouts, pinned
+  readout(g, 'PLATE A MISSES', Math.round(P1 * N), N, 120, 200);
+  readout(g, 'PLATE B MISSES', Math.round(P2 * N), N, 120, 400);
+  text(g, 'FIXED · SPEC-SHEET SCORES', 120, 560, { font: 'mono', size: 20, color: TOK.evidence, track: 0.1, maxW: 400 });
+  line(g, 120, 578, 600, 578, TOK.lineStrong, 2);
+  const q = landed(t);
+  const showPile = sm(t, T_FALL_B + 2.4, T_FALL_B + 3.0, eo3);
+  text(g, 'PASSED BOTH PLATES', 120, 700, { font: 'mono', size: 24, color: TOK.muted, track: 0.1, alpha: showPile });
+  text(g, String(q), 120, 810, { font: 'serif', size: 124, weight: 500, color: TOK.ink, alpha: showPile });
+  const qw = measure(g, String(q), { font: 'serif', size: 124, weight: 500 });
+  text(g, `/ ${N}`, 120 + qw + 16, 810, { font: 'mono', size: 40, color: TOK.muted, alpha: showPile });
+  text(g, 'the column the spec sheet lacks', 120, 860, { font: 'mono', size: 22, color: TOK.gold, track: 0.04, alpha: showPile, maxW: 520 });
+
+  g.save(); g.globalAlpha = dim;
+  // tray: 100 items; A's misses as filled discs, B's misses as rings (hopping)
+  g.fillStyle = TOK.paper; g.fillRect(TX - 14, TY - 14, TW + 28, TW + 28);
+  for (let i = 0; i <= SIDE; i++) { line(g, TX + i * C, TY, TX + i * C, TY + TW, TOK.paperLine, 1); line(g, TX, TY + i * C, TX + TW, TY + i * C, TOK.paperLine, 1); }
+  const r = C * 0.22;
+  for (let i = 0; i < N; i++) { const [x, y] = cellXY(i); if (!A_CELLS.includes(i)) disc(g, x, y, r * 0.55, TOK.paperMuted, 0.5); }
+  A_CELLS.forEach(cell => { const [x, y] = cellXY(cell); disc(g, x, y, r, TOK.paperInk, 1); });
+  B_HOME.forEach((home, i) => {
+    const u = hopU(t, i);
+    const [hx, hy] = cellXY(home), [ax, ay] = cellXY(A_CELLS[i]);
+    const x = lerp(hx, ax, u), y = lerp(hy, ay, u) - Math.sin(u * Math.PI) * C * 0.6;
+    ring(g, x, y, r * 1.6, TOK.paperInk, 3.5, 1);
+  });
+  text(g, '100 ITEMS', TX + TW + 60, TY + 24, { font: 'mono', size: 20, color: TOK.ink, track: 0.12, maxW: 400 });
+  text(g, 'filled = through A', TX + TW + 60, TY + 60, { font: 'mono', size: 18, color: TOK.muted, track: 0.04, maxW: 400 });
+  text(g, 'ring = through B', TX + TW + 60, TY + 90, { font: 'mono', size: 18, color: TOK.muted, track: 0.04, maxW: 400 });
+
+  // plates
+  plate(g, PLATE_A, 'PLATE A', N - Math.round(P1 * N), 1);
+  plate(g, PLATE_B, 'PLATE B', N - Math.round(P2 * N), 1);
+  // A's ten misses fall from the tray to the shelf between the plates
+  A_CELLS.forEach((cell, i) => {
+    const [x0, y0] = cellXY(cell), x1 = laneX(i), y1 = PLATE_A + 70;
+    const x = lerp(x0, x1, fallA), y = lerp(y0, y1, fallA);
+    if (fallA > 0) disc(g, x, y, r * 1.1, TOK.ink, 1);
+    // after B's ring lands on this item, it falls through plate B to the pile
+    const u = hopU(t, i);
+    if (u >= 1) {
+      const d = eio(k(t, T_HOP0 + i * HOP + HOP_DUR, T_HOP0 + i * HOP + HOP_DUR + 0.5));
+      disc(g, x1, lerp(y1, PILE_Y, d), r * 1.1, TOK.invalid, 1);
+    } else if (fallB > 0) {
+      // caught at plate B: item rests on plate B (lit)
+      disc(g, x1, lerp(y1, PLATE_B - 40, fallB), r * 1.1, TOK.evidence, 0.9);
+    }
+  });
+  line(g, TX - 40, PILE_Y + 30, TX + TW + 40, PILE_Y + 30, TOK.lineStrong, 2);
+  text(g, 'PASSED BOTH', TX - 60, PILE_Y + 8, { font: 'mono', size: 24, color: TOK.invalid, align: 'right', track: 0.1 });
+  g.restore();
+
+  // interval over the dimmed stack
+  const axA = sm(t, T_AXIS + 0.2, T_AXIS + 0.9, eo3);
+  if (axA > 0) {
+    const ax0 = TX + 10, ax1 = TX + TW - 10, ay = 520;
+    const px = v => lerp(ax0, ax1, v / HI);
+    g.save(); g.globalAlpha = axA;
+    g.fillStyle = TOK.bg; g.fillRect(TX - 60, ay - 130, TW + 120, 300);
+    text(g, 'licensed by the two scores', (ax0 + ax1) / 2, ay - 80, { font: 'mono', size: 26, color: TOK.evidence, align: 'center', track: 0.04, maxW: TW + 100 });
+    text(g, `${Math.round(LO * 100)}%`, px(LO), ay - 30, { font: 'mono', size: 34, color: TOK.ink, align: 'center' });
+    text(g, `${Math.round(HI * 100)}%`, px(HI), ay - 30, { font: 'mono', size: 34, color: TOK.ink, align: 'center' });
+    g.fillStyle = hexA(TOK.evidence, 0.28); g.fillRect(px(LO), ay - 12, px(HI) - px(LO), 24);
+    line(g, px(LO), ay, px(HI), ay, TOK.evidence, 5);
+    const pA = sm(t, T_AXIS + 0.8, T_AXIS + 1.2, eo5);
+    line(g, px(IND), ay + 14, px(IND), ay + 44, TOK.review, 4 * pA);
+    disc(g, px(IND), ay, 15 * pA, TOK.bg); disc(g, px(IND), ay, 11 * pA, TOK.review);
+    text(g, `independence picks ${Math.round(IND * 100)}%`, px(IND) - 12, ay + 84, { font: 'mono', size: 32, color: TOK.review, alpha: pA, track: 0.03, maxW: 520 });
+    text(g, 'the whiteboard multiplication', px(IND) - 12, ay + 122, { font: 'mono', size: 24, color: TOK.review, alpha: pA, track: 0.03, maxW: 520 });
+    g.restore();
+  }
+  const sA = sm(t, T_SENT, T_SENT + 0.6, eo3);
+  paragraph(g, 'Both plates kept their scores. The pile went from nothing to everything. The spec sheet cannot tell you which stack you bought.', 1320, 700, { font: 'serif', size: 36, style: 'italic', color: TOK.ink, alpha: sA, maxW: 500, lineHeight: 46 });
+  const tagA = 1 - sm(t, T_AXIS - 0.3, T_AXIS + 0.3);
+  ledgerTag(g, L, 'ILLUSTRATIVE', 'a constructed population · the plate counters are the declared input of CC-001 · pile 0 and pile 10 are CC-004 endpoint witnesses', tagA, 'right');
+  ledgerTag(g, L, 'PROVED', 'CC-001 bounds · the amber point is DERIVED: what independence selects, not a measurement', 1 - tagA, 'right');
+  locator(g, L, ['CC-001 · CC-004 — the kernel reproduces the bounds and both witnesses from a clean clone: python3 scripts/verification_manifest.py', 'cubits11.github.io/try'], sm(t, T_LOC, T_LOC + 0.6, eo3));
+}
+
+Film.define({
+  id: 'the-stack', title: 'The Stack', duration: DUR, fps: 30, poster_t: 29.0,
+  claimFrames: [
+    { t: 0.5, label: 'opening: 100 items above two plates; both counters pinned at 10/100' },
+    { t: 8.0, label: 'plate A: ten items fall through, ninety stop' },
+    { t: 14.0, label: 'plate B catches all ten; the pile is 0 — the disjoint world' },
+    { t: 22.0, label: 'mid-transition: rings migrate, the pile is filling, the counters unchanged' },
+    { t: 27.5, label: 'the nested world: pile 10/100, counters still 10/100' },
+    { t: 33.0, label: 'the interval 0–10% over the dimmed stack, the amber 1% labelled as what independence picks' },
+    { t: 43.0, label: 'the sentence and the locator' }
+  ],
+  setup, render
+});
+</script>

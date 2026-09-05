@@ -1,0 +1,116 @@
+id: the-stack
+title: The Stack
+cohort: B
+grammar: >-
+  a physical stack: two guard plates over a tray of one hundred items; what falls through both is the
+  pile
+duration_s: 45
+thesis: >-
+  Two guard plates that each let 10 of 100 items through can jointly let anywhere from 0 to 10 items reach
+  the pile; both plate counters stay pinned while the pile runs the whole interval, and multiplying the
+  two scores selects one world.
+epistemic_operation: >-
+  fixed marginals with moving overlap → a set of feasible worlds; endpoint witnesses; an assumption selecting
+  one point — staged as the deployer's own mental model, a stack
+claim: >-
+  For marginals (0.10, 0.10) the both-fail probability is identified only to [0.0, 0.10]; both endpoints
+  are attained by explicit joint distributions that satisfy the marginals; independence names 0.01, a
+  point inside that set it was never entitled to.
+scope: >-
+  A declared illustrative input (CC-001) and the kernel's bounds and witnesses (CC-001, CC-004), reproduced
+  from a clean clone in CI. The one hundred items, which plate lets which through, and the order of the
+  migration are illustrative constructions (the Same Scores seed); no measured system appears. Plates
+  are a metaphor for block-on-any composition with full exposure; sequential routing where the second
+  plate never sees what the first stopped is a different estimand and is not shown.
+status: supported_within_scope — bound to CC-001 and CC-004 at their registered commit
+evidence:
+- fact: CC-001.marginals
+  kind: REGISTRY
+  value:
+  - 0.1
+  - 0.1
+- fact: CC-001.and_bounds
+  kind: PROVED
+  value:
+  - 0.0
+  - 0.1
+- fact: CC-001.independence_and
+  kind: DERIVED
+  value: 0.010000000000000002
+- fact: CC-004.witness_lower
+  kind: PROVED
+  value:
+  - 0.8
+  - 0.1
+  - 0.1
+  - 0.0
+- fact: CC-004.witness_upper
+  kind: PROVED
+  value:
+  - 0.9
+  - 0.0
+  - 0.0
+  - 0.1
+objects:
+- object: the tray of 100 items and which items each plate lets through
+  status: ILLUSTRATIVE
+- object: the readouts PLATE A MISSES 10/100 and PLATE B MISSES 10/100, marked FIXED
+  status: REGISTRY
+  note: the declared input of CC-001; unchanged in every frame
+- object: the pile PASSED BOTH PLATES running 0 → 10
+  status: PROVED
+  note: >-
+    the start and end states are CC-004 endpoint witnesses; every intermediate state is feasible by the
+    same construction
+- object: the interval 0%–10% over the dimmed stack
+  status: PROVED
+  note: CC-001 bounds
+- object: the amber point at 1% labelled independence picks
+  status: DERIVED
+  note: the product of the marginals — what one assumption selects, not an answer
+- object: the plates and the falling items
+  status: ILLUSTRATIVE
+  note: a metaphor for parallel block-on-any composition with full exposure; not a routed pipeline
+evidence_commits:
+- claim: CC-001
+  repo: Cubits11/cc-framework
+  commit: 167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+- claim: CC-004
+  repo: Cubits11/cc-framework
+  commit: 167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+falsifier: >-
+  A clean-clone execution of the bound kernel on marginals (0.10, 0.10) returns AND bounds other than
+  [0.0, 0.10], or a witness that fails a marginal check at tolerance 1e-9 (CC-001 / CC-004, REJECT); or
+  any rendered frame shows a plate readout other than 10/100 while the pile moves — checkable frame by
+  frame.
+non_claims:
+- does not certify any stacked system as safe, and shows no measured system
+- does not estimate or recover the true dependence between any two guards
+- >-
+  does not select a point inside the interval; the amber point is what one assumption would select
+- >-
+  does not depict sequential routing; a second guard that never sees what the first blocked is a different
+  estimand
+- the items and the migration order are illustrations of feasible worlds, not data
+claim_frames:
+- t: 0.5
+  shows: opening — 100 items above two plates; both counters pinned at 10/100
+- t: 8.0
+  shows: plate A — ten items fall through, ninety stop
+- t: 14.0
+  shows: plate B catches all ten; the pile is 0 — the disjoint world
+- t: 22.0
+  shows: mid-transition — rings migrate, the pile is filling, the counters unchanged
+- t: 27.5
+  shows: the nested world — pile 10/100, counters still 10/100
+- t: 33.0
+  shows: the interval 0–10% over the dimmed stack, the amber 1% labelled as what independence picks
+- t: 43.0
+  shows: the sentence and the locator
+render:
+  kind: master
+  fps: 30
+  formats:
+  - master
+  poster_t: 29.0
+cta_route: /try/
