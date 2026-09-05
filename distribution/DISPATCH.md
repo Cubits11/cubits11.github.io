@@ -1,7 +1,8 @@
 # Dispatch-ready drafts — PREPARED, NOT SENT
 
 The owner sends; nothing in this repository sends anything. Items A and B
-were reported sent by the owner on 2026-09-02 (permalink to be recorded in
+were reported sent by the owner on 2026-09-02 (verified 2026-09-05 at
+https://github.com/IBM/Adversarial-Prompt-Evaluation/issues/7; permalink recorded in
 `distribution/dispatch-log.yaml`); the rest have not been sent. Re-derive every numeral at the
 dispatch commit (`python3 scripts/verification_manifest.py` green first).
 

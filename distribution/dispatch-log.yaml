@@ -13,7 +13,13 @@ dispatches:
     sent_by: owner
     reported: "2026-09-02"
     sent_at_commit: ca3e97569a8749f7594bb1daf7a23f1b94e1efb8
-    permalink: null            # OWNER_TO_RECORD — the issue URL; also add it to outcomes.yaml technical_interaction_log (3/12)
+    permalink: https://github.com/IBM/Adversarial-Prompt-Evaluation/issues/7
+    verified_on: "2026-09-05"
+    sent_at_utc: "2026-09-02T04:31:03Z"
+    observed_comments: 0
+    attachment_url: https://github.com/user-attachments/files/31721134/main_joint_report.py
+    attachment_sha256: dc7cda95b0dc1c26a2e34cd6beb34bf952d2bb4f2e55f4dd92d13e546413f7d2
+    attachment_note: "Compared with current contrib/ape_joint.py: the only difference is a docstring dossier link; executable source unchanged."
     message_as_sent: null      # OWNER_TO_RECORD if it differs from DISPATCH.md section A
     adjudication:
       - {at: "T+7d",   rule: "observe only; do not nudge. Silent → start GuardBench as an independent replication case"}
