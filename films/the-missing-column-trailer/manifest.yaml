@@ -1,0 +1,173 @@
+id: the-missing-column-trailer
+title: The Missing Column — trailer
+cohort: A-derivative
+grammar: >-
+  four acts from the record, cut for a feed: paper-and-ink construction, the licensed interval, the census
+  tallies, one released file
+duration_s: 34
+thesis: >-
+  Two identical scores license a whole interval of joint outcomes; one assumption picks a point inside
+  it; of 20 public evaluations none documents matched thresholds with full exposure and 5 carry any joint-evidence
+  artifact; on the one released file the marginals leave 13 possible counts and the rows say 9.
+epistemic_operation: >-
+  fixed marginals with moving overlap → a set of feasible worlds (I–II); classification against frozen
+  criteria → mechanical counts (III); marginals → sharp finite identified set → a union identifies the
+  count (IV)
+claim: >-
+  For marginals (0.10, 0.10) the both-fail probability is identified only to [0.0, 0.10] and independence
+  names 0.01 (CC-001, CC-004). As of 2026-08-27, of 20 examined evaluations 14 establish a shared basis,
+  0 document matched thresholds with full exposure, and 5 provide a joint-evidence artifact, 2 of them
+  only via a per-item release (MC-001). On the BELLS 2025 released subset the five marginals identify
+  the all-miss count only to {0 … 12} of 82; the released rows give 9; the independence plug-in expects
+  2.87 (MC-002, MC-003).
+scope: >-
+  A montage of four bound facts with no new arithmetic: the construction and interval are the Same Scores
+  master's (illustrative population, CC-001 input, CC-004 witnesses); the census counts are verify_census.compute_counts
+  on census.yaml at the freeze, one primary reviewer, bounded search; the BELLS numbers are counting arithmetic
+  on one author-selected file at native, unstated operating points. Nothing on screen is a measured deployed
+  stack.
+status: >-
+  supported_within_scope — bound to CC-001, CC-004, MC-001, MC-002, MC-003 at their registered commits
+evidence:
+- fact: CC-001.marginals
+  kind: REGISTRY
+  value:
+  - 0.1
+  - 0.1
+- fact: CC-001.and_bounds
+  kind: PROVED
+  value:
+  - 0.0
+  - 0.1
+- fact: CC-001.independence_and
+  kind: DERIVED
+  value: 0.010000000000000002
+- fact: CC-004.witness_lower
+  kind: PROVED
+  value:
+  - 0.8
+  - 0.1
+  - 0.1
+  - 0.0
+- fact: CC-004.witness_upper
+  kind: PROVED
+  value:
+  - 0.9
+  - 0.0
+  - 0.0
+  - 0.1
+- fact: MC-001.N
+  kind: DERIVED
+  value: 20
+- fact: MC-001.M
+  kind: DERIVED
+  value: 14
+- fact: MC-001.M3
+  kind: DERIVED
+  value: 0
+- fact: MC-001.K
+  kind: DERIVED
+  value: 5
+- fact: MC-001.K.releases_computable_items
+  kind: DERIVED
+  value: 2
+- fact: MC-001.frozen_as_of
+  kind: REGISTRY
+  value: '2026-08-27'
+- fact: MC-002.n_harmful
+  kind: OBSERVED
+  value: 82
+- fact: MC-002.all_miss
+  kind: OBSERVED
+  value: 9
+- fact: MC-002.independence_plugin_prompts
+  kind: DERIVED
+  value: 2.8657
+- fact: MC-003.identified_set_lower
+  kind: PROVED
+  value: 0
+- fact: MC-003.identified_set_upper
+  kind: PROVED
+  value: 12
+objects:
+- object: the 100-cell sheet and which cells each guard misses
+  status: ILLUSTRATIVE
+- object: the readouts GUARD A MISSES 10/100 and GUARD B MISSES 10/100, marked FIXED
+  status: REGISTRY
+  note: the declared input of CC-001; unchanged in every frame
+- object: the BOTH MISS counter running 0 → 10
+  status: PROVED
+  note: >-
+    the end states are CC-004 endpoint witnesses; every intermediate state is feasible by the same construction
+- object: the interval 0%–10% over the dimmed sheet
+  status: PROVED
+  note: CC-001 bounds
+- object: the amber point at 1% labelled independence picks
+  status: DERIVED
+  note: the product of the marginals — what one assumption selects, not an answer
+- object: the census tallies 20 / 14 / 0 / 5 and the 2-via-release qualifier
+  status: DERIVED
+  note: verify_census.compute_counts; the 0 is a reporting fact
+- object: the BELLS axis {0 … 12} of 82, the pinned 9, the dashed 2.87
+  status: PROVED
+  note: >-
+    the set is MC-003; 9 is MC-002 OBSERVED counting on the released file; 2.87 is DERIVED from the plug-in
+- object: the title, the action and the locator
+  status: ILLUSTRATIVE
+  note: a route, not a claim
+evidence_commits:
+- claim: CC-001
+  repo: Cubits11/cc-framework
+  commit: 167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+- claim: CC-004
+  repo: Cubits11/cc-framework
+  commit: 167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+- claim: MC-001
+  repo: Cubits11/cubits11.github.io
+  commit: 6a6f587a2c0a5dbd1e8fea065c383938877fe3b0
+- claim: MC-002
+  repo: CentreSecuriteIA/bells_leaderboard
+  commit: 507566c5a4606c8e3dec0bd59a5c5fde62594951
+- claim: MC-003
+  repo: Cubits11/cubits11.github.io
+  commit: 6a6f587a2c0a5dbd1e8fea065c383938877fe3b0
+falsifier: >-
+  A clean-clone execution of the bound kernel on marginals (0.10, 0.10) returns AND bounds other than
+  [0.0, 0.10] (CC-001/CC-004, REJECT); scripts/verify_census.py --counts prints counts other than 20 /
+  14 / 0 / 5 with 2 via release (MC-001, REJECT); scripts/reanalyze_bells_subset.py recomputes an all-miss
+  other than 9/82 or scripts/identification.py a set other than {0 … 12} (MC-002/MC-003, REJECT); or any
+  rendered frame shows a readout other than 10/100 for either guard while the BOTH counter moves — in
+  each case bind_facts.py --check fails before this film can be re-rendered.
+non_claims:
+- does not certify any stacked system as safe and shows no measured deployed stack
+- >-
+  does not estimate or recover the true dependence between any two guards; the amber points are what one
+  assumption would select
+- >-
+  does not claim any evaluated guardrail performs poorly; an unfilled column is a reporting fact
+- >-
+  does not treat the BELLS 9/82 as a rate or a population estimate; it is counting arithmetic on one author-selected
+  released file
+- the census is a bounded single-reviewer search, not proof of universal absence
+claim_frames:
+- t: 0.4
+  shows: opening — A 10/100, B 10/100, both 0/100, nothing has moved
+- t: 3.0
+  shows: mid-transition — half the rings landed, readouts unchanged
+- t: 7.0
+  shows: opposite endpoint 10/100 and the name SAME SCORES. DIFFERENT WORLDS.
+- t: 12.0
+  shows: the interval 0–10% with the amber 1% labelled as what independence picks
+- t: 20.0
+  shows: the census — 20 · 14 · 0 · 5 (2 via release), frozen 2026-08-27
+- t: 27.5
+  shows: BELLS — the set {0 … 12} of 82, the released 9, the amber 2.87 expectation
+- t: 32.4
+  shows: the close — title, BRING THE COUNTEREXAMPLE, locator
+render:
+  kind: master
+  fps: 30
+  formats:
+  - master
+  poster_t: 32.4
+cta_route: /missing-column/

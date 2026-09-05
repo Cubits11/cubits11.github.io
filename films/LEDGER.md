@@ -104,3 +104,7 @@ Lesson recorded: the prediction held on the readouts and failed on timing —
 a claim frame declared at the exact second an object begins to appear
 captures its absence. Claim frames must be declared after the eased arrival,
 not at its start.
+
+## 2026-09-05 — the-missing-column-trailer (master, 34 s)
+
+Prediction before render: the census act is the weakest beat because four numerals with qualifiers compete for one frame; the Same Scores act will carry the open. Observed on the contact sheet: the open, the endpoint, the axis and the close read cleanly; the census act stages its four rows sequentially and the third row (0, in review amber) is the only coloured numeral, which is the intended emphasis. One overflow class (DIFFERENT WORLDS. at 54 px against a 1920 frame) fixed by sizing the name to 41 px at x = 1420; second render 0 overflows, determinism ok, 16 facts bound, 7 claim frames. Not published to any feed: the cold-comprehension gate in distribution/launch-units.yaml applies to this cut as to every other, and no cold trial has been scored.

@@ -1,0 +1,198 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>The Missing Column — trailer</title>
+<link rel="stylesheet" href="../lib/tokens.css">
+<!--
+  The Missing Column — trailer (1920×1080, 34 s, silent).
+  Four acts, one argument, every number read from films/data/facts.json:
+    I   two readouts that never move while the joint count runs 0 → 10 (CC-001, CC-004)
+    II  the licensed interval and the one point independence picks (CC-001)
+    III the census: 20 examined · 14 shared basis · 0 matched thresholds with full exposure · 5 joint-evidence artifacts, 2 via release (MC-001)
+    IV  where the column exists: marginals pin the BELLS all-miss count to {0 … 12} of 82; the released rows say 9 (MC-002, MC-003)
+  Then the name, one action, and the locator. No logo before the phenomenon, no adjectives about the work.
+-->
+<div id="stage"></div>
+<script src="../lib/film.js"></script>
+<script>
+'use strict';
+const { H, TOK } = Film;
+const { k, sm, win, eio, eo3, eo5, lerp, text, paragraph, line, disc, ring, measure, shuffled, hexA, kicker, stamp, locator, ledgerTag } = H;
+
+const DUR = 34.0;
+const N = 100, SIDE = 10;
+let P1, P2, LO, HI, IND, A_CELLS, B_HOME;
+let CN, CM, CM3, CK, CK_REL, FROZEN;
+let B_N, B_ALL, B_PLUG, S_LO, S_HI;
+const T_HOP0 = 0.9, HOP = 0.42, HOP_DUR = 0.3;          // ten hops, 0.9 → 5.4 s
+const T_NAME = 6.0, T_AXIS = 9.0, T_ACT3 = 14.0, T_ACT4 = 22.0, T_CLOSE = 29.0;
+
+function setup({ fact }) {
+  [P1, P2] = fact('CC-001.marginals');
+  [LO, HI] = fact('CC-001.and_bounds');
+  IND = fact('CC-001.independence_and');
+  fact('CC-004.witness_lower'); fact('CC-004.witness_upper');
+  CN = fact('MC-001.N'); CM = fact('MC-001.M'); CM3 = fact('MC-001.M3'); CK = fact('MC-001.K');
+  CK_REL = fact('MC-001.K.releases_computable_items'); FROZEN = fact('MC-001.frozen_as_of');
+  B_N = fact('MC-002.n_harmful'); B_ALL = fact('MC-002.all_miss'); B_PLUG = fact('MC-002.independence_plugin_prompts');
+  S_LO = fact('MC-003.identified_set_lower'); S_HI = fact('MC-003.identified_set_upper');
+  const cells = shuffled([...Array(N).keys()], 0xC0FFEE);
+  A_CELLS = cells.slice(0, Math.round(P1 * N));
+  B_HOME = cells.slice(Math.round(P1 * N), Math.round(P1 * N) + Math.round(P2 * N));
+}
+const cellXY = (i, x0, y0, c) => [x0 + (i % SIDE) * c + c / 2, y0 + Math.floor(i / SIDE) * c + c / 2];
+const hopU = (t, i) => eio(k(t, T_HOP0 + i * HOP, T_HOP0 + i * HOP + HOP_DUR));
+const landed = t => B_HOME.reduce((n, _, i) => n + (hopU(t, i) >= 1 ? 1 : 0), 0);
+
+function readout(g, label, num, den, x, y, alpha) {
+  text(g, label, x, y, { font: 'mono', size: 26, color: TOK.muted, track: 0.1, alpha, maxW: 420 });
+  text(g, String(num), x, y + 96, { font: 'serif', size: 104, weight: 500, color: TOK.ink, alpha });
+  const nw = measure(g, String(num), { font: 'serif', size: 104, weight: 500 });
+  text(g, `/ ${den}`, x + nw + 14, y + 96, { font: 'mono', size: 40, color: TOK.muted, alpha });
+}
+
+function actOne(t, g, L) {
+  const a = 1 - sm(t, T_ACT3 - 0.8, T_ACT3);              // acts I–II fade out before the census
+  if (a <= 0.001) return;
+  g.save(); g.globalAlpha = a;
+  const gx = 700, gy = 150, c = 62, gw = SIDE * c, pad = 18;
+  readout(g, 'GUARD A MISSES', Math.round(P1 * N), N, 140, 200, 1);
+  readout(g, 'GUARD B MISSES', Math.round(P2 * N), N, 140, 400, 1);
+  text(g, 'FIXED', 140, 560, { font: 'mono', size: 26, color: TOK.evidence, track: 0.16 });
+  line(g, 140, 578, 560, 578, TOK.lineStrong, 2);
+  const q = landed(t);
+  text(g, 'BOTH MISS', 140, 700, { font: 'mono', size: 26, color: TOK.muted, track: 0.1 });
+  text(g, String(q), 140, 810, { font: 'serif', size: 124, weight: 500, color: TOK.ink });
+  const qw = measure(g, String(q), { font: 'serif', size: 124, weight: 500 });
+  text(g, `/ ${N}`, 140 + qw + 16, 810, { font: 'mono', size: 40, color: TOK.muted });
+  // the sheet
+  const dim = 1 - 0.74 * sm(t, T_AXIS, T_AXIS + 0.6);
+  g.save(); g.globalAlpha *= dim;
+  g.fillStyle = TOK.paper; g.fillRect(gx - pad, gy - pad, gw + 2 * pad, gw + 2 * pad);
+  for (let i = 0; i <= SIDE; i++) { line(g, gx + i * c, gy, gx + i * c, gy + gw, TOK.paperLine, 1); line(g, gx, gy + i * c, gx + gw, gy + i * c, TOK.paperLine, 1); }
+  const r = c * 0.24;
+  A_CELLS.forEach(cell => { const [x, y] = cellXY(cell, gx, gy, c); disc(g, x, y, r, TOK.paperInk, 1); });
+  B_HOME.forEach((home, i) => {
+    const u = hopU(t, i);
+    const [hx, hy] = cellXY(home, gx, gy, c), [ax, ay] = cellXY(A_CELLS[i], gx, gy, c);
+    const x = lerp(hx, ax, u), y = lerp(hy, ay, u) - Math.sin(u * Math.PI) * c * 0.5;
+    ring(g, x, y, r * 1.6 * (1 + 0.15 * Math.sin(u * Math.PI)), TOK.paperInk, 4.5, 1);
+  });
+  g.restore();
+  // the name
+  const nameA = sm(t, T_NAME, T_NAME + 0.5, eo3);
+  text(g, 'SAME SCORES.', 1420, 300, { font: 'serif', size: 41, weight: 600, color: TOK.ink, align: 'left', alpha: nameA, maxW: 470 });
+  text(g, 'DIFFERENT WORLDS.', 1420, 356, { font: 'serif', size: 41, weight: 600, color: TOK.gold, align: 'left', alpha: nameA, maxW: 490 });
+  // the interval over the dimmed sheet
+  const axA = sm(t, T_AXIS + 0.2, T_AXIS + 0.9, eo3);
+  if (axA > 0) {
+    const ax0 = gx + 30, ax1 = gx + gw - 30, ay = gy + 330;
+    const px = v => lerp(ax0, ax1, v / HI);
+    g.save(); g.globalAlpha *= axA;
+    text(g, 'every value: a possible world', (ax0 + ax1) / 2, ay - 70, { font: 'mono', size: 26, color: TOK.evidence, align: 'center', track: 0.04, maxW: gw });
+    text(g, `${Math.round(LO * 100)}%`, px(LO), ay - 28, { font: 'mono', size: 34, color: TOK.ink, align: 'center' });
+    text(g, `${Math.round(HI * 100)}%`, px(HI), ay - 28, { font: 'mono', size: 34, color: TOK.ink, align: 'center' });
+    g.fillStyle = hexA(TOK.evidence, 0.28); g.fillRect(px(LO), ay - 12, px(HI) - px(LO), 24);
+    line(g, px(LO), ay, px(HI), ay, TOK.evidence, 5);
+    const pA = sm(t, T_AXIS + 0.7, T_AXIS + 1.1, eo5);
+    line(g, px(IND), ay + 14, px(IND), ay + 44, TOK.review, 4 * pA);
+    disc(g, px(IND), ay, 15 * pA, TOK.bg); disc(g, px(IND), ay, 11 * pA, TOK.review);
+    text(g, `independence picks ${Math.round(IND * 100)}%`, px(IND) - 12, ay + 84, { font: 'mono', size: 34, color: TOK.review, alpha: pA, track: 0.03, maxW: 560 });
+    text(g, 'one assumption. one point.', px(IND) - 12, ay + 124, { font: 'mono', size: 26, color: TOK.review, alpha: pA, track: 0.03, maxW: 560 });
+    g.restore();
+    const sA = sm(t, T_AXIS + 1.6, T_AXIS + 2.2, eo3);
+    paragraph(g, 'The two scores cannot tell you which world you are in.', 1420, 560, { font: 'serif', size: 40, style: 'italic', color: TOK.ink, alpha: sA, maxW: 400, lineHeight: 50 });
+  }
+  const tagA = 1 - sm(t, T_AXIS - 0.3, T_AXIS + 0.3);
+  ledgerTag(g, L, 'ILLUSTRATIVE', 'a constructed population · the readouts are the declared input of CC-001 · the end states are CC-004 witnesses', tagA, 'right');
+  ledgerTag(g, L, 'PROVED', 'CC-001 bounds · the amber point is DERIVED: what independence selects, not a measurement', 1 - tagA, 'right');
+  g.restore();
+}
+
+function actThree(t, g, L) {
+  const a = win(t, T_ACT3, T_ACT4 + 0.3, 0.6, 0.6);
+  if (a <= 0.001) return;
+  g.save(); g.globalAlpha = a;
+  kicker(g, `THE CENSUS · FROZEN ${FROZEN}`, 140, 160, { size: 22 });
+  paragraph(g, 'So I counted how often the joint column is published at all.', 140, 240, { font: 'serif', size: 44, color: TOK.ink, maxW: 900, lineHeight: 54 });
+  const rows = [
+    [CN, 'public guardrail evaluations examined', 15.2],
+    [CM, 'establish shared items and a common event', 16.6],
+    [CM3, 'document matched thresholds together with full exposure', 18.0],
+    [CK, `provide a joint-evidence artifact · ${CK_REL} of them only via a data release`, 19.6]
+  ];
+  rows.forEach(([n, label, t0], i) => {
+    const ra = sm(t, t0, t0 + 0.5, eo3), y = 420 + i * 140;
+    text(g, String(n), 140, y + 60, { font: 'serif', size: 112, weight: 500, color: i === 2 ? TOK.review : TOK.ink, alpha: ra, align: 'right' });
+    line(g, 400, y + 24, 400, y + 70, TOK.lineStrong, 2 * ra);
+    paragraph(g, label, 440, y + 50, { font: 'sans', size: 34, color: i === 2 ? TOK.review : TOK.muted, alpha: ra, maxW: 1300, lineHeight: 42 });
+  });
+  const zA = sm(t, 20.6, 21.2, eo3);
+  text(g, 'The column is usually empty. That is the finding — a fact about reporting, not about any guard.', 140, 1000, { font: 'mono', size: 24, color: TOK.ink, alpha: zA, track: 0.02, maxW: 1640 });
+  ledgerTag(g, L, 'DERIVED', 'verify_census.compute_counts on census.yaml · single primary reviewer · bounded search, not universal absence', 1, 'right');
+  g.restore();
+}
+
+function actFour(t, g, L) {
+  const a = win(t, T_ACT4, T_CLOSE + 0.3, 0.6, 0.6);
+  if (a <= 0.001) return;
+  g.save(); g.globalAlpha = a;
+  kicker(g, 'WHERE THE COLUMN EXISTS · ONE RELEASED FILE', 140, 160, { size: 22 });
+  paragraph(g, `Five published miss rates pin how many of ${B_N} harmful prompts every guard misses to a set, not a number.`, 140, 240, { font: 'serif', size: 44, color: TOK.ink, maxW: 1200, lineHeight: 54 });
+  const ax0 = 200, ax1 = 1720, ay = 620;
+  const px = v => lerp(ax0, ax1, v / S_HI);
+  const bA = sm(t, 23.2, 23.9, eo3);
+  g.save(); g.globalAlpha *= bA;
+  g.fillStyle = hexA(TOK.evidence, 0.22); g.fillRect(px(S_LO), ay - 26, px(S_HI) - px(S_LO), 52);
+  for (let v = S_LO; v <= S_HI; v++) { disc(g, px(v), ay, 9, TOK.evidence); text(g, String(v), px(v), ay + 64, { font: 'mono', size: 28, color: TOK.muted, align: 'center' }); }
+  text(g, `identified set from the marginals: {${S_LO} … ${S_HI}} of ${B_N}`, ax0, ay - 70, { font: 'mono', size: 28, color: TOK.evidence, track: 0.03, maxW: 1500 });
+  g.restore();
+  const pA = sm(t, 25.0, 25.6, eo5);
+  g.save(); g.globalAlpha *= pA;
+  line(g, px(B_ALL), ay - 120, px(B_ALL), ay + 30, TOK.ink, 5);
+  text(g, `the released rows say ${B_ALL}`, px(B_ALL), ay - 140, { font: 'serif', size: 44, weight: 600, color: TOK.ink, align: 'center', maxW: 700 });
+  g.restore();
+  const qA = sm(t, 26.4, 27.0, eo5);
+  g.save(); g.globalAlpha *= qA;
+  line(g, px(B_PLUG), ay + 30, px(B_PLUG), ay + 130, TOK.review, 4, [8, 6]);
+  text(g, `independence expected ${B_PLUG.toFixed(2)}`, px(B_PLUG), ay + 168, { font: 'mono', size: 30, color: TOK.review, align: 'center', maxW: 700 });
+  text(g, 'a model’s point, not an observed count', px(B_PLUG), ay + 206, { font: 'mono', size: 24, color: TOK.review, align: 'center', maxW: 700 });
+  g.restore();
+  ledgerTag(g, L, 'OBSERVED', `BELLS 2025 released subset at native, unstated operating points · ${B_ALL} is counting arithmetic on one author-selected file, not a rate · the set is PROVED`, 1, 'right');
+  g.restore();
+}
+
+function close(t, g, L) {
+  const a = sm(t, T_CLOSE, T_CLOSE + 0.7, eo3);
+  if (a <= 0.001) return;
+  g.save(); g.globalAlpha = a;
+  text(g, 'THE MISSING COLUMN', 960, 380, { font: 'serif', size: 96, weight: 600, color: TOK.ink, align: 'center', maxW: 1700 });
+  text(g, 'what a stack of guardrails misses together, and who publishes it', 960, 450, { font: 'sans', size: 34, color: TOK.muted, align: 'center', maxW: 1700 });
+  const cA = sm(t, T_CLOSE + 1.2, T_CLOSE + 1.8, eo3);
+  text(g, 'Every number above is bound to a public claim with a falsifier.', 960, 600, { font: 'serif', size: 40, style: 'italic', color: TOK.ink, align: 'center', alpha: cA, maxW: 1700 });
+  text(g, 'BRING THE COUNTEREXAMPLE.', 960, 690, { font: 'mono', size: 40, color: TOK.gold, align: 'center', alpha: cA, track: 0.08, maxW: 1700 });
+  locator(g, L, ['CC-001 · CC-004 · MC-001 · MC-002 · MC-003 — reproduce from a clean clone: python3 scripts/verification_manifest.py', 'cubits11.github.io/missing-column'], cA);
+  g.restore();
+}
+
+function render(t, g, L) {
+  actOne(t, g, L);
+  actThree(t, g, L);
+  actFour(t, g, L);
+  close(t, g, L);
+}
+
+Film.define({
+  id: 'the-missing-column-trailer', title: 'The Missing Column — trailer',
+  duration: DUR, fps: 30, poster_t: 32.4,
+  claimFrames: [
+    { t: 0.4, label: 'opening: A 10/100, B 10/100, both 0/100 — nothing has moved' },
+    { t: 3.0, label: 'mid-transition: half the rings landed, the readouts unchanged' },
+    { t: 7.0, label: 'opposite endpoint 10/100 and the name SAME SCORES. DIFFERENT WORLDS.' },
+    { t: 12.0, label: 'the interval 0–10% with the amber 1% labelled as what independence picks' },
+    { t: 20.0, label: 'the census: 20 · 14 · 0 · 5 (2 via release), frozen 2026-08-27' },
+    { t: 27.5, label: 'BELLS: the set {0 … 12} of 82, the released 9, the amber 2.87 expectation' },
+    { t: 32.4, label: 'the close: title, BRING THE COUNTEREXAMPLE, locator' }
+  ],
+  setup, render
+});
+</script>

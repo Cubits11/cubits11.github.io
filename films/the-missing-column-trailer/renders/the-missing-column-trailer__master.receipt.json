@@ -1,0 +1,108 @@
+{
+ "film": "the-missing-column-trailer",
+ "format": "master",
+ "title": "The Missing Column \u2014 trailer",
+ "rendered_from_head": "07ab171a7ed9bc5296b21c4cae9c4839c2a9a8dd",
+ "rendered_on": "2026-09-05",
+ "inputs": {
+  "film.html": "6cf902d0111757f441e1a7f265c9f70bfc8443c3b922b2d83830121edba9f043",
+  "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
+  "films/data/facts.json": "39eaa79d76f006253ca627cd370d8a5d44ef77da0b8fa32db2b533ab8d7b8a37"
+ },
+ "runtime": {
+  "chrome": "152.0.7977.82",
+  "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
+  "crf": 20
+ },
+ "fps": 30,
+ "frames": 1021,
+ "duration_s": 34,
+ "width": 1920,
+ "height": 1080,
+ "frames_digest": "cc85df624d5eb044916ac940cc1b5628439d3b3c33586897ba696d0fbfdf357c",
+ "determinism": {
+  "sampled_frames": 5,
+  "identical": true
+ },
+ "text_overflows": [],
+ "facts_used": [
+  "CC-001.and_bounds",
+  "CC-001.independence_and",
+  "CC-001.marginals",
+  "CC-004.witness_lower",
+  "CC-004.witness_upper",
+  "MC-001.K",
+  "MC-001.K.releases_computable_items",
+  "MC-001.M",
+  "MC-001.M3",
+  "MC-001.N",
+  "MC-001.frozen_as_of",
+  "MC-002.all_miss",
+  "MC-002.independence_plugin_prompts",
+  "MC-002.n_harmful",
+  "MC-003.identified_set_lower",
+  "MC-003.identified_set_upper"
+ ],
+ "outputs": {
+  "master": "renders/the-missing-column-trailer__master.mp4",
+  "master_sha256": "f83acef82ad19fe00b46f7d5aa9f5dbd9e71f4f7edf64b05427384b8f55530f7",
+  "master_bytes": 1048606,
+  "master_duration_probe_s": 34.03,
+  "poster": "renders/the-missing-column-trailer__master.poster.png",
+  "poster_t": 32.4,
+  "stills": [
+   "renders/stills/master-open.jpg",
+   "renders/stills/master-q1.jpg",
+   "renders/stills/master-mid.jpg",
+   "renders/stills/master-q3.jpg",
+   "renders/stills/master-end.jpg"
+  ],
+  "claim_frames": [
+   {
+    "n": 1,
+    "t": 0.4,
+    "label": "opening: A 10/100, B 10/100, both 0/100 \u2014 nothing has moved",
+    "still": "renders/stills/master-claim-01.jpg"
+   },
+   {
+    "n": 2,
+    "t": 3,
+    "label": "mid-transition: half the rings landed, the readouts unchanged",
+    "still": "renders/stills/master-claim-02.jpg"
+   },
+   {
+    "n": 3,
+    "t": 7,
+    "label": "opposite endpoint 10/100 and the name SAME SCORES. DIFFERENT WORLDS.",
+    "still": "renders/stills/master-claim-03.jpg"
+   },
+   {
+    "n": 4,
+    "t": 12,
+    "label": "the interval 0\u201310% with the amber 1% labelled as what independence picks",
+    "still": "renders/stills/master-claim-04.jpg"
+   },
+   {
+    "n": 5,
+    "t": 20,
+    "label": "the census: 20 \u00b7 14 \u00b7 0 \u00b7 5 (2 via release), frozen 2026-08-27",
+    "still": "renders/stills/master-claim-05.jpg"
+   },
+   {
+    "n": 6,
+    "t": 27.5,
+    "label": "BELLS: the set {0 \u2026 12} of 82, the released 9, the amber 2.87 expectation",
+    "still": "renders/stills/master-claim-06.jpg"
+   },
+   {
+    "n": 7,
+    "t": 32.4,
+    "label": "the close: title, BRING THE COUNTEREXAMPLE, locator",
+    "still": "renders/stills/master-claim-07.jpg"
+   }
+  ],
+  "phone_previews": []
+ },
+ "render_seconds": 53.3
+}

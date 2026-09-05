@@ -37,6 +37,7 @@ Dated 2026-09-01. Gate: conceptual_clarity ≥ 8, epistemic_integrity ≥ 8, dis
 | 29 | Thresholds Are Worlds Too | cohort_c | industrial instruments | 8 | 8 | 9 | 8 | 7 | 8 | 9 | 8 | 8.1 |
 | 30 | What the Union Hides | cohort_c | shadow play | 8 | 8 | 9 | 8 | 7 | 8 | 9 | 9 | 8.2 |
 | 31 | 250 of 250 | cohort_c | industrial machinery | 8 | 7 | 8 | 8 | 6 | 7 | 9 | 8 | 7.6 |
+| 32 | The Missing Column — trailer | cohort_a | montage of the record's own beats | 8 | 6 | 9 | 8 | 8 | 8 | 10 | 8 | 8.1 |
 
 ## Killed and replaced
 
@@ -517,4 +518,19 @@ Dated 2026-09-01. Gate: conceptual_clarity ≥ 8, epistemic_integrity ≥ 8, dis
 - **implementation:** Canvas 2D; produce only after an owner review of the frame text against distribution/RECEIPT_PROTOCOL.md
 - **complexity:** L
 - **grammar:** industrial machinery
+
+### 32. The Missing Column — trailer (`the-missing-column-trailer`) — cohort_a
+
+- **thesis:** Two identical scores license a whole interval; one assumption picks a point; of 20 evaluations 0 document matched thresholds with full exposure and 5 carry any joint artifact; on the one released file the marginals leave 13 counts and the rows say 9.
+- **epistemic operation:** a montage of three bound operations: fixed marginals with moving overlap; classification → mechanical counts; marginals → finite identified set → union identifies the count
+- **visual mechanism:** the paper sheet with hopping rings; the interval and amber point; four census numerals with their qualifiers; one bead axis 0 … 12 with the pinned 9 and the dashed 2.87
+- **why motion:** each act is the master film's decisive beat; the cut exists to carry all four to a feed in 34 seconds without retyping a number
+- **opening image:** two readouts 10/100 marked FIXED beside an empty paper sheet
+- **turn:** the sheet dims under the interval; hard cut to the census numerals; then the axis where the column exists
+- **final image:** THE MISSING COLUMN · BRING THE COUNTEREXAMPLE · the locator
+- **evidence dependency:** `CC-001.marginals`, `CC-001.and_bounds`, `CC-001.independence_and`, `CC-004.witness_lower`, `CC-004.witness_upper`, `MC-001.N`, `MC-001.M`, `MC-001.M3`, `MC-001.K`, `MC-001.K.releases_computable_items`, `MC-002.n_harmful`, `MC-002.all_miss`, `MC-002.independence_plugin_prompts`, `MC-003.identified_set_lower`, `MC-003.identified_set_upper`
+- **misunderstanding risk:** a viewer takes the montage for one measured system — every act carries its ledger tag and the close names the claim ids
+- **implementation:** Canvas 2D, films/lib runtime, master only
+- **complexity:** M
+- **grammar:** montage of the record's own beats
 
