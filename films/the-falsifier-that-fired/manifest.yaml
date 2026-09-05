@@ -1,0 +1,119 @@
+id: the-falsifier-that-fired
+title: The Falsifier That Fired
+cohort: B
+grammar: >-
+  a seal, an envelope, a strike-through: the correction machinery shown executing on its own claim
+duration_s: 35
+thesis: >-
+  The census shipped with a falsifier written before the count; a qualifying row the search missed arrived
+  on 2026-08-30; the consequence REJECT executed, the 19/13/4 envelope was struck and retained, 20/14/5
+  superseded it, and the declared sensitivities keep the old numbers under their own labels.
+epistemic_operation: >-
+  a pre-committed consequence executing: falsifier → REJECT → dated supersession with the rejected envelope
+  retained → sensitivities declared, never substituted
+claim: >-
+  MC-001 records a correction dated 2026-08-30: the envelope moved from 19/13/4 to 20/14/5 when the row
+  multimodal-safeguard-bench-2026 was added, under the claim's own REJECT falsifier; two sensitivities
+  are declared, named-products-only 19/13/5 and pre-freeze-visibility-evidenced 19/13/4.
+scope: >-
+  Exactly the revision recorded in census.yaml and bound in MC-001 at the freeze 2026-08-27; the counts
+  are verify_census.compute_counts; one primary reviewer; a bounded search. The falsifier text on screen
+  paraphrases MC-001's registered condition. Nothing here says the corrected census is complete, or that
+  any evaluated system performs well or badly.
+status: supported_within_scope — bound to MC-001 at its registered commit
+evidence:
+- fact: MC-001.frozen_as_of
+  kind: REGISTRY
+  value: '2026-08-27'
+- fact: MC-001.correction
+  kind: REGISTRY
+  value:
+    date: '2026-08-30'
+    from:
+    - 19
+    - 13
+    - 4
+    row_added: multimodal-safeguard-bench-2026
+    to:
+    - 20
+    - 14
+    - 5
+- fact: MC-001.sensitivities
+  kind: REGISTRY
+  value:
+  - envelope:
+    - 19
+    - 13
+    - 5
+    id: named-products-only
+    label: Named-products-only reading
+  - envelope:
+    - 19
+    - 13
+    - 4
+    id: pre-freeze-visibility-evidenced
+    label: Independently evidenced pre-freeze visibility reading
+- fact: MC-001.N
+  kind: DERIVED
+  value: 20
+- fact: MC-001.M
+  kind: DERIVED
+  value: 14
+- fact: MC-001.K
+  kind: DERIVED
+  value: 5
+objects:
+- object: the seal text (falsifier and consequence)
+  status: REGISTRY
+  note: a paraphrase of MC-001 falsifier.condition and consequence
+- object: the envelope 19 / 13 / 4 and its strike-through
+  status: REGISTRY
+  note: MC-001.correction.from; retained in census revision history
+- object: the arriving row card
+  status: REGISTRY
+  note: MC-001.correction.row_added and date
+- object: the REJECT stamp
+  status: REGISTRY
+  note: the consequence fixed in the claim before the row appeared
+- object: the envelope 20 / 14 / 5
+  status: DERIVED
+  note: MC-001.correction.to = compute_counts today
+- object: the two sensitivity rows
+  status: REGISTRY
+  note: MC-001.sensitivities; declared, never a bare replacement
+evidence_commits:
+- claim: MC-001
+  repo: Cubits11/cubits11.github.io
+  commit: 6a6f587a2c0a5dbd1e8fea065c383938877fe3b0
+falsifier: >-
+  census.yaml revision_history no longer records the 2026-08-30 correction from 19/13/4 to 20/14/5 with
+  the named row; or scripts/verify_census.py --counts prints an envelope other than 20/14/5 or sensitivities
+  other than 19/13/5 and 19/13/4 (MC-001, REJECT) — bind_facts.py --check fails before this film can be
+  re-rendered.
+non_claims:
+- >-
+  does not claim the corrected census is complete; a bounded search proves no universal absence
+- >-
+  does not claim any evaluated guardrail or stack performs poorly; an unfilled column is a reporting fact
+- the sensitivities are declared alternatives, never replacements for 20/14/5
+- does not claim the correction machinery is novel or a standard
+claim_frames:
+- t: 0.5
+  shows: the seal written before the count and the frozen envelope 19 / 13 / 4
+- t: 7.0
+  shows: a row the search missed arrives, dated 2026-08-30
+- t: 13.5
+  shows: REJECT by its own rule; the old envelope struck through, not erased
+- t: 20.0
+  shows: the superseding envelope 20 / 14 / 5 beside the struck one
+- t: 27.0
+  shows: the declared sensitivities 19/13/5 and 19/13/4 under their own labels
+- t: 33.0
+  shows: the sentence and the locator
+render:
+  kind: master
+  fps: 30
+  formats:
+  - master
+  poster_t: 27.0
+cta_route: /corrections/

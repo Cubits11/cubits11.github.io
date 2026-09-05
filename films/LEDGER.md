@@ -112,3 +112,7 @@ Prediction before render: the census act is the weakest beat because four numera
 ## 2026-09-05 — the-stack (master, 45 s) — section 2 of the flagship
 
 Prediction before render: the risk is the pipeline misreading (plate B never sees what A stopped); the mitigation is that every item visibly reaches both plates and the scope names sequential routing as a different estimand. Observed on the contact sheet: the tray, the two plates, the shelf of A's ten misses, and the pile read as one mechanism; the pile counter fills as rings land while both plate counters stay pinned. First render 4,520 overflows from five captions sized for a wider column; shortened to fit 520 px; second render 0 overflows, determinism ok, 5 facts bound, 7 claim frames. Not dispatched.
+
+## 2026-09-05 — the-falsifier-that-fired (master, 35 s) — section 5 of the flagship
+
+Prediction before render: the strike-through is the beat, and the risk is that it reads as an erasure; the mitigation is that the struck numerals stay legible at reduced alpha and the superseding envelope is written beneath rather than over them. Observed on the contact sheet: seal, envelope, arriving row, REJECT stamp, strike, supersession and the two amber sensitivity rows read in order; the "NOT REPLACEMENTS" label sits with the sensitivities. First render 4,204 overflows from the row card and sensitivity labels; sized to the 520–580 px columns; second render 0 overflows, determinism ok, 6 facts bound, 6 claim frames. Not dispatched.

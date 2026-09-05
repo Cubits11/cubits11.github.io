@@ -1,0 +1,105 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>The Falsifier That Fired</title>
+<link rel="stylesheet" href="../lib/tokens.css">
+<!--
+  THE FALSIFIER THAT FIRED (1920×1080, 35 s, silent). Section 5 of the flagship.
+  A count shipped with its own tripwire: find a qualifying evaluation the search missed and the
+  count is REJECTED. The tripwire fired. The old envelope is struck through, not erased; the
+  superseding envelope is written beside it; the declared sensitivity keeps the old numbers under
+  its own label. Every number is read from films/data/facts.json (MC-001).
+-->
+<div id="stage"></div>
+<script src="../lib/film.js"></script>
+<script>
+'use strict';
+const { H, TOK } = Film;
+const { k, sm, eio, eo3, eo5, lerp, text, paragraph, line, measure, kicker, stamp, locator, ledgerTag, roundRect } = H;
+
+const DUR = 35.0;
+let FROZEN, CORR, SENS, N, M, K;
+const T_ROW = 5.0, T_REJECT = 11.0, T_NEW = 17.0, T_SENS = 24.0, T_SENT = 30.0;
+
+function setup({ fact }) {
+  FROZEN = fact('MC-001.frozen_as_of'); CORR = fact('MC-001.correction'); SENS = fact('MC-001.sensitivities');
+  N = fact('MC-001.N'); M = fact('MC-001.M'); K = fact('MC-001.K');
+}
+const LABELS = ['examined', 'shared basis', 'joint artifact'];
+
+function envelope(g, vals, x, y, color, alpha, strike) {
+  vals.forEach((v, i) => {
+    const cx = x + i * 250;
+    text(g, String(v), cx, y, { font: 'serif', size: 150, weight: 500, color, alpha, align: 'center' });
+    text(g, LABELS[i], cx, y + 44, { font: 'mono', size: 22, color: TOK.muted, alpha, align: 'center', track: 0.08, maxW: 240 });
+    if (strike > 0) {
+      const w = measure(g, String(v), { font: 'serif', size: 150, weight: 500 });
+      line(g, cx - w / 2 - 10, y - 52, cx - w / 2 - 10 + (w + 20) * strike, y - 52, TOK.invalid, 9);
+    }
+  });
+}
+
+function render(t, g, L) {
+  kicker(g, `THE CENSUS · FROZEN ${FROZEN} · CRITERIA LOCKED BEFORE CLASSIFICATION`, 120, 150, { size: 22, maxW: 1400 });
+  // the seal, on screen from the start
+  const sealY = 300;
+  g.save(); g.strokeStyle = TOK.lineStrong; g.lineWidth = 2; g.setLineDash([10, 7]); g.strokeRect(120, sealY - 60, 1000, 130); g.restore();
+  text(g, 'FALSIFIER, WRITTEN BEFORE THE COUNT', 150, sealY - 20, { font: 'mono', size: 20, color: TOK.evidence, track: 0.1, maxW: 940 });
+  paragraph(g, 'A qualifying evaluation published on or before the freeze is shown absent from the census → consequence: REJECT the stated counts.', 150, sealY + 18, { font: 'sans', size: 26, color: TOK.ink, maxW: 940, lineHeight: 34 });
+
+  // the frozen envelope
+  const strike = sm(t, T_REJECT + 0.6, T_REJECT + 1.6, eio);
+  const oldA = 1 - 0.55 * sm(t, T_NEW, T_NEW + 0.8);
+  text(g, 'ENVELOPE AT THE FREEZE', 120, 500, { font: 'mono', size: 22, color: TOK.muted, track: 0.1 });
+  envelope(g, CORR.from, 245, 640, TOK.ink, oldA, strike);
+
+  // the row arrives
+  const rowA = sm(t, T_ROW, T_ROW + 0.8, eo3), rowX = lerp(2000, 1220, rowA);
+  g.save(); g.globalAlpha = rowA;
+  g.fillStyle = TOK.surface; roundRect(g, rowX, 470, 580, 190, 6); g.fill();
+  g.strokeStyle = TOK.review; g.lineWidth = 2; g.stroke();
+  text(g, 'A ROW THE SEARCH MISSED', rowX + 28, 510, { font: 'mono', size: 20, color: TOK.review, track: 0.1, maxW: 520 });
+  text(g, CORR.row_added, rowX + 28, 560, { font: 'mono', size: 26, color: TOK.ink, maxW: 530 });
+  text(g, `found ${CORR.date} · published before the freeze`, rowX + 28, 606, { font: 'sans', size: 22, color: TOK.muted, maxW: 530 });
+  g.restore();
+
+  // the consequence executes
+  const rj = sm(t, T_REJECT, T_REJECT + 0.5, eo5);
+  if (rj > 0) stamp(g, 'REJECT · BY ITS OWN RULE', 620, 560, { size: 34, color: TOK.invalid, alpha: rj, angle: -0.08 });
+
+  // the superseding envelope
+  const nw = sm(t, T_NEW, T_NEW + 0.8, eo3);
+  text(g, 'SUPERSEDING ENVELOPE, DATED, THE OLD ONE RETAINED', 120, 780, { font: 'mono', size: 22, color: TOK.muted, track: 0.1, alpha: nw, maxW: 1000 });
+  envelope(g, CORR.to, 245, 920, TOK.ink, nw, 0);
+  text(g, `today: ${N} · ${M} · ${K}`, 120, 980, { font: 'mono', size: 22, color: TOK.evidence, alpha: nw, track: 0.08, maxW: 600 });
+
+  // the sensitivity keeps the old numbers under its own name
+  const sa = sm(t, T_SENS, T_SENS + 0.8, eo3);
+  g.save(); g.globalAlpha = sa;
+  const sx = 1220, sy = 760;
+  text(g, 'SENSITIVITIES · NOT REPLACEMENTS', sx, sy, { font: 'mono', size: 20, color: TOK.review, track: 0.1, maxW: 580 });
+  SENS.forEach((s, i) => {
+    const y = sy + 50 + i * 78;
+    text(g, s.envelope.join(' / '), sx, y + 30, { font: 'serif', size: 44, weight: 500, color: TOK.review });
+    paragraph(g, s.label, sx + 200, y + 12, { font: 'sans', size: 19, color: TOK.muted, maxW: 380, lineHeight: 24 });
+  });
+  g.restore();
+
+  const se = sm(t, T_SENT, T_SENT + 0.6, eo3);
+  paragraph(g, 'The old number is still in the log. That is not damage control. That is the product.', 1220, 300, { font: 'serif', size: 40, style: 'italic', color: TOK.ink, alpha: se, maxW: 580, lineHeight: 50 });
+  ledgerTag(g, L, 'REGISTRY', 'MC-001 revision history and declared sensitivities · counts are verify_census.compute_counts · one primary reviewer · bounded search, not universal absence', 1, 'right');
+  locator(g, L, ['MC-001 — census.yaml revision_history; python3 scripts/verify_census.py --counts', 'cubits11.github.io/corrections'], se);
+}
+
+Film.define({
+  id: 'the-falsifier-that-fired', title: 'The Falsifier That Fired', duration: DUR, fps: 30, poster_t: 27.0,
+  claimFrames: [
+    { t: 0.5, label: 'the seal written before the count and the frozen envelope 19 / 13 / 4' },
+    { t: 7.0, label: 'a row the search missed arrives, dated 2026-08-30' },
+    { t: 13.5, label: 'REJECT by its own rule; the old envelope struck through, not erased' },
+    { t: 20.0, label: 'the superseding envelope 20 / 14 / 5 beside the struck one' },
+    { t: 27.0, label: 'the declared sensitivities 19/13/5 and 19/13/4 under their own labels' },
+    { t: 33.0, label: 'the sentence and the locator' }
+  ],
+  setup, render
+});
+</script>

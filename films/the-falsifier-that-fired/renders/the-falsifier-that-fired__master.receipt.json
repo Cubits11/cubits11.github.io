@@ -1,0 +1,92 @@
+{
+ "film": "the-falsifier-that-fired",
+ "format": "master",
+ "title": "The Falsifier That Fired",
+ "rendered_from_head": "ea88d6552c2f41067cd03ef0fa6228fa21e6e201",
+ "rendered_on": "2026-09-05",
+ "inputs": {
+  "film.html": "13ddf2ccd282e8a4e34b5f2fb18fec6c66d4120df3082c869296dd117813dccd",
+  "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
+  "films/data/facts.json": "39eaa79d76f006253ca627cd370d8a5d44ef77da0b8fa32db2b533ab8d7b8a37"
+ },
+ "runtime": {
+  "chrome": "152.0.7977.82",
+  "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
+  "crf": 20
+ },
+ "fps": 30,
+ "frames": 1051,
+ "duration_s": 35,
+ "width": 1920,
+ "height": 1080,
+ "frames_digest": "d53c99693df86ea573d215a54a6703edc3e7fb820bc9e9003a4fcc52593d1494",
+ "determinism": {
+  "sampled_frames": 5,
+  "identical": true
+ },
+ "text_overflows": [],
+ "facts_used": [
+  "MC-001.K",
+  "MC-001.M",
+  "MC-001.N",
+  "MC-001.correction",
+  "MC-001.frozen_as_of",
+  "MC-001.sensitivities"
+ ],
+ "outputs": {
+  "master": "renders/the-falsifier-that-fired__master.mp4",
+  "master_sha256": "78acff299724a7c6f4adeeaf2b2b6d3c8cdbe2551fafafa3694e1ca967bed29c",
+  "master_bytes": 879801,
+  "master_duration_probe_s": 35.03,
+  "poster": "renders/the-falsifier-that-fired__master.poster.png",
+  "poster_t": 27,
+  "stills": [
+   "renders/stills/master-open.jpg",
+   "renders/stills/master-q1.jpg",
+   "renders/stills/master-mid.jpg",
+   "renders/stills/master-q3.jpg",
+   "renders/stills/master-end.jpg"
+  ],
+  "claim_frames": [
+   {
+    "n": 1,
+    "t": 0.5,
+    "label": "the seal written before the count and the frozen envelope 19 / 13 / 4",
+    "still": "renders/stills/master-claim-01.jpg"
+   },
+   {
+    "n": 2,
+    "t": 7,
+    "label": "a row the search missed arrives, dated 2026-08-30",
+    "still": "renders/stills/master-claim-02.jpg"
+   },
+   {
+    "n": 3,
+    "t": 13.5,
+    "label": "REJECT by its own rule; the old envelope struck through, not erased",
+    "still": "renders/stills/master-claim-03.jpg"
+   },
+   {
+    "n": 4,
+    "t": 20,
+    "label": "the superseding envelope 20 / 14 / 5 beside the struck one",
+    "still": "renders/stills/master-claim-04.jpg"
+   },
+   {
+    "n": 5,
+    "t": 27,
+    "label": "the declared sensitivities 19/13/5 and 19/13/4 under their own labels",
+    "still": "renders/stills/master-claim-05.jpg"
+   },
+   {
+    "n": 6,
+    "t": 33,
+    "label": "the sentence and the locator",
+    "still": "renders/stills/master-claim-06.jpg"
+   }
+  ],
+  "phone_previews": []
+ },
+ "render_seconds": 63.8
+}

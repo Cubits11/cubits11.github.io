@@ -39,6 +39,7 @@ Dated 2026-09-01. Gate: conceptual_clarity ≥ 8, epistemic_integrity ≥ 8, dis
 | 31 | 250 of 250 | cohort_c | industrial machinery | 8 | 7 | 8 | 8 | 6 | 7 | 9 | 8 | 7.6 |
 | 32 | The Missing Column — trailer | cohort_a | montage of the record's own beats | 8 | 6 | 9 | 8 | 8 | 8 | 10 | 8 | 8.1 |
 | 33 | The Stack | cohort_a | physical stack | 9 | 7 | 9 | 9 | 8 | 8 | 10 | 8 | 8.5 |
+| 34 | The Falsifier That Fired | cohort_a | seal and strike | 9 | 8 | 10 | 8 | 8 | 9 | 10 | 9 | 8.9 |
 
 ## Killed and replaced
 
@@ -549,4 +550,19 @@ Dated 2026-09-01. Gate: conceptual_clarity ≥ 8, epistemic_integrity ≥ 8, dis
 - **implementation:** Canvas 2D, films/lib runtime, master only
 - **complexity:** M
 - **grammar:** physical stack
+
+### 34. The Falsifier That Fired (`the-falsifier-that-fired`) — cohort_a
+
+- **thesis:** The census shipped with its own tripwire; a missed row arrived; REJECT executed; 19/13/4 was struck and retained, 20/14/5 superseded it, and the sensitivities keep the old numbers under their own labels.
+- **epistemic operation:** a pre-committed consequence executing on its own claim; supersession with retention; sensitivities declared, never substituted
+- **visual mechanism:** a dashed seal; three serif numerals; a row card sliding in dated; a red strike drawn across the old numerals; the new numerals written beneath; two amber sensitivity rows
+- **why motion:** the strike must be seen drawn over numbers that stay legible — a static after-image looks like an edit, motion shows a consequence executing
+- **opening image:** the seal and 19 / 13 / 4
+- **turn:** the row card arrives and REJECT stamps by its own rule
+- **final image:** struck 19/13/4 above 20/14/5, the sensitivities beside, the sentence, the locator
+- **evidence dependency:** `MC-001.frozen_as_of`, `MC-001.correction`, `MC-001.sensitivities`, `MC-001.N`, `MC-001.M`, `MC-001.K`
+- **misunderstanding risk:** a viewer reads the strike as an erasure or the sensitivity as the true count — the old numerals stay legible and the sensitivity label says NOT REPLACEMENTS
+- **implementation:** Canvas 2D, films/lib runtime, master only
+- **complexity:** S
+- **grammar:** seal and strike
 

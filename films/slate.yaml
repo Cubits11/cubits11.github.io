@@ -577,6 +577,23 @@ concepts:
     grammar: "physical stack"
     scores: {conceptual_clarity: 9, novelty: 7, epistemic_integrity: 9, visual_memorability: 9, silent_comprehension: 8, poster_strength: 8, render_feasibility: 10, distinctiveness: 8}
 
+  - id: the-falsifier-that-fired
+    title: "The Falsifier That Fired"
+    status: cohort_a
+    thesis: "The census shipped with its own tripwire; a missed row arrived; REJECT executed; 19/13/4 was struck and retained, 20/14/5 superseded it, and the sensitivities keep the old numbers under their own labels."
+    epistemic_operation: "a pre-committed consequence executing on its own claim; supersession with retention; sensitivities declared, never substituted"
+    visual_mechanism: "a dashed seal; three serif numerals; a row card sliding in dated; a red strike drawn across the old numerals; the new numerals written beneath; two amber sensitivity rows"
+    why_motion: "the strike must be seen drawn over numbers that stay legible — a static after-image looks like an edit, motion shows a consequence executing"
+    opening_image: "the seal and 19 / 13 / 4"
+    turn: "the row card arrives and REJECT stamps by its own rule"
+    final_image: "struck 19/13/4 above 20/14/5, the sensitivities beside, the sentence, the locator"
+    evidence_dependency: [MC-001.frozen_as_of, MC-001.correction, MC-001.sensitivities, MC-001.N, MC-001.M, MC-001.K]
+    misunderstanding_risk: "a viewer reads the strike as an erasure or the sensitivity as the true count — the old numerals stay legible and the sensitivity label says NOT REPLACEMENTS"
+    implementation: "Canvas 2D, films/lib runtime, master only"
+    complexity: S
+    grammar: "seal and strike"
+    scores: {conceptual_clarity: 9, novelty: 8, epistemic_integrity: 10, visual_memorability: 8, silent_comprehension: 8, poster_strength: 9, render_feasibility: 10, distinctiveness: 9}
+
 killed:
   - id: two-doors-painted-14
     title: "Two Doors Painted 14"
