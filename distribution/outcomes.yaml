@@ -46,8 +46,15 @@ diagnostics:
   cold_comprehension_trials: []
   # An invitation or open issue is diagnostic only; it is never credited as
   # an external reproduction, correction, release, PR, or cold run.
-  technical_interactions: 2     # replies that carried a number, source, or correction
+  technical_interactions: 3     # replies that carried a number, source, or correction
   technical_interaction_log:
+    - date: "2026-09-02"
+      kind: upstream_issue
+      url: https://github.com/IBM/Adversarial-Prompt-Evaluation/issues/7
+      summary: >
+        Owner posted the joint-reporting request with main_joint_report.py attached.
+        Verified on 2026-09-05: open, zero comments. Recorded retrospectively as
+        one diagnostic interaction, not a maintainer response or qualified outcome.
     - date: "2026-08-31"
       kind: upstream_issue
       url: https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/issues/1

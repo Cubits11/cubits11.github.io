@@ -1,7 +1,8 @@
 # Dispatch-ready drafts — PREPARED, NOT SENT
 
 The owner sends; nothing in this repository sends anything. Items A and B
-were reported sent by the owner on 2026-09-02 (permalink to be recorded in
+were reported sent by the owner on 2026-09-02 (verified 2026-09-05 at
+https://github.com/IBM/Adversarial-Prompt-Evaluation/issues/7; permalink recorded in
 `distribution/dispatch-log.yaml`); the rest have not been sent. Re-derive every numeral at the
 dispatch commit (`python3 scripts/verification_manifest.py` green first).
 
@@ -33,7 +34,7 @@ link `contrib/ape_joint.py` as the proposed `scripts/main_joint_report.py`.
 agreement, every input-contract refusal via the CLI with the declared exit
 status, `.json` filename normalisation, pickle trust boundary disclosed).
 
-## C. Same Scores feed-native post — PREPARED — NOT SENT
+## C. Same Scores feed-native post — SENT (owner-reported 2026-09-05) — RESPONSE PENDING
 
 Artifact: `films/same-scores__social-square/renders/same-scores__social-square__square.mp4`
 (1080×1080, 11 s, silent). Text (from `distribution/launch-units.yaml`, unit `same-scores__social-square`):

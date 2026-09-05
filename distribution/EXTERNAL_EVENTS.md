@@ -24,8 +24,13 @@ as zero.
 4. **Decide whether a claim changes.** A disagreement runs the claim's own
    falsifier: NARROW, REJECT, or HOLD as registered in `claims.yaml`, never a
    new consequence chosen after the fact. Forbidden rescues stay forbidden.
-5. **Update the public surface.** Regenerate (`python3 scripts/verification_manifest.py`
-   regenerates and checks). A correction is placed beside the claim it
+5. **Update the public surface.** Run the relevant generators (for an outcome-ledger update,
+   `python3 scripts/generate_try.py` and
+   `python3 scripts/generate_missing_column.py`, and
+   `python3 scripts/generate_research_index.py`, followed by
+   `python3 scripts/generate_sitemap.py`), then run
+   `python3 scripts/verification_manifest.py`. The manifest checks; it does
+   not regenerate stale pages. A correction is placed beside the claim it
    corrects — in `/corrections/`, the census revision history, or the claim's
    correction history — with at least the prominence of the original.
 6. **Credit.** Name the contributor as they chose. A falsification is credited

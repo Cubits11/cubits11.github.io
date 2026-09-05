@@ -305,7 +305,10 @@ campaigns:
     intended_action: "run TRY-A and file the result, match or mismatch"
     success_signal: "one reproduction issue filed by someone who is not the author"
     preregistered: true
-    status: prepared
+    status: dispatched
+    dispatched_at: "2026-09-05T22:35Z"
+    dispatch_permalink: https://x.com/PranavBhave_/status/2096363411835904070
+    dispatch_note: "posted on the owner's explicit instruction with the cold-comprehension gate overridden (0 trials scored); the native video could not be attached through the automation (three attempts, media never finished preparing), so the feed object is the registered text plus a link to the same 11-second cut on YouTube Shorts. That is a representation change from the preregistered native-video object and is recorded as such."
     design: ecological_descriptive
     design_note: >
       An organic post on one account cannot identify a creative effect:

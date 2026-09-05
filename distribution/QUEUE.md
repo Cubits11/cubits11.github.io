@@ -1,22 +1,37 @@
-# Execution queue — external consequence, in priority order
+# Execution queue — external consequence
 
-Ordered by expected information gain per unit of author effort. Every item
-names its owner (the human, or the repository's CI), its gate, and the
-smallest observable result that would move it. Nothing below has been sent.
+Reconciled against the public record on **2026-09-05**. This replaces the
+outdated “nothing sent / 39 checks / three viewers” snapshot. No new external
+message was sent during reconciliation.
 
-| # | action | owner | gate | observable result |
-|---|---|---|---|---|
-| 1 | Merge `claude/film-laboratory-e2` + `claude/external-consequence-e3` after review; deploy; confirm `/try/` returns 200 and `scripts/smoke_deployed.py` is green | owner | full manifest green (it is, locally: 39 checks) | `/try/` live; the three commands run from a clean clone of `main` |
-| 2 | Send the IBM dossier ask (one issue on `IBM/Adversarial-Prompt-Evaluation`) with `contrib/ape_joint.py` attached as a proposed `scripts/main_joint_report.py` | owner | `/try/` live (so the link in the ask resolves) | a maintainer reply; a merged PR (`upstream_prs`) or a pasted joint line (`paired_outcome_releases`) |
-| 3 | Send the GuardBench dossier ask (one issue on `AmenRa/guardbench`) with `contrib/guardbench_joint.py` | owner | as above; one week after item 2 (one card per week) | same buckets |
-| 4 | Dispatch campaign `x-film-same-scores` (post draft in `distribution/launch-units.yaml`); record the dispatch date in `campaigns.yaml` readings | owner | items 1; owner re-derives numerals at the dispatch commit | 14-day window: `/try/` referrals in GitHub Insights (denominator: impressions); ≥1 reproduction issue |
-| 5 | Run three blinded comprehension trials on Same Scores (question and scoring rule fixed in `launch-units.yaml`); record in `outcomes.yaml` diagnostics | owner | viewers who have not seen the site | pass/fail per the pre-registered rule; a fail is the more useful result |
-| 6 | Reply to the BELLS-misuse authors' announcement with the row and the one question (selection rule) | owner | one card per week; PRESENT rows first | a confirmation or correction (`source_corrections`) |
-| 7 | Dispatch `x-film-thirteen-worlds`, then `x-film-leave-one-out`, one variable changed each, 14 days apart | owner | item 4's decision rule applied first | reproductions of TRY-B; a paired-outcome release |
-| 8 | If any qualified outcome arrives: run `distribution/EXTERNAL_EVENTS.md` steps 1–7 the same day; regenerate; credit | owner + CI | — | the first non-zero line in `outcomes.yaml` |
-| 9 | Stop rule: at 12 technical interactions with 0 qualified outcomes, stop optimising posts; apply `campaigns.yaml → funnel.interpretation` to the observations and change exactly one variable | owner | `scripts/outcomes.py` prints TRIGGERED | a diagnosed stage, not a redesigned surface |
-| 10 | Cohort B films: only on gate A–D in the E2 brief (external evidence, a failed cold trial, a new empirical result, a contributor use case) | — | the gate, recorded in `films/LEDGER.md` | not a film; the evidence that justifies one |
+| # | Action | Current state and gate | Smallest observable result |
+|---|---|---|---|
+| 1 | Merge the film and external-consequence branches; verify deployment | **DONE for the queued branches.** Both are ancestors of public `main` at `4c887ff3253f`. A fresh clone passed all **46** manifest checks; deployed smoke passed, including `/try/` HTTP 200. TRY-A and TRY-B reproduced; TRY-C ran on its documented example fixture. This does not publish the separate, uncommitted homepage/explorer work. | Already live and reproducible from this main revision. Author-run checks are not independent outcomes. |
+| 2 | IBM joint-reporter ask | **SENT September 2.** [Issue #7](https://github.com/IBM/Adversarial-Prompt-Evaluation/issues/7), with `main_joint_report.py` attached. Verified open, zero comments on September 5. Permalink and diagnostic now recorded. **Do not duplicate or nudge this week.** | A substantive maintainer response; a verified joint release or merged patch is qualified only after inspection. |
+| 3 | GuardBench joint-reporter ask | **WAIT until September 9**, one week after IBM. Recheck the target and duplicate issues before sending the existing [dossier](dossiers/guardbench-2024.md) with [reporter](../contrib/guardbench_joint.py). No matching Cubits11 request found among the public issues inspected September 5. | A reply, accepted patch, or usable joint-results release. |
+| 4 | Dispatch `x-film-same-scores` | **HOLD for the cold-viewer gate below and account baseline.** Current `campaigns.yaml` requires **5–8** cold viewers, not three. Then re-derive numerals at the dispatch commit; post the existing 11-second square cut and registered copy once. Record its actual permalink/time and platform denominators; never invent a dispatch date. | Verified independent reproduction. Link clicks / impressions are a verification-intent proxy, not observed `/try/` landings. |
+| 5 | Run the frozen Same Scores comprehension trial | **NEXT HUMAN ACTION.** Five minimum, eight maximum, people unfamiliar with the project. One viewing, sound off, no explanation; collect all three answers verbatim before scoring. Rules remain in `launch-units.yaml → cold_test_gate`. Two failures on the same question hold release; revise once and use a fresh cold set, never rescore. | Real answers and pass/fail diagnostics. No trial has been fabricated or recorded as completed. |
+| 6 | BELLS source-selection question | **PREPARED, separate weekly card.** Inspect the actual author announcement and existing replies first. Respect the current PRESENT-first selection rule; do not strengthen the frozen row or publish private denominator findings through an outreach shortcut. | A checkable source confirmation or correction. |
+| 7 | Subsequent film dispatches | **WAIT for Same Scores' actual T+14d decision.** Then change one representation at a time, at least 14 days apart, under the existing rule. No fixed dates until the first dispatch exists. | Reproduction or joint release; attention stays diagnostic. |
+| 8 | Process an external outcome | Follow [EXTERNAL_EVENTS.md](EXTERNAL_EVENTS.md) when a real artifact arrives. The three existing tracked issues had no comments at the September 5 check. An issue opened by the author is not a qualified outcome. | Verified entry, relevant regeneration, credit, and any required correction. |
+| 9 | Apply the stop rule | **NOT TRIGGERED: 3/12 technical interactions, 0 qualified outcomes.** The third is IBM's already-sent request, recorded retrospectively. Nine interactions remain. Do not infer unobserved funnel stages. | A supported diagnosis, with exactly one changed variable when the rule fires. |
+| 10 | Cohort B films | **HOLD.** Only the existing A–D evidence gates in the E2 brief justify further films. | The evidence that opens a gate, not another film. |
 
-Not on the queue, deliberately: more films, a wider census, an analytics
-endpoint, a Discord, a newsletter, any monetisation. Each was considered and
-adds cognitive load without improving conversion or evidence.
+## Dates that can actually be scheduled
+
+- **September 9:** GuardBench is first eligible; observe IBM without nudging.
+- **September 16–23:** at most one IBM follow-up, if still warranted and unanswered.
+- **After an actual film dispatch:** T+36h, T+7d, T+14d snapshots. These clocks
+  have not started. Keep the campaign `prepared` until publication occurs.
+
+## Observation limits
+
+GitHub repository traffic does not establish visits to the GitHub Pages
+`/try/` route. The current campaign's measurement layers correctly mark site
+arrival and experiment start UNKNOWN. Use actual platform counts with their
+own denominators; a voluntary reproduction report is a different kind of
+observation. No conversion rate is inferred here.
+
+The queue does not authorize a wider census, more films, analytics services,
+a community platform, newsletter, or monetisation. Its next bottleneck is
+five real viewer responses, not another research or media surface.

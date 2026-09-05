@@ -13,10 +13,33 @@ dispatches:
     sent_by: owner
     reported: "2026-09-02"
     sent_at_commit: ca3e97569a8749f7594bb1daf7a23f1b94e1efb8
-    permalink: null            # OWNER_TO_RECORD — the issue URL; also add it to outcomes.yaml technical_interaction_log (3/12)
+    permalink: https://github.com/IBM/Adversarial-Prompt-Evaluation/issues/7
+    verified_on: "2026-09-05"
+    sent_at_utc: "2026-09-02T04:31:03Z"
+    observed_comments: 0
+    attachment_url: https://github.com/user-attachments/files/31721134/main_joint_report.py
+    attachment_sha256: dc7cda95b0dc1c26a2e34cd6beb34bf952d2bb4f2e55f4dd92d13e546413f7d2
+    attachment_note: "Compared with current contrib/ape_joint.py: the only difference is a docstring dossier link; executable source unchanged."
     message_as_sent: null      # OWNER_TO_RECORD if it differs from DISPATCH.md section A
     adjudication:
       - {at: "T+7d",   rule: "observe only; do not nudge. Silent → start GuardBench as an independent replication case"}
       - {at: "T+14–21d", rule: "one follow-up at most (DISPATCH.md E, the one-integer ask)"}
       - {after: "follow-up", rule: "retain NO_OBSERVED_RESPONSE; never rewrite silence as rejection"}
+    outcome: null
+  - id: x-film-same-scores
+    dossier: distribution/launch-units.yaml
+    draft: "distribution/DISPATCH.md → C (registered post_draft, unit same-scores__social-square)"
+    target: "X, @PranavBhave_ timeline"
+    status: SENT_PENDING_RESPONSE
+    sent_by: owner
+    reported: "2026-09-05"
+    sent_at_commit: a54ea4312e21f0acb3cc3e593e5a07cb9ba5b01d
+    permalink: https://x.com/PranavBhave_/status/2096363411835904070
+    sent_at_utc: "2026-09-05T22:35:00Z"
+    message_as_sent: "registered post_draft verbatim, plus one line: '11 seconds, silent: https://youtube.com/shorts/I9eEd86T0io'"
+    deviation: "cold-comprehension gate overridden by the owner (0 trials scored); native video not attached — feed object is text + YouTube Shorts link. A duplicate post created by a double submit was deleted within 3 minutes (status 2096363698570805352)."
+    adjudication:
+      - {at: "T+36h", rule: "record impressions, video views, link clicks with denominators in campaigns.yaml readings"}
+      - {at: "T+7d",  rule: "same snapshot; no second film until the T+14d decision"}
+      - {at: "T+14d", rule: "apply the campaign's decision rule; silence is NO_OBSERVED_RESPONSE"}
     outcome: null

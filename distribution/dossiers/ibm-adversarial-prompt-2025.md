@@ -1,6 +1,6 @@
 # Dossier — ibm-adversarial-prompt-2025
 
-Row: `ibm-adversarial-prompt-2025` · classification ABSENT · reconstruction PARTIALLY_IDENTIFIED · status of this dossier: PREPARED, nothing sent.
+Row: `ibm-adversarial-prompt-2025` · classification ABSENT · reconstruction PARTIALLY_IDENTIFIED · status: SENT 2026-09-02, verified 2026-09-05. [Issue #7](https://github.com/IBM/Adversarial-Prompt-Evaluation/issues/7) is open with no comments observed. The attached reporter is present. No qualified outcome.
 
 **1. What the source publishes.** Per-defence metrics (AUC, accuracy, F1, and per-dataset TPR/FPR) for fifteen defences on identical malicious and benign prompt pools, with released code (`IBM/Adversarial-Prompt-Evaluation`). No union, all-miss, overlap, or leave-one-out statistic; the paper's own conclusion that no single guardrail suffices is stated without a number about more than one.
 
