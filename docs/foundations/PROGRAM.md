@@ -647,9 +647,34 @@ Three consequences, all cheap:
 Reproduce: the scene script and both renders are reproducible from the
 parameters above; nothing is committed from that scratch run.
 
-**Non-claim:** this shows two runs agreed on one host, one build, one scene, at
-8 samples. It is not a determinism guarantee across Blender versions, machines,
-sample counts, or GPU rendering — and GPU was never tested.
+**And then the finding that mattered more.** The `.blend` files this program
+should actually build on already exist —
+`cc-framework/visual_identity/claim_observatory/claim_observatory_world_v3.blend`,
+267 objects across sixteen collections that are already this repository's
+epistemology (`02_ClaimCapsuleChamber`, `05_NonClaimsWall`, `06_DecayClockRoom`,
+`07_ChallengeRange`, `11_FrechetAtomGarden`), with twelve cameras, one per room.
+The v1 file already contains objects named
+`EvidenceArtifacts_FiniteAtomFrechetPoint_0_0_0` — the atoms, modelled before
+this program had a name for them.
+
+**That world renders in EEVEE, not Cycles**, so the Cycles result above did not
+license it. Measured separately, same method, on the world file itself at frame
+120 through `Camera_WorldHero`, `taa_render_samples = 48`,
+`use_taa_reprojection = True`: **IDAT identical**, `386f4dd9868a05cb…`, `tEXt`
+the only differing chunk.
+
+**EEVEE is pixel-deterministic on this build, so the existing world is
+receipt-eligible exactly as it stands.** It does not need converting to Cycles,
+and converting it would change the look of every frame for no epistemic gain.
+`films/lib/blender/API-FACTS.md` carries both measurements, the settings a
+receipt must pin, and three API traps that each cost a wasted run.
+
+`cc-framework` is a separate repository and nothing in either `.blend` was
+modified. It is read-only from here.
+
+**Non-claim:** two runs agreed, on one host, one build, one scene per engine.
+This is not a determinism guarantee across Blender versions, machines, sample
+counts, or GPU rendering — and GPU was never tested.
 
 ### 12.4 Interactive devices — where Blender stops
 
