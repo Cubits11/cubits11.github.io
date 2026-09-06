@@ -1,11 +1,11 @@
 {
- "film": "the-stack",
+ "film": "same-scores__social-square",
  "format": "master",
- "title": "The Stack",
+ "title": "Same Scores \u2014 social square",
  "rendered_from_head": "058d6f635ce32b0a491482112b25d2e5e5c55ce9",
  "rendered_on": "2026-09-06",
  "inputs": {
-  "film.html": "111e5409bc016fd7e8d12670113430b65c419e89fbd8e2cca30fde458373e483",
+  "film.html": "6832743eee84863a3e8d433814b67682a7040632885957af1eda6dedd8f4bec1",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
   "films/data/facts.json": "39eaa79d76f006253ca627cd370d8a5d44ef77da0b8fa32db2b533ab8d7b8a37"
@@ -16,11 +16,11 @@
   "crf": 20
  },
  "fps": 30,
- "frames": 1351,
- "duration_s": 45,
+ "frames": 331,
+ "duration_s": 11,
  "width": 1920,
  "height": 1080,
- "frames_digest": "3b3b8ca7bc49f74caf885f5aa627278db0ff62eead2e10cf8d51f7ee671b26ad",
+ "frames_digest": "45c0e70d32d9c2b1681252aacf6961a4063bac35357225a173b5bdc36bbabfe5",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -34,12 +34,12 @@
   "CC-004.witness_upper"
  ],
  "outputs": {
-  "master": "renders/the-stack__master.mp4",
-  "master_sha256": "57723a718de3a86e5b8515e0eb1ce4870e78eb65a12ae8923aa7615f764e3580",
-  "master_bytes": 885767,
-  "master_duration_probe_s": 45.03,
-  "poster": "renders/the-stack__master.poster.png",
-  "poster_t": 29,
+  "master": "renders/same-scores__social-square__master.mp4",
+  "master_sha256": "bf0a7d1064e8f570ca56210e0d57899ed96c90852efe6541d4f7ac5aa2c80ea5",
+  "master_bytes": 326078,
+  "master_duration_probe_s": 11.03,
+  "poster": "renders/same-scores__social-square__master.poster.png",
+  "poster_t": 10.8,
   "stills": [
    "renders/stills/master-open.jpg",
    "renders/stills/master-q1.jpg",
@@ -50,48 +50,42 @@
   "claim_frames": [
    {
     "n": 1,
-    "t": 0.5,
-    "label": "opening: 100 items above two plates; both counters pinned at 10/100",
+    "t": 0.3,
+    "label": "opening: A 10/100, B 10/100, both 0/100 \u2014 nothing has moved yet",
     "still": "renders/stills/master-claim-01.jpg"
    },
    {
     "n": 2,
-    "t": 8,
-    "label": "plate A: ten items fall through, ninety stop",
+    "t": 3.2,
+    "label": "mid-transition: half the rings have landed; the readouts have not changed",
     "still": "renders/stills/master-claim-02.jpg"
    },
    {
     "n": 3,
-    "t": 14,
-    "label": "plate B catches all ten; the pile is 0 \u2014 the disjoint world",
+    "t": 6.2,
+    "label": "opposite endpoint: both 10/100 with the two readouts unchanged",
     "still": "renders/stills/master-claim-03.jpg"
    },
    {
     "n": 4,
-    "t": 22,
-    "label": "mid-transition: rings migrate, the pile is filling, the counters unchanged",
+    "t": 7.4,
+    "label": "the name: SAME SCORES. DIFFERENT WORLDS.",
     "still": "renders/stills/master-claim-04.jpg"
    },
    {
     "n": 5,
-    "t": 27.5,
-    "label": "the nested world: pile 10/100, counters still 10/100",
+    "t": 9.6,
+    "label": "the interval 0\u201310% with the amber point at 1% labelled as what independence picks",
     "still": "renders/stills/master-claim-05.jpg"
    },
    {
     "n": 6,
-    "t": 33,
-    "label": "the interval 0\u201310% over the dimmed stack, the amber 1% labelled as what independence picks",
+    "t": 10.8,
+    "label": "the action: DON'T TRUST THE FILM. RUN THE 60-SECOND PROOF. cubits11.github.io/try",
     "still": "renders/stills/master-claim-06.jpg"
-   },
-   {
-    "n": 7,
-    "t": 43,
-    "label": "the sentence and the locator",
-    "still": "renders/stills/master-claim-07.jpg"
    }
   ],
   "phone_previews": []
  },
- "render_seconds": 77.9
+ "render_seconds": 15.9
 }
