@@ -19,6 +19,10 @@ ROOT = Path(__file__).resolve().parent.parent
 # module directly; verify_clean_clone imports this tuple for its fresh clone.
 CHECKS: tuple[tuple[str, ...], ...] = (
     ("claim registry", "scripts/verify_claims.py"),
+    ("finite device audits", "scripts/audit_device.py", "--all"),
+    ("device and render refusal paths", "scripts/test_device_audit_render.py"),
+    ("foundations generated drift and room bindings", "scripts/generate_foundations.py", "--check"),
+    ("foundations projection and mesh artifacts", "scripts/verify_foundations.py"),
     ("claim-history kernel", "scripts/claims_history.py", "verify"),
     ("claim-history mutants", "scripts/claims_history.py", "--test"),
     ("claim-history reconstruction", "scripts/claims_history.py", "reconstruct", "--check"),
@@ -33,6 +37,8 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("missing-column drift", "scripts/generate_missing_column.py", "--check"),
     ("fact-binding fixtures", "scripts/verify_facts.py", "--test"),
     ("current fact surfaces", "scripts/verify_facts.py"),
+    ("claim spine fixtures", "scripts/verify_spine.py", "--test"),
+    ("claim spine", "scripts/verify_spine.py", "--check"),
     ("growth page drift", "scripts/generate_growth.py", "--check"),
     ("acquisition surfaces", "scripts/verify_growth.py"),
     ("sitemap drift", "scripts/generate_sitemap.py", "--check"),
@@ -55,6 +61,7 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("resume PDF receipt", "scripts/verify_resume_receipt.py"),
     ("film facts current", "scripts/films/bind_facts.py", "--check"),
     ("film manifests and renders", "scripts/films/verify_films.py"),
+    ("flagship recording source map", "scripts/films/build_flagship.py", "--check"),
     ("film slate gate", "scripts/films/slate.py", "--check"),
     ("experiment surface drift", "scripts/generate_try.py", "--check"),
     ("external-consequence system", "scripts/verify_consequence.py"),

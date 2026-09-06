@@ -1,0 +1,751 @@
+{
+ "_generated_by": "films/lib/blender/probe_world_labels.py — read-only probe; regenerate, never edit",
+ "probed_at": "2026-09-05",
+ "blender": {
+  "version": "5.1.2",
+  "build_hash": "ec6e62d40fa9"
+ },
+ "blend": {
+  "path": "cc-framework/visual_identity/claim_observatory/claim_observatory_world_v3.blend",
+  "sha256": "def97571045b832baaefe7c122418e7ecdda04f138430f8a84cfb2c555c55c71",
+  "objects": 267,
+  "text_objects": 105
+ },
+ "labels": [
+  {
+   "name": "ArrivalHall_SourceReportHash",
+   "body": "source_report_hash: 3f93dd934fd9",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ArrivalHall_Subtext",
+   "body": "A claim is a bounded artifact with receipts, non-claims,\ndecay, challenge surfaces, and replay.",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ArrivalHall_ThesisText",
+   "body": "Not safety scores.\nEvidence-bound claims.",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ChallengeRange_ProbeLabel_01",
+   "body": "hash mismatch\nFAIL",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ChallengeRange_ProbeLabel_02",
+   "body": "missing non-claim\nNEEDS_REVIEW",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ChallengeRange_ProbeLabel_03",
+   "body": "expired decay\nFAIL",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ChallengeRange_ProbeLabel_04",
+   "body": "unknown role\nNEEDS_REVIEW",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ChallengeRange_ProbeLabel_05",
+   "body": "schema null\nreview trigger",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ChallengeRange_ProbeLabel_06",
+   "body": "exploratory leakage\nsemantic continuity failure",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ChallengeRange_ProbeLabel_07",
+   "body": "infeasible scenario\nFAIL",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ChallengeRange_ProbeLabel_08",
+   "body": "confirmatory protocol failure\nNEEDS_REVIEW",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ChallengeRange_RingLabel",
+   "body": "challenge surface",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ClaimCapsule_Caveat_NotDeploymentSafetyProof",
+   "body": "Not a deployment-safety proof",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ClaimCapsule_InternalEvidencePlateLabel_01",
+   "body": "cc_report.json\ncc.report.v0.3.1",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ClaimCapsule_InternalEvidencePlateLabel_02",
+   "body": "claim_governance_audit.json\ncc/claim-governance-audit.v1",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ClaimCapsule_InternalEvidencePlateLabel_03",
+   "body": "claim_envelope.json\ncc.claim_envelope.v1",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ClaimCapsule_InternalEvidencePlateLabel_04",
+   "body": "manifest.expected.json\ncc.claim_governance_capsule_manifest.v1",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ClaimCapsule_SmallStatusFields",
+   "body": "claim_level: bounded_empirical\nfreshness: fresh\nsupport_edges: 10",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ClaimCapsule_Status_PASSUnderVerifierRules",
+   "body": "PASS under verifier rules",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "DecayClockRoom_RealDecayFields",
+   "body": "status: fresh\nissued_at: 2026-01-01T00:00:00Z\nevaluated_at: 2026-01-02T00:00:00Z\ndegraded_after_days: 30.0\nexpires_after_days: 60.0",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "DecayClockRoom_StatusLabels",
+   "body": "Fresh\nDegraded\nExpired",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "DecayClockRoom_Title",
+   "body": "claims are mortal",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_Principle",
+   "body": "Evidence is not generic.\nEvidence has roles.",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_ReceiptIntegrityLabel",
+   "body": "Receipt integrity tablet\nsha256:3f93dd934fd9\nintegrity only != safety proof",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_TabletLabel_01",
+   "body": "bounds.json\nmeasurement_evidence\nsha256:ce2cbba1  bytes:1224",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_TabletLabel_02",
+   "body": "calibration.json\ncalibration_evidence\nsha256:fb6632f6  bytes:189",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_TabletLabel_03",
+   "body": "confirmatory_failure_matrix.json\nconfirmatory_failure_matrix\nsha256:86db598c  bytes:3712",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_TabletLabel_04",
+   "body": "confirmatory_protocol.json\nconfirmatory_protocol\nsha256:ec3fe8d3  bytes:3540",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_TabletLabel_05",
+   "body": "decay_policy.json\nclaim_decay\nsha256:e75cba03  bytes:1354",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_TabletLabel_06",
+   "body": "extremal_lower.json\nextremal_scenario\nsha256:71830fc9  bytes:4347",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_TabletLabel_07",
+   "body": "extremal_upper.json\nextremal_scenario\nsha256:42cd2764  bytes:4345",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_TabletLabel_08",
+   "body": "cc_report.json\ncc_report\nsha256:a0c02291  bytes:4702",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_TabletLabel_09",
+   "body": "claim_envelope.json\nclaim_envelope\nsha256:7f20f937  bytes:18930",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_TabletLabel_10",
+   "body": "claim_governance_audit.json\nclaim_governance_audit\nsha256:62ab6600  bytes:11279",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_TabletLabel_11",
+   "body": "audit_log.jsonl\naudit_log\nsha256:1841fb3e  bytes:442",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "EvidenceVault_Title",
+   "body": "Evidence Vault",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_AtomLabel_00",
+   "body": "0",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_AtomLabel_01",
+   "body": "1",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_AtomLabel_02",
+   "body": "2",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_AtomLabel_03",
+   "body": "3",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_AtomLabel_04",
+   "body": "4",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_AtomLabel_05",
+   "body": "5",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_AtomLabel_06",
+   "body": "6",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_AtomLabel_07",
+   "body": "7",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_Lower_WitnessLabel",
+   "body": "frechet_endpoint\nlower witness\nendpoint: lower\nfeasible: True",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_Principle",
+   "body": "finite atoms witness endpoint bounds",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_Title",
+   "body": "Frechet Atom Garden",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "FrechetAtomGarden_Upper_WitnessLabel",
+   "body": "frechet_endpoint\nupper witness\nendpoint: upper\nfeasible: True",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "HumanReviewTribunal_Principle",
+   "body": "review authorizes scoped use;\nit does not upgrade evidence",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "HumanReviewTribunal_Requirement",
+   "body": "required_human_review: false under current verifier rules",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "HumanReviewTribunal_Title",
+   "body": "human review",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "LedgerTower_FutureLayer",
+   "body": "future public claim ledger\nobservatory layer, not current capsule truth",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "LedgerTower_LifecycleLabel_01",
+   "body": "registered",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "LedgerTower_LifecycleLabel_02",
+   "body": "reaffirmed",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "LedgerTower_LifecycleLabel_03",
+   "body": "degraded",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "LedgerTower_LifecycleLabel_04",
+   "body": "expired",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "LedgerTower_LifecycleLabel_05",
+   "body": "challenged",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "LedgerTower_LifecycleLabel_06",
+   "body": "retracted",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "LedgerTower_Title",
+   "body": "claim lifecycle ledger",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "NonClaimsWall_ExactPassCaveat",
+   "body": "PASS means internal consistency under verifier rules;\nit does not mean the AI system is safe in deployment.",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "NonClaimsWall_MinimumBoundaryList",
+   "body": "deployment safety\nexternal validity\nrelease approval\nfuture freshness\nstatistical truth beyond scope",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "NonClaimsWall_PhysicalPurpose",
+   "body": "Non-claims attached.\nThe wall prevents claim overreach.",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "NonClaimsWall_Title",
+   "body": "THIS CLAIM\nDOES NOT SAY",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_CaveatLabel",
+   "body": "manifest: cc.claim_governance_capsule_manifest.v1\nfixed_now: 2026-01-02T00:00:00Z  seed: 314159",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FileTileLabel_01",
+   "body": "audit_log.jsonl\naudit_log\n1841fb3e  442 B",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FileTileLabel_02",
+   "body": "bounds.json\nmeasurement_evidence\nce2cbba1  1224 B",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FileTileLabel_03",
+   "body": "calibration.json\ncalibration_evidence\nfb6632f6  189 B",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FileTileLabel_04",
+   "body": "cc_report.json\ncc_report\na0c02291  4702 B",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FileTileLabel_05",
+   "body": "claim_envelope.json\nclaim_envelope\n7f20f937  18930 B",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FileTileLabel_06",
+   "body": "claim_governance_audit.json\nclaim_governance_audit\n62ab6600  11279 B",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FileTileLabel_07",
+   "body": "confirmatory_failure_matrix.json\nconfirmatory_failure_matrix\n86db598c  3712 B",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FileTileLabel_08",
+   "body": "confirmatory_protocol.json\nconfirmatory_protocol\nec3fe8d3  3540 B",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FileTileLabel_09",
+   "body": "decay_policy.json\nclaim_decay\ne75cba03  1354 B",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FileTileLabel_10",
+   "body": "extremal_lower.json\nextremal_scenario\n71830fc9  4347 B",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FileTileLabel_11",
+   "body": "extremal_upper.json\nextremal_scenario\n42cd2764  4345 B",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_FloorTitle",
+   "body": "Replay Manifest Engine",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_MeaningSurvivesReplay",
+   "body": "Meaning survives replay.",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "ReplayManifestEngine_ReproduceCommands",
+   "body": "reproduce.sh\nreproduce.sh --verify-only",
+   "collections": [
+    "08_ReplayManifestEngine"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_ClaimFragmentLabel_01",
+   "body": "confirmatory_boundary",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_ClaimFragmentLabel_02",
+   "body": "endpoint_feasibility",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_ClaimFragmentLabel_03",
+   "body": "failure_matrix",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_ClaimFragmentLabel_04",
+   "body": "integrity.receipt",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_ClaimFragmentLabel_05",
+   "body": "operating_point",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_ClaimFragmentLabel_06",
+   "body": "staleness",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_ClaimFragmentLabel_07",
+   "body": "statistical_interval",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EdgeLabel_01",
+   "body": "integrity_binds",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EdgeLabel_03",
+   "body": "qualifies",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EdgeLabel_05",
+   "body": "qualifies",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EdgeLabel_07",
+   "body": "confirmatory_tests",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EdgeLabel_09",
+   "body": "bounds",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EvidenceArtifactLabel_01",
+   "body": "receipt:report",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EvidenceArtifactLabel_02",
+   "body": "report:measurement",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EvidenceArtifactLabel_03",
+   "body": "report:calibration",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EvidenceArtifactLabel_04",
+   "body": "bounds.json",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EvidenceArtifactLabel_05",
+   "body": "calibration.json",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EvidenceArtifactLabel_06",
+   "body": "confirmatory_failure_matrix.json",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EvidenceArtifactLabel_07",
+   "body": "confirmatory_protocol.json",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EvidenceArtifactLabel_08",
+   "body": "decay_policy.json",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EvidenceArtifactLabel_09",
+   "body": "extremal_lower.json",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_EvidenceArtifactLabel_10",
+   "body": "extremal_upper.json",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_Legend",
+   "body": "Role determines what evidence may say.\nconfirmatory / diagnostic / integrity only",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "SupportGraphOrrery_Title",
+   "body": "Support is typed.",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "WorldHero_Caveat_NotDeploymentSafetyProof",
+   "body": "Not a deployment-safety proof",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "WorldHero_FinalTitle_MeaningSurvivesReplay",
+   "body": "Meaning survives replay.",
+   "collections": [
+    "14_TextLabels"
+   ]
+  },
+  {
+   "name": "WorldHero_Thesis_NotSafetyScores_EvidenceBoundClaims",
+   "body": "Not safety scores.\nEvidence-bound claims.",
+   "collections": [
+    "14_TextLabels"
+   ]
+  }
+ ]
+}

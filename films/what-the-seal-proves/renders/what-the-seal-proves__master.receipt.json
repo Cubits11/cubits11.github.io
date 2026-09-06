@@ -2,16 +2,16 @@
  "film": "what-the-seal-proves",
  "format": "master",
  "title": "What the Seal Proves",
- "rendered_from_head": "2fac154349bb3546445f10f0e3110ab2eeb9eefc",
- "rendered_on": "2026-09-01",
+ "rendered_from_head": "63495d28e6cff21683c970b049ca2c0f7832ae04",
+ "rendered_on": "2026-09-06",
  "inputs": {
   "film.html": "c1823ae24b7c2668b8ecb4e35f9cee7e129d8a329efdae904e23f00648430178",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "66d6947b96f99559c04a7b20c59ba73ffd4ccae17fd13c2a9fad517450a605d7"
+  "films/data/facts.json": "17d75892c5bea470072263ee5a11df6d9b5a478115e910f37652874564b42cb6"
  },
  "runtime": {
-  "chrome": "152.0.7977.65",
+  "chrome": "152.0.7977.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
   "crf": 20
  },
@@ -63,7 +63,8 @@
     "label": "the verified seal, the boundary line, and the three dark doors: SAFE? AUTHORIZED? CORRECT? \u2014 not established by the receipt",
     "still": "renders/stills/master-claim-02.jpg"
    }
-  ]
+  ],
+  "phone_previews": []
  },
- "render_seconds": 73.5
+ "render_seconds": 79.5
 }
