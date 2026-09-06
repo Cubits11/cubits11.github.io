@@ -22,9 +22,9 @@ counts:
   rung_illustrative: 2          # D-009, D-010 — self-assigned, lower rung on purpose
   rung_unaudited: 7
   built_physically: 0
-  with_audit_script: 0          # section 11
+  with_audit_script: 6          # scripts/audit_device.py:models; digital N2 only
   learners: 0
-  nodes_generated: 0
+  nodes_generated: 10           # scripts/generate_foundations.py; index alias counts once
 
 atoms:
   A1: a rate is a count over a population
@@ -264,9 +264,9 @@ equivalent_paths:
   D-004: keyboard — a threshold slider over a stated ordering; both rulers alignable
   D-005: text — the handed artifact is named in words before any arithmetic
   D-006: text — the cell's legal values typed as a list
-  D-007: NONE YET. Three orthographic projections plus a corner readout is the
-    candidate; until it exists this device excludes non-sighted learners and
-    must say so on its node.
+  D-007: text — occupied corners, pair-bin occupancy, and far-corner mass are
+    named beside rendered projections. This candidate route has not been tested
+    for equivalence with non-sighted learners.
   D-008: keyboard — mark-multiplicity counts entered directly
   D-009: text — write, timestamp, then write again after the result
   D-010: keyboard — candidate denominators tried against the printed totals
@@ -291,12 +291,302 @@ audit_freshness:
 non_claims:
   - No device here has taught anyone anything. Zero learners.
   - Clearing N1-N6 is a claim about the object, not evidence anyone learns from it.
-  - Nine of the ten exist only as text in this file.
-  - Every rung except D-002's is projected, and D-002's was audited by its designer only.
+  - Physical construction is unverified; bounded digital models now have generated nodes and meshes.
+  - Registry rungs are unchanged. Digital model checks remain SELF-AUDITED, not independent physical audits.
   - The pedagogy citations in PROGRAM.md section 1 are remembered, not reopened.
   - Zero devices are independently audited. The section 10 audit removed the
     only FAITHFUL rung in this file, which is the correct outcome.
-  - No audit script exists yet. Section 11 is a design, not a gate.
+  - The executable audit covers the stated finite digital models only; it does not certify every criterion.
   - A machine-checked faithfulness proof would be a statement about the object,
     never evidence that a learner understood it.
-  - D-007 currently excludes non-sighted learners and has no equivalent path.
+  - D-007 has a text occupancy readout, but equivalence for non-sighted learners has not been user-tested.
+
+# Generated pages consume these authored source records.
+room_atom_map:
+  Camera_Arrival:
+    room: 01_ArrivalHall
+    atoms: []
+    concepts: []
+    status: unmapped
+    reason: No atom binding has been established; intentionally unmapped.
+  Camera_ClaimCapsule:
+    room: 02_ClaimCapsuleChamber
+    atoms: []
+    concepts: []
+    status: unmapped
+    reason: No atom binding has been established; intentionally unmapped.
+  Camera_EvidenceVault:
+    room: 03_EvidenceVault
+    atoms: []
+    concepts: []
+    status: unmapped
+    reason: No atom binding has been established; intentionally unmapped.
+  Camera_SupportGraphOrrery:
+    room: 04_SupportGraphOrrery
+    atoms: []
+    concepts: []
+    status: unmapped
+    reason: No atom binding has been established; intentionally unmapped.
+  Camera_NonClaimsWall:
+    room: 05_NonClaimsWall
+    atoms:
+    - A10
+    concepts: []
+    status: mapped
+    reason: Carrying capacity proposed; this is not an audited teaching outcome.
+  Camera_DecayClockRoom:
+    room: 06_DecayClockRoom
+    atoms: []
+    concepts:
+    - claim_freshness
+    status: concept_only
+    reason: Freshness is a claim lifecycle concept, not an atom in this registry.
+  Camera_ChallengeRange:
+    room: 07_ChallengeRange
+    atoms:
+    - A10
+    concepts:
+    - falsifiers
+    status: mapped
+    reason: Carrying capacity proposed; this is not an audited teaching outcome.
+  Camera_ReplayManifestEngine:
+    room: 08_ReplayManifestEngine
+    atoms: []
+    concepts: []
+    status: unmapped
+    reason: No atom binding has been established; intentionally unmapped.
+  Camera_HumanReviewTribunal:
+    room: 09_HumanReviewTribunal
+    atoms: []
+    concepts: []
+    status: unmapped
+    reason: No atom binding has been established; intentionally unmapped.
+  Camera_LedgerTower:
+    room: 10_LedgerTower
+    atoms: []
+    concepts: []
+    status: unmapped
+    reason: No atom binding has been established; intentionally unmapped.
+  Camera_FrechetAtomGarden:
+    room: 11_FrechetAtomGarden
+    atoms:
+    - A2
+    - A6
+    - A7
+    concepts: []
+    status: mapped
+    reason: Carrying capacity proposed; this is not an audited teaching outcome.
+  Camera_WorldHero:
+    room: 00_WorldRoot
+    atoms: []
+    concepts: []
+    status: unmapped
+    reason: No atom binding has been established; intentionally unmapped.
+web_nodes:
+  D-001:
+    claim: CC-001
+    question: What must travel with the red count?
+    options:
+    - label: The color alone
+      readout: Color does not identify the population.
+      excluded_world: A jar with the same red count and a larger total is left out.
+      skip_repair: false
+    - label: The red count alone
+      readout: The count has lost its denominator.
+      excluded_world: A jar with the same red count and a smaller total is left out.
+      skip_repair: false
+    - label: The total as well
+      readout: Keep the numerator attached to its population.
+      excluded_world: A jar with a different denominator is excluded from this rate comparison.
+      skip_repair: true
+    - label: The jar shape
+      readout: Shape supplies no population count.
+      excluded_world: A differently shaped jar with the same contents is left out.
+      skip_repair: false
+  D-002:
+    claim: CC-001
+    question: Do the miss rates tell you how to stack the misses?
+    options:
+    - label: Yes, overlap them completely
+      readout: That selects the coincident-miss endpoint.
+      excluded_world: A world in which the miss sets are disjoint is left out.
+      skip_repair: false
+    - label: Yes, assume unrelated misses
+      readout: That selects an independence model.
+      excluded_world: A world in which both miss sets coincide is left out.
+      skip_repair: false
+    - label: No, keep every permitted overlap
+      readout: Keep the set instead of selecting an interior point.
+      excluded_world: An overlap larger than either miss set is excluded by these marginals.
+      skip_repair: true
+    - label: Yes, add the miss counts
+      readout: Adding counts is a union operation without the overlap subtraction.
+      excluded_world: A world in which the same item belongs to both miss sets is left out.
+      skip_repair: false
+  D-003:
+    claim: CC-001
+    question: What has to be named before “safer” has a meaning?
+    options:
+    - label: Only the number of hasps
+      readout: Counting hasps does not specify how they compose.
+      excluded_world: A box that opens when either hasp opens is left out.
+      skip_repair: false
+    - label: The composition rule and objective
+      readout: Blocking and availability can call for different rules.
+      excluded_world: A box evaluated under a different opening rule is excluded from this comparison.
+      skip_repair: true
+    - label: Both must always open
+      readout: That selects conjunction before naming the objective.
+      excluded_world: A box intended to open when either hasp opens is left out.
+      skip_repair: false
+    - label: Either must always open
+      readout: That selects disjunction before naming the objective.
+      excluded_world: A box intended to require both hasps is left out.
+      skip_repair: false
+  D-004:
+    claim: MC-001
+    question: What must match before you compare the rulers?
+    options:
+    - label: Their color
+      readout: Color does not specify the decision boundary.
+      excluded_world: An identical population cut at another threshold is left out.
+      skip_repair: false
+    - label: Their operating threshold and population
+      readout: Align the operating point before comparing decisions.
+      excluded_world: A comparison using a different population or cut is excluded.
+      skip_repair: true
+    - label: Only the population
+      readout: A shared ordering still permits different cut points.
+      excluded_world: The same population with the ruler at the opposite end is left out.
+      skip_repair: false
+    - label: Only the detector name
+      readout: A name does not identify the operating point.
+      excluded_world: The same named detector used at another threshold is left out.
+      skip_repair: false
+  D-005:
+    claim: CC-001
+    question: Can you reuse full-exposure arithmetic after handing over the slip?
+    options:
+    - label: Yes, the readers are unchanged
+      readout: The readers stayed; exposure changed.
+      excluded_world: A route in which the second reader never sees an unmarked line is left out.
+      skip_repair: false
+    - label: Yes, it is merely cheaper
+      readout: The handoff changes the observations available.
+      excluded_world: A harmful line omitted from the slip is left out.
+      skip_repair: false
+    - label: No, first name the routed estimand
+      readout: Keep the regime attached to the arithmetic.
+      excluded_world: A full-page world is excluded from this routed receipt.
+      skip_repair: true
+    - label: No combination can ever be studied
+      readout: A changed estimand can still be measured under a stated protocol.
+      excluded_world: A route with recorded handoffs and outcomes is left out.
+      skip_repair: false
+  D-006:
+    claim: MC-003
+    question: When several cell values remain legal, what is the answer?
+    options:
+    - label: Pick one silently
+      readout: That selects a value the local constraints do not select.
+      excluded_world: A completion using another locally permitted symbol is left out.
+      skip_repair: false
+    - label: Report the entire permitted set
+      readout: The constraints identify a set here.
+      excluded_world: A cell value already excluded by the row is left out.
+      skip_repair: true
+    - label: There is no answer
+      readout: A set can be an answer to this question.
+      excluded_world: A locally legal completion is left out when the whole set is discarded.
+      skip_repair: false
+    - label: More evidence must force uniqueness
+      readout: Uniqueness is an extra condition, not a promise of this device.
+      excluded_world: A constraint system that still permits alternative completions is left out.
+      skip_repair: false
+  D-007:
+    claim: CC-003
+    question: If every face agrees, must the far corner agree?
+    options:
+    - label: Yes, the faces determine everything
+      readout: Pairwise projections do not determine joint corner occupancy.
+      excluded_world: The odd-parity world has the same faces and an occupied far corner; it is left out.
+      skip_repair: false
+    - label: No, inspect the corner as well
+      readout: Keep the triple readout alongside the matching pairs.
+      excluded_world: An arrangement with unequal pair shadows is excluded from this construction.
+      skip_repair: true
+    - label: Only if the beads look alike
+      readout: Matching appearance does not add a joint constraint.
+      excluded_world: The alternate parity world made from identical beads is left out.
+      skip_repair: false
+    - label: The example measures a typical gap
+      readout: This is a constructed possibility proof.
+      excluded_world: An observed system with a different joint distribution is left out.
+      skip_repair: false
+  D-008:
+    claim: MC-003
+    question: Which pile represents items missed by every reader?
+    options:
+    - label: Any item with a mark
+      readout: That builds the union of misses.
+      excluded_world: An item marked by only one reader is included even though it is excluded from all-miss.
+      skip_repair: false
+    - label: Only items carrying every mark
+      readout: Read the intersection of miss sets.
+      excluded_world: An item missed by one reader and caught by another is excluded from all-miss.
+      skip_repair: true
+    - label: Only unmarked items
+      readout: That selects items nobody marked as missed.
+      excluded_world: An item missed by every reader is left out.
+      skip_repair: false
+    - label: The complement of any named good pile
+      readout: The meaning of good must be specified first.
+      excluded_world: An item missed by one reader but caught by another is left out of that shortcut.
+      skip_repair: false
+  D-009:
+    claim: MC-001
+    question: When must the falsifier be written?
+    options:
+    - label: After seeing the outcome
+      readout: That permits the rule to adapt to the result.
+      excluded_world: A prior condition that this outcome would have refuted is left out.
+      skip_repair: false
+    - label: Before seeing the outcome
+      readout: Keep the pre-outcome condition available for comparison.
+      excluded_world: A condition rewritten to accommodate the observed result is excluded.
+      skip_repair: true
+    - label: Only when a result is inconvenient
+      readout: That makes the check depend on convenience.
+      excluded_world: A convenient result that violates the prior condition is left out.
+      skip_repair: false
+    - label: Sealing alone verifies the claim
+      readout: The envelope preserves a condition, not its truth.
+      excluded_world: A sealed prediction contradicted by the outcome is left out.
+      skip_repair: false
+  D-010:
+    claim: CC-001
+    question: What does a compatible denominator establish?
+    options:
+    - label: The actual number of diners
+      readout: Compatibility does not identify the actual event.
+      excluded_world: Another divisor shared by all printed totals is left out.
+      skip_repair: false
+    - label: Compatibility under the stated cents rule
+      readout: Keep the arithmetic condition attached to the candidate.
+      excluded_world: A candidate that leaves a fractional-cent share is excluded.
+      skip_repair: true
+    - label: Every attempted candidate is feasible
+      readout: Trying a count does not satisfy divisibility.
+      excluded_world: A candidate leaving a remainder is included despite being excluded by the cents rule.
+      skip_repair: false
+    - label: A performance ranking
+      readout: Divisibility contains no performance observation.
+      excluded_world: A dinner with the same totals and different service is left out.
+      skip_repair: false
+web_scope:
+  non_claims:
+  - These are self-audited digital models, not independently verified physical devices.
+  - No learner efficacy, transfer, accessibility equivalence, or vendor performance has been measured.
+  - Unbounded and temporal devices remain text exercises; no faithful state machine is asserted for them.
+  - The receipt exercise has no supplied totals or ceiling, so it supports no computed denominator here.
+  world_locator: films/lib/blender/API-FACTS.md:The world file

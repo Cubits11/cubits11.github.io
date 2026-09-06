@@ -1,0 +1,69 @@
+{
+  "browser": "152.0.7977.82",
+  "source_sha256": {
+    "assets/foundations/viewer.js": "9cfd812f28c042fe477d2356ec0d54e4ebf2142cac2818aac6b7d78aa49e5e74",
+    "assets/foundations/machine.js": "18d0f5803c45aa450f4c036203febe81fa46e71c31a0c70e9fa58691dcdf10ed",
+    "assets/foundations/foundations.js": "08380b5cce1c70c9bbca276cf728e75d6d82d1dd56a6e529de282d38e1fd48e8",
+    "assets/foundations/foundations.css": "7623753801c777520b5d9ad34c50d70f11b02ed9f72afff759fa0f2ea8d1f11e",
+    "assets/foundations/states.json": "cebc5cd4e71afe1b9de4a66e38c6baf2970fb93099cd4bfcd536e5563930ec69",
+    "assets/foundations/meshes/receipt.json": "2021a0a8431398099ca305ea232886ff58470bc7b83ae42f922eb1584b40198f",
+    "scripts/test_foundations_browser.cjs": "2e10d42cf5be38799b40fb29668692601c770254e54d374cdbe238b2d4fa82e2",
+    "scripts/generate_foundations.py": "d5b7b7c90c865b33e68bd5fec9bb1d35682c2db2063ee895635840ebefcdea31",
+    "docs/foundations/devices.yaml": "8f4aa976074d504b8fe25aea3ef7e5beced1c6d93b6f13c9873fd76e7328978b"
+  },
+  "exports": [
+    {
+      "device": "D-002",
+      "loaded": true,
+      "reachable_states": 11,
+      "locator": "assets/foundations/states.json:devices.D-002"
+    },
+    {
+      "device": "D-003",
+      "loaded": true,
+      "reachable_states": 2,
+      "locator": "assets/foundations/states.json:devices.D-003"
+    },
+    {
+      "device": "D-004",
+      "loaded": true,
+      "reachable_states": 21,
+      "locator": "assets/foundations/states.json:devices.D-004"
+    },
+    {
+      "device": "D-005",
+      "loaded": true,
+      "reachable_states": 2,
+      "locator": "assets/foundations/states.json:devices.D-005"
+    },
+    {
+      "device": "D-006",
+      "loaded": true,
+      "reachable_states": 3,
+      "locator": "assets/foundations/states.json:devices.D-006"
+    },
+    {
+      "device": "D-007",
+      "loaded": true,
+      "reachable_states": 2,
+      "locator": "assets/foundations/states.json:devices.D-007"
+    }
+  ],
+  "no_js_nodes": 10,
+  "no_js_locator": "docs/foundations/devices.yaml:devices",
+  "checks": [
+    "answer gating",
+    "branch selection",
+    "skip repair",
+    "all mesh loads",
+    "all reachable UI states",
+    "illegal move rejected",
+    "no external requests",
+    "mobile overflow",
+    "no-JS readouts"
+  ],
+  "non_claims": [
+    "One local Chrome build only; no cross-browser or assistive-technology certification.",
+    "No learner outcome, physical device fidelity, or independent audit is established."
+  ]
+}
