@@ -618,9 +618,38 @@ string, and a fixed sampling seed with `--cycles-device CPU` for determinism.
 /Applications/Blender.app/Contents/MacOS/Blender -b scene.blend -f 1 -- --seed 0
 ```
 
-Two renders of the same `.blend` on the same build must be byte-identical or the
-scene is not receipt-eligible. Verify that before modelling anything, because a
-non-deterministic renderer cannot enter this repository's film pipeline at all.
+**Measured 2026-09-05 on this host, and it changes the protocol.** Two renders
+of the same scene — Blender 5.1.2, `--factory-startup`, Cycles, `cycles.device
+= CPU`, `samples = 8`, `seed = 0`, denoising off, 120x120, four beads at the
+even-parity corners, one orthographic camera:
+
+| PNG chunk | Result |
+|---|---|
+| `IDAT` (the pixel data) | **byte-identical**, sha256 `bcda94a7f811…`, 7634 bytes both runs |
+| `IHDR` `cHRM` `gAMA` `sRGB` `pHYs` `oFFs` `eXIf` | identical |
+| `tEXt` | **differs** — Blender writes render time and metadata here |
+
+So the whole-file sha256 differs while the image is identical. **Cycles CPU at a
+fixed seed is pixel-deterministic on this host, and the receipt must hash the
+`IDAT` chunk, not the file.** A file-level hash would report drift on every
+re-render and the lane would look non-deterministic when it is not.
+
+Three consequences, all cheap:
+
+- `films/lib/` gains a chunk-level PNG hasher; the existing receipt schema takes
+  an `idat_sha256` field beside the file hash.
+- The receipt records the Blender build string (`Blender 5.1.2`, build date
+  2026-05-19) and the `.blend` sha256, because determinism was verified on **one
+  build** and is not claimed across versions.
+- `--factory-startup` is mandatory in the render command. Without it a user
+  preference can change the output, and the receipt would not say so.
+
+Reproduce: the scene script and both renders are reproducible from the
+parameters above; nothing is committed from that scratch run.
+
+**Non-claim:** this shows two runs agreed on one host, one build, one scene, at
+8 samples. It is not a determinism guarantee across Blender versions, machines,
+sample counts, or GPU rendering — and GPU was never tested.
 
 ### 12.4 Interactive devices — where Blender stops
 
