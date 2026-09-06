@@ -1,0 +1,1019 @@
+{
+  "claim": "CC-003",
+  "arrangement_locator": "docs/foundations/devices.yaml:devices[id=D-007].action",
+  "parameters": {
+    "radius": 0.18,
+    "resolution": 256,
+    "samples": 48,
+    "ortho_scale": 1.6,
+    "corner_scale": 0.6,
+    "camera_distance": 6,
+    "corner_clip_end": 5.4,
+    "segments": 32,
+    "rings": 16,
+    "frame": 0
+  },
+  "build_script_sha256": "33baadc89a83a191b3263322f3abf4a1dd567136031d43e6224ca2202d72dd98",
+  "comparisons": {
+    "xy": {
+      "identical_pixels": true,
+      "differing_chunks": [
+        "tEXt"
+      ],
+      "expected_differing": [
+        "tEXt"
+      ],
+      "unexpected": [],
+      "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002"
+    },
+    "xz": {
+      "identical_pixels": true,
+      "differing_chunks": [
+        "tEXt"
+      ],
+      "expected_differing": [
+        "tEXt"
+      ],
+      "unexpected": [],
+      "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002"
+    },
+    "yz": {
+      "identical_pixels": true,
+      "differing_chunks": [
+        "tEXt"
+      ],
+      "expected_differing": [
+        "tEXt"
+      ],
+      "unexpected": [],
+      "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002"
+    },
+    "corner": {
+      "identical_pixels": false,
+      "differing_chunks": [
+        "IDAT",
+        "tEXt"
+      ],
+      "expected_differing": [
+        "tEXt"
+      ],
+      "unexpected": [
+        "IDAT"
+      ],
+      "idat_sha256": "7938fc5fdb40ae5e9eae5e44dadaf24e65aa30b4831495e87b96cd2888d5a7d2"
+    }
+  },
+  "renders": {
+    "even-xy": {
+      "kind": "blender_render_receipt",
+      "schema": 0,
+      "blend": {
+        "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead_cube.blend",
+        "sha256": "c4d40d5abb4e5e421eb388d0e4d6dbb5d2e8b4a9fefb74c7505fe18646b1e3a4"
+      },
+      "blender": {
+        "version_line": "Blender 5.1.2",
+        "build_date": "2026-05-19",
+        "build_time": "01:30:33",
+        "build_commit_date": "2026-05-18",
+        "build_commit_time": "13:43",
+        "build_hash": "ec6e62d40fa9"
+      },
+      "settings": {
+        "engine": "BLENDER_EEVEE",
+        "res_x": 256,
+        "res_y": 256,
+        "res_percentage": 100,
+        "format": "PNG",
+        "color_depth": "8",
+        "color_mode": "RGBA",
+        "view_transform": "Standard",
+        "look": "None",
+        "frame": 0,
+        "camera": "Camera_even_xy",
+        "camera_type": "ORTHO",
+        "camera_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.5
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.5
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            6.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ortho_scale": 1.600000023841858,
+        "clip_start": 0.10000000149011612,
+        "clip_end": 1000.0,
+        "sampling": {
+          "taa_render_samples": 48,
+          "use_taa_reprojection": true,
+          "use_raytracing": false,
+          "use_shadows": false
+        },
+        "arrangement": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "scaffold_hidden": true,
+        "parameter_locator": "films/lib/blender/build_bead_cube.py:PARAMETERS",
+        "claim": "CC-003"
+      },
+      "renders": [
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/first/even-xy.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "1322293aee374e2776ce20c19211e50af3b59492887aa0474514748e11c62084"
+        },
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/repeat/even-xy.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "67d6c23ed49f03faf8a559b7fe38a49dacc778178008cf5772e7fae1c616ceac"
+        }
+      ],
+      "determinism": {
+        "identical_pixels": true,
+        "differing_chunks": [
+          "tEXt"
+        ],
+        "expected_differing": [
+          "tEXt"
+        ],
+        "unexpected": [],
+        "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002"
+      },
+      "non_claims": [
+        "Determinism verified on one host, one build, one scene, CPU/EEVEE only.",
+        "No claim holds across Blender versions, machines, sample counts, or GPU.",
+        "A matching IDAT means the image is identical. It means nothing about the scene's correctness."
+      ]
+    },
+    "even-xz": {
+      "kind": "blender_render_receipt",
+      "schema": 0,
+      "blend": {
+        "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead_cube.blend",
+        "sha256": "c4d40d5abb4e5e421eb388d0e4d6dbb5d2e8b4a9fefb74c7505fe18646b1e3a4"
+      },
+      "blender": {
+        "version_line": "Blender 5.1.2",
+        "build_date": "2026-05-19",
+        "build_time": "01:30:33",
+        "build_commit_date": "2026-05-18",
+        "build_commit_time": "13:43",
+        "build_hash": "ec6e62d40fa9"
+      },
+      "settings": {
+        "engine": "BLENDER_EEVEE",
+        "res_x": 256,
+        "res_y": 256,
+        "res_percentage": 100,
+        "format": "PNG",
+        "color_depth": "8",
+        "color_mode": "RGBA",
+        "view_transform": "Standard",
+        "look": "None",
+        "frame": 0,
+        "camera": "Camera_even_xz",
+        "camera_type": "ORTHO",
+        "camera_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.5
+          ],
+          [
+            0.0,
+            7.549790126404332e-08,
+            -1.0,
+            -5.5
+          ],
+          [
+            0.0,
+            1.0,
+            7.549790126404332e-08,
+            0.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ortho_scale": 1.600000023841858,
+        "clip_start": 0.10000000149011612,
+        "clip_end": 1000.0,
+        "sampling": {
+          "taa_render_samples": 48,
+          "use_taa_reprojection": true,
+          "use_raytracing": false,
+          "use_shadows": false
+        },
+        "arrangement": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "scaffold_hidden": true,
+        "parameter_locator": "films/lib/blender/build_bead_cube.py:PARAMETERS",
+        "claim": "CC-003"
+      },
+      "renders": [
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/first/even-xz.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "055bb5083654d4f24175f3626ea7c1d469116ec2dae81f9ccc541bb960c8cbf5"
+        },
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/repeat/even-xz.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "1718c16578f6f55c19a5711a5f8d186cab8e37eb5889d43a1675d1fb921d6ad9"
+        }
+      ],
+      "determinism": {
+        "identical_pixels": true,
+        "differing_chunks": [
+          "tEXt"
+        ],
+        "expected_differing": [
+          "tEXt"
+        ],
+        "unexpected": [],
+        "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002"
+      },
+      "non_claims": [
+        "Determinism verified on one host, one build, one scene, CPU/EEVEE only.",
+        "No claim holds across Blender versions, machines, sample counts, or GPU.",
+        "A matching IDAT means the image is identical. It means nothing about the scene's correctness."
+      ]
+    },
+    "even-yz": {
+      "kind": "blender_render_receipt",
+      "schema": 0,
+      "blend": {
+        "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead_cube.blend",
+        "sha256": "c4d40d5abb4e5e421eb388d0e4d6dbb5d2e8b4a9fefb74c7505fe18646b1e3a4"
+      },
+      "blender": {
+        "version_line": "Blender 5.1.2",
+        "build_date": "2026-05-19",
+        "build_time": "01:30:33",
+        "build_commit_date": "2026-05-18",
+        "build_commit_time": "13:43",
+        "build_hash": "ec6e62d40fa9"
+      },
+      "settings": {
+        "engine": "BLENDER_EEVEE",
+        "res_x": 256,
+        "res_y": 256,
+        "res_percentage": 100,
+        "format": "PNG",
+        "color_depth": "8",
+        "color_mode": "RGBA",
+        "view_transform": "Standard",
+        "look": "None",
+        "frame": 0,
+        "camera": "Camera_even_yz",
+        "camera_type": "ORTHO",
+        "camera_matrix": [
+          [
+            -4.371138828673793e-08,
+            4.371138828673793e-08,
+            1.0,
+            6.5
+          ],
+          [
+            1.0,
+            1.910685676922942e-15,
+            4.371138828673793e-08,
+            0.5
+          ],
+          [
+            0.0,
+            1.0,
+            -4.371138828673793e-08,
+            0.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ortho_scale": 1.600000023841858,
+        "clip_start": 0.10000000149011612,
+        "clip_end": 1000.0,
+        "sampling": {
+          "taa_render_samples": 48,
+          "use_taa_reprojection": true,
+          "use_raytracing": false,
+          "use_shadows": false
+        },
+        "arrangement": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "scaffold_hidden": true,
+        "parameter_locator": "films/lib/blender/build_bead_cube.py:PARAMETERS",
+        "claim": "CC-003"
+      },
+      "renders": [
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/first/even-yz.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "816994cca1c242e4df880f84d758a5f8ba808b5e98eb63ff3dfd75f44954fbe2"
+        },
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/repeat/even-yz.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "8e7c59e8d302c4e279f7a4c6ad58da5a4f1ffb3a91837603fb37231f06f91cf8"
+        }
+      ],
+      "determinism": {
+        "identical_pixels": true,
+        "differing_chunks": [
+          "tEXt"
+        ],
+        "expected_differing": [
+          "tEXt"
+        ],
+        "unexpected": [],
+        "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002"
+      },
+      "non_claims": [
+        "Determinism verified on one host, one build, one scene, CPU/EEVEE only.",
+        "No claim holds across Blender versions, machines, sample counts, or GPU.",
+        "A matching IDAT means the image is identical. It means nothing about the scene's correctness."
+      ]
+    },
+    "even-corner": {
+      "kind": "blender_render_receipt",
+      "schema": 0,
+      "blend": {
+        "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead_cube.blend",
+        "sha256": "c4d40d5abb4e5e421eb388d0e4d6dbb5d2e8b4a9fefb74c7505fe18646b1e3a4"
+      },
+      "blender": {
+        "version_line": "Blender 5.1.2",
+        "build_date": "2026-05-19",
+        "build_time": "01:30:33",
+        "build_commit_date": "2026-05-18",
+        "build_commit_time": "13:43",
+        "build_hash": "ec6e62d40fa9"
+      },
+      "settings": {
+        "engine": "BLENDER_EEVEE",
+        "res_x": 256,
+        "res_y": 256,
+        "res_percentage": 100,
+        "format": "PNG",
+        "color_depth": "8",
+        "color_mode": "RGBA",
+        "view_transform": "Standard",
+        "look": "None",
+        "frame": 0,
+        "camera": "Camera_even_xy",
+        "camera_type": "ORTHO",
+        "camera_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            6.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ortho_scale": 0.6000000238418579,
+        "clip_start": 0.10000000149011612,
+        "clip_end": 5.400000095367432,
+        "sampling": {
+          "taa_render_samples": 48,
+          "use_taa_reprojection": true,
+          "use_raytracing": false,
+          "use_shadows": false
+        },
+        "arrangement": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ],
+        "scaffold_hidden": true,
+        "parameter_locator": "films/lib/blender/build_bead_cube.py:PARAMETERS",
+        "claim": "CC-003"
+      },
+      "renders": [
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/first/even-corner.png",
+          "idat_sha256": "7938fc5fdb40ae5e9eae5e44dadaf24e65aa30b4831495e87b96cd2888d5a7d2",
+          "file_sha256": "2e329a8b8d079aec4a24ae49c7c0938033694a0e418a2695044e4c0bed00f8eb"
+        },
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/repeat/even-corner.png",
+          "idat_sha256": "7938fc5fdb40ae5e9eae5e44dadaf24e65aa30b4831495e87b96cd2888d5a7d2",
+          "file_sha256": "19c9f32686b3f15cc5e32925a2ee7c2359477b6a97a171f9ce8fd93f9ffb06fc"
+        }
+      ],
+      "determinism": {
+        "identical_pixels": true,
+        "differing_chunks": [
+          "tEXt"
+        ],
+        "expected_differing": [
+          "tEXt"
+        ],
+        "unexpected": [],
+        "idat_sha256": "7938fc5fdb40ae5e9eae5e44dadaf24e65aa30b4831495e87b96cd2888d5a7d2"
+      },
+      "non_claims": [
+        "Determinism verified on one host, one build, one scene, CPU/EEVEE only.",
+        "No claim holds across Blender versions, machines, sample counts, or GPU.",
+        "A matching IDAT means the image is identical. It means nothing about the scene's correctness."
+      ]
+    },
+    "odd-xy": {
+      "kind": "blender_render_receipt",
+      "schema": 0,
+      "blend": {
+        "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead_cube.blend",
+        "sha256": "c4d40d5abb4e5e421eb388d0e4d6dbb5d2e8b4a9fefb74c7505fe18646b1e3a4"
+      },
+      "blender": {
+        "version_line": "Blender 5.1.2",
+        "build_date": "2026-05-19",
+        "build_time": "01:30:33",
+        "build_commit_date": "2026-05-18",
+        "build_commit_time": "13:43",
+        "build_hash": "ec6e62d40fa9"
+      },
+      "settings": {
+        "engine": "BLENDER_EEVEE",
+        "res_x": 256,
+        "res_y": 256,
+        "res_percentage": 100,
+        "format": "PNG",
+        "color_depth": "8",
+        "color_mode": "RGBA",
+        "view_transform": "Standard",
+        "look": "None",
+        "frame": 0,
+        "camera": "Camera_odd_xy",
+        "camera_type": "ORTHO",
+        "camera_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.5
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.5
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            6.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ortho_scale": 1.600000023841858,
+        "clip_start": 0.10000000149011612,
+        "clip_end": 1000.0,
+        "sampling": {
+          "taa_render_samples": 48,
+          "use_taa_reprojection": true,
+          "use_raytracing": false,
+          "use_shadows": false
+        },
+        "arrangement": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "scaffold_hidden": true,
+        "parameter_locator": "films/lib/blender/build_bead_cube.py:PARAMETERS",
+        "claim": "CC-003"
+      },
+      "renders": [
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/first/odd-xy.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "b06cb6391cfe3064c7c80a01b1a422415eb31f799d728238e55c09fd80b8f2a6"
+        },
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/repeat/odd-xy.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "14d956175b6c7d7eee0c91ed8401e5c6cb0a0ccc946384fd8cf943117924185c"
+        }
+      ],
+      "determinism": {
+        "identical_pixels": true,
+        "differing_chunks": [
+          "tEXt"
+        ],
+        "expected_differing": [
+          "tEXt"
+        ],
+        "unexpected": [],
+        "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002"
+      },
+      "non_claims": [
+        "Determinism verified on one host, one build, one scene, CPU/EEVEE only.",
+        "No claim holds across Blender versions, machines, sample counts, or GPU.",
+        "A matching IDAT means the image is identical. It means nothing about the scene's correctness."
+      ]
+    },
+    "odd-xz": {
+      "kind": "blender_render_receipt",
+      "schema": 0,
+      "blend": {
+        "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead_cube.blend",
+        "sha256": "c4d40d5abb4e5e421eb388d0e4d6dbb5d2e8b4a9fefb74c7505fe18646b1e3a4"
+      },
+      "blender": {
+        "version_line": "Blender 5.1.2",
+        "build_date": "2026-05-19",
+        "build_time": "01:30:33",
+        "build_commit_date": "2026-05-18",
+        "build_commit_time": "13:43",
+        "build_hash": "ec6e62d40fa9"
+      },
+      "settings": {
+        "engine": "BLENDER_EEVEE",
+        "res_x": 256,
+        "res_y": 256,
+        "res_percentage": 100,
+        "format": "PNG",
+        "color_depth": "8",
+        "color_mode": "RGBA",
+        "view_transform": "Standard",
+        "look": "None",
+        "frame": 0,
+        "camera": "Camera_odd_xz",
+        "camera_type": "ORTHO",
+        "camera_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.5
+          ],
+          [
+            0.0,
+            7.549790126404332e-08,
+            -1.0,
+            -5.5
+          ],
+          [
+            0.0,
+            1.0,
+            7.549790126404332e-08,
+            0.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ortho_scale": 1.600000023841858,
+        "clip_start": 0.10000000149011612,
+        "clip_end": 1000.0,
+        "sampling": {
+          "taa_render_samples": 48,
+          "use_taa_reprojection": true,
+          "use_raytracing": false,
+          "use_shadows": false
+        },
+        "arrangement": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "scaffold_hidden": true,
+        "parameter_locator": "films/lib/blender/build_bead_cube.py:PARAMETERS",
+        "claim": "CC-003"
+      },
+      "renders": [
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/first/odd-xz.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "c48eefa6213b6523aa318ff7bea818d6b6014d35058af8ee28305e7aff9808e7"
+        },
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/repeat/odd-xz.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "26a4e9366867adf0f7236a1f0b9793de31beeac0c4f4df103714c7a152c8adee"
+        }
+      ],
+      "determinism": {
+        "identical_pixels": true,
+        "differing_chunks": [
+          "tEXt"
+        ],
+        "expected_differing": [
+          "tEXt"
+        ],
+        "unexpected": [],
+        "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002"
+      },
+      "non_claims": [
+        "Determinism verified on one host, one build, one scene, CPU/EEVEE only.",
+        "No claim holds across Blender versions, machines, sample counts, or GPU.",
+        "A matching IDAT means the image is identical. It means nothing about the scene's correctness."
+      ]
+    },
+    "odd-yz": {
+      "kind": "blender_render_receipt",
+      "schema": 0,
+      "blend": {
+        "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead_cube.blend",
+        "sha256": "c4d40d5abb4e5e421eb388d0e4d6dbb5d2e8b4a9fefb74c7505fe18646b1e3a4"
+      },
+      "blender": {
+        "version_line": "Blender 5.1.2",
+        "build_date": "2026-05-19",
+        "build_time": "01:30:33",
+        "build_commit_date": "2026-05-18",
+        "build_commit_time": "13:43",
+        "build_hash": "ec6e62d40fa9"
+      },
+      "settings": {
+        "engine": "BLENDER_EEVEE",
+        "res_x": 256,
+        "res_y": 256,
+        "res_percentage": 100,
+        "format": "PNG",
+        "color_depth": "8",
+        "color_mode": "RGBA",
+        "view_transform": "Standard",
+        "look": "None",
+        "frame": 0,
+        "camera": "Camera_odd_yz",
+        "camera_type": "ORTHO",
+        "camera_matrix": [
+          [
+            -4.371138828673793e-08,
+            4.371138828673793e-08,
+            1.0,
+            6.5
+          ],
+          [
+            1.0,
+            1.910685676922942e-15,
+            4.371138828673793e-08,
+            0.5
+          ],
+          [
+            0.0,
+            1.0,
+            -4.371138828673793e-08,
+            0.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ortho_scale": 1.600000023841858,
+        "clip_start": 0.10000000149011612,
+        "clip_end": 1000.0,
+        "sampling": {
+          "taa_render_samples": 48,
+          "use_taa_reprojection": true,
+          "use_raytracing": false,
+          "use_shadows": false
+        },
+        "arrangement": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "scaffold_hidden": true,
+        "parameter_locator": "films/lib/blender/build_bead_cube.py:PARAMETERS",
+        "claim": "CC-003"
+      },
+      "renders": [
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/first/odd-yz.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "8536fcbbf2a5cec4f2d6edd5d4abc86e68806cbb99fe2efe5b9081987d4c1c2c"
+        },
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/repeat/odd-yz.png",
+          "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002",
+          "file_sha256": "20e906a2144aa30acbfcf3c6c6a2e89aab13f0ce5cb91e57d2df219694e7bba8"
+        }
+      ],
+      "determinism": {
+        "identical_pixels": true,
+        "differing_chunks": [
+          "tEXt"
+        ],
+        "expected_differing": [
+          "tEXt"
+        ],
+        "unexpected": [],
+        "idat_sha256": "3d48e4bcdb72056ffa006f845e3781f5901f22eb9b792cd9bc5cf3c82d3cf002"
+      },
+      "non_claims": [
+        "Determinism verified on one host, one build, one scene, CPU/EEVEE only.",
+        "No claim holds across Blender versions, machines, sample counts, or GPU.",
+        "A matching IDAT means the image is identical. It means nothing about the scene's correctness."
+      ]
+    },
+    "odd-corner": {
+      "kind": "blender_render_receipt",
+      "schema": 0,
+      "blend": {
+        "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead_cube.blend",
+        "sha256": "c4d40d5abb4e5e421eb388d0e4d6dbb5d2e8b4a9fefb74c7505fe18646b1e3a4"
+      },
+      "blender": {
+        "version_line": "Blender 5.1.2",
+        "build_date": "2026-05-19",
+        "build_time": "01:30:33",
+        "build_commit_date": "2026-05-18",
+        "build_commit_time": "13:43",
+        "build_hash": "ec6e62d40fa9"
+      },
+      "settings": {
+        "engine": "BLENDER_EEVEE",
+        "res_x": 256,
+        "res_y": 256,
+        "res_percentage": 100,
+        "format": "PNG",
+        "color_depth": "8",
+        "color_mode": "RGBA",
+        "view_transform": "Standard",
+        "look": "None",
+        "frame": 0,
+        "camera": "Camera_odd_xy",
+        "camera_type": "ORTHO",
+        "camera_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            6.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ortho_scale": 0.6000000238418579,
+        "clip_start": 0.10000000149011612,
+        "clip_end": 5.400000095367432,
+        "sampling": {
+          "taa_render_samples": 48,
+          "use_taa_reprojection": true,
+          "use_raytracing": false,
+          "use_shadows": false
+        },
+        "arrangement": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "scaffold_hidden": true,
+        "parameter_locator": "films/lib/blender/build_bead_cube.py:PARAMETERS",
+        "claim": "CC-003"
+      },
+      "renders": [
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/first/odd-corner.png",
+          "idat_sha256": "74d4358c894e3a129dc0f8c632d5c55cd1e47876a759d1c2d2a9d2eba9050cf1",
+          "file_sha256": "703624b8848e1b8303dbcd22a6554830b8fcefc2216bb37c2ea0d18acbd7ee69"
+        },
+        {
+          "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/bead-cube-renders/repeat/odd-corner.png",
+          "idat_sha256": "74d4358c894e3a129dc0f8c632d5c55cd1e47876a759d1c2d2a9d2eba9050cf1",
+          "file_sha256": "3d9379afe5431c6633d5fe5562030609a13ba08013130c8591de1fe71aa39720"
+        }
+      ],
+      "determinism": {
+        "identical_pixels": true,
+        "differing_chunks": [
+          "tEXt"
+        ],
+        "expected_differing": [
+          "tEXt"
+        ],
+        "unexpected": [],
+        "idat_sha256": "74d4358c894e3a129dc0f8c632d5c55cd1e47876a759d1c2d2a9d2eba9050cf1"
+      },
+      "non_claims": [
+        "Determinism verified on one host, one build, one scene, CPU/EEVEE only.",
+        "No claim holds across Blender versions, machines, sample counts, or GPU.",
+        "A matching IDAT means the image is identical. It means nothing about the scene's correctness."
+      ]
+    }
+  },
+  "non_claims": [
+    "CC-003 constructed finite-world witness, not observed vendor behavior or a typical gap estimate.",
+    "Projection equality is for bead silhouettes under orthographic rendering, not arbitrary lighting or perspective.",
+    "The lattice scaffold is hidden for face and corner measurements; no geometry is projected or drawn in Python.",
+    "The corner view clips away the opposite depth layer; it measures occupancy of corner 111 only.",
+    "One host and Blender build only; no cross-version, GPU, physical-device, independent-review or learning claim."
+  ]
+}
