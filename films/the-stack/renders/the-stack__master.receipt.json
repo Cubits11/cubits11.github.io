@@ -2,13 +2,13 @@
  "film": "the-stack",
  "format": "master",
  "title": "The Stack",
- "rendered_from_head": "22fa9f9a8456afc93ed8b341b013cdf5f6222c89",
- "rendered_on": "2026-09-05",
+ "rendered_from_head": "63495d28e6cff21683c970b049ca2c0f7832ae04",
+ "rendered_on": "2026-09-06",
  "inputs": {
   "film.html": "111e5409bc016fd7e8d12670113430b65c419e89fbd8e2cca30fde458373e483",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "39eaa79d76f006253ca627cd370d8a5d44ef77da0b8fa32db2b533ab8d7b8a37"
+  "films/data/facts.json": "17d75892c5bea470072263ee5a11df6d9b5a478115e910f37652874564b42cb6"
  },
  "runtime": {
   "chrome": "152.0.7977.82",
@@ -93,5 +93,5 @@
   ],
   "phone_previews": []
  },
- "render_seconds": 68.1
+ "render_seconds": 69.0
 }

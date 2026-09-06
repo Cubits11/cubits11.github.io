@@ -1,0 +1,385 @@
+# The spine — one claim, N renderings, one gate.  Enforced by scripts/verify_spine.py.
+#
+# A claim exists here at several bandwidths: its registry record, a film, a
+# device record, a page. Each surface has its own gate and none knows the
+# others exist. This file names, for every rendering, the claims it asserts,
+# where its text lives, the numerals it speaks, and the strongest sentence it
+# says out loud — so that a change to one number in claims.yaml fails every
+# surface that still says the old one.
+#
+# The spine carries no second copy of any value. A phrasing is written with
+# `{key}` placeholders (`{{` and `}}` are literal braces); the value is read
+# from the rendering and compared with the key in the claim's `expected`
+# block, or with a derivation shown under `derived:` below. Unprefixed keys
+# resolve against the rendering's first claim; `MC-002.union_detection`
+# resolves against that claim. MC-001's quantities are the census arithmetic
+# (scripts/facts.registry), not a hand-typed block.
+#
+# Rules (see the script's docstring): S1 numeral agreement, with an unbound
+# numeral failing on hand-authored prose (`sweep: true`); S2 no rendering
+# speaks a scope-widening token its claim's own text never uses
+# affirmatively; S3 non-claims travel verbatim in the artifact; S4 coverage
+# is printed and never optimised. A green spine says the renderings agree
+# with each other. It says nothing about whether any claim is true.
+
+version: "0.1"
+written: "2026-09-05"
+
+lexicon:
+  # S2. Tokens that widen the scope of a sentence beyond a counted file, a
+  # named composition rule and a stated stratum. Matched as whole words,
+  # case-insensitive, after the proper nouns below are blanked, in sentences
+  # that carry no negation cue. Adding a token here is cheap; a token is
+  # removed only with a reason written into the commit that removes it.
+  scope_wideners:
+    - guardrails
+    - guardrail
+    - classifiers
+    - safety classifiers
+    - detectors
+    - filters
+    - in general
+    - generally
+    - always
+    - universal
+    - universally
+    - typically
+    - in practice
+    - real-world
+    - real world
+    - deployed
+    - deployment
+    - production
+    - stacks
+    - any stack
+    - every stack
+    - all stacks
+    - vendors
+    - any vendor
+    - every vendor
+    - all vendors
+    - products
+    - models
+    - LLMs
+    - language models
+    - AI systems
+    - proves
+    - proof
+    - law
+    - everyone
+    - everywhere
+    - most
+    - majority
+    - industry
+    - standard practice
+    - state of the art
+  # A sentence containing one of these is read as a limit, not an assertion.
+  # Crude: it will exempt some affirmative sentences that happen to contain
+  # "no". The failure it targets is affirmative inflation, and that is what
+  # it catches.
+  negation_cues:
+    - not
+    - "no"
+    - never
+    - nothing
+    - neither
+    - nor
+    - without
+    - cannot
+    - can't
+    - unstated
+    - non-claim
+    - non-claims
+  # Product names containing a lexicon token. Blanked before S2 runs.
+  proper_nouns:
+    - NeMo Guardrails
+    - Lakera Guard
+    - Prompt Guard
+    - LLM Guard
+    - LangKit
+    - Multimodal Safeguard Bench
+
+# Arithmetic on registry keys, shown here so that a rendering may speak a
+# derived number (a miss count, a percentage, a ratio) and still be bound.
+# Only round/min/max/abs/len and + - * / ** are evaluated.
+derived:
+  MC-002.k_guards: "len(MC-002.per_guard_catches)"
+  MC-002.k_guards_minus_one: "len(MC-002.per_guard_catches) - 1"
+  MC-002.miss.lakera_guard: "MC-002.n_harmful - MC-002.per_guard_catches.lakera_guard"
+  MC-002.miss.prompt_guard: "MC-002.n_harmful - MC-002.per_guard_catches.prompt_guard"
+  MC-002.miss.langkit: "MC-002.n_harmful - MC-002.per_guard_catches.langkit"
+  MC-002.miss.nemo: "MC-002.n_harmful - MC-002.per_guard_catches.nemo"
+  MC-002.miss.llm_guard: "MC-002.n_harmful - MC-002.per_guard_catches.llm_guard"
+  MC-002.all_miss_pct_1dp: "round(100 * MC-002.all_miss / MC-002.n_harmful, 1)"
+  MC-002.independence_rate: >-
+    (MC-002.miss.lakera_guard * MC-002.miss.prompt_guard * MC-002.miss.langkit
+     * MC-002.miss.nemo * MC-002.miss.llm_guard) / MC-002.n_harmful ** 5
+  MC-002.independence_pct_1dp: "round(100 * MC-002.independence_rate, 1)"
+  MC-002.independence_pct_2dp: "round(100 * MC-002.independence_rate, 2)"
+  MC-002.independence_prompts_2dp: "round(MC-002.n_harmful * MC-002.independence_rate, 2)"
+  MC-002.ratio_1dp: "round((MC-002.all_miss / MC-002.n_harmful) / MC-002.independence_rate, 1)"
+  MC-002.ratio_2dp: "round((MC-002.all_miss / MC-002.n_harmful) / MC-002.independence_rate, 2)"
+  MC-002.exclusive.lakera_guard: "MC-002.union_detection - MC-002.leave_one_out_union.lakera_guard"
+  MC-002.exclusive.prompt_guard: "MC-002.union_detection - MC-002.leave_one_out_union.prompt_guard"
+  MC-002.exclusive.langkit: "MC-002.union_detection - MC-002.leave_one_out_union.langkit"
+  MC-002.exclusive.nemo: "MC-002.union_detection - MC-002.leave_one_out_union.nemo"
+  MC-002.exclusive.llm_guard: "MC-002.union_detection - MC-002.leave_one_out_union.llm_guard"
+  CC-001.k: "len(CC-001.marginals)"
+  CC-001.independence_and: "CC-001.marginals.0 * CC-001.marginals.1"
+  CC-001.marginal_pct.0: "round(100 * CC-001.marginals.0)"
+  CC-001.marginal_pct.1: "round(100 * CC-001.marginals.1)"
+  CC-001.and_lower_pct: "round(100 * CC-001.bounds.and.0)"
+  CC-001.and_upper_pct: "round(100 * CC-001.bounds.and.1)"
+  CC-001.independence_pct: "round(100 * CC-001.marginals.0 * CC-001.marginals.1)"
+
+renderings:
+  # ---------------------------------------------------------------- MC-003
+  - id: MC-003
+    surface: registry
+    claims: [MC-003]
+    sources:
+      - kind: claim_fields
+        fields: [proposition, scope]
+        sweep: true
+    speaks:
+      - says: "{denominator} prompts labelled harmful"
+      - says: "{{{identified_set_lower}/{denominator} … {identified_set_upper}/{denominator}}}"
+      - says: "recomputes {release_recomputed_all_miss}/{denominator} all-miss"
+      - says: "NeMo {MC-002.exclusive.nemo}, Lakera {MC-002.exclusive.lakera_guard}, and LangKit, Prompt Guard, and LLM Guard {MC-002.exclusive.llm_guard}"
+      - says: "{denominator} harmful prompts, with {MC-002.n_benign} benign and {MC-002.n_borderline} borderline"
+    unbound_ok:
+      - says: "max(0, Σp − (k−1))"
+        why: the Fréchet lower endpoint written as a formula; its constants are not quantities of the claim
+    strongest: "the exact finite identified set is {0/82 … 12/82}"
+
+  - id: thirteen-worlds
+    surface: film
+    claims: [MC-003, MC-002]
+    sources:
+      - kind: yaml
+        path: films/thirteen-worlds/manifest.yaml
+        fields: [title, thesis, claim, "objects[].note", "claim_frames[].shows"]
+        sweep: true
+      - kind: text
+        path: films/thirteen-worlds/film.html
+        # the film's own on-screen strings; numerals in the drawing code are
+        # geometry, so this source is bound by phrasing and not swept
+        sweep: false
+    speaks:
+      - says: "{identified_set_size} Worlds, One File"
+      - says: "The {MC-002.k_guards} published miss rates"
+      - says: "{{{identified_set_lower} … {identified_set_upper}}} of {denominator} — {identified_set_size} worlds"
+      - says: "fixes it at {MC-002.all_miss};"
+      - says: "({MC-002.independence_pct_2dp}%, equivalent to {MC-002.independence_prompts_2dp} prompts"
+      - says: "On the {denominator} prompts labelled harmful"
+      - says: "the {MC-002.k_guards} per-guard miss counts ({MC-002.miss.nemo}, {MC-002.miss.lakera_guard}, {MC-002.miss.langkit}, {MC-002.miss.prompt_guard}, {MC-002.miss.llm_guard})"
+      - says: "{{{identified_set_lower}/{denominator} … {identified_set_upper}/{denominator}}}"
+      - says: "flags {MC-002.union_detection}, so the all-miss count is {MC-002.all_miss} ({MC-002.all_miss_pct_1dp}%)"
+      - says: "plug-in is {MC-002.independence_pct_2dp}%, or {MC-002.independence_prompts_2dp} prompts, and the recomputed rate is {MC-002.ratio_2dp}× that plug-in"
+      - says: "{denominator} − registered catches"
+      - says: "satisfies the {MC-002.k_guards} counts"
+      - says: "all-miss reads {identified_set_upper}/{denominator}"
+      - says: "identified set {{{identified_set_lower}…{identified_set_upper}}} drawn on the axis"
+      - says: "identified set {{{identified_set_lower}…{identified_set_upper}}} on the axis"
+      - says: "union bar {MC-002.union_detection}/{denominator} pins the all-miss count at {MC-002.all_miss}/{denominator}"
+      - says: "marker at {MC-002.independence_prompts_2dp} prompts"
+      # film.html only
+      - says: "where these {identified_set_upper} sit is not in the published rates"
+      - says: "the union ({MC-002.union_detection}/{denominator}) pins the all-miss count at {MC-002.all_miss}/{denominator}"
+      - says: "plug-in ({MC-002.independence_prompts_2dp} prompts)"
+      - says: "[0, 4, 8, {identified_set_upper}].forEach"
+    strongest: "The five published miss rates of the BELLS supervisors pin the all-miss count only to {0 … 12} of 82 — thirteen worlds"
+
+  - id: D-006
+    surface: device
+    claims: [MC-003]
+    sources:
+      - kind: yaml
+        path: docs/foundations/devices.yaml
+        select: devices[id=D-006]
+        fields: [name, priority, materials, action, state_space, feasible_set, "readout.*", doorway_note]
+        sweep: true
+    speaks:
+      - says: "MC-003's {{{identified_set_lower}/{denominator} ... {identified_set_upper}/{denominator}}} is a cell narrowed to {identified_set_size} legal values, with {release_recomputed_all_miss} inside it"
+    unbound_ok:
+      - says: "exactly 3 legal values"
+        why: the Latin-square fragment's own cell; device geometry, not a quantity of the claim
+      - says: "a three-value answer"
+        why: the same device geometry, spelled out
+    strongest: "MC-003's {0/82 ... 12/82} is a cell narrowed to thirteen legal values, with 9 inside it"
+
+  - id: observatory-MC-003
+    surface: page
+    claims: [MC-003]
+    sources:
+      - kind: html
+        path: observatory/index.html
+        region_start: '<h2 class="mono cap-id">MC-003</h2>'
+        region_end: '<h2 class="mono cap-id">'
+    speaks:
+      - says: "{denominator} prompts labelled harmful"
+      - says: "{{{identified_set_lower}/{denominator} … {identified_set_upper}/{denominator}}}"
+      - says: "recomputes {release_recomputed_all_miss}/{denominator} all-miss"
+      - says: "NeMo {MC-002.exclusive.nemo}, Lakera {MC-002.exclusive.lakera_guard}, and LangKit, Prompt Guard, and LLM Guard {MC-002.exclusive.llm_guard}"
+    strongest: "the exact finite identified set is {0/82 … 12/82}"
+
+  - id: ledger-MC-003
+    surface: page
+    claims: [MC-003]
+    sources:
+      - kind: html
+        path: ledger/index.html
+        region_start: '<article class="claim" id="MC-003">'
+        region_end: '</article>'
+    speaks:
+      - says: "{denominator} prompts labelled harmful"
+      - says: "{{{identified_set_lower}/{denominator} … {identified_set_upper}/{denominator}}}"
+      - says: "recomputes {release_recomputed_all_miss}/{denominator} all-miss"
+      - says: "NeMo {MC-002.exclusive.nemo}, Lakera {MC-002.exclusive.lakera_guard}, and LangKit, Prompt Guard, and LLM Guard {MC-002.exclusive.llm_guard}"
+    strongest: "the exact finite identified set is {0/82 … 12/82}"
+
+  - id: explore-thirteen-worlds
+    surface: page
+    claims: [MC-003]
+    sources:
+      - kind: html
+        path: explore/index.html
+        # the screening-room card; the region stops where the card's
+        # non-claims begin, which S3 reads from the whole page
+        region_start: '<article class="world-shelf"><video controls playsinline preload="none" poster="/films/thirteen-worlds/'
+        region_end: '<details'
+        sweep: true
+    speaks:
+      - says: "{identified_set_size} worlds"
+    unbound_ok:
+      - pattern: '\b0\d /'
+        why: the shelf index of the card
+    strongest: "Thirteen worlds"
+
+  # ---------------------------------------------------------------- MC-002
+  - id: MC-002
+    surface: registry
+    claims: [MC-002]
+    sources:
+      - kind: claim_fields
+        fields: [proposition, scope]
+        sweep: true
+    speaks:
+      - says: "On the {n_prompts}-prompt per-item subset"
+      - says: "the {MC-002.k_guards} specialized supervisors"
+      - says: "flags {union_detection} of the {n_harmful} prompts labelled harmful, leaving {all_miss} all-miss ({MC-002.all_miss_pct_1dp}%)"
+      - says: "individual miss rates is {MC-002.independence_pct_1dp}%"
+      - says: "about {MC-002.ratio_1dp}× that independence plug-in"
+      - says: "flags {benign_union_flagged} of the {n_benign} benign prompts"
+      - says: "{n_prompts} of the evaluation's"
+    unbound_ok:
+      - says: "990 non-adversarial prompts"
+        why: >-
+          the paper's stated non-adversarial count, quoted; no expected key.
+          ARTIFACTS/2026-09-05-FABLE-5.1-OBS-CUT.md leaves 990 against the
+          1041 the history implies unreconciled, on purpose
+      - says: "~4,165 adversarial prompts"
+        why: the paper's stated adversarial count; no per-item release, no expected key
+    strongest: "the release-recomputed all-miss rate is about 3.1× that independence plug-in on this file"
+
+  - id: leave-one-out
+    surface: film
+    claims: [MC-002, MC-003]
+    sources:
+      - kind: yaml
+        path: films/leave-one-out/manifest.yaml
+        fields: [title, thesis, claim, "objects[].note", "claim_frames[].shows"]
+        sweep: true
+    speaks:
+      - says: "identify it — {MC-002.exclusive.nemo}, {MC-002.exclusive.lakera_guard}, {MC-002.exclusive.langkit}, {MC-002.exclusive.prompt_guard}, {MC-002.exclusive.llm_guard} — so {MC-003.members_zero_exclusive_full_stack_coverage} of {MC-002.k_guards} supervisors"
+      - says: "On the {n_harmful} prompts labelled harmful"
+      - says: "flags {union_detection}; removing NeMo Guardrails leaves {leave_one_out_union.nemo} flagged (exclusive coverage {MC-002.exclusive.nemo}), removing Lakera Guard leaves {leave_one_out_union.lakera_guard} ({MC-002.exclusive.lakera_guard}), and removing LangKit, Prompt Guard, or LLM Guard leaves {leave_one_out_union.llm_guard} ({MC-002.exclusive.llm_guard})"
+      - says: "NeMo {MC-003.aggregate_unique_contribution_bounds.nemo.0}–{MC-003.aggregate_unique_contribution_bounds.nemo.1}, Lakera {MC-003.aggregate_unique_contribution_bounds.lakera_guard.0}–{MC-003.aggregate_unique_contribution_bounds.lakera_guard.1}, LangKit {MC-003.aggregate_unique_contribution_bounds.langkit.0}–{MC-003.aggregate_unique_contribution_bounds.langkit.1}, Prompt Guard {MC-003.aggregate_unique_contribution_bounds.prompt_guard.0}–{MC-003.aggregate_unique_contribution_bounds.prompt_guard.1}, LLM Guard {MC-003.aggregate_unique_contribution_bounds.llm_guard.1}"
+      - says: "{n_harmful} {MC-002.k_guards}-bit masks"
+      - says: "all {MC-002.k_guards} leave-one-out unions"
+      - says: "all {MC-002.k_guards} lamps on — {union_detection}/{n_harmful} lit, {all_miss} dark"
+      - says: "{MC-002.exclusive.nemo} windows go dark, {leave_one_out_union.nemo}/{n_harmful} still lit by the other {MC-002.k_guards_minus_one}"
+      - says: "{MC-003.members_zero_exclusive_full_stack_coverage} of {MC-002.k_guards} lamps light nothing"
+    strongest: "the released leave-one-out unions identify it — 18, 3, 0, 0, 0 — so three of five supervisors add no exclusive coverage on this stratum"
+
+  - id: the-missing-column-trailer
+    surface: film
+    claims: [MC-003, MC-002, MC-001, CC-001]
+    sources:
+      - kind: yaml
+        path: films/the-missing-column-trailer/manifest.yaml
+        fields: [title, thesis, claim, "objects[].note", "claim_frames[].shows"]
+        sweep: true
+    speaks:
+      - says: "{CC-001.k} identical scores"
+      - says: "of {MC-001.n_examined} public evaluations none documents matched thresholds with full exposure and {MC-001.k_present} carry any joint-evidence artifact"
+      - says: "the marginals leave {identified_set_size} possible counts and the rows say {MC-002.all_miss}"
+      - says: "For marginals ({CC-001.marginals.0}, {CC-001.marginals.1}) the both-fail probability is identified only to [{CC-001.bounds.and.0}, {CC-001.bounds.and.1}] and independence names {CC-001.independence_and}"
+      - says: "of {MC-001.n_examined} examined evaluations {MC-001.m_shared_basis} establish a shared basis, {MC-001.m_strata.threshold_documented_full_exposure} document matched thresholds with full exposure, and {MC-001.k_present} provide a joint-evidence artifact, {MC-001.K.releases_computable_items} of them only via a per-item release"
+      - says: "the {MC-002.k_guards} marginals identify the all-miss count only to {{{identified_set_lower} … {identified_set_upper}}} of {denominator}; the released rows give {MC-002.all_miss}; the independence plug-in expects {MC-002.independence_prompts_2dp}"
+      - says: "the {MC-001.m_strata.threshold_documented_full_exposure} is a reporting fact"
+      - says: "{MC-002.all_miss} is MC-002 OBSERVED"
+      - says: "{MC-002.independence_prompts_2dp} is DERIVED"
+      - says: "A {CC-001.marginal_pct.0}/100, B {CC-001.marginal_pct.1}/100, both {CC-001.and_lower_pct}/100"
+      - says: "opposite endpoint {CC-001.and_upper_pct}/100"
+      - says: "the interval {CC-001.and_lower_pct}–{CC-001.and_upper_pct}% with the amber {CC-001.independence_pct}%"
+      - says: "{MC-001.n_examined} · {MC-001.m_shared_basis} · {MC-001.m_strata.threshold_documented_full_exposure} · {MC-001.k_present} ({MC-001.K.releases_computable_items} via release)"
+      - says: "the set {{{identified_set_lower} … {identified_set_upper}}} of {denominator}, the released {MC-002.all_miss}, the amber {MC-002.independence_prompts_2dp} expectation"
+    strongest: "on the one released file the marginals leave 13 possible counts and the rows say 9"
+
+  - id: observatory-MC-002
+    surface: page
+    claims: [MC-002]
+    sources:
+      - kind: html
+        path: observatory/index.html
+        region_start: '<h2 class="mono cap-id">MC-002</h2>'
+        region_end: '<h2 class="mono cap-id">'
+    speaks:
+      - says: "On the {n_prompts}-prompt per-item subset"
+      - says: "flags {union_detection} of the {n_harmful} prompts labelled harmful, leaving {all_miss} all-miss ({MC-002.all_miss_pct_1dp}%)"
+      - says: "individual miss rates is {MC-002.independence_pct_1dp}%"
+      - says: "about {MC-002.ratio_1dp}× that independence plug-in"
+      - says: "flags {benign_union_flagged} of the {n_benign} benign prompts"
+    strongest: "the release-recomputed all-miss rate is about 3.1× that independence plug-in on this file"
+
+  - id: ledger-MC-002
+    surface: page
+    claims: [MC-002]
+    sources:
+      - kind: html
+        path: ledger/index.html
+        region_start: '<article class="claim" id="MC-002">'
+        region_end: '</article>'
+    speaks:
+      - says: "On the {n_prompts}-prompt per-item subset"
+      - says: "flags {union_detection} of the {n_harmful} prompts labelled harmful, leaving {all_miss} all-miss ({MC-002.all_miss_pct_1dp}%)"
+      - says: "individual miss rates is {MC-002.independence_pct_1dp}%"
+      - says: "about {MC-002.ratio_1dp}× that independence plug-in"
+      - says: "flags {benign_union_flagged} of the {n_benign} benign prompts"
+    strongest: "the release-recomputed all-miss rate is about 3.1× that independence plug-in on this file"
+
+# Artifacts named as renderings that, on inspection, assert nothing the gate
+# can bind. Listed so the exclusion is visible and its reason is on record;
+# the receipt is still loaded, so the exclusion cannot rot silently.
+not_renderings:
+  - id: room-11-FrechetAtomGarden
+    named_for: [MC-003]
+    named_by: "docs/foundations/FABLE-BRIEF.md §B, row 'room'"
+    source:
+      kind: world_labels
+      path: films/lib/blender/world-labels.receipt.json
+      prefix: FrechetAtomGarden_
+    finding: >-
+      probed 2026-09-05 with films/lib/blender/probe_world_labels.py, read-only:
+      the garden's labels are its title, the line "finite atoms witness
+      endpoint bounds", eight atom indices 0–7, and two witness panels
+      reading "endpoint: lower / upper, feasible: True". It speaks no
+      numeral of MC-003 and carries no non-claim, so a change to the
+      identified set cannot make it fail — it asserts nothing about the
+      identified set. Eight atoms are the 2^3 outcomes of three binary
+      guards, the structure of CC-003/CC-004, not the {0…12}/82 set.
+      Excluded from the gate rather than bound to a claim it does not
+      render; docs/foundations/devices.yaml:room_atom_map binds it to atoms
+      A2/A6/A7 only, and says that is a proposed carrying capacity, not an
+      audited outcome.

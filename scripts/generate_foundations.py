@@ -18,7 +18,20 @@ OUTPUT = ROOT/'foundations'
 ASSETS = ROOT/'assets/foundations'
 
 
-def page(device, registry, tables):
+def metadata(title, description, route):
+    """The acquisition gate applies to these generated pages too."""
+    url = 'https://cubits11.github.io' + route
+    image = 'https://cubits11.github.io/films/lib/blender/bead-cube-renders/first/even-xy.png'
+    alt = 'Rendered orthographic bead projection; a constructed example, not observed performance.'
+    return f'''<title>{e(title)}</title><meta name="description" content="{e(description)}">
+<link rel="canonical" href="{url}">
+<meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(description)}">
+<meta property="og:url" content="{url}"><meta property="og:image" content="{image}">
+<meta property="og:image:alt" content="{alt}"><meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="{image}"><meta name="twitter:image:alt" content="{alt}">'''
+
+
+def page(device, registry, tables, landing=False):
     key = device['id']
     spec = registry['web_nodes'][key]
     source = f'docs/foundations/devices.yaml:web_nodes.{key}'
@@ -31,7 +44,8 @@ def page(device, registry, tables):
 <a href="#non-claim">{'Carry the limit forward' if option['skip_repair'] else 'Write the limit in your own words'}</a></article>'''
                       for i, option in enumerate(spec['options']))
     nav = ''.join(f'<a href="/foundations/{d["id"].lower()}/">{e(d["name"])}</a>' for d in registry['devices'])
-    limits = [device.get('cannot_show', device.get('rung_reason', ''))] + registry['web_scope']['non_claims']
+    limits = ([device.get('cannot_show', device.get('rung_reason', ''))]
+              + device.get('non_claims', []) + registry['web_scope']['non_claims'])
     if key == 'D-007':
         limits += ['Atomic parity switching only. Loose-bead arrangements and emptying intermediates are not certified.',
                    'Text reports the projected and corner occupancies, but equivalence for non-sighted learners has not been user-tested.']
@@ -66,9 +80,15 @@ def page(device, registry, tables):
             projections += '</div>'
         projections += '<p>The face images are rendered orthographic bead silhouettes. The corner view clips away the opposite layer; the lattice is hidden for these measurements. This constructed example permits matching pairs and different triple occupancy.</p><a href="/films/lib/blender/bead-cube-renders/receipt.json">Projection receipt and non-claims</a></section>'
     atom_names = '; '.join(registry['atoms'][atom] for atom in device['atoms'])
+    title = 'Foundations · Start with the Bead Cube' if landing else device['name'] + ' · Foundations'
+    description = ('Start with a bead-cube question, then inspect the rendered comparison and its limits. '
+                   'A constructed example, with every answer branch available without JavaScript.' if landing else
+                   f"{device['name']}: {atom_names}. Answer first, inspect the excluded world, and carry the limits back to the claim.")
+    route = '/foundations/' if landing else f'/foundations/{key.lower()}/'
+
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{e(device['name'])} · Foundations</title><meta name="description" content="{e(atom_names)}">
+{metadata(title, description, route)}
 <link rel="stylesheet" href="/assets/foundations/foundations.css">
 <script type="importmap">{{"imports":{{"three":"/assets/foundations/vendor/three/three.module.js"}}}}</script>
 <script type="module" src="/assets/foundations/foundations.js"></script></head>
@@ -103,7 +123,9 @@ def bare(tables):
 <output class="state-readout" aria-live="polite"></output><div class="moves"></div>
 <p>{e(table['scope'])}</p></section>''' for key, table in tables.items())
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Device mesh loader</title><link rel="stylesheet" href="/assets/foundations/foundations.css">
+{metadata('Device mesh loader · Foundations',
+    'Inspect device-only meshes with permitted moves compiled from the Python audit. Geometry is optional; the text exercises carry their own limits.',
+    '/foundations/meshes/')}<link rel="stylesheet" href="/assets/foundations/foundations.css">
 <script type="importmap">{{"imports":{{"three":"/assets/foundations/vendor/three/three.module.js"}}}}</script>
 <script type="module" src="/assets/foundations/mesh-test.js"></script></head><body>
 <a class="skip" href="#main">Skip to content</a><main id="main"><h1>Device mesh loader</h1>
@@ -124,7 +146,7 @@ def outputs():
         assert re.fullmatch(r'(CC|MC)-\d{3}', spec['claim']), key
         assert f'id="{spec["claim"]}"' in (ROOT/'ledger/index.html').read_text(), key
     result = {OUTPUT/d['id'].lower()/'index.html':page(d, registry, tables) for d in devices}
-    result[OUTPUT/'index.html'] = page(next(d for d in devices if d['id']=='D-007'), registry, tables)
+    result[OUTPUT/'index.html'] = page(next(d for d in devices if d['id']=='D-007'), registry, tables, landing=True)
     result[OUTPUT/'meshes/index.html'] = bare(tables)
     payload = {'source': 'scripts/audit_device.py:models',
                'source_sha256': hashlib.sha256((ROOT/'scripts/audit_device.py').read_bytes()).hexdigest(),

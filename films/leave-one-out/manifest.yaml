@@ -71,6 +71,18 @@ non_claims:
   - leave-one-out unions identify exclusive full-stack coverage only; not pairwise or higher-order overlap, Shapley values, or ensemble structure
   - window positions are a construction; the released rows are not redistributed and the true overlaps beyond the registered aggregates are not shown
   - says nothing about adversarial prompts, which dominate the evaluation and have no per-item release
+  # carried verbatim from claims.yaml (S3 of spine.yaml): MC-002, MC-003
+  - "the subset is author-selected with an unstated rule — nothing here estimates any system's true rate, and no confidence interval is offered because the sampled population is undefined"
+  - "not a ranking or endorsement of any vendor; the released verdicts are at unstated default configurations"
+  - "says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release"
+  - "the release-recomputed-to-plug-in ratio describes this subset's arithmetic, not a general law of guardrail dependence"
+  - "not an observed deployed five-guard stack; interpreting this static OR aggregation as a stack requires the separate full-exposure, parallel, fixed-operating-point assumptions"
+  - "no new mathematics is claimed; the bounds are Fréchet's and the lower endpoint is Bonferroni's"
+  - "not a claim that guardrails in general fail together — this stratum cannot separate shared blind spots from prompt-difficulty heterogeneity"
+  - "not a vendor evaluation; the released verdicts are at unstated default configurations, and one supervisor fires exactly once in the 170 released rows"
+  - "the identified interval is what the marginals leave open, not a prediction about any deployed stack"
+  - "leave-one-out unions identify only exclusive full-stack coverage; they do not identify pairwise or higher-order overlap, Shapley values, or causal contribution"
+  - "says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release"
 claim_frames:
   - t: 12.0
     shows: all five lamps on — 73/82 lit, 9 dark; aggregate-only bounds on exclusive coverage beside each lamp
