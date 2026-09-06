@@ -19,6 +19,9 @@ Discipline:
   * expected counts are read from MC-002's `expected` block in
     claims.yaml and asserted, so the proposition's numbers and the
     executed computation cannot silently diverge (the CC-001 pattern);
+  * the complete 2**5 exclusive miss partition is asserted too. It carries
+    counts only — never the upstream item identities — and retains both
+    observed-zero and structurally impossible cells;
   * the CSV is downloaded to a temp path and not committed: the
     upstream repository declares no license, so this record cites and
     verifies the file rather than redistributing it.
@@ -77,6 +80,31 @@ def load_csv() -> list:
     return list(csv.DictReader(io.StringIO(raw.decode("utf-8"))))
 
 
+def exclusive_miss_cells(decisions: dict[str, list[bool]],
+                         positive: list[bool]) -> dict[str, int]:
+    """Return every exclusive miss cell in SPECIALIZED order.
+
+    A key's left-to-right characters align with SPECIALIZED; ``1`` means the
+    corresponding guard missed the positive item. Keeping all 2**K keys is
+    intentional: an omitted zero would make structural absence
+    indistinguishable from an observed zero in the public grid.
+
+    This only preserves the raw partition. Union, all-miss, and every other
+    joint statistic still come from mjgd_reference's one canonical reducer.
+    """
+    width = len(SPECIALIZED)
+    cells = {format(mask, f"0{width}b"): 0 for mask in range(1 << width)}
+    for index, is_positive in enumerate(positive):
+        if not is_positive:
+            continue
+        pattern = "".join(
+            "0" if decisions[guard][index] else "1"
+            for guard in SPECIALIZED
+        )
+        cells[pattern] += 1
+    return cells
+
+
 def main() -> int:
     rows = load_csv()
     if not rows:
@@ -93,6 +121,7 @@ def main() -> int:
     harmful = [r["harm_level"] == "harmful" for r in rows]
     decisions = {s: [r[s].strip() == "1" for r in rows] for s in SPECIALIZED}
     d = mjgd_reference.joint_disclosure(decisions, harmful)
+    miss_cells = exclusive_miss_cells(decisions, harmful)
 
     # The benign stratum goes through the same kernel as the harmful one.
     # It previously carried its own any()-sum for the union and its own
@@ -157,6 +186,52 @@ def main() -> int:
             ok(f"per-guard {guard}: {got}/{d['denominator']} (as claimed)")
         else:
             fail(f"per-guard {guard}: computed {got}, claim says {want}")
+
+    # The exclusive miss table uses a deliberately named representation
+    # (1 = miss, characters follow SPECIALIZED), while mjgd_reference uses
+    # a compact catch-mask internally. Assert their common facts explicitly
+    # so a reversed or reinterpreted cell order cannot look plausible.
+    registered_cells = expected.get("exclusive_cells")
+    expected_keys = set(miss_cells)
+    if not isinstance(registered_cells, dict):
+        fail("exclusive miss cells: MC-002 expected.exclusive_cells is missing")
+    elif set(registered_cells) != expected_keys:
+        missing = sorted(expected_keys - set(registered_cells))
+        extra = sorted(set(registered_cells) - expected_keys)
+        detail = []
+        if missing:
+            detail.append("missing " + ", ".join(missing))
+        if extra:
+            detail.append("unknown " + ", ".join(extra))
+        fail("exclusive miss cells: expected every 5-bit cell (" + "; ".join(detail) + ")")
+    else:
+        for pattern in sorted(expected_keys):
+            got, want = miss_cells[pattern], registered_cells[pattern]
+            if got != want:
+                fail(f"exclusive miss cell {pattern}: computed {got}, claim says {want}")
+        if not failures:
+            ok("exclusive miss cells: all 32 cells match the registered partition")
+
+    if sum(miss_cells.values()) != d["denominator"]:
+        fail("exclusive miss cells: cells do not sum to the MJGD denominator")
+    if miss_cells["1" * len(SPECIALIZED)] != d["all_miss"]:
+        fail("exclusive miss cells: all-miss cell disagrees with the MJGD reducer")
+    for position, guard in enumerate(SPECIALIZED):
+        catches_from_cells = sum(
+            count for pattern, count in miss_cells.items() if pattern[position] == "0")
+        if catches_from_cells != d["per_guard"][guard]:
+            fail(f"exclusive miss cells: {guard} catch marginal disagrees with the MJGD reducer")
+    always_miss = [
+        (position, guard) for position, guard in enumerate(SPECIALIZED)
+        if d["per_guard"][guard] == 0
+    ]
+    for position, guard in always_miss:
+        structural = [pattern for pattern in miss_cells if pattern[position] == "0"]
+        if any(miss_cells[pattern] for pattern in structural):
+            fail(f"exclusive miss cells: {guard} catches zero but a structural cell is nonzero")
+        else:
+            ok(f"exclusive miss cells: {guard} catches 0/{d['denominator']}; "
+               f"{len(structural)} cells are structurally empty")
 
     n = d["denominator"]
     # Same single implementation the page and the validator use.

@@ -1592,3 +1592,139 @@ entries:
     11 intervals exclude zero)'
   previous_transition_digest: ad2d8af4f4e14c887a2286a60581174094843569d940d3daa17578fdd2171074
   digest: ccffd4a18a3daffa6db61816d639c6d950b3f9c3cc09d034871daba83111c62a
+- kind: transition
+  claim_id: MC-005
+  from_digest: 9f12c3a9bc6fa383bca0fadfcb1e7354cfca176888396ff98408f0fafcd96144
+  to_digest: null
+  transition_type: RETRACT
+  event_at: '2026-09-06'
+  recorded_at: '2026-09-06'
+  provenance_class: CONTEMPORANEOUS
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - ARTIFACTS/2026-09-05-FABLE-5.1-OBS-CUT.md
+  - claims.yaml:MC-002.support.license
+  - experiments/e2/results/retrospective/independent_t1.py
+  reason: 'Withdrawn by the owner, who removed the record from claims.yaml. The registered support block
+    declares license: MIT for the BELLS file whose upstream repository declares no licence at all; MC-002
+    binds the same file and records ''none declared upstream''. Two records disagreeing about one file''s
+    licence is a defect in the register, not a judgement call about the result. The W1 selection-regret
+    computation is untouched by this and its run report and independent recomputation remain in experiments/e2/results/retrospective/.'
+  previous_transition_digest: ccffd4a18a3daffa6db61816d639c6d950b3f9c3cc09d034871daba83111c62a
+  digest: 266f760993f30c8d0e4b52f7e4c9f83e3168056b95f87e0461dcb13a0480ac63
+- kind: transition
+  claim_id: MC-002
+  from_digest: 32df5e5f1ed013cf87e59d0b987527b813f0c9558dabf4716d301a2e5280eaf2
+  to_digest: 5d53e13ed07bbb57ffe36892d41a665ab5a3c3d343801db4bd49e1c0c2a9c11c
+  transition_type: CLARIFY
+  event_at: '2026-09-04'
+  recorded_at: '2026-09-06'
+  provenance_class: CONTEMPORANEOUS
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - scripts/reanalyze_bells_subset.py
+  - https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv
+  - sha256:791dd4b0a168f2eb5831b308083a492e83200a9fa82585643c739023b03f57c3
+  reason: complete 32-cell exclusive miss partition registered from the same hash-verified BELLS release;
+    the existing union, all-miss, and scope counts are unchanged
+  previous_transition_digest: 266f760993f30c8d0e4b52f7e4c9f83e3168056b95f87e0461dcb13a0480ac63
+  to_commitment:
+    proposition: 'On the 170-prompt per-item subset publicly released with BELLS''s 2025 misuse-detection
+      evaluation (pinned commit below), the five specialized supervisors — Lakera Guard, Prompt Guard,
+      LangKit, NeMo Guardrails, LLM Guard — have an OR-union of released binary verdict columns that flags
+      73 of the 82 prompts labelled harmful, leaving 9 all-miss (11.0%). The product of their individual
+      miss rates is 3.5%; the release-recomputed all-miss rate is about 3.1× that independence plug-in
+      on this file. The same OR-union flags 19 of the 50 benign prompts.
+
+      '
+    scope: 'Exactly the released file at the bound commit: 170 of the evaluation''s 990 non-adversarial
+      prompts (the study''s ~4,165 adversarial prompts have no per-item release), selected by the authors
+      under an unstated rule. Counting arithmetic only, at the vendors'' released binary verdicts; no
+      population estimate, no uncertainty interval, and no claim about any system''s true rates is offered
+      or licensed. Computed by scripts/reanalyze_bells_subset.py from scripts/mjgd_reference.py; the expected
+      block below is what CI re-asserts against the downloaded, hash-verified file.
+
+      '
+    falsifier:
+      condition: 'Recomputing from the bound, hash-verified file yields any count different from the expected
+        block, or the file at the pinned ref no longer matches the recorded sha256, or the released columns
+        are shown not to be the labelled systems'' verdicts.
+
+        '
+      consequence: REJECT
+    forbidden_rescues:
+    - do not substitute a different subset, column set, or harm-level filter to preserve the numbers
+    - do not fold borderline prompts into either denominator after seeing the results
+    - do not recast this subset arithmetic as a population estimate, with or without an interval, if the
+      primary counts are challenged
+    - do not cite the release-recomputed-to-plug-in ratio without the selection caveat that scopes it
+    non_claims:
+    - the subset is author-selected with an unstated rule — nothing here estimates any system's true rate,
+      and no confidence interval is offered because the sampled population is undefined
+    - not a ranking or endorsement of any vendor; the released verdicts are at unstated default configurations
+    - says nothing about adversarial prompts, which dominate the full evaluation and have no per-item
+      release
+    - the release-recomputed-to-plug-in ratio describes this subset's arithmetic, not a general law of
+      guardrail dependence
+    - not an observed deployed five-guard stack; interpreting this static OR aggregation as a stack requires
+      the separate full-exposure, parallel, fixed-operating-point assumptions
+    expected:
+      n_prompts: 170
+      n_harmful: 82
+      per_guard_catches:
+        lakera_guard: 52
+        prompt_guard: 5
+        langkit: 25
+        nemo: 70
+        llm_guard: 0
+      union_detection: 73
+      all_miss: 9
+      n_benign: 50
+      benign_union_flagged: 19
+      per_guard_benign_flags:
+        lakera_guard: 7
+        prompt_guard: 0
+        langkit: 8
+        nemo: 10
+        llm_guard: 0
+      n_borderline: 38
+      leave_one_out_union:
+        lakera_guard: 70
+        prompt_guard: 73
+        langkit: 73
+        nemo: 55
+        llm_guard: 73
+      exclusive_cells:
+        '00000': 0
+        '00001': 4
+        '00010': 0
+        '00011': 0
+        '00100': 0
+        '00101': 1
+        '00110': 0
+        '00111': 0
+        '01000': 0
+        '01001': 18
+        '01010': 0
+        '01011': 0
+        '01100': 0
+        '01101': 26
+        '01110': 0
+        '01111': 3
+        '10000': 0
+        '10001': 0
+        '10010': 0
+        '10011': 0
+        '10100': 0
+        '10101': 0
+        '10110': 0
+        '10111': 0
+        '11000': 0
+        '11001': 3
+        '11010': 0
+        '11011': 0
+        '11100': 0
+        '11101': 18
+        '11110': 0
+        '11111': 9
+  digest: 0eaaad1d2a45d4f38b0323414e1743d693e622294391b7d2504cd880e90821a1

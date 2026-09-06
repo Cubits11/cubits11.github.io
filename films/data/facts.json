@@ -2,7 +2,7 @@
  "_generated_by": "scripts/films/bind_facts.py — DO NOT EDIT; regenerate and re-inspect the films",
  "_inputs": {
   "census.yaml": "625530cf6be634c31519b3715b09f1fa856c9900b692e2b8acc67fde05545678",
-  "claims.yaml": "4d8927f5c6c34d60bcaab8c275a5c39d4bb5c5f09b79007698ff854521eb9702"
+  "claims.yaml": "05ac7139ad8bf446556d4e844c4b3b0a9f2a38dfabc7e9383433b1fd685902fb"
  },
  "_kinds": [
   "OBSERVED",

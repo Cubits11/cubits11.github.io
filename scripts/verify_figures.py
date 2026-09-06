@@ -20,12 +20,19 @@ Essay number line (essays/when-marginals-are-not-enough/): the AND band spans
 [0%,10%], the OR band spans [10%,20%], and the independence dots sit at 1%
 and 19% on the same linear scale.
 
+MC-002 exclusive co-miss grid (missing-column/disclosure/): all 32 exclusive
+five-guard miss cells are present, their dots and bars encode the registered
+counts exactly, and structural zeros caused by LLM Guard's zero catches are
+not rendered as observed zeros.
+
 Exit code 0 = all geometry asserted; 1 = at least one assertion failed.
 """
 
 import pathlib
 import re
 import sys
+
+import yaml
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TOL = 1e-9
@@ -252,11 +259,195 @@ def check_disclosure_ladder() -> None:
         ok("disclosure ladder: four rungs, correct order, ascending")
 
 
+def check_bells_exclusive_comiss_grid() -> None:
+    """Assert every MC-002 co-miss cell and its static SVG geometry.
+
+    The figure's source of truth is the claim's 32-cell expected map; the
+    hash-verified BELLS reproducer checks that map against the upstream CSV.
+    This is deliberately independent of the generator's ordering and scale.
+    """
+    path = ROOT / "missing-column" / "disclosure" / "index.html"
+    if not path.exists():
+        fail("BELLS co-miss grid: disclosure page not generated")
+        return
+    registry = yaml.safe_load((ROOT / "claims.yaml").read_text())
+    claim = next((c for c in registry.get("claims", []) if c.get("id") == "MC-002"), None)
+    if claim is None:
+        fail("BELLS co-miss grid: MC-002 not found in claims.yaml")
+        return
+    expected = claim.get("expected", {})
+    # This public left-to-right bit order is deliberately stated independently
+    # of the renderer. A geometrically valid grid can still lie if a header or
+    # the text-only labels swap two supervisors.
+    guard_keys = ["lakera_guard", "prompt_guard", "langkit", "nemo", "llm_guard"]
+    guard_names = ["Lakera Guard", "Prompt Guard", "LangKit", "NeMo Guardrails", "LLM Guard"]
+    guard_short_names = ["Lakera", "Prompt", "LangKit", "NeMo", "LLM"]
+    width = len(guard_keys)
+    keys = [format(mask, f"0{width}b") for mask in range(1 << width)]
+    cells = expected.get("exclusive_cells")
+    if not isinstance(cells, dict) or set(cells) != set(keys):
+        fail("BELLS co-miss grid: MC-002 must register every five-bit exclusive cell")
+        return
+    if any(isinstance(cells[key], bool) or not isinstance(cells[key], int)
+           or cells[key] < 0 for key in keys):
+        fail("BELLS co-miss grid: every registered cell must be a non-negative integer")
+        return
+    if sum(cells.values()) != expected.get("n_harmful"):
+        fail("BELLS co-miss grid: registered cells do not sum to the harmful denominator")
+        return
+    all_miss = "1" * width
+    if cells[all_miss] != expected.get("all_miss"):
+        fail("BELLS co-miss grid: all-miss cell disagrees with MC-002")
+        return
+
+    always_miss = [
+        position for position, guard in enumerate(guard_keys)
+        if expected["per_guard_catches"][guard] == 0
+    ]
+    structural = {
+        key for key in keys
+        if any(key[position] == "0" for position in always_miss)
+    }
+    observed_zero = {key for key in keys if key not in structural and cells[key] == 0}
+    if len(structural) != 16 or len(observed_zero) != 8:
+        fail("BELLS co-miss grid: expected 16 structural and 8 observed zero cells")
+    if any(cells[key] for key in structural):
+        fail("BELLS co-miss grid: a structurally impossible cell has a positive count")
+
+    html = path.read_text()
+    figure = re.search(
+        r'<figure class="cm-fig" id="exclusive-co-miss">(.*?)</figure>', html, re.S)
+    if not figure:
+        fail("BELLS co-miss grid: complete partition figure missing")
+        return
+    # HTML permits a figure caption only as the first or last child. The
+    # collapsible text equivalent comes first, so keep the caption last.
+    figure_body = figure.group(1).strip()
+    caption_start = figure_body.rfind('<figcaption class="cm-caption">')
+    details_end = figure_body.rfind('</details>')
+    if caption_start <= details_end or not figure_body.endswith('</figcaption>'):
+        fail("BELLS co-miss grid: figcaption must be the figure's final child")
+    rendered_headers = re.findall(
+        r'<text x="[\d.]+" y="40" class="cm-head" text-anchor="middle">([^<]+)</text>',
+        figure_body)
+    if rendered_headers != guard_short_names:
+        fail("BELLS co-miss grid: rendered supervisor headers do not preserve the public bit order")
+    rows = re.findall(
+        r'<g class="cm-cell" data-pattern="([01]{5})" data-count="(\d+)"\s+'
+        r'data-state="([a-z-]+)" data-degree="(\d+)" data-y="([\d.]+)">(.*?)</g>',
+        html, re.S)
+    ordered = sorted(keys, key=lambda key: (-key.count("1"), key))
+    if len(rows) != len(ordered) or [row[0] for row in rows] != ordered:
+        fail("BELLS co-miss grid: expected all 32 cells in degree-descending order")
+        return
+
+    text_rows = re.findall(
+        r'<tr><td class="mono">([01]{5})</td><td>([^<]*)</td><td>(\d+)</td><td>([^<]*)</td></tr>',
+        figure_body)
+    if len(text_rows) != len(ordered) or [row[0] for row in text_rows] != ordered:
+        fail("BELLS co-miss grid: text-only table does not contain the 32 ordered cells")
+    else:
+        for pattern, missed, count_s, state_label in text_rows:
+            want_missed = ", ".join(name for bit, name in zip(pattern, guard_names)
+                                     if bit == "1") or "no guard"
+            want_state_label = ("structural zero" if pattern in structural
+                                else "observed zero" if cells[pattern] == 0 else "observed")
+            if missed != want_missed or int(count_s) != cells[pattern] or state_label != want_state_label:
+                fail(f"BELLS co-miss {pattern}: text-only row does not preserve its bit meaning")
+
+    # Independent from the renderer constants: 270 SVG units is the full
+    # bar width, and each cell receives exactly 22 vertical units.
+    dot_x, dot_step = 180.0, 38.0
+    bar_x, bar_w = 410.0, 270.0
+    row_y, row_h = 124.0, 22.0
+    max_count = max(cells.values())
+    before = len(failures)
+    for index, (pattern, count_s, state, degree_s, y_s, body) in enumerate(rows):
+        count, degree, y = int(count_s), int(degree_s), float(y_s)
+        want_state = ("structural-zero" if pattern in structural
+                      else "observed-zero" if cells[pattern] == 0 else "observed")
+        if count != cells[pattern]:
+            fail(f"BELLS co-miss {pattern}: data count {count} != registered {cells[pattern]}")
+        if degree != pattern.count("1"):
+            fail(f"BELLS co-miss {pattern}: degree {degree} != its miss bits")
+        if state != want_state:
+            fail(f"BELLS co-miss {pattern}: state {state!r} != {want_state!r}")
+        want_y = row_y + index * row_h
+        if not close(y, want_y):
+            fail(f"BELLS co-miss {pattern}: row y={y} != {want_y}")
+
+        dots = re.findall(
+            r'<circle class="cm-dot cm-(miss|catch)" data-bit="([01])" '
+            r'cx="([\d.]+)" cy="([\d.]+)" r="4"/>', body)
+        if len(dots) != width:
+            fail(f"BELLS co-miss {pattern}: expected five membership dots, found {len(dots)}")
+        else:
+            for position, (kind, bit, x_s, cy_s) in enumerate(dots):
+                want_kind = "miss" if pattern[position] == "1" else "catch"
+                if bit != pattern[position] or kind != want_kind:
+                    fail(f"BELLS co-miss {pattern}: dot {position} misstates the miss set")
+                if not close(float(x_s), dot_x + position * dot_step) or \
+                        not close(float(cy_s), want_y + 7):
+                    fail(f"BELLS co-miss {pattern}: dot {position} is misplaced")
+
+        joins = re.findall(
+            r'<line x1="([\d.]+)" y1="([\d.]+)" x2="([\d.]+)" '
+            r'y2="([\d.]+)" class="cm-join"/>', body)
+        miss_positions = [position for position, bit in enumerate(pattern) if bit == "1"]
+        if len(miss_positions) > 1:
+            if len(joins) != 1:
+                fail(f"BELLS co-miss {pattern}: multi-miss row lacks one connector")
+            else:
+                x1, y1, x2, y2 = (float(value) for value in joins[0])
+                if not (close(x1, dot_x + miss_positions[0] * dot_step)
+                        and close(x2, dot_x + miss_positions[-1] * dot_step)
+                        and close(y1, want_y + 7) and close(y2, want_y + 7)):
+                    fail(f"BELLS co-miss {pattern}: connector does not span its missed guards")
+        elif joins:
+            fail(f"BELLS co-miss {pattern}: connector shown for fewer than two misses")
+
+        if want_state == "observed":
+            bars = re.findall(
+                r'<rect x="410" y="([\d.]+)" width="([\d.]+)" height="14" '
+                r'class="(cm-bar(?: cm-allmiss)?)"/>', body)
+            if len(bars) != 1:
+                fail(f"BELLS co-miss {pattern}: observed cell lacks one count bar")
+            else:
+                bar_y, bar_width, klass = bars[0]
+                want_width = bar_w * cells[pattern] / max_count
+                want_class = "cm-bar cm-allmiss" if pattern == all_miss else "cm-bar"
+                if not close(float(bar_y), want_y) or not close(float(bar_width), want_width):
+                    fail(f"BELLS co-miss {pattern}: bar geometry does not encode its count")
+                if klass != want_class:
+                    fail(f"BELLS co-miss {pattern}: bar class does not encode its event type")
+            if not re.search(rf'<text x="[\d.]+" y="[\d.]+" class="cm-count">{cells[pattern]}</text>', body):
+                fail(f"BELLS co-miss {pattern}: observed count is not printed beside its bar")
+        elif want_state == "structural-zero":
+            glyph = re.search(
+                r'<rect x="410" y="([\d.]+)" width="12" height="12" '
+                r'class="cm-zero cm-structural-zero"/>', body)
+            if not glyph or not close(float(glyph.group(1)), want_y + 1) \
+                    or "structural zero</text>" not in body:
+                fail(f"BELLS co-miss {pattern}: structural zero lacks its distinct glyph and label")
+        else:
+            glyph = re.search(
+                r'<circle cx="416" cy="([\d.]+)" r="5" '
+                r'class="cm-zero cm-observed-zero"/>', body)
+            if not glyph or not close(float(glyph.group(1)), want_y + 7) \
+                    or "0 observed</text>" not in body:
+                fail(f"BELLS co-miss {pattern}: observed zero lacks its distinct glyph and label")
+
+    if len(failures) == before:
+        ok("BELLS co-miss grid: 32 exact cells, 16 structural zeros, 8 observed zeros, "
+           "membership dots, and bar geometry all agree with MC-002")
+
+
 def main() -> int:
     check_fig02()
     check_essay_numberline()
     check_missing_column()
     check_disclosure_ladder()
+    check_bells_exclusive_comiss_grid()
     print()
     if failures:
         print(f"{len(failures)} geometry assertion(s) failed.")

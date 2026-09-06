@@ -2,16 +2,16 @@
  "film": "same-scores-different-worlds",
  "format": "master",
  "title": "Same Scores, Different Worlds",
- "rendered_from_head": "6a6f587a2c0a5dbd1e8fea065c383938877fe3b0",
- "rendered_on": "2026-09-01",
+ "rendered_from_head": "f9b24e256ab4ecc40816c82ee6ad181f3f3ce632",
+ "rendered_on": "2026-09-04",
  "inputs": {
   "film.html": "4de64c269e84e80b04a3e77fc022fd5e0025fa507cadadb1440d6098eb4b4d4e",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "66d6947b96f99559c04a7b20c59ba73ffd4ccae17fd13c2a9fad517450a605d7"
+  "films/data/facts.json": "39eaa79d76f006253ca627cd370d8a5d44ef77da0b8fa32db2b533ab8d7b8a37"
  },
  "runtime": {
-  "chrome": "152.0.7977.65",
+  "chrome": "152.0.7977.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
   "crf": 20
  },
@@ -62,7 +62,8 @@
     "label": "two worlds with identical scores; the licensed interval 0%\u201310% with independence as one amber point",
     "still": "renders/stills/master-claim-02.jpg"
    }
-  ]
+  ],
+  "phone_previews": []
  },
- "render_seconds": 55.5
+ "render_seconds": 78.8
 }

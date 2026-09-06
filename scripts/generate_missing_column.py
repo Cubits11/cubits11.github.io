@@ -65,6 +65,33 @@ LADDER_RUNGS = [
      "one row per item — every statistic above recomputable"),
 ]
 
+# MC-002's displayed order is a public part of the exclusive miss-cell
+# encoding. A cell key's characters run left to right in this order; 1 means
+# that guard missed the harmful item. The values themselves remain in
+# claims.yaml, where the hash-verified BELLS reproducer asserts them.
+MC002_GUARDS = (
+    ("lakera_guard", "Lakera Guard", "Lakera"),
+    ("prompt_guard", "Prompt Guard", "Prompt"),
+    ("langkit", "LangKit", "LangKit"),
+    ("nemo", "NeMo Guardrails", "NeMo"),
+    ("llm_guard", "LLM Guard", "LLM"),
+)
+
+# Stable SVG geometry. verify_figures.py independently derives the bars from
+# the claim's cell counts; changing a number or a scale cannot merely look
+# plausible in the rendered page.
+CM_DOT_X = 180.0
+CM_DOT_STEP = 38.0
+CM_BAR_X = 410.0
+CM_BAR_W = 270.0
+CM_ROW_Y = 124.0
+CM_ROW_H = 22.0
+
+
+def svg_num(value: float) -> str:
+    """Stable SVG numeric formatting, precise enough for the geometry gate."""
+    return f"{value:.12f}".rstrip("0").rstrip(".") or "0"
+
 
 def render_motif() -> str:
     """The campaign mark: a real table whose last column is not filled in."""
@@ -821,6 +848,28 @@ table.census-table thead th{font-family:var(--mono);font-size:.64rem;letter-spac
 table.census-table tbody th{font-weight:520}
 tr.demo-union th,tr.demo-union td{color:var(--evidence);border-top:1px solid var(--line-strong)}
 tr.demo-allmiss th,tr.demo-allmiss td{color:var(--invalid)}
+.cm-fig{margin:1.7rem 0 0}
+.cm-fig svg{width:100%;min-width:720px;height:auto;display:block;background:var(--surface);border:1px solid var(--line-strong)}
+.cm-head,.cm-degree,.cm-count,.cm-legend-text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.cm-head{font-size:10px;letter-spacing:.04em;text-transform:uppercase}
+.cm-degree{fill:var(--gold)}
+.cm-count{fill:var(--ink)}
+.cm-dot{stroke:var(--ink);stroke-width:1.1}
+.cm-miss{fill:var(--ink)}
+.cm-catch{fill:var(--surface)}
+.cm-join{stroke:var(--ink);stroke-width:1.4}
+.cm-bar{fill:var(--evidence);opacity:.8}
+.cm-allmiss{fill:var(--invalid)}
+.cm-zero{stroke-width:1.3}
+.cm-structural-zero{fill:url(#cm-hatch);stroke:var(--review)}
+.cm-observed-zero{fill:var(--surface);stroke:var(--muted)}
+.cm-hatch{stroke:var(--review);stroke-width:1}
+.cm-caption{margin-top:.9rem;color:var(--muted);font-size:.92rem;max-width:58em}
+.cm-caption strong{color:var(--ink)}
+.cm-data{margin-top:.9rem;border:1px solid var(--line);background:var(--surface);padding:.75rem .9rem}
+.cm-data summary{cursor:pointer;color:var(--muted);font-family:var(--mono);font-size:.72rem;letter-spacing:.04em}
+.cm-table{margin-top:.8rem!important}
+.cm-table td:first-child,.cm-table td:nth-child(3),.cm-table td:nth-child(4){font-family:var(--mono);font-size:.76rem}
 .precond{border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem;color:var(--muted);font-size:.92rem}
 .precond strong{color:var(--ink)}
 .ask{border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem}
@@ -1091,6 +1140,170 @@ def render_corrections(data: dict) -> str:
 </main>''' + PAGE_FOOT
 
 
+def mc002_cells(expected: dict) -> tuple[dict[str, int], list[str], set[str]]:
+    """Validate and order MC-002's complete exclusive miss partition.
+
+    This is a renderer-side shape check, not a second computation over BELLS.
+    `reanalyze_bells_subset.py` derives the cells from the hash-verified file
+    and asserts them against this same expected block. Here, we refuse a page
+    that would hide a key, reinterpret its bit order, or call an impossible
+    LLM-Guard catch an observed zero.
+    """
+    width = len(MC002_GUARDS)
+    keys = [format(mask, f"0{width}b") for mask in range(1 << width)]
+    raw = expected.get("exclusive_cells")
+    if not isinstance(raw, dict) or set(raw) != set(keys):
+        raise ValueError("MC-002 exclusive_cells must contain every five-bit miss cell")
+    cells = {}
+    for key in keys:
+        value = raw[key]
+        if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+            raise ValueError(f"MC-002 exclusive cell {key} must be a non-negative integer")
+        cells[key] = value
+    if sum(cells.values()) != expected["n_harmful"]:
+        raise ValueError("MC-002 exclusive cells do not sum to the harmful denominator")
+    all_miss = "1" * width
+    if cells[all_miss] != expected["all_miss"]:
+        raise ValueError("MC-002 all-miss cell disagrees with the registered all-miss")
+
+    always_miss_positions = [
+        position for position, (guard, _name, _short) in enumerate(MC002_GUARDS)
+        if expected["per_guard_catches"][guard] == 0
+    ]
+    structural = {
+        key for key in keys
+        if any(key[position] == "0" for position in always_miss_positions)
+    }
+    if any(cells[key] for key in structural):
+        raise ValueError("MC-002 has a nonzero cell that an always-miss guard makes impossible")
+    ordered = sorted(keys, key=lambda key: (-key.count("1"), key))
+    return cells, ordered, structural
+
+
+def miss_set_label(pattern: str) -> str:
+    names = [name for bit, (_guard, name, _short) in zip(pattern, MC002_GUARDS)
+             if bit == "1"]
+    return ", ".join(names) if names else "no guard"
+
+
+def render_exclusive_comiss_figure(expected: dict) -> str:
+    """Render the complete MC-002 exclusive miss partition as static SVG."""
+    cells, ordered, structural = mc002_cells(expected)
+    n = expected["n_harmful"]
+    all_miss = "1" * len(MC002_GUARDS)
+    max_count = max(cells.values())
+    observed_zero = [key for key in ordered if key not in structural and not cells[key]]
+    short_names = "".join(
+        f'<text x="{svg_num(CM_DOT_X + position * CM_DOT_STEP)}" y="40" '
+        f'class="cm-head" text-anchor="middle">{esc(short)}</text>'
+        for position, (_guard, _name, short) in enumerate(MC002_GUARDS)
+    )
+    cell_rows = []
+    table_rows = []
+    for row, pattern in enumerate(ordered):
+        count = cells[pattern]
+        degree = pattern.count("1")
+        y = CM_ROW_Y + row * CM_ROW_H
+        cy = y + 7
+        state = ("structural-zero" if pattern in structural
+                 else "observed-zero" if count == 0 else "observed")
+        missed = miss_set_label(pattern)
+        caught = miss_set_label("".join("0" if bit == "1" else "1" for bit in pattern))
+        title = (f"Exactly these guards missed: {missed}; caught: {caught}. "
+                 f"{('This cell is structurally zero.' if state == 'structural-zero' else f'{count} released harmful prompts.')}")
+        miss_x = [CM_DOT_X + position * CM_DOT_STEP
+                  for position, bit in enumerate(pattern) if bit == "1"]
+        join = ""
+        if len(miss_x) > 1:
+            join = (f'<line x1="{svg_num(miss_x[0])}" y1="{svg_num(cy)}" '
+                    f'x2="{svg_num(miss_x[-1])}" y2="{svg_num(cy)}" class="cm-join"/>')
+        dots = "".join(
+            f'<circle class="cm-dot cm-{'miss' if bit == '1' else 'catch'}" '
+            f'data-bit="{bit}" cx="{svg_num(CM_DOT_X + position * CM_DOT_STEP)}" '
+            f'cy="{svg_num(cy)}" r="4"/>'
+            for position, bit in enumerate(pattern)
+        )
+        if state == "structural-zero":
+            mark = (f'<rect x="{svg_num(CM_BAR_X)}" y="{svg_num(y + 1)}" width="12" height="12" '
+                    f'class="cm-zero cm-structural-zero"/>'
+                    f'<text x="{svg_num(CM_BAR_X + 20)}" y="{svg_num(y + 11)}" '
+                    f'class="cm-count">structural zero</text>')
+            state_label = "structural zero"
+        elif state == "observed-zero":
+            mark = (f'<circle cx="{svg_num(CM_BAR_X + 6)}" cy="{svg_num(cy)}" r="5" '
+                    f'class="cm-zero cm-observed-zero"/>'
+                    f'<text x="{svg_num(CM_BAR_X + 20)}" y="{svg_num(y + 11)}" '
+                    f'class="cm-count">0 observed</text>')
+            state_label = "observed zero"
+        else:
+            width = CM_BAR_W * count / max_count
+            klass = "cm-bar cm-allmiss" if pattern == all_miss else "cm-bar"
+            mark = (f'<rect x="{svg_num(CM_BAR_X)}" y="{svg_num(y)}" '
+                    f'width="{svg_num(width)}" height="14" class="{klass}"/>'
+                    f'<text x="{svg_num(CM_BAR_X + width + 8)}" y="{svg_num(y + 11)}" '
+                    f'class="cm-count">{count}</text>')
+            state_label = "observed"
+        cell_rows.append(f'''<g class="cm-cell" data-pattern="{pattern}" data-count="{count}"
+  data-state="{state}" data-degree="{degree}" data-y="{svg_num(y)}">
+  <title>{esc(title)}</title>{join}{dots}
+  <text x="20" y="{svg_num(y + 11)}" class="cm-degree">{degree}</text>{mark}
+</g>''')
+        table_rows.append(
+            f'<tr><td class="mono">{pattern}</td><td>{esc(missed)}</td>'
+            f'<td>{count}</td><td>{state_label}</td></tr>')
+    height = CM_ROW_Y + len(ordered) * CM_ROW_H + 28
+    return f'''
+    <h3 id="co-miss-h">The complete co-miss partition</h3>
+    <p class="zone-intro">The table above reports five marginal catch rates. This grid
+      keeps the same {n} harmful prompts but shows every exclusive miss cell: a row
+      describes exactly which of the five released verdict columns missed a prompt,
+      and no other displayed guard did. Rows are ordered by the number of misses,
+      from all five to none.</p>
+    <figure class="cm-fig" id="exclusive-co-miss">
+      <div class="fig-scroll" tabindex="0" role="region" aria-label="Complete BELLS exclusive co-miss cell grid, scrollable">
+      <svg viewBox="0 0 800 {svg_num(height)}" role="img" aria-labelledby="cmt cmd">
+        <title id="cmt">All 32 exclusive co-miss cells for MC-002's five released BELLS supervisors</title>
+        <desc id="cmd">Each row is one of the 32 possible exclusive miss sets over
+          82 harmful prompts. Filled dots mean the named guard missed the prompt;
+          hollow dots mean it caught it. Bar length is the released count. The all-five-miss
+          row contains 9 prompts. Sixteen striped structural-zero rows are impossible because
+          LLM Guard catches zero prompts; {len(observed_zero)} remaining hollow-circle rows are observed zero.
+          No item identities are shown.</desc>
+        <defs><pattern id="cm-hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="4" class="cm-hatch"/>
+        </pattern></defs>
+        <text x="20" y="40" class="cm-head">misses</text>
+        {short_names}
+        <text x="{svg_num(CM_BAR_X)}" y="40" class="cm-head">released prompt count</text>
+        <g class="cm-legend">
+          <circle class="cm-dot cm-miss" cx="20" cy="72" r="4"/><text x="30" y="76" class="cm-legend-text">miss</text>
+          <circle class="cm-dot cm-catch" cx="88" cy="72" r="4"/><text x="98" y="76" class="cm-legend-text">catch</text>
+          <rect x="158" y="66" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="178" y="76" class="cm-legend-text">structural zero</text>
+          <circle cx="300" cy="72" r="5" class="cm-zero cm-observed-zero"/><text x="312" y="76" class="cm-legend-text">observed zero</text>
+        </g>
+        {"".join(cell_rows)}
+      </svg>
+      </div>
+      <details class="cm-data">
+        <summary>Text-only cell counts</summary>
+        <div class="fig-scroll" tabindex="0" role="region" aria-label="Text-only BELLS exclusive co-miss cells, scrollable">
+        <table class="census-table cm-table">
+          <thead><tr><th scope="col">miss pattern</th><th scope="col">guards that miss</th><th scope="col">count</th><th scope="col">cell state</th></tr></thead>
+          <tbody>{"".join(table_rows)}</tbody>
+        </table>
+        </div>
+      </details>
+      <figcaption class="cm-caption"><strong>The all-miss value is one cell, not an
+        endpoint.</strong> The <span class="mono">11111</span> row is the registered
+        {expected["all_miss"]} / {n} all-miss count. LLM Guard catches 0 / {n}, so the
+        {len(structural)} cells where its dot would say “catch” are structurally empty; they
+        are not measured zeroes. The other {len(observed_zero)} zero-count cells were possible
+        under those marginals but did not occur in this released file. Counts describe the
+        author-selected BELLS subset at its released native verdicts, not a vendor, a population,
+        or a deployed stack; no item identities are published.</figcaption>
+    </figure>'''
+
+
 def render_demonstration() -> str:
     """The row, demonstrated — rendered from MC-002's expected block in
     claims.yaml, the same block the reproduction script asserts, so the
@@ -1102,18 +1315,16 @@ def render_demonstration() -> str:
         return ""
     e = mc["expected"]
     n = e["n_harmful"]
-    guards = {"lakera_guard": "Lakera Guard", "prompt_guard": "Prompt Guard",
-              "langkit": "LangKit", "nemo": "NeMo Guardrails",
-              "llm_guard": "LLM Guard"}
+    guards = MC002_GUARDS
     # The independence plug-in has exactly one implementation in this repo.
     product = identification.independence_plugin(
-        [(n - e["per_guard_catches"][key]) / n for key in guards])
+        [(n - e["per_guard_catches"][key]) / n for key, _name, _short in guards])
     ratio = (e["all_miss"] / n) / product
     rows = "".join(
         f'<tr><th scope="row">{esc(name)}</th>'
         f'<td>{e["per_guard_catches"][key] / n:.1%} '
         f'({e["per_guard_catches"][key]} / {n})</td></tr>'
-        for key, name in guards.items())
+        for key, name, _short in guards)
     return f'''
   <section class="zone" id="demonstration" aria-labelledby="demo-h">
     <h2 id="demo-h">The row, demonstrated on public data</h2>
@@ -1148,6 +1359,7 @@ def render_demonstration() -> str:
       The same union flags {e["benign_union_flagged"]} of the {e["n_benign"]} benign
       prompts — a separate static benign-union column needed to interpret this
       aggregation, not a deployment utility assessment.</p>
+    {render_exclusive_comiss_figure(e).lstrip()}
     <div class="precond"><strong>Scope, stated before anyone asks:</strong> the released 170
       prompts are an author-selected subset (of 990 non-adversarial prompts; the study's
       ~4,165 adversarial prompts have no per-item release) under an unstated selection rule —

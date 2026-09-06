@@ -110,6 +110,28 @@ table.census-table thead th{font-family:var(--mono);font-size:.64rem;letter-spac
 table.census-table tbody th{font-weight:520}
 tr.demo-union th,tr.demo-union td{color:var(--evidence);border-top:1px solid var(--line-strong)}
 tr.demo-allmiss th,tr.demo-allmiss td{color:var(--invalid)}
+.cm-fig{margin:1.7rem 0 0}
+.cm-fig svg{width:100%;min-width:720px;height:auto;display:block;background:var(--surface);border:1px solid var(--line-strong)}
+.cm-head,.cm-degree,.cm-count,.cm-legend-text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.cm-head{font-size:10px;letter-spacing:.04em;text-transform:uppercase}
+.cm-degree{fill:var(--gold)}
+.cm-count{fill:var(--ink)}
+.cm-dot{stroke:var(--ink);stroke-width:1.1}
+.cm-miss{fill:var(--ink)}
+.cm-catch{fill:var(--surface)}
+.cm-join{stroke:var(--ink);stroke-width:1.4}
+.cm-bar{fill:var(--evidence);opacity:.8}
+.cm-allmiss{fill:var(--invalid)}
+.cm-zero{stroke-width:1.3}
+.cm-structural-zero{fill:url(#cm-hatch);stroke:var(--review)}
+.cm-observed-zero{fill:var(--surface);stroke:var(--muted)}
+.cm-hatch{stroke:var(--review);stroke-width:1}
+.cm-caption{margin-top:.9rem;color:var(--muted);font-size:.92rem;max-width:58em}
+.cm-caption strong{color:var(--ink)}
+.cm-data{margin-top:.9rem;border:1px solid var(--line);background:var(--surface);padding:.75rem .9rem}
+.cm-data summary{cursor:pointer;color:var(--muted);font-family:var(--mono);font-size:.72rem;letter-spacing:.04em}
+.cm-table{margin-top:.8rem!important}
+.cm-table td:first-child,.cm-table td:nth-child(3),.cm-table td:nth-child(4){font-family:var(--mono);font-size:.76rem}
 .precond{border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem;color:var(--muted);font-size:.92rem}
 .precond strong{color:var(--ink)}
 .ask{border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1.3rem;margin-top:1.4rem}
@@ -246,6 +268,183 @@ Errors/timeouts: &lt;n&gt;, scored as &lt;policy&gt;.</pre>
       The same union flags 19 of the 50 benign
       prompts — a separate static benign-union column needed to interpret this
       aggregation, not a deployment utility assessment.</p>
+    <h3 id="co-miss-h">The complete co-miss partition</h3>
+    <p class="zone-intro">The table above reports five marginal catch rates. This grid
+      keeps the same 82 harmful prompts but shows every exclusive miss cell: a row
+      describes exactly which of the five released verdict columns missed a prompt,
+      and no other displayed guard did. Rows are ordered by the number of misses,
+      from all five to none.</p>
+    <figure class="cm-fig" id="exclusive-co-miss">
+      <div class="fig-scroll" tabindex="0" role="region" aria-label="Complete BELLS exclusive co-miss cell grid, scrollable">
+      <svg viewBox="0 0 800 856" role="img" aria-labelledby="cmt cmd">
+        <title id="cmt">All 32 exclusive co-miss cells for MC-002's five released BELLS supervisors</title>
+        <desc id="cmd">Each row is one of the 32 possible exclusive miss sets over
+          82 harmful prompts. Filled dots mean the named guard missed the prompt;
+          hollow dots mean it caught it. Bar length is the released count. The all-five-miss
+          row contains 9 prompts. Sixteen striped structural-zero rows are impossible because
+          LLM Guard catches zero prompts; 8 remaining hollow-circle rows are observed zero.
+          No item identities are shown.</desc>
+        <defs><pattern id="cm-hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="4" class="cm-hatch"/>
+        </pattern></defs>
+        <text x="20" y="40" class="cm-head">misses</text>
+        <text x="180" y="40" class="cm-head" text-anchor="middle">Lakera</text><text x="218" y="40" class="cm-head" text-anchor="middle">Prompt</text><text x="256" y="40" class="cm-head" text-anchor="middle">LangKit</text><text x="294" y="40" class="cm-head" text-anchor="middle">NeMo</text><text x="332" y="40" class="cm-head" text-anchor="middle">LLM</text>
+        <text x="410" y="40" class="cm-head">released prompt count</text>
+        <g class="cm-legend">
+          <circle class="cm-dot cm-miss" cx="20" cy="72" r="4"/><text x="30" y="76" class="cm-legend-text">miss</text>
+          <circle class="cm-dot cm-catch" cx="88" cy="72" r="4"/><text x="98" y="76" class="cm-legend-text">catch</text>
+          <rect x="158" y="66" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="178" y="76" class="cm-legend-text">structural zero</text>
+          <circle cx="300" cy="72" r="5" class="cm-zero cm-observed-zero"/><text x="312" y="76" class="cm-legend-text">observed zero</text>
+        </g>
+        <g class="cm-cell" data-pattern="11111" data-count="9"
+  data-state="observed" data-degree="5" data-y="124">
+  <title>Exactly these guards missed: Lakera Guard, Prompt Guard, LangKit, NeMo Guardrails, LLM Guard; caught: no guard. 9 released harmful prompts.</title><line x1="180" y1="131" x2="332" y2="131" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="131" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="131" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="131" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="131" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="131" r="4"/>
+  <text x="20" y="135" class="cm-degree">5</text><rect x="410" y="124" width="93.461538461538" height="14" class="cm-bar cm-allmiss"/><text x="511.461538461538" y="135" class="cm-count">9</text>
+</g><g class="cm-cell" data-pattern="01111" data-count="3"
+  data-state="observed" data-degree="4" data-y="146">
+  <title>Exactly these guards missed: Prompt Guard, LangKit, NeMo Guardrails, LLM Guard; caught: Lakera Guard. 3 released harmful prompts.</title><line x1="218" y1="153" x2="332" y2="153" class="cm-join"/><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="153" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="153" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="153" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="153" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="153" r="4"/>
+  <text x="20" y="157" class="cm-degree">4</text><rect x="410" y="146" width="31.153846153846" height="14" class="cm-bar"/><text x="449.153846153846" y="157" class="cm-count">3</text>
+</g><g class="cm-cell" data-pattern="10111" data-count="0"
+  data-state="observed-zero" data-degree="4" data-y="168">
+  <title>Exactly these guards missed: Lakera Guard, LangKit, NeMo Guardrails, LLM Guard; caught: Prompt Guard. 0 released harmful prompts.</title><line x1="180" y1="175" x2="332" y2="175" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="175" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="175" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="175" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="175" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="175" r="4"/>
+  <text x="20" y="179" class="cm-degree">4</text><circle cx="416" cy="175" r="5" class="cm-zero cm-observed-zero"/><text x="430" y="179" class="cm-count">0 observed</text>
+</g><g class="cm-cell" data-pattern="11011" data-count="0"
+  data-state="observed-zero" data-degree="4" data-y="190">
+  <title>Exactly these guards missed: Lakera Guard, Prompt Guard, NeMo Guardrails, LLM Guard; caught: LangKit. 0 released harmful prompts.</title><line x1="180" y1="197" x2="332" y2="197" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="197" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="197" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="197" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="197" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="197" r="4"/>
+  <text x="20" y="201" class="cm-degree">4</text><circle cx="416" cy="197" r="5" class="cm-zero cm-observed-zero"/><text x="430" y="201" class="cm-count">0 observed</text>
+</g><g class="cm-cell" data-pattern="11101" data-count="18"
+  data-state="observed" data-degree="4" data-y="212">
+  <title>Exactly these guards missed: Lakera Guard, Prompt Guard, LangKit, LLM Guard; caught: NeMo Guardrails. 18 released harmful prompts.</title><line x1="180" y1="219" x2="332" y2="219" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="219" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="219" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="219" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="219" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="219" r="4"/>
+  <text x="20" y="223" class="cm-degree">4</text><rect x="410" y="212" width="186.923076923077" height="14" class="cm-bar"/><text x="604.923076923077" y="223" class="cm-count">18</text>
+</g><g class="cm-cell" data-pattern="11110" data-count="0"
+  data-state="structural-zero" data-degree="4" data-y="234">
+  <title>Exactly these guards missed: Lakera Guard, Prompt Guard, LangKit, NeMo Guardrails; caught: LLM Guard. This cell is structurally zero.</title><line x1="180" y1="241" x2="294" y2="241" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="241" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="241" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="241" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="241" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="241" r="4"/>
+  <text x="20" y="245" class="cm-degree">4</text><rect x="410" y="235" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="245" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="00111" data-count="0"
+  data-state="observed-zero" data-degree="3" data-y="256">
+  <title>Exactly these guards missed: LangKit, NeMo Guardrails, LLM Guard; caught: Lakera Guard, Prompt Guard. 0 released harmful prompts.</title><line x1="256" y1="263" x2="332" y2="263" class="cm-join"/><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="263" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="263" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="263" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="263" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="263" r="4"/>
+  <text x="20" y="267" class="cm-degree">3</text><circle cx="416" cy="263" r="5" class="cm-zero cm-observed-zero"/><text x="430" y="267" class="cm-count">0 observed</text>
+</g><g class="cm-cell" data-pattern="01011" data-count="0"
+  data-state="observed-zero" data-degree="3" data-y="278">
+  <title>Exactly these guards missed: Prompt Guard, NeMo Guardrails, LLM Guard; caught: Lakera Guard, LangKit. 0 released harmful prompts.</title><line x1="218" y1="285" x2="332" y2="285" class="cm-join"/><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="285" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="285" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="285" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="285" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="285" r="4"/>
+  <text x="20" y="289" class="cm-degree">3</text><circle cx="416" cy="285" r="5" class="cm-zero cm-observed-zero"/><text x="430" y="289" class="cm-count">0 observed</text>
+</g><g class="cm-cell" data-pattern="01101" data-count="26"
+  data-state="observed" data-degree="3" data-y="300">
+  <title>Exactly these guards missed: Prompt Guard, LangKit, LLM Guard; caught: Lakera Guard, NeMo Guardrails. 26 released harmful prompts.</title><line x1="218" y1="307" x2="332" y2="307" class="cm-join"/><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="307" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="307" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="307" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="307" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="307" r="4"/>
+  <text x="20" y="311" class="cm-degree">3</text><rect x="410" y="300" width="270" height="14" class="cm-bar"/><text x="688" y="311" class="cm-count">26</text>
+</g><g class="cm-cell" data-pattern="01110" data-count="0"
+  data-state="structural-zero" data-degree="3" data-y="322">
+  <title>Exactly these guards missed: Prompt Guard, LangKit, NeMo Guardrails; caught: Lakera Guard, LLM Guard. This cell is structurally zero.</title><line x1="218" y1="329" x2="294" y2="329" class="cm-join"/><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="329" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="329" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="329" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="329" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="329" r="4"/>
+  <text x="20" y="333" class="cm-degree">3</text><rect x="410" y="323" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="333" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="10011" data-count="0"
+  data-state="observed-zero" data-degree="3" data-y="344">
+  <title>Exactly these guards missed: Lakera Guard, NeMo Guardrails, LLM Guard; caught: Prompt Guard, LangKit. 0 released harmful prompts.</title><line x1="180" y1="351" x2="332" y2="351" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="351" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="351" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="351" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="351" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="351" r="4"/>
+  <text x="20" y="355" class="cm-degree">3</text><circle cx="416" cy="351" r="5" class="cm-zero cm-observed-zero"/><text x="430" y="355" class="cm-count">0 observed</text>
+</g><g class="cm-cell" data-pattern="10101" data-count="0"
+  data-state="observed-zero" data-degree="3" data-y="366">
+  <title>Exactly these guards missed: Lakera Guard, LangKit, LLM Guard; caught: Prompt Guard, NeMo Guardrails. 0 released harmful prompts.</title><line x1="180" y1="373" x2="332" y2="373" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="373" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="373" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="373" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="373" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="373" r="4"/>
+  <text x="20" y="377" class="cm-degree">3</text><circle cx="416" cy="373" r="5" class="cm-zero cm-observed-zero"/><text x="430" y="377" class="cm-count">0 observed</text>
+</g><g class="cm-cell" data-pattern="10110" data-count="0"
+  data-state="structural-zero" data-degree="3" data-y="388">
+  <title>Exactly these guards missed: Lakera Guard, LangKit, NeMo Guardrails; caught: Prompt Guard, LLM Guard. This cell is structurally zero.</title><line x1="180" y1="395" x2="294" y2="395" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="395" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="395" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="395" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="395" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="395" r="4"/>
+  <text x="20" y="399" class="cm-degree">3</text><rect x="410" y="389" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="399" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="11001" data-count="3"
+  data-state="observed" data-degree="3" data-y="410">
+  <title>Exactly these guards missed: Lakera Guard, Prompt Guard, LLM Guard; caught: LangKit, NeMo Guardrails. 3 released harmful prompts.</title><line x1="180" y1="417" x2="332" y2="417" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="417" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="417" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="417" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="417" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="417" r="4"/>
+  <text x="20" y="421" class="cm-degree">3</text><rect x="410" y="410" width="31.153846153846" height="14" class="cm-bar"/><text x="449.153846153846" y="421" class="cm-count">3</text>
+</g><g class="cm-cell" data-pattern="11010" data-count="0"
+  data-state="structural-zero" data-degree="3" data-y="432">
+  <title>Exactly these guards missed: Lakera Guard, Prompt Guard, NeMo Guardrails; caught: LangKit, LLM Guard. This cell is structurally zero.</title><line x1="180" y1="439" x2="294" y2="439" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="439" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="439" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="439" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="439" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="439" r="4"/>
+  <text x="20" y="443" class="cm-degree">3</text><rect x="410" y="433" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="443" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="11100" data-count="0"
+  data-state="structural-zero" data-degree="3" data-y="454">
+  <title>Exactly these guards missed: Lakera Guard, Prompt Guard, LangKit; caught: NeMo Guardrails, LLM Guard. This cell is structurally zero.</title><line x1="180" y1="461" x2="256" y2="461" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="461" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="461" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="461" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="461" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="461" r="4"/>
+  <text x="20" y="465" class="cm-degree">3</text><rect x="410" y="455" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="465" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="00011" data-count="0"
+  data-state="observed-zero" data-degree="2" data-y="476">
+  <title>Exactly these guards missed: NeMo Guardrails, LLM Guard; caught: Lakera Guard, Prompt Guard, LangKit. 0 released harmful prompts.</title><line x1="294" y1="483" x2="332" y2="483" class="cm-join"/><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="483" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="483" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="483" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="483" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="483" r="4"/>
+  <text x="20" y="487" class="cm-degree">2</text><circle cx="416" cy="483" r="5" class="cm-zero cm-observed-zero"/><text x="430" y="487" class="cm-count">0 observed</text>
+</g><g class="cm-cell" data-pattern="00101" data-count="1"
+  data-state="observed" data-degree="2" data-y="498">
+  <title>Exactly these guards missed: LangKit, LLM Guard; caught: Lakera Guard, Prompt Guard, NeMo Guardrails. 1 released harmful prompts.</title><line x1="256" y1="505" x2="332" y2="505" class="cm-join"/><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="505" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="505" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="505" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="505" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="505" r="4"/>
+  <text x="20" y="509" class="cm-degree">2</text><rect x="410" y="498" width="10.384615384615" height="14" class="cm-bar"/><text x="428.384615384615" y="509" class="cm-count">1</text>
+</g><g class="cm-cell" data-pattern="00110" data-count="0"
+  data-state="structural-zero" data-degree="2" data-y="520">
+  <title>Exactly these guards missed: LangKit, NeMo Guardrails; caught: Lakera Guard, Prompt Guard, LLM Guard. This cell is structurally zero.</title><line x1="256" y1="527" x2="294" y2="527" class="cm-join"/><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="527" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="527" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="527" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="527" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="527" r="4"/>
+  <text x="20" y="531" class="cm-degree">2</text><rect x="410" y="521" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="531" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="01001" data-count="18"
+  data-state="observed" data-degree="2" data-y="542">
+  <title>Exactly these guards missed: Prompt Guard, LLM Guard; caught: Lakera Guard, LangKit, NeMo Guardrails. 18 released harmful prompts.</title><line x1="218" y1="549" x2="332" y2="549" class="cm-join"/><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="549" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="549" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="549" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="549" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="549" r="4"/>
+  <text x="20" y="553" class="cm-degree">2</text><rect x="410" y="542" width="186.923076923077" height="14" class="cm-bar"/><text x="604.923076923077" y="553" class="cm-count">18</text>
+</g><g class="cm-cell" data-pattern="01010" data-count="0"
+  data-state="structural-zero" data-degree="2" data-y="564">
+  <title>Exactly these guards missed: Prompt Guard, NeMo Guardrails; caught: Lakera Guard, LangKit, LLM Guard. This cell is structurally zero.</title><line x1="218" y1="571" x2="294" y2="571" class="cm-join"/><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="571" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="571" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="571" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="571" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="571" r="4"/>
+  <text x="20" y="575" class="cm-degree">2</text><rect x="410" y="565" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="575" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="01100" data-count="0"
+  data-state="structural-zero" data-degree="2" data-y="586">
+  <title>Exactly these guards missed: Prompt Guard, LangKit; caught: Lakera Guard, NeMo Guardrails, LLM Guard. This cell is structurally zero.</title><line x1="218" y1="593" x2="256" y2="593" class="cm-join"/><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="593" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="593" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="593" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="593" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="593" r="4"/>
+  <text x="20" y="597" class="cm-degree">2</text><rect x="410" y="587" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="597" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="10001" data-count="0"
+  data-state="observed-zero" data-degree="2" data-y="608">
+  <title>Exactly these guards missed: Lakera Guard, LLM Guard; caught: Prompt Guard, LangKit, NeMo Guardrails. 0 released harmful prompts.</title><line x1="180" y1="615" x2="332" y2="615" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="615" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="615" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="615" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="615" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="615" r="4"/>
+  <text x="20" y="619" class="cm-degree">2</text><circle cx="416" cy="615" r="5" class="cm-zero cm-observed-zero"/><text x="430" y="619" class="cm-count">0 observed</text>
+</g><g class="cm-cell" data-pattern="10010" data-count="0"
+  data-state="structural-zero" data-degree="2" data-y="630">
+  <title>Exactly these guards missed: Lakera Guard, NeMo Guardrails; caught: Prompt Guard, LangKit, LLM Guard. This cell is structurally zero.</title><line x1="180" y1="637" x2="294" y2="637" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="637" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="637" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="637" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="637" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="637" r="4"/>
+  <text x="20" y="641" class="cm-degree">2</text><rect x="410" y="631" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="641" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="10100" data-count="0"
+  data-state="structural-zero" data-degree="2" data-y="652">
+  <title>Exactly these guards missed: Lakera Guard, LangKit; caught: Prompt Guard, NeMo Guardrails, LLM Guard. This cell is structurally zero.</title><line x1="180" y1="659" x2="256" y2="659" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="659" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="659" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="659" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="659" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="659" r="4"/>
+  <text x="20" y="663" class="cm-degree">2</text><rect x="410" y="653" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="663" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="11000" data-count="0"
+  data-state="structural-zero" data-degree="2" data-y="674">
+  <title>Exactly these guards missed: Lakera Guard, Prompt Guard; caught: LangKit, NeMo Guardrails, LLM Guard. This cell is structurally zero.</title><line x1="180" y1="681" x2="218" y2="681" class="cm-join"/><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="681" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="681" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="681" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="681" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="681" r="4"/>
+  <text x="20" y="685" class="cm-degree">2</text><rect x="410" y="675" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="685" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="00001" data-count="4"
+  data-state="observed" data-degree="1" data-y="696">
+  <title>Exactly these guards missed: LLM Guard; caught: Lakera Guard, Prompt Guard, LangKit, NeMo Guardrails. 4 released harmful prompts.</title><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="703" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="703" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="703" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="703" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="332" cy="703" r="4"/>
+  <text x="20" y="707" class="cm-degree">1</text><rect x="410" y="696" width="41.538461538462" height="14" class="cm-bar"/><text x="459.538461538462" y="707" class="cm-count">4</text>
+</g><g class="cm-cell" data-pattern="00010" data-count="0"
+  data-state="structural-zero" data-degree="1" data-y="718">
+  <title>Exactly these guards missed: NeMo Guardrails; caught: Lakera Guard, Prompt Guard, LangKit, LLM Guard. This cell is structurally zero.</title><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="725" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="725" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="725" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="294" cy="725" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="725" r="4"/>
+  <text x="20" y="729" class="cm-degree">1</text><rect x="410" y="719" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="729" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="00100" data-count="0"
+  data-state="structural-zero" data-degree="1" data-y="740">
+  <title>Exactly these guards missed: LangKit; caught: Lakera Guard, Prompt Guard, NeMo Guardrails, LLM Guard. This cell is structurally zero.</title><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="747" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="747" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="256" cy="747" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="747" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="747" r="4"/>
+  <text x="20" y="751" class="cm-degree">1</text><rect x="410" y="741" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="751" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="01000" data-count="0"
+  data-state="structural-zero" data-degree="1" data-y="762">
+  <title>Exactly these guards missed: Prompt Guard; caught: Lakera Guard, LangKit, NeMo Guardrails, LLM Guard. This cell is structurally zero.</title><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="769" r="4"/><circle class="cm-dot cm-miss" data-bit="1" cx="218" cy="769" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="769" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="769" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="769" r="4"/>
+  <text x="20" y="773" class="cm-degree">1</text><rect x="410" y="763" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="773" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="10000" data-count="0"
+  data-state="structural-zero" data-degree="1" data-y="784">
+  <title>Exactly these guards missed: Lakera Guard; caught: Prompt Guard, LangKit, NeMo Guardrails, LLM Guard. This cell is structurally zero.</title><circle class="cm-dot cm-miss" data-bit="1" cx="180" cy="791" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="791" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="791" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="791" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="791" r="4"/>
+  <text x="20" y="795" class="cm-degree">1</text><rect x="410" y="785" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="795" class="cm-count">structural zero</text>
+</g><g class="cm-cell" data-pattern="00000" data-count="0"
+  data-state="structural-zero" data-degree="0" data-y="806">
+  <title>Exactly these guards missed: no guard; caught: Lakera Guard, Prompt Guard, LangKit, NeMo Guardrails, LLM Guard. This cell is structurally zero.</title><circle class="cm-dot cm-catch" data-bit="0" cx="180" cy="813" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="218" cy="813" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="256" cy="813" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="294" cy="813" r="4"/><circle class="cm-dot cm-catch" data-bit="0" cx="332" cy="813" r="4"/>
+  <text x="20" y="817" class="cm-degree">0</text><rect x="410" y="807" width="12" height="12" class="cm-zero cm-structural-zero"/><text x="430" y="817" class="cm-count">structural zero</text>
+</g>
+      </svg>
+      </div>
+      <details class="cm-data">
+        <summary>Text-only cell counts</summary>
+        <div class="fig-scroll" tabindex="0" role="region" aria-label="Text-only BELLS exclusive co-miss cells, scrollable">
+        <table class="census-table cm-table">
+          <thead><tr><th scope="col">miss pattern</th><th scope="col">guards that miss</th><th scope="col">count</th><th scope="col">cell state</th></tr></thead>
+          <tbody><tr><td class="mono">11111</td><td>Lakera Guard, Prompt Guard, LangKit, NeMo Guardrails, LLM Guard</td><td>9</td><td>observed</td></tr><tr><td class="mono">01111</td><td>Prompt Guard, LangKit, NeMo Guardrails, LLM Guard</td><td>3</td><td>observed</td></tr><tr><td class="mono">10111</td><td>Lakera Guard, LangKit, NeMo Guardrails, LLM Guard</td><td>0</td><td>observed zero</td></tr><tr><td class="mono">11011</td><td>Lakera Guard, Prompt Guard, NeMo Guardrails, LLM Guard</td><td>0</td><td>observed zero</td></tr><tr><td class="mono">11101</td><td>Lakera Guard, Prompt Guard, LangKit, LLM Guard</td><td>18</td><td>observed</td></tr><tr><td class="mono">11110</td><td>Lakera Guard, Prompt Guard, LangKit, NeMo Guardrails</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">00111</td><td>LangKit, NeMo Guardrails, LLM Guard</td><td>0</td><td>observed zero</td></tr><tr><td class="mono">01011</td><td>Prompt Guard, NeMo Guardrails, LLM Guard</td><td>0</td><td>observed zero</td></tr><tr><td class="mono">01101</td><td>Prompt Guard, LangKit, LLM Guard</td><td>26</td><td>observed</td></tr><tr><td class="mono">01110</td><td>Prompt Guard, LangKit, NeMo Guardrails</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">10011</td><td>Lakera Guard, NeMo Guardrails, LLM Guard</td><td>0</td><td>observed zero</td></tr><tr><td class="mono">10101</td><td>Lakera Guard, LangKit, LLM Guard</td><td>0</td><td>observed zero</td></tr><tr><td class="mono">10110</td><td>Lakera Guard, LangKit, NeMo Guardrails</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">11001</td><td>Lakera Guard, Prompt Guard, LLM Guard</td><td>3</td><td>observed</td></tr><tr><td class="mono">11010</td><td>Lakera Guard, Prompt Guard, NeMo Guardrails</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">11100</td><td>Lakera Guard, Prompt Guard, LangKit</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">00011</td><td>NeMo Guardrails, LLM Guard</td><td>0</td><td>observed zero</td></tr><tr><td class="mono">00101</td><td>LangKit, LLM Guard</td><td>1</td><td>observed</td></tr><tr><td class="mono">00110</td><td>LangKit, NeMo Guardrails</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">01001</td><td>Prompt Guard, LLM Guard</td><td>18</td><td>observed</td></tr><tr><td class="mono">01010</td><td>Prompt Guard, NeMo Guardrails</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">01100</td><td>Prompt Guard, LangKit</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">10001</td><td>Lakera Guard, LLM Guard</td><td>0</td><td>observed zero</td></tr><tr><td class="mono">10010</td><td>Lakera Guard, NeMo Guardrails</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">10100</td><td>Lakera Guard, LangKit</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">11000</td><td>Lakera Guard, Prompt Guard</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">00001</td><td>LLM Guard</td><td>4</td><td>observed</td></tr><tr><td class="mono">00010</td><td>NeMo Guardrails</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">00100</td><td>LangKit</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">01000</td><td>Prompt Guard</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">10000</td><td>Lakera Guard</td><td>0</td><td>structural zero</td></tr><tr><td class="mono">00000</td><td>no guard</td><td>0</td><td>structural zero</td></tr></tbody>
+        </table>
+        </div>
+      </details>
+      <figcaption class="cm-caption"><strong>The all-miss value is one cell, not an
+        endpoint.</strong> The <span class="mono">11111</span> row is the registered
+        9 / 82 all-miss count. LLM Guard catches 0 / 82, so the
+        16 cells where its dot would say “catch” are structurally empty; they
+        are not measured zeroes. The other 8 zero-count cells were possible
+        under those marginals but did not occur in this released file. Counts describe the
+        author-selected BELLS subset at its released native verdicts, not a vendor, a population,
+        or a deployed stack; no item identities are published.</figcaption>
+    </figure>
     <div class="precond"><strong>Scope, stated before anyone asks:</strong> the released 170
       prompts are an author-selected subset (of 990 non-adversarial prompts; the study's
       ~4,165 adversarial prompts have no per-item release) under an unstated selection rule —

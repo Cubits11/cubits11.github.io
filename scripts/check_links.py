@@ -45,8 +45,8 @@ def ids_of(path: pathlib.Path, cache: dict) -> set:
 
 def main() -> int:
     pages = sorted(p for p in ROOT.rglob("*.html")
-                   if ".git" not in p.parts and "node_modules" not in p.parts
-                   and ".venv" not in p.parts)
+                   if not any(part.startswith((".", "_")) for part in p.relative_to(ROOT).parts)
+                   and "node_modules" not in p.parts)
     id_cache: dict = {}
     checked = 0
     for page in pages:

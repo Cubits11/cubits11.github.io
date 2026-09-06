@@ -6,6 +6,26 @@ claim governance. Live at [cubits11.github.io](https://cubits11.github.io/).
 
 ## Try it first
 
+[/explore/](https://cubits11.github.io/explore/) — a probability workbench and
+entrance to the existing films and evidence. Change two marginal miss rates,
+inspect their compatible joint distributions, distinguish an independence
+assumption from a hypothetical joint constraint, and see contradictory inputs
+produce an empty set. These are illustrative constructions, not measurements.
+The original fixed-item instrument remains at `/worldspace/`.
+
+The new workbench uses `assets/world.js` and the site's existing fonts and
+colour system. No additional browser dependency. Numerical and public-page
+discovery regressions can be checked with:
+
+```bash
+node --test tests/world.test.cjs
+python3 tests/test_public_discovery.py
+```
+
+These checks supplement the release manifest. The workbench remains readable
+without JavaScript and responds to keyboard input; motion respects the device
+preference. Comprehension and audience impact have not been measured.
+
 [cubits11.github.io/try](https://cubits11.github.io/try/) — three experiments,
 each printed with its command, expected final line, falsifier and non-claim
 before you run anything. Don't trust the graphic; reproduce it.

@@ -88,7 +88,7 @@ def fail(msg: str) -> None:
 def pages() -> list[Path]:
     return sorted(
         p for p in ROOT.rglob("index.html")
-        if ".git" not in p.parts and "docs" not in p.parts
+        if not any(part.startswith((".", "_")) for part in p.relative_to(ROOT).parts) and "docs" not in p.parts
         and "scripts" not in p.parts and "fixtures" not in p.parts
         and ".venv" not in p.parts)
 

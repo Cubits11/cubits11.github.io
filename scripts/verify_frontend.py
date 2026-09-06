@@ -48,7 +48,7 @@ class Audit(HTMLParser):
 def page_files() -> list[Path]:
     return sorted(
         p for p in ROOT.rglob("*.html")
-        if ".git" not in p.parts and "docs" not in p.parts
+        if not any(part.startswith((".", "_")) for part in p.relative_to(ROOT).parts) and "docs" not in p.parts
         and "scripts" not in p.parts and ".venv" not in p.parts
         and "films" not in p.parts  # canvas films are not site pages; scripts/films/verify_films.py audits them
     )
