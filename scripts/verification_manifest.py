@@ -33,6 +33,8 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("missing-column drift", "scripts/generate_missing_column.py", "--check"),
     ("fact-binding fixtures", "scripts/verify_facts.py", "--test"),
     ("current fact surfaces", "scripts/verify_facts.py"),
+    ("claim spine fixtures", "scripts/verify_spine.py", "--test"),
+    ("claim spine", "scripts/verify_spine.py", "--check"),
     ("growth page drift", "scripts/generate_growth.py", "--check"),
     ("acquisition surfaces", "scripts/verify_growth.py"),
     ("sitemap drift", "scripts/generate_sitemap.py", "--check"),

@@ -173,6 +173,13 @@ devices:
     rung: unaudited
     rung_projected: FAITHFUL
     binds: [MC-003]
+    non_claims:  # carried verbatim from claims.yaml:MC-003 (S3 of spine.yaml)
+      - "no new mathematics is claimed; the bounds are Fréchet's and the lower endpoint is Bonferroni's"
+      - "not a claim that guardrails in general fail together — this stratum cannot separate shared blind spots from prompt-difficulty heterogeneity"
+      - "not a vendor evaluation; the released verdicts are at unstated default configurations, and one supervisor fires exactly once in the 170 released rows"
+      - "the identified interval is what the marginals leave open, not a prediction about any deployed stack"
+      - "leave-one-out unions identify only exclusive full-stack coverage; they do not identify pairwise or higher-order overlap, Shapley values, or causal contribution"
+      - "says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release"
     setup_seconds: 40
 
   - id: D-007
