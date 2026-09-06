@@ -1,0 +1,31 @@
+id: the-correction-invitation
+title: A record that can change
+duration_s: 10
+thesis: Make the correction route legible and actionable at the close.
+epistemic_operation: route disagreement to checkable evidence
+claim: The local corrections page records a public correction policy and source route.
+scope: An editorial invitation to inspect and challenge the record; no empirical result
+  or claim of completed external review.
+status: editorial_invitation
+evidence: []
+objects:
+- object: corrections route and invitation
+  status: REGISTRY
+evidence_commits: []
+falsifier: The corrections route ceases to resolve to the policy or ceases to offer
+  a way to submit a correction.
+non_claims:
+- No correction has been submitted by this film; no guarantee that every challenge
+  is valid.
+claim_frames:
+- t: 0.5
+  shows: corrections route legible
+- t: 9
+  shows: corrections route legible
+render:
+  kind: master
+  fps: 30
+  formats:
+  - master
+  poster_t: 5
+cta_route: /corrections/

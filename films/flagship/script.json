@@ -1,0 +1,136 @@
+{
+  "title": "Two Guardrails Walk Into a Stack",
+  "version": "2026-09-05-camera-pass",
+  "sections": [
+    {
+      "id": 1,
+      "title": "The multiplication",
+      "duration_s": 60,
+      "form": "OWNER CAMERA + BOUND WHITEBOARD INSERT",
+      "operation": "Expose the assumption inside the product of marginal miss rates.",
+      "ledger": "ILLUSTRATIVE / REGISTRY / DERIVED",
+      "locators": ["CC-001", "films/the-stack/manifest.yaml"],
+      "weaker": "Those separate scores alone do not tell us how often both guards miss.",
+      "shots": [
+        "Start mid-action. Tight frame: a hand slides an unnumbered GUARD B card beneath GUARD A. Dry card-on-table sound. No logo or greeting.",
+        "Look into the lens: 'How much safer?' Leave the question unanswered for a breath. Cut to the fact-bound whiteboard insert; do not handwrite or improvise a numeral.",
+        "As the multiplication resolves, say 'Independent failures.' Keep the amber assumption label visible for the entire product shot. Do not stage the product as a measured result and disclaim it later.",
+        "Return to the face for the weaker sentence, without a cut in the middle of it. Point to the space beneath the cards, not to a score.",
+        "On 'Watch what gets through both,' match cut the empty space below the paper guards to The Stack's collection tray. No music across the cut."
+      ],
+      "beats": [
+        {"start": 0, "end": 10, "voice": "You add another guardrail to an AI system. How much safer is it? Here is a calculation that feels like an answer."},
+        {"start": 10, "end": 24, "voice": "Take these miss rates. Multiply them. A reassuringly small result. The arithmetic works. But listen to the assumption underneath it: independent failures.", "film": "the-multiplication", "film_in": 0},
+        {"start": 24, "end": 38, "voice": "What if the guards miss the same things? What if they miss completely different things? Their separate scores could look exactly the same."},
+        {"start": 38, "end": 48, "voice": "Those separate scores alone do not tell us how often both guards miss."},
+        {"start": 48, "end": 60, "voice": "This is an illustration: each guard is evaluated on the same inputs. Keep your eyes on the scores. Watch what gets through both."}
+      ]
+    },
+    {
+      "id": 2,
+      "title": "The Stack",
+      "duration_s": 45,
+      "form": "PROCEDURAL FILM",
+      "operation": "Hold marginals fixed while moving their overlap between feasible endpoints.",
+      "ledger": "ILLUSTRATIVE / REGISTRY / PROVED / DERIVED",
+      "locators": ["CC-001", "CC-004", "films/the-stack/manifest.yaml"],
+      "weaker": "These are possible arrangements, not measurements of a deployed system.",
+      "shots": ["Run the existing master at normal speed, once. Never accelerate the counter transition. The voice yields to the movement.", "Keep the full-exposure caption visible: both guard scores describe the same input population. A sequentially filtered evaluation is a different question."],
+      "beats": [
+        {"start": 0, "end": 11, "voice": "Each plate has the same miss rate. The scores are fixed. These are possible arrangements, not measurements of a deployed system.", "film": "the-stack", "film_in": 0},
+        {"start": 11, "end": 27, "voice": "Here, what gets past a guard is caught by the other. Now move the misses together. Nothing on either scorecard changes. But the pile underneath does.", "film": "the-stack", "film_in": 11},
+        {"start": 27, "end": 36, "voice": "The scores permit this whole interval. Independence selects the amber point. The scores did not select it.", "film": "the-stack", "film_in": 27},
+        {"start": 36, "end": 45, "voice": "The missing information is which failures happen together. So where would you look for it?", "film": "the-stack", "film_in": 36}
+      ]
+    },
+    {
+      "id": 3,
+      "title": "The column",
+      "duration_s": 75,
+      "form": "MISSING-COLUMN SCREEN CAPTURE REQUIRED",
+      "operation": "Distinguish per-system marginal columns from a shared-item joint column.",
+      "ledger": "ILLUSTRATIVE / PROVED",
+      "locators": ["MC-003", "missing-column/index.html", "scripts/identification.py"],
+      "weaker": "Missing joint reporting does not show that a stack performs badly.",
+      "shots": ["Capture the /missing-column/ motif at the assembly commit. Use a deliberate cursor path from per-system columns to the joint column. Preserve the page's source labels.", "Do not fill a missing cell with zero. Hold it as unreported or unidentified, as appropriate to the selected surface.", "Use a close crop of the actual table, then widen to reveal the source and scope. No fabricated browser chrome."],
+      "beats": [
+        {"start": 0, "end": 19, "voice": "Imagine a report with a column for each guard. Each column can tell you how often that guard misses. But the question we just asked belongs to a different column: how often do they all miss the same item?"},
+        {"start": 19, "end": 38, "voice": "You cannot recover that column by making the individual columns more precise. Perfectly reported separate scores can still leave the overlap unknown. We just watched the overlap move while the scores stood still."},
+        {"start": 38, "end": 55, "voice": "Missing joint reporting does not show that a stack performs badly. It means this particular question has not been answered by the separate scores. A blank is not a measured failure, and it is not a measured success."},
+        {"start": 55, "end": 75, "voice": "That distinction changes what we should go looking for. Not another impressive individual score. A composition result, or shared item-level outcomes from which the result can be computed. I looked for that evidence in a bounded census of public reporting."}
+      ]
+    },
+    {
+      "id": 4,
+      "title": "The census",
+      "duration_s": 135,
+      "form": "PROCEDURAL FILM + TERMINAL CAPTURE REQUIRED",
+      "operation": "Execute declared classification predicates to produce bounded reporting counts.",
+      "ledger": "REGISTRY / DERIVED",
+      "locators": ["MC-001", "census.yaml", "scripts/verify_census.py", "films/the-missing-column-census/manifest.yaml"],
+      "weaker": "This is a bounded search of reporting, not proof that joint evidence exists nowhere.",
+      "shots": ["Begin with the declared census scope, then run the existing film in full.", "Record the real command python3 scripts/verify_census.py --counts. Show its actual output and commit locator. Never type expected output into a fake terminal.", "Hold the qualification ladder and keep its labels adjacent to its values. Explain the difference between a reporting classification and system performance.", "End on the historical envelope locator, then cut to the falsifier's pre-existing seal."],
+      "beats": [
+        {"start": 0, "end": 20, "voice": "The census starts with a rule for what qualifies. It records a source, a classification, and a reason. The counts come from those rows. Change a qualifying row and the count has to change with it."},
+        {"start": 20, "end": 40, "voice": "Watch the classifications become counts. Some records print a composition result. Some release item outcomes that make a joint calculation possible. Those routes can overlap; they are not buckets you can simply add.", "film": "the-missing-column-census", "film_in": 0},
+        {"start": 40, "end": 60, "voice": "The ladder asks progressively stricter questions about the evaluation basis and threshold documentation. A stricter rung needs evidence that the earlier rung did not require. Its label is part of its number.", "film": "the-missing-column-census", "film_in": 20},
+        {"start": 60, "end": 80, "voice": "Here is the check running on the source file. The current envelope is {{MC-001.N|int}} records, {{MC-001.M1|int}} on a shared basis, and {{MC-001.K|int}} with qualifying joint evidence. The output is reproducible; the classifications remain open to challenge."},
+        {"start": 80, "end": 101, "voice": "This is a bounded search of reporting, not proof that joint evidence exists nowhere. It has a primary reviewer and declared limits. The result is about what this search found under its rules, not a verdict on every guardrail."},
+        {"start": 101, "end": 119, "voice": "That is why the raw rows matter more than a dramatic headline. You can inspect the sources, dispute a classification, or bring a qualifying source the search missed. The count should survive those checks, or change."},
+        {"start": 119, "end": 135, "voice": "And it did change. The census contains an earlier answer that no longer stands as the main count. I want to show you the moment its own rule rejected it."}
+      ]
+    },
+    {
+      "id": 5,
+      "title": "The falsifier that fired",
+      "duration_s": 90,
+      "form": "PROCEDURAL FILM + EVIDENCE HOLDS",
+      "operation": "Execute a precommitted rejection consequence and retain the superseded record.",
+      "ledger": "REGISTRY / DERIVED",
+      "locators": ["MC-001", "census.yaml", "corrections/index.html", "films/the-falsifier-that-fired/manifest.yaml"],
+      "weaker": "The correction does not establish that the revised census is complete.",
+      "shots": ["Use the whole existing film at normal speed. Schedule a deliberate silence over the strike, with no music or triumphant sound effect.", "Following the master, use stills from its receipt, not a second running of the animation. Identify the current envelope, the retained historical envelope, and sensitivities in separate holds.", "Keep the source's row identifier and correction date legible; use the generated script for any spoken numbers."],
+      "beats": [
+        {"start": 0, "end": 11, "voice": "The seal is the rule written before the count. Then a qualifying row the search missed arrives. The rule already says what happens next.", "film": "the-falsifier-that-fired", "film_in": 0},
+        {"start": 11, "end": 17, "voice": "", "film": "the-falsifier-that-fired", "film_in": 11},
+        {"start": 17, "end": 35, "voice": "The old answer is struck through. It stays readable. The replacement gets its own place in the record. And the sensitivity readings keep their own labels. They are not replacements for the main count.", "film": "the-falsifier-that-fired", "film_in": 17},
+        {"start": 35, "end": 53, "voice": "There are different reasons to see an old number again. It may be a historical result that has been superseded. Or it may be the result of a separately declared sensitivity. Remove the labels and you collapse different claims into a misleading numeral."},
+        {"start": 53, "end": 72, "voice": "The correction does not establish that the revised census is complete. It establishes what changed in this record and why. The next qualifying correction must still be able to change the answer. Otherwise the rule would only be decoration."},
+        {"start": 72, "end": 90, "voice": "The old number is still in the log. That is not damage control. That is the product. Now return to the missing column. What happens when we actually have enough evidence to fill it?"}
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Thirteen worlds",
+      "duration_s": 75,
+      "form": "PROCEDURAL FILM + EVIDENCE HOLD",
+      "operation": "Intersect the marginally feasible set with the observed union constraint.",
+      "ledger": "OBSERVED / DERIVED / PROVED / CONSTRUCTED",
+      "locators": ["MC-002", "MC-003", "scripts/reanalyze_bells_subset.py", "scripts/identification.py", "films/thirteen-worlds/manifest.yaml"],
+      "weaker": "This result describes this released subset, not deployment risk.",
+      "shots": ["State the released-subset boundary before playback. Show the construction label while the rods move: feasible arrangements are not the original item rows.", "Run the existing film at normal speed. Leave the observed result and its denominator visible afterward.", "Return to the original unnumbered guard cards at the start of the close. The camera framing should match the opening."],
+      "beats": [
+        {"start": 0, "end": 19, "voice": "For a released BELLS subset, the separate miss counts leave a set of possible all-miss counts. The film constructs arrangements consistent with those constraints. The moving arrangements illustrate feasible worlds; they are not the released item rows."},
+        {"start": 19, "end": 37, "voice": "The marginals permit {{MC-003.identified_set_size|int}} possible integer counts, from {{MC-003.identified_set_lower|int}} through {{MC-003.identified_set_upper|int}}. A precise list of individual results still leaves a set of joint answers.", "film": "thirteen-worlds", "film_in": 0},
+        {"start": 37, "end": 55, "voice": "Now add the union: the items caught by at least one guard. Subtract those from the harmful-item total. The all-miss count is {{MC-002.all_miss|int}} of {{MC-002.n_harmful|int}}. This new evidence selects the count.", "film": "thirteen-worlds", "film_in": 18},
+        {"start": 55, "end": 75, "voice": "This result describes this released subset, not deployment risk. But notice the difference: we did not make the uncertainty disappear by choosing a comforting assumption. We supplied the missing constraint. That is what it takes to turn this question into an answer."}
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Prove me wrong",
+      "duration_s": 30,
+      "form": "OWNER CAMERA + CORRECTIONS END CARD",
+      "operation": "Turn a disagreement into a checkable correction route.",
+      "ledger": "PROVED / REGISTRY",
+      "locators": ["CC-001", "MC-001", "corrections/index.html", "missing-column/reproduce/index.html"],
+      "weaker": "Separate scores alone do not identify the joint failure rate.",
+      "shots": ["Match the opening lens, eye line and unnumbered guard cards. Ask the opening question again, now without the tease.", "Deliver the weaker sentence directly to lens. The pace is settled, not victorious.", "On 'Show me,' put the cursor on the corrections route. The final card holds the exact URL, readable at phone size. No generic subscribe speech or unrelated next-video promise.", "No new empirical number appears. Hold the end card through the end of the take. Keep the final breath and a short tail for the editor."],
+      "beats": [
+        {"start": 0, "end": 9, "voice": "So, how much safer? Separate scores alone do not identify the joint failure rate."},
+        {"start": 9, "end": 20, "voice": "If I missed a qualifying source, show me. If a calculation fails, send the input and the result. The evidence and correction route are below."},
+        {"start": 20, "end": 30, "voice": "A claim you can check. A record that can change. That is what I want to build here.", "film": "the-correction-invitation", "film_in": 0}
+      ]
+    }
+  ]
+}

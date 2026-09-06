@@ -1,0 +1,367 @@
+1
+00:00:00,000 --> 00:00:05,000
+You add another guardrail to an AI system. How much safer is
+
+2
+00:00:05,000 --> 00:00:10,000
+it? Here is a calculation that feels like an answer.
+
+3
+00:00:10,000 --> 00:00:17,000
+Take these miss rates. Multiply them. A reassuringly small result. The arithmetic
+
+4
+00:00:17,000 --> 00:00:24,000
+works. But listen to the assumption underneath it: independent failures.
+
+5
+00:00:24,000 --> 00:00:31,000
+What if the guards miss the same things? What if they miss
+
+6
+00:00:31,000 --> 00:00:38,000
+completely different things? Their separate scores could look exactly the same.
+
+7
+00:00:38,000 --> 00:00:43,000
+Those separate scores alone do not tell us how often both guards
+
+8
+00:00:43,000 --> 00:00:48,000
+miss.
+
+9
+00:00:48,000 --> 00:00:54,000
+This is an illustration: each guard is evaluated on the same inputs.
+
+10
+00:00:54,000 --> 00:01:00,000
+Keep your eyes on the scores. Watch what gets through both.
+
+11
+00:01:00,000 --> 00:01:05,000
+Each plate has the same miss rate. The scores are fixed. These
+
+12
+00:01:05,000 --> 00:01:11,000
+are possible arrangements, not measurements of a deployed system.
+
+13
+00:01:11,000 --> 00:01:16,000
+Here, what gets past a guard is caught by the other. Now
+
+14
+00:01:16,000 --> 00:01:21,000
+move the misses together. Nothing on either scorecard changes. But the pile
+
+15
+00:01:21,000 --> 00:01:27,000
+underneath does.
+
+16
+00:01:27,000 --> 00:01:31,000
+The scores permit this whole interval. Independence selects the amber point. The
+
+17
+00:01:31,000 --> 00:01:36,000
+scores did not select it.
+
+18
+00:01:36,000 --> 00:01:40,000
+The missing information is which failures happen together. So where would you
+
+19
+00:01:40,000 --> 00:01:45,000
+look for it?
+
+20
+00:01:45,000 --> 00:01:49,000
+Imagine a report with a column for each guard. Each column can
+
+21
+00:01:49,000 --> 00:01:54,000
+tell you how often that guard misses. But the question we just
+
+22
+00:01:54,000 --> 00:01:59,000
+asked belongs to a different column: how often do they all miss
+
+23
+00:01:59,000 --> 00:02:04,000
+the same item?
+
+24
+00:02:04,000 --> 00:02:10,000
+You cannot recover that column by making the individual columns more precise.
+
+25
+00:02:10,000 --> 00:02:16,000
+Perfectly reported separate scores can still leave the overlap unknown. We just
+
+26
+00:02:16,000 --> 00:02:23,000
+watched the overlap move while the scores stood still.
+
+27
+00:02:23,000 --> 00:02:27,000
+Missing joint reporting does not show that a stack performs badly. It
+
+28
+00:02:27,000 --> 00:02:31,000
+means this particular question has not been answered by the separate scores.
+
+29
+00:02:31,000 --> 00:02:35,000
+A blank is not a measured failure, and it is not a
+
+30
+00:02:35,000 --> 00:02:40,000
+measured success.
+
+31
+00:02:40,000 --> 00:02:45,000
+That distinction changes what we should go looking for. Not another impressive
+
+32
+00:02:45,000 --> 00:02:50,000
+individual score. A composition result, or shared item-level outcomes from which the
+
+33
+00:02:50,000 --> 00:02:55,000
+result can be computed. I looked for that evidence in a bounded
+
+34
+00:02:55,000 --> 00:03:00,000
+census of public reporting.
+
+35
+00:03:00,000 --> 00:03:06,000
+The census starts with a rule for what qualifies. It records a
+
+36
+00:03:06,000 --> 00:03:13,000
+source, a classification, and a reason. The counts come from those rows.
+
+37
+00:03:13,000 --> 00:03:20,000
+Change a qualifying row and the count has to change with it.
+
+38
+00:03:20,000 --> 00:03:26,000
+Watch the classifications become counts. Some records print a composition result. Some
+
+39
+00:03:26,000 --> 00:03:33,000
+release item outcomes that make a joint calculation possible. Those routes can
+
+40
+00:03:33,000 --> 00:03:40,000
+overlap; they are not buckets you can simply add.
+
+41
+00:03:40,000 --> 00:03:46,000
+The ladder asks progressively stricter questions about the evaluation basis and threshold
+
+42
+00:03:46,000 --> 00:03:53,000
+documentation. A stricter rung needs evidence that the earlier rung did not
+
+43
+00:03:53,000 --> 00:04:00,000
+require. Its label is part of its number.
+
+44
+00:04:00,000 --> 00:04:06,000
+Here is the check running on the source file. The current envelope
+
+45
+00:04:06,000 --> 00:04:13,000
+is 20 records, 14 on a shared basis, and 5 with qualifying
+
+46
+00:04:13,000 --> 00:04:20,000
+joint evidence. The output is reproducible; the classifications remain open to challenge.
+
+47
+00:04:20,000 --> 00:04:25,000
+This is a bounded search of reporting, not proof that joint evidence
+
+48
+00:04:25,000 --> 00:04:30,000
+exists nowhere. It has a primary reviewer and declared limits. The result
+
+49
+00:04:30,000 --> 00:04:35,000
+is about what this search found under its rules, not a verdict
+
+50
+00:04:35,000 --> 00:04:41,000
+on every guardrail.
+
+51
+00:04:41,000 --> 00:04:47,000
+That is why the raw rows matter more than a dramatic headline.
+
+52
+00:04:47,000 --> 00:04:53,000
+You can inspect the sources, dispute a classification, or bring a qualifying
+
+53
+00:04:53,000 --> 00:04:59,000
+source the search missed. The count should survive those checks, or change.
+
+54
+00:04:59,000 --> 00:05:04,000
+And it did change. The census contains an earlier answer that no
+
+55
+00:05:04,000 --> 00:05:09,000
+longer stands as the main count. I want to show you the
+
+56
+00:05:09,000 --> 00:05:15,000
+moment its own rule rejected it.
+
+57
+00:05:15,000 --> 00:05:20,000
+The seal is the rule written before the count. Then a qualifying
+
+58
+00:05:20,000 --> 00:05:26,000
+row the search missed arrives. The rule already says what happens next.
+
+59
+00:05:32,000 --> 00:05:38,000
+The old answer is struck through. It stays readable. The replacement gets
+
+60
+00:05:38,000 --> 00:05:44,000
+its own place in the record. And the sensitivity readings keep their
+
+61
+00:05:44,000 --> 00:05:50,000
+own labels. They are not replacements for the main count.
+
+62
+00:05:50,000 --> 00:05:54,000
+There are different reasons to see an old number again. It may
+
+63
+00:05:54,000 --> 00:05:59,000
+be a historical result that has been superseded. Or it may be
+
+64
+00:05:59,000 --> 00:06:03,000
+the result of a separately declared sensitivity. Remove the labels and you
+
+65
+00:06:03,000 --> 00:06:08,000
+collapse different claims into a misleading numeral.
+
+66
+00:06:08,000 --> 00:06:12,000
+The correction does not establish that the revised census is complete. It
+
+67
+00:06:12,000 --> 00:06:17,000
+establishes what changed in this record and why. The next qualifying correction
+
+68
+00:06:17,000 --> 00:06:22,000
+must still be able to change the answer. Otherwise the rule would
+
+69
+00:06:22,000 --> 00:06:27,000
+only be decoration.
+
+70
+00:06:27,000 --> 00:06:33,000
+The old number is still in the log. That is not damage
+
+71
+00:06:33,000 --> 00:06:39,000
+control. That is the product. Now return to the missing column. What
+
+72
+00:06:39,000 --> 00:06:45,000
+happens when we actually have enough evidence to fill it?
+
+73
+00:06:45,000 --> 00:06:49,000
+For a released BELLS subset, the separate miss counts leave a set
+
+74
+00:06:49,000 --> 00:06:54,000
+of possible all-miss counts. The film constructs arrangements consistent with those constraints.
+
+75
+00:06:54,000 --> 00:06:59,000
+The moving arrangements illustrate feasible worlds; they are not the released item
+
+76
+00:06:59,000 --> 00:07:04,000
+rows.
+
+77
+00:07:04,000 --> 00:07:13,000
+The marginals permit 13 possible integer counts, from 0 through 12. A
+
+78
+00:07:13,000 --> 00:07:22,000
+precise list of individual results still leaves a set of joint answers.
+
+79
+00:07:22,000 --> 00:07:28,000
+Now add the union: the items caught by at least one guard.
+
+80
+00:07:28,000 --> 00:07:34,000
+Subtract those from the harmful-item total. The all-miss count is 9 of
+
+81
+00:07:34,000 --> 00:07:40,000
+82. This new evidence selects the count.
+
+82
+00:07:40,000 --> 00:07:45,000
+This result describes this released subset, not deployment risk. But notice the
+
+83
+00:07:45,000 --> 00:07:50,000
+difference: we did not make the uncertainty disappear by choosing a comforting
+
+84
+00:07:50,000 --> 00:07:55,000
+assumption. We supplied the missing constraint. That is what it takes to
+
+85
+00:07:55,000 --> 00:08:00,000
+turn this question into an answer.
+
+86
+00:08:00,000 --> 00:08:04,000
+So, how much safer? Separate scores alone do not identify the joint
+
+87
+00:08:04,000 --> 00:08:09,000
+failure rate.
+
+88
+00:08:09,000 --> 00:08:12,000
+If I missed a qualifying source, show me. If a calculation fails,
+
+89
+00:08:12,000 --> 00:08:16,000
+send the input and the result. The evidence and correction route are
+
+90
+00:08:16,000 --> 00:08:20,000
+below.
+
+91
+00:08:20,000 --> 00:08:25,000
+A claim you can check. A record that can change. That is
+
+92
+00:08:25,000 --> 00:08:30,000
+what I want to build here.

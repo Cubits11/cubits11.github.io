@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Same scores, different worlds — Explore Cubits11</title>
+<meta name="description" content="Move the marginal rates, test an assumption, and inspect the worlds that survive. A playable probability model, short research films, and routes to the evidence.">
+<link rel="canonical" href="https://cubits11.github.io/explore/">
+<meta property="og:title" content="Same scores, different worlds — Explore Cubits11">
+<meta property="og:description" content="A playable probability model. Keep the wonder. Check the claim.">
+<meta property="og:url" content="https://cubits11.github.io/explore/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://cubits11.github.io/worldspace/qa/poster-1200x630.png">
+<meta property="og:image:alt" content="Constructed worlds with the same two marginal miss rates and different overlap">
+<meta name="twitter:image" content="https://cubits11.github.io/worldspace/qa/poster-1200x630.png">
+<meta name="twitter:image:alt" content="Constructed worlds with the same two marginal miss rates and different overlap">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F1EDE2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/world.css">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="/assets/site.js"></script>
+<script defer src="/assets/world.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/missing-column/">The Missing Column</a>
+      <a href="/explore/" aria-current="page">Explore</a>
+      <a href="/observatory/">Evidence</a>
+      <a href="/writing/">Writing</a>
+      <a href="/work/">Work with me</a>
+      <a href="/resume/">About</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<main class="world-page" id="main">
+  <div class="container">
+    <header class="world-page-header">
+      <div><p class="world-eyebrow mono">Cubits11 / Explore / 01</p><h1>Same scores.<br>Different worlds.</h1></div>
+      <p>Two guardrails each miss some cases. Their scores tell you how often. They do not usually tell you whether they miss <em>the same cases</em>.<br><br>Change what you know. See what remains possible.</p>
+    </header>
+    <section class="world-section" id="instrument" aria-labelledby="instrument-title">
+      <div class="world-section-heading"><h2 id="instrument-title">What do the scores leave open?</h2><span class="mono">Interactive construction · no measured system</span></div>
+      <div class="workbench" id="world-bench">
+        <div class="bench-display">
+          <div class="bench-topline mono"><span>Possible rate of both missing</span><span id="world-constraint">Derived · marginals alone</span></div>
+          <div class="bench-result" id="world-range">0%–10%</div>
+          <p class="bench-caption">A range of compatible answers, not a confidence interval.</p>
+          <div class="bench-axis" aria-hidden="true"><div class="bench-range" id="world-band" style="left:0%;width:10%"></div><div class="bench-point" id="world-independence" style="left:1%"></div></div>
+          <div class="bench-scale"><span>0%</span><span>100%</span></div>
+          <p class="bench-note">The amber marker is <span id="independence-value">1%</span>: what independence assumes.</p>
+          <div id="world-witness">
+            <div class="bench-world">
+              <svg viewBox="0 0 200 200" role="img" aria-labelledby="world-svg-title world-svg-desc">
+                <title id="world-svg-title">One compatible joint distribution</title>
+                <desc id="world-svg-desc">A constructed area-one square: neither misses 85%, A only 5%, B only 5%, both 5%.</desc>
+                <defs><pattern id="both-hatch" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="var(--evidence)"/><path d="M-2 2L2 -2M0 8L8 0M6 10L10 6" stroke="var(--ink)" stroke-width="1.3"/></pattern></defs>
+                <rect id="rect-neither" x="20" y="11.111111" width="180" height="188.888889" fill="var(--line)"/>
+                <rect id="rect-only-a" x="0" y="100" width="20" height="100" fill="var(--evidence)"/>
+                <rect id="rect-only-b" x="20" y="0" width="180" height="11.111111" fill="var(--gold)"/>
+                <rect id="rect-both" x="0" y="0" width="20" height="100" fill="url(#both-hatch)"/>
+              </svg>
+              <dl><dt>Neither misses · plain field</dt><dd id="cell-neither">85%</dd><dt>A only · cyan</dt><dd id="cell-only-a">5%</dd><dt>B only · gold</dt><dd id="cell-only-b">5%</dd><dt>Both miss · hatched</dt><dd id="cell-both">5%</dd></dl>
+            </div>
+            <p class="bench-note">Area represents probability. These four cells sum to one; they are a mathematical witness, not observed cases. Gold locates event B, not an evidential status.</p>
+          </div>
+          <p class="bench-status" id="bench-status" role="status" aria-live="polite">Every point from 0% to 10% is compatible with two 10% marginal miss rates.</p>
+        </div>
+        <div class="bench-controls">
+          <p class="bench-note" id="bench-nojs">This static example works without JavaScript. Enable JavaScript to change the rates and assumptions.</p>
+          <fieldset disabled><legend>01 / Set the individual scores</legend>
+            <label class="bench-control-label" for="rate-a">A misses <output id="a-value" for="rate-a">10%</output></label><input id="rate-a" type="range" min="0" max="100" step="1" value="10">
+            <label class="bench-control-label" for="rate-b">B misses <output id="b-value" for="rate-b">10%</output></label><input id="rate-b" type="range" min="0" max="100" step="1" value="10">
+          </fieldset>
+          <fieldset disabled><legend>02 / Decide what you add</legend><div class="bench-options">
+            <label><input type="radio" id="mode-marginals" name="world-mode" value="marginals" checked>Nothing. Keep every compatible world.</label>
+            <label><input type="radio" name="world-mode" value="independence">An assumption: independence.</label>
+            <label><input type="radio" name="world-mode" value="interval">A hypothetical joint interval.</label>
+          </div><div class="bench-interval" id="joint-inputs" hidden><label for="joint-low">Joint minimum (%)<input id="joint-low" type="number" min="0" max="100" step="0.1" value="2"></label><label for="joint-high">Joint maximum (%)<input id="joint-high" type="number" min="0" max="100" step="0.1" value="6"></label></div></fieldset>
+          <fieldset disabled><legend>03 / Inspect a surviving world</legend><label class="bench-control-label" for="world-position">Both miss <output id="selected-value" for="world-position">5%</output></label><input id="world-position" type="range" min="0" max="100" step="1" value="50"><div class="bench-buttons"><button type="button" data-world-position="0">Lower witness</button><button type="button" data-world-position="100">Upper witness</button></div></fieldset>
+          <button class="bench-reset" id="bench-reset" type="button" disabled>Reset the construction ↺</button>
+        </div>
+      </div>
+      <div class="world-proof">
+        <details><summary>Inspect the calculation</summary><p>Let a and b be the marginal miss probabilities, and q the probability both miss.</p><p><code>max(0, a + b − 1) ≤ q ≤ min(a, b)</code></p><p>The witness is <code>(1 − a − b + q, a − q, b − q, q)</code>, ordered as neither, A only, B only, both. Nonnegative cells and a sum of one give the interval. Independence adds <code>q = a × b</code>.</p><p>A supplied interval is intersected with these bounds. This is established two-event Fréchet arithmetic; the interface adds no new theorem. <a href="/assets/world.js">Inspect the calculation source</a>.</p></details>
+        <details><summary>What this does and does not establish</summary><p>Exact input probabilities, a common population, and the same declared miss event. Displayed values are rounded to two decimal places. No sampling uncertainty is modeled. A static stack catches a case if either guard catches it, so its miss event is their intersection.</p><p>This is not a deployed route, a vendor comparison, or evidence that a real stack is safe or unsafe. User-entered joint intervals are hypothetical constraints, not measurements.</p><p><a href="/ledger/#CC-001">Inspect the bound’s registered scope</a> · <a href="/ledger/#CC-004">Inspect endpoint witnesses</a> · <a href="/try/">Run a reproduction</a></p></details>
+      </div>
+    </section>
+    <section class="world-section" id="screening-room" aria-labelledby="cinema-title">
+      <div class="world-section-heading"><h2 id="cinema-title">A small cinema of evidence.</h2><span class="mono">Existing films / choose one / sound off</span></div>
+      <div class="world-shelves">
+<article class="world-shelf"><video controls playsinline preload="none" poster="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png" aria-label="Same scores, different worlds, silent research film"><source src="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4" type="video/mp4"><a href="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4">Download the film</a></video><span class="mono">01 / Constructed probability worlds</span><h3>Same scores, different worlds</h3><p>The individual scores stay still. The shared failures move.</p><p><a href="/ledger/#CC-001">Scope and provenance ↗</a> · <a href="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4" download>Download film</a></p></article><article class="world-shelf"><video controls playsinline preload="none" poster="/films/thirteen-worlds/renders/thirteen-worlds__master.poster.png" aria-label="Thirteen worlds, silent research film"><source src="/films/thirteen-worlds/renders/thirteen-worlds__master.mp4" type="video/mp4"><a href="/films/thirteen-worlds/renders/thirteen-worlds__master.mp4">Download the film</a></video><span class="mono">02 / Constructed identified set</span><h3>Thirteen worlds</h3><p>Follow the possibilities left open by a partial description.</p><p><a href="/films/thirteen-worlds/manifest.yaml">Scope and provenance ↗</a> · <a href="/films/thirteen-worlds/renders/thirteen-worlds__master.mp4" download>Download film</a></p></article><article class="world-shelf"><video controls playsinline preload="none" poster="/films/what-the-seal-proves/renders/what-the-seal-proves__master.poster.png" aria-label="What the seal proves, silent research film"><source src="/films/what-the-seal-proves/renders/what-the-seal-proves__master.mp4" type="video/mp4"><a href="/films/what-the-seal-proves/renders/what-the-seal-proves__master.mp4">Download the film</a></video><span class="mono">03 / Illustration of a boundary</span><h3>What the seal proves</h3><p>A receipt reaches the edge of what it can establish.</p><p><a href="/films/what-the-seal-proves/manifest.yaml">Scope and provenance ↗</a> · <a href="/films/what-the-seal-proves/renders/what-the-seal-proves__master.mp4" download>Download film</a></p></article></div><p class="bench-note">Silent films with on-screen text. Each source manifest describes its thesis, construction, and non-claims. <a href="/films/README.md">Read about the film method</a>.</p></section>
+    <section class="world-section" aria-labelledby="deeper-title">
+      <div class="world-section-heading"><h2 id="deeper-title">Follow the thread.</h2><span class="mono">From intuition to inspection</span></div>
+      <div class="world-shelves">
+        <article class="world-shelf"><span class="mono">Play / a different way in</span><h3>Move the misses yourself.</h3><p>Place individual misses on a shared sheet in the original Worldspace experiment.</p><a href="/worldspace/">Enter Worldspace ↗</a></article>
+        <article class="world-shelf"><span class="mono">Read / the evidence</span><h3>Which column is missing?</h3><p>Inspect the bounded census of public evaluations, then follow each row to its source.</p><a href="/missing-column/">Open the census ↗</a></article>
+        <article class="world-shelf"><span class="mono">Inspect / a changing record</span><h3>What survived correction?</h3><p>Read the corrections and historical work with their limits still attached.</p><a href="/corrections/">Read the corrections ↗</a> · <a href="/archive/">Archive</a></article>
+      </div>
+    </section>
+    <div class="world-close">An answer becomes more interesting when you can see what would change it.</div>
+  </div>
+</main>
+<footer class="world-footer"><div class="container"><span>Cubits11 · Pranav Bhave</span><span><a href="/now/">What is happening now</a> · <a href="/ledger/">Verify a claim</a> · <a href="/">Back to the entrance</a></span></div></footer>
+</body></html>

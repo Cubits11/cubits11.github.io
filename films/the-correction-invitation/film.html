@@ -1,0 +1,19 @@
+<!doctype html><meta charset="utf-8"><title>A record that can change — flagship end card</title>
+<link rel="stylesheet" href="../lib/tokens.css"><div id="stage"></div><script src="../lib/film.js"></script>
+<script>
+'use strict';
+const {H,TOK}=Film;
+const {text,line,ledgerTag,locator}=H;
+function setup() {}
+function render(t,g,L) {
+  text(g,'A claim you can check.',120,275,{font:'serif',size:100,color:TOK.ink,maxW:1680});
+  text(g,'A record that can change.',120,405,{font:'serif',size:100,color:TOK.ink,maxW:1680});
+  line(g,120,492,1800,492,TOK.lineStrong,2);
+  text(g,'FOUND A QUALIFYING SOURCE? A FAILED CALCULATION?',120,600,{font:'mono',size:29,color:TOK.muted,maxW:1680});
+  text(g,'cubits11.github.io/corrections/',120,720,{font:'mono',size:60,color:TOK.gold,maxW:1680});
+  text(g,'Send the source, or the input and result.',120,815,{font:'sans',size:42,color:TOK.ink,maxW:1680});
+  ledgerTag(g,L,'REGISTRY','corrections route · invitation, not a result',1,'right');
+  locator(g,L,['Evidence and reproduction: cubits11.github.io/missing-column/reproduce/'],1);
+}
+Film.define({id:'the-correction-invitation',title:'A record that can change',duration:10,fps:30,poster_t:5,claimFrames:[{t:.5,label:'the exact corrections route'},{t:9,label:'route held through the final frame'}],setup,render});
+</script>

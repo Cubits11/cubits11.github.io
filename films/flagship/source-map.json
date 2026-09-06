@@ -1,0 +1,202 @@
+{
+  "status": "EDITORIAL_REHEARSAL_NOT_FINAL_ASSEMBLY",
+  "inputs": {
+    "films/flagship/script.json": "db9bb0e5f475bf0dfc05085e71899eab9b0e47d39446e5850f22dd4404d0cca2",
+    "scripts/films/build_flagship.py": "09248adf7cf047ffad802eadacb2122b35c5f9131fe6b6c46358aa6abfcffcfe",
+    "films/flagship/rehearsal-template.html": "1d6e8f858360f6248108a249d62f0f206d1b9bb36e4cbaa21238ea475dc0e614",
+    "films/data/facts.json": "39eaa79d76f006253ca627cd370d8a5d44ef77da0b8fa32db2b533ab8d7b8a37",
+    "claims.yaml": "05ac7139ad8bf446556d4e844c4b3b0a9f2a38dfabc7e9383433b1fd685902fb",
+    "census.yaml": "625530cf6be634c31519b3715b09f1fa856c9900b692e2b8acc67fde05545678",
+    "films/the-stack/manifest.yaml": "1b8acaac37e0b2ec95e59572a0b583d59fb0d37cf506806320236568f60d915f",
+    "films/the-multiplication/manifest.yaml": "44182359d2bce6942fbcba46eaca44a495722b9521ac7d8a8c6e31cb1d1be902",
+    "missing-column/index.html": "c4f2329945ece8db5f16a265bc6fd5fbade376805efd05ff967d4004e603180e",
+    "scripts/identification.py": "4baba5ef00e5d8db19910abf1560b15cb7c68552690fb5c68c2dadabf8d563d8",
+    "scripts/verify_census.py": "1073bee1e2ffada679e2ecdddec43f7e5f57ed977daa484c1398504620b39737",
+    "films/the-missing-column-census/manifest.yaml": "97a677b792f0a668a58f44892f4846b366a58ba714fe9d5f9c89c35fd0bc8970",
+    "corrections/index.html": "90da25e427b2d7f63d9c1c570ae5088f1df4f5f4979c83da7673a311f3aabb89",
+    "films/the-falsifier-that-fired/manifest.yaml": "89814cb92b88aa87ab546798f737a9d8ff3a4a80548d8375cd67d2b3d3148acd",
+    "scripts/reanalyze_bells_subset.py": "c39643ca63146931aaaa8614477453adcd5d411501d251d33d12bdb811759a88",
+    "films/thirteen-worlds/manifest.yaml": "3eacd2cd442bbe2522f83e210624fda2e3b3a168876c2823a7d18d7196e97953",
+    "missing-column/reproduce/index.html": "80280667a8e99287856837e17586b12d63106c2790107395761ffb17863ff29f",
+    "films/the-correction-invitation/manifest.yaml": "9b87c56e01095ea1db9152d67c12f193afc670a0ed44a54bc664652b5680602d"
+  },
+  "sections": [
+    {
+      "id": 1,
+      "start_s": 0,
+      "end_s": 60,
+      "operation": "Expose the assumption inside the product of marginal miss rates.",
+      "ledger": "ILLUSTRATIVE / REGISTRY / DERIVED",
+      "locators": [
+        "CC-001",
+        "films/the-stack/manifest.yaml"
+      ],
+      "weaker": "Those separate scores alone do not tell us how often both guards miss.",
+      "bindings": [],
+      "word_count": 103
+    },
+    {
+      "id": 2,
+      "start_s": 60,
+      "end_s": 105,
+      "operation": "Hold marginals fixed while moving their overlap between feasible endpoints.",
+      "ledger": "ILLUSTRATIVE / REGISTRY / PROVED / DERIVED",
+      "locators": [
+        "CC-001",
+        "CC-004",
+        "films/the-stack/manifest.yaml"
+      ],
+      "weaker": "These are possible arrangements, not measurements of a deployed system.",
+      "bindings": [],
+      "word_count": 79
+    },
+    {
+      "id": 3,
+      "start_s": 105,
+      "end_s": 180,
+      "operation": "Distinguish per-system marginal columns from a shared-item joint column.",
+      "ledger": "ILLUSTRATIVE / PROVED",
+      "locators": [
+        "MC-003",
+        "missing-column/index.html",
+        "scripts/identification.py"
+      ],
+      "weaker": "Missing joint reporting does not show that a stack performs badly.",
+      "bindings": [],
+      "word_count": 150
+    },
+    {
+      "id": 4,
+      "start_s": 180,
+      "end_s": 315,
+      "operation": "Execute declared classification predicates to produce bounded reporting counts.",
+      "ledger": "REGISTRY / DERIVED",
+      "locators": [
+        "MC-001",
+        "census.yaml",
+        "scripts/verify_census.py",
+        "films/the-missing-column-census/manifest.yaml"
+      ],
+      "weaker": "This is a bounded search of reporting, not proof that joint evidence exists nowhere.",
+      "bindings": [
+        {
+          "fact": "MC-001.N",
+          "kind": "DERIVED",
+          "value": 20,
+          "rendered": "20",
+          "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+          "at_s": 240
+        },
+        {
+          "fact": "MC-001.M1",
+          "kind": "DERIVED",
+          "value": 14,
+          "rendered": "14",
+          "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+          "at_s": 240
+        },
+        {
+          "fact": "MC-001.K",
+          "kind": "DERIVED",
+          "value": 5,
+          "rendered": "5",
+          "source": "scripts/facts.registry ← verify_census.compute_counts(census.yaml)",
+          "at_s": 240
+        }
+      ],
+      "word_count": 242
+    },
+    {
+      "id": 5,
+      "start_s": 315,
+      "end_s": 405,
+      "operation": "Execute a precommitted rejection consequence and retain the superseded record.",
+      "ledger": "REGISTRY / DERIVED",
+      "locators": [
+        "MC-001",
+        "census.yaml",
+        "corrections/index.html",
+        "films/the-falsifier-that-fired/manifest.yaml"
+      ],
+      "weaker": "The correction does not establish that the revised census is complete.",
+      "bindings": [],
+      "word_count": 174
+    },
+    {
+      "id": 6,
+      "start_s": 405,
+      "end_s": 480,
+      "operation": "Intersect the marginally feasible set with the observed union constraint.",
+      "ledger": "OBSERVED / DERIVED / PROVED / CONSTRUCTED",
+      "locators": [
+        "MC-002",
+        "MC-003",
+        "scripts/reanalyze_bells_subset.py",
+        "scripts/identification.py",
+        "films/thirteen-worlds/manifest.yaml"
+      ],
+      "weaker": "This result describes this released subset, not deployment risk.",
+      "bindings": [
+        {
+          "fact": "MC-003.identified_set_size",
+          "kind": "PROVED",
+          "value": 13,
+          "rendered": "13",
+          "source": "claims.yaml:MC-003.expected (checked by scripts/identification.py)",
+          "at_s": 424
+        },
+        {
+          "fact": "MC-003.identified_set_lower",
+          "kind": "PROVED",
+          "value": 0,
+          "rendered": "0",
+          "source": "claims.yaml:MC-003.expected (checked by scripts/identification.py)",
+          "at_s": 424
+        },
+        {
+          "fact": "MC-003.identified_set_upper",
+          "kind": "PROVED",
+          "value": 12,
+          "rendered": "12",
+          "source": "claims.yaml:MC-003.expected (checked by scripts/identification.py)",
+          "at_s": 424
+        },
+        {
+          "fact": "MC-002.all_miss",
+          "kind": "OBSERVED",
+          "value": 9,
+          "rendered": "9",
+          "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+          "at_s": 442
+        },
+        {
+          "fact": "MC-002.n_harmful",
+          "kind": "OBSERVED",
+          "value": 82,
+          "rendered": "82",
+          "source": "claims.yaml:MC-002.expected (re-asserted against the hash-verified release by scripts/reanalyze_bells_subset.py)",
+          "at_s": 442
+        }
+      ],
+      "word_count": 134
+    },
+    {
+      "id": 7,
+      "start_s": 480,
+      "end_s": 510,
+      "operation": "Turn a disagreement into a checkable correction route.",
+      "ledger": "PROVED / REGISTRY",
+      "locators": [
+        "CC-001",
+        "MC-001",
+        "corrections/index.html",
+        "missing-column/reproduce/index.html"
+      ],
+      "weaker": "Separate scores alone do not identify the joint failure rate.",
+      "bindings": [],
+      "word_count": 57
+    }
+  ],
+  "duration_s": 510,
+  "word_count": 939
+}

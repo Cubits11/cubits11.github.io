@@ -1,0 +1,29 @@
+<!doctype html><meta charset="utf-8"><title>The multiplication — flagship camera insert</title>
+<link rel="stylesheet" href="../lib/tokens.css"><div id="stage"></div><script src="../lib/film.js"></script>
+<script>
+'use strict';
+const {H,TOK}=Film;
+const {text,paragraph,line,sm,ledgerTag,locator}=H;
+let rates, product;
+function setup({fact}) { rates=fact('CC-001.marginals'); product=fact('CC-001.independence_and'); }
+const pct=x=>`${Math.round(x*100)}%`;
+function render(t,g,L) {
+  text(g,'HOW MUCH SAFER?',120,170,{font:'mono',size:32,color:TOK.muted,track:.07});
+  text(g,'GUARD A MISSES',120,330,{font:'mono',size:28,color:TOK.muted});
+  text(g,'GUARD B MISSES',760,330,{font:'mono',size:28,color:TOK.muted});
+  text(g,pct(rates[0]),120,500,{font:'serif',size:158,color:TOK.ink});
+  text(g,'×',555,500,{font:'serif',size:130,color:TOK.muted});
+  text(g,pct(rates[1]),760,500,{font:'serif',size:158,color:TOK.ink});
+  // The assumption precedes the product; there is no unqualified result frame.
+  text(g,'ASSUMING INDEPENDENT FAILURES',120,675,{font:'mono',size:34,color:TOK.review,maxW:1640});
+  line(g,120,708,1800,708,TOK.review,2);
+  const a=sm(t,3,3.7);
+  text(g,'=',1200,500,{font:'serif',size:100,color:TOK.review,alpha:a});
+  text(g,pct(product),1390,500,{font:'serif',size:158,color:TOK.review,alpha:a});
+  paragraph(g,'A correct product. An extra assumption.',120,812,{font:'serif',size:54,color:TOK.ink,maxW:1680,lineHeight:68,alpha:sm(t,6,6.7)});
+  text(g,'ILLUSTRATIVE EXAMPLE · SAME INPUTS FOR BOTH GUARDS',120,930,{font:'mono',size:25,color:TOK.muted,maxW:1680});
+  ledgerTag(g,L,'REGISTRY / DERIVED','CC-001 input / product under independence',1,'right');
+  locator(g,L,['CC-001 · illustrative inputs, not measured guardrails','cubits11.github.io/try/'],1);
+}
+Film.define({id:'the-multiplication',title:'The multiplication',duration:14,fps:30,poster_t:8,claimFrames:[{t:.5,label:'rates and assumption before product'},{t:4.5,label:'derived product under explicit independence'},{t:10,label:'the assumption remains visible'}],setup,render});
+</script>
