@@ -623,6 +623,15 @@ def cmd_reconstruct(check: bool = False) -> int:
     hist = yaml.safe_load(HISTORY.read_text()) if HISTORY.exists() else None
     retro = {(e["claim_id"], next(r[4:] for r in e["evidence_refs"] if r.startswith("git:")))
              : e for e in (hist or {}).get("entries", []) if e.get("provenance_class") == "RETROSPECTIVE_RECONSTRUCTION"}
+    # A contemporaneous transition declared through `append` covers its own event.
+    # It is matched on the before/after digests, not on a commit sha: the entry
+    # was written before the commit existed, so it cannot name it, and matching
+    # the states it declares is the stronger check anyway. These are NOT scars —
+    # a scar is a reconstruction of history that predates the kernel — so they
+    # suppress the missing-entry failure and never enter `strict`.
+    contemp = {(e["claim_id"], e.get("from_digest"), e.get("to_digest")): e
+               for e in (hist or {}).get("entries", [])
+               if e.get("provenance_class") == "CONTEMPORANEOUS" and e.get("kind") == "transition"}
     transitions = [e for e in events if e["kind"] in ("CHANGE", "REMOVAL")]
     strict = []
     failures = 0
@@ -630,13 +639,15 @@ def cmd_reconstruct(check: bool = False) -> int:
         declared = dated_declaration(e["commit"], e["date"], e["claim_id"])
         entry = retro.get((e["claim_id"], e["commit"]))
         typed = bool(entry and entry.get("transition_type") in TRANSITION_TYPES)
-        if entry is None and hist is not None:
+        forward = contemp.get((e["claim_id"], e["from"], e["to"]))
+        if entry is None and forward is None and hist is not None:
             print(f"FAIL  {e['claim_id']} at {e['commit'][:12]} ({e['kind']}) has no retrospective entry in claims_history.yaml")
             failures += 1
         if declared and typed:
             strict.append(f"{e['claim_id']}@{e['commit'][:12]}:{e['date']}:{entry['transition_type']}")
         print(f"{e['commit'][:12]} {e['date']} {e['claim_id']:8s} {e['kind']:7s} "
-              f"dated_in-record_declaration={'yes' if declared else 'no '} typed={'yes' if typed else 'no '}")
+              f"dated_in-record_declaration={'yes' if declared else 'no '} typed={'yes' if typed else 'no '}"
+              + (f" contemporaneous={forward['transition_type']}" if forward else ""))
     print(f"PREEXISTING_E5_TRANSITION_COUNT={len(transitions)}  (digest-level commitment changes and removals on the first-parent line; births excluded)")
     print(f"STRICT_SCAR_ELIGIBLE_COUNT={len(strict)}  (before and after states re-derived from git; a dated in-record declaration naming the claim in the same first-parent change; a coherent transition type declared in the reconstruction)")
     for s in strict:
