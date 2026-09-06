@@ -1,0 +1,36 @@
+{
+ "harmful": {
+  "n": 400,
+  "p_miss_G1": 0.0,
+  "p_miss_G2": 0.3975,
+  "q_obs": 0.0,
+  "q_ind": 0.0,
+  "delta": 0.0,
+  "frechet": [
+   0.0,
+   0.0
+  ],
+  "inside_frechet": true
+ },
+ "delta_ci95": [
+  0.0,
+  0.0
+ ],
+ "ci_excludes_zero": false,
+ "benign_evaluation_joint_flag": {
+  "n": 400,
+  "p_miss_G1": 0.06,
+  "p_miss_G2": 0.0425,
+  "q_obs": 0.0075,
+  "q_ind": 0.00255,
+  "delta": 0.0049499999999999995,
+  "frechet": [
+   0.0,
+   0.0425
+  ],
+  "inside_frechet": true
+ },
+ "bootstrap_B": 2000,
+ "seed": "MC-E3-PILOT-V1-FREEZE-2026-09-06",
+ "config_sha256": "252a5db9aab66d8aa2427515701b9066966c7564bb157a1f96450c3c0b635dcb"
+}
