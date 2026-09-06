@@ -1,0 +1,82 @@
+{
+  "blender": {
+    "version_line": "Blender 5.1.2",
+    "build_date": "2026-05-19",
+    "build_time": "01:30:33",
+    "build_commit_date": "2026-05-18",
+    "build_commit_time": "13:43",
+    "build_hash": "ec6e62d40fa9"
+  },
+  "parameters": {
+    "max_glb_bytes": 2000000,
+    "coin_count_per_reader": 10,
+    "sorted_objects": 20,
+    "cell_symbols": 4,
+    "draco_level": 6
+  },
+  "parameter_locator": "films/lib/blender/export_devices.py:PARAMETERS",
+  "source_sha256": "57da49518b971f2ef25332ebfa356af3b02aed9412b5bf1714243a227128c893",
+  "bead_cube_sha256": "c4d40d5abb4e5e421eb388d0e4d6dbb5d2e8b4a9fefb74c7505fe18646b1e3a4",
+  "exports": {
+    "D-002": {
+      "path": "assets/foundations/meshes/D-002.glb",
+      "bytes": 35884,
+      "sha256": "83205bb84babf77840711475a77e89406de35e5e61d91b873bd5b81df95b6da4",
+      "draco": true,
+      "cameras": false,
+      "animations": false,
+      "state_machine": "scripts/audit_device.py:models"
+    },
+    "D-003": {
+      "path": "assets/foundations/meshes/D-003.glb",
+      "bytes": 4308,
+      "sha256": "27f41eba4d100dbd7f7ab0dee8622198011234515f29df94dad9f68a3cd769f8",
+      "draco": true,
+      "cameras": false,
+      "animations": false,
+      "state_machine": "scripts/audit_device.py:models"
+    },
+    "D-004": {
+      "path": "assets/foundations/meshes/D-004.glb",
+      "bytes": 19444,
+      "sha256": "32885db799c980feb223580f65911d158ddfb95058bec341e083768d6fe14a49",
+      "draco": true,
+      "cameras": false,
+      "animations": false,
+      "state_machine": "scripts/audit_device.py:models"
+    },
+    "D-005": {
+      "path": "assets/foundations/meshes/D-005.glb",
+      "bytes": 2372,
+      "sha256": "deec911c028a9089091b3850b96edc97fd2ab9dc7a63357f4c30fb0238bd3bd2",
+      "draco": true,
+      "cameras": false,
+      "animations": false,
+      "state_machine": "scripts/audit_device.py:models"
+    },
+    "D-006": {
+      "path": "assets/foundations/meshes/D-006.glb",
+      "bytes": 5040,
+      "sha256": "72c1ea1b0682390f0ad5785df0a841088808712884e1fe641503383ea9af6f0e",
+      "draco": true,
+      "cameras": false,
+      "animations": false,
+      "state_machine": "scripts/audit_device.py:models"
+    },
+    "D-007": {
+      "path": "assets/foundations/meshes/D-007.glb",
+      "bytes": 55056,
+      "sha256": "8741913f0e72ba42ab354666031c0a1687c51c99d6b51c1d525f0ccba486071b",
+      "draco": true,
+      "cameras": false,
+      "animations": false,
+      "state_machine": "scripts/audit_device.py:models"
+    }
+  },
+  "non_claims": [
+    "Geometry only: permitted moves come from generated T1 transition tables.",
+    "No whole-world export; no external world file was opened.",
+    "Browser loading is separately tested; byte size alone does not establish loading or fidelity.",
+    "Only the bounded digital models have meshes; no physical or learner outcome is asserted."
+  ]
+}
