@@ -58,8 +58,17 @@ invalid-red; gold is identity only) and state is never encoded by color alone.
 
 ## Hard boundaries
 
-- **Nothing loads model weights on this host.** It is an 8 GB M1 and the
-  adapters refuse. Collection runs only on the owner's authorized 24 GB box.
+- **E2's guards do not load on this host, and that refusal stays.** It is an
+  8 GB M1; E2's three frozen guards are 8–12B and gated, and
+  `experiments/e2/run/adapters.py:48` refuses unless `E2_ON_AUTHORIZED_BOX=1`.
+  E2 collection still runs only on the owner's authorized box.
+  **Narrow exemption, owner decision 2026-09-06:** a guard may load here if it
+  is ungated, under 1B parameters, permissively licensed, pinned by revision,
+  and scored only on items in an adopted freeze. E3's two classifiers (0.2B and
+  0.1B, Apache-2.0) are the whole of what this admits today. Anything outside
+  that description still refuses. Widen this sentence only by owner decision,
+  and record the date — a boundary widened by one experiment is auditable, a
+  boundary deleted is not.
 - **External actions are the owner's hand only** — dispatching asks, opening
   issues, accepting model licenses. Prepare them; never send them.
 - **A threshold, estimator, hypothesis or criterion changed after outcomes are
