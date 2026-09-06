@@ -1,0 +1,302 @@
+# Foundations device registry — PROPOSAL, not adopted.
+#
+# Counting rule: presentations of one device count ONCE. `rung` is FAITHFUL
+# only after an audit by someone other than the designer; until then
+# `rung_projected` holds the design intent and `rung` is `unaudited`.
+# A rung may be lowered by an audit. It may never be argued upward (K5).
+#
+# Spec, ladder and kill conditions: docs/foundations/PROGRAM.md
+
+schema_version: 0
+status: proposal
+written: 2026-09-05
+adopted: false
+promote_to: "foundations.yaml at repository root, only if adopted"
+
+counts:
+  # Revised after the section 10 loophole audit. Recount with the COUNT prompt.
+  # Presentations count once (L2: state-space isomorphism preserving readout).
+  devices_total: 10
+  rung_faithful: 0              # independently audited — this is the metric
+  rung_self_audited: 1          # D-002, designer only (L4)
+  rung_illustrative: 2          # D-009, D-010 — self-assigned, lower rung on purpose
+  rung_unaudited: 7
+  built_physically: 0
+  with_audit_script: 0          # section 11
+  learners: 0
+  nodes_generated: 0
+
+atoms:
+  A1: a rate is a count over a population
+  A2: two rates do not fix their overlap
+  A3: a threshold turns a score into a decision
+  A4: exposure — who actually saw the item
+  A5: a composition rule must be named
+  A6: a bound is an answer; a point inside it is not
+  A7: evidence can permit a set
+  A8: all-miss is not the complement of good
+  A9: pairs do not determine triples
+  A10: a falsifier is written before the outcome
+
+devices:
+
+  - id: D-001
+    name: The Two Jars
+    atoms: [A1]
+    materials: two jars, 3 red marbles each, 10 and 100 total marbles
+    action: "Which jar is worse?"
+    state_space: all (numerator, denominator) pairs realisable by pouring
+    feasible_set: the same
+    readout:
+      answers_without_emptying: the half-a-number bug — a rate read as a property
+      empties_both: holds A1
+      asks_for_totals_first: holds A1 and has the habit
+    cannot_show: nothing about overlap, thresholds, or exposure
+    rung: unaudited
+    rung_projected: FAITHFUL
+    setup_seconds: 30
+
+  - id: D-002
+    name: The Necromancer
+    atoms: [A2, A6]
+    presentations: [twenty coins, two paper strips on a meter stick]
+    materials: 20 coins — 10 marked A-miss, 10 marked B-miss
+    action: "Slide them to show the best stack. Now the worst stack."
+    state_space: overlaps of 0 through 10 coins
+    feasible_set: "Fréchet interval at marginals (0.10, 0.10): all-miss in [0, 0.10]"
+    faithfulness_note: >
+      No hand position produces 11 or -1. Every legal overlap is reachable.
+      Bijection between hand position and the identified set.
+    readout:
+      full_overlap: holds dependence, built the upper endpoint
+      interleaved: independence-as-default — the plug-in chunk
+      frozen: suspects a number is missing but cannot name it
+      slides_past_ten: has added the rates rather than overlapped them
+    cannot_show: >
+      exposure. Every coin is on the table and seen by both, so the device
+      silently assumes full exposure — which is exactly why A4 needs D-005.
+    rung: SELF-AUDITED
+    rung_projected: FAITHFUL
+    rung_reason: >
+      Demoted by loophole L4. Every criterion holds by the designer's own
+      reckoning and nobody else has tried to break it. Restored to FAITHFUL
+      when a second person fails to build an illegal configuration, or when
+      scripts/audit_device.py --device D-002 exits 0.
+    parameters: "marginals (0.10, 0.10), 20 coins — FAITHFUL(theta), not FAITHFUL (L3)"
+    binds: [CC-001, CC-004]
+    setup_seconds: 45
+
+  - id: D-003
+    name: The Two Hasps
+    atoms: [A5]
+    materials: a box with two hasps
+    action: "Wire it so it is safer."
+    state_space: {both-must-open, either-opens}
+    feasible_set: the two composition rules
+    readout:
+      builds_both_must_open: block-on-any — the rule this site's arithmetic assumes
+      builds_either_opens: has composed for availability, not for blocking
+      asks_safer_against_what: holds A5 already
+    cannot_show: any rate, and nothing about routing order
+    note: >
+      Two locks was REJECTED as a metaphor for the Fréchet episode because it
+      imports series composition. Here that import is the lesson. Same object,
+      wrong for A2, right for A5.
+    rung: unaudited
+    rung_projected: FAITHFUL
+    setup_seconds: 20
+
+  - id: D-004
+    name: The Sorting Line
+    atoms: [A3]
+    priority: highest — this is the top underdog made physical
+    materials: 20 objects in size order, two rulers
+    action: "Lay your ruler. Now: which detector is better?"
+    state_space: all monotone thresholds on the ordering
+    feasible_set: the operating-point family of a score-based detector
+    faithfulness_note: >
+      Reachable ruler positions are exactly the monotone thresholds. Two rulers
+      on one identical population give two different catch rates, which is the
+      whole of A3 in one movement.
+    readout:
+      compares_without_aligning: the unmatched-threshold bug, in their hands
+      aligns_rulers_first: holds A3
+      asks_what_counts_as_caught: holds A3 and reaches A5
+    census_extension: >
+      Twenty copies of the line, twenty rulers, none at the same position, none
+      written down. That is MC-001's 0 of 20, physically.
+    cannot_show: overlap between the two detectors; use D-002 for that
+    rung: unaudited
+    rung_projected: FAITHFUL
+    binds: [MC-001]
+    setup_seconds: 30
+
+  - id: D-005
+    name: The Second Reader
+    atoms: [A4]
+    materials: one page of text, two readers, a blank slip
+    action: >
+      Run twice. Both read the whole page. Then hand reader B only the lines A
+      marked — a physical slip, not the page.
+    state_space: {whole page handed over, slip handed over}
+    feasible_set: {full exposure, routed}
+    faithfulness_note: the artifact handed over IS the exposure regime
+    readout:
+      computes_static_or_after_slip: applies full-exposure arithmetic to a route
+      says_routed_is_same_but_cheaper: has not seen that the question changed
+      refuses_to_compute_after_slip: holds A4
+    cannot_show: adaptive attackers; the page does not change under observation
+    rung: unaudited
+    rung_projected: FAITHFUL
+    setup_seconds: 60
+
+  - id: D-006
+    name: The Sudoku Cell
+    atoms: [A7]
+    priority: widest doorway in the program
+    materials: a 4x4 Latin-square fragment leaving one cell with exactly 3 legal values
+    action: "Write the answer for the shaded cell."
+    state_space: the legal values of the cell under the givens
+    feasible_set: the same, by constraint propagation
+    readout:
+      writes_three_values_calmly: already holds A7 and does not know it has a name
+      writes_one_value: point-estimate reflex — picked inside the set
+      says_not_enough_information: reads a set as a failure rather than an answer
+    doorway_note: >
+      Millions of people have narrowed a cell to a short list and never once
+      felt that a three-value answer was a failure to answer. MC-003's
+      {0/82 ... 12/82} is a cell narrowed to thirteen legal values, with 9
+      inside it.
+    cannot_show: >
+      Sudoku has a unique global solution and this problem does not. Say so, or
+      the device teaches that more evidence always resolves to a point.
+    rung: unaudited
+    rung_projected: FAITHFUL
+    binds: [MC-003]
+    setup_seconds: 40
+
+  - id: D-007
+    name: The Bead Cube
+    atoms: [A9]
+    materials: a transparent 2x2x2 box, 8 cells, 4 beads
+    action: >
+      Fill cells 000, 011, 101, 110. Look at all three faces. Now empty it and
+      fill 001, 010, 100, 111. Look at all three faces again.
+    state_space: the two parity arrangements
+    feasible_set: the CC-003 construction exactly — not an analogy for it
+    faithfulness_note: >
+      Every face shows the same 2x2 shadow in both arrangements: singles match,
+      every pair matches. The far corner 111 holds a bead in one arrangement
+      and not the other. Zero versus one quarter, at a corner you can point at.
+    readout:
+      checks_faces_then_stops: believes pairwise agreement closes it
+      finds_the_corner: holds A9
+      predicts_corner_before_looking: holds A9 and can generalise
+    cannot_show: >
+      how large the gap is in practice. Both arrangements are constructed. This
+      is a possibility proof and must be said out loud as one.
+    rung: unaudited
+    rung_projected: FAITHFUL
+    binds: [CC-003]
+    setup_seconds: 60
+
+  - id: D-008
+    name: The Double-Marked Cards
+    atoms: [A8]
+    materials: 30 cards, two markers
+    action: "Each reader marks the ones they missed. Now make two piles."
+    state_space: subsets by mark multiplicity
+    feasible_set: the same
+    readout:
+      builds_union_pile_only: hears success, not residual risk
+      builds_every-mark_pile: holds A8
+      notices_the_piles_differ_in_size: holds A8 and reaches the leave-one-out question
+    cannot_show: anything about why the marks fell where they did
+    rung: unaudited
+    rung_projected: FAITHFUL
+    binds: [MC-002, MC-003]
+    setup_seconds: 90
+
+  - id: D-009
+    name: The Sealed Envelope
+    atoms: [A10]
+    materials: an envelope, a pen, a date
+    action: >
+      Write what would make you wrong. Seal it. Date it. Leave it visible. Run
+      the count. Then write the same condition after seeing the result and
+      notice how much easier it is.
+    state_space: not configurational — temporal
+    feasible_set: not defined for this device
+    rung: ILLUSTRATIVE
+    rung_projected: ILLUSTRATIVE
+    rung_reason: >
+      N2 is not merely failed, it is undefined: there is no configuration space.
+      Recorded at the lower rung rather than argued up. If every device came out
+      FAITHFUL the ladder would be decoration.
+    binds: [MC-001]
+    setup_seconds: 20
+
+  - id: D-010
+    name: The Five Receipts
+    atoms: [A1]
+    materials: five receipts, one dinner, five totals
+    action: >
+      Find the smallest whole number of diners that makes every per-person
+      share a whole number of cents.
+    state_space: candidate diner counts tried
+    feasible_set: denominators consistent with the printed totals
+    rung: ILLUSTRATIVE
+    rung_projected: ILLUSTRATIVE
+    rung_reason: >
+      Teaches the recovery trick honestly, but the reachable space is not the
+      feasible space of denominators. Does not clear N2. Do not argue it up.
+    binds: ["ARTIFACTS/2026-09-05-FABLE-5.1-OBS-CUT.md"]
+    setup_seconds: 45
+
+# L7: every device needs a route with the same readout for a learner who
+# cannot manipulate the object, or an explicit statement of who it excludes.
+# L9: an audit expires when a bound claim transitions.
+# Section 11: state-space size is what makes an executable audit possible.
+equivalent_paths:
+  D-001: keyboard — choose a denominator, the count is read aloud with it
+  D-002: keyboard — a slider over overlap 0..10; same readout, same wrong states
+  D-003: keyboard — two radio buttons naming the two rules
+  D-004: keyboard — a threshold slider over a stated ordering; both rulers alignable
+  D-005: text — the handed artifact is named in words before any arithmetic
+  D-006: text — the cell's legal values typed as a list
+  D-007: NONE YET. Three orthographic projections plus a corner readout is the
+    candidate; until it exists this device excludes non-sighted learners and
+    must say so on its node.
+  D-008: keyboard — mark-multiplicity counts entered directly
+  D-009: text — write, timestamp, then write again after the result
+  D-010: keyboard — candidate denominators tried against the printed totals
+
+audit_state_space:
+  D-002: 11 states (overlap 0..10) — enumerable
+  D-006: 3 values — enumerable
+  D-007: 70 arrangements (8 choose 4), 2 of which are the parity sets — enumerable
+  D-004: monotone thresholds on 20 objects = 21 cut points — enumerable
+  D-003: 2 — enumerable
+  D-005: 2 — enumerable
+  D-001: unbounded without a stated marble budget — bound it before auditing
+  D-008: 2^k mark patterns — enumerable for small k
+  D-009: not configurational — no audit script possible
+  D-010: candidate denominators up to a stated ceiling — enumerable
+
+audit_freshness:
+  rule: an audit expires when any claim in the device's `binds` list transitions
+  review_window_days: 180
+  last_audited: none
+
+non_claims:
+  - No device here has taught anyone anything. Zero learners.
+  - Clearing N1-N6 is a claim about the object, not evidence anyone learns from it.
+  - Nine of the ten exist only as text in this file.
+  - Every rung except D-002's is projected, and D-002's was audited by its designer only.
+  - The pedagogy citations in PROGRAM.md section 1 are remembered, not reopened.
+  - Zero devices are independently audited. The section 10 audit removed the
+    only FAITHFUL rung in this file, which is the correct outcome.
+  - No audit script exists yet. Section 11 is a design, not a gate.
+  - A machine-checked faithfulness proof would be a statement about the object,
+    never evidence that a learner understood it.
+  - D-007 currently excludes non-sighted learners and has no equivalent path.
