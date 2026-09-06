@@ -1,0 +1,74 @@
+{
+ "frozen": "2026-09-06",
+ "seed": "MC-E3B-PILOT-V1-FREEZE-2026-09-06",
+ "prereg": "experiments/e3b/PREREG.md",
+ "supersedes": null,
+ "relation_to_e3": "new experiment on a matched pool; E3's result stands and is not edited",
+ "guards": [
+  {
+   "slot": "G1",
+   "hf_id": "protectai/deberta-v3-base-prompt-injection-v2",
+   "revision": "90c9989b1a342275dd0d1a95aad283c04e075671",
+   "params": "0.2B",
+   "license_tag": "apache-2.0",
+   "gated": false,
+   "license_bytes_sha256": "59899c6091b540582ed617e8eeaac4919dc985ccfc35459ee9752b699be5205b",
+   "contamination": "declared training sets do not include Lakera/gandalf_ignore_instructions"
+  },
+  {
+   "slot": "G2",
+   "hf_id": "dcarpintero/pangolin-guard-base",
+   "revision": "eb220d9f8d75cfbc82cc9d430fa19f85d9764cef",
+   "params": "0.1B",
+   "license_tag": "apache-2.0",
+   "gated": false,
+   "license_bytes_sha256": null,
+   "license_source": "card metadata only; no LICENSE file at the pinned revision",
+   "contamination": "UNVERIFIABLE \u2014 dcarpintero/pangolin-fine-tuning-modern-bert returns HTTP 401"
+  }
+ ],
+ "harmful": {
+  "source": "Lakera/gandalf_ignore_instructions (train+test+validation pooled)",
+  "revision": "04737b65e90a6794ec227012e4a255a7def6344b",
+  "license": "mit",
+  "population_rows": 1000,
+  "sample_n": 400,
+  "parquet_sha256": {
+   "train-00000-of-00001-ded53be747ff55cd.parquet": "5b6acf3e5a5998d21f8e1222bb45bbdec25a14408747b1cd63bebef4a75fa439",
+   "test-00000-of-00001-bc92128b9288a6d1.parquet": "56b646d133335ebc535266bd55dbe1b5bee7caa4b95bf49d040684b9b5dd9972",
+   "validation-00000-of-00001-94481a2a09ff2fff.parquet": "f51ab3e3407a368845b0f57932cc745c09280429416d7507bd178a16326a79f6"
+  },
+  "pooled_csv_sha256": "7a9f5634480d98cd4032bd26f900298e896ce079774b76dbde8f679ef3b9c13f",
+  "id_scheme": "gandalf-<row_index>"
+ },
+ "benign": {
+  "source": "bench-llm/or-bench (or-bench-80k)",
+  "revision": "e36d8b80e81837c8a8f264bbb2a49f1b32c7e272",
+  "license": "cc-by-4.0",
+  "population_rows": 80359,
+  "available_after_removing_e2_e3": 77959,
+  "calibration_n": 400,
+  "evaluation_n": 400
+ },
+ "disjointness": {
+  "basis": "sha256 of prompt text",
+  "prior_frozen_hashes_e2_e3": 3320,
+  "intersection": 0,
+  "note": "E2's 2120 and E3's 1200 removed before ranking"
+ },
+ "items": {
+  "items_harmful": "c69daaf76464dd3e002212803e7ea945d15d202046ee4829b22aeb4f62ae565e",
+  "items_benign_calibration": "023729c1f29522d772d7c58e36992e8773f82f1969d00f0767c4d9f8929c78ae",
+  "items_benign_evaluation": "87ca18d0006794a3db1fd9bbae86b2374269ce08bbb8ff6883885628ad856ab5"
+ },
+ "operating_point": {
+  "rule": "lowest threshold with FPR <= 5% on the benign calibration items \u2014 declared in PREREG.md, not corrected later",
+  "fpr_star": 0.05
+ },
+ "not_yet_done": [
+  "calibration",
+  "e3b_config.json",
+  "injection scoring",
+  "analysis"
+ ]
+}
