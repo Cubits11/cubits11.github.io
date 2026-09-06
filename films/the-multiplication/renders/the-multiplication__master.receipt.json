@@ -1,0 +1,70 @@
+{
+ "film": "the-multiplication",
+ "format": "master",
+ "title": "The multiplication",
+ "rendered_from_head": "24a53655629fedfc36ca4025ed9923359219b370",
+ "rendered_on": "2026-09-05",
+ "inputs": {
+  "film.html": "a36ace22ca015a41819da4bbd0eb305cf941ab1e7ec49d109c14fd53752616f0",
+  "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
+  "films/data/facts.json": "39eaa79d76f006253ca627cd370d8a5d44ef77da0b8fa32db2b533ab8d7b8a37"
+ },
+ "runtime": {
+  "chrome": "152.0.7977.82",
+  "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
+  "crf": 20
+ },
+ "fps": 30,
+ "frames": 421,
+ "duration_s": 14,
+ "width": 1920,
+ "height": 1080,
+ "frames_digest": "58d98ae7c6d25929845958e3569238b5bdaa2ad8b0749c974c611d72d083c965",
+ "determinism": {
+  "sampled_frames": 5,
+  "identical": true
+ },
+ "text_overflows": [],
+ "facts_used": [
+  "CC-001.independence_and",
+  "CC-001.marginals"
+ ],
+ "outputs": {
+  "master": "renders/the-multiplication__master.mp4",
+  "master_sha256": "7e5c0b316b694311f5fc8a35573ca7ea6cc56a8a97d7a561705f0455d843d3c0",
+  "master_bytes": 191028,
+  "master_duration_probe_s": 14.03,
+  "poster": "renders/the-multiplication__master.poster.png",
+  "poster_t": 8,
+  "stills": [
+   "renders/stills/master-open.jpg",
+   "renders/stills/master-q1.jpg",
+   "renders/stills/master-mid.jpg",
+   "renders/stills/master-q3.jpg",
+   "renders/stills/master-end.jpg"
+  ],
+  "claim_frames": [
+   {
+    "n": 1,
+    "t": 0.5,
+    "label": "rates and assumption before product",
+    "still": "renders/stills/master-claim-01.jpg"
+   },
+   {
+    "n": 2,
+    "t": 4.5,
+    "label": "derived product under explicit independence",
+    "still": "renders/stills/master-claim-02.jpg"
+   },
+   {
+    "n": 3,
+    "t": 10,
+    "label": "the assumption remains visible",
+    "still": "renders/stills/master-claim-03.jpg"
+   }
+  ],
+  "phone_previews": []
+ },
+ "render_seconds": 22.5
+}
