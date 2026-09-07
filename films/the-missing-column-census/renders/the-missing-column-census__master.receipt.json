@@ -2,13 +2,13 @@
  "film": "the-missing-column-census",
  "format": "master",
  "title": "The Missing Column, Counted",
- "rendered_from_head": "058d6f635ce32b0a491482112b25d2e5e5c55ce9",
- "rendered_on": "2026-09-06",
+ "rendered_from_head": "441f852cdf7ace5037658132ada891a9cafe44cb",
+ "rendered_on": "2026-09-07",
  "inputs": {
-  "film.html": "7a9e7b7f640baf137305d2356e33af1fbe57d3a92fbcd8308261a8c63e29e2c8",
+  "film.html": "44e668f7a6ee712ed149cd7c0cfd51b727a841f7baab9979d952f544e63b93ad",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "39eaa79d76f006253ca627cd370d8a5d44ef77da0b8fa32db2b533ab8d7b8a37"
+  "films/data/facts.json": "f0f05c6cd5618f0380ba739a4cd3f81ac8add3d346808cfb9a915229ad2c2ad6"
  },
  "runtime": {
   "chrome": "152.0.7977.82",
@@ -20,7 +20,7 @@
  "duration_s": 40,
  "width": 1920,
  "height": 1080,
- "frames_digest": "494babc24b0e0d2d38ae86af7a8dfefd529b352e1ae03c1c24e87054dc7d915e",
+ "frames_digest": "cbf981325fce435757c239f2875597b2d587c35127a33dd48809c69aae6077fa",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -48,8 +48,8 @@
  ],
  "outputs": {
   "master": "renders/the-missing-column-census__master.mp4",
-  "master_sha256": "dd256d68e813eb4d01b10672f302efa166ae3ab8c1df4c4c6b1114b08212a291",
-  "master_bytes": 1363820,
+  "master_sha256": "3cc1a9051123b1436a4db23dcc925a7e6c2474be23e284df12e5878e8d255743",
+  "master_bytes": 1365672,
   "master_duration_probe_s": 40.03,
   "poster": "renders/the-missing-column-census__master.poster.png",
   "poster_t": 23.5,
@@ -76,11 +76,11 @@
    {
     "n": 3,
     "t": 34,
-    "label": "the edge of the search: 20 examined, 9 excluded, 15 unexamined",
+    "label": "the edge of the search: undefined examined, undefined excluded, undefined unexamined",
     "still": "renders/stills/master-claim-03.jpg"
    }
   ],
   "phone_previews": []
  },
- "render_seconds": 48.2
+ "render_seconds": 65.3
 }

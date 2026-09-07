@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-09-01"
+last_owner_review: "2026-09-07"
 
 claims:
   - id: CC-001
@@ -490,13 +490,13 @@ claims:
         shared_basis: 14
         threshold_not_contradicted: 12
         threshold_documented_full_exposure: 0
-    last_reviewed: "2026-09-01"
+    last_reviewed: "2026-09-07"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "625530cf6be634c31519b3715b09f1fa856c9900b692e2b8acc67fde05545678"
+        sha256: "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598"
         note: >-
           fires when the census changes without a claim re-review;
           re-reviewed 2026-09-01 after declaring the

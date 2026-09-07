@@ -63,7 +63,7 @@ evidence:
   - {fact: MC-001.K.releases_computable_items, kind: DERIVED, value: 2}
   - {fact: MC-001.K.does_both, kind: DERIVED, value: 1}
   - {fact: MC-001.excluded, kind: DERIVED, value: 9}
-  - {fact: MC-001.unexamined, kind: DERIVED, value: 15}
+  - {fact: MC-001.unexamined, kind: DERIVED, value: 24}
   - {fact: MC-001.frozen_as_of, kind: REGISTRY, value: "2026-08-27"}
   - {fact: MC-001.criteria_version, kind: REGISTRY, value: 1}
   - {fact: MC-001.adjudication_mode, kind: REGISTRY, value: single_primary_reviewer}
@@ -89,7 +89,7 @@ objects:
   - object: the sensitivity envelope 19/13/4
     status: REGISTRY
     note: a declared alternative reading, shown only beside the word sensitivity and never bare
-  - object: the edge-of-search panel — 20 / 9 / 15
+  - object: the edge-of-search panel — 20 / 9 / 24
     status: DERIVED
     note: examined, exclusions, unexamined candidates in census.yaml
 evidence_commits:
@@ -107,7 +107,7 @@ non_claims:
   - does not claim any evaluated guardrail or stack performs poorly; an unfilled column is a reporting fact, not a performance finding
   - does not claim the unmeasured joint statistics would reveal dependence
   - does not audit the quality of any per-system evaluation; the per-system dashes carry no scores
-  - does not claim exhaustive coverage beyond the examined set; the 15 unexamined candidates are unknown, not absent
+  - does not claim exhaustive coverage beyond the examined set; the 24 unexamined candidates are unknown, not absent
   - the sensitivity envelope is never a bare replacement for 20/14/5
 claim_frames:
   - t: 11.5
@@ -115,7 +115,7 @@ claim_frames:
   - t: 23.5
     shows: the ladder tallied 14 / 12 / 0 with the sentence "0 of 20 document matched operating thresholds with full exposure"
   - t: 34.0
-    shows: the edge-of-search panel — 20 examined, 9 excluded, 15 unexamined
+    shows: the edge-of-search panel — 20 examined, 9 excluded, 24 unexamined
 render:
   fps: 30
   formats: [master, vertical]

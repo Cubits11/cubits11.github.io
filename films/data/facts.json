@@ -1,8 +1,8 @@
 {
  "_generated_by": "scripts/films/bind_facts.py — DO NOT EDIT; regenerate and re-inspect the films",
  "_inputs": {
-  "census.yaml": "625530cf6be634c31519b3715b09f1fa856c9900b692e2b8acc67fde05545678",
-  "claims.yaml": "05ac7139ad8bf446556d4e844c4b3b0a9f2a38dfabc7e9383433b1fd685902fb"
+  "census.yaml": "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598",
+  "claims.yaml": "6f222f7ccf7652050b31faa19530be00fd51960d3fb388e234d736dd551415b6"
  },
  "_kinds": [
   "OBSERVED",
@@ -587,7 +587,7 @@
    "claim": "MC-001",
    "kind": "DERIVED",
    "source": "compute_counts: len(unexamined_candidates)",
-   "value": 15
+   "value": 24
   },
   "MC-002.all_miss": {
    "claim": "MC-002",
@@ -1154,10 +1154,10 @@
     {
      "evidential_status": "supported_within_scope",
      "id": "MC-001",
-     "last_reviewed": "2026-09-01",
+     "last_reviewed": "2026-09-07",
      "maturity": "experimental",
      "provenance": "owner_authored",
-     "review_due": "2026-10-31",
+     "review_due": "2026-11-06",
      "review_window_days": 60
     },
     {
@@ -1246,7 +1246,7 @@
   "REGISTRY.last_owner_review": {
    "kind": "REGISTRY",
    "source": "claims.yaml:last_owner_review",
-   "value": "2026-09-01"
+   "value": "2026-09-07"
   },
   "REGISTRY.version": {
    "kind": "REGISTRY",
