@@ -3893,7 +3893,7 @@
  ],
  "generated_from": {
   "branch": "main",
-  "head": "eae5f6e"
+  "head": "9777b0a"
  },
  "nodes": [
   {
@@ -4571,7 +4571,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "eae5f6e",
+   "head": "9777b0a",
    "id": "main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4580,7 +4580,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "eae5f6e",
+   "head": "9777b0a",
    "id": "origin",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4589,7 +4589,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "eae5f6e",
+   "head": "9777b0a",
    "id": "origin/main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
