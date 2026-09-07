@@ -3584,13 +3584,6 @@
    "from": "experiments/e2",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e2/freeze/sources.json"
-  },
-  {
-   "basis": "GIT",
-   "from": "experiments/e2",
-   "inferred": false,
-   "rel": "governed_by",
    "to": "experiments/e2/freeze/FREEZE.md"
   },
   {
@@ -3598,7 +3591,21 @@
    "from": "experiments/e2",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e2/freeze/items_harmful.csv"
+   "to": "experiments/e2/freeze/PREREG_SELECTION.md"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e2/freeze/check_freeze.py"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e2/freeze/dedup_clusters.csv"
   },
   {
    "basis": "GIT",
@@ -3619,6 +3626,13 @@
    "from": "experiments/e2",
    "inferred": false,
    "rel": "governed_by",
+   "to": "experiments/e2/freeze/items_harmful.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
    "to": "experiments/e2/freeze/msbench_item_ids.json"
   },
   {
@@ -3626,21 +3640,7 @@
    "from": "experiments/e2",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e2/freeze/dedup_clusters.csv"
-  },
-  {
-   "basis": "GIT",
-   "from": "experiments/e2",
-   "inferred": false,
-   "rel": "governed_by",
-   "to": "experiments/e2/freeze/PREREG_SELECTION.md"
-  },
-  {
-   "basis": "GIT",
-   "from": "experiments/e2",
-   "inferred": false,
-   "rel": "governed_by",
-   "to": "experiments/e2/freeze/check_freeze.py"
+   "to": "experiments/e2/freeze/sources.json"
   },
   {
    "basis": "GIT",
@@ -3654,7 +3654,7 @@
    "from": "experiments/e3",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e3/freeze/sources.json"
+   "to": "experiments/e3/e3_config.json"
   },
   {
    "basis": "GIT",
@@ -3668,7 +3668,7 @@
    "from": "experiments/e3",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e3/freeze/items_harmful.csv"
+   "to": "experiments/e3/freeze/LICENSE-OUTPUTS.md"
   },
   {
    "basis": "GIT",
@@ -3682,14 +3682,14 @@
    "from": "experiments/e3",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e3/freeze/LICENSE-OUTPUTS.md"
+   "to": "experiments/e3/freeze/items_benign_evaluation.csv"
   },
   {
    "basis": "GIT",
    "from": "experiments/e3",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e3/freeze/items_benign_evaluation.csv"
+   "to": "experiments/e3/freeze/items_harmful.csv"
   },
   {
    "basis": "GIT",
@@ -3710,7 +3710,7 @@
    "from": "experiments/e3",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e3/e3_config.json"
+   "to": "experiments/e3/freeze/sources.json"
   },
   {
    "basis": "GIT",
@@ -3724,14 +3724,14 @@
    "from": "experiments/e3b",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e3b/freeze/sources.json"
+   "to": "experiments/e3b/e3b_config.json"
   },
   {
    "basis": "GIT",
    "from": "experiments/e3b",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e3b/freeze/items_harmful.csv"
+   "to": "experiments/e3b/freeze/gandalf.csv"
   },
   {
    "basis": "GIT",
@@ -3752,7 +3752,7 @@
    "from": "experiments/e3b",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e3b/freeze/gandalf.csv"
+   "to": "experiments/e3b/freeze/items_harmful.csv"
   },
   {
    "basis": "GIT",
@@ -3766,7 +3766,7 @@
    "from": "experiments/e3b",
    "inferred": false,
    "rel": "governed_by",
-   "to": "experiments/e3b/e3b_config.json"
+   "to": "experiments/e3b/freeze/sources.json"
   },
   {
    "basis": "REGISTRY",
@@ -3821,8 +3821,8 @@
    "detector": "D7",
    "note": "each freeze is self-contained by design; the duplication is the price of that and is recorded, not removed",
    "paths": [
-    "experiments/e3b/freeze/or-bench-80k.csv",
-    "experiments/e3/freeze/or-bench-80k.csv"
+    "experiments/e3/freeze/or-bench-80k.csv",
+    "experiments/e3b/freeze/or-bench-80k.csv"
    ],
    "severity": "RECORD",
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
@@ -3836,7 +3836,7 @@
  ],
  "generated_from": {
   "branch": "main",
-  "head": "4b93013"
+  "head": "fff9cdc"
  },
  "nodes": [
   {
@@ -4507,7 +4507,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "4b93013",
+   "head": "fff9cdc",
    "id": "main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4516,7 +4516,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "4b93013",
+   "head": "fff9cdc",
    "id": "origin",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4525,7 +4525,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "4b93013",
+   "head": "fff9cdc",
    "id": "origin/main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4541,5 +4541,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "f241783643c88c3c698075ff934c4acbbb6226f48eef40baeb7fdc047acc44e5"
+ "stable_digest": "b7a06ed84fc3f0ef8c0c0329238b2f13e8126c84c4790051c1a1b25a41dd0694"
 }

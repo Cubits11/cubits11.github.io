@@ -130,17 +130,17 @@ def experiment_nodes() -> tuple[list, list, list]:
         docs = {n: (exp / n).exists() for n in ("PREREG.md", "RESULT.md", "freeze/FREEZE.md")}
         stops = sorted(p.name for p in exp.glob("STOP-*.md"))
         rows = 0
-        for r in exp.glob("results/**/*.jsonl"):
+        for r in sorted(exp.glob("results/**/*.jsonl")):
             rows += sum(1 for _ in r.open())
         # D5: any commit to governing files after the first results commit?
-        result_files = [p for p in exp.glob("results/**/*") if p.is_file()]
+        result_files = sorted(p for p in exp.glob("results/**/*") if p.is_file())
         first_result = None
         for p in result_files:
             d = git("log", "--diff-filter=A", "--format=%ct", "--", p.relative_to(ROOT).as_posix()).splitlines()
             if d:
                 t = int(d[-1])
                 first_result = t if first_result is None else min(first_result, t)
-        governed = [p for pat in ("PREREG.md", "freeze/*", "*_config.json") for p in exp.glob(pat) if p.is_file()]
+        governed = sorted(p for pat in ("PREREG.md", "freeze/*", "*_config.json") for p in exp.glob(pat) if p.is_file())
         post = []
         if first_result:
             for p in governed:
@@ -169,9 +169,9 @@ def experiment_nodes() -> tuple[list, list, list]:
             edges.append({"from": rel, "to": p.relative_to(ROOT).as_posix(), "rel": "governed_by", "basis": "GIT", "inferred": False})
     # D7: duplicate freeze files
     seen: dict[str, list[str]] = {}
-    for p in ROOT.glob("experiments/*/freeze/*.csv"):
+    for p in sorted(ROOT.glob("experiments/*/freeze/*.csv")):
         seen.setdefault(sha(p), []).append(p.relative_to(ROOT).as_posix())
-    for digest, paths in seen.items():
+    for digest, paths in sorted(seen.items()):
         if len(paths) > 1:
             findings.append({"detector": "D7", "severity": "RECORD", "sha256": digest, "paths": paths,
                              "bytes": (ROOT / paths[0]).stat().st_size,
@@ -285,6 +285,10 @@ def stable(graph: dict) -> dict:
     for n in g["nodes"]:
         n.pop("days_left", None)
     g["findings"] = [f for f in g["findings"] if f["detector"] not in ("D3", "D4", "D2")]
+    canon = lambda x: json.dumps(x, sort_keys=True, default=str)
+    g["nodes"] = sorted(g["nodes"], key=lambda n: n["id"])
+    g["edges"] = sorted(g["edges"], key=canon)
+    g["findings"] = sorted(g["findings"], key=canon)
     return g
 
 
@@ -314,6 +318,8 @@ def graph_delta(a: dict, b: dict, limit: int = 40) -> list:
     for k in sorted(set(a) | set(b)):
         if k not in ("nodes", "edges", "findings") and a.get(k) != b.get(k):
             out.append(f"field {k}: {json.dumps(a.get(k), default=str)[:80]} -> {json.dumps(b.get(k), default=str)[:80]}")
+    if not out:
+        out.append("no content difference — the graphs differ only in list order (a generator glob is unsorted)")
     return out[:limit] + ([f"… {len(out) - limit} more"] if len(out) > limit else [])
 
 

@@ -1,8 +1,8 @@
 {
- "grown_at": "2026-09-07T14:33:42-04:00",
+ "grown_at": "2026-09-07T14:55:35-04:00",
  "graph": "docs/graph/repo-graph.json",
- "graph_sha256": "fb843c9bc1590dce7fedeaa78c82f972760c7dbb454abbef5917ad2f93cff2b3",
- "graph_stable_digest": "f241783643c88c3c698075ff934c4acbbb6226f48eef40baeb7fdc047acc44e5",
+ "graph_sha256": "02a711b57a1c7b2c64d7f4565119dd2e62a7de1cb6210d2558e8c93182bcaff7",
+ "graph_stable_digest": "b7a06ed84fc3f0ef8c0c0329238b2f13e8126c84c4790051c1a1b25a41dd0694",
  "blender": "Blender 5.1.2",
  "objects": {
   "cyl": 1,
@@ -12,7 +12,7 @@
   "torus": 1,
   "cube": 30
  },
- "render_sha256": "3b16117cbf4bb821f724fa946797ba733441b4a4df5066053d6c96dc33c87338",
+ "render_sha256": "c949d354dacb5aa6695209fdae40c1dc2e7cef4124e95ba17f5e3050c4b99029",
  "mapping": "see module docstring; every placement is a function of a graph field",
  "non_claims": [
   "a picture of the repository's metadata, not a measurement of anything in the world",
