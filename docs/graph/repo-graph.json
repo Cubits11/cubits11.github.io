@@ -3885,13 +3885,6 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 1,
-   "behind": 0,
-   "branch": "main",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
@@ -3900,7 +3893,7 @@
  ],
  "generated_from": {
   "branch": "main",
-  "head": "0aad901"
+  "head": "5a30e8e"
  },
  "nodes": [
   {
@@ -4576,18 +4569,18 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 1,
+   "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "0aad901",
+   "head": "5a30e8e",
    "id": "main",
    "last_commit": "2026-09-07",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "58344da",
+   "head": "5a30e8e",
    "id": "origin",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4596,7 +4589,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "58344da",
+   "head": "5a30e8e",
    "id": "origin/main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
