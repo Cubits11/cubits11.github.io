@@ -838,7 +838,7 @@ reconstruction:
     carrying the commit date, and a coherent transition type is declared here
   evidence_class: repository-internal (git objects, git dates, dated prose entries); no out-of-repository
     witness is asserted
-  preexisting_transition_count: 40
+  preexisting_transition_count: 41
   strict_scar_eligible_count: 9
   qualifying_transition_locators:
   - CC-001@cf57f2c7baf4:2026-08-20:CLARIFY
