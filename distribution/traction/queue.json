@@ -197,7 +197,13 @@
       ],
       "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
       "revision": "db08983abbbb70c0a7185c1bf7b9404c104abb8054364b91fed4e72021b5eccd",
-      "approval": null
+      "approval": {
+        "draft_id": "try-b",
+        "draft_revision": "db08983abbbb70c0a7185c1bf7b9404c104abb8054364b91fed4e72021b5eccd",
+        "basis": "owner approval of 2026-09-07 carried to the re-pinned revision; post text digest identical to the approved digest (sources moved only by the CC-006 re-bind)",
+        "approved_at": "2026-09-07T22:39:55Z",
+        "posts_sha256": "42530355bf04ae4793080176d0490449d266889502c0c41feaa8d91e070126eb"
+      }
     },
     {
       "id": "try-c",
@@ -292,7 +298,13 @@
       ],
       "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
       "revision": "6f5cbec4bc5c0af1d98406b1598b82d4b63172eecfbdd116207b1afb18fd34de",
-      "approval": null
+      "approval": {
+        "draft_id": "try-c",
+        "draft_revision": "6f5cbec4bc5c0af1d98406b1598b82d4b63172eecfbdd116207b1afb18fd34de",
+        "basis": "owner approval of 2026-09-07 carried to the re-pinned revision; post text digest identical to the approved digest (sources moved only by the CC-006 re-bind)",
+        "approved_at": "2026-09-07T22:40:11Z",
+        "posts_sha256": "fbf6deeb03657fa946f65396895cdf7ad58d9dcfbd9bee7427e603d34dc316e2"
+      }
     }
   ]
 }
