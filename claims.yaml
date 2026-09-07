@@ -320,6 +320,8 @@ claims:
     scope: >
       The dry-run finding document at the bound commit. Synthetic toy
       mechanisms only; not deployed guardrails, not a real population, not E2.
+      Operating points were not matched. The added 2000-permutation analysis
+      is exploratory and does not replace the frozen single-draw control.
     dimensions:
       visibility: public
       provenance: owner_authored
@@ -327,20 +329,22 @@ claims:
       evidential_status: supported_within_scope
       maturity: in_development
     support:
-      url: "https://github.com/Cubits11/cc-framework/blob/327f0684f49768531594d593902ed8907fc717af/docs/research/E2_DRYRUN_FINDING.md"
-      commit: "327f0684f49768531594d593902ed8907fc717af"
+      url: "https://github.com/Cubits11/cc-framework/blob/e372a5b50c68b98a56f8f5c5a87a6d1ca8fca992/docs/research/E2_DRYRUN_FINDING.md"
+      commit: "e372a5b50c68b98a56f8f5c5a87a6d1ca8fca992"
       note: >
         The finding is backed by the committed harness, frozen corpus, and a
         reference observation set under experiments/e2_dryrun/, guarded by
         tests/unit/research/test_e2_dryrun.py in the same repository.
-    last_reviewed: "2026-08-24"
+        Re-reviewed after the default-branch content trigger fired on 2026-09-07;
+        the finding retains its HOLD and UNTESTED boundaries.
+    last_reviewed: "2026-09-07"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
         enforcement: executable
         repo: Cubits11/cc-framework
         path: docs/research/E2_DRYRUN_FINDING.md
-        bound_ref: "327f0684f49768531594d593902ed8907fc717af"
+        bound_ref: "e372a5b50c68b98a56f8f5c5a87a6d1ca8fca992"
         note: fires when the dry-run finding on the default branch changes
       - type: manual
         enforcement: manual

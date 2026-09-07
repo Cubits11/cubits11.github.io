@@ -2,7 +2,7 @@
  "_generated_by": "scripts/films/bind_facts.py — DO NOT EDIT; regenerate and re-inspect the films",
  "_inputs": {
   "census.yaml": "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598",
-  "claims.yaml": "6f222f7ccf7652050b31faa19530be00fd51960d3fb388e234d736dd551415b6"
+  "claims.yaml": "3b597a200639e0c9781c59ac5b6bb6c1257cd1ec389ecfe3638bf21f52ab6357"
  },
  "_kinds": [
   "OBSERVED",
@@ -1136,10 +1136,10 @@
     {
      "evidential_status": "supported_within_scope",
      "id": "CC-006",
-     "last_reviewed": "2026-08-24",
+     "last_reviewed": "2026-09-07",
      "maturity": "in_development",
      "provenance": "owner_authored",
-     "review_due": "2026-12-22",
+     "review_due": "2027-01-05",
      "review_window_days": 120
     },
     {

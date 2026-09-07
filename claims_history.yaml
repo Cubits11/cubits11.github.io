@@ -1728,3 +1728,49 @@ entries:
         '11110': 0
         '11111': 9
   digest: 0eaaad1d2a45d4f38b0323414e1743d693e622294391b7d2504cd880e90821a1
+- kind: transition
+  claim_id: CC-006
+  from_digest: 9d0678e5946781f508e44d23b4db24288287bc94d17526ef2d738f979d230259
+  to_digest: 9090d06c8c9d82199f397175076ed3b5d23f29c0f26cd9fba9f521bdb9c9d3a2
+  transition_type: CLARIFY
+  event_at: '2026-09-07'
+  recorded_at: '2026-09-07'
+  provenance_class: CONTEMPORANEOUS
+  direction_basis: NOT_MACHINE_DECIDABLE
+  evidence_refs:
+  - https://github.com/Cubits11/cc-framework/blob/e372a5b50c68b98a56f8f5c5a87a6d1ca8fca992/docs/research/E2_DRYRUN_FINDING.md
+  reason: 'Re-review after the bound CC dry-run finding changed: state the unmatched operating points
+    and exploratory status of the additional permutation analysis. HOLD and E2 UNTESTED remain unchanged.'
+  previous_transition_digest: 0eaaad1d2a45d4f38b0323414e1743d693e622294391b7d2504cd880e90821a1
+  to_commitment:
+    proposition: 'CC-Framework''s E2 measurement pipeline was rehearsed end to end on three synthetic
+      guardrail mechanisms: 66 observation rows conform to the frozen E2 schema with zero validator violations,
+      the pre-registered negative controls behave (the common-cause control attains pA(1-pA) to 1e-9),
+      and the finding records the result as a null at n=22 with a quantified cost for real E2 (~1097 shared
+      items for epsilon=0.05). E2 itself is not run.
+
+      '
+    scope: 'The dry-run finding document at the bound commit. Synthetic toy mechanisms only; not deployed
+      guardrails, not a real population, not E2. Operating points were not matched. The added 2000-permutation
+      analysis is exploratory and does not replace the frozen single-draw control.
+
+      '
+    falsifier:
+      condition: 'Replaying the bound dry-run artifacts fails to reproduce the stated 66 conforming rows,
+        zero validator violations, negative-control behavior, or the recorded n=22 null and cost calculation,
+        or shows that a real E2 run was represented as the synthetic rehearsal.
+
+        '
+      consequence: REJECT
+    forbidden_rescues:
+    - do not substitute a repaired corpus, changed mechanism, or updated harness for the bound dry run
+    - do not report a partial replay or a result under changed criteria as confirmation of the original
+      rehearsal
+    non_claims:
+    - this is not E2 and does not move E2 off untested; the mechanisms are toy filters in the repository,
+      not deployed guardrails
+    - the observed dependence is a null at this scale, not evidence of independence or of any real-guardrail
+      dependence
+    - validating the instrument establishes nothing about the safety, representativeness, or deployment
+      behavior of any real system
+  digest: 40d1ba4ae1f4492ecb4fc85335124ba6de81435e4959dc4c5decdf2b02b9d3ae
