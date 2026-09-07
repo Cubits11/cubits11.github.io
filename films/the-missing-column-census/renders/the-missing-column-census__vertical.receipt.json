@@ -2,13 +2,13 @@
  "film": "the-missing-column-census",
  "format": "vertical",
  "title": "The Missing Column, Counted",
- "rendered_from_head": "441f852cdf7ace5037658132ada891a9cafe44cb",
+ "rendered_from_head": "6a9ecfb7f215bd9647aca17bb91bfdbbf677ce3f",
  "rendered_on": "2026-09-07",
  "inputs": {
   "film.html": "44e668f7a6ee712ed149cd7c0cfd51b727a841f7baab9979d952f544e63b93ad",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "f0f05c6cd5618f0380ba739a4cd3f81ac8add3d346808cfb9a915229ad2c2ad6"
+  "films/data/facts.json": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
  },
  "runtime": {
   "chrome": "152.0.7977.82",
@@ -82,5 +82,5 @@
   ],
   "phone_previews": []
  },
- "render_seconds": 64.2
+ "render_seconds": 613.9
 }

@@ -20,9 +20,9 @@
     "sources": [
       {
         "path": "claims.yaml",
-        "sha256": "6f222f7ccf7652050b31faa19530be00fd51960d3fb388e234d736dd551415b6",
-        "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/claims.yaml",
+        "sha256": "3b597a200639e0c9781c59ac5b6bb6c1257cd1ec389ecfe3638bf21f52ab6357",
+        "commit": "b6a30b64a9b9019cb9d8b6f4df94898924f75019",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/b6a30b64a9b9019cb9d8b6f4df94898924f75019/claims.yaml",
         "binding": "committed"
       },
       {
@@ -87,7 +87,7 @@
       "no automated replies"
     ],
     "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-    "revision": "8318df5ab8fdfcfd87dc94649ee392c1de9e7daa75955080cae74b09398c8dfc"
+    "revision": "9aa0ff688cf7a3fb4acbde1c13e7d7ec55074c59897d5dca43cee55fcbc4b4c5"
   },
   {
     "id": "try-b",
@@ -111,9 +111,9 @@
     "sources": [
       {
         "path": "claims.yaml",
-        "sha256": "6f222f7ccf7652050b31faa19530be00fd51960d3fb388e234d736dd551415b6",
-        "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/claims.yaml",
+        "sha256": "3b597a200639e0c9781c59ac5b6bb6c1257cd1ec389ecfe3638bf21f52ab6357",
+        "commit": "b6a30b64a9b9019cb9d8b6f4df94898924f75019",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/b6a30b64a9b9019cb9d8b6f4df94898924f75019/claims.yaml",
         "binding": "committed"
       },
       {
@@ -186,7 +186,7 @@
       "no automated replies"
     ],
     "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-    "revision": "9b078ae966034559f10a4c94e8c213b1396b46b9d651c33f5881efb38653470a"
+    "revision": "db08983abbbb70c0a7185c1bf7b9404c104abb8054364b91fed4e72021b5eccd"
   },
   {
     "id": "try-c",
@@ -206,9 +206,9 @@
     "sources": [
       {
         "path": "claims.yaml",
-        "sha256": "6f222f7ccf7652050b31faa19530be00fd51960d3fb388e234d736dd551415b6",
-        "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/claims.yaml",
+        "sha256": "3b597a200639e0c9781c59ac5b6bb6c1257cd1ec389ecfe3638bf21f52ab6357",
+        "commit": "b6a30b64a9b9019cb9d8b6f4df94898924f75019",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/b6a30b64a9b9019cb9d8b6f4df94898924f75019/claims.yaml",
         "binding": "committed"
       },
       {
@@ -280,6 +280,6 @@
       "no automated replies"
     ],
     "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-    "revision": "292ab24520355c5a550312202c369b9b2679a2e607d61046a70b1c50745668d6"
+    "revision": "6f5cbec4bc5c0af1d98406b1598b82d4b63172eecfbdd116207b1afb18fd34de"
   }
 ]

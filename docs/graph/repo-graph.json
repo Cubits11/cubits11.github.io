@@ -3828,6 +3828,13 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
+   "ahead": 3,
+   "behind": 0,
+   "branch": "release/verified-pages-2026-09-07",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
@@ -3835,8 +3842,8 @@
   }
  ],
  "generated_from": {
-  "branch": "main",
-  "head": "a271e36"
+  "branch": "release/verified-pages-2026-09-07",
+  "head": "3204b85"
  },
  "nodes": [
   {
@@ -4360,11 +4367,11 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 106,
+   "days_left": 120,
    "id": "CC-006",
-   "last_reviewed": "2026-08-24",
-   "review_due": "2026-12-22",
-   "support_url": "https://github.com/Cubits11/cc-framework/blob/327f0684f49768531594d593902ed8907fc717af/docs/research/E2_DRYRUN_FINDING.md",
+   "last_reviewed": "2026-09-07",
+   "review_due": "2027-01-05",
+   "support_url": "https://github.com/Cubits11/cc-framework/blob/e372a5b50c68b98a56f8f5c5a87a6d1ca8fca992/docs/research/E2_DRYRUN_FINDING.md",
    "type": "claim"
   },
   {
@@ -4506,7 +4513,16 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
+   "behind_origin_main": 107,
+   "head": "044914a",
+   "id": "codex/epistemic-prompts",
+   "last_commit": "2026-08-31",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 1,
    "head": "a271e36",
    "id": "main",
    "last_commit": "2026-09-07",
@@ -4514,9 +4530,18 @@
    "type": "branch"
   },
   {
+   "ahead_of_origin_main": 3,
+   "behind_origin_main": 0,
+   "head": "3204b85",
+   "id": "release/verified-pages-2026-09-07",
+   "last_commit": "2026-09-07",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "a271e36",
+   "head": "6c15d43",
    "id": "origin",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4525,7 +4550,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "a271e36",
+   "head": "6c15d43",
    "id": "origin/main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4541,5 +4566,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "b7a06ed84fc3f0ef8c0c0329238b2f13e8126c84c4790051c1a1b25a41dd0694"
+ "stable_digest": "fe0acad1003920f1efa06a79ab58b29d693f2f1402bcab9db7ff3fe94a4a1a9e"
 }
