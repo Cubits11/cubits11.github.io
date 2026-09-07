@@ -490,6 +490,11 @@ def main():
             validate_metrics(new, records('publications.json'))
         (ROOT / BASE / (a.kind + '.json')).write_text(json.dumps(new, indent=2) + '\n')
     data = build()
+    pending = sorted({e['source']['path'] for e in data['events.json'] if e['source']['binding'] != 'committed'})
+    if pending and not a.check:
+        # A bundle generated from an uncommitted source binds to nothing a clean
+        # clone can see; every fresh checkout would then report drift.
+        raise ValueError('Sources await commit — commit them, then regenerate: ' + ', '.join(pending))
     if not a.check and a.stage not in ('verify', 'orient'):
         history = records('draft-history.json')
         for post in data['drafts.json']:

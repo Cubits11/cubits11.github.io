@@ -66,14 +66,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "4d9e710531db445e",
+    "id": "39f311bfe9a231fb",
     "kind": "visualization",
     "source": {
       "path": "docs/graph/organism.receipt.json",
       "sha256": "af78c0f8314d5e04484d1481b23e75edb10c13188060ccd291f9e3b86b9c1a0f",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "4b930130165a33e47bb4639d1619115e2effae53",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/4b930130165a33e47bb4639d1619115e2effae53/docs/graph/organism.receipt.json",
+      "binding": "committed"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
