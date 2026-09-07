@@ -3893,7 +3893,7 @@
  ],
  "generated_from": {
   "branch": "main",
-  "head": "1582064"
+  "head": "eae5f6e"
  },
  "nodes": [
   {
@@ -4571,7 +4571,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "1582064",
+   "head": "eae5f6e",
    "id": "main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4580,7 +4580,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "1582064",
+   "head": "eae5f6e",
    "id": "origin",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4589,7 +4589,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "1582064",
+   "head": "eae5f6e",
    "id": "origin/main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4598,12 +4598,12 @@
   {
    "id": "distribution/traction",
    "metric_snapshots": 0,
-   "published": 2,
+   "published": 3,
    "queued": 3,
    "state": "owner_review_only",
    "type": "distribution"
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "49ea4b88cee917b4ac4ad8d5c0219a8c070adc05a74ca1af806ba1d21536ae7d"
+ "stable_digest": "309fc44a19ab387d4de101f36644beb717657c3264132333a2df1cc2bcfb51ff"
 }
