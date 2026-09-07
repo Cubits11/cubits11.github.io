@@ -49,3 +49,28 @@ then subject to the same validators as an imported receipt. `snapshot` reads
 public, organic and non-public metrics for the root post and records them at
 the current time; capture at 24, 72 and 168 hours as before. `engagements`
 and `follows` stay null: the v2 endpoint does not supply them per post.
+
+## Unattended cycle
+
+```
+python3 scripts/distribute.py due                      # which (post, window) snapshots are open now
+python3 scripts/distribute.py replies --post-id <root>  # harvest the conversation as interaction rows (ids and digests only)
+python3 scripts/distribute.py cycle                     # every due snapshot + every conversation, one pass
+```
+
+`cycle` is the one command a scheduler calls with the four credentials in its
+environment. A crontab line that covers the 24, 72 and 168-hour windows with
+their six-hour tolerance:
+
+```
+0 */4 * * *  cd /path/to/cubits11.github.io && python3 scripts/distribute.py cycle && git add distribution docs && git commit -qm "distribution: unattended cycle" && git push -q origin main
+```
+
+`interactions.json` holds reply ids, timestamps, author ids and a content
+digest, never another person's text. `classification` starts null; only the
+owner classifies a row as technical, and only an owner-classified technical
+row may be counted toward the stop rule in `outcomes.yaml`. Nothing replies,
+follows, likes, or quotes: the harvester reads.
+
+`deviations.json` records where the owner departed from the stated design,
+with the consequence for what the data can then say.

@@ -415,6 +415,74 @@ def snapshot(post_id):
     return row
 
 
+WINDOWS = (24, 72, 168)   # hours; six-hour tolerance, as learn() selects
+
+
+def due_windows(publications, snapshots, now=None):
+    """Which (post_id, window) pairs are inside their capture tolerance and not yet captured."""
+    now = now or dt.datetime.now(dt.timezone.utc)
+    have = set()
+    for row in snapshots:
+        pub = next((p for p in publications if p['post_id'] == row['post_id']), None)
+        if pub is None:
+            continue
+        age = (stamp(row['observed_at']) - stamp(pub['published_at'])).total_seconds() / 3600
+        w = next((h for h in WINDOWS if h <= age < h + 6), None)
+        if w:
+            have.add((row['post_id'], w))
+    due = []
+    for pub in publications:
+        age = (now - stamp(pub['published_at'])).total_seconds() / 3600
+        for w in WINDOWS:
+            if w <= age < w + 6 and (pub['post_id'], w) not in have:
+                due.append({'post_id': pub['post_id'], 'window_h': w, 'age_h': round(age, 2)})
+    return due
+
+
+def replies(post_id):
+    """Harvest the conversation under a recorded root post as an interaction ledger.
+
+    Records ids, timestamps, author ids and a content digest — never the text of
+    another person's reply. Classification (technical / other) is an owner act;
+    the row carries `classification: null` until then, and only an owner-classified
+    technical row may later be counted toward the stop rule in outcomes.yaml.
+    """
+    creds = credentials()
+    pubs = {p['post_id']: p for p in records('publications.json')}
+    if post_id not in pubs:
+        raise ValueError('Unknown post; replies attach only to recorded publications')
+    own = set(pubs[post_id].get('thread_post_ids', [post_id]))
+    me = x_request('GET', '/users/me', creds)['data']['id']
+    data = x_request('GET', '/tweets/search/recent', creds,
+                     query={'query': f'conversation_id:{post_id}', 'max_results': 100,
+                            'tweet.fields': 'author_id,created_at,in_reply_to_user_id,referenced_tweets'}).get('data', [])
+    old = records('interactions.json')
+    seen = {r['reply_id'] for r in old}
+    new = []
+    for t in data:
+        if t['id'] in own or t['id'] in seen or t.get('author_id') == me:
+            continue
+        new.append({'reply_id': t['id'], 'root_post_id': post_id, 'author_id': t['author_id'],
+                    'created_at': t['created_at'], 'content_sha256': hashlib.sha256(t['text'].encode()).hexdigest(),
+                    'source': f'https://x.com/i/status/{t["id"]}', 'observed_at': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z'),
+                    'classification': None, 'note': 'owner classifies; text is not stored'})
+    (ROOT / BASE / 'interactions.json').write_text(json.dumps(old + new, indent=2) + '\n')
+    print(f'{len(new)} new interaction(s) recorded under {post_id}; {len(old) + len(new)} total, '
+          f'{sum(1 for r in old + new if r["classification"] is None)} unclassified')
+    return new
+
+
+def cycle():
+    """One unattended pass: capture every due snapshot, harvest replies for every recorded post."""
+    pubs = records('publications.json')
+    due = due_windows(pubs, records('metrics.json'))
+    for d in due:
+        snapshot(d['post_id'])
+    for p in pubs:
+        replies(p['post_id'])
+    print(f'cycle: {len(due)} snapshot(s) captured, {len(pubs)} conversation(s) harvested')
+
+
 def build():
     posts = draft()
     verify(posts)
@@ -429,7 +497,12 @@ def build():
                            'required_before_dispatch': ['full verification_manifest exit 0 at dispatch revision', 'owner content approval recorded in approvals.json for the exact revision', 'platform credentials in the environment', 'film cold test if attaching media'],
                            'items': [{**p, 'approval': approval_for(p)} for p in posts if not any(r['draft_revision'] == p['revision'] for r in pubs)]},
             'dashboard.json': report,
-            'experiments.json': {'roles': ROLES, 'factors': list(DIMS), 'status': 'proposed_no_observations',
+            'experiments.json': {'roles': ROLES, 'factors': list(DIMS),
+                                 'status': 'proposed_no_observations' if not pubs else f'{len(pubs)} publication(s); baseline pending until a 24-hour snapshot exists',
+                                 'deviations': records('deviations.json'),
+                                 'interactions': {'recorded': len(records('interactions.json')),
+                                                  'unclassified': sum(1 for r in records('interactions.json') if r['classification'] is None),
+                                                  'rule': 'owner-classified technical interactions may enter outcomes.yaml; nothing here counts automatically'},
                                  'primary': 'verified independent reproduction or correction',
                                  'secondary': '24-hour link CTR', 'design': 'Sequential pilot; vary hook only after baseline; no causal effect claim',
                                  'stop_rule': read('distribution/outcomes.yaml')['stop_rule']}}
@@ -444,7 +517,7 @@ def dashboard(data):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('stage', choices=['run', 'orient', 'extract', 'draft', 'verify', 'queue', 'ingest', 'learn', 'approve', 'publish', 'snapshot'], nargs='?', default='run')
+    ap.add_argument('stage', choices=['run', 'orient', 'extract', 'draft', 'verify', 'queue', 'ingest', 'learn', 'approve', 'publish', 'snapshot', 'due', 'replies', 'cycle'], nargs='?', default='run')
     ap.add_argument('--check', action='store_true')
     ap.add_argument('--draft-id')
     ap.add_argument('--basis', help='approve: who approved and on what record')
@@ -469,6 +542,16 @@ def main():
         if not a.post_id:
             ap.error('snapshot requires --post-id')
         snapshot(a.post_id)
+    if a.stage == 'due':
+        due = due_windows(records('publications.json'), records('metrics.json'))
+        print(json.dumps(due, indent=2) if due else 'no snapshot window is open right now')
+        return 0
+    if a.stage == 'replies':
+        if not a.post_id:
+            ap.error('replies requires --post-id')
+        replies(a.post_id)
+    if a.stage == 'cycle':
+        cycle()
     if a.at:
         if a.stage != 'queue' or a.draft_id not in {p['id'] for p in draft()}:
             ap.error('--at requires queue --draft-id with a known draft')
@@ -523,7 +606,7 @@ def main():
         else:
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(content)
-    if not a.check and a.stage in ('run', 'ingest', 'queue', 'approve', 'publish', 'snapshot'):
+    if not a.check and a.stage in ('run', 'ingest', 'queue', 'approve', 'publish', 'snapshot', 'replies', 'cycle'):
         subprocess.run([sys.executable, 'scripts/repo_graph.py', '--no-drift'], cwd=ROOT, check=True)
     print('ok: orient → extract → draft → verify → queue → ingest → learn; publish only for approved revisions')
     return 0
