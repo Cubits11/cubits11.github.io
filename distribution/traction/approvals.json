@@ -1,0 +1,23 @@
+[
+  {
+    "draft_id": "try-a",
+    "draft_revision": "8318df5ab8fdfcfd87dc94649ee392c1de9e7daa75955080cae74b09398c8dfc",
+    "basis": "owner content approval given in chat 2026-09-07 (full authorization: content, account-side publication)",
+    "approved_at": "2026-09-07T16:45:20Z",
+    "posts_sha256": "4b33f96b160fa073e8befa76c7cf68ca56c1966e1fce02c7c07aa98465901d86"
+  },
+  {
+    "draft_id": "try-b",
+    "draft_revision": "9b078ae966034559f10a4c94e8c213b1396b46b9d651c33f5881efb38653470a",
+    "basis": "owner content approval given in chat 2026-09-07 (full authorization: content, account-side publication)",
+    "approved_at": "2026-09-07T16:45:43Z",
+    "posts_sha256": "42530355bf04ae4793080176d0490449d266889502c0c41feaa8d91e070126eb"
+  },
+  {
+    "draft_id": "try-c",
+    "draft_revision": "292ab24520355c5a550312202c369b9b2679a2e607d61046a70b1c50745668d6",
+    "basis": "owner content approval given in chat 2026-09-07 (full authorization: content, account-side publication)",
+    "approved_at": "2026-09-07T16:46:06Z",
+    "posts_sha256": "fbf6deeb03657fa946f65396895cdf7ad58d9dcfbd9bee7427e603d34dc316e2"
+  }
+]

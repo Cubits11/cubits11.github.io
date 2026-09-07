@@ -19,3 +19,33 @@ Platform references checked 2026-09-07: [X analytics](https://docs.x.com/x-api/p
 Propose a slot: `python3 scripts/distribute.py queue --draft-id try-a --at 2026-09-10T16:00:00Z`. This records an owner-review proposal, never a platform schedule. No optimal time is inferred before measurements.
 
 Import aggregate traffic with `ingest --kind traffic --input PATH`. Each row has `provider`, `surface` (repository/site), timezone-qualified `start`/`end`, HTTPS `source`, and nullable `views`/`unique_visitors`. Windows are shown as context without summing overlapping windows or attributing them to posts. `manifest.json` binds derived output values; live imported ledgers stay separate from synthetic test fixtures.
+
+## Publishing (owner decision 2026-09-07)
+
+Publishing is a stage of the same script, and it dispatches only what the
+record already binds:
+
+```
+python3 scripts/distribute.py approve --draft-id try-a --basis "who approved, on what record"
+python3 scripts/distribute.py publish --draft-id try-a --dry-run     # prints the exact requests, reads no credentials
+python3 scripts/distribute.py publish --draft-id try-a               # posts the thread to X
+python3 scripts/distribute.py snapshot --post-id <root post id>      # one cumulative metrics snapshot, as a sourced row
+```
+
+`approvals.json` records a draft id, its exact revision, the approval basis and
+a digest of the post texts. `publish` refuses unless the tree is clean, HEAD is
+on a remote (the dispatch revision must be public), `verify` passes at that
+revision, an approval matches the current revision, and that revision is not
+already in `publications.json`. Any source edit changes the revision and voids
+the approval.
+
+Credentials come only from the environment — `X_API_KEY`, `X_API_KEY_SECRET`,
+`X_ACCESS_TOKEN`, `X_ACCESS_TOKEN_SECRET` (OAuth 1.0a user context for the
+posting account) — and are never written to any tracked or untracked file. The
+client is the standard library; no package is installed. A published thread is
+recorded as a `publications.json` row with the root post as the unit, the
+dispatch commit, every post id, and the experiment dimensions; that row is
+then subject to the same validators as an imported receipt. `snapshot` reads
+public, organic and non-public metrics for the root post and records them at
+the current time; capture at 24, 72 and 168 hours as before. `engagements`
+and `follows` stay null: the v2 endpoint does not supply them per post.

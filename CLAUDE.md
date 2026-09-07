@@ -73,6 +73,12 @@ invalid-red; gold is identity only) and state is never encoded by color alone.
   boundary deleted is not.
 - **External actions are the owner's hand only** — dispatching asks, opening
   issues, accepting model licenses. Prepare them; never send them.
+  **Narrow exemption, owner decision 2026-09-07:** an X thread whose exact
+  draft revision carries an owner approval in
+  `distribution/traction/approvals.json` may be dispatched by
+  `scripts/distribute.py publish`, under environment credentials, from a
+  clean and pushed tree. Nothing else is widened: asks, issues and licences
+  remain the owner's hand.
 - **A threshold, estimator, hypothesis or criterion changed after outcomes are
   visible is a forbidden rescue.** The affected result is not reported. This is
   the one rule that voids work retroactively, so treat any post-hoc edit to a

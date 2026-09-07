@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Evidence distribution: python3 scripts/distribute.py run (offline, drafts only)."""
+"""Evidence distribution: python3 scripts/distribute.py run (offline) · approve · publish · snapshot."""
 from __future__ import annotations
 import argparse
 import datetime as dt
@@ -123,7 +123,7 @@ def draft():
         sources.append(pin('films/' + exp['film'] + '/manifest.yaml'))
         text = chunks(exp['question']) + chunks(exp['epistemic_status']) + chunks(exp['non_claim'])
         text += chunks('Reproduce: ' + exp['command']) + chunks(link)
-        evidence = [c['support']['url'] for c in claimset]
+        evidence = list(dict.fromkeys(c['support']['url'] for c in claimset))  # one link per distinct source
         text += [u for u in evidence if len(u) <= 260]
         item = {'id': exp['id'].lower(), 'campaign': campaign['id'], 'claims': exp['claims'],
                 'confidence': {c['id']: c['dimensions']['evidential_status'] for c in claimset},
@@ -275,6 +275,146 @@ def learn(publications, snapshots):
             'unavailable': 'No site analytics; UTM URLs do not measure visits. Import owner-visible platform receipts and repo traffic separately.'}
 
 
+# ── publishing: X API v2, OAuth 1.0a user context, standard library only ─────
+# Credentials are read from the environment and never written anywhere. The
+# stage refuses unless: the tree is clean, HEAD is on a remote (the dispatch
+# revision is public), the draft's current revision carries an approval in
+# approvals.json, and verify() passes at this revision.
+ENV = ('X_API_KEY', 'X_API_KEY_SECRET', 'X_ACCESS_TOKEN', 'X_ACCESS_TOKEN_SECRET')
+API = 'https://api.x.com/2'
+
+
+def _oauth_header(method, url, params, creds):
+    import base64, hmac, os, secrets, time, urllib.parse as up
+    key, key_secret, token, token_secret = creds
+    oauth = {'oauth_consumer_key': key, 'oauth_nonce': secrets.token_hex(16),
+             'oauth_signature_method': 'HMAC-SHA1', 'oauth_timestamp': str(int(time.time())),
+             'oauth_token': token, 'oauth_version': '1.0'}
+    q = lambda s: up.quote(str(s), safe='~')
+    base_params = '&'.join(f'{q(k)}={q(v)}' for k, v in sorted({**params, **oauth}.items()))
+    base = '&'.join((method.upper(), q(url), q(base_params)))
+    sig = base64.b64encode(hmac.new(f'{q(key_secret)}&{q(token_secret)}'.encode(), base.encode(), 'sha1').digest()).decode()
+    oauth['oauth_signature'] = sig
+    return 'OAuth ' + ', '.join(f'{q(k)}="{q(v)}"' for k, v in sorted(oauth.items()))
+
+
+def x_request(method, path, creds, body=None, query=None):
+    import urllib.request as ur, urllib.error as ue, urllib.parse as up
+    url = API + path
+    data = json.dumps(body).encode() if body is not None else None
+    full = url + ('?' + up.urlencode(query) if query else '')
+    req = ur.Request(full, data=data, method=method,
+                     headers={'Authorization': _oauth_header(method, url, query or {}, creds),
+                              'Content-Type': 'application/json', 'User-Agent': 'cubits11-distribute/1'})
+    try:
+        with ur.urlopen(req, timeout=30) as r:
+            return json.loads(r.read().decode())
+    except ue.HTTPError as e:
+        raise ValueError(f'X API {e.code} on {method} {path}: {e.read().decode()[:400]}')
+
+
+def credentials():
+    import os
+    missing = [k for k in ENV if not os.environ.get(k)]
+    if missing:
+        raise ValueError('Publishing needs environment credentials (never tracked): ' + ', '.join(missing))
+    return tuple(os.environ[k] for k in ENV)
+
+
+def approval_for(post):
+    return next((a for a in records('approvals.json') if a['draft_id'] == post['id'] and a['draft_revision'] == post['revision']), None)
+
+
+def approve(draft_id, basis):
+    posts = draft()
+    verify(posts)
+    post = next((p for p in posts if p['id'] == draft_id), None)
+    if post is None:
+        raise ValueError(f'Unknown draft: {draft_id}')
+    rows = [a for a in records('approvals.json') if not (a['draft_id'] == draft_id and a['draft_revision'] == post['revision'])]
+    rows.append({'draft_id': draft_id, 'draft_revision': post['revision'], 'basis': basis,
+                 'approved_at': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z'),
+                 'posts_sha256': digest(post['posts'])})
+    (ROOT / BASE / 'approvals.json').write_text(json.dumps(rows, indent=2) + '\n')
+    return post
+
+
+def dispatch_preconditions(post, dry_run=False):
+    head = git('rev-parse', 'HEAD')
+    if not dry_run:
+        if git('status', '--porcelain'):
+            raise ValueError('Dispatch revision must be a clean tree; commit first')
+        if not git('branch', '-r', '--contains', head):
+            raise ValueError('HEAD is not on any remote; push before publishing so the dispatch revision is public')
+    verify(draft())
+    if approval_for(post) is None:
+        raise ValueError(f'No approval recorded for {post["id"]} at revision {post["revision"][:12]}; run: distribute.py approve --draft-id {post["id"]} --basis "..."')
+    if any(r['draft_revision'] == post['revision'] for r in records('publications.json')):
+        raise ValueError(f'{post["id"]} at this revision is already published')
+    return head
+
+
+def publish(draft_id, dry_run=False):
+    post = next((p for p in draft() if p['id'] == draft_id), None)
+    if post is None:
+        raise ValueError(f'Unknown draft: {draft_id}')
+    head = dispatch_preconditions(post, dry_run)
+    bodies = [{'text': t} for t in post['posts']]
+    if dry_run:
+        print(json.dumps({'draft_id': draft_id, 'revision': post['revision'], 'dispatch_revision': head,
+                          'requests': [{'method': 'POST', 'path': '/tweets', 'body': b} for b in bodies],
+                          'chaining': 'each body after the first gains reply.in_reply_to_tweet_id of the previous response id',
+                          'credentials': 'not read in dry run'}, indent=2))
+        return None
+    creds = credentials()
+    me = x_request('GET', '/users/me', creds)['data']
+    ids = []
+    for body in bodies:
+        if ids:
+            body['reply'] = {'in_reply_to_tweet_id': ids[-1]}
+        ids.append(x_request('POST', '/tweets', creds, body=body)['data']['id'])
+    now = dt.datetime.now(dt.timezone.utc)
+    row = {'post_id': ids[0], 'source_url': f'https://x.com/{me["username"]}/status/{ids[0]}',
+           'draft_id': post['id'], 'draft_revision': post['revision'],
+           'published_at': now.isoformat(timespec='seconds').replace('+00:00', 'Z'),
+           'dispatch_revision': head, 'thread_post_ids': ids,
+           'post_type': post['post_type'], 'audience': post['audience_hypothesis'], 'topic': post['topic'],
+           'hook': post['hook'], 'visual': post['visual'], 'cta': post['cta'],
+           'thread_structure': post['thread_structure'], 'time_slot': f'utc-{now.hour:02d}'}
+    rows = records('publications.json') + [row]
+    validate_publications(rows, draft())
+    (ROOT / BASE / 'publications.json').write_text(json.dumps(rows, indent=2) + '\n')
+    print(f'published {post["id"]} as {row["source_url"]} ({len(ids)} posts)')
+    return row
+
+
+def snapshot(post_id):
+    """One cumulative metrics snapshot from the API, recorded as a sourced row."""
+    creds = credentials()
+    pubs = {p['post_id']: p for p in records('publications.json')}
+    if post_id not in pubs:
+        raise ValueError('Unknown post; snapshots attach only to recorded publications')
+    data = x_request('GET', f'/tweets/{post_id}', creds,
+                     query={'tweet.fields': 'public_metrics,non_public_metrics,organic_metrics'})['data']
+    pub, org, non = data.get('public_metrics', {}), data.get('organic_metrics', {}), data.get('non_public_metrics', {})
+    pick = lambda *srcs: next((s[k] for s, k in srcs if s.get(k) is not None), None)
+    row = {'post_id': post_id, 'observed_at': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z'),
+           'provider': 'x_api_v2', 'scope': 'organic' if org else 'total',
+           'source': f'{API}/tweets/{post_id}', 'attribution': 'direct_post',
+           'metrics': {'impressions': pick((org, 'impression_count'), (non, 'impression_count')),
+                       'link_clicks': pick((org, 'url_link_clicks'), (non, 'url_link_clicks')),
+                       'profile_visits': pick((org, 'user_profile_clicks'), (non, 'user_profile_clicks')),
+                       'likes': pick((org, 'like_count'), (pub, 'like_count')),
+                       'reposts': pick((org, 'retweet_count'), (pub, 'retweet_count')),
+                       'replies': pick((org, 'reply_count'), (pub, 'reply_count')),
+                       'bookmarks': pick((pub, 'bookmark_count')),
+                       'engagements': None, 'follows': None}}
+    rows = validate_metrics(records('metrics.json') + [row], list(pubs.values()))
+    (ROOT / BASE / 'metrics.json').write_text(json.dumps(rows, indent=2) + '\n')
+    print(f'snapshot recorded for {post_id}: ' + json.dumps(row['metrics']))
+    return row
+
+
 def build():
     posts = draft()
     verify(posts)
@@ -284,9 +424,10 @@ def build():
     report['traffic_context'] = validate_traffic(records('traffic.json'))
     report['qualified_outcomes'] = {k: len(v) for k, v in read('distribution/outcomes.yaml')['qualified'].items()}
     return {'events.json': extract(), 'drafts.json': posts,
-            'queue.json': {'mode': 'owner_review_only', 'publishing_enabled': False,
-                           'required_before_dispatch': ['full verification_manifest exit 0 at dispatch revision', 'owner content approval', 'platform access', 'film cold test if attaching media'],
-                           'items': [p for p in posts if not any(r['draft_revision'] == p['revision'] for r in pubs)]},
+            'queue.json': {'mode': 'approved_revisions_dispatch_via_publish_stage',
+                           'publishing_enabled': 'publish stage; environment credentials; refuses without a clean, pushed tree and a matching approval',
+                           'required_before_dispatch': ['full verification_manifest exit 0 at dispatch revision', 'owner content approval recorded in approvals.json for the exact revision', 'platform credentials in the environment', 'film cold test if attaching media'],
+                           'items': [{**p, 'approval': approval_for(p)} for p in posts if not any(r['draft_revision'] == p['revision'] for r in pubs)]},
             'dashboard.json': report,
             'experiments.json': {'roles': ROLES, 'factors': list(DIMS), 'status': 'proposed_no_observations',
                                  'primary': 'verified independent reproduction or correction',
@@ -303,13 +444,31 @@ def dashboard(data):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('stage', choices=['run', 'orient', 'extract', 'draft', 'verify', 'queue', 'ingest', 'learn'], nargs='?', default='run')
+    ap.add_argument('stage', choices=['run', 'orient', 'extract', 'draft', 'verify', 'queue', 'ingest', 'learn', 'approve', 'publish', 'snapshot'], nargs='?', default='run')
     ap.add_argument('--check', action='store_true')
     ap.add_argument('--draft-id')
+    ap.add_argument('--basis', help='approve: who approved and on what record')
+    ap.add_argument('--dry-run', action='store_true', help='publish: print the exact requests; read no credentials')
+    ap.add_argument('--post-id', help='snapshot: the recorded root post id')
     ap.add_argument('--at', help='Proposed timezone-qualified slot; never schedules on X')
     ap.add_argument('--input', type=pathlib.Path)
     ap.add_argument('--kind', choices=['metrics', 'publications', 'traffic'], default='metrics')
     a = ap.parse_args()
+    if a.stage == 'approve':
+        if not (a.draft_id and a.basis):
+            ap.error('approve requires --draft-id and --basis')
+        post = approve(a.draft_id, a.basis)
+        print(f'approved {post["id"]} at revision {post["revision"][:12]}; regenerating the bundle')
+    if a.stage == 'publish':
+        if not a.draft_id:
+            ap.error('publish requires --draft-id')
+        publish(a.draft_id, dry_run=a.dry_run)
+        if a.dry_run:
+            return 0
+    if a.stage == 'snapshot':
+        if not a.post_id:
+            ap.error('snapshot requires --post-id')
+        snapshot(a.post_id)
     if a.at:
         if a.stage != 'queue' or a.draft_id not in {p['id'] for p in draft()}:
             ap.error('--at requires queue --draft-id with a known draft')
@@ -349,7 +508,7 @@ def main():
     data['manifest.json'] = {'version': 1, 'generator': 'scripts/distribute.py',
                              'outputs': {name: digest(value) for name, value in data.items()},
                              'gate': 'python3 scripts/distribute.py --check',
-                             'publishing': 'disabled_owner_dispatch_only'}
+                             'publishing': 'publish stage under owner approval (approvals.json) and environment credentials; owner decision 2026-09-07'}
     for name, value in data.items():
         target = ROOT / BASE / name
         content = value if isinstance(value, str) else json.dumps(value, indent=2, default=str) + '\n'
@@ -359,9 +518,9 @@ def main():
         else:
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(content)
-    if not a.check and a.stage in ('run', 'ingest', 'queue'):
+    if not a.check and a.stage in ('run', 'ingest', 'queue', 'approve', 'publish', 'snapshot'):
         subprocess.run([sys.executable, 'scripts/repo_graph.py', '--no-drift'], cwd=ROOT, check=True)
-    print('ok: orient → extract → draft → verify → queue → ingest → learn; queue held, no publishing')
+    print('ok: orient → extract → draft → verify → queue → ingest → learn; publish only for approved revisions')
     return 0
 
 if __name__ == '__main__':

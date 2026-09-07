@@ -15,7 +15,6 @@
       "CC-004": "The kernel identification module at the bound commit, re-verified by CI on every push and weekly in the witness stage of scripts/reproduce_cc001.py. No claim about any deployed system.\n"
     },
     "evidence_urls": [
-      "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6",
       "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
     ],
     "sources": [
@@ -61,7 +60,6 @@
       "Nothing here measures a real guardrail; the population is a construction and no point inside the interval is selected. Independence is what one assumption chooses, not what the scores imply.",
       "Reproduce: python3 scripts/try_same_scores.py",
       "https://cubits11.github.io/try/?utm_source=x&utm_medium=social&utm_campaign=e3-films&utm_content=same-scores#try-a",
-      "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6",
       "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
     ],
     "attribution_url": "https://cubits11.github.io/try/?utm_source=x&utm_medium=social&utm_campaign=e3-films&utm_content=same-scores#try-a",
@@ -89,7 +87,7 @@
       "no automated replies"
     ],
     "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-    "revision": "3a304a11a64675801246e89b14d57533c81e0d1194e159526ad08dcfd4588037"
+    "revision": "8318df5ab8fdfcfd87dc94649ee392c1de9e7daa75955080cae74b09398c8dfc"
   },
   {
     "id": "try-b",

@@ -3835,7 +3835,7 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 26,
+   "ahead": 27,
    "behind": 0,
    "branch": "claude/research-distribution",
    "detector": "D4",
@@ -3871,7 +3871,7 @@
  ],
  "generated_from": {
   "branch": "claude/research-distribution",
-  "head": "e1093b9"
+  "head": "a091c6b"
  },
  "nodes": [
   {
@@ -4549,9 +4549,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 26,
+   "ahead_of_origin_main": 27,
    "behind_origin_main": 0,
-   "head": "e1093b9",
+   "head": "a091c6b",
    "id": "claude/research-distribution",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": false,
