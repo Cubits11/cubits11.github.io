@@ -3828,6 +3828,13 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "main",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
@@ -3836,7 +3843,7 @@
  ],
  "generated_from": {
   "branch": "main",
-  "head": "fff9cdc"
+  "head": "6ca9363"
  },
  "nodes": [
   {
@@ -4505,12 +4512,12 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 0,
+   "ahead_of_origin_main": 1,
    "behind_origin_main": 0,
-   "head": "fff9cdc",
+   "head": "6ca9363",
    "id": "main",
    "last_commit": "2026-09-07",
-   "reachable_from_origin_main": true,
+   "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
