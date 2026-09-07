@@ -1,0 +1,22 @@
+{
+ "grown_at": "2026-09-07T12:07:31-04:00",
+ "graph": "docs/graph/repo-graph.json",
+ "graph_sha256": "57554fdd25498bd8affc89021c021cff70948f0f657b5c860b8ca228ba3db34c",
+ "graph_stable_digest": "d1278c4d48780d274a36145aeb21167cd4f33110cbba52f6da9939df18a5c378",
+ "blender": "Blender 5.1.2",
+ "objects": {
+  "cyl": 5,
+  "sphere": 43,
+  "curve": 82,
+  "cone": 25,
+  "torus": 5,
+  "cube": 30
+ },
+ "render_sha256": "a07d3832430d37dde699936a4b27769ef9d9aff927c9c3339996e9c9bb4e76a1",
+ "mapping": "see module docstring; every placement is a function of a graph field",
+ "non_claims": [
+  "a picture of the repository's metadata, not a measurement of anything in the world",
+  "object sizes encode counts under the stated functions and no other property",
+  "the render is not pixel-deterministic: two consecutive grows on the same host differed (2026-09-07); the receipt binds the graph digest, and render_sha256 is informational only"
+ ]
+}

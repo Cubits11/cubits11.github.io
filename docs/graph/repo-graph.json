@@ -1,0 +1,4529 @@
+{
+ "edges": [
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/bells_denominators.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "data/adversarial_prompts.csv"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/bells_denominators.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "data/metacognitive_results.csv"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/bells_denominators.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "data/non_adversarial_prompts.csv"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/bells_denominators.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "data/safeguard_evaluation_results.csv"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/bells_denominators.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "data/safeguard_evaluation_results_llama.csv"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/bells_denominators.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "prompts.csv"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/bells_lineage_figure.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "ARTIFACTS/2026-09-05-bells-denominator-lineage.svg"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/bells_lineage_figure.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "bells_denominators.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/bells_lineage_figure.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/bells_denominators.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/build_resume_pdf.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "assets/site.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/build_resume_pdf.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "pranav-bhave-resume.receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/build_resume_pdf.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "resume/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/build_resume_pdf.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "resume/pranav-bhave-resume.pdf"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/build_resume_pdf.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "resume/pranav-bhave-resume.receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/check_layout.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/check_links.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/check_links.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/claims_history.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "DESIGN.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/claims_history.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "census.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/claims_history.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/claims_history.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims_history.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/claims_history.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "corrections/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/degeneracy.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "reanalyze_msbench.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "answers/how-to-evaluate-guardrails-you-plan-to-stack/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "answers/why-guardrail-miss-rates-do-not-multiply/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "ledger/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-column/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "observatory/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "resume/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "try/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/bind_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "census.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/bind_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/bind_facts.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/bind_facts.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "films/data/facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/bind_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/render_film.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "data/facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/render_film.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/render_film.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "film.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/render_film.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "film.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/render_film.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/render_film.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films/data/facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/render_film.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films/lib/film.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/render_film.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "lib/film.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/render_film.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "lib/tokens.css"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/slate.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "SLATE.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/slate.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/slate.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "films/SLATE.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/slate.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films/slate.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/slate.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/slate.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "slate.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/verify_films.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*/manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/verify_films.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "campaigns.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/verify_films.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "data/facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/verify_films.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/verify_films.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/verify_films.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/verify_films.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "film.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/verify_films.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/verify_films.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/verify_films.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_degeneracy_card.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "assets/img/og-mc004-degeneracy.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_degeneracy_card.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "og-mc004-degeneracy.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_foundations.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/foundations/foundations.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_foundations.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/foundations/mesh-test.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_foundations.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/foundations/meshes/receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_foundations.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/foundations/vendor/three/three.module.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_foundations.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/docs/foundations/AUDIT-MODELS.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_foundations.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/docs/foundations/devices.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_foundations.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/films/lib/blender/bead-cube-renders/receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "answers/how-to-evaluate-guardrails-you-plan-to-stack/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "answers/what-does-the-second-guardrail-add/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "answers/why-guardrail-miss-rates-do-not-multiply/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "work/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_ledger.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/site.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_ledger.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_ledger.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_ledger.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "ledger/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_missing_column.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/site.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_missing_column.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/distribution/outcomes.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_missing_column.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/docs/MJGD_V1.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_missing_column.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/schemas/mjgd-v1.schema.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_missing_column.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "census.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_missing_column.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_missing_column.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "corrections/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_missing_column.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_missing_column.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-column/disclosure/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_missing_column.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-column/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_missing_column.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-column/reproduce/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_modules.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/site.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_modules.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_modules.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_modules.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "modules"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_modules.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "modules.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_modules.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "modules/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_observatory.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/site.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_observatory.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_observatory.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_observatory.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "observatory/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_research_index.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "RESEARCH_INDEX.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_research_index.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_research_index.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_research_index.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "docs/RESEARCH_INDEX.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_research_index.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_research_index.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films/*/manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_research_index.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_sitemap.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_sitemap.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "sitemap.xml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_social_images.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "assets/img/og-missing-column.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_social_images.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "og-missing-column.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "cases.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_trial.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/cases.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_trial.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "trials/necromancer/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "counterexample.yml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films/*/manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films/data/facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "reproduction.yml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "try/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/worldspace/qa/poster-1200x630.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/worldspace/worldspace.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films/data/facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_worldspace.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_worldspace.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "worldspace/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/identification.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/mixture_bounds.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/outcomes.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/outcomes.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/outcomes.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "outcomes.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/reanalyze_bells_subset.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/reanalyze_msbench.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/reanalyze_msbench.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "ensemble.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/reanalyze_msbench.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "guard_llama_guard_3_vision_benign.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/reanalyze_msbench.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "guard_llama_guard_3_vision_harmful.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/reanalyze_msbench.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "guard_llama_guard_4_benign.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/reanalyze_msbench.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "guard_llama_guard_4_harmful.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/reanalyze_msbench.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "guard_shield_gemma_2_benign.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/reanalyze_msbench.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "guard_shield_gemma_2_harmful.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/reanalyze_msbench.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "metrics.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "**/*.test.cjs"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "**/test_*.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*_config.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": ".github/workflows/verify.yml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "CLAUDE.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "CONTRIBUTING.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "PREREG.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "README.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "RESULT.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "STOP-*.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "bind_facts.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/outcomes.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "docs/graph"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "draw.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments/*/freeze/*.csv"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "freeze/FREEZE.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "organism.receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "outcomes.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "repo-graph.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "results/**/*.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/**/*.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verification_manifest.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "slate.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "verify.yml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/reproduce_cc001.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/smoke_deployed.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "census.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/smoke_deployed.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/smoke_deployed.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/smoke_deployed.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-column/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/smoke_deployed.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "sitemap.xml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/smoke_deployed.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/qa/poster-1200x630.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/smoke_deployed.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/worldspace.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.jpg"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_qa.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trial.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/cases.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/trial.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_score.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_score.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "_private/necromancer/keys.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_score.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "freeze.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_score.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "keys.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_score.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "responses"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/trial_score.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/pilot"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/try_audit.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "audit-example.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/try_audit.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "counterexample.yml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/try_audit.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "fixtures/try/audit-example.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/try_same_scores.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/try_same_scores.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films/data/facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "aggregate-only.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "fixtures/mjgd-v1"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "identification.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-data.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "mjgd-v1.schema.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "mjgd_reference.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "parallel-full-exposure.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "partial-release.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "schemas/mjgd-v1.schema.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "sequential-route.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/validate_mjgd.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "sequential-route.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "contrib/test_joint_reporters.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "examples/route-receipt/test_route_receipt.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "examples/stack-joint/test_joint_or.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments/e2/run/test_instrument.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/audit_device.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/check_links.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/claims_history.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/degeneracy.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/films/bind_facts.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/films/build_flagship.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/films/slate.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/films/verify_films.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_foundations.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_growth.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_ledger.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_missing_column.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_modules.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_observatory.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_research_index.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_sitemap.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_trial.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_try.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_worldspace.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/identification.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/mixture_bounds.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/mjgd_pattern_rank.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/mjgd_reference.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/outcomes.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/reanalyze_bells_subset.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/reanalyze_msbench.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/repo_graph.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/test_device_audit_render.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/validate_mjgd.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_census.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_census_mutations.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_census_protocol.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_claims.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_claims_states.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_consequence.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_facts.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_figures.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_foundations.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_frontend.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_growth.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_mc004_semantics.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_quarantine.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_resume_receipt.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_spine.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_trial.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_wayback_states.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_worldspace.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "tests/test_public_discovery.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_census.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "census.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_census.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_census_mutations.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "census.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_census_mutations.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_census.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_census_mutations.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "verify_census.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_census_protocol.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "census_protocol_v1.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_census_protocol.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_census.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_census_protocol.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "verify_census.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_claims.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_claims.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_claims.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "ledger/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_claims.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "now/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_claims.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "observatory/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_claims_states.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "p.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_claims_states.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_claims.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_claims_states.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "verify_claims.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_clean_clone.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": ".github/workflows/verify.yml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_clean_clone.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "README.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_clean_clone.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_clean_clone.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_census.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_clean_clone.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "verify.yml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.yml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": ".github/ISSUE_TEMPLATE"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "DISPATCH.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "README.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "campaigns.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "dispatch-log.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/DISPATCH.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/dispatch-log.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/dossiers"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/dossiers/README.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/launch-units.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films/data/facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "fixtures/try/audit-example.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "launch-units.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/try_audit.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/try_same_scores.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "try/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": ".github/ISSUE_TEMPLATE/reproduction.yml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": ".gitignore"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-column/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-column/reproduce/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "reproduction.yml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "requirements.txt"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_clean_clone.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_figments.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_facts.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_figures.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_figures.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_figures.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "essays/when-marginals-are-not-enough/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_figures.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_figures.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-column/disclosure/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_figures.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-column/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_frontend.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_frontend.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "assets/stack-study.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_frontend.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_frontend.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "stack-study.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_frontend.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "stack-study/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "answers/how-to-evaluate-guardrails-you-plan-to-stack/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "answers/what-does-the-second-guardrail-add/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "answers/why-guardrail-miss-rates-do-not-multiply/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "assets/img/og-missing-column.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "campaigns.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "docs/identity.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "docs/launch-14-day.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "identity.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "launch-14-day.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-column/disclosure/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "missing-column/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "og-missing-column.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "resume/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "resume/pranav-bhave-resume.pdf"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/build_resume_pdf.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "try/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "work/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_mc004_semantics.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "README.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_mc004_semantics.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "RECEIPT_PROTOCOL.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_mc004_semantics.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_mc004_semantics.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/RECEIPT_PROTOCOL.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_quarantine.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "RECEIPT_PROTOCOL.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_quarantine.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "distribution/RECEIPT_PROTOCOL.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_resume_receipt.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "pranav-bhave-resume.receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_resume_receipt.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "resume/pranav-bhave-resume.receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_spine.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*/manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_spine.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_spine.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_spine.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "spine.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "PILOT.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "_private/necromancer/keys.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "cases.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "freeze.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "keys.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "qa/receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_trial.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/trial_score.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trial.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trial_score.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/cases.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/pilot/PILOT.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_trial.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "trials/necromancer/trial.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_wayback.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "census.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_wayback_states.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_wayback.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_wayback_states.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "verify_wayback.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films/data/facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/qa"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/qa/receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_worldspace.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/worldspace.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/worldspace_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.jpg"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/worldspace_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/worldspace_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/worldspace_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "poster-1200x630.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/worldspace_qa.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/worldspace_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/worldspace_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/worldspace_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/manifest.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/worldspace_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/qa"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/worldspace_qa.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/worldspace.js"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "claim registry",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_claims.py"
+  },
+  {
+   "args": [
+    "--all"
+   ],
+   "basis": "MANIFEST",
+   "check": "finite device audits",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/audit_device.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "device and render refusal paths",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/test_device_audit_render.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "foundations generated drift and room bindings",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_foundations.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "foundations projection and mesh artifacts",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_foundations.py"
+  },
+  {
+   "args": [
+    "verify"
+   ],
+   "basis": "MANIFEST",
+   "check": "claim-history kernel",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/claims_history.py"
+  },
+  {
+   "args": [
+    "--test"
+   ],
+   "basis": "MANIFEST",
+   "check": "claim-history mutants",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/claims_history.py"
+  },
+  {
+   "args": [
+    "reconstruct",
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "claim-history reconstruction",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/claims_history.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "census",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_census.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "census protocol v1",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_census_protocol.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "census invariant mutations",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_census_mutations.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "asset quarantine",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_quarantine.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "ledger drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_ledger.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "figure assertions",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_figures.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "module drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_modules.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "observatory drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_observatory.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "missing-column drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_missing_column.py"
+  },
+  {
+   "args": [
+    "--test"
+   ],
+   "basis": "MANIFEST",
+   "check": "fact-binding fixtures",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_facts.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "current fact surfaces",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_facts.py"
+  },
+  {
+   "args": [
+    "--test"
+   ],
+   "basis": "MANIFEST",
+   "check": "claim spine fixtures",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_spine.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "claim spine",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_spine.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "growth page drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_growth.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "acquisition surfaces",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_growth.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "sitemap drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_sitemap.py"
+  },
+  {
+   "args": [
+    "--test"
+   ],
+   "basis": "MANIFEST",
+   "check": "MJGD identities",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/mjgd_reference.py"
+  },
+  {
+   "args": [
+    "--test"
+   ],
+   "basis": "MANIFEST",
+   "check": "MJGD v1 fixtures",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/validate_mjgd.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "identification bounds",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/identification.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "pattern-count rank",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/mjgd_pattern_rank.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "mixture bounds",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/mixture_bounds.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "BELLS reproduction",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/reanalyze_bells_subset.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "MSBench reproduction",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/reanalyze_msbench.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "MC-004 semantic scope",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_mc004_semantics.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "degeneracy diagnostic",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/degeneracy.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "portable static-OR receipt",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "examples/stack-joint/test_joint_or.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "portable route receipt",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "examples/route-receipt/test_route_receipt.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "qualified outcome ledger",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/outcomes.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "internal links",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/check_links.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "frontend structure and scroll regions",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_frontend.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "remote-evidence failure states",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_wayback_states.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "claim-registry failure states",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_claims_states.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "resume PDF receipt",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_resume_receipt.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "film facts current",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/films/bind_facts.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "film manifests and renders",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/films/verify_films.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "flagship recording source map",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/films/build_flagship.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "film slate gate",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/films/slate.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "experiment surface drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_try.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "external-consequence system",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_consequence.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "worldspace drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_worldspace.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "worldspace instrument",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_worldspace.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "research index drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_research_index.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "repo graph drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/repo_graph.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "public discovery exclusions",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_public_discovery.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "E2 instrument properties and planted violations",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "experiments/e2/run/test_instrument.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "trial IV drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_trial.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "trial IV instrument and pilot freeze",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_trial.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "prepared joint reporters",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "contrib/test_joint_reporters.py"
+  },
+  {
+   "basis": "PIN",
+   "from": "MC-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598",
+   "to": "census.yaml"
+  },
+  {
+   "basis": "PIN",
+   "from": "MC-003",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "4baba5ef00e5d8db19910abf1560b15cb7c68552690fb5c68c2dadabf8d563d8",
+   "to": "scripts/identification.py"
+  },
+  {
+   "basis": "PIN",
+   "from": "AF-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "1b61adfa34d1c7a48fb8460c9712545cef951ee64a407bd2a936bc0b2592b66d",
+   "to": "scripts/mixture_bounds.py"
+  },
+  {
+   "basis": "PIN",
+   "from": "SITE-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "da648fcd4ea33a959ebfa0ac4b87166f2ee64af2de22283dd08e41c4f2e8386f",
+   "to": "DESIGN.md"
+  },
+  {
+   "basis": "PIN",
+   "from": "SITE-002",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "9736b71389bf0ff1f3a26d03a1ed437c12a3d62c24da94c71306ae30e4a8171e",
+   "to": "scripts/verify_claims.py"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e2/freeze/sources.json"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e2/freeze/FREEZE.md"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e2/freeze/items_harmful.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e2/freeze/items_benign_calibration.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e2/freeze/items_benign_evaluation.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e2/freeze/msbench_item_ids.json"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e2/freeze/dedup_clusters.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e2/freeze/PREREG_SELECTION.md"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e2",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e2/freeze/check_freeze.py"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3/PREREG.md"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3/freeze/sources.json"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3/freeze/FREEZE.md"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3/freeze/items_harmful.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3/freeze/items_benign_calibration.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3/freeze/LICENSE-OUTPUTS.md"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3/freeze/items_benign_evaluation.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3/freeze/or-bench-80k.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3/freeze/or-bench-toxic.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3/e3_config.json"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3b",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3b/PREREG.md"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3b",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3b/freeze/sources.json"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3b",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3b/freeze/items_harmful.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3b",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3b/freeze/items_benign_calibration.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3b",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3b/freeze/items_benign_evaluation.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3b",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3b/freeze/gandalf.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3b",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3b/freeze/or-bench-80k.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e3b",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e3b/e3b_config.json"
+  }
+ ],
+ "external": {
+  "qualified_outcomes": 0
+ },
+ "findings": [
+  {
+   "config_seed": "MC-E3-PILOT-V1-FREEZE-2026-09-06",
+   "detector": "D6",
+   "draw_seed": "MC-E3B-PILOT-V1-FREEZE-2026-09-06",
+   "experiment": "experiments/e3b",
+   "note": "config is a frozen file; correcting it after results is a post-hoc edit \u2014 record, do not edit",
+   "severity": "RECORD"
+  },
+  {
+   "bytes": 11108548,
+   "detector": "D7",
+   "note": "each freeze is self-contained by design; the duplication is the price of that and is recorded, not removed",
+   "paths": [
+    "experiments/e3b/freeze/or-bench-80k.csv",
+    "experiments/e3/freeze/or-bench-80k.csv"
+   ],
+   "severity": "RECORD",
+   "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
+  },
+  {
+   "ahead": 22,
+   "behind": 0,
+   "branch": "claude/device-audit-render-harness",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 17,
+   "behind": 0,
+   "branch": "origin/claude/device-audit-render-harness",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 2,
+   "behind": 70,
+   "branch": "origin/claude/success-upgrade-i8gfz8",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 18,
+   "branch": "origin/codex/external-queue-reconciliation",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "detector": "D8",
+   "note": "runs only when someone runs it",
+   "severity": "RECORD",
+   "test": "tests/world.test.cjs"
+  }
+ ],
+ "generated_from": {
+  "branch": "claude/device-audit-render-harness",
+  "head": "4f41a36"
+ },
+ "nodes": [
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/audit_device.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/bells_denominators.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/bells_lineage_figure.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/build_resume_pdf.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/check_layout.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/check_links.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": true,
+   "id": "scripts/claims_history.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/degeneracy.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/facts.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/films/bind_facts.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/films/build_flagship.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/films/render_film.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/films/slate.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/films/verify_films.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/generate_degeneracy_card.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/generate_foundations.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/generate_growth.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/generate_ledger.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": true,
+   "id": "scripts/generate_missing_column.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/generate_modules.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": true,
+   "id": "scripts/generate_observatory.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/generate_research_index.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/generate_sitemap.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/generate_social_images.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/generate_trial.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/generate_try.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/generate_worldspace.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": true,
+   "id": "scripts/identification.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": true,
+   "id": "scripts/mixture_bounds.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/mjgd_pattern_rank.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": true,
+   "id": "scripts/mjgd_reference.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/outcomes.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/reanalyze_bells_subset.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/reanalyze_msbench.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": true,
+   "id": "scripts/repo_graph.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/reproduce_cc001.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/smoke_deployed.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/test_device_audit_render.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/trial_qa.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": true,
+   "id": "scripts/trial_score.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/try_audit.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/try_same_scores.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": true,
+   "id": "scripts/validate_mjgd.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": true,
+   "id": "scripts/verification_manifest.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_census.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_census_mutations.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_census_protocol.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/verify_claims.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_claims_states.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_clean_clone.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_consequence.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": true,
+   "id": "scripts/verify_facts.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_figures.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_foundations.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_frontend.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_growth.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_mc004_semantics.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_quarantine.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_resume_receipt.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_room_atom_map.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": true,
+   "id": "scripts/verify_spine.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_trial.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_wayback.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_wayback_states.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/verify_worldspace.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/worldspace_qa.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "checks": 56,
+   "id": "scripts/verification_manifest.py",
+   "type": "trunk"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 106,
+   "id": "CC-001",
+   "last_reviewed": "2026-08-24",
+   "review_due": "2026-12-22",
+   "support_url": "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 106,
+   "id": "CC-002",
+   "last_reviewed": "2026-08-24",
+   "review_due": "2026-12-22",
+   "support_url": "https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 106,
+   "id": "CC-003",
+   "last_reviewed": "2026-08-24",
+   "review_due": "2026-12-22",
+   "support_url": "https://github.com/Cubits11/cc-framework/blob/ee61a710243c74ec49d5896167d0913327e6b5d3/docs/research/E1_DEPENDENCE_EVIDENCE_STUDY.md",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 106,
+   "id": "CC-004",
+   "last_reviewed": "2026-08-24",
+   "review_due": "2026-12-22",
+   "support_url": "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6",
+   "type": "claim"
+  },
+  {
+   "consequence": "NARROW",
+   "days_left": 106,
+   "id": "CC-005",
+   "last_reviewed": "2026-08-24",
+   "review_due": "2026-12-22",
+   "support_url": "https://github.com/Cubits11/cc-framework/blob/0b9450251b6988fa23d8e6e4fb556a08b05e652e/docs/research/E2_MEASUREMENT_CONTRACT.md",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 106,
+   "id": "CC-006",
+   "last_reviewed": "2026-08-24",
+   "review_due": "2026-12-22",
+   "support_url": "https://github.com/Cubits11/cc-framework/blob/327f0684f49768531594d593902ed8907fc717af/docs/research/E2_DRYRUN_FINDING.md",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 16,
+   "id": "REL-001",
+   "last_reviewed": "2026-08-24",
+   "review_due": "2026-09-23",
+   "support_url": null,
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 60,
+   "id": "MC-001",
+   "last_reviewed": "2026-09-07",
+   "review_due": "2026-11-06",
+   "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/census.yaml",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 50,
+   "id": "MC-002",
+   "last_reviewed": "2026-08-28",
+   "review_due": "2026-10-27",
+   "support_url": "https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 52,
+   "id": "MC-003",
+   "last_reviewed": "2026-08-30",
+   "review_due": "2026-10-29",
+   "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/identification.py",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 53,
+   "id": "MC-004",
+   "last_reviewed": "2026-08-31",
+   "review_due": "2026-10-30",
+   "support_url": "https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run",
+   "type": "claim"
+  },
+  {
+   "consequence": "NARROW",
+   "days_left": 80,
+   "id": "AF-001",
+   "last_reviewed": "2026-08-28",
+   "review_due": "2026-11-26",
+   "support_url": "https://academy.claude.com/tutorials/the-ai-fluency-index",
+   "type": "claim"
+  },
+  {
+   "consequence": "NARROW",
+   "days_left": 106,
+   "id": "GA-001",
+   "last_reviewed": "2026-08-24",
+   "review_due": "2026-12-22",
+   "support_url": "https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md",
+   "type": "claim"
+  },
+  {
+   "consequence": "NARROW",
+   "days_left": 106,
+   "id": "GV-001",
+   "last_reviewed": "2026-08-24",
+   "review_due": "2026-12-22",
+   "support_url": "https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7",
+   "type": "claim"
+  },
+  {
+   "consequence": "NARROW",
+   "days_left": 351,
+   "id": "GCE-001",
+   "last_reviewed": "2026-08-24",
+   "review_due": "2027-08-24",
+   "support_url": "https://github.com/Cubits11/cc-framework/blob/75e90c2f1f84fa89562ed4fe46f137e0be236476/docs/theory/metric_taxonomy.md",
+   "type": "claim"
+  },
+  {
+   "consequence": "NARROW",
+   "days_left": 113,
+   "id": "SITE-001",
+   "last_reviewed": "2026-08-31",
+   "review_due": "2026-12-29",
+   "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 112,
+   "id": "SITE-002",
+   "last_reviewed": "2026-08-30",
+   "review_due": "2026-12-28",
+   "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py",
+   "type": "claim"
+  },
+  {
+   "docs": {
+    "PREREG.md": false,
+    "RESULT.md": false,
+    "freeze/FREEZE.md": true
+   },
+   "first_result_commit_epoch": 1788395285,
+   "id": "experiments/e2",
+   "observation_rows": 0,
+   "stops": [],
+   "type": "experiment"
+  },
+  {
+   "docs": {
+    "PREREG.md": true,
+    "RESULT.md": true,
+    "freeze/FREEZE.md": true
+   },
+   "first_result_commit_epoch": 1788671479,
+   "id": "experiments/e3",
+   "observation_rows": 2400,
+   "stops": [
+    "STOP-2026-09-06.md"
+   ],
+   "type": "experiment"
+  },
+  {
+   "docs": {
+    "PREREG.md": true,
+    "RESULT.md": true,
+    "freeze/FREEZE.md": false
+   },
+   "first_result_commit_epoch": 1788674324,
+   "id": "experiments/e3b",
+   "observation_rows": 2400,
+   "stops": [],
+   "type": "experiment"
+  },
+  {
+   "ahead_of_origin_main": 22,
+   "behind_origin_main": 0,
+   "head": "4f41a36",
+   "id": "claude/device-audit-render-harness",
+   "last_commit": "2026-09-07",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 0,
+   "head": "2174358",
+   "id": "main",
+   "last_commit": "2026-09-06",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 0,
+   "head": "2174358",
+   "id": "origin",
+   "last_commit": "2026-09-06",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 17,
+   "behind_origin_main": 0,
+   "head": "fd68e1f",
+   "id": "origin/claude/device-audit-render-harness",
+   "last_commit": "2026-09-06",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 0,
+   "head": "2174358",
+   "id": "origin/claude/foundations-push-cleanup",
+   "last_commit": "2026-09-06",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 5,
+   "head": "12e8608",
+   "id": "origin/claude/mc-005-selection-regret",
+   "last_commit": "2026-09-05",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 2,
+   "behind_origin_main": 70,
+   "head": "2c2560d",
+   "id": "origin/claude/success-upgrade-i8gfz8",
+   "last_commit": "2026-09-01",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 18,
+   "head": "238cc06",
+   "id": "origin/codex/external-queue-reconciliation",
+   "last_commit": "2026-09-05",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 0,
+   "head": "2174358",
+   "id": "origin/main",
+   "last_commit": "2026-09-06",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  }
+ ],
+ "schema": "repo-graph v0.1",
+ "stable_digest": "d1278c4d48780d274a36145aeb21167cd4f33110cbba52f6da9939df18a5c378"
+}

@@ -25,7 +25,9 @@ out loud first.
 python3 scripts/verification_manifest.py
 ```
 
-46 deterministic checks; exit 0 or the change is not ready.
+Every check in its `CHECKS` tuple, deterministically; exit 0 or the change is
+not ready. Do not quote the count in prose — `python3 scripts/repo_graph.py --orient`
+prints it from the tuple.
 
 ## Conventions CI enforces
 
