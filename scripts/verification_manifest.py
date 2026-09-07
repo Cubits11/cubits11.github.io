@@ -68,6 +68,8 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("worldspace drift", "scripts/generate_worldspace.py", "--check"),
     ("worldspace instrument", "scripts/verify_worldspace.py"),
     ("research index drift", "scripts/generate_research_index.py", "--check"),
+    ("distribution invariants", "tests/test_distribution.py"),
+    ("distribution provenance and drift", "scripts/distribute.py", "--check"),
     ("repo graph drift", "scripts/repo_graph.py", "--check"),
     ("public discovery exclusions", "tests/test_public_discovery.py"),
     ("E2 instrument properties and planted violations", "experiments/e2/run/test_instrument.py"),

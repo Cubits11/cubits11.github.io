@@ -1,0 +1,404 @@
+[
+  {
+    "id": "6673daf2782a48c2",
+    "kind": "census",
+    "source": {
+      "path": "census.yaml",
+      "sha256": "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598",
+      "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/census.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [
+      "try-c"
+    ],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "40931df5225ecaf6",
+    "kind": "claims",
+    "source": {
+      "path": "claims.yaml",
+      "sha256": "6f222f7ccf7652050b31faa19530be00fd51960d3fb388e234d736dd551415b6",
+      "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/claims.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [
+      "try-a",
+      "try-b",
+      "try-c"
+    ],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "2bb58b0cad9d8353",
+    "kind": "claim_change",
+    "source": {
+      "path": "claims_history.yaml",
+      "sha256": "1c94ce71e963defaee78e3d8dd43b289fc5327af47889cff8dedbdc20de9e018",
+      "commit": "1d1abde5ea69dac04ca74386b8225465368ec358",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/1d1abde5ea69dac04ca74386b8225465368ec358/claims_history.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "70050c08430f7c32",
+    "kind": "metrics",
+    "source": {
+      "path": "distribution/outcomes.yaml",
+      "sha256": "2cefa442652376b870e95f86840e5716cc91da5ea91f9be46585d2a19ff23b66",
+      "commit": "26a9d578ffe77deecc191f02ae578e6f8ae6e2c0",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/26a9d578ffe77deecc191f02ae578e6f8ae6e2c0/distribution/outcomes.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "4b59912e6e2d7b4c",
+    "kind": "visualization",
+    "source": {
+      "path": "docs/graph/organism.receipt.json",
+      "sha256": "801f79561fdefd87795586ad44152ba7216432d7b5eebfbbc42d492661a2426b",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "740172d7142d68db",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e2/freeze/msbench_item_ids.json",
+      "sha256": "bb4880ee92a302f5c1b76c5cdc784049f6988699b32898e9cd4ded5fa8019ee6",
+      "commit": "e5729e38cca929bcdfa56b3cd40af4bbcab82c7c",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/e5729e38cca929bcdfa56b3cd40af4bbcab82c7c/experiments/e2/freeze/msbench_item_ids.json",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "4eaa6b8df50e123b",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e2/freeze/sources.json",
+      "sha256": "1c8280fad9752871bdaaa9331f7a8d7aa84934046878b2ce86a2f28171a7e189",
+      "commit": "e5729e38cca929bcdfa56b3cd40af4bbcab82c7c",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/e5729e38cca929bcdfa56b3cd40af4bbcab82c7c/experiments/e2/freeze/sources.json",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "45ed9957b34c40a7",
+    "kind": "experiment",
+    "source": {
+      "path": "experiments/e3/PREREG.md",
+      "sha256": "b08f6c0b9eae0bfda4adf198018275324c9af090a1d77554202dcf3505224732",
+      "commit": "14ca60826fa284317d5c20dece19e7422d1161b6",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/14ca60826fa284317d5c20dece19e7422d1161b6/experiments/e3/PREREG.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "fe0afb26c93b0367",
+    "kind": "result",
+    "source": {
+      "path": "experiments/e3/RESULT.md",
+      "sha256": "d5d5ca69b529585ac5e966189872dee6f77b6bf4ee91705ec4d9bfd805a6dba4",
+      "commit": "3ca78ec080044290554ae984ed39e36542ca0ff1",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3ca78ec080044290554ae984ed39e36542ca0ff1/experiments/e3/RESULT.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "b150558d11c66b04",
+    "kind": "contradiction",
+    "source": {
+      "path": "experiments/e3/STOP-2026-09-06.md",
+      "sha256": "729400925b9e43be793dd9c3311c20db147bc68f1a78b0417f1d16cfd88859a2",
+      "commit": "4d532cbdfab65d51125ec3b0755013da69f6ba4d",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/4d532cbdfab65d51125ec3b0755013da69f6ba4d/experiments/e3/STOP-2026-09-06.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "c800c77d7e6435bf",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e3/freeze/sources.json",
+      "sha256": "2a10f8310e47d0f7de9371adc0f14fe988c612170fe0836ac142cb25422547ed",
+      "commit": "1656a2b6ac670a2b56a6521828d23c50dd427bc1",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/1656a2b6ac670a2b56a6521828d23c50dd427bc1/experiments/e3/freeze/sources.json",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "9a1938fdbd96ba4e",
+    "kind": "experiment",
+    "source": {
+      "path": "experiments/e3b/PREREG.md",
+      "sha256": "c82f51baf93adec55f71fa2c92998c8c9167d3f3e52d00526341051455e291b6",
+      "commit": "b99133f7a2aa714e933a11561472b959b95bd067",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/b99133f7a2aa714e933a11561472b959b95bd067/experiments/e3b/PREREG.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "4eb3e47beb4e726a",
+    "kind": "result",
+    "source": {
+      "path": "experiments/e3b/RESULT.md",
+      "sha256": "b9915a030b02f888994e7b872df0c2a31ee64c18fa7151477beb2902bc3f1c6c",
+      "commit": "058d6f635ce32b0a491482112b25d2e5e5c55ce9",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/058d6f635ce32b0a491482112b25d2e5e5c55ce9/experiments/e3b/RESULT.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "f70fc354de4218e5",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e3b/freeze/sources.json",
+      "sha256": "f820900e62560b6b73c8b097727e82a8659b5a2dfba967044a8cf727a0d8a18c",
+      "commit": "afdb6a98665da06b283f493d243cc084b80ee8bc",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/afdb6a98665da06b283f493d243cc084b80ee8bc/experiments/e3b/freeze/sources.json",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "7e2d93b184e5a6fb",
+    "kind": "film",
+    "source": {
+      "path": "films/leave-one-out/manifest.yaml",
+      "sha256": "90198c982efe8969ea972b9eda5627e2735950ae118cb0715804e63c865930fb",
+      "commit": "2174358b3a42385c06c6412fb66031c21cee51e4",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2174358b3a42385c06c6412fb66031c21cee51e4/films/leave-one-out/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "62a4bbc26aff4e8a",
+    "kind": "film",
+    "source": {
+      "path": "films/parity-cube/manifest.yaml",
+      "sha256": "b9d3f4527ac8f6c4c623e2b31edaa69940cae236ad95d4768bfc30a637ab4f05",
+      "commit": "36062638879e70107779cf1c4edb284ba49fd3d5",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/36062638879e70107779cf1c4edb284ba49fd3d5/films/parity-cube/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "ac1e86b4ad47fec0",
+    "kind": "film",
+    "source": {
+      "path": "films/same-scores-different-worlds/manifest.yaml",
+      "sha256": "aadbe2772335d0500314c790fcf3c6c3476e92ad1dd6275693036f0d6daf90ad",
+      "commit": "3c4ce5bf54ed195ca674cea319d95f4463ec4d4e",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3c4ce5bf54ed195ca674cea319d95f4463ec4d4e/films/same-scores-different-worlds/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [
+      "try-a"
+    ],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "57e77ab060309a36",
+    "kind": "film",
+    "source": {
+      "path": "films/same-scores__social-square/manifest.yaml",
+      "sha256": "ca4b2541b59d731692cd7e86112a23c8d4ade7af22512cc381dacb6b8d38524b",
+      "commit": "3c4ce5bf54ed195ca674cea319d95f4463ec4d4e",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3c4ce5bf54ed195ca674cea319d95f4463ec4d4e/films/same-scores__social-square/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "e1b1f2a0ec114aeb",
+    "kind": "film",
+    "source": {
+      "path": "films/the-correction-invitation/manifest.yaml",
+      "sha256": "9b87c56e01095ea1db9152d67c12f193afc670a0ed44a54bc664652b5680602d",
+      "commit": "14ca60826fa284317d5c20dece19e7422d1161b6",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/14ca60826fa284317d5c20dece19e7422d1161b6/films/the-correction-invitation/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "882ee7b61019a6d7",
+    "kind": "film",
+    "source": {
+      "path": "films/the-falsifier-that-fired/manifest.yaml",
+      "sha256": "89814cb92b88aa87ab546798f737a9d8ff3a4a80548d8375cd67d2b3d3148acd",
+      "commit": "24a53655629fedfc36ca4025ed9923359219b370",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/24a53655629fedfc36ca4025ed9923359219b370/films/the-falsifier-that-fired/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "9cca978dd20b4f90",
+    "kind": "film",
+    "source": {
+      "path": "films/the-missing-column-census/manifest.yaml",
+      "sha256": "8ae305f0e4fe2af82baa4efac5d15079a3c737b9389e4af74aa121b22973a0e7",
+      "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/films/the-missing-column-census/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [
+      "try-c"
+    ],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "f7e7caee8e6b3a22",
+    "kind": "film",
+    "source": {
+      "path": "films/the-missing-column-trailer/manifest.yaml",
+      "sha256": "bccc718f5ac1b7ad21646b2bd65733448b5a7d12ca24c5ebe6bc291d516e3262",
+      "commit": "2174358b3a42385c06c6412fb66031c21cee51e4",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2174358b3a42385c06c6412fb66031c21cee51e4/films/the-missing-column-trailer/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "8bbbfb385ec36baa",
+    "kind": "film",
+    "source": {
+      "path": "films/the-multiplication/manifest.yaml",
+      "sha256": "44182359d2bce6942fbcba46eaca44a495722b9521ac7d8a8c6e31cb1d1be902",
+      "commit": "14ca60826fa284317d5c20dece19e7422d1161b6",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/14ca60826fa284317d5c20dece19e7422d1161b6/films/the-multiplication/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "3f4ee84456f427b7",
+    "kind": "film",
+    "source": {
+      "path": "films/the-stack/manifest.yaml",
+      "sha256": "1b8acaac37e0b2ec95e59572a0b583d59fb0d37cf506806320236568f60d915f",
+      "commit": "3b9721dd944e66fa404eef62d964c394d0e73060",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3b9721dd944e66fa404eef62d964c394d0e73060/films/the-stack/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "c67717924fda8738",
+    "kind": "film",
+    "source": {
+      "path": "films/thirteen-worlds/manifest.yaml",
+      "sha256": "351adf9ccbd42f54c53645251378aaeb0255e5507874cfe78d59009476d79828",
+      "commit": "2174358b3a42385c06c6412fb66031c21cee51e4",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2174358b3a42385c06c6412fb66031c21cee51e4/films/thirteen-worlds/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [
+      "try-b"
+    ],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "258f7df69e25f9c4",
+    "kind": "film",
+    "source": {
+      "path": "films/what-the-seal-proves/manifest.yaml",
+      "sha256": "dc0621613a9026506695ec55f0acefe7adf6dfa8b21ff91a5a421d864c0fdcfe",
+      "commit": "3c4ce5bf54ed195ca674cea319d95f4463ec4d4e",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3c4ce5bf54ed195ca674cea319d95f4463ec4d4e/films/what-the-seal-proves/manifest.yaml",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  }
+]

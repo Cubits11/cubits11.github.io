@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "generator": "scripts/distribute.py",
+  "outputs": {
+    "events.json": "e2f3fe6ac8a2218f13e0d286eac3dd1e9a211e4c515ebe5bfacd4b5bb3b93040",
+    "drafts.json": "18f7c11c7e91d0320e56a6f59bf8a24b91b63ce001eeb6fdebd0b9bf7a0c9999",
+    "queue.json": "15f7eb9d87ec6ac3653e372e6925cb4ce7021daed94b955a74c0e23c1ff84b01",
+    "dashboard.json": "fb53e29d76815a72023e76f44dbd2583902a8214954e8ca20755ff4193acf9d5",
+    "experiments.json": "0fc0d851e80d12425059877b576f1bc3e1ef4b54414bf615b178f31bae296fe9",
+    "dashboard.html": "bf0621f63db566f65e68a89a573482b0d2e1464a3831c98139b033ba45b7fb92"
+  },
+  "gate": "python3 scripts/distribute.py --check",
+  "publishing": "disabled_owner_dispatch_only"
+}

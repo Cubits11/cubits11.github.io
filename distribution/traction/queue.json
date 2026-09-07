@@ -1,0 +1,297 @@
+{
+  "mode": "owner_review_only",
+  "publishing_enabled": false,
+  "required_before_dispatch": [
+    "full verification_manifest exit 0 at dispatch revision",
+    "owner content approval",
+    "platform access",
+    "film cold test if attaching media"
+  ],
+  "items": [
+    {
+      "id": "try-a",
+      "campaign": "x-film-same-scores",
+      "claims": [
+        "CC-001",
+        "CC-004"
+      ],
+      "confidence": {
+        "CC-001": "supported_within_scope",
+        "CC-004": "supported_within_scope"
+      },
+      "scope": {
+        "CC-001": "The kernel module at the bound commit. Reproduced from a clean clone (venv, pip install, execute, assert) most recently on 2026-08-23, and re-reproduced by CI on every push and weekly. No claim about any deployed system.\n",
+        "CC-004": "The kernel identification module at the bound commit, re-verified by CI on every push and weekly in the witness stage of scripts/reproduce_cc001.py. No claim about any deployed system.\n"
+      },
+      "evidence_urls": [
+        "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6",
+        "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
+      ],
+      "sources": [
+        {
+          "path": "claims.yaml",
+          "sha256": "6f222f7ccf7652050b31faa19530be00fd51960d3fb388e234d736dd551415b6",
+          "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/claims.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "distribution/experiments.yaml",
+          "sha256": "691aa3e679944eeded0464bbf41a2995b5491119ffcb14a3ec17ef2280acef70",
+          "commit": "e12ed3b133156798d73c7ed35c3133a689b20c73",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/e12ed3b133156798d73c7ed35c3133a689b20c73/distribution/experiments.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "distribution/launch-units.yaml",
+          "sha256": "decdfebbca6d0cebf285193e7da48a65a681235376c962eb8f0e7de504f14749",
+          "commit": "30cf825968ed33488e5121c21d4f2209374968fd",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/30cf825968ed33488e5121c21d4f2209374968fd/distribution/launch-units.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "campaigns.yaml",
+          "sha256": "2d085177668e196965e78308212620fae79038c81482c312970c177bc3d5a87d",
+          "commit": "26a9d578ffe77deecc191f02ae578e6f8ae6e2c0",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/26a9d578ffe77deecc191f02ae578e6f8ae6e2c0/campaigns.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "films/same-scores-different-worlds/manifest.yaml",
+          "sha256": "aadbe2772335d0500314c790fcf3c6c3476e92ad1dd6275693036f0d6daf90ad",
+          "commit": "3c4ce5bf54ed195ca674cea319d95f4463ec4d4e",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/3c4ce5bf54ed195ca674cea319d95f4463ec4d4e/films/same-scores-different-worlds/manifest.yaml",
+          "binding": "committed"
+        }
+      ],
+      "posts": [
+        "Do two published miss rates determine how often both guards miss the same item?",
+        "PROVED \u2014 Fr\u00e9chet\u2013Hoeffding bounds; both endpoint worlds are re-verified from a clean clone of the bound kernel in CI (CC-001, CC-004).",
+        "Nothing here measures a real guardrail; the population is a construction and no point inside the interval is selected. Independence is what one assumption chooses, not what the scores imply.",
+        "Reproduce: python3 scripts/try_same_scores.py",
+        "https://cubits11.github.io/try/?utm_source=x&utm_medium=social&utm_campaign=e3-films&utm_content=same-scores#try-a",
+        "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6",
+        "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
+      ],
+      "attribution_url": "https://cubits11.github.io/try/?utm_source=x&utm_medium=social&utm_campaign=e3-films&utm_content=same-scores#try-a",
+      "audience_hypothesis": "AI evaluation researchers and guardrail engineers on X",
+      "why": "run TRY-A and file the result, match or mismatch",
+      "success_signal": "one reproduction issue filed by someone who is not the author",
+      "post_type": "thread",
+      "topic": "same-scores",
+      "hook": "question",
+      "visual": "none",
+      "cta": "reproduce",
+      "thread_structure": "question-status-limits-command-evidence",
+      "visual_candidate": {
+        "path": "films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png",
+        "master": "films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4",
+        "state": "held_existing_cold_test_gate"
+      },
+      "scheduled_at": null,
+      "state": "held_owner_review",
+      "anti_hype": [
+        "no vendor ranking",
+        "no population or causal inference",
+        "no synthetic engagement",
+        "retain non-claims",
+        "no automated replies"
+      ],
+      "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
+      "revision": "3a304a11a64675801246e89b14d57533c81e0d1194e159526ad08dcfd4588037"
+    },
+    {
+      "id": "try-b",
+      "campaign": "x-film-thirteen-worlds",
+      "claims": [
+        "MC-002",
+        "MC-003"
+      ],
+      "confidence": {
+        "MC-002": "supported_within_scope",
+        "MC-003": "supported_within_scope"
+      },
+      "scope": {
+        "MC-002": "Exactly the released file at the bound commit: 170 of the evaluation's 990 non-adversarial prompts (the study's ~4,165 adversarial prompts have no per-item release), selected by the authors under an unstated rule. Counting arithmetic only, at the vendors' released binary verdicts; no population estimate, no uncertainty interval, and no claim about any system's true rates is offered or licensed. Computed by scripts/reanalyze_bells_subset.py from scripts/mjgd_reference.py; the expected block below is what CI re-asserts against the downloaded, hash-verified file.\n",
+        "MC-003": "The mathematics is classical \u2014 Bonferroni for the lower endpoint, monotonicity for the upper, Fr\u00e9chet for sharpness \u2014 and nothing here claims to have derived it. What is contributed is the application: pricing, in probability units, what marginal-only guardrail reporting leaves undetermined, and identifying leave-one-out unions as a compact privacy-preserving disclosure of exclusive full-stack coverage. They do not identify pairwise or higher-order overlap, Shapley values, or causal structure. Every statement is conditional on block-on-any composition, per-item decisions that are functions of the item alone, a fixed population, full exposure, and a fixed operating point; it says nothing about sequential routes where downstream measurement is censored by upstream blocks, agentic systems where an intervention changes the trajectory, or any vendor's product. The empirical half is one stratum of one author-selected subset: 82 harmful prompts, with 50 benign and 38 borderline held as separate strata and never folded in. It is a BELLS-specific reproduction, not an assertion that BELLS is the census's only per-item outcome release. scripts/reanalyze_bells_subset.py re-computes the BELLS counts from the hash-verified upstream file in CI; scripts/identification.py checks the stated identification transformations against that registered envelope.\n"
+      },
+      "evidence_urls": [
+        "https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv",
+        "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/identification.py"
+      ],
+      "sources": [
+        {
+          "path": "claims.yaml",
+          "sha256": "6f222f7ccf7652050b31faa19530be00fd51960d3fb388e234d736dd551415b6",
+          "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/claims.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "distribution/experiments.yaml",
+          "sha256": "691aa3e679944eeded0464bbf41a2995b5491119ffcb14a3ec17ef2280acef70",
+          "commit": "e12ed3b133156798d73c7ed35c3133a689b20c73",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/e12ed3b133156798d73c7ed35c3133a689b20c73/distribution/experiments.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "distribution/launch-units.yaml",
+          "sha256": "decdfebbca6d0cebf285193e7da48a65a681235376c962eb8f0e7de504f14749",
+          "commit": "30cf825968ed33488e5121c21d4f2209374968fd",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/30cf825968ed33488e5121c21d4f2209374968fd/distribution/launch-units.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "campaigns.yaml",
+          "sha256": "2d085177668e196965e78308212620fae79038c81482c312970c177bc3d5a87d",
+          "commit": "26a9d578ffe77deecc191f02ae578e6f8ae6e2c0",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/26a9d578ffe77deecc191f02ae578e6f8ae6e2c0/campaigns.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "scripts/identification.py",
+          "sha256": "4baba5ef00e5d8db19910abf1560b15cb7c68552690fb5c68c2dadabf8d563d8",
+          "commit": "b9c4d1ab89c8508e0f25c6fcd9a7a83db08cb771",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/b9c4d1ab89c8508e0f25c6fcd9a7a83db08cb771/scripts/identification.py",
+          "binding": "committed"
+        },
+        {
+          "path": "films/thirteen-worlds/manifest.yaml",
+          "sha256": "351adf9ccbd42f54c53645251378aaeb0255e5507874cfe78d59009476d79828",
+          "commit": "2174358b3a42385c06c6412fb66031c21cee51e4",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/2174358b3a42385c06c6412fb66031c21cee51e4/films/thirteen-worlds/manifest.yaml",
+          "binding": "committed"
+        }
+      ],
+      "posts": [
+        "From a public per-item release, how many of 82 harmful prompts did all five supervisors miss \u2014 and what did the five published miss rates alone permit?",
+        "OBSERVED counts on one released file (hash-verified, pinned commit); PROVED identified set from the marginals. Counting arithmetic, not a population estimate.",
+        "One author-selected 82-prompt stratum at unstated default configurations: not a vendor ranking, not a population estimate, not an observed deployed stack, and nothing about the adversarial prompts that have no per-item release.",
+        "Reproduce: python3 scripts/reanalyze_bells_subset.py",
+        "https://cubits11.github.io/try/?utm_source=x&utm_medium=social&utm_campaign=e3-films&utm_content=thirteen-worlds",
+        "https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv",
+        "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/identification.py"
+      ],
+      "attribution_url": "https://cubits11.github.io/try/?utm_source=x&utm_medium=social&utm_campaign=e3-films&utm_content=thirteen-worlds",
+      "audience_hypothesis": "benchmark authors and people who have read the BELLS paper",
+      "why": "run TRY-B against the pinned released file",
+      "success_signal": "one TRY-B reproduction filed, or a BELLS author confirms or corrects the row",
+      "post_type": "thread",
+      "topic": "thirteen-worlds",
+      "hook": "question",
+      "visual": "none",
+      "cta": "reproduce",
+      "thread_structure": "question-status-limits-command-evidence",
+      "visual_candidate": {
+        "path": "films/thirteen-worlds/renders/thirteen-worlds__master.poster.png",
+        "master": "films/thirteen-worlds/renders/thirteen-worlds__master.mp4",
+        "state": "held_existing_cold_test_gate"
+      },
+      "scheduled_at": null,
+      "state": "held_owner_review",
+      "anti_hype": [
+        "no vendor ranking",
+        "no population or causal inference",
+        "no synthetic engagement",
+        "retain non-claims",
+        "no automated replies"
+      ],
+      "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
+      "revision": "9b078ae966034559f10a4c94e8c213b1396b46b9d651c33f5881efb38653470a"
+    },
+    {
+      "id": "try-c",
+      "campaign": "x-film-missing-column-census",
+      "claims": [
+        "MC-001"
+      ],
+      "confidence": {
+        "MC-001": "supported_within_scope"
+      },
+      "scope": {
+        "MC-001": "A census claim about public reporting, bounded by the documented search protocol documented in census.yaml. Its literal inclusion wording is locked in repository history before row classification; that is a reproducibility lock, not an independent preregistration. It covers the artifacts that search found, not everything in existence; it says nothing about how well any evaluated system or stack performs, and nothing about what the unmeasured joint statistics would show. N, M, and K are recomputed mechanically from census.yaml by scripts/verify_census.py; this envelope's expected block is cross-checked against that computation in CI. Since census schema v3 the joint-evidence mode counts in this note are derived the same way, from a declared joint_scope_additional field, rather than counted by hand here; scripts/verify_facts.py binds every current census numeral on every public page, and on the deployed page after release, to the quantity it asserts. M is a ladder, not a comparability verdict: 14 document shared items and a common event definition, 12 have no stated threshold mismatch, and 0 document matched operating thresholds together with full exposure. Nothing here asserts that the 14 are interchangeable at a common operating point; the opposite is the finding. The 5 is an inclusive discovery count of noninterchangeable artifacts, not an all-miss rate or a deployment conclusion. Four artifacts print at least one composition result and two release aligned per-item outcomes from which joint statistics are directly computable; one artifact does both, so those descriptions intentionally overlap. The frozen phrase \"separately attributable\" did not specify whether a product or model name must be printed: the primary count treats systems a source distinguishes and reports consistently as separately attributable even when anonymized; the declared named-products-only sensitivity excludes Unit42 and mechanically yields N/M/K = 19/13/5. A drafted further clause \u2014 that no printed joint statistic among the then-four covers a commercial guardrail API \u2014 was withdrawn before publication when same-day adversarial review produced a live counterexample under one defensible reading (WAInjectBench's printed ensemble includes GPT-4o prompted as a detector); this claim's forbidden rescues bar narrowing \"commercial\" after the fact, so the clause was dropped rather than reinterpreted, and the event is recorded in the census revision history. On 2026-08-30, a post-release source audit found the distinct Multimodal Safeguard Bench repository, whose currently public Git history carries a pre-cutoff commit timestamp, and which the documented search had missed. That met this claim's prior REJECT falsifier: the 19/13/4 envelope is rejected and retained in census revision history. This 20/14/5 envelope is its corrected, superseding proposition, not a reinterpretation of the former count.\n"
+      },
+      "evidence_urls": [
+        "https://github.com/Cubits11/cubits11.github.io/blob/main/census.yaml"
+      ],
+      "sources": [
+        {
+          "path": "claims.yaml",
+          "sha256": "6f222f7ccf7652050b31faa19530be00fd51960d3fb388e234d736dd551415b6",
+          "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/claims.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "distribution/experiments.yaml",
+          "sha256": "691aa3e679944eeded0464bbf41a2995b5491119ffcb14a3ec17ef2280acef70",
+          "commit": "e12ed3b133156798d73c7ed35c3133a689b20c73",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/e12ed3b133156798d73c7ed35c3133a689b20c73/distribution/experiments.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "distribution/launch-units.yaml",
+          "sha256": "decdfebbca6d0cebf285193e7da48a65a681235376c962eb8f0e7de504f14749",
+          "commit": "30cf825968ed33488e5121c21d4f2209374968fd",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/30cf825968ed33488e5121c21d4f2209374968fd/distribution/launch-units.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "campaigns.yaml",
+          "sha256": "2d085177668e196965e78308212620fae79038c81482c312970c177bc3d5a87d",
+          "commit": "26a9d578ffe77deecc191f02ae578e6f8ae6e2c0",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/26a9d578ffe77deecc191f02ae578e6f8ae6e2c0/campaigns.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "census.yaml",
+          "sha256": "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598",
+          "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/census.yaml",
+          "binding": "committed"
+        },
+        {
+          "path": "films/the-missing-column-census/manifest.yaml",
+          "sha256": "8ae305f0e4fe2af82baa4efac5d15079a3c737b9389e4af74aa121b22973a0e7",
+          "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/films/the-missing-column-census/manifest.yaml",
+          "binding": "committed"
+        }
+      ],
+      "posts": [
+        "Does an evaluation you know preserve what its compared systems miss together, or only what each misses alone?",
+        "PROCEDURE \u2014 the same frozen criteria (v1) and predicates the census applies; your answers are OBSERVED by you, the classification is DERIVED from them, and a candidate row is a proposal until reviewed.",
+        "A classification is a reporting fact about the artifact, never a performance finding about any system; a single audit by one person is a first-pass reading, exactly as the census's own rows are.",
+        "Reproduce: python3 scripts/try_audit.py",
+        "https://cubits11.github.io/try/?utm_source=x&utm_medium=reply&utm_campaign=e3-films&utm_content=missing-column-census#counterexample",
+        "https://github.com/Cubits11/cubits11.github.io/blob/main/census.yaml"
+      ],
+      "attribution_url": "https://cubits11.github.io/try/?utm_source=x&utm_medium=reply&utm_campaign=e3-films&utm_content=missing-column-census#counterexample",
+      "audience_hypothesis": "authors of the twenty examined evaluations",
+      "why": "correct a row, or confirm it, or run TRY-C on another evaluation",
+      "success_signal": "one row correction, one author confirmation, or one TRY-C candidate row filed",
+      "post_type": "thread",
+      "topic": "audit",
+      "hook": "question",
+      "visual": "none",
+      "cta": "reproduce",
+      "thread_structure": "question-status-limits-command-evidence",
+      "visual_candidate": {
+        "path": "films/the-missing-column-census/renders/the-missing-column-census__master.poster.png",
+        "master": "films/the-missing-column-census/renders/the-missing-column-census__master.mp4",
+        "state": "held_existing_cold_test_gate"
+      },
+      "scheduled_at": null,
+      "state": "held_owner_review",
+      "anti_hype": [
+        "no vendor ranking",
+        "no population or causal inference",
+        "no synthetic engagement",
+        "retain non-claims",
+        "no automated replies"
+      ],
+      "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
+      "revision": "292ab24520355c5a550312202c369b9b2679a2e607d61046a70b1c50745668d6"
+    }
+  ]
+}

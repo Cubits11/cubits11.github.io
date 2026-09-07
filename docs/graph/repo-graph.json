@@ -1215,6 +1215,13 @@
    "basis": "STATIC_REF",
    "from": "scripts/repo_graph.py",
    "inferred": true,
+   "rel": "reads",
+   "to": "metrics.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
    "rel": "writes",
    "to": "organism.receipt.json"
   },
@@ -1224,6 +1231,13 @@
    "inferred": true,
    "rel": "reads",
    "to": "outcomes.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/repo_graph.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "publications.json"
   },
   {
    "basis": "STATIC_REF",
@@ -1636,6 +1650,13 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "scripts/distribute.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "scripts/films/bind_facts.py"
   },
   {
@@ -1931,6 +1952,13 @@
    "inferred": true,
    "rel": "reads",
    "to": "scripts/verify_worldspace.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "tests/test_distribution.py"
   },
   {
    "basis": "STATIC_REF",
@@ -3429,6 +3457,26 @@
    "to": "scripts/generate_research_index.py"
   },
   {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "distribution invariants",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_distribution.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "distribution provenance and drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/distribute.py"
+  },
+  {
    "args": [
     "--check"
    ],
@@ -3719,6 +3767,41 @@
    "inferred": false,
    "rel": "governed_by",
    "to": "experiments/e3b/e3b_config.json"
+  },
+  {
+   "basis": "REGISTRY",
+   "from": "distribution/traction",
+   "inferred": false,
+   "rel": "distributes",
+   "to": "CC-001"
+  },
+  {
+   "basis": "REGISTRY",
+   "from": "distribution/traction",
+   "inferred": false,
+   "rel": "distributes",
+   "to": "CC-004"
+  },
+  {
+   "basis": "REGISTRY",
+   "from": "distribution/traction",
+   "inferred": false,
+   "rel": "distributes",
+   "to": "MC-001"
+  },
+  {
+   "basis": "REGISTRY",
+   "from": "distribution/traction",
+   "inferred": false,
+   "rel": "distributes",
+   "to": "MC-002"
+  },
+  {
+   "basis": "REGISTRY",
+   "from": "distribution/traction",
+   "inferred": false,
+   "rel": "distributes",
+   "to": "MC-003"
   }
  ],
  "external": {
@@ -3745,14 +3828,21 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 22,
+   "ahead": 25,
    "behind": 0,
    "branch": "claude/device-audit-render-harness",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 17,
+   "ahead": 25,
+   "behind": 0,
+   "branch": "claude/research-distribution",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 25,
    "behind": 0,
    "branch": "origin/claude/device-audit-render-harness",
    "detector": "D4",
@@ -3780,8 +3870,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/device-audit-render-harness",
-  "head": "4f41a36"
+  "branch": "claude/research-distribution",
+  "head": "9f8b617"
  },
  "nodes": [
   {
@@ -3837,6 +3927,13 @@
    "has_check_mode": false,
    "has_test_mode": false,
    "id": "scripts/degeneracy.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/distribute.py",
    "kind": "instrument",
    "type": "script"
   },
@@ -4247,7 +4344,7 @@
    "type": "script"
   },
   {
-   "checks": 56,
+   "checks": 58,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
@@ -4443,10 +4540,19 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 22,
+   "ahead_of_origin_main": 25,
    "behind_origin_main": 0,
-   "head": "4f41a36",
+   "head": "9f8b617",
    "id": "claude/device-audit-render-harness",
+   "last_commit": "2026-09-07",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 25,
+   "behind_origin_main": 0,
+   "head": "9f8b617",
+   "id": "claude/research-distribution",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": false,
    "type": "branch"
@@ -4470,11 +4576,11 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 17,
+   "ahead_of_origin_main": 25,
    "behind_origin_main": 0,
-   "head": "fd68e1f",
+   "head": "9f8b617",
    "id": "origin/claude/device-audit-render-harness",
-   "last_commit": "2026-09-06",
+   "last_commit": "2026-09-07",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
@@ -4522,8 +4628,16 @@
    "last_commit": "2026-09-06",
    "reachable_from_origin_main": true,
    "type": "branch"
+  },
+  {
+   "id": "distribution/traction",
+   "metric_snapshots": 0,
+   "published": 0,
+   "queued": 3,
+   "state": "owner_review_only",
+   "type": "distribution"
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "d1278c4d48780d274a36145aeb21167cd4f33110cbba52f6da9939df18a5c378"
+ "stable_digest": "49f1d989b65556538d98d2caf2bace317bcfb54c5923a3d29e36ccdcb8ebfb6c"
 }

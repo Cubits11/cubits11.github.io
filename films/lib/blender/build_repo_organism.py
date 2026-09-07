@@ -178,6 +178,17 @@ def grow(graph: dict, png: Path, blend: Path) -> dict:
         pos[x["id"]] = p
         curve(f"stem:{x['id']}", (0, 0, th), p, BARK)
 
+    # Distribution is a hollow seed pod until there are recorded publications.
+    for d in (n for n in graph["nodes"] if n["type"] == "distribution"):
+        p = (4.6, 0, th - 0.8)
+        pos[d["id"]] = p
+        add("sphere", d["id"], p, (0.45,) * 3, CYAN if d["published"] else AMBER,
+            wire=not d["published"])
+        curve("distribution-stem", (0, 0, th), p, BARK)
+        for e in edges:
+            if e["rel"] == "distributes" and e["to"] in pos:
+                curve("distribution:" + e["to"], p, pos[e["to"]], AMBER)
+
     # NERVES
     for e in edges:
         if e["basis"] == "MANIFEST" and e["to"] in pos:

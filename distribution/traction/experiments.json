@@ -1,0 +1,30 @@
+{
+  "roles": {
+    "research_extraction": "Read tracked artifacts; preserve source hashes and event kind.",
+    "claim_audit": "Check registry freshness, pins, scope, non-claims and source-specific gates.",
+    "post_generation": "Render source fields verbatim; changes require a new source revision.",
+    "visual_selection": "Bind existing media; hold films for the existing cold-comprehension gate.",
+    "scheduling": "Propose UTC slots; never dispatch or interpret a queue as authorization.",
+    "metrics_ingestion": "Import sourced cumulative snapshots; missing is null, never zero.",
+    "attribution": "Require direct post identifiers; aggregate traffic is contextual only.",
+    "adversarial_review": "Reject drift, invented claims, missing limits and unsupported inference."
+  },
+  "factors": [
+    "post_type",
+    "audience",
+    "topic",
+    "hook",
+    "visual",
+    "cta",
+    "thread_structure",
+    "time_slot"
+  ],
+  "status": "proposed_no_observations",
+  "primary": "verified independent reproduction or correction",
+  "secondary": "24-hour link CTR",
+  "design": "Sequential pilot; vary hook only after baseline; no causal effect claim",
+  "stop_rule": {
+    "threshold_interactions": 12,
+    "condition": "If technical_interactions reaches 12 with qualified totalling 0, stop replying. Move the effort to upstream contributions and direct author outreach. The absence of qualified outcomes after real technical engagement is itself a result about the audience, and is reported as one.\n"
+  }
+}

@@ -255,12 +255,22 @@ def build(with_git: bool = True, with_drift: bool = True) -> dict:
                 + window_findings(c_nodes) + e_findings + b_findings + untracked_tests(m_edges))
     findings += [{"detector": "PIN", "severity": "FAIL", "claim": e["from"], "path": e["to"]}
                  for e in c_edges if not e["holds"]]
+    import distribute
+    distribution_posts = distribute.draft()
+    distribution_report = distribute.learn(distribute.records("publications.json"), distribute.records("metrics.json"))
+    d_nodes = [{"id": "distribution/traction", "type": "distribution",
+                "queued": len(distribution_posts), "published": distribution_report["publication_count"],
+                "metric_snapshots": distribution_report["snapshot_count"],
+                "state": "owner_review_only"}]
+    d_edges = [{"from": "distribution/traction", "to": cid, "rel": "distributes",
+                "basis": "REGISTRY", "inferred": False}
+               for cid in sorted({c for p in distribution_posts for c in p["claims"]})]
     graph = {
         "schema": "repo-graph v0.1",
         "generated_from": {"head": git("rev-parse", "--short", "HEAD"), "branch": git("rev-parse", "--abbrev-ref", "HEAD")},
-        "nodes": s_nodes + m_nodes + c_nodes + e_nodes + b_nodes,
-        "edges": s_edges + m_edges + c_edges + e_edges,
-        "external": {"qualified_outcomes": sum(1 for o in (outcomes.get("outcomes") or []) if str(o.get("status", "")).lower().startswith("qualified"))},
+        "nodes": s_nodes + m_nodes + c_nodes + e_nodes + b_nodes + d_nodes,
+        "edges": s_edges + m_edges + c_edges + e_edges + d_edges,
+        "external": {"qualified_outcomes": sum(len(v) for v in (outcomes.get("qualified") or {}).values())},
         "findings": findings,
     }
     return graph
@@ -287,10 +297,10 @@ def mermaid(graph: dict) -> str:
             ids[s] = f"n{len(ids)}"
         return ids[s]
     for n in graph["nodes"]:
-        if n["type"] in ("trunk", "claim", "experiment") or (n["type"] == "script" and n["kind"] == "generator"):
+        if n["type"] in ("trunk", "claim", "experiment", "distribution") or (n["type"] == "script" and n["kind"] == "generator"):
             lines.append(f'  {nid(n["id"])}["{n["id"]}"]')
     for e in graph["edges"]:
-        if e["basis"] in ("MANIFEST", "PIN") or e["rel"] == "governed_by":
+        if e["basis"] in ("MANIFEST", "PIN", "REGISTRY") or e["rel"] == "governed_by":
             lines.append(f'  {nid(e["from"])} -->|{e["rel"]}| {nid(e["to"])}')
     return "\n".join(lines) + "\n"
 
@@ -305,6 +315,8 @@ def orient(graph: dict) -> str:
     out.append(f"ROOTS   {len(claims)} claims · {sum(1 for e in graph['edges'] if e['basis']=='PIN')} local sha pins · "
                f"{sum(1 for n in scripts if n['kind']=='generator')} generators · {sum(1 for n in scripts if n['kind']=='verifier')} verifiers")
     out.append("")
+    d = next(n for n in graph["nodes"] if n["type"] == "distribution")
+    out.append(f"DISTRIBUTION {d['queued']} held drafts · {d['published']} publications · {d['metric_snapshots']} snapshots; python3 scripts/distribute.py orient")
     out.append("EXPERIMENTS")
     for e in exps:
         d = e["docs"]

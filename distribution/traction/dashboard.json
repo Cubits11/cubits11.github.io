@@ -1,0 +1,17 @@
+{
+  "publication_count": 0,
+  "snapshot_count": 0,
+  "comparisons": [],
+  "audience_model": "No observed demand yet.",
+  "compounding": "Qualified outcomes require verification in distribution/outcomes.yaml; attention never qualifies.",
+  "next_experiment": "TRY-A text thread: establish 24-hour exposure, clicks and reproduction replies before varying only the hook.",
+  "unavailable": "No site analytics; UTM URLs do not measure visits. Import owner-visible platform receipts and repo traffic separately.",
+  "traffic_context": [],
+  "qualified_outcomes": {
+    "independent_reproductions": 0,
+    "source_corrections": 0,
+    "paired_outcome_releases": 0,
+    "upstream_prs": 0,
+    "human_cold_runs": 0
+  }
+}
