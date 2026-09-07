@@ -1,0 +1,9 @@
+[
+  {
+    "recorded_at": "2026-09-07T20:10:00Z",
+    "design_said": "Sequential pilot: establish the TRY-A 24-hour baseline before dispatching another thread; vary the hook only after a baseline exists.",
+    "owner_decided": "Dispatch try-b and try-c on the same day as try-a, before any 24-hour snapshot exists.",
+    "consequence": "The three threads share a day and an account state; no between-thread comparison from this cohort can separate topic from timing. Their 24/72/168-hour rows are still captured and reported as three baselines, not as an experiment on the hook.",
+    "basis": "owner instruction in chat, 2026-09-07"
+  }
+]

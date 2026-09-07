@@ -19,7 +19,21 @@
     "thread_structure",
     "time_slot"
   ],
-  "status": "proposed_no_observations",
+  "status": "1 publication(s); baseline pending until a 24-hour snapshot exists",
+  "deviations": [
+    {
+      "recorded_at": "2026-09-07T20:10:00Z",
+      "design_said": "Sequential pilot: establish the TRY-A 24-hour baseline before dispatching another thread; vary the hook only after a baseline exists.",
+      "owner_decided": "Dispatch try-b and try-c on the same day as try-a, before any 24-hour snapshot exists.",
+      "consequence": "The three threads share a day and an account state; no between-thread comparison from this cohort can separate topic from timing. Their 24/72/168-hour rows are still captured and reported as three baselines, not as an experiment on the hook.",
+      "basis": "owner instruction in chat, 2026-09-07"
+    }
+  ],
+  "interactions": {
+    "recorded": 0,
+    "unclassified": 0,
+    "rule": "owner-classified technical interactions may enter outcomes.yaml; nothing here counts automatically"
+  },
   "primary": "verified independent reproduction or correction",
   "secondary": "24-hour link CTR",
   "design": "Sequential pilot; vary hook only after baseline; no causal effect claim",
