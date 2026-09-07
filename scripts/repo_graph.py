@@ -288,6 +288,35 @@ def stable(graph: dict) -> dict:
     return g
 
 
+def graph_delta(a: dict, b: dict, limit: int = 40) -> list:
+    """Name what differs between two stable graphs, so a drift gate is never mute."""
+    out = []
+    an, bn = {n["id"]: n for n in a["nodes"]}, {n["id"]: n for n in b["nodes"]}
+    for i in sorted(set(bn) - set(an)):
+        out.append(f"node added   {i}")
+    for i in sorted(set(an) - set(bn)):
+        out.append(f"node removed {i}")
+    for i in sorted(set(an) & set(bn)):
+        for k in sorted(set(an[i]) | set(bn[i])):
+            if an[i].get(k) != bn[i].get(k):
+                out.append(f"node {i} .{k}: {json.dumps(an[i].get(k), default=str)[:80]} -> {json.dumps(bn[i].get(k), default=str)[:80]}")
+    key = lambda e: json.dumps(e, sort_keys=True, default=str)
+    ae, be = {key(e) for e in a["edges"]}, {key(e) for e in b["edges"]}
+    for e in sorted(be - ae):
+        out.append(f"edge added   {e[:140]}")
+    for e in sorted(ae - be):
+        out.append(f"edge removed {e[:140]}")
+    af, bf = {key(f) for f in a["findings"]}, {key(f) for f in b["findings"]}
+    for f in sorted(bf - af):
+        out.append(f"finding added   {f[:140]}")
+    for f in sorted(af - bf):
+        out.append(f"finding removed {f[:140]}")
+    for k in sorted(set(a) | set(b)):
+        if k not in ("nodes", "edges", "findings") and a.get(k) != b.get(k):
+            out.append(f"field {k}: {json.dumps(a.get(k), default=str)[:80]} -> {json.dumps(b.get(k), default=str)[:80]}")
+    return out[:limit] + ([f"… {len(out) - limit} more"] if len(out) > limit else [])
+
+
 def mermaid(graph: dict) -> str:
     lines = ["graph LR"]
     ids = {}
@@ -379,8 +408,11 @@ def main() -> int:
             print("FAIL  docs/graph/repo-graph.json missing — run scripts/repo_graph.py")
             return 1
         current = stable(json.loads(OUT_JSON.read_text()))
-        if current != stable(graph):
+        live = stable(graph)
+        if current != live:
             print("FAIL  docs/graph/repo-graph.json is stale — run scripts/repo_graph.py")
+            for line in graph_delta(current, live):
+                print("      " + line)
             return 1
         print(f"ok    repo graph current: {len(graph['nodes'])} nodes, {len(graph['edges'])} edges, "
               f"{len(graph['findings'])} live findings")
