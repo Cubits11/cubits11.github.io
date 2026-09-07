@@ -2,7 +2,7 @@
   "version": 1,
   "generator": "scripts/distribute.py",
   "outputs": {
-    "events.json": "0567ccc6eebfd78370f7f4dd0ea084a0823ae444883ca88ece0c90224050c8fe",
+    "events.json": "27f5b7988139ce99b3bc96715af53ded087f6a7ec4de9b24bcdf4fa1912fe121",
     "drafts.json": "82d79663ff4da6ad17ce9db6e7d1c186e617c15e1d9473cd40ba878e6e6fafcf",
     "queue.json": "335e0871e3b191fb73b8eb98cef58d31cceef568a7b6f4f2b66431bce5c232ae",
     "dashboard.json": "389246193621300c51797f2f5b35bf3086e244550dc4b05cab1a799e27824ad0",
