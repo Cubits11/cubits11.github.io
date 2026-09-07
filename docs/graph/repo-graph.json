@@ -100,6 +100,34 @@
   },
   {
    "basis": "STATIC_REF",
+   "from": "scripts/cadence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": ".claude/skills/evidence-ledger/ledger.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/cadence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "metrics/repo_state.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/cadence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "repo_state.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/cadence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verification_manifest.py"
+  },
+  {
+   "basis": "STATIC_REF",
    "from": "scripts/check_layout.py",
    "inferred": true,
    "rel": "writes",
@@ -1623,6 +1651,13 @@
    "inferred": true,
    "rel": "reads",
    "to": "scripts/audit_device.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/cadence.py"
   },
   {
    "basis": "STATIC_REF",
@@ -3488,6 +3523,28 @@
    "to": "scripts/repo_graph.py"
   },
   {
+   "args": [
+    "check"
+   ],
+   "basis": "MANIFEST",
+   "check": "cadence series integrity",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/cadence.py"
+  },
+  {
+   "args": [
+    "--test"
+   ],
+   "basis": "MANIFEST",
+   "check": "cadence fixtures",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/cadence.py"
+  },
+  {
    "args": [],
    "basis": "MANIFEST",
    "check": "public discovery exclusions",
@@ -3828,13 +3885,6 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 3,
-   "behind": 0,
-   "branch": "release/verified-pages-2026-09-07",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
@@ -3842,8 +3892,8 @@
   }
  ],
  "generated_from": {
-  "branch": "release/verified-pages-2026-09-07",
-  "head": "3204b85"
+  "branch": "main",
+  "head": "58344da"
  },
  "nodes": [
   {
@@ -3872,6 +3922,13 @@
    "has_test_mode": false,
    "id": "scripts/build_resume_pdf.py",
    "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": true,
+   "id": "scripts/cadence.py",
+   "kind": "instrument",
    "type": "script"
   },
   {
@@ -4316,7 +4373,7 @@
    "type": "script"
   },
   {
-   "checks": 58,
+   "checks": 60,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
@@ -4513,35 +4570,17 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 107,
-   "head": "044914a",
-   "id": "codex/epistemic-prompts",
-   "last_commit": "2026-08-31",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 1,
-   "head": "a271e36",
+   "behind_origin_main": 0,
+   "head": "58344da",
    "id": "main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 3,
-   "behind_origin_main": 0,
-   "head": "3204b85",
-   "id": "release/verified-pages-2026-09-07",
-   "last_commit": "2026-09-07",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "6c15d43",
+   "head": "58344da",
    "id": "origin",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4550,7 +4589,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "6c15d43",
+   "head": "58344da",
    "id": "origin/main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4566,5 +4605,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "fe0acad1003920f1efa06a79ab58b29d693f2f1402bcab9db7ff3fe94a4a1a9e"
+ "stable_digest": "4ff70dcf24512e32fd352c7fa36912157cf8938ca325c3fb8af5f3be13d8b96b"
 }

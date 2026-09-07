@@ -9,15 +9,18 @@ style — they are the product, and CI enforces them.
 ## Start here
 
 ```bash
-python3 .claude/skills/evidence-ledger/ledger.py
+python3 .claude/skills/evidence-ledger/ledger.py   # the instant
+python3 scripts/cadence.py report                  # the trajectory
 ```
 
 Repo state in one screen: what has been measured, what is blocked on a human,
 and how much protocol sits on top of how many rows. Cheaper and more honest
 than reconstructing it from the program, the contract, the freeze and the last
-report. See `.claude/skills/evidence-ledger/SKILL.md` for the two standing
-rules — in particular: before writing another governing document, say the trade
-out loud first.
+report. The cadence report answers the question one instant cannot: whether the
+answer is moving, and whether what moved was evidence or scaffolding. See
+`.claude/skills/evidence-ledger/SKILL.md` for the two standing rules — in
+particular: before writing another governing document, say the trade out loud
+first.
 
 ## Before any commit
 
@@ -50,6 +53,10 @@ prints it from the tuple.
   anything else with a `local_content_change` trigger.
 - **Figure numbers** are re-derived from stated constants in
   `scripts/verify_figures.py` to 1e-9.
+- **The cadence series only appends.** `metrics/repo_state.jsonl` is a hash
+  chain of daily repository state; an edited, reordered, dropped or truncated
+  row fails `scripts/cadence.py check`. CI enforces the chain and never the
+  values — those counts are allowed to be true, never to be a target.
 
 ## Voice
 
@@ -92,6 +99,8 @@ invalid-red; gold is identity only) and state is never encoded by color alone.
 `experiments/e2/` the live measurement program (freeze, prereg, instrument) ·
 `ARTIFACTS/12-WEEK-PROGRAM.md` the governing plan and its kill conditions ·
 `distribution/` external asks and the qualified-outcome ledger ·
-`scripts/` generators and verifiers · `docs/` estimands and cut decisions.
+`scripts/` generators and verifiers · `docs/` estimands and cut decisions ·
+`metrics/repo_state.jsonl` the append-only daily series of this repository's own
+state, written by `scripts/cadence.py` and scheduled by `scripts/cadence_cycle.sh`.
 
 Work on `claude/<topic>` branches and merge to `main`.

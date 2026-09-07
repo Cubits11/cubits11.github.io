@@ -71,6 +71,8 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("distribution invariants", "tests/test_distribution.py"),
     ("distribution provenance and drift", "scripts/distribute.py", "--check"),
     ("repo graph drift", "scripts/repo_graph.py", "--check"),
+    ("cadence series integrity", "scripts/cadence.py", "check"),
+    ("cadence fixtures", "scripts/cadence.py", "--test"),
     ("public discovery exclusions", "tests/test_public_discovery.py"),
     ("E2 instrument properties and planted violations", "experiments/e2/run/test_instrument.py"),
     ("trial IV drift", "scripts/generate_trial.py", "--check"),
