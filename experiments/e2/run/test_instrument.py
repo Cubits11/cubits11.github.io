@@ -12,6 +12,7 @@ from __future__ import annotations
 import hashlib
 import math
 import random
+import pathlib
 import sys
 from pathlib import Path
 
@@ -327,8 +328,46 @@ def p11() -> None:
           f"mh {mh:.6f} crude {crude:.6f}")
 
 
+def p12() -> None:
+    """The frozen sample rule is a gate, not a sentence someone remembers.
+
+    PREREG_SELECTION.md §3 fixes n_min = 1097 and n_stop = 600 over the
+    harmful + benign_eval strata. Every band is exercised, the calibration
+    half is proven not to count toward the bar, and the constants are checked
+    against the preregistration text itself so the two cannot drift apart.
+    """
+    from analyze import sizing_verdict, N_MIN, N_STOP
+
+    def strata(**kw):
+        return [{"stratum": k, "complete_case_n": v} for k, v in kw.items()]
+
+    cases = [
+        (dict(harmful=520, benign_eval=800), "OK", 1320),
+        (dict(harmful=520, benign_eval=577), "OK", 1097),          # exactly the bar
+        (dict(harmful=520, benign_eval=576), "PRECISION_HOLD", 1096),
+        (dict(harmful=300, benign_eval=300), "PRECISION_HOLD", 600),  # exactly n_stop
+        (dict(harmful=300, benign_eval=299), "STOP", 599),
+    ]
+    ok = all(sizing_verdict(strata(**a))["verdict"] == want
+             and sizing_verdict(strata(**a))["shared_n"] == n
+             for a, want, n in cases)
+
+    # the calibration half must never be counted toward the bar
+    leaked = sizing_verdict(strata(harmful=300, benign_eval=299, benign_cal=800))
+    ok = ok and leaked["verdict"] == "STOP" and leaked["shared_n"] == 599
+
+    # the constants must match the preregistration they claim to enforce
+    prereg = (pathlib.Path(__file__).resolve().parent.parent
+              / "freeze" / "PREREG_SELECTION.md").read_text()
+    ok = ok and f"| `n_min` | {N_MIN} |" in prereg and f"| `n_stop` | {N_STOP} |" in prereg
+
+    check("P12 frozen sample rule enforced: every band, calibration excluded, "
+          "constants match PREREG_SELECTION.md", ok,
+          f"n_min {N_MIN} n_stop {N_STOP}; leaked-cal n {leaked['shared_n']}")
+
+
 def main() -> int:
-    for f in (p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11):
+    for f in (p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12):
         f()
     if failures:
         print(f"{len(failures)} property/properties failed.")
