@@ -2,12 +2,12 @@
   "version": 1,
   "generator": "scripts/distribute.py",
   "outputs": {
-    "events.json": "916b7ac1d537602a059115abc3695b881ad80b8f5c007a23edfa00cb83a3a1d6",
+    "events.json": "108625bcbc84d7f4d782e8af2fa9c821c199067b2b0fe4590e58bfd91e3b3558",
     "drafts.json": "91f3a9166124cc2b6dbbf6d49e12eadda2a9a332d5fe1345f2f87519279049fd",
-    "queue.json": "57047d8bd2b04d350ee0ab243a6a9f1d44bc4983c59faef22ce6232087d64b56",
-    "dashboard.json": "fb53e29d76815a72023e76f44dbd2583902a8214954e8ca20755ff4193acf9d5",
+    "queue.json": "eaa4ef967a7fcdff5aebc4881a8258c866e9790a74f009dfd5ab081e3e87d683",
+    "dashboard.json": "389246193621300c51797f2f5b35bf3086e244550dc4b05cab1a799e27824ad0",
     "experiments.json": "0fc0d851e80d12425059877b576f1bc3e1ef4b54414bf615b178f31bae296fe9",
-    "dashboard.html": "b1bbfb71ae7db7772b6712f613bac622a33f422cc9026080977b97bf68ab91dc"
+    "dashboard.html": "b325b59ca8e2fca697c589b844d4603ab22b392860efeabd03eb0656900e781b"
   },
   "gate": "python3 scripts/distribute.py --check",
   "publishing": "publish stage under owner approval (approvals.json) and environment credentials; owner decision 2026-09-07"

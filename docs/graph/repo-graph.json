@@ -3828,41 +3828,6 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 25,
-   "behind": 0,
-   "branch": "claude/device-audit-render-harness",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 27,
-   "behind": 0,
-   "branch": "claude/research-distribution",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 25,
-   "behind": 0,
-   "branch": "origin/claude/device-audit-render-harness",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 2,
-   "behind": 70,
-   "branch": "origin/claude/success-upgrade-i8gfz8",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 18,
-   "branch": "origin/codex/external-queue-reconciliation",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
@@ -3870,8 +3835,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/research-distribution",
-  "head": "a091c6b"
+  "branch": "main",
+  "head": "370ecdb"
  },
  "nodes": [
   {
@@ -4540,104 +4505,41 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 25,
-   "behind_origin_main": 0,
-   "head": "9f8b617",
-   "id": "claude/device-audit-render-harness",
-   "last_commit": "2026-09-07",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 27,
-   "behind_origin_main": 0,
-   "head": "a091c6b",
-   "id": "claude/research-distribution",
-   "last_commit": "2026-09-07",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "2174358",
+   "head": "370ecdb",
    "id": "main",
-   "last_commit": "2026-09-06",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
-   "head": "2174358",
-   "id": "origin",
-   "last_commit": "2026-09-06",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 25,
-   "behind_origin_main": 0,
-   "head": "9f8b617",
-   "id": "origin/claude/device-audit-render-harness",
    "last_commit": "2026-09-07",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
-   "head": "2174358",
-   "id": "origin/claude/foundations-push-cleanup",
-   "last_commit": "2026-09-06",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 5,
-   "head": "12e8608",
-   "id": "origin/claude/mc-005-selection-regret",
-   "last_commit": "2026-09-05",
+   "behind_origin_main": 0,
+   "head": "370ecdb",
+   "id": "origin",
+   "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 2,
-   "behind_origin_main": 70,
-   "head": "2c2560d",
-   "id": "origin/claude/success-upgrade-i8gfz8",
-   "last_commit": "2026-09-01",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 18,
-   "head": "238cc06",
-   "id": "origin/codex/external-queue-reconciliation",
-   "last_commit": "2026-09-05",
-   "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "2174358",
+   "head": "370ecdb",
    "id": "origin/main",
-   "last_commit": "2026-09-06",
+   "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "id": "distribution/traction",
    "metric_snapshots": 0,
-   "published": 0,
+   "published": 1,
    "queued": 3,
    "state": "owner_review_only",
    "type": "distribution"
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "49f1d989b65556538d98d2caf2bace317bcfb54c5923a3d29e36ccdcb8ebfb6c"
+ "stable_digest": "f241783643c88c3c698075ff934c4acbbb6226f48eef40baeb7fdc047acc44e5"
 }

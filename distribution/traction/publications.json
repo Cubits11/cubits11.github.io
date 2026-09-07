@@ -1,0 +1,26 @@
+[
+  {
+    "post_id": "2097018101602660408",
+    "source_url": "https://x.com/PranavBhave_/status/2097018101602660408",
+    "draft_id": "try-a",
+    "draft_revision": "8318df5ab8fdfcfd87dc94649ee392c1de9e7daa75955080cae74b09398c8dfc",
+    "published_at": "2026-09-07T17:44:12Z",
+    "dispatch_revision": "370ecdbbdeda4c4d8ed28d6d7adac3dd8621c607",
+    "thread_post_ids": [
+      "2097018101602660408",
+      "2097018103091671065",
+      "2097018104538603787",
+      "2097018106530914352",
+      "2097018108212838772",
+      "2097018109873782882"
+    ],
+    "post_type": "thread",
+    "audience": "AI evaluation researchers and guardrail engineers on X",
+    "topic": "same-scores",
+    "hook": "question",
+    "visual": "none",
+    "cta": "reproduce",
+    "thread_structure": "question-status-limits-command-evidence",
+    "time_slot": "utc-17"
+  }
+]
