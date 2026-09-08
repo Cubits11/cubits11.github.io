@@ -17,13 +17,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "f4d1b1396d698179",
+    "id": "ce8f669d62fde866",
     "kind": "claims",
     "source": {
       "path": "claims.yaml",
-      "sha256": "3b597a200639e0c9781c59ac5b6bb6c1257cd1ec389ecfe3638bf21f52ab6357",
-      "commit": "b6a30b64a9b9019cb9d8b6f4df94898924f75019",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/b6a30b64a9b9019cb9d8b6f4df94898924f75019/claims.yaml",
+      "sha256": "0c7791565d877cc45627dc2374a842a8784c5ec39e74771a6a4c106e71a9a38b",
+      "commit": "f3a6a1e1c23cf99e9732858635b3247ee0e5c489",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/f3a6a1e1c23cf99e9732858635b3247ee0e5c489/claims.yaml",
       "binding": "committed"
     },
     "draft_ids": [
@@ -36,13 +36,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "b3916457263991dc",
+    "id": "a82fda038dbd022c",
     "kind": "claim_change",
     "source": {
       "path": "claims_history.yaml",
-      "sha256": "a0539db97847987d69ecd1c6cab30a285bf5c089381d346d6e02dd7c2d66096a",
-      "commit": "3204b85a3ecaa78d8499689ed4a87f1df2d3f626",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3204b85a3ecaa78d8499689ed4a87f1df2d3f626/claims_history.yaml",
+      "sha256": "47360a46c12448ca28f053c7469c5ddc9af82cc54ddad8b3fab1cfc411e792f9",
+      "commit": "f3a6a1e1c23cf99e9732858635b3247ee0e5c489",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/f3a6a1e1c23cf99e9732858635b3247ee0e5c489/claims_history.yaml",
       "binding": "committed"
     },
     "draft_ids": [],
@@ -126,13 +126,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "fe0afb26c93b0367",
+    "id": "38d33285adf4f5b4",
     "kind": "result",
     "source": {
       "path": "experiments/e3/RESULT.md",
-      "sha256": "d5d5ca69b529585ac5e966189872dee6f77b6bf4ee91705ec4d9bfd805a6dba4",
-      "commit": "3ca78ec080044290554ae984ed39e36542ca0ff1",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3ca78ec080044290554ae984ed39e36542ca0ff1/experiments/e3/RESULT.md",
+      "sha256": "3d8b6af2311c5c39362d2bc7fb9fd451fd5e43afafae8ec0e665e06432e333ad",
+      "commit": "f3a6a1e1c23cf99e9732858635b3247ee0e5c489",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/f3a6a1e1c23cf99e9732858635b3247ee0e5c489/experiments/e3/RESULT.md",
       "binding": "committed"
     },
     "draft_ids": [],
@@ -186,13 +186,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "4eb3e47beb4e726a",
+    "id": "78141d44f4e24665",
     "kind": "result",
     "source": {
       "path": "experiments/e3b/RESULT.md",
-      "sha256": "b9915a030b02f888994e7b872df0c2a31ee64c18fa7151477beb2902bc3f1c6c",
-      "commit": "058d6f635ce32b0a491482112b25d2e5e5c55ce9",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/058d6f635ce32b0a491482112b25d2e5e5c55ce9/experiments/e3b/RESULT.md",
+      "sha256": "8a72bd5eb9ddbdf25dfceae9d4bc89dafdd39aa8abae1ae9a7bcddf3fd27d987",
+      "commit": "f3a6a1e1c23cf99e9732858635b3247ee0e5c489",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/f3a6a1e1c23cf99e9732858635b3247ee0e5c489/experiments/e3b/RESULT.md",
       "binding": "committed"
     },
     "draft_ids": [],
