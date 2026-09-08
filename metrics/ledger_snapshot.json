@@ -1,0 +1,59 @@
+{
+  "_generated_by": "scripts/ledger_snapshot.py",
+  "_source": ".claude/skills/evidence-ledger/ledger.py",
+  "_note": "Counts only. Blocker ages are excluded on purpose: they change with the calendar and would make this gate fire on days nothing happened. Run the ledger itself for ages.",
+  "as_of": "2026-09-08",
+  "claims": {
+    "total": 19,
+    "own_measurement": 2,
+    "executed_output": 8,
+    "by_origin": {
+      "own-artifact": 12,
+      "own-measurement": 2,
+      "third-party-artifact": 4,
+      "unsupported": 1
+    }
+  },
+  "observations": {
+    "rows": 4800,
+    "files": [
+      {
+        "file": "experiments/e3/results/observations.jsonl",
+        "rows": 2400
+      },
+      {
+        "file": "experiments/e3b/results/observations.jsonl",
+        "rows": 2400
+      }
+    ]
+  },
+  "blocking": {
+    "markers": 20,
+    "open": 13,
+    "cleared": 3,
+    "named": 4
+  },
+  "scaffolding": [
+    {
+      "experiment": "e2",
+      "governing_documents": 8,
+      "observation_rows": 0
+    },
+    {
+      "experiment": "e3",
+      "governing_documents": 6,
+      "observation_rows": 2400
+    },
+    {
+      "experiment": "e3b",
+      "governing_documents": 2,
+      "observation_rows": 2400
+    }
+  ],
+  "outcomes": {
+    "qualified_total": 0,
+    "categories": 5,
+    "technical_interactions": 3,
+    "stop_threshold": 12
+  }
+}

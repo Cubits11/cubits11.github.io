@@ -14,7 +14,7 @@ held twice: `experiments/e3/freeze/or-bench-80k.csv` and
 `experiments/e3b/freeze/or-bench-80k.csv`, byte-identical
 (`22e95602…`). Each freeze is self-contained by design, so the duplicate
 stays and is recorded by detector D7 in `docs/graph/repo-graph.json`. The
-remaining ~11.7k lines are the E3 and E3B experiments, the MC-005
+remaining ~11.7k lines are the E3 and E3B experiments, the retracted MC-005
 retraction, and the film re-render. Nothing in the 17 commits was found
 uncommittable; see §4 for what an adversarial pass did find.
 

@@ -63,13 +63,41 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
 </header>
 <header class="page">
   <div class="container">
-    <p class="eyebrow mono">Now · updated 2026-09-04 · owner-attested, dated, replaced when stale</p>
+    <p class="eyebrow mono">Now · updated 2026-09-08 · owner-attested, dated, replaced when stale</p>
     <h1>Can dependence evidence be measured at feasible cost — before it has to be assumed?</h1>
     <p class="standfirst">One claim should become more inspectable every working day. This page
       names the claim currently on the bench, and the honest state of everything around it.</p>
   </div>
 </header>
 <main class="container" id="main">
+
+  <div class="mv">
+    <span class="mono state-open">Measured · both predictions failed · 2026-09-06</span>
+    <h2>The first rows this record produced, and what they could not answer</h2>
+    <p>On 2026-09-06 two pilots ran on hardware I own and produced <strong>4,800 per-item
+      observation rows</strong> — the first measurements this repository has made rather than
+      recounted. Both failed their primary pre-registered prediction, and both are registered
+      with that failure in the commitment: <a href="/ledger/#E3-001">E3-001</a> and
+      <a href="/ledger/#E3B-001">E3B-001</a>. E3 predicted an excess joint miss whose interval
+      excluded zero and returned +0.0018 with a 95% interval of [−0.00096, +0.00706]. E3B was
+      pre-registered to widen the identified set past ten points and returned a set of width
+      zero. <code>scripts/verify_e3.py</code> re-derives every registered number, including the
+      bootstrap interval, from the committed rows alone on every push.</p>
+    <p>Why neither could answer its question is the useful part. In E3 both guards missed
+      96–98% of the pool, so the two marginals alone pinned the joint miss to a 1.75-point
+      interval. In E3B one guard missed nothing, so the marginals fixed the joint miss exactly
+      and the interval had width 0. Two runs, two degenerate identified sets, at opposite ends
+      of the marginal range. That the identified set is wide in the middle and degenerate at the
+      extremes — and that a roughly forty-item pre-scoring check would have stopped both runs —
+      is a <em>hypothesis these two pilots suggest and neither tested</em>. It is registered as a
+      non-claim in those words, not as a finding. E3B is a new experiment with its own freeze,
+      not a re-run or a correction of E3; both results stand.</p>
+    <div class="chips" style="margin-top:.9rem">
+      <a class="chip chip-internal" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e3/RESULT.md">E3 result →</a>
+      <a class="chip chip-internal" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e3b/RESULT.md">E3B result →</a>
+      <a class="chip chip-internal" href="/ledger/">Evidence ledger →</a>
+    </div>
+  </div>
 
   <div class="mv">
     <span class="mono state-open">Hypothesis · open · 2026-09-04</span>

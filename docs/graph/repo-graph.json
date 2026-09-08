@@ -1024,6 +1024,34 @@
   },
   {
    "basis": "STATIC_REF",
+   "from": "scripts/ledger_snapshot.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": ".claude/skills/evidence-ledger/ledger.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/ledger_snapshot.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "ledger.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/ledger_snapshot.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "ledger_snapshot.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/ledger_snapshot.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "metrics/ledger_snapshot.json"
+  },
+  {
+   "basis": "STATIC_REF",
    "from": "scripts/mixture_bounds.py",
    "inferred": true,
    "rel": "reads",
@@ -1804,6 +1832,13 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "scripts/ledger_snapshot.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "scripts/mixture_bounds.py"
   },
   {
@@ -1909,6 +1944,13 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "scripts/verify_e3.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "scripts/verify_facts.py"
   },
   {
@@ -1959,6 +2001,13 @@
    "inferred": true,
    "rel": "reads",
    "to": "scripts/verify_resume_receipt.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_retracted.py"
   },
   {
    "basis": "STATIC_REF",
@@ -2326,6 +2375,41 @@
   },
   {
    "basis": "STATIC_REF",
+   "from": "scripts/verify_e3.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "RESULT.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_e3.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_e3.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "e3_result.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_e3.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_e3.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "observations.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
    "from": "scripts/verify_facts.py",
    "inferred": true,
    "rel": "reads",
@@ -2652,6 +2736,69 @@
    "inferred": true,
    "rel": "reads",
    "to": "resume/pranav-bhave-resume.receipt.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_retracted.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_retracted.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_retracted.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_retracted.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_retracted.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.txt"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_retracted.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_retracted.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "*.yml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_retracted.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_retracted.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims_history.yaml"
   },
   {
    "basis": "STATIC_REF",
@@ -3057,6 +3204,26 @@
    "to": "scripts/claims_history.py"
   },
   {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "retracted-id attribution",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_retracted.py"
+  },
+  {
+   "args": [
+    "--test"
+   ],
+   "basis": "MANIFEST",
+   "check": "retracted-id attribution fixtures",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_retracted.py"
+  },
+  {
    "args": [
     "--test"
    ],
@@ -3325,6 +3492,26 @@
    "inferred": false,
    "rel": "runs",
    "to": "scripts/degeneracy.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "E3 and E3B re-asserted from committed rows",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_e3.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "ledger snapshot drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/ledger_snapshot.py"
   },
   {
    "args": [],
@@ -3637,6 +3824,60 @@
    "to": "scripts/verify_claims.py"
   },
   {
+   "basis": "PIN",
+   "from": "E3-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "952416606e0caa7d2f58c45322907be6a9c35a0d651910947688977cf99b22c0",
+   "to": "experiments/e3/results/observations.jsonl"
+  },
+  {
+   "basis": "PIN",
+   "from": "E3-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "84e21e59665b8626d41a73325563ec022251d79187c5b8d91e25f7b5411b2717",
+   "to": "experiments/e3/results/e3_result.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E3-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "3d8b6af2311c5c39362d2bc7fb9fd451fd5e43afafae8ec0e665e06432e333ad",
+   "to": "experiments/e3/RESULT.md"
+  },
+  {
+   "basis": "PIN",
+   "from": "E3B-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "00e75bf47f68ec2487532d595c74362eb85d0e683f3a0d4f294ff2ae429e4631",
+   "to": "experiments/e3b/results/observations.jsonl"
+  },
+  {
+   "basis": "PIN",
+   "from": "E3B-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "a9685abb1ca63193325ddf319bb5d87cd0c395daf0e7614d571caefbefbfde87",
+   "to": "experiments/e3b/results/e3_result.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E3B-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "8a72bd5eb9ddbdf25dfceae9d4bc89dafdd39aa8abae1ae9a7bcddf3fd27d987",
+   "to": "experiments/e3b/RESULT.md"
+  },
+  {
    "basis": "GIT",
    "from": "experiments/e2",
    "inferred": false,
@@ -3892,8 +4133,8 @@
   }
  ],
  "generated_from": {
-  "branch": "main",
-  "head": "9777b0a"
+  "branch": "claude/canon-reconciliation",
+  "head": "4b659fb"
  },
  "nodes": [
   {
@@ -4107,6 +4348,13 @@
    "type": "script"
   },
   {
+   "has_check_mode": true,
+   "has_test_mode": false,
+   "id": "scripts/ledger_snapshot.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
    "has_check_mode": false,
    "has_test_mode": true,
    "id": "scripts/mixture_bounds.py",
@@ -4268,6 +4516,13 @@
    "type": "script"
   },
   {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_e3.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
    "has_check_mode": true,
    "has_test_mode": true,
    "id": "scripts/verify_facts.py",
@@ -4325,6 +4580,13 @@
   },
   {
    "has_check_mode": false,
+   "has_test_mode": true,
+   "id": "scripts/verify_retracted.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
    "has_test_mode": false,
    "id": "scripts/verify_room_atom_map.py",
    "kind": "verifier",
@@ -4373,13 +4635,13 @@
    "type": "script"
   },
   {
-   "checks": 60,
+   "checks": 64,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
   {
    "consequence": "REJECT",
-   "days_left": 106,
+   "days_left": 105,
    "id": "CC-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4388,7 +4650,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 106,
+   "days_left": 105,
    "id": "CC-002",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4397,7 +4659,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 106,
+   "days_left": 105,
    "id": "CC-003",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4406,7 +4668,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 106,
+   "days_left": 105,
    "id": "CC-004",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4415,7 +4677,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 106,
+   "days_left": 105,
    "id": "CC-005",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4424,7 +4686,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 120,
+   "days_left": 119,
    "id": "CC-006",
    "last_reviewed": "2026-09-07",
    "review_due": "2027-01-05",
@@ -4433,7 +4695,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 16,
+   "days_left": 15,
    "id": "REL-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-09-23",
@@ -4442,7 +4704,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 60,
+   "days_left": 59,
    "id": "MC-001",
    "last_reviewed": "2026-09-07",
    "review_due": "2026-11-06",
@@ -4451,7 +4713,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 50,
+   "days_left": 49,
    "id": "MC-002",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-10-27",
@@ -4460,7 +4722,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 52,
+   "days_left": 51,
    "id": "MC-003",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-10-29",
@@ -4469,7 +4731,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 53,
+   "days_left": 52,
    "id": "MC-004",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-10-30",
@@ -4478,7 +4740,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 80,
+   "days_left": 79,
    "id": "AF-001",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-11-26",
@@ -4487,7 +4749,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 106,
+   "days_left": 105,
    "id": "GA-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4496,7 +4758,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 106,
+   "days_left": 105,
    "id": "GV-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4505,7 +4767,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 351,
+   "days_left": 350,
    "id": "GCE-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2027-08-24",
@@ -4514,7 +4776,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 113,
+   "days_left": 112,
    "id": "SITE-001",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-12-29",
@@ -4523,11 +4785,29 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 112,
+   "days_left": 111,
    "id": "SITE-002",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-12-28",
    "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_claims.py",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 120,
+   "id": "E3-001",
+   "last_reviewed": "2026-09-08",
+   "review_due": "2027-01-06",
+   "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e3/results/observations.jsonl",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 120,
+   "id": "E3B-001",
+   "last_reviewed": "2026-09-08",
+   "review_due": "2027-01-06",
+   "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e3b/results/observations.jsonl",
    "type": "claim"
   },
   {
@@ -4571,7 +4851,16 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "9777b0a",
+   "head": "4b659fb",
+   "id": "claude/canon-reconciliation",
+   "last_commit": "2026-09-07",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 0,
+   "head": "4b659fb",
    "id": "main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4580,16 +4869,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "9777b0a",
-   "id": "origin",
-   "last_commit": "2026-09-07",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
-   "head": "9777b0a",
+   "head": "4b659fb",
    "id": "origin/main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4605,5 +4885,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "309fc44a19ab387d4de101f36644beb717657c3264132333a2df1cc2bcfb51ff"
+ "stable_digest": "bbe9895078294fdaacc1c1e086643c8ad88c7d3f0db66a1d343769503a166571"
 }

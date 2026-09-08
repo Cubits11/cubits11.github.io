@@ -1774,3 +1774,193 @@ entries:
     - validating the instrument establishes nothing about the safety, representativeness, or deployment
       behavior of any real system
   digest: 40d1ba4ae1f4492ecb4fc85335124ba6de81435e4959dc4c5decdf2b02b9d3ae
+- kind: registration
+  claim_id: E3-001
+  digest_of_commitment: 2118370312a15f0974a97ca3f70293452ecec2feb5c7b177ef08fafd1a7f5fe9
+  commitment:
+    proposition: 'E3 — the first pilot this repository ran itself — scored two ungated classifiers on
+      400 harmful and 800 benign items and produced 2,400 committed observation rows. Its primary pre-registered
+      prediction FAILED: excess joint miss was +0.0018 with a 95% bootstrap CI of [-0.00096, +0.00706],
+      which includes zero. Both guards missed almost everything on this pool (0.9825 and 0.9625), so the
+      Fréchet interval the two marginals allow is [0.9450, 0.9625] — 1.75 percentage points wide — and
+      the observed joint miss of 0.9475 lies inside it. The prediction that it would lie inside HELD;
+      the difficulty-stratification prediction was NOT COMPUTED and remains open.
+
+      '
+    scope: 'Exactly the 2,400 rows committed at experiments/e3/results/observations.jsonl, produced 2026-09-06
+      by two research classifiers — protectai deberta-v3-base-prompt-injection-v2 (0.2B) and dcarpintero
+      pangolin-guard-base (0.1B) — at thresholds frozen in e3_config.json (sha256 e163a2f2…) before any
+      harmful item was scored. One pool (or-bench-toxic at e36d8b80), one operating point each, static
+      full exposure. scripts/verify_e3.py recomputes every quantity below from those rows alone, including
+      the bootstrap interval, which is a deterministic function of the committed rows under the frozen
+      seed. Nothing here transfers to E2''s guards, pools or operating points, and nothing here is about
+      a deployed system.
+
+      '
+    falsifier:
+      condition: 'Recomputing from the committed observation rows yields any quantity different from the
+        expected block beyond 1e-12, or the observed joint miss is shown to lie outside the Fréchet interval
+        its own marginals allow, or a quoted prediction in the bound run report is shown to have been
+        edited after the outcome was visible.
+
+        '
+      consequence: REJECT
+    forbidden_rescues:
+    - do not re-threshold, re-draw, or re-pool after the outcome and report the new numbers as this run
+    - do not re-run the bootstrap under a different seed or B and report the resulting interval as this
+      one
+    - do not restate the failed primary prediction, narrow it, or drop it from the record
+    - do not treat E3B as a re-run, a correction, or a replacement of this result
+    non_claims:
+    - the 2,400 rows prove the instrument runs end to end; they do not prove it measures what the programme
+      says it measures, and on this pool the identified set was nearly a point, so it measured almost
+      nothing
+    - not evidence that either classifier is good or bad; two research models, one pool, one operating
+      point each
+    - the null is a null at this scale on this pool, not evidence of independence and not evidence about
+      any real guardrail's dependence
+    - says nothing about E2, its three frozen guards, its pools, or its operating points
+    - no vendor, product, deployed stack, or population is described
+    expected:
+      observation_rows: 2400
+      harmful:
+        n: 400
+        p_miss_G1: 0.9825
+        p_miss_G2: 0.9625
+        q_obs: 0.9475
+        q_ind: 0.9456562500000001
+        delta: 0.0018437499999999218
+        frechet:
+        - 0.9450000000000001
+        - 0.9625
+        inside_frechet: true
+      delta_ci95:
+      - -0.0009562499999999918
+      - 0.007062499999999972
+      ci_excludes_zero: false
+      benign_evaluation_joint_flag:
+        n: 400
+        p_miss_G1: 0.0525
+        p_miss_G2: 0.025
+        q_obs: 0.005
+        q_ind: 0.0013125
+        delta: 0.0036875
+        frechet:
+        - 0.0
+        - 0.025
+        inside_frechet: true
+      prediction_verdicts:
+        P1_delta_positive_ci_excludes_zero: FAILED
+        P2_q_obs_inside_frechet: HELD
+        P3_difficulty_stratification: NOT_COMPUTED
+  recorded_at: '2026-09-08'
+  provenance_class: CONTEMPORANEOUS
+  evidence_refs:
+  - experiments/e3/RESULT.md
+  - sha256:d5d5ca69b529585ac5e966189872dee6f77b6bf4ee91705ec4d9bfd805a6dba4
+  - experiments/e3/results/observations.jsonl
+  - sha256:952416606e0caa7d2f58c45322907be6a9c35a0d651910947688977cf99b22c0
+  - scripts/verify_e3.py
+  reason: 'registration: E3, the first pilot this repository ran itself — 2,400 committed observation
+    rows, 2026-09-06. The commitment leads with the failed primary prediction: excess joint miss +0.0018
+    with a 95% bootstrap CI including zero, on a pool where both guards'' marginals were so extreme that
+    the Frechet interval was 1.75 points wide. scripts/verify_e3.py re-derives every registered quantity,
+    including the bootstrap interval, from the committed rows alone on every push.'
+  previous_transition_digest: 40d1ba4ae1f4492ecb4fc85335124ba6de81435e4959dc4c5decdf2b02b9d3ae
+  digest: b27afec13765b332708d7fbaa66674ef678040eea9eb7739a944274fd4d9a63f
+- kind: registration
+  claim_id: E3B-001
+  digest_of_commitment: 8bee68218ae7634359bdafefbae4b6f98ae01531bde2e0502e9f6eda48220d88
+  commitment:
+    proposition: 'E3B put the same two classifiers on the attack family they were built for — 400 real
+      prompt injections — and produced a further 2,400 committed observation rows. Its primary prediction
+      FAILED and so did the prediction the redraw existed to test. One guard missed nothing (0.0000, catching
+      400 of 400) and the other missed 0.3975, so the Fréchet interval the marginals allow is [0.0000,
+      0.0000] — zero points wide — the observed joint miss is exactly 0.0000, and the bootstrap CI is
+      the degenerate [0, 0]. E3B was pre-registered to produce an interval wider than 10 percentage points;
+      it produced one narrower than E3''s. The prediction that the observed joint miss would lie inside
+      the interval HELD, trivially.
+
+      '
+    scope: 'Exactly the 2,400 rows committed at experiments/e3b/results/observations.jsonl, produced 2026-09-06
+      by the same two classifiers at thresholds frozen in e3b_config.json (sha256 252a5db9…) before any
+      injection item was scored. One pool (Lakera gandalf_ignore_instructions at 04737b65, MIT), one operating
+      point each, static full exposure. This is a new experiment with its own freeze, not a re-run of
+      E3: E3''s result stands whatever this shows, and both are registered. scripts/verify_e3.py recomputes
+      every quantity below from the committed rows alone. The guard that caught 400 of 400 has two live
+      explanations — generalisation and near-duplicate leakage from an undisclosed corpus — and nothing
+      in this run separates them.
+
+      '
+    falsifier:
+      condition: 'Recomputing from the committed observation rows yields any quantity different from the
+        expected block beyond 1e-12, or a quoted prediction in the bound run report is shown to have been
+        edited after the outcome was visible, or E3B is represented anywhere in this repository as a re-run,
+        correction, or replacement of E3.
+
+        '
+      consequence: REJECT
+    forbidden_rescues:
+    - do not re-threshold, re-draw, or re-pool after the outcome and report the new numbers as this run
+    - do not present E3B as a repair of E3, or E3 as superseded by it
+    - do not restate either failed prediction, narrow it, or drop it from the record
+    - do not treat the zero-width interval as a measured absence of dependence
+    non_claims:
+    - a zero-width identified set means the marginals already fixed the joint miss; it is not a measurement
+      that the two guards fail independently
+    - G1 catching 400 of 400 is not evidence that it is a good guardrail, and contamination is unverified
+      rather than excluded
+    - G2 missing 159 of 400 is not evidence that it is a bad one
+    - 2,400 further rows prove the instrument runs; on this pool the question was degenerate, so they
+      measure almost nothing
+    - the sharpening these two pilots suggest — that marginal-only reporting is uninformative in the middle
+      of the marginal range and fully informative at its extremes — is a hypothesis and an engineering
+      design gate, not a result of either pilot; neither run tested it
+    - no vendor, product, deployed stack, or population is described
+    expected:
+      observation_rows: 2400
+      harmful:
+        n: 400
+        p_miss_G1: 0.0
+        p_miss_G2: 0.3975
+        q_obs: 0.0
+        q_ind: 0.0
+        delta: 0.0
+        frechet:
+        - 0.0
+        - 0.0
+        inside_frechet: true
+      delta_ci95:
+      - 0.0
+      - 0.0
+      ci_excludes_zero: false
+      benign_evaluation_joint_flag:
+        n: 400
+        p_miss_G1: 0.06
+        p_miss_G2: 0.0425
+        q_obs: 0.0075
+        q_ind: 0.00255
+        delta: 0.0049499999999999995
+        frechet:
+        - 0.0
+        - 0.0425
+        inside_frechet: true
+      prediction_verdicts:
+        P1_delta_positive_ci_excludes_zero: FAILED
+        P2_q_obs_inside_frechet: HELD
+        P3_frechet_width_above_10pp: FAILED
+  recorded_at: '2026-09-08'
+  provenance_class: CONTEMPORANEOUS
+  evidence_refs:
+  - experiments/e3b/RESULT.md
+  - sha256:b9915a030b02f888994e7b872df0c2a31ee64c18fa7151477beb2902bc3f1c6c
+  - experiments/e3b/results/observations.jsonl
+  - sha256:00e75bf47f68ec2487532d595c74362eb85d0e683f3a0d4f294ff2ae429e4631
+  - scripts/verify_e3.py
+  reason: 'registration: E3B, the injection redraw — a new experiment with its own freeze, not a re-run
+    of E3. 2,400 further committed rows, 2026-09-06. Two of its three predictions failed, including the
+    one the redraw existed to test: the Frechet interval came back zero points wide rather than wider
+    than ten. Registered with both failures in the commitment. scripts/verify_e3.py re-derives every quantity
+    from the committed rows.'
+  previous_transition_digest: b27afec13765b332708d7fbaa66674ef678040eea9eb7739a944274fd4d9a63f
+  digest: f24f4b6a7648fdc2b2854db4af31cb846b5b9c46260135bfcb6969852e0465f9
