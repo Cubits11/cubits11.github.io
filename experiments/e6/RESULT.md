@@ -94,6 +94,32 @@ on adoption, autonomy, productivity and re-employment. It is the
 most-correlated-possible respondent, not the typical one. Here it sits 1.28
 points of GDP above the measured joint, and 1.57 above independence.
 
+## What the chain rule already handles
+
+A careful reader should raise this, so I will raise it first: the five elicited
+quantities are not five unconditional beliefs. The explorer's own adoption dial
+asks "Even when AI can do a task, people don't always use it for that task. Out
+of every 100 instances of a task AI [can do]…", and the site's own summary of
+the composition says "Capability times adoption sets the top line." Autonomy,
+productivity gain and re-employment time are conditional in the same way — on
+the task being done by AI, on the task being AI-suited, on displacement having
+happened.
+
+So `m × d` **within one respondent is the chain rule, and it is exact.**
+Multiplying a probability by a conditional probability is not an independence
+assumption. E6 does not claim the model wrongly multiplies anything, and any
+reading of it that says so is wrong.
+
+The coupling E6 varies is a different object: the joint distribution **across
+the 10,980 people surveyed**. Table 2 reports, for each of the five conditional
+quantities, its marginal distribution over respondents. Whether the person who
+expects AI to reach 59% of tasks is the same person who expects it to be used on
+61% of the tasks it reaches is an empirical fact about people, and no chain rule
+fixes it. That is exactly what Table 4 measured by requiring all five answers
+from the same person, and exactly what Table 2's item-by-item medians cannot
+express. The interval below is over couplings of people's beliefs, not over
+compositions of one person's conditionals.
+
 ## The sentence I cannot resolve
 
 The site says:
@@ -160,6 +186,10 @@ already paid for the joint. Almost nobody in guardrail evaluation has.
   evidence ledger counts them as rows this repository produced, which they are;
   its single observation-row total must not be read as growth in guard-item
   measurement. E3 and E3B's 4,800 rows are that kind. These are not.
+- **Not a claim that the model composes its five inputs wrongly.** The elicited
+  quantities are conditional and their product within a respondent is the chain
+  rule, which is exact. The coupling E6 varies is across respondents, not within
+  one.
 - **No claim about anyone's intent, competence or good faith.** The reviewers
   named in the report include Acemoglu, Autor and Romer. If this distinction can
   go unnamed there, the vocabulary is missing, not the care.
