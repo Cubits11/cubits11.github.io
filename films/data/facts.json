@@ -2,7 +2,7 @@
  "_generated_by": "scripts/films/bind_facts.py — DO NOT EDIT; regenerate and re-inspect the films",
  "_inputs": {
   "census.yaml": "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598",
-  "claims.yaml": "0c7791565d877cc45627dc2374a842a8784c5ec39e74771a6a4c106e71a9a38b"
+  "claims.yaml": "4e31c26fee1467c4bd8d5b24af5b8132d1186d1a68c26420751a94d874f30d16"
  },
  "_kinds": [
   "OBSERVED",
@@ -1258,13 +1258,22 @@
      "provenance": "machine_generated_owner_executed",
      "review_due": "2027-01-06",
      "review_window_days": 120
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "E6-001",
+     "last_reviewed": "2026-09-10",
+     "maturity": "experimental",
+     "provenance": "machine_generated_owner_executed",
+     "review_due": "2027-01-08",
+     "review_window_days": 120
     }
    ]
   },
   "REGISTRY.last_owner_review": {
    "kind": "REGISTRY",
    "source": "claims.yaml:last_owner_review",
-   "value": "2026-09-08"
+   "value": "2026-09-10"
   },
   "REGISTRY.version": {
    "kind": "REGISTRY",
