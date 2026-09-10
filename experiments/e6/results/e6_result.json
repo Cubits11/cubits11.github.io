@@ -1,0 +1,239 @@
+{
+ "experiment": "E6",
+ "preregistered": false,
+ "generated": "2026-09-10",
+ "kernel_sha256": "0a75763f2ca4479bd88b240a7264307802b2ea6829d8db0c8efb5f515b8920f6",
+ "gates": {
+  "table3_agreement": "PASS",
+  "monotonicity": "PASS"
+ },
+ "table3_check": [
+  {
+   "scenario": "modest",
+   "field": "gdp_pct_above_noAI",
+   "kernel": 1.6052,
+   "printed": 1.6,
+   "agrees": true
+  },
+  {
+   "scenario": "modest",
+   "field": "unemp_all_pct",
+   "kernel": 3.9006,
+   "printed": 3.9,
+   "agrees": true
+  },
+  {
+   "scenario": "modest",
+   "field": "unemp_cognitive_pct",
+   "kernel": 2.9472,
+   "printed": 2.9,
+   "agrees": true
+  },
+  {
+   "scenario": "modest",
+   "field": "labor_share_pct",
+   "kernel": 59.4127,
+   "printed": 59.4,
+   "agrees": true
+  },
+  {
+   "scenario": "substantial",
+   "field": "gdp_pct_above_noAI",
+   "kernel": 8.2876,
+   "printed": 8.3,
+   "agrees": true
+  },
+  {
+   "scenario": "substantial",
+   "field": "unemp_all_pct",
+   "kernel": 4.5653,
+   "printed": 4.6,
+   "agrees": true
+  },
+  {
+   "scenario": "substantial",
+   "field": "unemp_cognitive_pct",
+   "kernel": 4.5347,
+   "printed": 4.5,
+   "agrees": true
+  },
+  {
+   "scenario": "substantial",
+   "field": "labor_share_pct",
+   "kernel": 56.0958,
+   "printed": 56.1,
+   "agrees": true
+  },
+  {
+   "scenario": "extreme",
+   "field": "gdp_pct_above_noAI",
+   "kernel": 32.4094,
+   "printed": 32.4,
+   "agrees": true
+  },
+  {
+   "scenario": "extreme",
+   "field": "unemp_all_pct",
+   "kernel": 11.9071,
+   "printed": 11.9,
+   "agrees": true
+  },
+  {
+   "scenario": "extreme",
+   "field": "unemp_cognitive_pct",
+   "kernel": 17.949,
+   "printed": 17.9,
+   "agrees": true
+  },
+  {
+   "scenario": "extreme",
+   "field": "labor_share_pct",
+   "kernel": 45.2117,
+   "printed": 45.2,
+   "agrees": true
+  }
+ ],
+ "monotonicity": [
+  {
+   "parameter": "m2030",
+   "at": [
+    0.2,
+    0.44,
+    0.59
+   ],
+   "gdp": [
+    4.5745,
+    9.8833,
+    13.6845
+   ],
+   "increasing": true
+  },
+  {
+   "parameter": "d2030",
+   "at": [
+    0.22,
+    0.4,
+    0.61
+   ],
+   "gdp": [
+    5.5431,
+    9.8833,
+    15.1861
+   ],
+   "increasing": true
+  },
+  {
+   "parameter": "psi",
+   "at": [
+    0.25,
+    0.47,
+    0.65
+   ],
+   "gdp": [
+    8.3154,
+    9.8833,
+    11.134
+   ],
+   "increasing": true
+  },
+  {
+   "parameter": "a2030",
+   "at": [
+    0.09,
+    0.44,
+    1.02
+   ],
+   "gdp": [
+    5.6826,
+    9.8833,
+    15.7034
+   ],
+   "increasing": true
+  },
+  {
+   "parameter": "mu",
+   "at": [
+    0.025,
+    0.064,
+    0.111
+   ],
+   "gdp": [
+    9.1888,
+    9.8833,
+    10.2564
+   ],
+   "increasing": true
+  }
+ ],
+ "primary": {
+  "note": "every input here is a numeral printed in the source artifacts; no discretionary choice enters",
+  "at_vector_of_published_medians": {
+   "gdp_pct_above_noAI": 9.8833,
+   "unemp_all_pct": 4.8934,
+   "unemp_cognitive_pct": 5.1635,
+   "labor_share_pct": 56.266
+  },
+  "published_joint_median": {
+   "basis": "median and quartiles of each outcome across the 3,259 respondents who answered all five items, survey weights",
+   "gdp_pct_above_noAI": {
+    "q50": 8.6,
+    "q25": 3,
+    "q75": 19
+   },
+   "unemp_all_pct": {
+    "q50": 4.6,
+    "q25": 4,
+    "q75": 6
+   },
+   "unemp_cognitive_pct": {
+    "q50": 4.6,
+    "q25": 3,
+    "q75": 8
+   },
+   "labor_share_pct": {
+    "q50": 57.2,
+    "q25": 55,
+    "q75": 59
+   }
+  },
+  "comonotone_quartiles_gdp": [
+   1.0071,
+   40.1248
+  ],
+  "published_joint_quartiles_gdp": [
+   3,
+   19
+  ]
+ },
+ "secondary": {
+  "note": "these rest on the declared three-point discretisation in sources.json and are an INNER bound",
+  "cells": 243,
+  "median_gdp": {
+   "comonotone": 9.8833,
+   "independent": 8.3154,
+   "published_joint": 8.6
+  },
+  "median_unemp_all": {
+   "comonotone": 4.8934,
+   "independent": 4.5568,
+   "published_joint": 4.6
+  },
+  "mean_gdp": {
+   "comonotone": 15.2247,
+   "independent": 10.0122
+  },
+  "mean_unemp_all": {
+   "comonotone": 5.2372,
+   "independent": 4.9341
+  },
+  "median_gdp_over_rank_permutation_couplings": {
+   "couplings": 1296,
+   "min": 2.1169,
+   "max": 18.0684
+  },
+  "support_gdp": [
+   1.0071,
+   40.1248
+  ]
+ }
+}

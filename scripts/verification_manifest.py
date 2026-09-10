@@ -54,6 +54,7 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("MC-004 semantic scope", "scripts/verify_mc004_semantics.py"),
     ("degeneracy diagnostic", "scripts/degeneracy.py"),
     ("E3 and E3B re-asserted from committed rows", "scripts/verify_e3.py"),
+    ("E6 re-asserted from committed rows", "scripts/verify_e6.py"),
     ("ledger snapshot drift", "scripts/ledger_snapshot.py", "--check"),
     ("portable static-OR receipt", "examples/stack-joint/test_joint_or.py"),
     ("portable route receipt", "examples/route-receipt/test_route_receipt.py"),

@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-09-08"
+last_owner_review: "2026-09-10"
 
 claims:
   - id: CC-001
@@ -1627,3 +1627,136 @@ claims:
         informative at its extremes — is a hypothesis and an engineering design
         gate, not a result of either pilot; neither run tested it"
       - no vendor, product, deployed stack, or population is described
+
+  - id: E6-001
+    proposition: >
+      E6 extracted the client-side model kernel that anthropic.com/institute/econ-scenarios
+      ships (Turbopack module 303412, sha256 0a75763f…), gated it against the twelve
+      printed numbers of Table 3 of the Anthropic Institute's Working Paper 2026-02, and
+      evaluated it only at parameter vectors built from the five marginal quantiles that
+      paper prints in Table 2. The kernel reproduces all twelve Table 3 numbers to the
+      printed decimal, and GDP is strictly increasing in each of the five parameters over
+      their published interquartile ranges. Holding the four parameters the note to
+      Table 4 names at that note's values, the same five marginals admit a median 2030
+      GDP anywhere in [2.12, 18.07] percent above the no-AI path across the 1,296
+      rank-permutation couplings of their published quartiles: 9.88 at the comonotone
+      corner, 8.32 under independence, against the 8.6 the paper obtained by running each
+      of 3,259 respondents' own five-vector. The marginals fix an interval fifteen points
+      wide, not a point, and the measured joint lies strictly inside it.
+    scope: >
+      Exactly the 243 rows committed at experiments/e6/results/observations.jsonl,
+      produced 2026-09-10 from one set of kernel bytes pinned by digest in
+      experiments/e6/freeze/sources.json. The five marginals are the published Table 2
+      quantiles and nothing else; each is discretised to three atoms at those quantiles
+      with weights 0.25/0.50/0.25, a construction chosen after the outcomes were visible
+      and declared as such, which makes the coupling range an inner bound — a finer
+      discretisation of the same marginals can only widen it. scripts/verify_e6.py
+      re-derives all 34 registered quantities from the committed rows alone, with no
+      network and no re-run of the model. This is a re-derivation of public artifacts and
+      not a preregistered test; no prediction here held, because none was made. It
+      transfers no number to any safety classifier, pool, or operating point, and asserts
+      no error in the source paper.
+    dimensions:
+      visibility: public
+      provenance: machine_generated_owner_executed
+      support_role: executed_output
+      evidential_status: supported_within_scope
+      maturity: experimental
+    support:
+      url: https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e6/results/observations.jsonl
+      commit: null
+      note: >
+        The support is the measurement itself: 243 committed rows, each a five-vector of
+        published marginal quantiles and the kernel's output at it. RESULT.md is the
+        interpretation of those rows, not the evidence for them, and is hash-pinned by a
+        trigger below. The two Anthropic artifacts are pinned by URL and digest in
+        freeze/sources.json and are not redistributed here; the kernel URL is a
+        build-hashed asset path recorded as ephemeral.
+    expected:
+      rows: 243
+      kernel_sha256: "0a75763f2ca4479bd88b240a7264307802b2ea6829d8db0c8efb5f515b8920f6"
+      gates:
+        table3_numbers_agreeing: 12
+        gdp_monotone_in_all_five: true
+      primary:
+        gdp_at_vector_of_published_medians: 9.8833
+        unemp_at_vector_of_published_medians: 4.8934
+        comonotone_gdp_quartiles: [1.0071, 40.1248]
+        published_joint_gdp_median: 8.6
+        published_joint_gdp_quartiles: [3, 19]
+      secondary:
+        median_gdp_comonotone: 9.8833
+        median_gdp_independent: 8.3154
+        median_gdp_coupling_range: [2.1169, 18.0684]
+        rank_permutation_couplings: 1296
+        support_gdp: [1.0071, 40.1248]
+        mean_gdp_independent: 10.0122
+        mean_unemp_independent: 4.9341
+    last_reviewed: '2026-09-10'
+    review_window_days: 120
+    review_triggers:
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e6/results/observations.jsonl
+        sha256: "bfa64db79b174a68d80f071314daee29efa3c54060c6809e8d55dba7dc2b7a83"
+        note: fires when a committed observation row changes without a registry re-review
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e6/results/e6_result.json
+        sha256: "aacaea5be95cbc6567c24835c7a93d2c0fbe97342f43bf22b71ed7af6e6ce413"
+        note: fires when the recorded run result changes without a registry re-review
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e6/RESULT.md
+        sha256: "487007704c68a6b8d850bbd4f376b78504ffe927fa2172dc67129959b0724596"
+        note: fires when the run report changes, including any edit to a stated non-claim
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e6/freeze/sources.json
+        sha256: "ad4568cb1df854c2a7b5d892edb37206ae5a075968fe171c73b715f0c90f3236"
+        note: fires when a pinned digest, marginal, or hold-out value changes
+      - type: manual
+        enforcement: manual
+        event: >
+          Anthropic publishes the model's output at the Table 2 median vector, releases the
+          3,259 five-vectors, or ships a kernel whose digest differs from the pinned bytes
+    falsifier:
+      condition: >
+        Recomputing from the committed rows yields any registered quantity different
+        beyond 5e-5, or the pinned kernel bytes are shown not to reproduce all twelve
+        printed Table 3 numbers to the printed decimal, or GDP is shown not to be
+        monotone in one of the five parameters over its published interquartile range,
+        or the measured joint median of 8.6 is shown to lie outside the coupling range
+        this claim reports, or the extraction is shown to have altered the kernel's
+        arithmetic rather than only re-instantiating its own factory source.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not re-pin to a different kernel build after seeing an outcome and report the
+        new numbers as this run
+      - do not change the discretisation, its weights, or the hold-out values after the
+        fact and present the resulting range as this one
+      - do not describe E6 as preregistered, or any figure in it as a prediction that held
+      - do not restate the unresolved site-copy estimand as though the public record
+        settled which summary it names
+      - do not carry any number here across to a guardrail, a classifier, or E2
+    non_claims:
+      - no error in the source paper is claimed; Table 4 does the joint-preserving
+        computation and does it correctly, and the kernel agrees with the paper wherever
+        both speak
+      - not a claim that the site's "GDP is 10% higher" figure was computed by composing
+        marginals; two different summaries of the same survey both round to it, the public
+        record does not say which, and what is recorded is that the estimand is not
+        identified from the artifact
+      - the coupling range is an inner bound under a declared discretisation, not a sharp
+        Fréchet bound; in five dimensions the comonotone corner is attainable but the
+        lower envelope is not a copula, and that optimisation was not solved
+      - not evidence about the US economy, about AI's economic effects, or about whether
+        any scenario is likely; it is a statement about what a model's inputs determine
+      - not a guardrail measurement and not transferable to one; it is the same
+        identification structure measured on a different object
+      - says nothing about the competence or intent of the paper's authors or reviewers
+      - "the 243 rows are evaluations of someone else's model at published parameter
+        vectors, not per-item measurements of a guard on an item; they are counted by the
+        evidence ledger as rows this repository produced, and the ledger's single
+        observation-row total must not be read as growth in guard-item measurement.
+        E3 and E3B's 4,800 rows are that kind; these are not"
