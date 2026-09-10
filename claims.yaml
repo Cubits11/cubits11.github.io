@@ -1708,7 +1708,7 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: experiments/e6/RESULT.md
-        sha256: "487007704c68a6b8d850bbd4f376b78504ffe927fa2172dc67129959b0724596"
+        sha256: "2a26b5e88f405478eb19894308f920fc2ef6cc67a5d59824c567d5a71669df00"
         note: fires when the run report changes, including any edit to a stated non-claim
       - type: local_content_change
         enforcement: executable
@@ -1755,8 +1755,161 @@ claims:
       - not a guardrail measurement and not transferable to one; it is the same
         identification structure measured on a different object
       - says nothing about the competence or intent of the paper's authors or reviewers
+      - "not a claim that the model composes its five inputs wrongly: the elicited
+        quantities are conditional — the explorer's adoption dial asks what share of the
+        tasks AI *can* do people will use it for — so their product within one respondent
+        is the chain rule and is exact. The coupling this claim varies is the joint
+        distribution across the 10,980 respondents, which no chain rule fixes"
       - "the 243 rows are evaluations of someone else's model at published parameter
         vectors, not per-item measurements of a guard on an item; they are counted by the
         evidence ledger as rows this repository produced, and the ledger's single
         observation-row total must not be read as growth in guard-item measurement.
         E3 and E3B's 4,800 rows are that kind; these are not"
+
+  - id: E7B-001
+    proposition: >
+      E7B is the first non-degenerate preregistered measurement this repository has
+      produced, and all five of its predictions held on data unread when they were fixed.
+      Against a preregistration frozen at f646e136 before any hold-out byte was
+      retrieved, six of nine published guardrail-judge score sets reached a 5% benign
+      false-flag budget on their shared 96-item AgentDojo pool (21 injection goals, 75
+      benign) and yielded 15 non-degenerate pairs. Median excess joint miss was +0.2018
+      and mean +0.1852 (P1, P2 HELD); the median pair's observed joint miss sat 0.900 of
+      the way to the Fréchet upper bound its own marginals allow (P3 HELD); every
+      observed joint lay inside its interval (P4 HELD); and every one of the 15 pairs had
+      an observed joint miss above the independence product (P5 HELD). On the modal pair
+      two judges each miss about half the injection goals, independence predicts a 0.249
+      both-miss rate, and the observed rate is 0.476 — exactly the upper bound, meaning
+      one judge's misses are a subset of the other's. Seven of the fifteen pairs sit at
+      that bound.
+    scope: >
+      Exactly the 15 rows committed at experiments/e7b/results/observations.jsonl,
+      computed 2026-09-10 from nine published score files in
+      shawnray-research/certified-agent-guardrails at commit
+      79097583be7786976ea1b9ae79f3ff900d9e66b7 (MIT). Labels are the 35 strings of
+      _inj_goals.json in that tree. One operating point per judge, set by the
+      preregistered rule — the lowest threshold among a judge's benign scores at which
+      its benign false-flag rate is at or below 5% — and three judges excluded for not
+      reaching it. 21 harmful items, so every rate moves in steps of 0.048; no confidence
+      procedure was preregistered and none is reported. The 15 pairs come from 6 judges
+      and are not independent; no multiplicity control was preregistered. Supersedes
+      nothing: E7 on the seven frontier judges is VOID on a defective preregistration
+      that stated its threshold rule in two contradictory directions, those judges are
+      spent, and experiments/e7/RESULT.md records that rather than repairing it. No model
+      was loaded and no API called, so the host refusal at
+      experiments/e2/run/adapters.py:48 is not engaged. Nothing here transfers to E2's
+      guards, to any deployed stack, or to any vendor product.
+    dimensions:
+      visibility: public
+      provenance: machine_generated_owner_executed
+      support_role: executed_output
+      evidential_status: supported_within_scope
+      maturity: experimental
+    support:
+      url: https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e7b/results/observations.jsonl
+      commit: null
+      note: >
+        The support is the measurement itself: 15 committed pair rows. The commit order is
+        load-bearing — PREREG.md's commit f646e136 precedes the results commit, which is
+        the evidence that the nine hold-out score files were unread when the five
+        predictions were fixed. The upstream score files are pinned by commit and cached
+        under freeze/cache/; they are MIT-licensed and their redistribution is permitted,
+        unlike E6's kernel bytes.
+    expected:
+      source_sha: "79097583be7786976ea1b9ae79f3ff900d9e66b7"
+      prereg_commit: "f646e136e16db428e72094167bc30040b2c9fcc7"
+      judges_offered: 9
+      judges_included: 6
+      judges_excluded: 3
+      pool:
+        shared: 96
+        harmful: 21
+        benign: 75
+      fpr_star: 0.05
+      pairs_non_degenerate: 15
+      pairs_degenerate: 0
+      min_pairs_floor: 6
+      summary:
+        median_delta: 0.20181405895691612
+        mean_delta: 0.18518581081081084
+        median_reach: 0.9
+        fraction_q_obs_gt_q_ind: 1.0
+        all_inside_frechet: true
+      prediction_verdicts:
+        P1_median_delta_positive: HELD
+        P2_mean_delta_at_least_0.05: HELD
+        P3_median_reach_at_least_0.60: HELD
+        P4_all_inside_frechet: HELD
+        P5_two_thirds_above_independence: HELD
+      pairs_at_upper_bound: 7
+    last_reviewed: '2026-09-10'
+    review_window_days: 120
+    review_triggers:
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e7b/results/observations.jsonl
+        sha256: "114c58818aadc95c09bec1a84f13b26004596315b26f56f9fdf53ddab07da061"
+        note: fires when a committed pair row changes without a registry re-review
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e7b/results/e7_result.json
+        sha256: "ab6b7287caa3fa155bc2ff85fe587a1779fab404b6086c80294ba8334b9c1869"
+        note: fires when the recorded run result or a prediction verdict changes
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e7b/PREREG.md
+        sha256: "9d97f550daa0199e5bce72358761595e5da5ee976e3edf450ad4592559076ffc"
+        note: >
+          fires on any edit to the preregistration — the one file whose contents must not
+          move after the hold-out was read
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e7b/RESULT.md
+        sha256: "8d330746701fb59f64a88d6d3fd836c6ea830225c6ff0d94df01b984fb95972e"
+        note: fires when the run report changes, including any edit to a stated non-claim
+      - type: manual
+        enforcement: manual
+        event: >
+          a pool with intermediate marginals and more than 21 harmful items becomes
+          available, or the upstream repository's scores change at a new commit
+    falsifier:
+      condition: >
+        Recomputing from the committed rows yields any registered quantity different
+        beyond 1e-9, or the preregistration's commit is shown not to precede the results
+        commit, or any of the nine hold-out score files is shown to have been retrieved
+        or inspected before f646e136, or the operating-point rule applied in
+        experiments/e7b/run/measure.py is shown to differ from the one PREREG.md states,
+        or an observed joint miss is shown to lie outside the Fréchet interval its own
+        marginals allow.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not re-threshold, re-calibrate, change the 5% budget, or change the direction
+        of the operating-point rule and report the new numbers as this run
+      - do not lower the six-pair power floor, or raise it, after the fact
+      - do not pool the sixteen read judges of E7 and its exploratory record into this
+        panel and report the combined figure as this result
+      - do not present this as a repair, correction or replacement of the void E7, and do
+        not present E7's frontier judges as still available for a preregistered claim
+      - do not restate a prediction, narrow it, or drop it from the record
+      - do not carry these numbers to E2's guards, to a deployed stack, or to a vendor
+    non_claims:
+      - "the Fréchet bound applied here is not this repository's: arXiv:2607.22868v1
+        states it for an any-flag gate as a proposition, and that artifact's own
+        ensemble_robustness.py reports the vulnerability as correlated across judges. That
+        author found the bound, released the per-item scores that make this checkable, and
+        named the correlation; E7B measures it against a preregistration and claims
+        priority for neither"
+      - 21 harmful items is a small pool; every rate moves in steps of 0.048, no
+        confidence procedure was preregistered, and no point estimate here implies an
+        interval
+      - 15 pairs drawn from 6 judges are not 15 independent observations, and no
+        multiplicity control was preregistered or is claimed
+      - one benchmark, one pool, one operating point per judge; AgentDojo injection goals
+        are not a deployed threat model and these are research judges, not a shipped stack
+      - the three excluded judges were excluded by a pre-stated rule, and their absence is
+        not evidence about them
+      - not evidence that any specific product, vendor or deployed guardrail stack has
+        correlated failures
+      - "five predictions holding is not a general law: it is one preregistered result on
+        one pool, and the interpretation it supports is that independence understated the
+        joint here, not that it always will"
