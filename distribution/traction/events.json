@@ -1,13 +1,13 @@
 [
   {
-    "id": "5d7af51015cd0f44",
+    "id": "1c356237db4511ba",
     "kind": "census",
     "source": {
       "path": "census.yaml",
       "sha256": "68b14081b85e18ca1a7b5bce33bbf38fe3b8dafe876e7329057241404037b425",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/census.yaml",
+      "binding": "committed"
     },
     "draft_ids": [
       "try-c"
@@ -17,14 +17,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "baeb950434b06d51",
+    "id": "9fc05a31b42b0e4c",
     "kind": "claims",
     "source": {
       "path": "claims.yaml",
       "sha256": "9964c0137292e4338246d423c7124a0109b28973f4ca00f94317e855cd4dcc94",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/claims.yaml",
+      "binding": "committed"
     },
     "draft_ids": [
       "try-a",
@@ -37,14 +37,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "d7943823d8d30c69",
+    "id": "0404361587314304",
     "kind": "claim_change",
     "source": {
       "path": "claims_history.yaml",
-      "sha256": "fab4d95e73ef74a74f9308950d8366eb2adbe844ccfb65234c9fd7481b13b20f",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "sha256": "0a4e3bed16308792f107c0701d6ddf71e6b49fac67160bfffcbf36cea9c6d0e4",
+      "commit": "5a39b0632a195236043f0ecdbb2ff7bf730ef726",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/5a39b0632a195236043f0ecdbb2ff7bf730ef726/claims_history.yaml",
+      "binding": "committed"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
@@ -217,14 +217,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "f833830dca05032a",
+    "id": "87d39f2f834a0532",
     "kind": "correction",
     "source": {
       "path": "experiments/e6/CORRECTION-2026-09-10.md",
       "sha256": "710fe3ff32dae7769407e9c0bd4b9905e26c1ae7384246f7da9f6881bd4269f9",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/experiments/e6/CORRECTION-2026-09-10.md",
+      "binding": "committed"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
@@ -232,14 +232,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "147151e4db39d43b",
+    "id": "59cf62ae29a88b68",
     "kind": "result",
     "source": {
       "path": "experiments/e6/RESULT.md",
       "sha256": "dc753f14ab617e0523c14cca77d38ad3e158c14ac3cbaafa745058e6f45dc89f",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/experiments/e6/RESULT.md",
+      "binding": "committed"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
@@ -292,14 +292,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "49cb78b224f1c17e",
+    "id": "683bc4e2d438054f",
     "kind": "correction",
     "source": {
       "path": "experiments/e7b/CORRECTION-2026-09-10.md",
       "sha256": "61c3c978bd57a821a787e96bd64afb865acc97ecb19503e69353feb55bb62c04",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/experiments/e7b/CORRECTION-2026-09-10.md",
+      "binding": "committed"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
@@ -322,14 +322,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "564fb47c5c5eaa2d",
+    "id": "385ed2c68757f7b5",
     "kind": "result",
     "source": {
       "path": "experiments/e7b/RESULT.md",
       "sha256": "d932e5dca1877a1d0ef9081464d2d47744178b36c62e21ef22794c77ff86bbf0",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/experiments/e7b/RESULT.md",
+      "binding": "committed"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
@@ -429,14 +429,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "2c115121b6aa25f0",
+    "id": "955c4f64a582555b",
     "kind": "film",
     "source": {
       "path": "films/the-missing-column-census/manifest.yaml",
       "sha256": "a8c084a4ec0ee4b2e708488e9d99a0ff8f9b1bdd7a95190aed35202fb843a92f",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/films/the-missing-column-census/manifest.yaml",
+      "binding": "committed"
     },
     "draft_ids": [
       "try-c"
@@ -446,14 +446,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "79a7189462131513",
+    "id": "aae1d5360ea1b226",
     "kind": "film",
     "source": {
       "path": "films/the-missing-column-trailer/manifest.yaml",
       "sha256": "8e931ff16740f738da2b0a3c8bed4fbd3235a1e4a244632d56e4aaafe49b7c61",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/films/the-missing-column-trailer/manifest.yaml",
+      "binding": "committed"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",

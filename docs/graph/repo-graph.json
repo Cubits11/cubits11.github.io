@@ -2343,6 +2343,13 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "tests/test_history_merges.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "tests/test_public_discovery.py"
   },
   {
@@ -3648,6 +3655,15 @@
   {
    "args": [],
    "basis": "MANIFEST",
+   "check": "claim history across merges",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_history_merges.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
    "check": "census",
    "from": "scripts/verification_manifest.py",
    "inferred": false,
@@ -4850,23 +4866,9 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 11,
-   "behind": 0,
-   "branch": "claude/econ-scenarios-joint",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 11,
+   "ahead": 13,
    "behind": 0,
    "branch": "claude/seo-falsifiable-web",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 11,
-   "behind": 0,
-   "branch": "security/evidence-preservation-2026-09-13",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -4879,7 +4881,7 @@
  ],
  "generated_from": {
   "branch": "claude/seo-falsifiable-web",
-  "head": "e7c6b9d"
+  "head": "5a39b06"
  },
  "nodes": [
   {
@@ -5450,7 +5452,7 @@
    "type": "script"
   },
   {
-   "checks": 81,
+   "checks": 82,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
@@ -5718,20 +5720,11 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 11,
+   "ahead_of_origin_main": 13,
    "behind_origin_main": 0,
-   "head": "e7c6b9d",
-   "id": "claude/econ-scenarios-joint",
-   "last_commit": "2026-09-10",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 11,
-   "behind_origin_main": 0,
-   "head": "e7c6b9d",
+   "head": "5a39b06",
    "id": "claude/seo-falsifiable-web",
-   "last_commit": "2026-09-10",
+   "last_commit": "2026-09-15",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
@@ -5742,15 +5735,6 @@
    "id": "main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 11,
-   "behind_origin_main": 0,
-   "head": "e7c6b9d",
-   "id": "security/evidence-preservation-2026-09-13",
-   "last_commit": "2026-09-10",
-   "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
@@ -5781,5 +5765,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "53b5295cd853900837f200cee091254f18c4efbb5924d9d14d365c2eeefdb211"
+ "stable_digest": "a36256cc5ee29225cb5da92509cb4203bdcbeb14b2f181e0af621a2cfc1e86c4"
 }
