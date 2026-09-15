@@ -28,6 +28,7 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("retracted-id attribution fixtures", "scripts/verify_retracted.py", "--test"),
     ("claim-history mutants", "scripts/claims_history.py", "--test"),
     ("claim-history reconstruction", "scripts/claims_history.py", "reconstruct", "--check"),
+    ("claim history across merges", "tests/test_history_merges.py"),
     ("census", "scripts/verify_census.py"),
     ("census protocol v1", "scripts/verify_census_protocol.py"),
     ("census invariant mutations", "scripts/verify_census_mutations.py"),

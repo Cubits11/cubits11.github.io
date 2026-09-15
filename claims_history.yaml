@@ -831,18 +831,19 @@ genesis:
         and the ledger says so
   digest: 1ebe94609f903a04062a83deb8575a0ac5f2ed6c9e28d4018d37a136e052a474
 reconstruction:
-  method: digest-level commitment events along the first-parent line of the accepted branch, re-derived
-    from git objects on every verify; a transition counts as strict-Scar-eligible when its before and
+  method: preserve the declared first-parent reconstruction through the genesis anchor, then audit
+    reachable post-genesis commits against their actual parents without counting inherited merge states
+    twice; a transition counts as strict-Scar-eligible when its before and
     after states are re-derivable from git, the same first-parent change adds one contiguous block to
     a dated record file (census.yaml, corrections/index.html, DESIGN.md, notes/) naming the claim id and
     carrying the commit date, and a coherent transition type is declared here
   evidence_class: repository-internal (git objects, git dates, dated prose entries); no out-of-repository
     witness is asserted
-  preexisting_transition_count: 42
-  count_note: 42 as of 2026-09-10. The 42nd is E6-001 at ea720a22807d — a live commitment change on the
-    first-parent line, covered by a contemporaneous NARROW declaration in the chain, so it adds to the
-    digest-level event count without adding to the strict-eligible set. It is counted because this figure
-    tracks git, not because it is pre-E5.
+  preexisting_transition_count: 44
+  count_note: 44 as of 2026-09-15. The two additional events are the E6-001 and E7B-001
+    corrections committed at 48e98e44be87. Both are covered by existing contemporaneous
+    declarations. The original genesis, transition entries and nine retrospective qualifying
+    locators are unchanged. This aggregate includes post-genesis events despite its legacy name.
   strict_scar_eligible_count: 9
   qualifying_transition_locators:
   - CC-001@cf57f2c7baf4:2026-08-20:CLARIFY
