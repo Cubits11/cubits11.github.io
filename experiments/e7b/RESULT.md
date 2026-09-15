@@ -1,3 +1,5 @@
+> **Correction recorded 2026-09-10 — E7B-001: REJECTED as stated.** Calibration uses the all-nine shared pool instead of each judge’s own pool, changing one threshold from 0.95 to 1.00. Pair evaluation also uses the global intersection. The preregistration-conforming confirmation claim is rejected; the original HELD labels are historical outputs. See [formal disposition](CORRECTION-2026-09-10.md). The original report below is retained verbatim as historical output; it is not current launch evidence.
+
 # E7B — the missing column, measured, against a preregistration
 
 Run 2026-09-10 against `experiments/e7b/PREREG.md`, frozen at `f646e136` when

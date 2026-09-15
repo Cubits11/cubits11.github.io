@@ -1,3 +1,5 @@
+> **Formal correction — September 10, 2026: SUPERSEDED FOR LAUNCH.** E6-001 and E7B-001 are rejected as stated. See the dated [E6 marginal-invariance disposition](../../experiments/e6/CORRECTION-2026-09-10.md) and [E7B pool-mismatch disposition](../../experiments/e7b/CORRECTION-2026-09-10.md). Original text below is retained as history, not current launch copy. Use the [constructed educational post](../NEXT-POST.md) for the replacement direction.
+
 # Dossier — anthropic-econ-scenarios-2026
 
 Not a census row: this is an economic scenario model, not a guardrail evaluation. It sits in `distribution/` because the ask is the same shape as the guardrail asks — one number, one row — and because E6 is bound to it. Status: **PREPARED, nothing sent.**

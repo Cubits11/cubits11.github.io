@@ -2,16 +2,16 @@
  "film": "the-missing-column-census",
  "format": "master",
  "title": "The Missing Column, Counted",
- "rendered_from_head": "6a9ecfb7f215bd9647aca17bb91bfdbbf677ce3f",
- "rendered_on": "2026-09-07",
+ "rendered_from_head": "e7c6b9d2677b79ed7448710c95a6a65ade0fc48a",
+ "rendered_on": "2026-09-15",
  "inputs": {
-  "film.html": "44e668f7a6ee712ed149cd7c0cfd51b727a841f7baab9979d952f544e63b93ad",
+  "film.html": "2f8a89eeafc964d7608e5a2f0aad5e43ee628982346ff1adadb34f5f3727c1cb",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+  "films/data/facts.json": "9d0d11e351d5b5d5fe93cf2332489a2943f7f480deec730924b5912262a6e847"
  },
  "runtime": {
-  "chrome": "152.0.7977.82",
+  "chrome": "153.0.8010.36",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
   "crf": 20
  },
@@ -20,7 +20,7 @@
  "duration_s": 40,
  "width": 1920,
  "height": 1080,
- "frames_digest": "cbf981325fce435757c239f2875597b2d587c35127a33dd48809c69aae6077fa",
+ "frames_digest": "4ff000dd0bec80b8f2751be11e86f3b9088d83f3b251922da606e0c5808012d2",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -48,8 +48,8 @@
  ],
  "outputs": {
   "master": "renders/the-missing-column-census__master.mp4",
-  "master_sha256": "3cc1a9051123b1436a4db23dcc925a7e6c2474be23e284df12e5878e8d255743",
-  "master_bytes": 1365672,
+  "master_sha256": "039ce14e26b4164ccf66022a00be42ff13a3c4a00e74f01b0550cc293df556bf",
+  "master_bytes": 1365510,
   "master_duration_probe_s": 40.03,
   "poster": "renders/the-missing-column-census__master.poster.png",
   "poster_t": 23.5,
@@ -82,5 +82,5 @@
   ],
   "phone_previews": []
  },
- "render_seconds": 664.7
+ "render_seconds": 60.5
 }

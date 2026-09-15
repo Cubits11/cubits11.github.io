@@ -1,0 +1,66 @@
+{
+  "baseline_commit": "e7c6b9d2677b79ed7448710c95a6a65ade0fc48a",
+  "baseline_facts_sha256": "9a7dfc3470609bb7fe9f8875ae0574a4ed4ab53f5d5d6acbfd0ea7d4e6689036",
+  "stale_at_baseline": [
+    {
+      "film": "leave-one-out",
+      "receipt": "films/leave-one-out/renders/leave-one-out__master.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    },
+    {
+      "film": "parity-cube",
+      "receipt": "films/parity-cube/renders/parity-cube__master.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    },
+    {
+      "film": "same-scores-different-worlds",
+      "receipt": "films/same-scores-different-worlds/renders/same-scores-different-worlds__master.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    },
+    {
+      "film": "same-scores__social-square",
+      "receipt": "films/same-scores__social-square/renders/same-scores__social-square__square.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    },
+    {
+      "film": "the-correction-invitation",
+      "receipt": "films/the-correction-invitation/renders/the-correction-invitation__master.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    },
+    {
+      "film": "the-falsifier-that-fired",
+      "receipt": "films/the-falsifier-that-fired/renders/the-falsifier-that-fired__master.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    },
+    {
+      "film": "the-missing-column-census",
+      "receipt": "films/the-missing-column-census/renders/the-missing-column-census__master.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    },
+    {
+      "film": "the-missing-column-trailer",
+      "receipt": "films/the-missing-column-trailer/renders/the-missing-column-trailer__master.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    },
+    {
+      "film": "the-multiplication",
+      "receipt": "films/the-multiplication/renders/the-multiplication__master.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    },
+    {
+      "film": "the-stack",
+      "receipt": "films/the-stack/renders/the-stack__master.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    },
+    {
+      "film": "thirteen-worlds",
+      "receipt": "films/thirteen-worlds/renders/thirteen-worlds__master.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    },
+    {
+      "film": "what-the-seal-proves",
+      "receipt": "films/what-the-seal-proves/renders/what-the-seal-proves__master.receipt.json",
+      "receipt_facts_sha256": "0c2591dd9cef13583fa48f0b736818cad0e9342cd00210c350bdc6bf9822a962"
+    }
+  ]
+}

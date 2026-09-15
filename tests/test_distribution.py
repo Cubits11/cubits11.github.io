@@ -57,8 +57,34 @@ class DistributionTests(unittest.TestCase):
         posts = d.draft(); posts[0]['posts'][0] = 'Proves every guardrail is safe.'
         with self.assertRaises(ValueError): d.verify(posts)
 
+    def test_rejected_claim_stays_blocked_in_preview(self):
+        from unittest.mock import patch
+        original_read = d.read
+        def rejected(path):
+            doc = original_read(path)
+            if path == 'claims.yaml':
+                next(c for c in doc['claims'] if c['id'] == 'CC-001')['dimensions']['evidential_status'] = 'contradicted'
+            return doc
+        with patch.object(d, 'read', side_effect=rejected):
+            with self.assertRaisesRegex(ValueError, 'Claim held: CC-001'):
+                d.verify(d.draft(), allow_pending=True)
+
+    def test_pending_preview_cannot_be_approved_or_dispatched(self):
+        from unittest.mock import patch
+        posts = d.draft()
+        pending = copy.deepcopy(posts)
+        pending[0]['sources'][0].update(commit=None, url=None, binding='pending_commit')
+        with patch.object(d, 'draft', return_value=pending):
+            self.assertTrue(d.verify(pending, allow_pending=True))
+            with self.assertRaisesRegex(ValueError, 'awaits commit'):
+                d.verify(pending)
+            with self.assertRaisesRegex(ValueError, 'awaits commit'):
+                d.approve(pending[0]['id'], 'fixture: no authorization')
+            with self.assertRaisesRegex(ValueError, 'awaits commit'):
+                d.dispatch_preconditions(pending[0], dry_run=True)
+
     def test_real_drafts_preserve_limits_and_hold(self):
-        posts = d.draft(); self.assertTrue(d.verify(posts))
+        posts = d.draft(); self.assertTrue(d.verify(posts, allow_pending=True))
         for post in posts:
             self.assertEqual(post['state'], 'held_owner_review')
             self.assertIsNone(post['scheduled_at'])

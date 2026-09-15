@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "constructed-fixed-marginals",
+  "status": "constructed_fixture",
+  "estimand": "finite coupling outcomes with fixed atom masses",
+  "kind": "finite_coupling",
+  "invariant": "marginal_masses_preserved",
+  "marginal_weights": [
+    0.25,
+    0.5,
+    0.25
+  ],
+  "permutations": [
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      2,
+      1,
+      0
+    ]
+  ]
+}

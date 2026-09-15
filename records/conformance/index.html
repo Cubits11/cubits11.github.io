@@ -1,0 +1,160 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Sources: research/DIRECTION.yaml · metrics/ledger_snapshot.json · corrections/records/2026-09-10.json · corrections/records/2026-09-10-preserved-inputs.json · scripts/verify_prereg.py · claims.yaml
+     Renderer: scripts/generate_conformance_record.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preregistration → Execution — Conformance record</title>
+<meta name="description" content="Where this repository's preregistered intent and its executed evidence diverged: the conformance plane, three historical failures, and the edges still unguarded.">
+<link rel="canonical" href="https://cubits11.github.io/records/conformance/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cubits11">
+<meta property="og:title" content="Preregistration → Execution — Conformance record">
+<meta property="og:description" content="Three of five executed experiments were voided or rejected. The failures include a degenerate declared rule and mismatches between declared and executed analyses.">
+<meta property="og:url" content="https://cubits11.github.io/records/conformance/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta property="og:image:alt" content="Pranav Bhave, AI Assurance · Security Engineering · Evidence Systems — measuring what guardrail stacks miss together">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:image:alt" content="Pranav Bhave, AI Assurance · Security Engineering · Evidence Systems — measuring what guardrail stacks miss together">
+<meta name="robots" content="max-image-preview:large">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+body{font-size:1rem;line-height:1.65}
+.container{width:min(980px,100% - 2*clamp(1.25rem,5vw,3rem));margin-inline:auto}
+.mono{font-size:.72rem}
+header.page{padding:4.5rem 0 2rem;border-bottom:1px solid var(--line)}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.06;margin:.6rem 0 1rem;letter-spacing:-.015em;font-weight:520}
+h2{font-size:1.15rem;margin:2.6rem 0 .8rem;font-weight:560}
+h3{font-size:1rem;margin:0;font-weight:560}
+.intro{color:var(--muted);max-width:48em}
+.banner{border:1px solid var(--line-strong);background:var(--surface);padding:.85rem 1rem;margin:1.4rem 0 0;font-size:.9rem}
+.banner strong{font-weight:600}
+table{width:100%;border-collapse:collapse;margin:.6rem 0 0;font-size:.92rem}
+th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{color:var(--muted);font-weight:500;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+.scroll{overflow-x:auto}
+.hash{word-break:break-all;color:var(--muted);text-transform:none}
+.pill{display:inline-block;border:1px solid;border-radius:2em;padding:.05rem .6rem;font-size:.72rem;letter-spacing:.03em}
+.pill-evidence{color:var(--evidence);border-color:var(--evidence)}
+.pill-review{color:var(--review);border-color:var(--review)}
+.pill-invalid{color:var(--invalid);border-color:var(--invalid)}
+.chain{font-size:.8rem;letter-spacing:.08em;color:var(--muted);margin:.4rem 0 0;overflow-x:auto;white-space:nowrap}
+.chain b{color:var(--ink);font-weight:560}
+.chain i{font-style:normal;color:var(--gold)}
+.rec{border:1px solid var(--line-strong);background:var(--surface);margin:1.1rem 0;padding:clamp(1rem,2.5vw,1.4rem)}
+.rec-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:.7rem}
+dl{display:grid;grid-template-columns:minmax(9rem,14rem) 1fr;gap:.35rem 1rem;margin:0;font-size:.92rem}
+dt{color:var(--muted)}
+dd{margin:0}
+@media (max-width:620px){dl{grid-template-columns:1fr}dt{margin-top:.5rem}}
+.muted{color:var(--muted)}
+pre{background:var(--surface);border:1px solid var(--line);padding:.8rem 1rem;overflow-x:auto;font-size:.82rem}
+ul{padding-left:1.1rem}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="page">
+  <div class="container">
+    <p class="mono"><a class="u" href="/">← Cubits11</a></p>
+    <h1>Preregistration → Execution</h1>
+    <p class="intro">Three of this repository's five executed experiments were voided or
+      rejected. E7 executed a degenerate declared rule; E6 and E7B violated declared
+      invariants or pool identities. This page records those distinct failures, the
+      synthetic regression fixtures that reconstruct them, and the execution obligations
+      still unguarded.</p>
+    <div class="banner"><strong>This page is generated from repository state. It is not a
+      governing source.</strong> Every number below is a projection of a committed artifact
+      listed under <a class="u" href="#sources">Sources</a>. Nothing here is hand-maintained,
+      and CI fails the build if this file and its sources disagree.</div>
+    <div class="meta-row mono" style="display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:1.2rem;color:var(--muted)">
+      <span>as of 2026-09-14</span>
+      <span>21 claims · 4 own-measurement</span>
+      <span>5058 observation rows</span>
+      <span>DIRECTION v1</span>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="container">
+
+<h2>The plane</h2>
+<p class="intro">An experiment is not a preregistration plus code plus data plus a result. It
+  is a typed graph, and the edges are the scientific objects. A result is admissible only
+  when every edge holds.</p>
+<p class="chain"><b>DECLARED</b> <i>P</i> ── <b>BOUND</b> <i>X</i> ── <b>EXECUTED</b> <i>R/D</i> ── <b>VALIDATED</b> <i>O</i> ── <b>CLAIMED</b> <i>C</i></p>
+<p class="mono">A(C) = F(P) &amp; B(P,X) &amp; E(X,R) &amp; U(P,D) &amp; Q(P,D) &amp; V(R,D,O) &amp; T(O,C)</p>
+<div class="scroll"><table>
+<caption class="sr-only">Conformance plane edges and what enforces each</caption>
+<thead><tr><th scope="col">edge</th><th scope="col">over</th><th scope="col">asks</th><th scope="col">state</th><th scope="col">enforced by</th></tr></thead>
+<tbody><tr><th scope="row"><code>F</code></th><td class="mono">P</td><td>frozen before observation</td><td><span class="pill pill-evidence">enforced</span></td><td><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/claims.yaml"><code>claims.yaml</code></a></td></tr><tr><th scope="row"><code>B</code></th><td class="mono">P X</td><td>intent bound to an executable specification</td><td><span class="pill pill-review">partial</span></td><td><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_prereg.py"><code>scripts/verify_prereg.py</code></a></td></tr><tr><th scope="row"><code>E</code></th><td class="mono">X R</td><td>the runner actually consumes that specification</td><td><span class="pill pill-review">partial</span></td><td><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_prereg.py"><code>scripts/verify_prereg.py</code></a></td></tr><tr><th scope="row"><code>U</code></th><td class="mono">P D</td><td>executed universe is the declared universe</td><td><span class="pill pill-invalid">absent</span></td><td><span class="muted">nothing</span></td></tr><tr><th scope="row"><code>Q</code></th><td class="mono">P D</td><td>design informative enough for its stated target</td><td><span class="pill pill-invalid">absent</span></td><td><span class="muted">nothing</span></td></tr><tr><th scope="row"><code>V</code></th><td class="mono">R D O</td><td>execution validity</td><td><span class="pill pill-invalid">absent</span></td><td><span class="muted">nothing</span></td></tr><tr><th scope="row"><code>T</code></th><td class="mono">O C</td><td>claim mechanically extracted from that output</td><td><span class="pill pill-invalid">absent</span></td><td><span class="muted">nothing</span></td></tr></tbody>
+</table></div>
+
+<h2>The founding cohort</h2>
+<p class="intro">Retrospective. These five motivated the plane; they do not measure it. The
+  classification was partly built after the failures were visible, so
+  2 of
+  5 valid is diagnostic evidence, not an estimate.
+  Of 5058 observation rows, 4800 stand and 258
+  belong to voided or rejected runs. Frozen inputs, estimators and outputs are unchanged in
+  every case; 19 files are held in the preserved-byte manifest at baseline commit
+  <code>e7c6b9d2677b</code>.</p>
+<article class="rec" id="e7"><div class="rec-head"><h3>E7</h3><span class="pill pill-invalid">VOID</span></div><dl><dt>declared</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e7/PREREG.md"><code>experiments/e7/PREREG.md</code></a></dd><dt>plane edge that failed</dt><dd><code>B</code> — intent bound to an executable specification</dd><dt>mismatch</dt><dd><code>threshold-direction</code></dd><dt>disposition</dt><dd><span class="pill pill-invalid">VOID</span></dd><dt>caught</dt><dd>by hand</dd><dt>historical defect reconstructed by</dt><dd><code>operating-point direction (E7)</code> in <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_prereg.py"><code>scripts/verify_prereg.py</code></a></dd><dt>evidence</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e7/results/"><code>experiments/e7/results/</code></a></dd></dl></article><article class="rec" id="e6"><div class="rec-head"><h3>E6</h3><span class="pill pill-invalid">REJECT</span></div><dl><dt>declared</dt><dd><span class="muted">no preregistration committed</span></dd><dt>plane edge that failed</dt><dd><code>V</code> — execution validity</dd><dt>mismatch</dt><dd><code>unequal-mass-permutation</code></dd><dt>disposition</dt><dd><span class="pill pill-invalid">REJECT</span> · history transition <code>CORRECT</code> · registry status <code>contradicted</code></dd><dt>caught</dt><dd>by hand</dd><dt>historical defect reconstructed by</dt><dd><code>marginal invariance under permutation (E6)</code> in <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_prereg.py"><code>scripts/verify_prereg.py</code></a></dd><dt>evidence</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e6/CORRECTION-2026-09-10.md"><code>experiments/e6/CORRECTION-2026-09-10.md</code></a> · <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e6/results/"><code>experiments/e6/results/</code></a></dd><dt>registered as</dt><dd><code>E6-001</code></dd></dl></article><article class="rec" id="e7b"><div class="rec-head"><h3>E7B</h3><span class="pill pill-invalid">REJECT</span></div><dl><dt>declared</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e7b/PREREG.md"><code>experiments/e7b/PREREG.md</code></a></dd><dt>plane edge that failed</dt><dd><code>U</code> — executed universe is the declared universe</dd><dt>mismatch</dt><dd><code>calibration-pool-swap</code></dd><dt>disposition</dt><dd><span class="pill pill-invalid">REJECT</span> · history transition <code>CORRECT</code> · registry status <code>contradicted</code></dd><dt>caught</dt><dd>by hand</dd><dt>historical defect reconstructed by</dt><dd><code>calibration pool identity (E7B)</code> in <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_prereg.py"><code>scripts/verify_prereg.py</code></a></dd><dt>evidence</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e7b/CORRECTION-2026-09-10.md"><code>experiments/e7b/CORRECTION-2026-09-10.md</code></a> · <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e7b/results/"><code>experiments/e7b/results/</code></a></dd><dt>registered as</dt><dd><code>E7B-001</code></dd></dl></article><article class="rec" id="e3"><div class="rec-head"><h3>E3</h3><span class="pill pill-evidence">STANDS</span></div><dl><dt>declared</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e3/PREREG.md"><code>experiments/e3/PREREG.md</code></a></dd><dt>plane edge that failed</dt><dd><span class="muted">none — the join held</span></dd><dt>mismatch</dt><dd><span class="muted">none detected</span></dd><dt>disposition</dt><dd><span class="pill pill-evidence">STANDS</span></dd><dt>caught</dt><dd><span class="muted">n/a — nothing to catch</span></dd><dt>historical defect reconstructed by</dt><dd><span class="muted">no fixture — the join held, so there is nothing to regress against</span></dd><dt>evidence</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e3/results/"><code>experiments/e3/results/</code></a></dd><dt>registered as</dt><dd><code>E3-001</code></dd></dl></article><article class="rec" id="e3b"><div class="rec-head"><h3>E3B</h3><span class="pill pill-evidence">STANDS</span></div><dl><dt>declared</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e3b/PREREG.md"><code>experiments/e3b/PREREG.md</code></a></dd><dt>plane edge that failed</dt><dd><span class="muted">none — the join held</span></dd><dt>mismatch</dt><dd><span class="muted">none detected</span></dd><dt>disposition</dt><dd><span class="pill pill-evidence">STANDS</span></dd><dt>caught</dt><dd><span class="muted">n/a — nothing to catch</span></dd><dt>historical defect reconstructed by</dt><dd><span class="muted">no fixture — the join held, so there is nothing to regress against</span></dd><dt>evidence</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e3b/results/"><code>experiments/e3b/results/</code></a></dd><dt>registered as</dt><dd><code>E3B-001</code></dd></dl></article>
+
+<h2>What now intercepts these</h2>
+<p class="intro">3 regression fixtures, each reconstructing a defect
+  that actually voided a run here, on synthetic data with a known answer. Each asserts that
+  the <em>defective</em> rule still gets it wrong, so a fixture that loses its teeth fails
+  loudly instead of passing vacuously. 7 mutant declarations carry one of the
+  three defects each and must be rejected: a detector nobody has watched fire has no
+  demonstrated discriminatory power.</p>
+<div class="scroll"><table>
+<thead><tr><th scope="col">fixture</th><th scope="col">reconstructs</th></tr></thead>
+<tbody><tr><th scope="row"><code>operating-point direction (E7)</code></th><td>E7</td></tr><tr><th scope="row"><code>marginal invariance under permutation (E6)</code></th><td>E6</td></tr><tr><th scope="row"><code>calibration pool identity (E7B)</code></th><td>E7B</td></tr></tbody>
+</table></div>
+
+<h2>Prospective coverage</h2>
+<p class="intro">An experiment opts in by committing a machine-readable contract beside its
+  preregistration, intended for its runner to consume rather than restate. The current
+  scan checks declaration fields and a textual reference in the runner; it does not prove
+  runtime consumption. Frozen preregistrations
+  are reported as undeclared and never failed: gating a frozen file after its outcomes are
+  visible is itself the rescue this repository forbids.</p>
+<p><span class="pill pill-review">0 of 4 declared</span>
+   &nbsp; <span class="mono muted">e3 e3b e7 e7b</span></p>
+
+<h2 id="blind">Unresolved blind spots</h2>
+<p class="intro">The edges with nothing behind them. Naming them here is the only thing
+  currently done about them.</p>
+<ul><li><code>U</code> — executed universe is the declared universe</li><li><code>Q</code> — design informative enough for its stated target</li><li><code>V</code> — execution validity</li><li><code>T</code> — claim mechanically extracted from that output</li></ul>
+
+<h2>Reproduce</h2>
+<pre><code>git clone https://github.com/Cubits11/cubits11.github.io &amp;&amp; cd cubits11.github.io
+python3 scripts/verify_prereg.py --test    # the fixtures and the mutants
+python3 scripts/direction.py               # the heading this page projects
+python3 scripts/generate_conformance_record.py --check   # this page, against its sources</code></pre>
+
+<h2 id="sources">Sources</h2>
+<p class="intro">Every scientific number above is read from one of these files at render
+  time. Hashes are of the bytes this page was generated from.</p>
+<div class="scroll"><table>
+<thead><tr><th scope="col">file</th><th scope="col">sha256</th></tr></thead>
+<tbody><tr><th scope="row"><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/research/DIRECTION.yaml"><code>research/DIRECTION.yaml</code></a></th><td class="mono hash">92ed64289f8dae5bbc577053e7f11d9e4551a0cc415b0c28bb62150291d691d1</td></tr><tr><th scope="row"><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/metrics/ledger_snapshot.json"><code>metrics/ledger_snapshot.json</code></a></th><td class="mono hash">82d0e7630f52d091753462325f7ba6e397b53bc684b2697a6a0213ef0e50b86c</td></tr><tr><th scope="row"><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/corrections/records/2026-09-10.json"><code>corrections/records/2026-09-10.json</code></a></th><td class="mono hash">a2cca203fd92ffe17ec09d841e90154cfd9cf966f4aeb1b1a62ad0c223cb2cc0</td></tr><tr><th scope="row"><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/corrections/records/2026-09-10-preserved-inputs.json"><code>corrections/records/2026-09-10-preserved-inputs.json</code></a></th><td class="mono hash">b20ad976edcfcccf2a8fa7fa8db609a3b735bb5a2ab1a75c459395fe437a100d</td></tr><tr><th scope="row"><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_prereg.py"><code>scripts/verify_prereg.py</code></a></th><td class="mono hash">e58aba8bb699a1691bb9accd266e356584d5d2d488053f074dc64b944d7870b1</td></tr><tr><th scope="row"><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/claims.yaml"><code>claims.yaml</code></a></th><td class="mono hash">9964c0137292e4338246d423c7124a0109b28973f4ca00f94317e855cd4dcc94</td></tr></tbody>
+</table></div>
+
+</main>
+<footer><div class="container">
+  <p>Generated by <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/generate_conformance_record.py"><code>scripts/generate_conformance_record.py</code></a>.
+     Direction: <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/research/DIRECTION.yaml"><code>research/DIRECTION.yaml</code></a>.
+     A perfect hash cannot rescue a bad denominator.</p>
+</div></footer>
+</body>
+</html>

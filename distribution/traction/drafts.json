@@ -20,10 +20,10 @@
     "sources": [
       {
         "path": "claims.yaml",
-        "sha256": "0c7791565d877cc45627dc2374a842a8784c5ec39e74771a6a4c106e71a9a38b",
-        "commit": "f3a6a1e1c23cf99e9732858635b3247ee0e5c489",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/f3a6a1e1c23cf99e9732858635b3247ee0e5c489/claims.yaml",
-        "binding": "committed"
+        "sha256": "9964c0137292e4338246d423c7124a0109b28973f4ca00f94317e855cd4dcc94",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
       },
       {
         "path": "distribution/experiments.yaml",
@@ -41,10 +41,10 @@
       },
       {
         "path": "campaigns.yaml",
-        "sha256": "2d085177668e196965e78308212620fae79038c81482c312970c177bc3d5a87d",
-        "commit": "26a9d578ffe77deecc191f02ae578e6f8ae6e2c0",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/26a9d578ffe77deecc191f02ae578e6f8ae6e2c0/campaigns.yaml",
-        "binding": "committed"
+        "sha256": "6868db19a1184c391fec3b05215afac5e46d3b18808285347f77d8c6f1f87928",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
       },
       {
         "path": "films/same-scores-different-worlds/manifest.yaml",
@@ -87,7 +87,7 @@
       "no automated replies"
     ],
     "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-    "revision": "b72078171253bd77e339cda9b151087742b565f3897aec15b4aff09d4fd5027a"
+    "revision": "c25f0c0bac36d03bf551852047cbd335b8508d2e207721e0ff57487871dca88b"
   },
   {
     "id": "try-b",
@@ -111,10 +111,10 @@
     "sources": [
       {
         "path": "claims.yaml",
-        "sha256": "0c7791565d877cc45627dc2374a842a8784c5ec39e74771a6a4c106e71a9a38b",
-        "commit": "f3a6a1e1c23cf99e9732858635b3247ee0e5c489",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/f3a6a1e1c23cf99e9732858635b3247ee0e5c489/claims.yaml",
-        "binding": "committed"
+        "sha256": "9964c0137292e4338246d423c7124a0109b28973f4ca00f94317e855cd4dcc94",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
       },
       {
         "path": "distribution/experiments.yaml",
@@ -132,10 +132,10 @@
       },
       {
         "path": "campaigns.yaml",
-        "sha256": "2d085177668e196965e78308212620fae79038c81482c312970c177bc3d5a87d",
-        "commit": "26a9d578ffe77deecc191f02ae578e6f8ae6e2c0",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/26a9d578ffe77deecc191f02ae578e6f8ae6e2c0/campaigns.yaml",
-        "binding": "committed"
+        "sha256": "6868db19a1184c391fec3b05215afac5e46d3b18808285347f77d8c6f1f87928",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
       },
       {
         "path": "scripts/identification.py",
@@ -186,7 +186,7 @@
       "no automated replies"
     ],
     "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-    "revision": "f72b576765666b5bb5bca1e5ebe69a852b9e2d09eea0de08265b2f8053c2ed6d"
+    "revision": "1fcfd08b5185f5f57f0913ee3046c5bfd5a1b7ed2e114473b74fef70ceb7d71b"
   },
   {
     "id": "try-c",
@@ -206,10 +206,10 @@
     "sources": [
       {
         "path": "claims.yaml",
-        "sha256": "0c7791565d877cc45627dc2374a842a8784c5ec39e74771a6a4c106e71a9a38b",
-        "commit": "f3a6a1e1c23cf99e9732858635b3247ee0e5c489",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/f3a6a1e1c23cf99e9732858635b3247ee0e5c489/claims.yaml",
-        "binding": "committed"
+        "sha256": "9964c0137292e4338246d423c7124a0109b28973f4ca00f94317e855cd4dcc94",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
       },
       {
         "path": "distribution/experiments.yaml",
@@ -227,24 +227,24 @@
       },
       {
         "path": "campaigns.yaml",
-        "sha256": "2d085177668e196965e78308212620fae79038c81482c312970c177bc3d5a87d",
-        "commit": "26a9d578ffe77deecc191f02ae578e6f8ae6e2c0",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/26a9d578ffe77deecc191f02ae578e6f8ae6e2c0/campaigns.yaml",
-        "binding": "committed"
+        "sha256": "6868db19a1184c391fec3b05215afac5e46d3b18808285347f77d8c6f1f87928",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
       },
       {
         "path": "census.yaml",
-        "sha256": "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598",
-        "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/census.yaml",
-        "binding": "committed"
+        "sha256": "68b14081b85e18ca1a7b5bce33bbf38fe3b8dafe876e7329057241404037b425",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
       },
       {
         "path": "films/the-missing-column-census/manifest.yaml",
-        "sha256": "8ae305f0e4fe2af82baa4efac5d15079a3c737b9389e4af74aa121b22973a0e7",
-        "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/films/the-missing-column-census/manifest.yaml",
-        "binding": "committed"
+        "sha256": "a8c084a4ec0ee4b2e708488e9d99a0ff8f9b1bdd7a95190aed35202fb843a92f",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
       }
     ],
     "posts": [
@@ -280,6 +280,119 @@
       "no automated replies"
     ],
     "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-    "revision": "41cbf1e1c9faef7fea346d0b8078a92e1085e1e538b823e9f1b7bdab8f88a886"
+    "revision": "dbe65dee60935a84bacfe7e85164a33e0d8908a38fd12749a4d6dbfb6549790d"
+  },
+  {
+    "id": "show-overlap",
+    "campaign": "x-show-overlap",
+    "claims": [
+      "CC-001",
+      "CC-004"
+    ],
+    "posts": [
+      "Two checks each miss 10 of 100 faulty cases.\n\nDifferent misses: together they miss 0.\nSame misses: together they miss 10.\n\nSame separate scores. Different protection.\n\nThis can happen in a tiny workflow or a large system.\n\nConstructed example. Show the overlap.",
+      "This example assumes both checks see the same cases and either can catch a fault. If one check changes the next check\u2019s workload, measure that workflow too.\n\nThe example and current research corrections: https://cubits11.github.io/overlap/"
+    ],
+    "destination_url": "https://cubits11.github.io/overlap/",
+    "source_paths": [
+      "claims.yaml",
+      "campaigns.yaml",
+      "distribution/educational-posts.json",
+      "distribution/NEXT-POST.md",
+      "corrections/records/2026-09-10.json",
+      "corrections/index.html",
+      "overlap/index.html",
+      "overlap/example.js"
+    ],
+    "post_type": "thread",
+    "topic": "same-scores-general-process",
+    "hook": "constructed-example",
+    "visual": "interactive-destination",
+    "cta": "inspect-overlap",
+    "thread_structure": "constructed-example-scope-evidence",
+    "anti_hype": [
+      "constructed only",
+      "either-check-catches rule on a shared pool",
+      "no E6 range or E7B confirmation",
+      "no general system reliability claim"
+    ],
+    "sources": [
+      {
+        "path": "claims.yaml",
+        "sha256": "9964c0137292e4338246d423c7124a0109b28973f4ca00f94317e855cd4dcc94",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
+      },
+      {
+        "path": "campaigns.yaml",
+        "sha256": "6868db19a1184c391fec3b05215afac5e46d3b18808285347f77d8c6f1f87928",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
+      },
+      {
+        "path": "distribution/educational-posts.json",
+        "sha256": "422106687c5dce3de5fd2b6a6408afa6469c790f9ba8f456685fe229e9e2e668",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
+      },
+      {
+        "path": "distribution/NEXT-POST.md",
+        "sha256": "ac55785a806108a75a76b1f4bcb9d419417d212ed71ce578905b6af2d1e086c8",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
+      },
+      {
+        "path": "corrections/records/2026-09-10.json",
+        "sha256": "a2cca203fd92ffe17ec09d841e90154cfd9cf966f4aeb1b1a62ad0c223cb2cc0",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
+      },
+      {
+        "path": "corrections/index.html",
+        "sha256": "921d8ed980e56f96d9c352cf8a06efb775b5f1720fdff2b0297c3e58567f6335",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
+      },
+      {
+        "path": "overlap/index.html",
+        "sha256": "005986c3395f1da76d1bab625286ecd9d505556659e16d51a41f16107df10fa2",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
+      },
+      {
+        "path": "overlap/example.js",
+        "sha256": "9e7a1aaefbf9286211267b764c716ea60ad2946e5222164182c5f5e88a496bd5",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
+      }
+    ],
+    "confidence": {
+      "CC-001": "supported_within_scope",
+      "CC-004": "supported_within_scope"
+    },
+    "scope": {
+      "CC-001": "The kernel module at the bound commit. Reproduced from a clean clone (venv, pip install, execute, assert) most recently on 2026-08-23, and re-reproduced by CI on every push and weekly. No claim about any deployed system.\n",
+      "CC-004": "The kernel identification module at the bound commit, re-verified by CI on every push and weekly in the witness stage of scripts/reproduce_cc001.py. No claim about any deployed system.\n"
+    },
+    "evidence_urls": [
+      "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6",
+      "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
+    ],
+    "audience_hypothesis": "People composing checks, reviews, tests, and safeguards into a process",
+    "why": "Understand the constructed overlap example and read current correction status",
+    "success_signal": "An external reader explains what a second check adds or uses a paired outcome table",
+    "state": "held_owner_review",
+    "scheduled_at": null,
+    "attribution_url": "https://cubits11.github.io/overlap/",
+    "rank_basis": "constructed example; no disputed empirical headline",
+    "revision": "96458ebe9cc3df309966dbb6cfa0c564e5c865a00050d6b220043529de758365"
   }
 ]

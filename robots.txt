@@ -1,4 +1,8 @@
+# Film source pages carry noindex and remain crawlable so that crawlers can read it.
+# Watch pages, MP4s, posters, manifests and receipts remain crawlable.
 User-agent: *
 Allow: /
+Disallow: /films/flagship/
+Disallow: /distribution/traction/
 
 Sitemap: https://cubits11.github.io/sitemap.xml

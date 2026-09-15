@@ -96,6 +96,7 @@ destinations:
   try: "/try/"
   try_a: "/try/#try-a"
   try_counterexample: "/try/#counterexample"
+  overlap: "/overlap/"
 
 # Baseline, established before anything ships. Observed values only.
 baseline:
@@ -131,6 +132,14 @@ targets:
     and must be labelled so; no significance is claimed or manufactured.
 
 campaigns:
+  - id: x-show-overlap
+    audience: "People composing checks, reviews, tests, and safeguards into a process"
+    surface: x
+    utm: {source: x, medium: social, campaign: missing-column-launch, content: show-overlap}
+    destination: overlap
+    intended_action: "Understand the constructed overlap example and read current correction status"
+    success_signal: "An external reader explains what a second check adds or uses a paired outcome table"
+
   - id: x-pinned-missing-column
     audience: "AI evaluation and benchmark authors"
     surface: x

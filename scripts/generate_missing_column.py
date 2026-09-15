@@ -36,6 +36,8 @@ import verify_census
 
 esc = ledger.esc
 squash = ledger.squash
+from correction_records import sections as research_corrections
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 SITE = "https://cubits11.github.io"
@@ -1107,6 +1109,7 @@ def render_corrections(data: dict) -> str:
   </div>
 </header>
 <main class="container" id="main">
+  {research_corrections()}
   <section class="zone" id="correction-policy" aria-labelledby="policy-h">
     <h2 id="policy-h">Policy</h2>
     <ol class="crit-list">

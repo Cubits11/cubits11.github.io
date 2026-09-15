@@ -1,0 +1,4 @@
+scenario,roots,assumed_impressions_per_root,total_impressions,assumed_click_rate,expected_clicks,assumed_completion_rate,expected_completed_actions,status
+Minimal discovery,12,10,120,0.005,0.6,0.05,0.03,CONDITIONAL ASSUMPTIONS; NOT CALIBRATED FORECAST
+Relevant audience reached,12,250,3000,0.01,30.0,0.05,1.5,CONDITIONAL ASSUMPTIONS; NOT CALIBRATED FORECAST
+Repeated expert amplification,12,2500,30000,0.015,450.0,0.03,13.5,CONDITIONAL ASSUMPTIONS; NOT CALIBRATED FORECAST

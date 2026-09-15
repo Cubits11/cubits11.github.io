@@ -315,7 +315,7 @@ renderings:
       - says: "of {MC-001.n_examined} public evaluations none documents matched thresholds with full exposure and {MC-001.k_present} carry any joint-evidence artifact"
       - says: "the marginals leave {identified_set_size} possible counts and the rows say {MC-002.all_miss}"
       - says: "For marginals ({CC-001.marginals.0}, {CC-001.marginals.1}) the both-fail probability is identified only to [{CC-001.bounds.and.0}, {CC-001.bounds.and.1}] and independence names {CC-001.independence_and}"
-      - says: "of {MC-001.n_examined} examined evaluations {MC-001.m_shared_basis} establish a shared basis, {MC-001.m_strata.threshold_documented_full_exposure} document matched thresholds with full exposure, and {MC-001.k_present} provide a joint-evidence artifact, {MC-001.K.releases_computable_items} of them only via a per-item release"
+      - says: "of {MC-001.n_examined} examined evaluations {MC-001.m_shared_basis} establish a shared basis, {MC-001.m_strata.threshold_documented_full_exposure} document matched thresholds with full exposure, and {MC-001.k_present} provide a joint-evidence artifact, {MC-001.K.releases_computable_items} of them via a per-item release"
       - says: "the {MC-002.k_guards} marginals identify the all-miss count only to {{{identified_set_lower} … {identified_set_upper}}} of {denominator}; the released rows give {MC-002.all_miss}; the independence plug-in expects {MC-002.independence_prompts_2dp}"
       - says: "the {MC-001.m_strata.threshold_documented_full_exposure} is a reporting fact"
       - says: "{MC-002.all_miss} is MC-002 OBSERVED"

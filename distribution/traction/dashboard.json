@@ -1,10 +1,108 @@
 {
   "publication_count": 3,
-  "snapshot_count": 0,
+  "snapshot_count": 3,
   "comparisons": [],
+  "observations": [
+    {
+      "post_id": "2097018101602660408",
+      "capture_started_at": "2026-09-10T16:01:40.089Z",
+      "observed_at": "2026-09-10T16:01:40.668Z",
+      "provider": "x_owner_browser",
+      "scope": "total",
+      "source": "https://x.com/PranavBhave_/status/2097018101602660408/analytics",
+      "attribution": "direct_post",
+      "observation_method": "Authenticated owner Post Analytics panel, transcribed from accessibility text. Capture interval bounded by local UTC timestamps; observed_at is capture completion.",
+      "limitations": "Panel totals have no organic/promoted split. Own views can count. Replies may include own thread continuations. No inference of independent engagement.",
+      "age_hours_at_capture": 70.291297,
+      "comparison_window_hours": null,
+      "metrics": {
+        "impressions": 15,
+        "profile_visits": 0,
+        "link_clicks": null,
+        "bookmarks": null,
+        "replies": 1,
+        "follows": null,
+        "likes": 1,
+        "reposts": 0,
+        "engagements": 2,
+        "repo_views": null,
+        "site_visits": null,
+        "research_actions": null
+      },
+      "additional_displayed_metrics": {
+        "detail_expands": 0
+      },
+      "age_hours": 70.291297,
+      "window_status": "off_window_retained_not_compared"
+    },
+    {
+      "post_id": "2097092670556373187",
+      "capture_started_at": "2026-09-10T16:06:04.919Z",
+      "observed_at": "2026-09-10T16:06:06.082Z",
+      "provider": "x_owner_browser",
+      "scope": "total",
+      "source": "https://x.com/PranavBhave_/status/2097092670556373187/analytics",
+      "attribution": "direct_post",
+      "observation_method": "Authenticated owner Post Analytics panel, transcribed from accessibility text. Capture interval bounded by local UTC timestamps; observed_at is capture completion.",
+      "limitations": "Panel totals have no organic/promoted split. Own views can count. Replies may include own thread continuations. No inference of independent engagement.",
+      "age_hours_at_capture": 65.426134,
+      "comparison_window_hours": null,
+      "metrics": {
+        "impressions": 6,
+        "profile_visits": 0,
+        "link_clicks": null,
+        "bookmarks": null,
+        "replies": 1,
+        "follows": null,
+        "likes": 0,
+        "reposts": 0,
+        "engagements": 1,
+        "repo_views": null,
+        "site_visits": null,
+        "research_actions": null
+      },
+      "additional_displayed_metrics": {
+        "detail_expands": 0
+      },
+      "age_hours": 65.426134,
+      "window_status": "off_window_retained_not_compared"
+    },
+    {
+      "post_id": "2097093498054840551",
+      "capture_started_at": "2026-09-10T16:08:01.886Z",
+      "observed_at": "2026-09-10T16:08:14.317Z",
+      "provider": "x_owner_browser",
+      "scope": "total",
+      "source": "https://x.com/PranavBhave_/status/2097093498054840551/analytics",
+      "attribution": "direct_post",
+      "observation_method": "Authenticated owner Post Analytics panel, transcribed from accessibility text. Capture interval bounded by local UTC timestamps; observed_at is capture completion.",
+      "limitations": "Panel totals have no organic/promoted split. Own views can count. Replies may include own thread continuations. No inference of independent engagement.",
+      "age_hours_at_capture": 65.40731,
+      "comparison_window_hours": null,
+      "metrics": {
+        "impressions": 7,
+        "profile_visits": 0,
+        "link_clicks": null,
+        "bookmarks": null,
+        "replies": 1,
+        "follows": null,
+        "likes": 0,
+        "reposts": 0,
+        "engagements": 1,
+        "repo_views": null,
+        "site_visits": null,
+        "research_actions": null
+      },
+      "additional_displayed_metrics": {
+        "detail_expands": 0
+      },
+      "age_hours": 65.40731,
+      "window_status": "off_window_retained_not_compared"
+    }
+  ],
   "audience_model": "No observed demand yet.",
   "compounding": "Qualified outcomes require verification in distribution/outcomes.yaml; attention never qualifies.",
-  "next_experiment": "TRY-A text thread: establish 24-hour exposure, clicks and reproduction replies before varying only the hook.",
+  "next_experiment": "Prepared show-overlap example: publish correction destination before dispatch. Missing historical windows stay missing; off-window observations remain visible.",
   "unavailable": "No site analytics; UTM URLs do not measure visits. Import owner-visible platform receipts and repo traffic separately.",
   "traffic_context": [],
   "qualified_outcomes": {

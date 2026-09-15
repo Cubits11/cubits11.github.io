@@ -1,3 +1,5 @@
+> **Formal correction — September 10, 2026: SUPERSEDED FOR LAUNCH.** E6-001 and E7B-001 are rejected as stated. See the dated [E6 marginal-invariance disposition](../../experiments/e6/CORRECTION-2026-09-10.md) and [E7B pool-mismatch disposition](../../experiments/e7b/CORRECTION-2026-09-10.md). Original text below is retained as history, not current launch copy. Use the [constructed educational post](../NEXT-POST.md) for the replacement direction.
+
 # Dossier — ari-defense-in-depth-2025
 
 Not a census row: an advocacy explainer, not a guardrail evaluation. Status: **PREPARED, nothing sent.** Read the fairness section before drafting anything.

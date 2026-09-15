@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Show the overlap — two checks, one process</title>
+<meta name="description" content="A constructed example: two checks can each miss ten of the same hundred faulty cases yet miss zero to ten together. Explore what a second check adds.">
+<link rel="canonical" href="https://cubits11.github.io/overlap/">
+<meta property="og:title" content="Two checks. Same scores. Different protection.">
+<meta property="og:description" content="A constructed example for anything from two simple checks to components in a larger process. See the overlap and the current research corrections.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://cubits11.github.io/overlap/">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta property="og:image:alt" content="Pranav Bhave — Show the overlap, a constructed example">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:image:alt" content="Pranav Bhave — Show the overlap, a constructed example"><link rel="stylesheet" href="/assets/site.css">
+<style>
+body{font:18px/1.6 system-ui,sans-serif}main,header,footer{max-width:850px;margin:auto;padding:24px}h1{font-size:clamp(2rem,6vw,3.8rem);line-height:1.1;max-width:15ch}h2{line-height:1.25;margin-top:2rem}p{max-width:68ch}.notice{border:2px solid var(--line-strong,#aaa);padding:18px;font-size:.95rem}label{display:block;font-weight:600}input[type=range]{width:100%;margin:24px 0}table{width:100%;border-collapse:collapse;margin:24px 0}th,td{padding:12px;text-align:left;border-bottom:1px solid var(--line,#aaa)}button{font:inherit;padding:10px 16px;cursor:pointer;background:transparent;color:inherit;border:1px solid currentColor;margin:4px}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--evidence,#008a8a);outline-offset:4px}.readout{font-size:1.3rem;padding:12px 0}small{display:block}.table-scroll{overflow-x:auto}footer{border-top:1px solid var(--line,#aaa)}
+</style></head>
+<body>
+<a class="skip" href="#main">Skip to content</a><header><a href="/">Pranav Bhave</a> · <a href="/corrections/">Corrections</a></header>
+<main id="main">
+<aside class="notice" aria-label="Current correction status"><strong>Correction status · September 10, 2026</strong><p>E6’s fixed-marginal range and E7B’s preregistration-conforming claim are <strong>rejected</strong>. Their original outputs remain available for audit. This example uses neither disputed finding.</p><a href="/corrections/#research-dispositions">Read the formal dispositions before the historical claims</a></aside>
+<h1>Two checks. Same scores. Different protection.</h1>
+<p>Imagine a process that receives <strong>100 faulty cases</strong>. Check A misses 10. Check B also misses 10. The process catches a fault if <strong>either</strong> check catches it.</p>
+<p>How many faults slip past both? That depends on whether they miss the same cases.</p>
+<section aria-labelledby="example-h"><h2 id="example-h">Constructed example</h2>
+<p>Both checks evaluate the same 100 cases. Their individual miss counts stay at 10. Move only the overlap.</p>
+<label for="overlap">Cases both checks miss: <output id="overlap-value" for="overlap">10</output> of 100</label>
+<input id="overlap" type="range" min="0" max="10" step="1" value="10" aria-describedby="range-help">
+<small id="range-help">Use arrow keys or the buttons. All values are constructed; these are not measurements of a real system.</small>
+<div><button type="button" data-overlap="0">Different misses</button><button type="button" data-overlap="1">Independence example</button><button type="button" data-overlap="10">Same misses</button></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Joint outcomes for one hundred faulty cases">
+<table><caption>Four mutually exclusive outcomes on the same cases</caption><thead><tr><th scope="col">Outcome</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><th scope="row">Both miss</th><td id="both-miss">10</td></tr>
+<tr><th scope="row">A misses; B catches</th><td id="a-only">0</td></tr>
+<tr><th scope="row">A catches; B misses</th><td id="b-only">0</td></tr>
+<tr><th scope="row">Both catch</th><td id="both-catch">90</td></tr>
+</tbody><tfoot><tr><th scope="row">Total faulty cases</th><td>100</td></tr></tfoot></table></div>
+<p class="readout" id="result" aria-live="polite" aria-atomic="true">Together they miss 10 of 100. Adding B to A catches 0 additional faulty cases.</p>
+<p id="assumption">Identical misses: adding B catches none of the faults A missed.</p>
+<noscript><p>The table above shows identical misses. With disjoint misses the counts are 0, 10, 10, 80: neither check’s separate score changes, but together they miss no faulty case. The interactive control requires JavaScript.</p></noscript>
+</section>
+<section aria-labelledby="scale-h"><h2 id="scale-h">A check can be small. A process can be large.</h2>
+<p>A check might be a form validator, a human review, a test, a sensor, a classifier, an audit, or an entire subsystem that produces a pass/fail decision. The arithmetic is about the defined events and how they combine, rather than the technology or size of the components.</p>
+<p>For example, compare two invoice checks on the same known incorrect invoices, two tests on the same known defective builds, or two safeguards on the same known harmful inputs. These are suggested applications, not empirical findings about those systems.</p>
+<p>For a larger composition, first state the outcome and the wiring: does a failure require both components to miss, either component to fail, a routing decision, or a sequence of changing states? This page uses an <strong>either-check-catches</strong> rule, so process failure means <strong>both miss</strong>. It does not establish end-to-end reliability for every integration.</p>
+<p>If A changes the case, blocks it, routes it, or changes B’s later behavior, B may face a different workload. Measure those conditional or sequential outcomes in the actual workflow. Do not multiply standalone rates and call that a measured system result. Pairwise tables also do not generally determine a joint event across three or more components.</p></section>
+<section aria-labelledby="use-h"><h2 id="use-h">Ask what the second check adds</h2>
+<p>On this fixed faulty-case pool, the additional catches from adding B are the cases A misses and B catches. A useful real evaluation also needs the extra false alarms on valid cases, the operating settings, and the added time or cost. The 100 faulty cases here contain no information about those tradeoffs.</p>
+<p>For two miss probabilities p and r on a common population, the both-miss probability lies between max(0, p + r − 1) and min(p, r). For 10% and 10%, that is 0% to 10%. Independence chooses 1%; it is one assumption, not a consequence of the separate scores.</p>
+<p><a href="/try/#try-a">Run the existing constructed example</a> · <a href="/ledger/#CC-001">Inspect the mathematical claim</a> · <a href="/ledger/#CC-004">Inspect the endpoint witnesses</a></p>
+<p>Prior work: <a href="https://arxiv.org/abs/2510.11235">Dung and Mai on shared failures across alignment techniques</a>. The probability bound is established mathematics, not a novelty claim.</p></section>
+</main><footer>Constructed counts. No uploaded data, analytics, or outcome collection on this page. <a href="/corrections/#research-dispositions">Current correction status</a>.</footer>
+<script src="/overlap/example.js" defer></script>
+</body></html>

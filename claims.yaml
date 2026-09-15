@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-09-10"
+last_owner_review: "2026-09-14"
 
 claims:
   - id: CC-001
@@ -494,15 +494,21 @@ claims:
         shared_basis: 14
         threshold_not_contradicted: 12
         threshold_documented_full_exposure: 0
-    last_reviewed: "2026-09-07"
+    last_reviewed: "2026-09-14"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598"
+        sha256: "68b14081b85e18ca1a7b5bce33bbf38fe3b8dafe876e7329057241404037b425"
         note: >-
           fires when the census changes without a claim re-review;
+          re-reviewed 2026-09-14 (America/New_York), confirming the owner
+          report and independently comparing the bytes: the only change from the previously
+          pinned bytes is one appended AgentDrift / DriftNet entry under
+          unexamined_candidates. All classified content is identical;
+          verify_census.py confirms N/M/K 20/14/5 and M ladder 14/12/0.
+          This hash review does not refresh any row-level source check.
           re-reviewed 2026-09-01 after declaring the
           pre-freeze-visibility-evidenced sensitivity: the row that moved
           19/13/4 to 20/14/5 is in the 20 on GitHub-recorded dates that do
@@ -1630,6 +1636,8 @@ claims:
 
   - id: E6-001
     proposition: >
+      REJECTED AS STATED on 2026-09-10. The permutation routine moves unequal-mass atoms. Only 16 of 1,296 constructions preserve the specified marginal weights. The advertised 2.12–18.07 fixed-marginal range is unsupported and is rejected. No replacement range is asserted.
+      Historical assertion retained for audit, not an accepted current finding:
       E6 extracted the client-side model kernel that anthropic.com/institute/econ-scenarios
       ships (Turbopack module 303412, sha256 0a75763f…), gated it against the twelve
       printed numbers of Table 3 of the Anthropic Institute's Working Paper 2026-02, and
@@ -1644,6 +1652,10 @@ claims:
       of 3,259 respondents' own five-vector. The marginals fix an interval fifteen points
       wide, not a point, and the measured joint lies strictly inside it.
     scope: >
+      Historical run only. Formal disposition: experiments/e6/CORRECTION-2026-09-10.md.
+      Frozen inputs, estimator and outputs are unchanged. The expected block below
+      records original run values and must not be used as current confirmatory evidence.
+      Original scope, including interpretations now rejected with this claim:
       Exactly the 243 rows committed at experiments/e6/results/observations.jsonl,
       produced 2026-09-10 from one set of kernel bytes pinned by digest in
       experiments/e6/freeze/sources.json. The five marginals are the published Table 2
@@ -1660,7 +1672,7 @@ claims:
       visibility: public
       provenance: machine_generated_owner_executed
       support_role: executed_output
-      evidential_status: supported_within_scope
+      evidential_status: contradicted
       maturity: experimental
     support:
       url: https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e6/results/observations.jsonl
@@ -1708,13 +1720,28 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: experiments/e6/RESULT.md
-        sha256: "2a26b5e88f405478eb19894308f920fc2ef6cc67a5d59824c567d5a71669df00"
+        sha256: "dc753f14ab617e0523c14cca77d38ad3e158c14ac3cbaafa745058e6f45dc89f"
         note: fires when the run report changes, including any edit to a stated non-claim
       - type: local_content_change
         enforcement: executable
         path: experiments/e6/freeze/sources.json
         sha256: "ad4568cb1df854c2a7b5d892edb37206ae5a075968fe171c73b715f0c90f3236"
         note: fires when a pinned digest, marginal, or hold-out value changes
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e6/CORRECTION-2026-09-10.md
+        sha256: "710fe3ff32dae7769407e9c0bd4b9905e26c1ae7384246f7da9f6881bd4269f9"
+        note: correction disposition and preserved evidence must remain bound to this review
+      - type: local_content_change
+        enforcement: executable
+        path: corrections/records/2026-09-10.json
+        sha256: "a2cca203fd92ffe17ec09d841e90154cfd9cf966f4aeb1b1a62ad0c223cb2cc0"
+        note: correction disposition and preserved evidence must remain bound to this review
+      - type: local_content_change
+        enforcement: executable
+        path: corrections/records/2026-09-10-preserved-inputs.json
+        sha256: "b20ad976edcfcccf2a8fa7fa8db609a3b735bb5a2ab1a75c459395fe437a100d"
+        note: correction disposition and preserved evidence must remain bound to this review
       - type: manual
         enforcement: manual
         event: >
@@ -1740,6 +1767,7 @@ claims:
         settled which summary it names
       - do not carry any number here across to a guardrail, a classifier, or E2
     non_claims:
+      - "Current disposition is REJECT; the historical non-claims below do not restore the rejected assertion. See /corrections/#e6-marginals."
       - no error in the source paper is claimed; Table 4 does the joint-preserving
         computation and does it correctly, and the kernel agrees with the paper wherever
         both speak
@@ -1768,6 +1796,8 @@ claims:
 
   - id: E7B-001
     proposition: >
+      REJECTED AS STATED on 2026-09-10. Calibration uses the all-nine shared pool instead of each judge’s own pool, changing one threshold from 0.95 to 1.00. Pair evaluation also uses the global intersection. The preregistration-conforming confirmation claim is rejected; the original HELD labels are historical outputs.
+      Historical assertion retained for audit, not an accepted current finding:
       E7B is the first non-degenerate preregistered measurement this repository has
       produced, and all five of its predictions held on data unread when they were fixed.
       Against a preregistration frozen at f646e136 before any hold-out byte was
@@ -1783,6 +1813,10 @@ claims:
       one judge's misses are a subset of the other's. Seven of the fifteen pairs sit at
       that bound.
     scope: >
+      Historical run only. Formal disposition: experiments/e7b/CORRECTION-2026-09-10.md.
+      Frozen inputs, estimator and outputs are unchanged. The expected block below
+      records original run values and must not be used as current confirmatory evidence.
+      Original scope, including interpretations now rejected with this claim:
       Exactly the 15 rows committed at experiments/e7b/results/observations.jsonl,
       computed 2026-09-10 from nine published score files in
       shawnray-research/certified-agent-guardrails at commit
@@ -1803,7 +1837,7 @@ claims:
       visibility: public
       provenance: machine_generated_owner_executed
       support_role: executed_output
-      evidential_status: supported_within_scope
+      evidential_status: contradicted
       maturity: experimental
     support:
       url: https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e7b/results/observations.jsonl
@@ -1865,8 +1899,23 @@ claims:
       - type: local_content_change
         enforcement: executable
         path: experiments/e7b/RESULT.md
-        sha256: "8d330746701fb59f64a88d6d3fd836c6ea830225c6ff0d94df01b984fb95972e"
+        sha256: "d932e5dca1877a1d0ef9081464d2d47744178b36c62e21ef22794c77ff86bbf0"
         note: fires when the run report changes, including any edit to a stated non-claim
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e7b/CORRECTION-2026-09-10.md
+        sha256: "61c3c978bd57a821a787e96bd64afb865acc97ecb19503e69353feb55bb62c04"
+        note: correction disposition and preserved evidence must remain bound to this review
+      - type: local_content_change
+        enforcement: executable
+        path: corrections/records/2026-09-10.json
+        sha256: "a2cca203fd92ffe17ec09d841e90154cfd9cf966f4aeb1b1a62ad0c223cb2cc0"
+        note: correction disposition and preserved evidence must remain bound to this review
+      - type: local_content_change
+        enforcement: executable
+        path: corrections/records/2026-09-10-preserved-inputs.json
+        sha256: "b20ad976edcfcccf2a8fa7fa8db609a3b735bb5a2ab1a75c459395fe437a100d"
+        note: correction disposition and preserved evidence must remain bound to this review
       - type: manual
         enforcement: manual
         event: >
@@ -1893,6 +1942,7 @@ claims:
       - do not restate a prediction, narrow it, or drop it from the record
       - do not carry these numbers to E2's guards, to a deployed stack, or to a vendor
     non_claims:
+      - "Current disposition is REJECT; the historical non-claims below do not restore the rejected assertion. See /corrections/#e7b-pools."
       - "the Fréchet bound applied here is not this repository's: arXiv:2607.22868v1
         states it for an any-flag gate as a proposition, and that artifact's own
         ensemble_robustness.py reports the vulnerability as correlated across judges. That

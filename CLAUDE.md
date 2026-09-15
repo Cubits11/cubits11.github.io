@@ -11,13 +11,19 @@ style — they are the product, and CI enforces them.
 ```bash
 python3 .claude/skills/evidence-ledger/ledger.py   # the instant
 python3 scripts/cadence.py report                  # the trajectory
+python3 scripts/direction.py                       # the heading
 ```
 
 Repo state in one screen: what has been measured, what is blocked on a human,
 and how much protocol sits on top of how many rows. Cheaper and more honest
 than reconstructing it from the program, the contract, the freeze and the last
 report. The cadence report answers the question one instant cannot: whether the
-answer is moving, and whether what moved was evidence or scaffolding. See
+answer is moving, and whether what moved was evidence or scaffolding. The
+direction report answers what neither can: which way this is pointed, whether
+the next thing you are about to write is the thing it needs, and whether
+infrastructure outstanding has overtaken work outstanding. Its source is
+`research/DIRECTION.yaml` — the whole plan, machine-read, with recorded
+amendments to its own first draft. Read it before proposing a new direction. See
 `.claude/skills/evidence-ledger/SKILL.md` for the two standing rules — in
 particular: before writing another governing document, say the trade out loud
 first.
@@ -35,9 +41,10 @@ prints it from the tuple.
 ## Conventions CI enforces
 
 - **Generated pages are never hand-edited** — `/ledger/`, `/observatory/`,
-  `/modules/*`, `/missing-column/*`, `/try/`, `/worldspace/`, `sitemap.xml`.
+  `/modules/*`, `/missing-column/*`, `/try/`, `/worldspace/`,
+  `/records/conformance/`, `sitemap.xml`.
   Edit the source registry (`claims.yaml`, `modules.yaml`, `census.yaml`) and
-  regenerate; nine `scripts/generate_*.py` have `--check` drift gates.
+  regenerate; twelve `scripts/generate_*.py` have `--check` drift gates.
 - **`claims.yaml` is schema v0.4.** Every claim needs a non-empty
   `falsifier.condition`, a fixed `NARROW|REJECT|HOLD` consequence, and a typed
   `forbidden_rescues` list (explicit `[]` is valid). A declared commit must be
@@ -53,6 +60,15 @@ prints it from the tuple.
   anything else with a `local_content_change` trigger.
 - **Figure numbers** are re-derived from stated constants in
   `scripts/verify_figures.py` to 1e-9.
+- **New experiments use a canonical executable contract.**
+  Follow correction C1 in `research/DIRECTION.yaml`: the runner consumes
+  `contract.json`, and `PREREG.md` renders its scientific choices into prose.
+  `research/contracts/validate_contract.py` checks structure, threshold direction,
+  planned pool identities and planned marginal preservation. Passing establishes
+  internal consistency, not runtime conformance or inferential validity.
+  `verify_prereg.py` remains the legacy sidecar scan and historical fixture
+  corpus; its static reference check does not prove runtime consumption.
+  Frozen experiments remain untouched and undeclared rather than retrofitted.
 - **The cadence series only appends.** `metrics/repo_state.jsonl` is a hash
   chain of daily repository state; an edited, reordered, dropped or truncated
   row fails `scripts/cadence.py check`. CI enforces the chain and never the

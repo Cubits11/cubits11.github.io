@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cubits11.github.io/research/contracts/schema.json",
+  "title": "Executable analysis contract, bounded S2 schema",
+  "description": "Structural validation plus validate_contract.py semantic checks. Passing does not establish runtime consumption, adequate design, pre-observation freeze, or valid inference.",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "constructed_fixture",
+            "draft",
+            "frozen"
+          ]
+        },
+        "estimand": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "guard_selection"
+        },
+        "operating_point": {
+          "type": "object",
+          "properties": {
+            "objective": {
+              "const": "maximum_sensitivity_under_fpr_budget"
+            },
+            "comparator": {
+              "enum": [
+                "ge",
+                "le"
+              ]
+            },
+            "direction": {
+              "enum": [
+                "lowest",
+                "highest"
+              ]
+            },
+            "fpr_budget": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "candidates": {
+              "const": "observed_benign_scores"
+            },
+            "no_feasible_candidate": {
+              "const": "exclude_judge"
+            }
+          },
+          "required": [
+            "objective",
+            "comparator",
+            "direction",
+            "fpr_budget",
+            "candidates",
+            "no_feasible_candidate"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "comparator": {
+                    "const": "ge"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "direction": {
+                    "const": "lowest"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "direction": {
+                    "const": "highest"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "declared_pools": {
+          "type": "object",
+          "properties": {
+            "calibration": {
+              "enum": [
+                "per_judge_benign",
+                "all_judges_shared_benign"
+              ]
+            },
+            "evaluation": {
+              "enum": [
+                "pair_shared_harmful",
+                "all_judges_shared_harmful"
+              ]
+            }
+          },
+          "required": [
+            "calibration",
+            "evaluation"
+          ],
+          "additionalProperties": false
+        },
+        "execution_plan": {
+          "type": "object",
+          "properties": {
+            "calibration": {
+              "enum": [
+                "per_judge_benign",
+                "all_judges_shared_benign"
+              ]
+            },
+            "evaluation": {
+              "enum": [
+                "pair_shared_harmful",
+                "all_judges_shared_harmful"
+              ]
+            }
+          },
+          "required": [
+            "calibration",
+            "evaluation"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "status",
+        "estimand",
+        "kind",
+        "operating_point",
+        "declared_pools",
+        "execution_plan"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "constructed_fixture",
+            "draft",
+            "frozen"
+          ]
+        },
+        "estimand": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "finite_coupling"
+        },
+        "invariant": {
+          "const": "marginal_masses_preserved"
+        },
+        "marginal_weights": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "permutations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "status",
+        "estimand",
+        "kind",
+        "invariant",
+        "marginal_weights",
+        "permutations"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

@@ -184,10 +184,52 @@
   },
   {
    "basis": "STATIC_REF",
+   "from": "scripts/correction_records.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/corrections/records/2026-09-10-preserved-inputs.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/correction_records.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/distribution/research-2026-09-10/audit-results.json"
+  },
+  {
+   "basis": "STATIC_REF",
    "from": "scripts/degeneracy.py",
    "inferred": true,
    "rel": "reads",
    "to": "reanalyze_msbench.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/direction.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "DIRECTION.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/direction.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "metrics/repo_state.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/direction.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "repo_state.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/direction.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "research/DIRECTION.yaml"
   },
   {
    "basis": "STATIC_REF",
@@ -457,6 +499,167 @@
   },
   {
    "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/site.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/claims/index.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/ns/falsifiable/v1/context.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims/index.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "context.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "ns/falsifiable/v1/context.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_claims_pages.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "ns/falsifiable/v1/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_conformance_record.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "PREREG.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_conformance_record.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "claims.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_conformance_record.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "corrections/records/2026-09-10-preserved-inputs.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_conformance_record.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "corrections/records/2026-09-10.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_conformance_record.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_conformance_record.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_conformance_record.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "metrics/ledger_snapshot.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_conformance_record.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "records/conformance/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_conformance_record.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "research/DIRECTION.yaml"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_conformance_record.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_prereg.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_conformance_record.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "verify_prereg.py"
+  },
+  {
+   "basis": "STATIC_REF",
    "from": "scripts/generate_degeneracy_card.py",
    "inferred": true,
    "rel": "writes",
@@ -559,6 +762,13 @@
    "inferred": true,
    "rel": "reads",
    "to": "/assets/site.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_ledger.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/claims/index.json"
   },
   {
    "basis": "STATIC_REF",
@@ -1713,7 +1923,21 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "scripts/direction.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "scripts/distribute.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/evidence_guard.py"
   },
   {
    "basis": "STATIC_REF",
@@ -1742,6 +1966,27 @@
    "inferred": true,
    "rel": "reads",
    "to": "scripts/films/verify_films.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_claims_pages.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_conformance_record.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/generate_film_pages.py"
   },
   {
    "basis": "STATIC_REF",
@@ -1951,6 +2196,13 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "scripts/verify_e6.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "scripts/verify_facts.py"
   },
   {
@@ -1987,6 +2239,13 @@
    "inferred": true,
    "rel": "reads",
    "to": "scripts/verify_mc004_semantics.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "scripts/verify_prereg.py"
   },
   {
    "basis": "STATIC_REF",
@@ -2042,6 +2301,34 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "tests/test_cadence_cycle.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "tests/test_contracts.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "tests/test_correction_dispositions.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "tests/test_deployed_release.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "tests/test_distribution.py"
   },
   {
@@ -2049,7 +2336,21 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "tests/test_epistemic_security.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "tests/test_public_discovery.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "tests/test_repository_update.py"
   },
   {
    "basis": "STATIC_REF",
@@ -2410,6 +2711,34 @@
   },
   {
    "basis": "STATIC_REF",
+   "from": "scripts/verify_e6.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "e6_result.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_e6.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments/e6"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_e6.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "observations.jsonl"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_e6.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "sources.json"
+  },
+  {
+   "basis": "STATIC_REF",
    "from": "scripts/verify_facts.py",
    "inferred": true,
    "rel": "reads",
@@ -2553,6 +2882,13 @@
    "from": "scripts/verify_growth.py",
    "inferred": true,
    "rel": "reads",
+   "to": "*.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "answers/how-to-evaluate-guardrails-you-plan-to-stack/index.html"
   },
   {
@@ -2588,6 +2924,13 @@
    "from": "scripts/verify_growth.py",
    "inferred": true,
    "rel": "reads",
+   "to": "claims/cc-001/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "docs/identity.md"
   },
   {
@@ -2596,6 +2939,13 @@
    "inferred": true,
    "rel": "reads",
    "to": "docs/launch-14-day.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "films/the-stack/film.html"
   },
   {
    "basis": "STATIC_REF",
@@ -2665,7 +3015,28 @@
    "from": "scripts/verify_growth.py",
    "inferred": true,
    "rel": "reads",
+   "to": "robots.txt"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "robots.txt"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "scripts/build_resume_pdf.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_growth.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "sitemap.xml"
   },
   {
    "basis": "STATIC_REF",
@@ -2708,6 +3079,34 @@
    "inferred": true,
    "rel": "reads",
    "to": "distribution/RECEIPT_PROTOCOL.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_prereg.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "PREREG.estimator.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_prereg.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "PREREG.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_prereg.py",
+   "inferred": true,
+   "rel": "writes",
+   "to": "PREREG.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_prereg.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "experiments"
   },
   {
    "basis": "STATIC_REF",
@@ -3399,6 +3798,39 @@
   },
   {
    "args": [
+    "--test"
+   ],
+   "basis": "MANIFEST",
+   "check": "acquisition coverage fixtures",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_growth.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "claim page drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_claims_pages.py"
+  },
+  {
+   "args": [
+    "--test"
+   ],
+   "basis": "MANIFEST",
+   "check": "claim metadata semantics",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_claims_pages.py"
+  },
+  {
+   "args": [
     "--check"
    ],
    "basis": "MANIFEST",
@@ -3494,6 +3926,77 @@
    "to": "scripts/degeneracy.py"
   },
   {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "direction well-formed",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/direction.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "conformance record drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_conformance_record.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "preregistration conformance",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_prereg.py"
+  },
+  {
+   "args": [
+    "--test"
+   ],
+   "basis": "MANIFEST",
+   "check": "preregistration-conformance fixtures and mutants",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_prereg.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "executable contract counterexamples and valid controls",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_contracts.py"
+  },
+  {
+   "args": [
+    "--local"
+   ],
+   "basis": "MANIFEST",
+   "check": "frozen evidence preservation",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/evidence_guard.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "epistemic tampering and recovery fixtures",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_epistemic_security.py"
+  },
+  {
    "args": [],
    "basis": "MANIFEST",
    "check": "E3 and E3B re-asserted from committed rows",
@@ -3501,6 +4004,24 @@
    "inferred": false,
    "rel": "runs",
    "to": "scripts/verify_e3.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "E6 historical arithmetic replay (claim rejected)",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/verify_e6.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "correction dispositions, preserved evidence and overlap example",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_correction_dispositions.py"
   },
   {
    "args": [
@@ -3604,6 +4125,28 @@
    "inferred": false,
    "rel": "runs",
    "to": "scripts/films/verify_films.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "film watch page drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_film_pages.py"
+  },
+  {
+   "args": [
+    "--test"
+   ],
+   "basis": "MANIFEST",
+   "check": "film publication metadata",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_film_pages.py"
   },
   {
    "args": [
@@ -3734,11 +4277,38 @@
   {
    "args": [],
    "basis": "MANIFEST",
+   "check": "cadence publication isolation",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_cadence_cycle.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "scheduled protected-branch publication",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_repository_update.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
    "check": "public discovery exclusions",
    "from": "scripts/verification_manifest.py",
    "inferred": false,
    "rel": "runs",
    "to": "tests/test_public_discovery.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "deployed release identity",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_deployed_release.py"
   },
   {
    "args": [],
@@ -3784,7 +4354,7 @@
    "holds": true,
    "inferred": false,
    "rel": "pins",
-   "sha256": "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598",
+   "sha256": "68b14081b85e18ca1a7b5bce33bbf38fe3b8dafe876e7329057241404037b425",
    "to": "census.yaml"
   },
   {
@@ -3876,6 +4446,132 @@
    "rel": "pins",
    "sha256": "8a72bd5eb9ddbdf25dfceae9d4bc89dafdd39aa8abae1ae9a7bcddf3fd27d987",
    "to": "experiments/e3b/RESULT.md"
+  },
+  {
+   "basis": "PIN",
+   "from": "E6-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "bfa64db79b174a68d80f071314daee29efa3c54060c6809e8d55dba7dc2b7a83",
+   "to": "experiments/e6/results/observations.jsonl"
+  },
+  {
+   "basis": "PIN",
+   "from": "E6-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "aacaea5be95cbc6567c24835c7a93d2c0fbe97342f43bf22b71ed7af6e6ce413",
+   "to": "experiments/e6/results/e6_result.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E6-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "dc753f14ab617e0523c14cca77d38ad3e158c14ac3cbaafa745058e6f45dc89f",
+   "to": "experiments/e6/RESULT.md"
+  },
+  {
+   "basis": "PIN",
+   "from": "E6-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "ad4568cb1df854c2a7b5d892edb37206ae5a075968fe171c73b715f0c90f3236",
+   "to": "experiments/e6/freeze/sources.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E6-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "710fe3ff32dae7769407e9c0bd4b9905e26c1ae7384246f7da9f6881bd4269f9",
+   "to": "experiments/e6/CORRECTION-2026-09-10.md"
+  },
+  {
+   "basis": "PIN",
+   "from": "E6-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "a2cca203fd92ffe17ec09d841e90154cfd9cf966f4aeb1b1a62ad0c223cb2cc0",
+   "to": "corrections/records/2026-09-10.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E6-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "b20ad976edcfcccf2a8fa7fa8db609a3b735bb5a2ab1a75c459395fe437a100d",
+   "to": "corrections/records/2026-09-10-preserved-inputs.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E7B-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "114c58818aadc95c09bec1a84f13b26004596315b26f56f9fdf53ddab07da061",
+   "to": "experiments/e7b/results/observations.jsonl"
+  },
+  {
+   "basis": "PIN",
+   "from": "E7B-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "ab6b7287caa3fa155bc2ff85fe587a1779fab404b6086c80294ba8334b9c1869",
+   "to": "experiments/e7b/results/e7_result.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E7B-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "9d97f550daa0199e5bce72358761595e5da5ee976e3edf450ad4592559076ffc",
+   "to": "experiments/e7b/PREREG.md"
+  },
+  {
+   "basis": "PIN",
+   "from": "E7B-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "d932e5dca1877a1d0ef9081464d2d47744178b36c62e21ef22794c77ff86bbf0",
+   "to": "experiments/e7b/RESULT.md"
+  },
+  {
+   "basis": "PIN",
+   "from": "E7B-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "61c3c978bd57a821a787e96bd64afb865acc97ecb19503e69353feb55bb62c04",
+   "to": "experiments/e7b/CORRECTION-2026-09-10.md"
+  },
+  {
+   "basis": "PIN",
+   "from": "E7B-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "a2cca203fd92ffe17ec09d841e90154cfd9cf966f4aeb1b1a62ad0c223cb2cc0",
+   "to": "corrections/records/2026-09-10.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E7B-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "b20ad976edcfcccf2a8fa7fa8db609a3b735bb5a2ab1a75c459395fe437a100d",
+   "to": "corrections/records/2026-09-10-preserved-inputs.json"
   },
   {
    "basis": "GIT",
@@ -4067,6 +4763,27 @@
    "to": "experiments/e3b/freeze/sources.json"
   },
   {
+   "basis": "GIT",
+   "from": "experiments/e6",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e6/freeze/sources.json"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e7",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e7/PREREG.md"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e7b",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e7b/PREREG.md"
+  },
+  {
    "basis": "REGISTRY",
    "from": "distribution/traction",
    "inferred": false,
@@ -4107,6 +4824,13 @@
  },
  "findings": [
   {
+   "claim": "REL-001",
+   "days_left": 8,
+   "detector": "D3",
+   "review_due": "2026-09-23",
+   "severity": "REVIEW"
+  },
+  {
    "config_seed": "MC-E3-PILOT-V1-FREEZE-2026-09-06",
    "detector": "D6",
    "draw_seed": "MC-E3B-PILOT-V1-FREEZE-2026-09-06",
@@ -4126,9 +4850,23 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 1,
+   "ahead": 11,
    "behind": 0,
-   "branch": "claude/canon-reconciliation",
+   "branch": "claude/econ-scenarios-joint",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 11,
+   "behind": 0,
+   "branch": "claude/seo-falsifiable-web",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 11,
+   "behind": 0,
+   "branch": "security/evidence-preservation-2026-09-13",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -4140,8 +4878,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/canon-reconciliation",
-  "head": "f3a6a1e"
+  "branch": "claude/seo-falsifiable-web",
+  "head": "e7c6b9d"
  },
  "nodes": [
   {
@@ -4203,6 +4941,13 @@
   {
    "has_check_mode": false,
    "has_test_mode": false,
+   "id": "scripts/correction_records.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
    "id": "scripts/degeneracy.py",
    "kind": "instrument",
    "type": "script"
@@ -4210,7 +4955,21 @@
   {
    "has_check_mode": true,
    "has_test_mode": false,
+   "id": "scripts/direction.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
    "id": "scripts/distribute.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/evidence_guard.py",
    "kind": "instrument",
    "type": "script"
   },
@@ -4257,9 +5016,30 @@
    "type": "script"
   },
   {
+   "has_check_mode": true,
+   "has_test_mode": true,
+   "id": "scripts/generate_claims_pages.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": true,
+   "id": "scripts/generate_conformance_record.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
    "has_check_mode": false,
    "has_test_mode": false,
    "id": "scripts/generate_degeneracy_card.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": true,
+   "id": "scripts/generate_film_pages.py",
    "kind": "generator",
    "type": "script"
   },
@@ -4392,6 +5172,13 @@
   {
    "has_check_mode": false,
    "has_test_mode": false,
+   "id": "scripts/queue_repository_update.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
    "id": "scripts/reanalyze_bells_subset.py",
    "kind": "instrument",
    "type": "script"
@@ -4400,6 +5187,13 @@
    "has_check_mode": false,
    "has_test_mode": false,
    "id": "scripts/reanalyze_msbench.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/recovery_snapshot.py",
    "kind": "instrument",
    "type": "script"
   },
@@ -4530,6 +5324,13 @@
    "type": "script"
   },
   {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/verify_e6.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
    "has_check_mode": true,
    "has_test_mode": true,
    "id": "scripts/verify_facts.py",
@@ -4559,7 +5360,7 @@
   },
   {
    "has_check_mode": false,
-   "has_test_mode": false,
+   "has_test_mode": true,
    "id": "scripts/verify_growth.py",
    "kind": "verifier",
    "type": "script"
@@ -4568,6 +5369,13 @@
    "has_check_mode": false,
    "has_test_mode": false,
    "id": "scripts/verify_mc004_semantics.py",
+   "kind": "verifier",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": true,
+   "id": "scripts/verify_prereg.py",
    "kind": "verifier",
    "type": "script"
   },
@@ -4642,13 +5450,13 @@
    "type": "script"
   },
   {
-   "checks": 64,
+   "checks": 81,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
   {
    "consequence": "REJECT",
-   "days_left": 105,
+   "days_left": 98,
    "id": "CC-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4657,7 +5465,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 105,
+   "days_left": 98,
    "id": "CC-002",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4666,7 +5474,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 105,
+   "days_left": 98,
    "id": "CC-003",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4675,7 +5483,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 105,
+   "days_left": 98,
    "id": "CC-004",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4684,7 +5492,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 105,
+   "days_left": 98,
    "id": "CC-005",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4693,7 +5501,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 119,
+   "days_left": 112,
    "id": "CC-006",
    "last_reviewed": "2026-09-07",
    "review_due": "2027-01-05",
@@ -4702,7 +5510,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 15,
+   "days_left": 8,
    "id": "REL-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-09-23",
@@ -4713,14 +5521,14 @@
    "consequence": "REJECT",
    "days_left": 59,
    "id": "MC-001",
-   "last_reviewed": "2026-09-07",
-   "review_due": "2026-11-06",
+   "last_reviewed": "2026-09-14",
+   "review_due": "2026-11-13",
    "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/census.yaml",
    "type": "claim"
   },
   {
    "consequence": "REJECT",
-   "days_left": 49,
+   "days_left": 42,
    "id": "MC-002",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-10-27",
@@ -4729,7 +5537,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 51,
+   "days_left": 44,
    "id": "MC-003",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-10-29",
@@ -4738,7 +5546,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 52,
+   "days_left": 45,
    "id": "MC-004",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-10-30",
@@ -4747,7 +5555,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 79,
+   "days_left": 72,
    "id": "AF-001",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-11-26",
@@ -4756,7 +5564,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 105,
+   "days_left": 98,
    "id": "GA-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4765,7 +5573,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 105,
+   "days_left": 98,
    "id": "GV-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4774,7 +5582,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 350,
+   "days_left": 343,
    "id": "GCE-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2027-08-24",
@@ -4783,7 +5591,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 112,
+   "days_left": 105,
    "id": "SITE-001",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-12-29",
@@ -4792,7 +5600,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 111,
+   "days_left": 104,
    "id": "SITE-002",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-12-28",
@@ -4801,7 +5609,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 120,
+   "days_left": 113,
    "id": "E3-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
@@ -4810,11 +5618,29 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 120,
+   "days_left": 113,
    "id": "E3B-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
    "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e3b/results/observations.jsonl",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 115,
+   "id": "E6-001",
+   "last_reviewed": "2026-09-10",
+   "review_due": "2027-01-08",
+   "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e6/results/observations.jsonl",
+   "type": "claim"
+  },
+  {
+   "consequence": "REJECT",
+   "days_left": 115,
+   "id": "E7B-001",
+   "last_reviewed": "2026-09-10",
+   "review_due": "2027-01-08",
+   "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e7b/results/observations.jsonl",
    "type": "claim"
   },
   {
@@ -4856,11 +5682,56 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 1,
+   "docs": {
+    "PREREG.md": false,
+    "RESULT.md": true,
+    "freeze/FREEZE.md": false
+   },
+   "first_result_commit_epoch": 1789043435,
+   "id": "experiments/e6",
+   "observation_rows": 243,
+   "stops": [],
+   "type": "experiment"
+  },
+  {
+   "docs": {
+    "PREREG.md": true,
+    "RESULT.md": true,
+    "freeze/FREEZE.md": false
+   },
+   "first_result_commit_epoch": 1789044872,
+   "id": "experiments/e7",
+   "observation_rows": 0,
+   "stops": [],
+   "type": "experiment"
+  },
+  {
+   "docs": {
+    "PREREG.md": true,
+    "RESULT.md": true,
+    "freeze/FREEZE.md": false
+   },
+   "first_result_commit_epoch": 1789044977,
+   "id": "experiments/e7b",
+   "observation_rows": 15,
+   "stops": [],
+   "type": "experiment"
+  },
+  {
+   "ahead_of_origin_main": 11,
    "behind_origin_main": 0,
-   "head": "f3a6a1e",
-   "id": "claude/canon-reconciliation",
-   "last_commit": "2026-09-08",
+   "head": "e7c6b9d",
+   "id": "claude/econ-scenarios-joint",
+   "last_commit": "2026-09-10",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 11,
+   "behind_origin_main": 0,
+   "head": "e7c6b9d",
+   "id": "claude/seo-falsifiable-web",
+   "last_commit": "2026-09-10",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
@@ -4869,6 +5740,24 @@
    "behind_origin_main": 0,
    "head": "4b659fb",
    "id": "main",
+   "last_commit": "2026-09-07",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 11,
+   "behind_origin_main": 0,
+   "head": "e7c6b9d",
+   "id": "security/evidence-preservation-2026-09-13",
+   "last_commit": "2026-09-10",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 0,
+   "head": "4b659fb",
+   "id": "origin",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
    "type": "branch"
@@ -4884,13 +5773,13 @@
   },
   {
    "id": "distribution/traction",
-   "metric_snapshots": 0,
+   "metric_snapshots": 3,
    "published": 3,
-   "queued": 3,
+   "queued": 4,
    "state": "owner_review_only",
    "type": "distribution"
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "bbe9895078294fdaacc1c1e086643c8ad88c7d3f0db66a1d343769503a166571"
+ "stable_digest": "53b5295cd853900837f200cee091254f18c4efbb5924d9d14d365c2eeefdb211"
 }

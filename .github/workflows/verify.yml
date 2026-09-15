@@ -24,6 +24,11 @@ on:
 permissions:
   contents: read
 
+# Superseded PR revisions need no runners; main deployments finish intact.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   claims:
     name: Claim registry
@@ -36,7 +41,7 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
-      - run: pip install pyyaml
+      - run: python -m pip install -r requirements.txt
       # Both CI and the clean-clone replay execute this source-controlled,
       # duplicate-free manifest. A check cannot quietly run in one green
       # surface but not the other.
@@ -55,7 +60,7 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
-      - run: pip install pyyaml
+      - run: python -m pip install -r requirements.txt
       - name: Clean-clone the bound commit and re-run the kernel
         run: python scripts/reproduce_cc001.py
       - name: Clean-clone this site revision and replay deterministic gates
@@ -112,7 +117,7 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
-      - run: pip install pyyaml
+      - run: python -m pip install -r requirements.txt
       - name: Wait for every route, census checksum, counts, and corrections policy
         run: python scripts/smoke_deployed.py --attempts 30 --interval-seconds 10
 

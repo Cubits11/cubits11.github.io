@@ -1,0 +1,119 @@
+{
+  "e6": {
+    "specified_weights": [
+      0.25,
+      0.5,
+      0.25
+    ],
+    "counterexample_permutation": [
+      1,
+      0,
+      2
+    ],
+    "counterexample_resulting_weights": [
+      0.5,
+      0.25,
+      0.25
+    ],
+    "weight_preserving_permutations": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        2,
+        1,
+        0
+      ]
+    ],
+    "valid_constructions": 16,
+    "enumerated_constructions": 1296,
+    "conclusion": "Published range is not established as a fixed-marginal coupling range."
+  },
+  "e7b": {
+    "calibration_comparison": [
+      {
+        "judge": "groq70b_bench",
+        "own_benign_n": 97,
+        "shared_benign_n": 75,
+        "own_pool_threshold": 1.0,
+        "shared_pool_threshold": 1.0,
+        "recorded_threshold": 1.0
+      },
+      {
+        "judge": "mistral_bench",
+        "own_benign_n": 97,
+        "shared_benign_n": 75,
+        "own_pool_threshold": 1.0,
+        "shared_pool_threshold": 1.0,
+        "recorded_threshold": 1.0
+      },
+      {
+        "judge": "nim_google_gemma-4-31b-it_bench",
+        "own_benign_n": 97,
+        "shared_benign_n": 75,
+        "own_pool_threshold": null,
+        "shared_pool_threshold": null,
+        "recorded_threshold": null
+      },
+      {
+        "judge": "nim_minimaxai_minimax-m3_bench",
+        "own_benign_n": 97,
+        "shared_benign_n": 75,
+        "own_pool_threshold": 0.95,
+        "shared_pool_threshold": 0.95,
+        "recorded_threshold": 0.95
+      },
+      {
+        "judge": "nim_mistralai_mistral-large-3-675b-instruct-2512_bench",
+        "own_benign_n": 75,
+        "shared_benign_n": 75,
+        "own_pool_threshold": null,
+        "shared_pool_threshold": null,
+        "recorded_threshold": null
+      },
+      {
+        "judge": "nim_mistralai_mistral-medium-3_5-128b_bench",
+        "own_benign_n": 97,
+        "shared_benign_n": 75,
+        "own_pool_threshold": 0.95,
+        "shared_pool_threshold": 0.95,
+        "recorded_threshold": 0.95
+      },
+      {
+        "judge": "nim_nvidia_nemotron-3-super-120b-a12b_bench",
+        "own_benign_n": 97,
+        "shared_benign_n": 75,
+        "own_pool_threshold": 0.95,
+        "shared_pool_threshold": 1.0,
+        "recorded_threshold": 1.0
+      },
+      {
+        "judge": "nim_qwen_qwen3_5-122b-a10b_bench",
+        "own_benign_n": 97,
+        "shared_benign_n": 75,
+        "own_pool_threshold": null,
+        "shared_pool_threshold": null,
+        "recorded_threshold": null
+      },
+      {
+        "judge": "nim_stepfun-ai_step-3_7-flash_bench",
+        "own_benign_n": 97,
+        "shared_benign_n": 75,
+        "own_pool_threshold": 0.95,
+        "shared_pool_threshold": 0.95,
+        "recorded_threshold": 0.95
+      }
+    ],
+    "changed_thresholds": 1,
+    "conclusion": "Implementation calibrates on all-nine shared pool, contrary to own-pool prereg wording. No frozen outputs changed."
+  },
+  "input_sha256": {
+    "experiments/e7b/PREREG.md": "9d97f550daa0199e5bce72358761595e5da5ee976e3edf450ad4592559076ffc",
+    "experiments/e7b/run/measure.py": "d47078392678aaf5c9430eaa8d9233e44cd90c6020d2ae0fb868f7ae2d354116",
+    "experiments/e7b/results/e7_result.json": "ab6b7287caa3fa155bc2ff85fe587a1779fab404b6086c80294ba8334b9c1869",
+    "experiments/e6/freeze/sources.json": "ad4568cb1df854c2a7b5d892edb37206ae5a075968fe171c73b715f0c90f3236",
+    "scripts/verify_e6.py": "0b4dc002d2b18f83d6e51cb1c586450c99257dcb22aebd0fcf8ee8296eed4854"
+  }
+}

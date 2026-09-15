@@ -2,7 +2,7 @@
 
 `python3 scripts/distribute.py run` computes orient → extract → draft → verify → held queue → ingest existing receipts → learn. Each stage name also refreshes the derived bundle; `verify` checks saved drafts, `orient` prints the current model. `--check` detects drift without writes. Open `dashboard.html` locally.
 
-Inputs remain claims, campaign routes, reproduction experiments, film manifests and outcome records. `events.json` inventories content-addressed candidate events; inventory is not a claim audit. The first three threads use the existing verified reproduction routes. Other events remain held for source-specific semantic review. Draft wording comes from source fields, with confidence, scope and limits preserved. No free-form generator, publisher, scheduler service, account access or analytics endpoint is installed. Queue times are null proposals. Agent role contracts are in `experiments.json`; they grant no external-action capability.
+Inputs remain claims, campaign routes, reproduction experiments, film manifests and outcome records. `events.json` inventories content-addressed candidate events; inventory is not a claim audit. The first three threads use the existing verified reproduction routes. Other events remain held for source-specific semantic review. Draft wording comes from source fields, with confidence, scope and limits preserved. Exact-text educational posts are sourced from `distribution/educational-posts.json`. The existing publisher uses owner-approved revisions and environment credentials; browser observations can be imported as sourced metrics. Queue times are null proposals. Agent role contracts are in `experiments.json`; they grant no external-action capability.
 
 Before owner dispatch, run `python3 scripts/verification_manifest.py` successfully at the exact revision and review the complete thread. A local pin check is not a remote source verification or proof of truth. Film candidates remain held by `distribution/launch-units.yaml`'s cold-viewer gate. Existing campaign holds stay in effect.
 
@@ -74,3 +74,11 @@ follows, likes, or quotes: the harvester reads.
 
 `deviations.json` records where the owner departed from the stated design,
 with the consequence for what the data can then say.
+
+## Correction-aware launch and working-tree previews (2026-09-10)
+
+E6-001 and E7B-001 are contradicted in the live registry. Their dated dispositions live beside the original reports and appear on `/corrections/`. The old coupling campaign is superseded for launch. `show-overlap` is the prepared replacement: a constructed example for two checks in a common process, with the correction notice before evidence links at `/overlap/`.
+
+`draft` and `--check` can render and validate a working-tree preview whose source records explicitly say `pending_commit`, with null commit and URL fields. This supports reviewing exact content before a source commit. It grants no publication capability: `approve`, `verify`, and `publish` still require committed source bytes; publishing still requires the existing clean, pushed tree and exact-revision approval. After committing source changes, regenerate the preview because its source bindings and draft revision will change.
+
+The dashboard now shows every sourced observation with its actual timestamp and computed age. Off-window snapshots remain visible but do not enter the 24/72/168-hour comparisons. Fresh September 10 owner-panel captures are in `distribution/analytics/2026-09-10T1601Z-owner-snapshots.json`; earlier observations lacking exact capture times remain outside the timed ledger. Unavailable metrics are null, and displayed self-replies or repeat views are not independent audience actions.

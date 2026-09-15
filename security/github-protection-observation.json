@@ -1,0 +1,36 @@
+{
+  "observed_at": "2026-09-15T14:35:56.254209+00:00",
+  "repository": "Cubits11/cubits11.github.io",
+  "source": "https://api.github.com/repos/Cubits11/cubits11.github.io/rulesets/23215795",
+  "method": "Authenticated GitHub REST API; saved ruleset read back; no credential material stored",
+  "before": {
+    "rulesets": "none",
+    "classic_branch_protection": "none"
+  },
+  "prepared": {
+    "name": "Evidence preservation \u2014 main",
+    "enforcement": "active",
+    "target": "default branch",
+    "bypass_actors": [],
+    "block_deletion": true,
+    "block_force_push": true,
+    "require_pull_request": true,
+    "required_approvals": 0,
+    "require_conversation_resolution": true,
+    "require_up_to_date_branch": true,
+    "required_checks": [
+      {
+        "name": "Claim registry",
+        "source": "GitHub Actions"
+      },
+      {
+        "name": "Reproduce bound artifacts",
+        "source": "GitHub Actions"
+      }
+    ]
+  },
+  "applied": true,
+  "status": "ACTIVE_VERIFIED",
+  "last_attempt": "Read back active ruleset 23215795: required PR, current-base checks, deletion and force-push blocked, no bypass actors.",
+  "future_required_check": "Trusted evidence boundary must first land and run on the default branch"
+}

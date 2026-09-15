@@ -1,3 +1,5 @@
+> **Correction recorded 2026-09-10 — E6-001: REJECTED as stated.** The permutation routine moves unequal-mass atoms. Only 16 of 1,296 constructions preserve the specified marginal weights. The advertised 2.12–18.07 fixed-marginal range is unsupported and is rejected. No replacement range is asserted. See [formal disposition](CORRECTION-2026-09-10.md). The original report below is retained verbatim as historical output; it is not current launch evidence.
+
 # E6 — the width of the missing column, measured on a published economic model
 
 Run 2026-09-10. Not preregistered; see the note below before reading any number

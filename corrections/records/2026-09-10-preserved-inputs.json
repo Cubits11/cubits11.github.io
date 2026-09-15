@@ -1,0 +1,26 @@
+{
+  "recorded_on": "2026-09-10",
+  "purpose": "Preserved original experiment bytes; correction notices do not authorize replacement estimators or outputs.",
+  "baseline_commit": "e7c6b9d2677b79ed7448710c95a6a65ade0fc48a",
+  "sha256": {
+    "experiments/e6/freeze/sources.json": "ad4568cb1df854c2a7b5d892edb37206ae5a075968fe171c73b715f0c90f3236",
+    "experiments/e6/run/measure.js": "65f6babbea4fb81b55eaff1c434c8afed8ea4510d8b780e12a69c7279eb781b6",
+    "experiments/e6/results/observations.jsonl": "bfa64db79b174a68d80f071314daee29efa3c54060c6809e8d55dba7dc2b7a83",
+    "experiments/e6/results/e6_result.json": "aacaea5be95cbc6567c24835c7a93d2c0fbe97342f43bf22b71ed7af6e6ce413",
+    "scripts/verify_e6.py": "0b4dc002d2b18f83d6e51cb1c586450c99257dcb22aebd0fcf8ee8296eed4854",
+    "experiments/e7b/PREREG.md": "9d97f550daa0199e5bce72358761595e5da5ee976e3edf450ad4592559076ffc",
+    "experiments/e7b/run/measure.py": "d47078392678aaf5c9430eaa8d9233e44cd90c6020d2ae0fb868f7ae2d354116",
+    "experiments/e7b/results/observations.jsonl": "114c58818aadc95c09bec1a84f13b26004596315b26f56f9fdf53ddab07da061",
+    "experiments/e7b/results/e7_result.json": "ab6b7287caa3fa155bc2ff85fe587a1779fab404b6086c80294ba8334b9c1869",
+    "experiments/e7b/freeze/cache/_inj_goals.json": "a4893cd63cb031f8bd7b8e41300bf4812046894a9b9068bc08bb669eca6f0eee",
+    "experiments/e7b/freeze/cache/groq70b_bench.json": "d3aa3f75b046c1d8ac5dfc44a186f784be749c366ab9801384838da7662b912c",
+    "experiments/e7b/freeze/cache/mistral_bench.json": "efd2fae20d596bf2feacced773915c822165e77beb49711c93ba731fa628594e",
+    "experiments/e7b/freeze/cache/nim_google_gemma-4-31b-it_bench.json": "19d5d32a722476cf147482cb74e4b0bdd7c1cdc7b671441facdac641729fd0db",
+    "experiments/e7b/freeze/cache/nim_minimaxai_minimax-m3_bench.json": "0579979df600219c934928b26f77b6220e1ffa81f2e1c37809e992120a38af0e",
+    "experiments/e7b/freeze/cache/nim_mistralai_mistral-large-3-675b-instruct-2512_bench.json": "dc76811e2466f20a1b7ceb5f0a9953b21333e0379497bc6998be2a3b6087a521",
+    "experiments/e7b/freeze/cache/nim_mistralai_mistral-medium-3_5-128b_bench.json": "82775fc06b097e22cd659b4134dbde83ffb56f7a72cd0669c57d79972137701b",
+    "experiments/e7b/freeze/cache/nim_nvidia_nemotron-3-super-120b-a12b_bench.json": "2a005c919eed82f5a7eef282391fee98b14a9f526facb775689bfc0ddb4b80b9",
+    "experiments/e7b/freeze/cache/nim_qwen_qwen3_5-122b-a10b_bench.json": "d89fd5f9e2c3ec6e55e69704892b95c6d79054b8c11b006626a813cbd2276741",
+    "experiments/e7b/freeze/cache/nim_stepfun-ai_step-3_7-flash_bench.json": "b383851f2942c1a0e001c6c02f95383e9e3587e551188f38e92da97d9b3df2b9"
+  }
+}

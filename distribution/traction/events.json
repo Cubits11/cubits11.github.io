@@ -1,13 +1,13 @@
 [
   {
-    "id": "6673daf2782a48c2",
+    "id": "5d7af51015cd0f44",
     "kind": "census",
     "source": {
       "path": "census.yaml",
-      "sha256": "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598",
-      "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/census.yaml",
-      "binding": "committed"
+      "sha256": "68b14081b85e18ca1a7b5bce33bbf38fe3b8dafe876e7329057241404037b425",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
     },
     "draft_ids": [
       "try-c"
@@ -17,33 +17,34 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "ce8f669d62fde866",
+    "id": "baeb950434b06d51",
     "kind": "claims",
     "source": {
       "path": "claims.yaml",
-      "sha256": "0c7791565d877cc45627dc2374a842a8784c5ec39e74771a6a4c106e71a9a38b",
-      "commit": "f3a6a1e1c23cf99e9732858635b3247ee0e5c489",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/f3a6a1e1c23cf99e9732858635b3247ee0e5c489/claims.yaml",
-      "binding": "committed"
+      "sha256": "9964c0137292e4338246d423c7124a0109b28973f4ca00f94317e855cd4dcc94",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
     },
     "draft_ids": [
       "try-a",
       "try-b",
-      "try-c"
+      "try-c",
+      "show-overlap"
     ],
     "state": "candidate_requires_claim_audit",
     "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "a82fda038dbd022c",
+    "id": "d7943823d8d30c69",
     "kind": "claim_change",
     "source": {
       "path": "claims_history.yaml",
-      "sha256": "47360a46c12448ca28f053c7469c5ddc9af82cc54ddad8b3fab1cfc411e792f9",
-      "commit": "f3a6a1e1c23cf99e9732858635b3247ee0e5c489",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/f3a6a1e1c23cf99e9732858635b3247ee0e5c489/claims_history.yaml",
-      "binding": "committed"
+      "sha256": "fab4d95e73ef74a74f9308950d8366eb2adbe844ccfb65234c9fd7481b13b20f",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
@@ -216,6 +217,126 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
+    "id": "f833830dca05032a",
+    "kind": "correction",
+    "source": {
+      "path": "experiments/e6/CORRECTION-2026-09-10.md",
+      "sha256": "710fe3ff32dae7769407e9c0bd4b9905e26c1ae7384246f7da9f6881bd4269f9",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "147151e4db39d43b",
+    "kind": "result",
+    "source": {
+      "path": "experiments/e6/RESULT.md",
+      "sha256": "dc753f14ab617e0523c14cca77d38ad3e158c14ac3cbaafa745058e6f45dc89f",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "313c0259b92fa7b7",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e6/freeze/sources.json",
+      "sha256": "ad4568cb1df854c2a7b5d892edb37206ae5a075968fe171c73b715f0c90f3236",
+      "commit": "6728545d77132da418f43a1ad3f697ac81ab7548",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/6728545d77132da418f43a1ad3f697ac81ab7548/experiments/e6/freeze/sources.json",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "541d4c47678de2ed",
+    "kind": "experiment",
+    "source": {
+      "path": "experiments/e7/PREREG.md",
+      "sha256": "7cd86f323acc1133cf87051feb5158bc0b287017542eeff20a9676bc26f23f42",
+      "commit": "da102bc6271b1a8212f81f8055fa71b0e92199a7",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/da102bc6271b1a8212f81f8055fa71b0e92199a7/experiments/e7/PREREG.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "8ca897c6edd8a231",
+    "kind": "result",
+    "source": {
+      "path": "experiments/e7/RESULT.md",
+      "sha256": "962a17ad6eac4ed193cda73c114fa5cfa6517737021b913445f2a03190e1e12e",
+      "commit": "5b5ff8d6cb26479d363987413da53ad78130eaa9",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/5b5ff8d6cb26479d363987413da53ad78130eaa9/experiments/e7/RESULT.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "49cb78b224f1c17e",
+    "kind": "correction",
+    "source": {
+      "path": "experiments/e7b/CORRECTION-2026-09-10.md",
+      "sha256": "61c3c978bd57a821a787e96bd64afb865acc97ecb19503e69353feb55bb62c04",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "81db938a78de3ff1",
+    "kind": "experiment",
+    "source": {
+      "path": "experiments/e7b/PREREG.md",
+      "sha256": "9d97f550daa0199e5bce72358761595e5da5ee976e3edf450ad4592559076ffc",
+      "commit": "f646e136e16db428e72094167bc30040b2c9fcc7",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/f646e136e16db428e72094167bc30040b2c9fcc7/experiments/e7b/PREREG.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "564fb47c5c5eaa2d",
+    "kind": "result",
+    "source": {
+      "path": "experiments/e7b/RESULT.md",
+      "sha256": "d932e5dca1877a1d0ef9081464d2d47744178b36c62e21ef22794c77ff86bbf0",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
     "id": "7e2d93b184e5a6fb",
     "kind": "film",
     "source": {
@@ -308,14 +429,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "9cca978dd20b4f90",
+    "id": "2c115121b6aa25f0",
     "kind": "film",
     "source": {
       "path": "films/the-missing-column-census/manifest.yaml",
-      "sha256": "8ae305f0e4fe2af82baa4efac5d15079a3c737b9389e4af74aa121b22973a0e7",
-      "commit": "8eb69979eee52c782d0412697e7e93ef315d6b37",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/8eb69979eee52c782d0412697e7e93ef315d6b37/films/the-missing-column-census/manifest.yaml",
-      "binding": "committed"
+      "sha256": "a8c084a4ec0ee4b2e708488e9d99a0ff8f9b1bdd7a95190aed35202fb843a92f",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
     },
     "draft_ids": [
       "try-c"
@@ -325,14 +446,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "f7e7caee8e6b3a22",
+    "id": "79a7189462131513",
     "kind": "film",
     "source": {
       "path": "films/the-missing-column-trailer/manifest.yaml",
-      "sha256": "bccc718f5ac1b7ad21646b2bd65733448b5a7d12ca24c5ebe6bc291d516e3262",
-      "commit": "2174358b3a42385c06c6412fb66031c21cee51e4",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2174358b3a42385c06c6412fb66031c21cee51e4/films/the-missing-column-trailer/manifest.yaml",
-      "binding": "committed"
+      "sha256": "8e931ff16740f738da2b0a3c8bed4fbd3235a1e4a244632d56e4aaafe49b7c61",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",

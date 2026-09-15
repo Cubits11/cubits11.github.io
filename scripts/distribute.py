@@ -47,9 +47,7 @@ def pin(path):
     if not p.is_file() or not p.resolve().is_relative_to(ROOT.resolve()):
         raise ValueError(f'Invalid source: {path}')
     commit = git('log', '-1', '--format=%H', '--', str(path))
-    if not commit:
-        raise ValueError(f'Uncommitted source: {path}')
-    committed = subprocess.check_output(['git', 'show', commit + ':' + str(path)], cwd=ROOT) == p.read_bytes()
+    committed = bool(commit) and subprocess.check_output(['git', 'show', commit + ':' + str(path)], cwd=ROOT) == p.read_bytes()
     return {'path': str(path), 'sha256': hashlib.sha256(p.read_bytes()).hexdigest(),
             'commit': commit if committed else None,
             'url': f'https://github.com/Cubits11/cubits11.github.io/blob/{commit}/{path}' if committed else None,
@@ -84,7 +82,7 @@ def extract():
     paths = {'claims.yaml': 'claims', 'claims_history.yaml': 'claim_change',
              'census.yaml': 'census', 'distribution/outcomes.yaml': 'metrics',
              'docs/graph/organism.receipt.json': 'visualization'}
-    for pattern, kind in [('experiments/*/RESULT.md', 'result'), ('experiments/*/STOP-*.md', 'contradiction'),
+    for pattern, kind in [('experiments/*/RESULT.md', 'result'), ('experiments/*/CORRECTION-*.md', 'correction'), ('experiments/*/STOP-*.md', 'contradiction'),
                           ('experiments/*/PREREG.md', 'experiment'), ('experiments/*/freeze/*.json', 'freeze'),
                           ('films/*/manifest.yaml', 'film')]:
         paths.update({p.relative_to(ROOT).as_posix(): kind for p in ROOT.glob(pattern)})
@@ -141,10 +139,23 @@ def draft():
                 'rank_basis': 'existing reproducible route; source order; no audience-performance evidence'}
         item['revision'] = digest(item)
         posts.append(item)
+    for item in (read('distribution/educational-posts.json') or {}).get('items', []):
+        campaign = next(c for c in campaigns['campaigns'] if c['id'] == item['campaign'])
+        claimset = [reg[c] for c in item['claims']]
+        post = {**item, 'sources': [pin(p) for p in item['source_paths']],
+                'confidence': {c['id']: c['dimensions']['evidential_status'] for c in claimset},
+                'scope': {c['id']: c['scope'] for c in claimset},
+                'evidence_urls': [c['support']['url'] for c in claimset],
+                'audience_hypothesis': campaign['audience'], 'why': campaign['intended_action'],
+                'success_signal': campaign['success_signal'], 'state': 'held_owner_review',
+                'scheduled_at': None, 'attribution_url': item['destination_url'],
+                'rank_basis': 'constructed example; no disputed empirical headline'}
+        post['revision'] = digest(post)
+        posts.append(post)
     return posts
 
 
-def verify(posts):
+def verify(posts, *, allow_pending=False):
     if posts != draft():
         raise ValueError('Draft/provenance drift: regenerate; free text is not evidence')
     today = dt.date.today()
@@ -160,6 +171,8 @@ def verify(posts):
                     raise ValueError(f'Broken pin: {cid}')
         for s in p['sources']:
             if not s['commit']:
+                if allow_pending and s['binding'] == 'pending_commit' and pin(s['path'])['sha256'] == s['sha256']:
+                    continue
                 raise ValueError('Draft source awaits commit')
             if subprocess.check_output(['git', 'show', s['commit'] + ':' + s['path']], cwd=ROOT) != (ROOT / s['path']).read_bytes():
                 raise ValueError('Source differs from committed provenance')
@@ -268,10 +281,17 @@ def learn(publications, snapshots):
         comparisons.append({'post_id': row['post_id'], 'cohort': list(cohort), 'rates': baseline,
                             'interpretation': 'descriptive; no randomization, significance or causal attribution',
                             'experiment': {d: pub[d] for d in DIMS}})
+    observations = []
+    for row in sorted(snapshots, key=lambda r: stamp(r['observed_at'])):
+        age = (stamp(row['observed_at']) - stamp(pubs[row['post_id']]['published_at'])).total_seconds()/3600
+        window = next((h for h in (24, 72, 168) if h <= age < h + 6), None)
+        observations.append({**row, 'age_hours': round(age, 6), 'comparison_window_hours': window,
+                             'window_status': 'eligible_window' if window else 'off_window_retained_not_compared'})
     return {'publication_count': len(publications), 'snapshot_count': len(snapshots), 'comparisons': comparisons,
+            'observations': observations,
             'audience_model': 'No observed demand yet.' if not comparisons else 'Descriptive matched cohorts only; hypotheses remain unconfirmed.',
             'compounding': 'Qualified outcomes require verification in distribution/outcomes.yaml; attention never qualifies.',
-            'next_experiment': 'TRY-A text thread: establish 24-hour exposure, clicks and reproduction replies before varying only the hook.',
+            'next_experiment': 'Prepared show-overlap example: publish correction destination before dispatch. Missing historical windows stay missing; off-window observations remain visible.',
             'unavailable': 'No site analytics; UTM URLs do not measure visits. Import owner-visible platform receipts and repo traffic separately.'}
 
 
@@ -485,7 +505,9 @@ def cycle():
 
 def build():
     posts = draft()
-    verify(posts)
+    # Working-tree previews must be reviewable. Approval and dispatch continue
+    # to call strict verify() and cannot consume pending source bindings.
+    verify(posts, allow_pending=True)
     pubs, metrics = records('publications.json'), records('metrics.json')
     validate_publications(pubs, posts)
     report = learn(pubs, metrics)
@@ -512,7 +534,7 @@ def dashboard(data):
     report = data['dashboard.json']
     esc = lambda x: html.escape(str(x))
     rows = ''.join('<article><h2>' + esc(p['id']) + ' · held for owner review</h2><p>' + esc(p['audience_hypothesis']) + '</p><p>' + esc(p['why']) + '</p><ol>' + ''.join('<li>' + esc(t) + '</li>' for t in p['posts']) + '</ol></article>' for p in data['drafts.json'])
-    return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Research distribution</title><style>body{max-width:960px;margin:40px auto;padding:20px;background:#101b22;color:#e5edf2;font:18px/1.6 system-ui}article{border-top:1px solid #548090;padding:20px 0}li{margin:14px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style><a class="skip" href="#main">Skip to content</a><main id="main"><h1>Research → evidence → audience</h1><p>' + esc(report['publication_count']) + ' recorded publications · ' + esc(report['snapshot_count']) + ' sourced metric snapshots</p><p>' + esc(report['audience_model']) + '</p><p>' + esc(report['unavailable']) + '</p><p>Metric coverage: ' + ', '.join(esc(m) for m in METRICS) + ' — reported only where a source supplies the field.</p><h2>Next experiment</h2><p>' + esc(report['next_experiment']) + '</p>' + rows + '<h2>Matched observations</h2><pre>' + esc(json.dumps({'comparisons': report['comparisons'], 'traffic_context': report['traffic_context'], 'qualified_outcomes': report['qualified_outcomes']}, indent=2)) + '</pre></main></html>\n'
+    return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Research distribution</title><style>body{max-width:960px;margin:40px auto;padding:20px;background:#101b22;color:#e5edf2;font:18px/1.6 system-ui}article{border-top:1px solid #548090;padding:20px 0}li{margin:14px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style><a class="skip" href="#main">Skip to content</a><main id="main"><h1>Research → evidence → audience</h1><p>' + esc(report['publication_count']) + ' recorded publications · ' + esc(report['snapshot_count']) + ' sourced metric snapshots</p><p>' + esc(report['audience_model']) + '</p><p>' + esc(report['unavailable']) + '</p><p>Metric coverage: ' + ', '.join(esc(m) for m in METRICS) + ' — reported only where a source supplies the field.</p><h2>Next experiment</h2><p>' + esc(report['next_experiment']) + '</p>' + rows + '<h2>Timestamped observations and window comparisons</h2><pre>' + esc(json.dumps({'observations': report['observations'], 'comparisons': report['comparisons'], 'traffic_context': report['traffic_context'], 'qualified_outcomes': report['qualified_outcomes']}, indent=2)) + '</pre></main></html>\n'
 
 
 def main():
@@ -575,9 +597,7 @@ def main():
     data = build()
     pending = sorted({e['source']['path'] for e in data['events.json'] if e['source']['binding'] != 'committed'})
     if pending and not a.check:
-        # A bundle generated from an uncommitted source binds to nothing a clean
-        # clone can see; every fresh checkout would then report drift.
-        raise ValueError('Sources await commit — commit them, then regenerate: ' + ', '.join(pending))
+        print('PREVIEW: pending source bindings; approval and dispatch still refuse. Commit sources and regenerate for release.')
     if not a.check and a.stage not in ('verify', 'orient'):
         history = records('draft-history.json')
         for post in data['drafts.json']:

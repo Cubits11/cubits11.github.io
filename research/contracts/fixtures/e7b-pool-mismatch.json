@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "historical-E7B-pools",
+  "status": "constructed_fixture",
+  "estimand": "pairwise joint miss on shared harmful cases",
+  "kind": "guard_selection",
+  "operating_point": {
+    "objective": "maximum_sensitivity_under_fpr_budget",
+    "comparator": "ge",
+    "direction": "lowest",
+    "fpr_budget": 0.05,
+    "candidates": "observed_benign_scores",
+    "no_feasible_candidate": "exclude_judge"
+  },
+  "declared_pools": {
+    "calibration": "per_judge_benign",
+    "evaluation": "pair_shared_harmful"
+  },
+  "execution_plan": {
+    "calibration": "all_judges_shared_benign",
+    "evaluation": "all_judges_shared_harmful"
+  }
+}

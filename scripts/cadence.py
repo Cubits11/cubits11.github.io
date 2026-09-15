@@ -370,7 +370,20 @@ def report(days: int = 7) -> int:
     base = window[0]
     span = (today - dt.date.fromisoformat(base["date"])).days
 
-    out = [f"CADENCE · {now['date']} · {len(rows)} rows · window {span}d of {days}d requested", ""]
+    wall = dt.datetime.now(dt.timezone.utc).date()
+    gap = (wall - today).days
+    stale = f" · LAST ROW {gap}d OLD" if gap > 0 else ""
+    out = [f"CADENCE · {now['date']} · {len(rows)} rows · window {span}d of {days}d requested{stale}", ""]
+    if gap > 0:
+        missing = [(today + dt.timedelta(days=i)).isoformat() for i in range(1, gap + 1)]
+        out += [
+            f"SENSOR  the series has no row for {gap} day(s): {', '.join(missing)}",
+            "        Every number below is that many days old. The series only appends and",
+            "        mid-series reconstruction is a genesis operation, so these days stay",
+            "        missing: absence is reported, never interpolated.",
+            "        python3 scripts/cadence.py record   # stops the gap growing",
+            "",
+        ]
     out += block("EVIDENCE", "moves only when an instrument runs or a human acts",
                   EVIDENCE, base, now, ("progress", "regress"))
     out.append("")

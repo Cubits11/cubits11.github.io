@@ -1,3 +1,5 @@
+> **Formal correction — September 13, 2026: SUPERSEDED FOR LAUNCH.** E7B-001 is rejected as a preregistration-conforming confirmation. See the [dated pool-mismatch disposition](../../experiments/e7b/CORRECTION-2026-09-10.md). Original text below is retained as history, not current outreach or launch copy. Use the [constructed educational post](../NEXT-POST.md).
+
 # Dossier — certified-agent-guardrails-2026
 
 Census candidate: **PRESENT** by `computable_via_item_release`, pending a census pass. Status: **PREPARED, nothing sent.** This one is not an ask. It is a credit, a correction to our own novelty position, and a result handed back.

@@ -188,6 +188,7 @@ html:not(.js) .bounds-ctl{display:none}
       <a href="/explore/">Explore</a>
       <a href="/observatory/">Evidence</a>
       <a href="/writing/">Writing</a>
+      <a href="/films/">Films</a>
       <a href="/work/">Work with me</a>
       <a href="/resume/">About</a>
     </nav>
@@ -207,6 +208,7 @@ html:not(.js) .bounds-ctl{display:none}
 </div>
 
 <main id="main">
+<div class="container"><aside class="snapshot-note" aria-label="Current correction status"><strong>Correction status · 2026-09-10:</strong> E6’s fixed-marginal range and E7B’s preregistration-conforming claim are rejected. <a href="/corrections/#research-dispositions">Read the dispositions</a> or <a href="/overlap/">start with a constructed example</a>.</aside></div>
 
   <section class="world-entrance" id="top" aria-labelledby="entrance-title">
     <div class="container">
@@ -424,7 +426,9 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
         responsibility, dated, with no public artifact yet — provenance, not proof. Exact
         bindings — commit SHAs, executable review triggers, falsifiers, forbidden rescues,
         non-claims — live in the
-        <a class="u" href="/ledger/">evidence ledger</a>. Everything older or superseded is in
+        <a class="u" href="/ledger/">evidence ledger</a>, and each claim also has
+        <a class="u" href="/claims/">its own page</a> carrying the falsifier next to the
+        proposition. Everything older or superseded is in
         the <a class="u" href="/archive/">archive</a>, with its succession recorded.</p>
 
       <article class="card flagship reveal">
@@ -691,7 +695,7 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
     <div class="container">
       <span>Ledger <b>v0.4</b> — generated from claims.yaml, drift-checked</span>
       <span>Triggers: <b>executable</b> where CI can watch, <b>manual</b> declared where it can't</span>
-      <span>Last owner review <b>2026-09-10</b></span>
+      <span>Last owner review <b>2026-09-14</b></span>
     </div>
   </div>
   <div class="container">
@@ -724,6 +728,7 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
       <a class="u" href="/work/">Work with me</a>
       <a class="u" href="/observatory/">Claim observatory</a>
       <a class="u" href="/ledger/">Evidence ledger</a>
+      <a class="u" href="/claims/">Claims</a>
       <a class="u" href="/writing/">Writing</a>
       <a class="u" href="/modules/">Modules</a>
       <a class="u" href="/archive/">Archive</a>
@@ -840,27 +845,43 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": "https://cubits11.github.io/#website",
   "name": "Cubits11",
   "alternateName": ["Pranav Bhave", "cubits11.github.io"],
-  "url": "https://cubits11.github.io/"
+  "url": "https://cubits11.github.io/",
+  "inLanguage": "en",
+  "publisher": { "@id": "https://cubits11.github.io/#person" },
+  "author": { "@id": "https://cubits11.github.io/#person" },
+  "mainEntity": { "@id": "https://cubits11.github.io/ledger/#dataset" }
 }
 </script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
+  "@id": "https://cubits11.github.io/#profilepage",
+  "isPartOf": { "@id": "https://cubits11.github.io/#website" },
   "dateModified": "2026-09-07",
   "mainEntity": {
     "@type": "Person",
+    "@id": "https://cubits11.github.io/#person",
     "name": "Pranav Bhave",
     "url": "https://cubits11.github.io/",
     "image": "https://cubits11.github.io/assets/img/portrait-960.jpg",
     "jobTitle": "AI Assurance Researcher & Engineer",
     "alumniOf": { "@type": "CollegeOrUniversity", "name": "Pennsylvania State University" },
     "address": { "@type": "PostalAddress", "addressLocality": "Philadelphia", "addressRegion": "PA", "addressCountry": "US" },
+    "knowsAbout": [
+      "AI guardrail composition",
+      "Partial identification",
+      "Fr\u00e9chet\u2013Hoeffding bounds",
+      "AI evaluation methodology",
+      "Claim registries and falsifiability"
+    ],
     "sameAs": [
       "https://github.com/Cubits11",
-      "https://www.linkedin.com/in/pranav-bhave-2a328721a/"
+      "https://www.linkedin.com/in/pranav-bhave-2a328721a/",
+      "https://x.com/PranavBhave_"
     ]
   }
 }

@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "show-overlap",
+      "campaign": "x-show-overlap",
+      "claims": [
+        "CC-001",
+        "CC-004"
+      ],
+      "posts": [
+        "Two checks each miss 10 of 100 faulty cases.\n\nDifferent misses: together they miss 0.\nSame misses: together they miss 10.\n\nSame separate scores. Different protection.\n\nThis can happen in a tiny workflow or a large system.\n\nConstructed example. Show the overlap.",
+        "This example assumes both checks see the same cases and either can catch a fault. If one check changes the next check\u2019s workload, measure that workflow too.\n\nThe example and current research corrections: https://cubits11.github.io/overlap/"
+      ],
+      "destination_url": "https://cubits11.github.io/overlap/",
+      "source_paths": [
+        "claims.yaml",
+        "campaigns.yaml",
+        "distribution/educational-posts.json",
+        "distribution/NEXT-POST.md",
+        "corrections/records/2026-09-10.json",
+        "corrections/index.html",
+        "overlap/index.html",
+        "overlap/example.js"
+      ],
+      "post_type": "thread",
+      "topic": "same-scores-general-process",
+      "hook": "constructed-example",
+      "visual": "interactive-destination",
+      "cta": "inspect-overlap",
+      "thread_structure": "constructed-example-scope-evidence",
+      "anti_hype": [
+        "constructed only",
+        "either-check-catches rule on a shared pool",
+        "no E6 range or E7B confirmation",
+        "no general system reliability claim"
+      ]
+    }
+  ]
+}

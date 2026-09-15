@@ -1,4 +1,113 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Research distribution</title><style>body{max-width:960px;margin:40px auto;padding:20px;background:#101b22;color:#e5edf2;font:18px/1.6 system-ui}article{border-top:1px solid #548090;padding:20px 0}li{margin:14px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style><a class="skip" href="#main">Skip to content</a><main id="main"><h1>Research → evidence → audience</h1><p>3 recorded publications · 0 sourced metric snapshots</p><p>No observed demand yet.</p><p>No site analytics; UTM URLs do not measure visits. Import owner-visible platform receipts and repo traffic separately.</p><p>Metric coverage: impressions, profile_visits, link_clicks, bookmarks, replies, follows, likes, reposts, engagements, repo_views, site_visits, research_actions — reported only where a source supplies the field.</p><h2>Next experiment</h2><p>TRY-A text thread: establish 24-hour exposure, clicks and reproduction replies before varying only the hook.</p><article><h2>try-a · held for owner review</h2><p>AI evaluation researchers and guardrail engineers on X</p><p>run TRY-A and file the result, match or mismatch</p><ol><li>Do two published miss rates determine how often both guards miss the same item?</li><li>PROVED — Fréchet–Hoeffding bounds; both endpoint worlds are re-verified from a clean clone of the bound kernel in CI (CC-001, CC-004).</li><li>Nothing here measures a real guardrail; the population is a construction and no point inside the interval is selected. Independence is what one assumption chooses, not what the scores imply.</li><li>Reproduce: python3 scripts/try_same_scores.py</li><li>https://cubits11.github.io/try/?utm_source=x&amp;utm_medium=social&amp;utm_campaign=e3-films&amp;utm_content=same-scores#try-a</li><li>https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6</li></ol></article><article><h2>try-b · held for owner review</h2><p>benchmark authors and people who have read the BELLS paper</p><p>run TRY-B against the pinned released file</p><ol><li>From a public per-item release, how many of 82 harmful prompts did all five supervisors miss — and what did the five published miss rates alone permit?</li><li>OBSERVED counts on one released file (hash-verified, pinned commit); PROVED identified set from the marginals. Counting arithmetic, not a population estimate.</li><li>One author-selected 82-prompt stratum at unstated default configurations: not a vendor ranking, not a population estimate, not an observed deployed stack, and nothing about the adversarial prompts that have no per-item release.</li><li>Reproduce: python3 scripts/reanalyze_bells_subset.py</li><li>https://cubits11.github.io/try/?utm_source=x&amp;utm_medium=social&amp;utm_campaign=e3-films&amp;utm_content=thirteen-worlds</li><li>https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv</li><li>https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/identification.py</li></ol></article><article><h2>try-c · held for owner review</h2><p>authors of the twenty examined evaluations</p><p>correct a row, or confirm it, or run TRY-C on another evaluation</p><ol><li>Does an evaluation you know preserve what its compared systems miss together, or only what each misses alone?</li><li>PROCEDURE — the same frozen criteria (v1) and predicates the census applies; your answers are OBSERVED by you, the classification is DERIVED from them, and a candidate row is a proposal until reviewed.</li><li>A classification is a reporting fact about the artifact, never a performance finding about any system; a single audit by one person is a first-pass reading, exactly as the census&#x27;s own rows are.</li><li>Reproduce: python3 scripts/try_audit.py</li><li>https://cubits11.github.io/try/?utm_source=x&amp;utm_medium=reply&amp;utm_campaign=e3-films&amp;utm_content=missing-column-census#counterexample</li><li>https://github.com/Cubits11/cubits11.github.io/blob/main/census.yaml</li></ol></article><h2>Matched observations</h2><pre>{
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Research distribution</title><style>body{max-width:960px;margin:40px auto;padding:20px;background:#101b22;color:#e5edf2;font:18px/1.6 system-ui}article{border-top:1px solid #548090;padding:20px 0}li{margin:14px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style><a class="skip" href="#main">Skip to content</a><main id="main"><h1>Research → evidence → audience</h1><p>3 recorded publications · 3 sourced metric snapshots</p><p>No observed demand yet.</p><p>No site analytics; UTM URLs do not measure visits. Import owner-visible platform receipts and repo traffic separately.</p><p>Metric coverage: impressions, profile_visits, link_clicks, bookmarks, replies, follows, likes, reposts, engagements, repo_views, site_visits, research_actions — reported only where a source supplies the field.</p><h2>Next experiment</h2><p>Prepared show-overlap example: publish correction destination before dispatch. Missing historical windows stay missing; off-window observations remain visible.</p><article><h2>try-a · held for owner review</h2><p>AI evaluation researchers and guardrail engineers on X</p><p>run TRY-A and file the result, match or mismatch</p><ol><li>Do two published miss rates determine how often both guards miss the same item?</li><li>PROVED — Fréchet–Hoeffding bounds; both endpoint worlds are re-verified from a clean clone of the bound kernel in CI (CC-001, CC-004).</li><li>Nothing here measures a real guardrail; the population is a construction and no point inside the interval is selected. Independence is what one assumption chooses, not what the scores imply.</li><li>Reproduce: python3 scripts/try_same_scores.py</li><li>https://cubits11.github.io/try/?utm_source=x&amp;utm_medium=social&amp;utm_campaign=e3-films&amp;utm_content=same-scores#try-a</li><li>https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6</li></ol></article><article><h2>try-b · held for owner review</h2><p>benchmark authors and people who have read the BELLS paper</p><p>run TRY-B against the pinned released file</p><ol><li>From a public per-item release, how many of 82 harmful prompts did all five supervisors miss — and what did the five published miss rates alone permit?</li><li>OBSERVED counts on one released file (hash-verified, pinned commit); PROVED identified set from the marginals. Counting arithmetic, not a population estimate.</li><li>One author-selected 82-prompt stratum at unstated default configurations: not a vendor ranking, not a population estimate, not an observed deployed stack, and nothing about the adversarial prompts that have no per-item release.</li><li>Reproduce: python3 scripts/reanalyze_bells_subset.py</li><li>https://cubits11.github.io/try/?utm_source=x&amp;utm_medium=social&amp;utm_campaign=e3-films&amp;utm_content=thirteen-worlds</li><li>https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv</li><li>https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/identification.py</li></ol></article><article><h2>try-c · held for owner review</h2><p>authors of the twenty examined evaluations</p><p>correct a row, or confirm it, or run TRY-C on another evaluation</p><ol><li>Does an evaluation you know preserve what its compared systems miss together, or only what each misses alone?</li><li>PROCEDURE — the same frozen criteria (v1) and predicates the census applies; your answers are OBSERVED by you, the classification is DERIVED from them, and a candidate row is a proposal until reviewed.</li><li>A classification is a reporting fact about the artifact, never a performance finding about any system; a single audit by one person is a first-pass reading, exactly as the census&#x27;s own rows are.</li><li>Reproduce: python3 scripts/try_audit.py</li><li>https://cubits11.github.io/try/?utm_source=x&amp;utm_medium=reply&amp;utm_campaign=e3-films&amp;utm_content=missing-column-census#counterexample</li><li>https://github.com/Cubits11/cubits11.github.io/blob/main/census.yaml</li></ol></article><article><h2>show-overlap · held for owner review</h2><p>People composing checks, reviews, tests, and safeguards into a process</p><p>Understand the constructed overlap example and read current correction status</p><ol><li>Two checks each miss 10 of 100 faulty cases.
+
+Different misses: together they miss 0.
+Same misses: together they miss 10.
+
+Same separate scores. Different protection.
+
+This can happen in a tiny workflow or a large system.
+
+Constructed example. Show the overlap.</li><li>This example assumes both checks see the same cases and either can catch a fault. If one check changes the next check’s workload, measure that workflow too.
+
+The example and current research corrections: https://cubits11.github.io/overlap/</li></ol></article><h2>Timestamped observations and window comparisons</h2><pre>{
+  &quot;observations&quot;: [
+    {
+      &quot;post_id&quot;: &quot;2097018101602660408&quot;,
+      &quot;capture_started_at&quot;: &quot;2026-09-10T16:01:40.089Z&quot;,
+      &quot;observed_at&quot;: &quot;2026-09-10T16:01:40.668Z&quot;,
+      &quot;provider&quot;: &quot;x_owner_browser&quot;,
+      &quot;scope&quot;: &quot;total&quot;,
+      &quot;source&quot;: &quot;https://x.com/PranavBhave_/status/2097018101602660408/analytics&quot;,
+      &quot;attribution&quot;: &quot;direct_post&quot;,
+      &quot;observation_method&quot;: &quot;Authenticated owner Post Analytics panel, transcribed from accessibility text. Capture interval bounded by local UTC timestamps; observed_at is capture completion.&quot;,
+      &quot;limitations&quot;: &quot;Panel totals have no organic/promoted split. Own views can count. Replies may include own thread continuations. No inference of independent engagement.&quot;,
+      &quot;age_hours_at_capture&quot;: 70.291297,
+      &quot;comparison_window_hours&quot;: null,
+      &quot;metrics&quot;: {
+        &quot;impressions&quot;: 15,
+        &quot;profile_visits&quot;: 0,
+        &quot;link_clicks&quot;: null,
+        &quot;bookmarks&quot;: null,
+        &quot;replies&quot;: 1,
+        &quot;follows&quot;: null,
+        &quot;likes&quot;: 1,
+        &quot;reposts&quot;: 0,
+        &quot;engagements&quot;: 2,
+        &quot;repo_views&quot;: null,
+        &quot;site_visits&quot;: null,
+        &quot;research_actions&quot;: null
+      },
+      &quot;additional_displayed_metrics&quot;: {
+        &quot;detail_expands&quot;: 0
+      },
+      &quot;age_hours&quot;: 70.291297,
+      &quot;window_status&quot;: &quot;off_window_retained_not_compared&quot;
+    },
+    {
+      &quot;post_id&quot;: &quot;2097092670556373187&quot;,
+      &quot;capture_started_at&quot;: &quot;2026-09-10T16:06:04.919Z&quot;,
+      &quot;observed_at&quot;: &quot;2026-09-10T16:06:06.082Z&quot;,
+      &quot;provider&quot;: &quot;x_owner_browser&quot;,
+      &quot;scope&quot;: &quot;total&quot;,
+      &quot;source&quot;: &quot;https://x.com/PranavBhave_/status/2097092670556373187/analytics&quot;,
+      &quot;attribution&quot;: &quot;direct_post&quot;,
+      &quot;observation_method&quot;: &quot;Authenticated owner Post Analytics panel, transcribed from accessibility text. Capture interval bounded by local UTC timestamps; observed_at is capture completion.&quot;,
+      &quot;limitations&quot;: &quot;Panel totals have no organic/promoted split. Own views can count. Replies may include own thread continuations. No inference of independent engagement.&quot;,
+      &quot;age_hours_at_capture&quot;: 65.426134,
+      &quot;comparison_window_hours&quot;: null,
+      &quot;metrics&quot;: {
+        &quot;impressions&quot;: 6,
+        &quot;profile_visits&quot;: 0,
+        &quot;link_clicks&quot;: null,
+        &quot;bookmarks&quot;: null,
+        &quot;replies&quot;: 1,
+        &quot;follows&quot;: null,
+        &quot;likes&quot;: 0,
+        &quot;reposts&quot;: 0,
+        &quot;engagements&quot;: 1,
+        &quot;repo_views&quot;: null,
+        &quot;site_visits&quot;: null,
+        &quot;research_actions&quot;: null
+      },
+      &quot;additional_displayed_metrics&quot;: {
+        &quot;detail_expands&quot;: 0
+      },
+      &quot;age_hours&quot;: 65.426134,
+      &quot;window_status&quot;: &quot;off_window_retained_not_compared&quot;
+    },
+    {
+      &quot;post_id&quot;: &quot;2097093498054840551&quot;,
+      &quot;capture_started_at&quot;: &quot;2026-09-10T16:08:01.886Z&quot;,
+      &quot;observed_at&quot;: &quot;2026-09-10T16:08:14.317Z&quot;,
+      &quot;provider&quot;: &quot;x_owner_browser&quot;,
+      &quot;scope&quot;: &quot;total&quot;,
+      &quot;source&quot;: &quot;https://x.com/PranavBhave_/status/2097093498054840551/analytics&quot;,
+      &quot;attribution&quot;: &quot;direct_post&quot;,
+      &quot;observation_method&quot;: &quot;Authenticated owner Post Analytics panel, transcribed from accessibility text. Capture interval bounded by local UTC timestamps; observed_at is capture completion.&quot;,
+      &quot;limitations&quot;: &quot;Panel totals have no organic/promoted split. Own views can count. Replies may include own thread continuations. No inference of independent engagement.&quot;,
+      &quot;age_hours_at_capture&quot;: 65.40731,
+      &quot;comparison_window_hours&quot;: null,
+      &quot;metrics&quot;: {
+        &quot;impressions&quot;: 7,
+        &quot;profile_visits&quot;: 0,
+        &quot;link_clicks&quot;: null,
+        &quot;bookmarks&quot;: null,
+        &quot;replies&quot;: 1,
+        &quot;follows&quot;: null,
+        &quot;likes&quot;: 0,
+        &quot;reposts&quot;: 0,
+        &quot;engagements&quot;: 1,
+        &quot;repo_views&quot;: null,
+        &quot;site_visits&quot;: null,
+        &quot;research_actions&quot;: null
+      },
+      &quot;additional_displayed_metrics&quot;: {
+        &quot;detail_expands&quot;: 0
+      },
+      &quot;age_hours&quot;: 65.40731,
+      &quot;window_status&quot;: &quot;off_window_retained_not_compared&quot;
+    }
+  ],
   &quot;comparisons&quot;: [],
   &quot;traffic_context&quot;: [],
   &quot;qualified_outcomes&quot;: {

@@ -1,0 +1,55 @@
+{
+  "recorded_at": "2026-09-10T14:08:08.330999+00:00",
+  "observation_date": "2026-09-10",
+  "collection_note": "Read manually through authenticated X browser panels during this research session. Counts are cumulative and panels were opened sequentially, not simultaneously. Exact per-panel capture timestamps were not retained; do not ingest as precise-window snapshots. Reading own posts may affect view counts.",
+  "account": {
+    "handle": "PranavBhave_",
+    "followers": 3,
+    "following": 25,
+    "posts": 45
+  },
+  "posts": [
+    {
+      "post_id": "2097018101602660408",
+      "source": "https://x.com/PranavBhave_/status/2097018101602660408/analytics",
+      "impressions": 14,
+      "engagements": 2,
+      "detail_expands": 0,
+      "profile_visits": 0,
+      "likes": 1,
+      "reposts": 0,
+      "replies": 1,
+      "link_clicks": null,
+      "follows": null,
+      "scope": "owner analytics panel; organic/promoted split unavailable"
+    },
+    {
+      "post_id": "2097092670556373187",
+      "source": "https://x.com/PranavBhave_/status/2097092670556373187/analytics",
+      "impressions": 5,
+      "engagements": 1,
+      "detail_expands": 0,
+      "profile_visits": 0,
+      "likes": 0,
+      "reposts": 0,
+      "replies": 1,
+      "link_clicks": null,
+      "follows": null,
+      "scope": "owner analytics panel; organic/promoted split unavailable"
+    },
+    {
+      "post_id": "2097093498054840551",
+      "source": "https://x.com/PranavBhave_/status/2097093498054840551/analytics",
+      "impressions": 7,
+      "engagements": 1,
+      "detail_expands": 0,
+      "profile_visits": 0,
+      "likes": 0,
+      "reposts": 0,
+      "replies": 1,
+      "link_clicks": null,
+      "follows": null,
+      "scope": "owner analytics panel; organic/promoted split unavailable"
+    }
+  ]
+}
