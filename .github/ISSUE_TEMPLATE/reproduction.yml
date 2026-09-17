@@ -1,10 +1,8 @@
 name: Reproduction run — match or mismatch
 description: >-
-  File the result of running an experiment from /try/ or a registered
-  reproduction script. Both outcomes are wanted: a match becomes the
-  claim's independent-reproduction record; a mismatch is handled as a
-  correction under the same-day correction policy and is credited beside
-  the claim it corrects.
+  The result of running a /try/ experiment or a registered reproduction
+  script. A match becomes the claim's reproduction record; a mismatch is
+  handled as a credited correction.
 title: "Reproduction: <experiment or claim id> — <match|mismatch>"
 labels: ["reproduction"]
 body:

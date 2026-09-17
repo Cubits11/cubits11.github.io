@@ -2,7 +2,7 @@
   "_generated_by": "scripts/ledger_snapshot.py",
   "_source": ".claude/skills/evidence-ledger/ledger.py",
   "_note": "Counts only. Blocker ages are excluded on purpose: they change with the calendar and would make this gate fire on days nothing happened. Run the ledger itself for ages.",
-  "as_of": "2026-09-14",
+  "as_of": "2026-09-17",
   "claims": {
     "total": 21,
     "own_measurement": 4,
@@ -75,6 +75,11 @@
       "experiment": "e7b",
       "governing_documents": 3,
       "observation_rows": 15
+    },
+    {
+      "experiment": "e8",
+      "governing_documents": 0,
+      "observation_rows": 0
     }
   ],
   "outcomes": {

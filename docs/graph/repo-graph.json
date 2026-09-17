@@ -2336,6 +2336,13 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "tests/test_e8_runner.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "tests/test_epistemic_security.py"
   },
   {
@@ -3993,6 +4000,15 @@
    "to": "tests/test_contracts.py"
   },
   {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "E8 runner consumes the contract it is given",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_e8_runner.py"
+  },
+  {
    "args": [
     "--local"
    ],
@@ -4840,8 +4856,16 @@
  },
  "findings": [
   {
+   "detector": "D2",
+   "generator": "scripts/generate_conformance_record.py",
+   "severity": "FIX",
+   "tail": [
+    "Run: python3 scripts/generate_conformance_record.py"
+   ]
+  },
+  {
    "claim": "REL-001",
-   "days_left": 8,
+   "days_left": 6,
    "detector": "D3",
    "review_due": "2026-09-23",
    "severity": "REVIEW"
@@ -4866,7 +4890,21 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 13,
+   "ahead": 15,
+   "behind": 0,
+   "branch": "claude/inferential-adequacy",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 16,
+   "behind": 0,
+   "branch": "claude/joint-cell-visible",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 14,
    "behind": 0,
    "branch": "claude/seo-falsifiable-web",
    "detector": "D4",
@@ -4880,8 +4918,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/seo-falsifiable-web",
-  "head": "5a39b06"
+  "branch": "HEAD",
+  "head": "2139046"
  },
  "nodes": [
   {
@@ -5452,13 +5490,13 @@
    "type": "script"
   },
   {
-   "checks": 82,
+   "checks": 83,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
   {
    "consequence": "REJECT",
-   "days_left": 98,
+   "days_left": 96,
    "id": "CC-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5467,7 +5505,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 98,
+   "days_left": 96,
    "id": "CC-002",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5476,7 +5514,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 98,
+   "days_left": 96,
    "id": "CC-003",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5485,7 +5523,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 98,
+   "days_left": 96,
    "id": "CC-004",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5494,7 +5532,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 98,
+   "days_left": 96,
    "id": "CC-005",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5503,7 +5541,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 112,
+   "days_left": 110,
    "id": "CC-006",
    "last_reviewed": "2026-09-07",
    "review_due": "2027-01-05",
@@ -5512,7 +5550,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 8,
+   "days_left": 6,
    "id": "REL-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-09-23",
@@ -5521,7 +5559,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 59,
+   "days_left": 57,
    "id": "MC-001",
    "last_reviewed": "2026-09-14",
    "review_due": "2026-11-13",
@@ -5530,7 +5568,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 42,
+   "days_left": 40,
    "id": "MC-002",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-10-27",
@@ -5539,7 +5577,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 44,
+   "days_left": 42,
    "id": "MC-003",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-10-29",
@@ -5548,7 +5586,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 45,
+   "days_left": 43,
    "id": "MC-004",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-10-30",
@@ -5557,7 +5595,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 72,
+   "days_left": 70,
    "id": "AF-001",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-11-26",
@@ -5566,7 +5604,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 98,
+   "days_left": 96,
    "id": "GA-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5575,7 +5613,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 98,
+   "days_left": 96,
    "id": "GV-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5584,7 +5622,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 343,
+   "days_left": 341,
    "id": "GCE-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2027-08-24",
@@ -5593,7 +5631,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 105,
+   "days_left": 103,
    "id": "SITE-001",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-12-29",
@@ -5602,7 +5640,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 104,
+   "days_left": 102,
    "id": "SITE-002",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-12-28",
@@ -5611,7 +5649,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 113,
+   "days_left": 111,
    "id": "E3-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
@@ -5620,7 +5658,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 113,
+   "days_left": 111,
    "id": "E3B-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
@@ -5629,7 +5667,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 115,
+   "days_left": 113,
    "id": "E6-001",
    "last_reviewed": "2026-09-10",
    "review_due": "2027-01-08",
@@ -5638,7 +5676,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 115,
+   "days_left": 113,
    "id": "E7B-001",
    "last_reviewed": "2026-09-10",
    "review_due": "2027-01-08",
@@ -5720,9 +5758,39 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 13,
+   "docs": {
+    "PREREG.md": false,
+    "RESULT.md": false,
+    "freeze/FREEZE.md": false
+   },
+   "first_result_commit_epoch": null,
+   "id": "experiments/e8",
+   "observation_rows": 0,
+   "stops": [],
+   "type": "experiment"
+  },
+  {
+   "ahead_of_origin_main": 15,
    "behind_origin_main": 0,
-   "head": "5a39b06",
+   "head": "6a51abb",
+   "id": "claude/inferential-adequacy",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 16,
+   "behind_origin_main": 0,
+   "head": "2139046",
+   "id": "claude/joint-cell-visible",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 14,
+   "behind_origin_main": 0,
+   "head": "5fe44bc",
    "id": "claude/seo-falsifiable-web",
    "last_commit": "2026-09-15",
    "reachable_from_origin_main": false,
@@ -5765,5 +5833,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "a36256cc5ee29225cb5da92509cb4203bdcbeb14b2f181e0af621a2cfc1e86c4"
+ "stable_digest": "9079463757c8bb6d864f294330cdda5169e6b4fb3de80d2f9f396fe44a99a61b"
 }
