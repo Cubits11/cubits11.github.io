@@ -1,0 +1,4 @@
+# The pinned kernel bytes are a third-party artifact with no declared licence.
+# freeze/sources.json records "redistributed_here": false and this file is what
+# makes that true. The digest identifies the bytes; the bytes stay out of git.
+bundle-chunk.js

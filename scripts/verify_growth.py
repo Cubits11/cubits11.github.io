@@ -418,6 +418,168 @@ def check_social_card() -> None:
         fail(f"og-missing-column.png is {width}x{height}, expected 1200x630")
 
 
+# ---------------------------------------------------------------------------
+# indexing coverage
+#
+# The defect these three checks exist for: a page can be perfectly correct and
+# still be invisible, or visible and not meant to be. Sixteen HTML files on
+# this site once had no title, no description, no canonical and no social
+# card, and nothing failed, because the metadata contract above only ever
+# looked at index.html. Every file that a crawler can reach is now accounted
+# for exactly once — as a destination held to the full contract, or as a build
+# input excluded on the record in robots.txt.
+# ---------------------------------------------------------------------------
+
+def robots_disallows() -> list[str]:
+    """The Disallow patterns in robots.txt, for the catch-all agent."""
+    text = (ROOT / "robots.txt").read_text(encoding="utf-8")
+    patterns, listening = [], False
+    for raw in text.splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if not line:
+            continue
+        key, _, value = line.partition(":")
+        key, value = key.strip().lower(), value.strip()
+        if key == "user-agent":
+            listening = value == "*"
+        elif key == "disallow" and listening and value:
+            patterns.append(value)
+    return patterns
+
+
+def disallowed(route: str, patterns: list[str]) -> bool:
+    """Prefix match with ``*`` wildcards — the subset of the robots grammar
+    this site actually uses. A matcher that silently accepted patterns it does
+    not implement would report coverage it never checked."""
+    for pattern in patterns:
+        if re.fullmatch(re.escape(pattern).replace(r"\*", ".*") + ".*", route):
+            return True
+    return False
+
+
+def all_html() -> list[Path]:
+    return sorted(
+        p for p in ROOT.rglob("*.html")
+        if not any(part.startswith((".", "_")) for part in p.relative_to(ROOT).parts)
+        and not {"docs", "scripts", "fixtures", ".venv", "node_modules"} & set(p.parts))
+
+
+def check_indexing_coverage() -> None:
+    public = {p.resolve() for p in pages()}
+    patterns = robots_disallows()
+    for page in pages():
+        rel = page.relative_to(ROOT).as_posix()
+        markup = page.read_text(encoding="utf-8")
+        directive = tag(markup, r'<meta name="robots" content="(.*?)">') or ""
+        if "noindex" in directive.lower() or disallowed(route_of(page), patterns):
+            fail(f"{rel}: public destination is blocked from crawling or declares noindex")
+    for page in all_html():
+        if page.resolve() in public:
+            continue
+        rel = page.relative_to(ROOT).as_posix()
+        route = f"/{rel}"
+        html = page.read_text(encoding="utf-8", errors="replace")
+        robots = tag(html, r'<meta name="robots" content="(.*?)">') or ""
+        if "noindex" in robots.lower() or disallowed(route, patterns):
+            continue
+        fail(f"{rel}: reachable, held to no metadata contract, and excluded "
+             f"by neither a noindex tag nor robots.txt — a page is a "
+             f"destination or a build input, and this one declares neither")
+
+
+def check_sitemap_parity() -> None:
+    """Every destination is listed, and everything listed is a destination."""
+    listed = set(re.findall(r"<loc>([^<]+)</loc>",
+                            (ROOT / "sitemap.xml").read_text(encoding="utf-8")))
+    expected = {f"{SITE}{route_of(page)}" for page in pages()}
+    for missing in sorted(expected - listed):
+        fail(f"{missing}: a public page that the sitemap does not list")
+    for extra in sorted(listed - expected):
+        fail(f"{extra}: listed in the sitemap but is not a public page")
+
+
+def check_document_structure() -> None:
+    """One h1 per page, and a declared language.
+
+    A page with no h1 gives a crawler no statement of what it is about; a page
+    with two gives it a choice, and the choice is not the author's.
+    """
+    for page in pages():
+        rel = page.relative_to(ROOT).as_posix()
+        html = page.read_text(encoding="utf-8")
+        headings = len(re.findall(r"<h1[\s>]", html, re.I))
+        if headings != 1:
+            fail(f"{rel}: {headings} h1 elements (want exactly 1)")
+        if not re.search(r"<html[^>]*\slang=", html, re.I):
+            fail(f"{rel}: <html> declares no lang")
+
+
+# ---------------------------------------------------------------------------
+# adversarial fixtures for the coverage checks
+#
+# A check that has never failed has never been tested. Each mutation below
+# reintroduces exactly the defect its check exists to catch, in the working
+# tree, and asserts the check reports it — then puts the bytes back.
+# ---------------------------------------------------------------------------
+
+MUTATIONS: tuple[tuple[str, str, str, str], ...] = (
+    ("a film source loses its noindex directive", "films/the-stack/film.html",
+     '<meta name="robots" content="noindex">\n', ""),
+    ("a public destination becomes crawl-blocked", "robots.txt", "Allow: /", "Allow: /\nDisallow: /claims/"),
+    ("a public page loses its only h1", "claims/cc-001/index.html",
+     '<h1 class="q">', '<p class="q">'),
+    ("a public page drops out of the sitemap", "sitemap.xml",
+     "  <url><loc>https://cubits11.github.io/claims/cc-004/</loc>", "  <url><loc>x"),
+)
+
+COVERAGE_CHECKS = (check_indexing_coverage, check_sitemap_parity,
+                   check_document_structure)
+
+
+def run_coverage() -> list[str]:
+    failures.clear()
+    for check in COVERAGE_CHECKS:
+        check()
+    found = list(failures)
+    failures.clear()
+    return found
+
+
+def self_test() -> int:
+    baseline = run_coverage()
+    if baseline:
+        print("FAIL  the working tree does not pass the coverage checks, so a "
+              "mutation cannot be distinguished from the existing state:")
+        for failure in baseline:
+            print(f"        {failure}")
+        return 1
+    bad = 0
+    for name, rel, old, new in MUTATIONS:
+        path = ROOT / rel
+        original = path.read_text(encoding="utf-8")
+        if old not in original:
+            print(f"FAIL  {name}: the mutation anchor is gone from {rel} — this "
+                  f"fixture no longer tests anything")
+            bad += 1
+            continue
+        path.write_text(original.replace(old, new, 1), encoding="utf-8")
+        try:
+            caught = run_coverage()
+        finally:
+            path.write_text(original, encoding="utf-8")
+        if caught:
+            print(f"ok    caught: {name} ({len(caught)} report(s))")
+        else:
+            print(f"FAIL  NOT caught: {name}")
+            bad += 1
+    residual = run_coverage()
+    if residual:
+        print("FAIL  the tree did not come back clean after the mutations")
+        bad += 1
+    print(f"\n{len(MUTATIONS)} mutation(s), {bad} uncaught.")
+    return 1 if bad else 0
+
+
 def main() -> int:
     check_metadata()
     check_ctas()
@@ -427,6 +589,9 @@ def main() -> int:
     check_disclosure_language()
     check_resume_pdf()
     check_social_card()
+    check_indexing_coverage()
+    check_sitemap_parity()
+    check_document_structure()
     if failures:
         for failure in failures:
             print(f"FAIL  {failure}")
@@ -440,9 +605,13 @@ def main() -> int:
     print("ok    the identity sentence is identical everywhere it appears")
     print("ok    the résumé PDF exists, is linked, and is not gated")
     print("ok    the social card is 1200x630")
+    print(f"ok    {len(all_html())} HTML files: every one a checked "
+          f"destination or a declared build input")
+    print("ok    sitemap lists every public page and nothing else")
+    print("ok    every public page has exactly one h1 and a declared lang")
     print("Acquisition surfaces verified.")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(self_test() if "--test" in sys.argv else main())

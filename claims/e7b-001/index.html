@@ -1,0 +1,314 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: claims.yaml · renderer: scripts/generate_claims_pages.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E7B-001 · Rejected: calibration uses the shared pool for every judge</title>
+<meta name="description" content="E7B-001: Rejected: calibration uses the shared pool for every judge. REJECT if recomputing from the committed rows yields any registered quantity different…">
+<link rel="canonical" href="https://cubits11.github.io/claims/e7b-001/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="E7B-001 · Rejected: calibration uses the shared pool for every judge">
+<meta property="og:description" content="E7B-001: Rejected: calibration uses the shared pool for every judge. REJECT if recomputing from the committed rows yields any registered quantity different…">
+<meta property="og:url" content="https://cubits11.github.io/claims/e7b-001/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta property="og:image:alt" content="Pranav Bhave, AI Assurance · Security Engineering · Evidence Systems — measuring what guardrail stacks miss together">
+<meta property="og:site_name" content="Cubits11">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:image:alt" content="Pranav Bhave, AI Assurance · Security Engineering · Evidence Systems — measuring what guardrail stacks miss together">
+<meta name="robots" content="max-image-preview:large">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{
+  "@context": [
+    "https://schema.org",
+    {
+      "@version": 1.1,
+      "fw": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#",
+        "@prefix": true
+      },
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "fw:falsifier": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#falsifier"
+      },
+      "fw:consequence": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#consequence"
+      },
+      "fw:forbiddenRescue": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#forbiddenRescue",
+        "@container": "@list"
+      },
+      "fw:nonClaim": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#nonClaim",
+        "@container": "@list"
+      },
+      "fw:scopeStatement": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#scopeStatement"
+      },
+      "fw:evidentialStatus": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#evidentialStatus"
+      },
+      "fw:lastReviewed": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#lastReviewed",
+        "@type": "xsd:date"
+      },
+      "fw:reviewWindow": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#reviewWindow",
+        "@type": "xsd:duration"
+      },
+      "fw:warrantExpires": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#warrantExpires",
+        "@type": "xsd:date"
+      },
+      "fw:supportUrl": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#supportUrl",
+        "@type": "@id"
+      },
+      "fw:supportBinding": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#supportBinding",
+        "@type": "@id"
+      },
+      "fw:boundRevision": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#boundRevision"
+      },
+      "fw:verdict": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#verdict"
+      },
+      "fw:verdictDate": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#verdictDate",
+        "@type": "xsd:date"
+      }
+    }
+  ],
+  "@type": "Claim",
+  "@id": "https://cubits11.github.io/claims/e7b-001/#claim",
+  "identifier": "E7B-001",
+  "name": "Rejected: calibration uses the shared pool for every judge",
+  "description": "E7B-001: Rejected: calibration uses the shared pool for every judge. REJECT if recomputing from the committed rows yields any registered quantity different…",
+  "text": "REJECTED AS STATED on 2026-09-10. Calibration uses the all-nine shared pool instead of each judge’s own pool, changing one threshold from 0.95 to 1.00. Pair evaluation also uses the global intersection. The preregistration-conforming confirmation claim is rejected; the original HELD labels are historical outputs. Historical assertion retained for audit, not an accepted current finding: E7B is the first non-degenerate preregistered measurement this repository has produced, and all five of its predictions held on data unread when they were fixed. Against a preregistration frozen at f646e136 before any hold-out byte was retrieved, six of nine published guardrail-judge score sets reached a 5% benign false-flag budget on their shared 96-item AgentDojo pool (21 injection goals, 75 benign) and yielded 15 non-degenerate pairs. Median excess joint miss was +0.2018 and mean +0.1852 (P1, P2 HELD); the median pair's observed joint miss sat 0.900 of the way to the Fréchet upper bound its own marginals allow (P3 HELD); every observed joint lay inside its interval (P4 HELD); and every one of the 15 pairs had an observed joint miss above the independence product (P5 HELD). On the modal pair two judges each miss about half the injection goals, independence predicts a 0.249 both-miss rate, and the observed rate is 0.476 — exactly the upper bound, meaning one judge's misses are a subset of the other's. Seven of the fifteen pairs sit at that bound.",
+  "url": "https://cubits11.github.io/claims/e7b-001/",
+  "author": {
+    "@type": "Person",
+    "@id": "https://cubits11.github.io/#person",
+    "name": "Pranav Bhave",
+    "url": "https://cubits11.github.io/",
+    "sameAs": [
+      "https://github.com/Cubits11",
+      "https://www.linkedin.com/in/pranav-bhave-2a328721a/",
+      "https://x.com/PranavBhave_"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Dataset",
+    "@id": "https://cubits11.github.io/ledger/#dataset",
+    "name": "Cubits11 claim registry",
+    "url": "https://cubits11.github.io/ledger/"
+  },
+  "dateModified": "2026-09-10",
+  "fw:scopeStatement": "Historical run only. Formal disposition: experiments/e7b/CORRECTION-2026-09-10.md. Frozen inputs, estimator and outputs are unchanged. The expected block below records original run values and must not be used as current confirmatory evidence. Original scope, including interpretations now rejected with this claim: Exactly the 15 rows committed at experiments/e7b/results/observations.jsonl, computed 2026-09-10 from nine published score files in shawnray-research/certified-agent-guardrails at commit 79097583be7786976ea1b9ae79f3ff900d9e66b7 (MIT). Labels are the 35 strings of _inj_goals.json in that tree. One operating point per judge, set by the preregistered rule — the lowest threshold among a judge's benign scores at which its benign false-flag rate is at or below 5% — and three judges excluded for not reaching it. 21 harmful items, so every rate moves in steps of 0.048; no confidence procedure was preregistered and none is reported. The 15 pairs come from 6 judges and are not independent; no multiplicity control was preregistered. Supersedes nothing: E7 on the seven frontier judges is VOID on a defective preregistration that stated its threshold rule in two contradictory directions, those judges are spent, and experiments/e7/RESULT.md records that rather than repairing it. No model was loaded and no API called, so the host refusal at experiments/e2/run/adapters.py:48 is not engaged. Nothing here transfers to E2's guards, to any deployed stack, or to any vendor product.",
+  "fw:falsifier": "Recomputing from the committed rows yields any registered quantity different beyond 1e-9, or the preregistration's commit is shown not to precede the results commit, or any of the nine hold-out score files is shown to have been retrieved or inspected before f646e136, or the operating-point rule applied in experiments/e7b/run/measure.py is shown to differ from the one PREREG.md states, or an observed joint miss is shown to lie outside the Fréchet interval its own marginals allow.",
+  "fw:consequence": "REJECT",
+  "fw:forbiddenRescue": [
+    "do not re-threshold, re-calibrate, change the 5% budget, or change the direction of the operating-point rule and report the new numbers as this run",
+    "do not lower the six-pair power floor, or raise it, after the fact",
+    "do not pool the sixteen read judges of E7 and its exploratory record into this panel and report the combined figure as this result",
+    "do not present this as a repair, correction or replacement of the void E7, and do not present E7's frontier judges as still available for a preregistered claim",
+    "do not restate a prediction, narrow it, or drop it from the record",
+    "do not carry these numbers to E2's guards, to a deployed stack, or to a vendor"
+  ],
+  "fw:nonClaim": [
+    "Current disposition is REJECT; the historical non-claims below do not restore the rejected assertion. See /corrections/#e7b-pools.",
+    "the Fréchet bound applied here is not this repository's: arXiv:2607.22868v1 states it for an any-flag gate as a proposition, and that artifact's own ensemble_robustness.py reports the vulnerability as correlated across judges. That author found the bound, released the per-item scores that make this checkable, and named the correlation; E7B measures it against a preregistration and claims priority for neither",
+    "21 harmful items is a small pool; every rate moves in steps of 0.048, no confidence procedure was preregistered, and no point estimate here implies an interval",
+    "15 pairs drawn from 6 judges are not 15 independent observations, and no multiplicity control was preregistered or is claimed",
+    "one benchmark, one pool, one operating point per judge; AgentDojo injection goals are not a deployed threat model and these are research judges, not a shipped stack",
+    "the three excluded judges were excluded by a pre-stated rule, and their absence is not evidence about them",
+    "not evidence that any specific product, vendor or deployed guardrail stack has correlated failures",
+    "five predictions holding is not a general law: it is one preregistered result on one pool, and the interpretation it supports is that independence understated the joint here, not that it always will"
+  ],
+  "fw:lastReviewed": "2026-09-10",
+  "fw:reviewWindow": "P120D",
+  "fw:warrantExpires": "2027-01-08",
+  "fw:evidentialStatus": "contradicted",
+  "fw:supportUrl": {
+    "@id": "https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e7b/results/observations.jsonl"
+  },
+  "fw:verdict": "REJECTED AS STATED",
+  "fw:verdictDate": "2026-09-10"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "The record",
+      "item": "https://cubits11.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Claims",
+      "item": "https://cubits11.github.io/claims/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "E7B-001"
+    }
+  ]
+}
+</script>
+<style>
+body{font-size:1.04rem;line-height:1.72}
+.container{width:min(760px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.7rem}
+header.page{padding:7.9rem 0 2.2rem}
+.eyebrow{color:var(--gold);margin-bottom:1.1rem;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;align-items:baseline}
+h1.q{font-weight:520;font-size:clamp(1.85rem,4.7vw,2.9rem);line-height:1.12;margin:0 0 1.2rem;letter-spacing:-.018em}
+.standfirst{font-family:var(--serif);font-size:1.12rem;color:var(--ink);line-height:1.6;max-width:40em;border-left:2px solid var(--gold);padding-left:1.1rem}
+.gsec{border-top:1px solid var(--line);padding:1.7rem 0 .4rem;margin-top:1.4rem}
+.gsec .glabel{display:flex;gap:.9rem;align-items:baseline;margin-bottom:.7rem}
+.gsec .gno{font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;color:var(--muted)}
+.gsec .gname{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold)}
+.gsec p{color:var(--ink);max-width:62ch}
+.gsec ul{margin:.2rem 0 1em;padding-left:1.15rem;color:var(--ink);max-width:62ch}
+.gsec li{margin:.4rem 0}
+.kill{border:1px solid var(--review);border-left:3px solid var(--review);background:var(--surface);padding:1.1rem 1.2rem;margin:.2rem 0 1rem}
+.kill .cond{font-family:var(--serif);font-size:1.06rem;line-height:1.55;margin:0 0 .8rem;max-width:52ch;color:var(--ink)}
+.kill .conseq{display:inline-flex;gap:.6rem;align-items:baseline;font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;text-transform:uppercase}
+.kill .conseq b{color:var(--review);font-weight:400;border:1px solid var(--review);padding:.18rem .5rem}
+.empty-list{color:var(--muted);font-size:.92rem}
+.meta-grid{display:grid;grid-template-columns:10rem 1fr;gap:.5rem 1.2rem;margin:0;font-size:.93rem}
+.meta-grid dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);padding-top:.2rem}
+.meta-grid dd{margin:0;color:var(--muted);overflow-wrap:anywhere}
+.dims{display:flex;flex-wrap:wrap;gap:.4rem .9rem}
+.dim{display:inline-flex;gap:.45rem;align-items:baseline}
+.dim-k{font-family:var(--mono);font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.tag{border:1px solid var(--line-strong);padding:.1rem .42rem;margin-right:.4rem}
+.tag-exec{color:var(--evidence);border-color:var(--evidence)}
+.tag-manual{color:var(--muted)}
+.trg{list-style:none;padding-left:0}
+.verdict{border:1px solid var(--invalid);color:var(--invalid);padding:.18rem .5rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.09em}
+.claim-nav{display:flex;flex-wrap:wrap;gap:1.4rem;justify-content:space-between;border-top:1px solid var(--line);margin-top:2.6rem;padding-top:1.3rem}
+.claim-nav a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line-strong);padding-bottom:1px}
+.claim-nav a:hover{color:var(--ink)}
+.idx{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.idx li{border-bottom:1px solid var(--line)}
+.idx a{display:grid;grid-template-columns:6.5rem 1fr auto;gap:.6rem 1.2rem;align-items:baseline;padding:1rem .2rem;text-decoration:none;transition:background-color .18s}
+.idx a:hover,.idx a:focus-visible{background:var(--surface)}
+.idx .cid{font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;color:var(--gold)}
+.idx .ctitle{color:var(--ink);line-height:1.45}
+.idx .cexp{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+.terms{list-style:none;margin:0;padding:0}
+.terms li{border-top:1px solid var(--line);padding:1.3rem 0}
+.terms .tname{font-family:var(--mono);font-size:.82rem;color:var(--evidence);letter-spacing:.04em}
+.terms .trange{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-left:.8rem}
+.terms .tgloss{font-family:var(--serif);font-size:1.06rem;color:var(--ink);margin:.55rem 0 .5rem;max-width:52ch}
+.terms .tnote{color:var(--muted);font-size:.95rem;max-width:62ch;margin:0 0 .5rem}
+.terms .tsrc{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;color:var(--muted)}
+pre.ex{background:var(--surface);border:1px solid var(--line-strong);padding:1rem 1.1rem;overflow-x:auto;font-family:var(--mono);font-size:.74rem;line-height:1.7;color:var(--ink)}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.85rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem;margin-bottom:1rem}
+@media (max-width:600px){.meta-grid{grid-template-columns:1fr}.meta-grid dt{padding-top:.5rem}.idx a{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#000}}
+</style>
+<script defer src="/assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/missing-column/">The Missing Column</a>
+      <a href="/observatory/">Evidence</a>
+      <a href="/writing/">Writing</a>
+      <a href="/films/">Films</a>
+      <a href="/work/">Work with me</a>
+      <a href="/resume/">About</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span>Claim <b>E7B-001</b> — 21 of 21 in the <a class="u" href="/claims/">registry</a></span>
+    <span class="status">REJECTED AS STATED</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <p class="eyebrow mono"><span>E7B-001</span><span class="verdict">REJECTED AS STATED 2026-09-10</span><span>Warrant reviewed 2026-09-10 · expires 2027-01-08</span></p>
+    <h1 class="q">Rejected: calibration uses the shared pool for every judge</h1>
+    <p class="standfirst">REJECTED AS STATED on 2026-09-10. Calibration uses the all-nine shared pool instead of each judge’s own pool, changing one threshold from 0.95 to 1.00. Pair evaluation also uses the global intersection. The preregistration-conforming confirmation claim is rejected; the original HELD labels are historical outputs. Historical assertion retained for audit, not an accepted current finding: E7B is the first non-degenerate preregistered measurement this repository has produced, and all five of its predictions held on data unread when they were fixed. Against a preregistration frozen at f646e136 before any hold-out byte was retrieved, six of nine published guardrail-judge score sets reached a 5% benign false-flag budget on their shared 96-item AgentDojo pool (21 injection goals, 75 benign) and yielded 15 non-degenerate pairs. Median excess joint miss was +0.2018 and mean +0.1852 (P1, P2 HELD); the median pair&#x27;s observed joint miss sat 0.900 of the way to the Fréchet upper bound its own marginals allow (P3 HELD); every observed joint lay inside its interval (P4 HELD); and every one of the 15 pairs had an observed joint miss above the independence product (P5 HELD). On the modal pair two judges each miss about half the injection goals, independence predicts a 0.249 both-miss rate, and the observed rate is 0.476 — exactly the upper bound, meaning one judge&#x27;s misses are a subset of the other&#x27;s. Seven of the fifteen pairs sit at that bound.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <section class="gsec">
+    <div class="glabel"><span class="gno">01</span><span class="gname">Falsifier — what changes this claim</span></div>
+    <div class="kill">
+      <p class="cond">Recomputing from the committed rows yields any registered quantity different beyond 1e-9, or the preregistration&#x27;s commit is shown not to precede the results commit, or any of the nine hold-out score files is shown to have been retrieved or inspected before f646e136, or the operating-point rule applied in experiments/e7b/run/measure.py is shown to differ from the one PREREG.md states, or an observed joint miss is shown to lie outside the Fréchet interval its own marginals allow.</p>
+      <span class="conseq">Consequence <b>REJECT</b></span>
+    </div>
+    <p>This is the condition and consequence recorded in the registry. <a class="u" href="/ns/falsifiable/v1/">The vocabulary this is published in</a> defines what each consequence commits the author to.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">02</span><span class="gname">Scope</span></div>
+    <p>Historical run only. Formal disposition: experiments/e7b/CORRECTION-2026-09-10.md. Frozen inputs, estimator and outputs are unchanged. The expected block below records original run values and must not be used as current confirmatory evidence. Original scope, including interpretations now rejected with this claim: Exactly the 15 rows committed at experiments/e7b/results/observations.jsonl, computed 2026-09-10 from nine published score files in shawnray-research/certified-agent-guardrails at commit 79097583be7786976ea1b9ae79f3ff900d9e66b7 (MIT). Labels are the 35 strings of _inj_goals.json in that tree. One operating point per judge, set by the preregistered rule — the lowest threshold among a judge&#x27;s benign scores at which its benign false-flag rate is at or below 5% — and three judges excluded for not reaching it. 21 harmful items, so every rate moves in steps of 0.048; no confidence procedure was preregistered and none is reported. The 15 pairs come from 6 judges and are not independent; no multiplicity control was preregistered. Supersedes nothing: E7 on the seven frontier judges is VOID on a defective preregistration that stated its threshold rule in two contradictory directions, those judges are spent, and experiments/e7/RESULT.md records that rather than repairing it. No model was loaded and no API called, so the host refusal at experiments/e2/run/adapters.py:48 is not engaged. Nothing here transfers to E2&#x27;s guards, to any deployed stack, or to any vendor product.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">03</span><span class="gname">Forbidden rescues</span></div>
+    <p>Repairs declared unavailable in advance; using one after a failure would breach the recorded commitment.</p>
+    <ul><li>do not re-threshold, re-calibrate, change the 5% budget, or change the direction of the operating-point rule and report the new numbers as this run</li><li>do not lower the six-pair power floor, or raise it, after the fact</li><li>do not pool the sixteen read judges of E7 and its exploratory record into this panel and report the combined figure as this result</li><li>do not present this as a repair, correction or replacement of the void E7, and do not present E7&#x27;s frontier judges as still available for a preregistered claim</li><li>do not restate a prediction, narrow it, or drop it from the record</li><li>do not carry these numbers to E2&#x27;s guards, to a deployed stack, or to a vendor</li></ul>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">04</span><span class="gname">Non-claims — what this does not license</span></div>
+    <ul><li>Current disposition is REJECT; the historical non-claims below do not restore the rejected assertion. See /corrections/#e7b-pools.</li><li>the Fréchet bound applied here is not this repository&#x27;s: arXiv:2607.22868v1 states it for an any-flag gate as a proposition, and that artifact&#x27;s own ensemble_robustness.py reports the vulnerability as correlated across judges. That author found the bound, released the per-item scores that make this checkable, and named the correlation; E7B measures it against a preregistration and claims priority for neither</li><li>21 harmful items is a small pool; every rate moves in steps of 0.048, no confidence procedure was preregistered, and no point estimate here implies an interval</li><li>15 pairs drawn from 6 judges are not 15 independent observations, and no multiplicity control was preregistered or is claimed</li><li>one benchmark, one pool, one operating point per judge; AgentDojo injection goals are not a deployed threat model and these are research judges, not a shipped stack</li><li>the three excluded judges were excluded by a pre-stated rule, and their absence is not evidence about them</li><li>not evidence that any specific product, vendor or deployed guardrail stack has correlated failures</li><li>five predictions holding is not a general law: it is one preregistered result on one pool, and the interpretation it supports is that independence understated the joint here, not that it always will</li></ul>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">05</span><span class="gname">Binding and freshness</span></div>
+    <dl class="meta-grid">
+      <dt>Binding</dt><dd><a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e7b/results/observations.jsonl"><code>observations.jsonl</code></a><br><span class="empty-list">The support is the measurement itself: 15 committed pair rows. The commit order is load-bearing — PREREG.md&#x27;s commit f646e136 precedes the results commit, which is the evidence that the nine hold-out score files were unread when the five predictions were fixed. The upstream score files are pinned by commit and cached under freeze/cache/; they are MIT-licensed and their redistribution is permitted, unlike E6&#x27;s kernel bytes.</span></dd>
+      <dt>Reviewed</dt><dd>2026-09-10 · window 120 days</dd>
+      <dt>Expires</dt><dd>2027-01-08 — after this date the recorded review is overdue; this does not make the claim false</dd>
+      <dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when a committed pair row changes without a registry re-review</li><li><span class="mono tag tag-exec">executable</span> fires when the recorded run result or a prediction verdict changes</li><li><span class="mono tag tag-exec">executable</span> fires on any edit to the preregistration — the one file whose contents must not move after the hold-out was read</li><li><span class="mono tag tag-exec">executable</span> fires when the run report changes, including any edit to a stated non-claim</li><li><span class="mono tag tag-exec">executable</span> correction disposition and preserved evidence must remain bound to this review (3 bound sources)</li><li><span class="mono tag tag-manual">manual</span> a pool with intermediate marginals and more than 21 harmful items becomes available, or the upstream repository&#x27;s scores change at a new commit</li></ul></dd>
+      <dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Machine-generated, owner-executed</span><span class="dim"><span class="dim-k">support role</span>Executed output</span><span class="dim"><span class="dim-k">maturity</span>Experimental</span></span></dd>
+    </dl>
+  </section>
+  <nav class="claim-nav mono" aria-label="Adjacent claims"><a href="/claims/e6-001/">← E6-001 Rejected: the permutation routine moves unequal-mass atoms</a></nav>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono"><a class="u" href="/claims/">All claims</a><a class="u" href="/ledger/">Evidence ledger</a><a class="u" href="/observatory/">Observatory</a><a class="u" href="/ns/falsifiable/v1/">Falsifiable-web vocabulary</a><a class="u" href="/">The record</a></div>
+    <span class="mono">Claim text and qualifications come from claims.yaml; titles and navigation are editorial.</span>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>

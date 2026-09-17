@@ -1,0 +1,294 @@
+# The direction this repository is steering toward. Canonical and machine-read.
+#
+# This file is NOT a governing document in the sense the evidence ledger warns
+# about. It governs nothing, gates nothing and permits nothing. It is the
+# steering target `scripts/direction.py` reads so that a session which has run
+# out of context, tokens or vision can recover the direction in one command
+# instead of reconstructing it from a chat transcript that no longer exists.
+#
+# If this file grows a prose companion, delete the companion.
+# If this file exceeds ~300 lines, it has become the thing it was written against.
+
+version: 1
+opened: 2026-09-10
+owner_decision_required_to_change: true
+
+# ─────────────────────────────────────────────────────────────────────────────
+identity:
+  # The steering voice. Every step below is judged against these four lines.
+  - Engineer of hidden structure.
+  - Heretic of false certainty.
+  - I turn mystery into something falsifiable.
+  - Even my own beliefs.
+
+ontology:
+  # The single change that makes everything else follow. This sentence is the
+  # direction; the ten steps are only its consequences.
+  from: >
+    A preregistration is evidence that an analysis was preregistered.
+  to: >
+    A passing execution must demonstrate that the computation observed was the
+    computation declared.
+  hierarchy:
+    # A perfect SHA pin cannot rescue a bad denominator.
+    - integrity      # what produced this artifact
+    - conformance    # was the declared computation the executed one
+    - validity       # did the execution do what the design required
+    - inference      # does the output support the claim made from it
+  note: >
+    Cryptographic provenance answers the first line only. Attestation proves
+    what produced an artifact, never whether the science was semantically
+    correct. Do not let the first line be quoted as if it were the fourth.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# The conformance plane. An experiment is a typed graph, and the EDGES are the
+# scientific objects. Current verifiers ask whether the nodes are individually
+# respectable. Nothing asked whether their joint configuration is compatible.
+plane:
+  nodes:
+    P: frozen scientific intent (PREREG.md)
+    X: executable experiment contract (contract.json)
+    R: runner
+    D: exact data universe
+    O: resulting evidence
+    C: registered claim
+  admissibility: A(C) = F(P) & B(P,X) & E(X,R) & U(P,D) & Q(P,D) & V(R,D,O) & T(O,C)
+  edges:
+    F: {over: [P],       asks: frozen before observation,                        status: enforced, by: "claims.yaml prereg freeze + claims_history.py"}
+    B: {over: [P, X],    asks: intent bound to an executable specification,      status: partial,  by: "scripts/verify_prereg.py (declaration only)"}
+    E: {over: [X, R],    asks: the runner actually consumes that specification,  status: partial,  by: "scripts/verify_prereg.py (static reference only)"}
+    U: {over: [P, D],    asks: executed universe is the declared universe,       status: absent,   by: null}
+    Q: {over: [P, D],    asks: design informative enough for its stated target,  status: absent,   by: null}
+    V: {over: [R, D, O], asks: execution validity,                               status: absent,   by: null}
+    T: {over: [O, C],    asks: claim mechanically extracted from that output,    status: absent,   by: null}
+  founding_cohort:
+    # Retrospective. These motivated the plane; they do not measure it.
+    - {id: E7,  edge: B, defect: threshold-direction,        disposition: VOID,   caught: by hand, after outcomes visible}
+    - {id: E6,  edge: V, defect: unequal-mass-permutation,   disposition: REJECT, caught: by hand, after outcomes visible}
+    - {id: E7B, edge: U, defect: calibration-pool-swap,      disposition: REJECT, caught: by hand, after outcomes visible}
+    - {id: E3,  edge: null, defect: null, disposition: STANDS, caught: null}
+    - {id: E3B, edge: null, defect: null, disposition: STANDS, caught: null}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Amendments applied 2026-09-10 to the first draft of this plan. Each names what
+# it replaced, because a plan that quietly improves is a plan nobody can audit.
+corrections:
+  - id: C1
+    replaces: "PREREG.estimator.json as a third description of the estimator"
+    with: "contract.json as canonical executable semantics; PREREG.md renders it into English"
+    because: >
+      Three independent representations of one rule can diverge three ways.
+      Machine to prose, never prose to duplicated machine interpretation.
+    rule: >
+      No claim-critical choice may appear as an independently implemented
+      literal inside the runner when it can be supplied by the frozen contract.
+  - id: C2
+    replaces: "a power gate"
+    with: "an inferential-adequacy gate over three separated quantities"
+    because: >
+      Identification width, sampling precision and decision relevance are not
+      the same question. E3's Frechet band was 0.0175 wide; more n does little
+      against an identification limit. 'CI crossed zero therefore underpowered'
+      was too strong and is withdrawn.
+    declares: [inferential_target, estimand, identification_width_max, SESOI,
+               desired_ci_half_width, equivalence_margin, decision_loss,
+               minimum_information_condition]
+  - id: C3
+    replaces: "materialize 2^k joint cells"
+    with: "store the atomic per-item score vector (s_i1..s_ik); derive cells"
+    because: >
+      O(Nk) storage, and raw scores let a future frozen analysis examine other
+      thresholds without rerunning the guards.
+    hard_rule: >
+      Reuse of frozen rows is not reuse of confirmatory status. A threshold
+      chosen after looking at those rows is exploratory on those rows.
+  - id: C4
+    replaces: "kill condition: observation_rows flat for 14 days"
+    with: "kill condition: no new eligible independent measurement route in 14 days"
+    because: >
+      Making rows rise is Goodhart metabolism. Rows stay telemetry, never a target.
+    streams: [DISCOVERY, CONFIRMATORY]
+    promotion_rule: >
+      A nightly agent may discover and characterize eligible guards. It may not
+      promote those measurements into confirmatory evidence.
+  - id: C5
+    replaces: "publish valid = 2/5 as this repository's composition delta"
+    with: "2/5 is the retrospective motivating cohort; E8+ is the prospective instrument"
+    because: >
+      The classification system was partly constructed after seeing the
+      failures. Outcome-aware, N=5, classification-dependent.
+  - id: C6
+    replaces: "manually typed empirical numbers in claims.yaml"
+    with: "claims bind to {source_run: sha256, extraction: <path>} in a run envelope"
+    because: >
+      A claim should know which execution produced its number.
+  - id: C7
+    recorded_on: 2026-09-13
+    replaces: "S2: JSON Schema alone rejects every historical defect"
+    with: "S2: structural schema plus explicit cross-field and numerical validation"
+    because: >
+      Arbitrary marginal-mass preservation and equality of declared and planned
+      pools need semantic checks. A schema pass alone must not imply conformance.
+
+# ─────────────────────────────────────────────────────────────────────────────
+self_measurement:
+  status: NOT-YET-PREREGISTERED
+  prospective_from: E8
+  retrospective_cohort_only: "E3 E3B E6 E7 E7B (2 of 5 valid) — diagnostic, not an estimate"
+  estimators:
+    - {id: SM1, name: semantic mutation kill rate,        definition: non-equivalent semantic mutants rejected / non-equivalent semantic mutants generated}
+    - {id: SM2, name: pre-outcome defect interception,    definition: defects intercepted before outcome exposure / defects found at any time}
+    - {id: SM3, name: contract-bound choice coverage,     definition: claim-critical choices mechanically bound / all enumerated claim-critical choices}
+    - {id: SM4, name: semantic escape rate,               definition: P(invalid execution reaches outcome observation)}
+  requirement: >
+    Equivalent mutants must be identified and excluded BEFORE any detection
+    proportion is reported. A kill rate over unclassified mutants is not a
+    measurement.
+
+mutation_classes:
+  # The library verify_prereg.py's three fixtures are the first entries of.
+  frozen_today: [threshold-direction, unequal-mass-permutation, calibration-pool-swap]
+  planned: [population-universe-swap, denominator-swap, union-intersection-swap,
+            calibration-set-leakage, evaluation-set-leakage,
+            threshold-optimization-objective, inclusion-exclusion-inversion,
+            join-key-mismatch, missing-value-policy, randomization-unit,
+            aggregation-level, metric-orientation, multiple-comparison-rule,
+            stopping-condition, seed-split-change, estimator-parameter-change]
+
+metamorphic_relations:
+  # Where no numerical oracle exists, state the relation that must hold.
+  - a permutation declared to preserve marginals must preserve them
+  - row order must not change an order-invariant estimator
+  - partitions declared disjoint must have empty ID intersection
+  - raising a monotone threshold must not move a pass count the wrong way
+  - recomputing the estimator from stored atomic observations must equal the recorded result
+
+# ─────────────────────────────────────────────────────────────────────────────
+steps:
+  - {id: S1,  status: done,    infra: true,  done_when: "three historical fixtures and seven mutants frozen as the founding regression corpus",
+     artifact: scripts/verify_prereg.py}
+  - {id: S2,  status: done,    infra: true,  depends_on: [S1],
+     done_when: "contract validation represents and rejects each historical defect through structural and semantic checks",
+     artifact: research/contracts/schema.json, completed_on: 2026-09-13,
+     evidence: tests/test_contracts.py,
+     limit: "Retrospective constructed fixtures only; no runtime or prospective detection claim"}
+  - {id: S3,  status: next, infra: false, depends_on: [S2],
+     done_when: "E8's runner consumes the frozen contract directly; no retrofit of frozen experiments",
+     artifact: experiments/e8/}
+  - {id: S4,  status: blocked, infra: true,  depends_on: [S3],
+     done_when: "conformance determined from execution trace, not static source inspection alone",
+     artifact: scripts/trace_execution.py}
+  - {id: S5,  status: next, infra: false, depends_on: [S2],
+     done_when: "identification adequacy, estimation precision and decision relevance separated in a contract before any new expensive run",
+     artifact: research/contracts/}
+  - {id: S6,  status: blocked, infra: false, depends_on: [S3],
+     done_when: "per-item raw multi-guard score vectors stored; joint cells derived, never materialized",
+     artifact: experiments/e8/results/observations.jsonl}
+  - {id: S7,  status: blocked, infra: true,  depends_on: [S3],
+     done_when: "run-envelope.json generated per run; registry rejects a hand-typed empirical number",
+     artifact: scripts/attest_run.py}
+  - {id: S8,  status: blocked, infra: false, depends_on: [S7],
+     done_when: "SM1-SM4 preregistered and measured prospectively on E8+; 2/5 stays labelled retrospective",
+     artifact: experiments/e8/PREREG.md}
+  - {id: S9,  status: done,    infra: true,  depends_on: [S1],
+     done_when: "/records/conformance/ generated from artifacts; zero hand-maintained scientific numbers; drift-gated",
+     artifact: scripts/generate_conformance_record.py}
+  - {id: S10, status: standing, infra: false,
+     done_when: "never — this is the stop rule, not a task",
+     rule: "Return effort to the fourteen human blockers and the external evidence routes. Research infrastructure about research infrastructure must not become the repository."}
+
+# ─────────────────────────────────────────────────────────────────────────────
+budget:
+  # S10 made countable. A mirror, never a gate: a number that can fail CI is a
+  # number people manage. direction.py reports this; nothing blocks on it.
+  rule: >
+    Infrastructure steps outstanding must not exceed non-infrastructure steps
+    outstanding. When they do, the next action is a non-infrastructure step or a
+    human blocker, not another verifier.
+  core_stays_small: >
+    verify_prereg.py is 300 lines. If it passes 600, split it or stop. There is
+    no universal god verifier at the end of this road.
+
+kill_conditions:
+  - id: K-DISCOVERY
+    condition: "no new eligible independent measurement route discovered in 14 days under the frozen eligibility rules"
+    consequence: "the local-guard path is exhausted; E2's authorized box is the only route; say so and stop"
+    not: "observation_rows did not rise — that is telemetry, never a target"
+  - id: K-INFRA
+    condition: "two consecutive cadence weeks where SCAFFOLD moved and EVIDENCE did not"
+    consequence: "stop building; the failure mode in .claude/skills/evidence-ledger/SKILL.md has arrived"
+
+# ─────────────────────────────────────────────────────────────────────────────
+prior_art:
+  # Named source debts verified 2026-09-13; see verification_record. Deliberately
+  # NOT written with a marker the evidence ledger counts: this is a citation
+  # debt, not a measurement blocker. Adding VERIFY-BEFORE-CITE to the ledger's
+  # BLOCK_MARKERS table would be an owner decision, not an accident.
+  rule: >
+    No novelty claim leaves this repository without a recorded systematic
+    search. "First of its kind" was drafted and withdrawn on 2026-09-10.
+  unverified: []
+  verified:
+    - name: Preregistration as Code
+      verified: true
+      assertion: executable preregistration illustrated with simulated data
+      source: https://github.com/aaronpeikert/repro-tutorial/blob/main/preregistration.Rmd
+    - name: August 2026 repository-safeguard mutation study
+      verified: true
+      assertion: selected workflows detected 2 of 23 confirmed non-equivalent mutations after bounded restoration
+      source: https://arxiv.org/abs/2608.27100v1
+    - name: RO-Crate
+      verified: true
+      assertion: version 1.2 specifies metadata JSON-LD and an optional HTML preview
+      source: https://www.researchobject.org/ro-crate/specification/1.2/structure
+    - name: GitHub artifact attestations
+      verified: true
+      assertion: binds artifacts to build provenance; does not guarantee security; in-toto not separately evaluated
+      source: https://docs.github.com/en/actions/concepts/security/artifact-attestations
+    - name: FAIR4RS
+      verified: true
+      assertion: version identity, qualified references and detailed provenance
+      source: https://www.researchsoft.org/blog/2022-08/
+  verification_record: research/PRIOR_ART_REVIEW.md
+  verified_on: 2026-09-13
+  verification_scope: source identity and stated assertions only; no independent replication or novelty conclusion
+  differentiator_if_it_survives_search: >
+    The adjacent work mutates seeds, dependency versions, splits and fold counts
+    — reproduction-relevant. The target here is scientific-intent semantic
+    drift: which population, denominator, estimator, permutation, calibration
+    universe or decision rule was actually executed.
+
+research_question:
+  working_title: >
+    Compositional Conformance in Computational Research: Detecting Semantic
+    Drift Between Preregistered Intent and Executed Evidence
+  question: >
+    How often do individually valid research artifacts compose into an execution
+    that violates the declared scientific design, which semantic mutations escape
+    conventional research-software safeguards, and can executable contracts plus
+    relation-aware conformance testing intercept those defects before outcomes
+    are observed?
+  dependent_variables: [detection rate, time of detection, mutation class,
+                        required domain knowledge, equivalent-mutant burden,
+                        detected before outcome exposure]
+
+# ─────────────────────────────────────────────────────────────────────────────
+session_protocol:
+  # For a session with no memory of this one. Three commands, then act.
+  orient:
+    - python3 .claude/skills/evidence-ledger/ledger.py   # the instant
+    - python3 scripts/cadence.py report                  # the trajectory + sensor gaps
+    - python3 scripts/direction.py                       # the heading
+  before_commit:
+    - python3 scripts/verification_manifest.py
+  standing_prompt: >
+    Read research/DIRECTION.yaml. Take the first step whose status is `next` and
+    whose dependencies are done. If the budget rule is violated, take a
+    non-infrastructure step or clear a human blocker instead. Say the trade out
+    loud before writing anything. Do not write a governing document.
+  what_not_to_do:
+    - Do not retrofit a contract onto a frozen preregistration.
+    - Do not report a mutation kill rate over unclassified mutants.
+    - Do not promote discovery rows to confirmatory status.
+    - Do not hand-edit a generated page.
+    - Do not claim novelty without a recorded search.

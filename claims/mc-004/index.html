@@ -1,0 +1,315 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit by hand.
+     Source: claims.yaml · renderer: scripts/generate_claims_pages.py
+     CI regenerates this page and fails on drift. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MC-004 · Multimodal Safeguard Bench, recomputed from per-item verdicts</title>
+<meta name="description" content="MC-004: Multimodal Safeguard Bench, recomputed from per-item verdicts. REJECT if recomputing from the bound, hash-verified files yields any count different…">
+<link rel="canonical" href="https://cubits11.github.io/claims/mc-004/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MC-004 · Multimodal Safeguard Bench, recomputed from per-item verdicts">
+<meta property="og:description" content="MC-004: Multimodal Safeguard Bench, recomputed from per-item verdicts. REJECT if recomputing from the bound, hash-verified files yields any count different…">
+<meta property="og:url" content="https://cubits11.github.io/claims/mc-004/">
+<meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta property="og:image:alt" content="Pranav Bhave, AI Assurance · Security Engineering · Evidence Systems — measuring what guardrail stacks miss together">
+<meta property="og:site_name" content="Cubits11">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cubits11.github.io/assets/img/og.jpg">
+<meta name="twitter:image:alt" content="Pranav Bhave, AI Assurance · Security Engineering · Evidence Systems — measuring what guardrail stacks miss together">
+<meta name="robots" content="max-image-preview:large">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F1EDE2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0F0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">
+{
+  "@context": [
+    "https://schema.org",
+    {
+      "@version": 1.1,
+      "fw": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#",
+        "@prefix": true
+      },
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "fw:falsifier": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#falsifier"
+      },
+      "fw:consequence": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#consequence"
+      },
+      "fw:forbiddenRescue": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#forbiddenRescue",
+        "@container": "@list"
+      },
+      "fw:nonClaim": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#nonClaim",
+        "@container": "@list"
+      },
+      "fw:scopeStatement": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#scopeStatement"
+      },
+      "fw:evidentialStatus": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#evidentialStatus"
+      },
+      "fw:lastReviewed": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#lastReviewed",
+        "@type": "xsd:date"
+      },
+      "fw:reviewWindow": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#reviewWindow",
+        "@type": "xsd:duration"
+      },
+      "fw:warrantExpires": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#warrantExpires",
+        "@type": "xsd:date"
+      },
+      "fw:supportUrl": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#supportUrl",
+        "@type": "@id"
+      },
+      "fw:supportBinding": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#supportBinding",
+        "@type": "@id"
+      },
+      "fw:boundRevision": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#boundRevision"
+      },
+      "fw:verdict": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#verdict"
+      },
+      "fw:verdictDate": {
+        "@id": "https://cubits11.github.io/ns/falsifiable/v1/#verdictDate",
+        "@type": "xsd:date"
+      }
+    }
+  ],
+  "@type": "Claim",
+  "@id": "https://cubits11.github.io/claims/mc-004/#claim",
+  "identifier": "MC-004",
+  "name": "Multimodal Safeguard Bench, recomputed from per-item verdicts",
+  "description": "MC-004: Multimodal Safeguard Bench, recomputed from per-item verdicts. REJECT if recomputing from the bound, hash-verified files yields any count different…",
+  "text": "On the per-item guard-verdict files publicly released with Multimodal Safeguard Bench's full_run (pinned commit below; six verdict files and the release's two printed-metric files hash-verified), the three guards — Llama Guard 4, Llama Guard 3 Vision, ShieldGemma 2 — have harness-normalized native `unsafe` labels whose static Boolean OR is 1 on 192 of 200 harmful-labelled text items (8 all-zero rows, 4.0%) and all 200 harmful-labelled image items (0 all-zero rows), while the same OR is 1 on 32 of 250 benign-labelled text items (12.8%) and every one of 250 benign-labelled image items. Llama Guard 3 Vision alone has a 1-bit on all 250 released benign image items. The complete 2^3 native-label pattern table, leave-one-out bit ORs, and unique bit contributions for each released stratum are bound below. The release prints per-guard metrics and two two-guard compositions; it prints no three-guard bit OR, no all-zero-row count, no leave-one-out table, and no pattern decomposition — and every recomputed quantity that overlaps what it does print is asserted equal to the printed value.",
+  "url": "https://cubits11.github.io/claims/mc-004/",
+  "author": {
+    "@type": "Person",
+    "@id": "https://cubits11.github.io/#person",
+    "name": "Pranav Bhave",
+    "url": "https://cubits11.github.io/",
+    "sameAs": [
+      "https://github.com/Cubits11",
+      "https://www.linkedin.com/in/pranav-bhave-2a328721a/",
+      "https://x.com/PranavBhave_"
+    ]
+  },
+  "isPartOf": {
+    "@type": "Dataset",
+    "@id": "https://cubits11.github.io/ledger/#dataset",
+    "name": "Cubits11 claim registry",
+    "url": "https://cubits11.github.io/ledger/"
+  },
+  "dateModified": "2026-08-31",
+  "fw:scopeStatement": "Exactly the six committed verdict files of the full_run directory at the bound commit: 400 harmful and 500 benign items, each stratum half text and half image, one Boolean `blocked` adapter bit per item per guard. Let L be the release's harmful/benign label, A_s each guard's native `unsafe` predicate, B_s the harness mapping of that predicate to `blocked`, and O = OR_s B_s. The bound arithmetic reports B and O conditional on L. Because the harness uses `blocked` items to suppress target generation, O is also a valid counterfactual harness-block decision for these released rows under a fixed block-on-any rule. It does not establish a source-defined translation from every A_s to one shared catch event E: Llama Guard 3 Vision is a multimodal prompt/response classifier, while ShieldGemma 2 is an image-only three-policy classifier, and the pipeline merely maps each native `unsafe` label to `blocked`. Counting arithmetic only, at the guards' released native operating rules (the Llama guards emit labels autoregressively; ShieldGemma 2 blocks above a 0.5 policy-violation probability; the source documents no matched operating-point calibration, so M-ladder threshold comparability is unchanged). ShieldGemma 2's text-item bits are deterministic passes as committed and documented upstream, which is why its text column is zero — an explicit released outcome, not missing data. Strata are computed exactly as released and never folded; file totals are sums of the bound strata and carry no additional content. Computed by scripts/reanalyze_msbench.py from scripts/mjgd_reference.py; the expected block below is what CI re-asserts against the downloaded, hash-verified files.",
+  "fw:falsifier": "Recomputing from the bound, hash-verified files yields any count different from the expected block, or any pinned file no longer matches its recorded sha256, or any recomputed quantity that overlaps the release's printed metrics disagrees with the printed value, or the committed blocked columns are shown not to be the named guards' verdicts.",
+  "fw:consequence": "REJECT",
+  "fw:forbiddenRescue": [
+    "do not fold text and image strata — or harmful and benign files — into pooled denominators to move any figure; the strata are bound exactly as released",
+    "do not substitute verdicts from the release's other run directories (adaptive_run, carrier sweeps, rendering probes) to preserve a number bound to full_run",
+    "do not reinterpret ShieldGemma 2's deterministic text passes as missing data to shrink a denominator after seeing the results",
+    "do not cite the benign-image 250/250 union without attributing it to Llama Guard 3 Vision's 250/250 column, and do not cite the harmful strata without the benign strata",
+    "do not call an OR of the harness-normalized native labels a shared-event catch union, stack safety result, or three-independent- guard finding unless a source-defined event translation is added",
+    "do not recast these file counts as population estimates, with or without an interval, if the primary counts are challenged"
+  ],
+  "fw:nonClaim": [
+    "not a shared-event catch statistic: the common `blocked` bit is a harness normalization of distinct native predicates, and no source-defined translation to a common event E has been identified",
+    "not a population estimate — the items derive from HarmBench and XSTest under the release's own construction, and no interval is offered because no sampled population is defined",
+    "not a ranking, endorsement, or indictment of any guard or vendor; the verdicts are at native, unmatched operating rules",
+    "not an observed deployed three-guard stack; interpreting the OR aggregation as a stack requires the separate full-exposure, parallel, fixed-operating-point assumptions",
+    "says nothing about the release's carrier-prompt, adversarial-UAP, or cross-VLM runs, which are separate artifacts with their own contracts",
+    "the counts are about the committed verdict bytes; the release's own changelog documents that ShieldGemma 2's image scores are sensitive to the text-rendering stack, so nothing here predicts what any guard would do under a different rendering environment",
+    "the zero three-guard image all-zero-bit count is a counting fact about these 200 released image items, not evidence of general image attack safety"
+  ],
+  "fw:lastReviewed": "2026-08-31",
+  "fw:reviewWindow": "P60D",
+  "fw:warrantExpires": "2026-10-30",
+  "fw:evidentialStatus": "supported_within_scope",
+  "fw:supportUrl": {
+    "@id": "https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run"
+  },
+  "fw:supportBinding": {
+    "@id": "https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run"
+  },
+  "fw:boundRevision": "fb6f32e6b50b6faad833b815ebcd80afd2068bff"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "The record",
+      "item": "https://cubits11.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Claims",
+      "item": "https://cubits11.github.io/claims/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "MC-004"
+    }
+  ]
+}
+</script>
+<style>
+body{font-size:1.04rem;line-height:1.72}
+.container{width:min(760px,100% - 2*clamp(1.25rem,5vw,3rem))}
+.mono{font-size:.7rem}
+header.page{padding:7.9rem 0 2.2rem}
+.eyebrow{color:var(--gold);margin-bottom:1.1rem;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;align-items:baseline}
+h1.q{font-weight:520;font-size:clamp(1.85rem,4.7vw,2.9rem);line-height:1.12;margin:0 0 1.2rem;letter-spacing:-.018em}
+.standfirst{font-family:var(--serif);font-size:1.12rem;color:var(--ink);line-height:1.6;max-width:40em;border-left:2px solid var(--gold);padding-left:1.1rem}
+.gsec{border-top:1px solid var(--line);padding:1.7rem 0 .4rem;margin-top:1.4rem}
+.gsec .glabel{display:flex;gap:.9rem;align-items:baseline;margin-bottom:.7rem}
+.gsec .gno{font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;color:var(--muted)}
+.gsec .gname{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold)}
+.gsec p{color:var(--ink);max-width:62ch}
+.gsec ul{margin:.2rem 0 1em;padding-left:1.15rem;color:var(--ink);max-width:62ch}
+.gsec li{margin:.4rem 0}
+.kill{border:1px solid var(--review);border-left:3px solid var(--review);background:var(--surface);padding:1.1rem 1.2rem;margin:.2rem 0 1rem}
+.kill .cond{font-family:var(--serif);font-size:1.06rem;line-height:1.55;margin:0 0 .8rem;max-width:52ch;color:var(--ink)}
+.kill .conseq{display:inline-flex;gap:.6rem;align-items:baseline;font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;text-transform:uppercase}
+.kill .conseq b{color:var(--review);font-weight:400;border:1px solid var(--review);padding:.18rem .5rem}
+.empty-list{color:var(--muted);font-size:.92rem}
+.meta-grid{display:grid;grid-template-columns:10rem 1fr;gap:.5rem 1.2rem;margin:0;font-size:.93rem}
+.meta-grid dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);padding-top:.2rem}
+.meta-grid dd{margin:0;color:var(--muted);overflow-wrap:anywhere}
+.dims{display:flex;flex-wrap:wrap;gap:.4rem .9rem}
+.dim{display:inline-flex;gap:.45rem;align-items:baseline}
+.dim-k{font-family:var(--mono);font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.tag{border:1px solid var(--line-strong);padding:.1rem .42rem;margin-right:.4rem}
+.tag-exec{color:var(--evidence);border-color:var(--evidence)}
+.tag-manual{color:var(--muted)}
+.trg{list-style:none;padding-left:0}
+.verdict{border:1px solid var(--invalid);color:var(--invalid);padding:.18rem .5rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.09em}
+.claim-nav{display:flex;flex-wrap:wrap;gap:1.4rem;justify-content:space-between;border-top:1px solid var(--line);margin-top:2.6rem;padding-top:1.3rem}
+.claim-nav a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line-strong);padding-bottom:1px}
+.claim-nav a:hover{color:var(--ink)}
+.idx{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.idx li{border-bottom:1px solid var(--line)}
+.idx a{display:grid;grid-template-columns:6.5rem 1fr auto;gap:.6rem 1.2rem;align-items:baseline;padding:1rem .2rem;text-decoration:none;transition:background-color .18s}
+.idx a:hover,.idx a:focus-visible{background:var(--surface)}
+.idx .cid{font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;color:var(--gold)}
+.idx .ctitle{color:var(--ink);line-height:1.45}
+.idx .cexp{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+.terms{list-style:none;margin:0;padding:0}
+.terms li{border-top:1px solid var(--line);padding:1.3rem 0}
+.terms .tname{font-family:var(--mono);font-size:.82rem;color:var(--evidence);letter-spacing:.04em}
+.terms .trange{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-left:.8rem}
+.terms .tgloss{font-family:var(--serif);font-size:1.06rem;color:var(--ink);margin:.55rem 0 .5rem;max-width:52ch}
+.terms .tnote{color:var(--muted);font-size:.95rem;max-width:62ch;margin:0 0 .5rem}
+.terms .tsrc{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;color:var(--muted)}
+pre.ex{background:var(--surface);border:1px solid var(--line-strong);padding:1rem 1.1rem;overflow-x:auto;font-family:var(--mono);font-size:.74rem;line-height:1.7;color:var(--ink)}
+footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;color:var(--muted);font-size:.85rem}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem;margin-bottom:1rem}
+@media (max-width:600px){.meta-grid{grid-template-columns:1fr}.meta-grid dt{padding-top:.5rem}.idx a{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#000}}
+</style>
+<script defer src="/assets/site.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="container">
+    <a class="wordmark" href="/">Pranav Bhave</a>
+    <nav class="site-nav mono" aria-label="Site">
+      <a href="/missing-column/">The Missing Column</a>
+      <a href="/observatory/">Evidence</a>
+      <a href="/writing/">Writing</a>
+      <a href="/films/">Films</a>
+      <a href="/work/">Work with me</a>
+      <a href="/resume/">About</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" aria-pressed="false">
+      <svg class="sun-only" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3 19 19M19 5l-1.7 1.7M6.7 17.3 5 19"/></svg>
+      <svg class="moon-only" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8a8.2 8.2 0 1 0 10.4 10.4z"/></svg>
+    </button>
+  </div>
+</header>
+<div class="class-bar mono">
+  <div class="container">
+    <span>Claim <b>MC-004</b> — 11 of 21 in the <a class="u" href="/claims/">registry</a></span>
+    <span class="status">Supported within scope</span>
+  </div>
+</div>
+<header class="page">
+  <div class="container">
+    <p class="eyebrow mono"><span>MC-004</span><span>Warrant reviewed 2026-08-31 · expires 2026-10-30</span></p>
+    <h1 class="q">Multimodal Safeguard Bench, recomputed from per-item verdicts</h1>
+    <p class="standfirst">On the per-item guard-verdict files publicly released with Multimodal Safeguard Bench&#x27;s full_run (pinned commit below; six verdict files and the release&#x27;s two printed-metric files hash-verified), the three guards — Llama Guard 4, Llama Guard 3 Vision, ShieldGemma 2 — have harness-normalized native `unsafe` labels whose static Boolean OR is 1 on 192 of 200 harmful-labelled text items (8 all-zero rows, 4.0%) and all 200 harmful-labelled image items (0 all-zero rows), while the same OR is 1 on 32 of 250 benign-labelled text items (12.8%) and every one of 250 benign-labelled image items. Llama Guard 3 Vision alone has a 1-bit on all 250 released benign image items. The complete 2^3 native-label pattern table, leave-one-out bit ORs, and unique bit contributions for each released stratum are bound below. The release prints per-guard metrics and two two-guard compositions; it prints no three-guard bit OR, no all-zero-row count, no leave-one-out table, and no pattern decomposition — and every recomputed quantity that overlaps what it does print is asserted equal to the printed value.</p>
+  </div>
+</header>
+<main class="container" id="main">
+  <section class="gsec">
+    <div class="glabel"><span class="gno">01</span><span class="gname">Falsifier — what changes this claim</span></div>
+    <div class="kill">
+      <p class="cond">Recomputing from the bound, hash-verified files yields any count different from the expected block, or any pinned file no longer matches its recorded sha256, or any recomputed quantity that overlaps the release&#x27;s printed metrics disagrees with the printed value, or the committed blocked columns are shown not to be the named guards&#x27; verdicts.</p>
+      <span class="conseq">Consequence <b>REJECT</b></span>
+    </div>
+    <p>This is the condition and consequence recorded in the registry. <a class="u" href="/ns/falsifiable/v1/">The vocabulary this is published in</a> defines what each consequence commits the author to.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">02</span><span class="gname">Scope</span></div>
+    <p>Exactly the six committed verdict files of the full_run directory at the bound commit: 400 harmful and 500 benign items, each stratum half text and half image, one Boolean `blocked` adapter bit per item per guard. Let L be the release&#x27;s harmful/benign label, A_s each guard&#x27;s native `unsafe` predicate, B_s the harness mapping of that predicate to `blocked`, and O = OR_s B_s. The bound arithmetic reports B and O conditional on L. Because the harness uses `blocked` items to suppress target generation, O is also a valid counterfactual harness-block decision for these released rows under a fixed block-on-any rule. It does not establish a source-defined translation from every A_s to one shared catch event E: Llama Guard 3 Vision is a multimodal prompt/response classifier, while ShieldGemma 2 is an image-only three-policy classifier, and the pipeline merely maps each native `unsafe` label to `blocked`. Counting arithmetic only, at the guards&#x27; released native operating rules (the Llama guards emit labels autoregressively; ShieldGemma 2 blocks above a 0.5 policy-violation probability; the source documents no matched operating-point calibration, so M-ladder threshold comparability is unchanged). ShieldGemma 2&#x27;s text-item bits are deterministic passes as committed and documented upstream, which is why its text column is zero — an explicit released outcome, not missing data. Strata are computed exactly as released and never folded; file totals are sums of the bound strata and carry no additional content. Computed by scripts/reanalyze_msbench.py from scripts/mjgd_reference.py; the expected block below is what CI re-asserts against the downloaded, hash-verified files.</p>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">03</span><span class="gname">Forbidden rescues</span></div>
+    <p>Repairs declared unavailable in advance; using one after a failure would breach the recorded commitment.</p>
+    <ul><li>do not fold text and image strata — or harmful and benign files — into pooled denominators to move any figure; the strata are bound exactly as released</li><li>do not substitute verdicts from the release&#x27;s other run directories (adaptive_run, carrier sweeps, rendering probes) to preserve a number bound to full_run</li><li>do not reinterpret ShieldGemma 2&#x27;s deterministic text passes as missing data to shrink a denominator after seeing the results</li><li>do not cite the benign-image 250/250 union without attributing it to Llama Guard 3 Vision&#x27;s 250/250 column, and do not cite the harmful strata without the benign strata</li><li>do not call an OR of the harness-normalized native labels a shared-event catch union, stack safety result, or three-independent- guard finding unless a source-defined event translation is added</li><li>do not recast these file counts as population estimates, with or without an interval, if the primary counts are challenged</li></ul>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">04</span><span class="gname">Non-claims — what this does not license</span></div>
+    <ul><li>not a shared-event catch statistic: the common `blocked` bit is a harness normalization of distinct native predicates, and no source-defined translation to a common event E has been identified</li><li>not a population estimate — the items derive from HarmBench and XSTest under the release&#x27;s own construction, and no interval is offered because no sampled population is defined</li><li>not a ranking, endorsement, or indictment of any guard or vendor; the verdicts are at native, unmatched operating rules</li><li>not an observed deployed three-guard stack; interpreting the OR aggregation as a stack requires the separate full-exposure, parallel, fixed-operating-point assumptions</li><li>says nothing about the release&#x27;s carrier-prompt, adversarial-UAP, or cross-VLM runs, which are separate artifacts with their own contracts</li><li>the counts are about the committed verdict bytes; the release&#x27;s own changelog documents that ShieldGemma 2&#x27;s image scores are sensitive to the text-rendering stack, so nothing here predicts what any guard would do under a different rendering environment</li><li>the zero three-guard image all-zero-bit count is a counting fact about these 200 released image items, not evidence of general image attack safety</li></ul>
+  </section>
+  <section class="gsec">
+    <div class="glabel"><span class="gno">05</span><span class="gname">Binding and freshness</span></div>
+    <dl class="meta-grid">
+      <dt>Binding</dt><dd><a class="u" href="https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run"><code>PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run @ fb6f32e6</code></a><br><span class="empty-list">Six guard-verdict JSONL files are the data inputs; metrics.json and ensemble.json are additionally pinned because the reproduction script asserts agreement with every overlapping printed value. All eight sha256 hashes are recorded in scripts/reanalyze_msbench.py and verified before a single count is taken.</span></dd>
+      <dt>Reviewed</dt><dd>2026-08-31 · window 60 days</dd>
+      <dt>Expires</dt><dd>2026-10-30 — after this date the recorded review is overdue; this does not make the claim false</dd>
+      <dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when a bound verdict file on the default branch changes (6 bound sources)</li><li><span class="mono tag tag-exec">executable</span> fires when the release&#x27;s printed per-guard metrics change</li><li><span class="mono tag tag-exec">executable</span> fires when the release&#x27;s printed composition metrics change</li><li><span class="mono tag tag-exec">executable</span> fires when the guards&#x27; native adapter semantics change</li><li><span class="mono tag tag-exec">executable</span> fires when the harness label-to-block action changes</li><li><span class="mono tag tag-exec">executable</span> fires when the stated route or operating-point semantics change</li><li><span class="mono tag tag-manual">manual</span> the authors publish a corrected or extended full_run, print their own three-guard joint statistics, document a matched operating-point calibration, or publish a source-defined translation from all native predicates to one shared catch event</li></ul></dd>
+      <dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Machine-generated, owner-executed</span><span class="dim"><span class="dim-k">support role</span>Executed output</span><span class="dim"><span class="dim-k">maturity</span>Experimental</span></span></dd>
+    </dl>
+  </section>
+  <nav class="claim-nav mono" aria-label="Adjacent claims"><a href="/claims/mc-003/">← MC-003 Marginals fix the all-miss rate only up to an interval</a><a href="/claims/af-001/">AF-001 AI Fluency Index prevalences for 11 of 24 behaviours →</a></nav>
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-links mono"><a class="u" href="/claims/">All claims</a><a class="u" href="/ledger/">Evidence ledger</a><a class="u" href="/observatory/">Observatory</a><a class="u" href="/ns/falsifiable/v1/">Falsifiable-web vocabulary</a><a class="u" href="/">The record</a></div>
+    <span class="mono">Claim text and qualifications come from claims.yaml; titles and navigation are editorial.</span>
+  </div>
+</footer>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var root=document.documentElement,meta=document.querySelectorAll('meta[name="theme-color"]'),toggle=document.getElementById('themeToggle');
+  if(!toggle)return;
+  function isDark(){if(root.dataset.theme)return root.dataset.theme==='dark';return matchMedia('(prefers-color-scheme: dark)').matches}
+  function sync(){var d=isDark();toggle.setAttribute('aria-pressed',String(d));toggle.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme')}
+  function apply(n){root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}meta.forEach(function(m){m.content=n==='dark'?'#0B0F0A':'#F1EDE2'});sync()}
+  toggle.addEventListener('click',function(){var n=isDark()?'light':'dark';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(document.startViewTransition&&!r){document.startViewTransition(function(){apply(n)})}else{apply(n)}});
+  sync();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
+})();
+</script>
+</body>
+</html>

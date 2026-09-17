@@ -17,7 +17,7 @@ claim: >-
   For marginals (0.10, 0.10) the both-fail probability is identified only to [0.0, 0.10] and independence
   names 0.01 (CC-001, CC-004). As of 2026-08-27, of 20 examined evaluations 14 establish a shared basis,
   0 document matched thresholds with full exposure, and 5 provide a joint-evidence artifact, 2 of them
-  only via a per-item release (MC-001). On the BELLS 2025 released subset the five marginals identify
+  via a per-item release (MC-001). On the BELLS 2025 released subset the five marginals identify
   the all-miss count only to {0 … 12} of 82; the released rows give 9; the independence plug-in expects
   2.87 (MC-002, MC-003).
 scope: >-
@@ -133,8 +133,7 @@ evidence_commits:
   commit: 6a6f587a2c0a5dbd1e8fea065c383938877fe3b0
 falsifier: >-
   A clean-clone execution of the bound kernel on marginals (0.10, 0.10) returns AND bounds other than
-  [0.0, 0.10] (CC-001/CC-004, REJECT); scripts/verify_census.py --counts prints counts other than 20 /
-  14 / 0 / 5 with 2 via release (MC-001, REJECT); scripts/reanalyze_bells_subset.py recomputes an all-miss
+  [0.0, 0.10] (CC-001/CC-004, REJECT); scripts/verify_census.py --counts prints counts other than 20 examined, 14 with a shared basis, 0 with matched thresholds and full exposure, 5 with a joint-evidence artifact, and 2 with per-item releases (MC-001, REJECT); scripts/reanalyze_bells_subset.py recomputes an all-miss
   other than 9/82 or scripts/identification.py a set other than {0 … 12} (MC-002/MC-003, REJECT); or any
   rendered frame shows a readout other than 10/100 for either guard while the BOTH counter moves — in
   each case bind_facts.py --check fails before this film can be re-rendered.

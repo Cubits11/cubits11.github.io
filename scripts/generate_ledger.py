@@ -14,6 +14,7 @@ import re
 import sys
 
 import yaml
+from correction_records import notice
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
@@ -177,14 +178,20 @@ def render(registry: dict) -> str:
 {{
   "@context": "https://schema.org",
   "@type": "Dataset",
+  "@id": "https://cubits11.github.io/ledger/#dataset",
   "name": "Cubits11 claim registry",
   "description": "The claim registry behind cubits11.github.io: every technical claim the site renders, as a structured envelope with proposition, scope, evidence bindings to immutable commits, provenance and status dimensions, falsifier conditions with fixed consequences, forbidden post-falsification rescues, review triggers, freshness windows, and non-claims. The evidence ledger page is generated from this file and drift-checked in CI.",
   "url": "https://cubits11.github.io/ledger/",
   "sameAs": "https://github.com/Cubits11/cubits11.github.io/blob/main/claims.yaml",
   "isAccessibleForFree": true,
-  "creator": {{ "@type": "Person", "name": "Pranav Bhave", "url": "https://cubits11.github.io/" }},
+  "creator": {{ "@id": "https://cubits11.github.io/#person" }},
+  "measurementTechnique": "Preregistered falsifier with a fixed consequence, bound to an immutable revision and re-executed in CI",
+  "variableMeasured": ["falsifier condition", "falsification consequence", "forbidden rescues", "non-claims", "review window"],
   "dateModified": "{reviewed}",
-  "distribution": [{{ "@type": "DataDownload", "encodingFormat": "application/yaml", "contentUrl": "https://cubits11.github.io/claims.yaml" }}]
+  "distribution": [
+    {{ "@type": "DataDownload", "encodingFormat": "application/yaml", "contentUrl": "https://cubits11.github.io/claims.yaml" }},
+    {{ "@type": "DataDownload", "encodingFormat": "application/ld+json", "contentUrl": "https://cubits11.github.io/claims/index.json" }}
+  ]
 }}
 </script>
 <style>
@@ -248,7 +255,10 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
       defeat its proposition, the consequence, and the post-falsification rescues it will not
       accept. Triggers marked
       <span class="mono tag tag-manual" style="margin:0">manual</span> are honestly beyond
-      CI's reach.</p>
+      CI's reach. Each claim also has its own address — see
+      <a class="u" href="/claims/">the claim index</a> for one page per claim, and
+      <a class="u" href="/claims/index.json">index.json</a> for the whole registry as one
+      machine-readable document.</p>
     <div class="meta-row mono">
       <span>Schema v{version}</span>
       <span>Last owner review: {reviewed}</span>
@@ -259,6 +269,7 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
 </header>
 
 <main class="container" id="main">
+{notice()}
 {claims_html}
 </main>
 

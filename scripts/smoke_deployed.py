@@ -17,7 +17,9 @@ agrees with the census that produced it.
 """
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
+import json
 import os
 import re
 import sys
@@ -61,6 +63,35 @@ def routes(site: str) -> list[str]:
     return [urljoin(f"{site}/", path.lstrip("/")) for path in paths]
 
 
+def release_bytes(site: str, bodies: dict[str, bytes]) -> list[str]:
+    """A successful response from an older release is still a failed deployment."""
+    failures = []
+    for url, body in bodies.items():
+        rel = urlsplit(url).path.lstrip('/') + 'index.html'
+        if body != (ROOT / rel).read_bytes():
+            failures.append(f'{url} serves different page bytes from this revision')
+    assets = {'claims/index.json', 'ns/falsifiable/v1/context.json'}
+    import yaml
+    for manifest in (ROOT / 'films').glob('*/manifest.yaml'):
+        film = yaml.safe_load(manifest.read_text())
+        fmt = film.get('render', {}).get('primary', 'master')
+        path = manifest.parent / f'renders/{film["id"]}__{fmt}.receipt.json'
+        receipt = json.loads(path.read_text())
+        for field in ('master', 'poster'):
+            assets.add((path.parent.parent / receipt['outputs'][field]).relative_to(ROOT).as_posix())
+    def check_asset(rel):
+        url = urljoin(site + '/', rel)
+        body, error = fetch(url)
+        if error:
+            return error
+        if body != (ROOT / rel).read_bytes():
+            return f'{url} serves different asset bytes from this revision'
+        return None
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        failures.extend(error for error in pool.map(check_asset, sorted(assets)) if error)
+    return failures
+
+
 def check_once(site: str) -> list[str]:
     """Return every failed assertion for one attempt at a coherent release."""
     failures: list[str] = []
@@ -69,14 +100,18 @@ def check_once(site: str) -> list[str]:
         return ["sitemap.xml lists no routes"]
 
     bodies: dict[str, bytes] = {}
-    for url in urls:
-        body, error = fetch(url)
-        if error:
-            failures.append(error)
-        elif body is not None:
-            bodies[url] = body
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        for url, (body, error) in zip(urls, pool.map(fetch, urls)):
+            if error:
+                failures.append(error)
+            elif body is not None:
+                bodies[url] = body
     if len(bodies) == len(urls):
         print(f"ok    {len(urls)} sitemap routes served 200")
+    exact_failures = release_bytes(site, bodies)
+    failures.extend(exact_failures)
+    if not exact_failures:
+        print('ok    served pages, primary films, posters and claim metadata match this revision')
 
     local_census = (ROOT / "census.yaml").read_bytes()
     local_sha = hashlib.sha256(local_census).hexdigest()

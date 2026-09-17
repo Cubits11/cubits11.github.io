@@ -1,0 +1,87 @@
+{
+ "frozen": "2026-09-10",
+ "preregistered": false,
+ "preregistration_note": "E6 is NOT a preregistered experiment and must never be reported as one. It is a deterministic re-derivation of two artifacts that were already public when this directory was created, so its outcomes were visible before any parameter here was chosen. The primary quantities below are fixed entirely by numbers printed in the source artifacts and carry no discretionary choice; the secondary quantities carry one declared construction (a three-point discretisation of each marginal) whose effect on the headline is stated in RESULT.md. Nothing in this directory may be re-described as a prediction that held.",
+ "estimand": "Given the five per-item marginal quantiles of a belief survey and a model that maps a five-vector of beliefs to a 2030 economy, how much of the model's output is determined by the marginals alone, and how much by the coupling between them?",
+ "artifacts": [
+  {
+   "slot": "REPORT",
+   "title": "Economic Scenarios for Transformative AI",
+   "authors": "Anton Korinek, Charles I. Jones, Szymon Sacher, Tess Cotter, Peter McCrory",
+   "venue": "The Anthropic Institute, Working Paper No. 2026-02, September 2026",
+   "url": "https://www-cdn.anthropic.com/files/4zrzovbb/website/cf58f84d46a4a76bf5a5b039ac695fba6b80041c.pdf",
+   "retrieved": "2026-09-10",
+   "bytes": 656236,
+   "sha256": "9fe6667ec24b8a1dce3cde7c8ae5d5e6631bb95f68dae82dbd827cbfa2410327",
+   "license": "none declared on the artifact",
+   "commercial_reuse": "unknown",
+   "rights_note": "Not redistributed by this repository. Pinned by URL and digest; the runner fetches it or refuses. Quantities read out of it are numerals from published tables, cited to table and section.",
+   "redistributed_here": false
+  },
+  {
+   "slot": "KERNEL",
+   "title": "Econ Scenario Explorer v1.0 — shipped client-side model kernel",
+   "url": "https://www.anthropic.com/_next/static/chunks/0obtknnye5e24.js",
+   "page": "https://www.anthropic.com/institute/econ-scenarios",
+   "retrieved": "2026-09-10",
+   "bytes": 335012,
+   "sha256": "0a75763f2ca4479bd88b240a7264307802b2ea6829d8db0c8efb5f515b8920f6",
+   "turbopack_module_id": "303412",
+   "embedded_provenance": "# Written by scripts/sync-kernel.sh; do not edit. Read MODEL.md. | source: monorepo sandbox/sandbox/econ_research/scenario_explorer (origin/staging @ d113601e4438d59e052ed5b2361b517065023632, 2026-08-26) | explorer tree: df38414eea0e9d9a2452b30d916d8d1f98d7da74 | note: V0.97 (2026-08-23) | simulate.py: e696c76539ff | files: src/model_core.js src/calibration_data.js src/scenarios.js tests/fixtures/cross_impl_rsector.json src/quiz_mapping.js",
+   "license": "none declared on the artifact",
+   "commercial_reuse": "unknown",
+   "rights_note": "Not redistributed by this repository. The URL is a build-hashed asset path and WILL change on the next site deploy; the digest is what identifies these bytes. A third party reproducing E6 after a redeploy must obtain the pinned bytes from an archive, or re-pin against the then-current kernel and record that it is a different kernel. This limitation is stated in RESULT.md rather than worked around.",
+   "redistributed_here": false,
+   "url_stability": "ephemeral"
+  }
+ ],
+ "marginals": {
+  "provenance": "Table 2 of REPORT, 'The five parameters implied by the survey' — median [25th, 75th] of US adults, interpolated within answer bins per its Appendix B.",
+  "survey": "Morning Consult, 10,980 US adults, fielded August 11-23 2026",
+  "note": "REPORT Appendix B: the Table 2 medians 'use everyone who answered each item', taken 'item by item, so no single respondent need give all five median answers'. Table 4's joint uses the 3,259 respondents who answered all five. The marginals and the joint are therefore computed on different populations, by the authors' own statement.",
+  "parameters": {
+   "m2030": {"symbol": "m_2030", "q25": 0.20, "q50": 0.44, "q75": 0.59, "meaning": "share of eight tasks AI does as well as a professional by 2030, on a scale of knowledge work"},
+   "d2030": {"symbol": "d_2030", "q25": 0.22, "q50": 0.40, "q75": 0.61, "meaning": "of the tasks AI can do, share people actually use it for at work"},
+   "psi":   {"symbol": "psi",    "q25": 0.25, "q50": 0.47, "q75": 0.65, "meaning": "whether AI does the task alone or with a worker"},
+   "a2030": {"symbol": "a_2030", "q25": 0.09, "q50": 0.44, "q75": 1.02, "meaning": "time an AI-suited task takes with AI versus without, in logs"},
+   "mu":    {"symbol": "mu",     "q25": 0.025,"q50": 0.064,"q75": 0.111,"meaning": "cross-occupation search efficiency; three months = 0.17"}
+  }
+ },
+ "held_parameters": {
+  "provenance": "the note to Table 4 of REPORT, verbatim: 'All of the simulations hold the reinstatement ratio, the posting speed, the wage rigidity, and the elasticity of capital supply at the substantial change scenario's values (rho = 0.25, theta_H = 0.25, xi = 0.5, eps = 3).'",
+  "rho": 0.25, "theta_H": 0.25, "xi": 0.5, "eps": 3,
+  "note": "E6 holds exactly these four at exactly these values, so that every difference it reports is a difference in the five surveyed parameters or in their coupling, and not a difference in the hold-outs."
+ },
+ "published_comparators": {
+  "table3_2030": {
+   "modest":      {"gdp_pct_above_noAI": 1.6,  "unemp_all_pct": 3.9,  "unemp_cognitive_pct": 2.9,  "labor_share_pct": 59.4},
+   "substantial": {"gdp_pct_above_noAI": 8.3,  "unemp_all_pct": 4.6,  "unemp_cognitive_pct": 4.5,  "labor_share_pct": 56.1},
+   "extreme":     {"gdp_pct_above_noAI": 32.4, "unemp_all_pct": 11.9, "unemp_cognitive_pct": 17.9, "labor_share_pct": 45.2}
+  },
+  "table4_survey_joint": {
+   "basis": "median and quartiles of each outcome across the 3,259 respondents who answered all five items, survey weights",
+   "gdp_pct_above_noAI": {"q50": 8.6, "q25": 3, "q75": 19},
+   "unemp_all_pct": {"q50": 4.6, "q25": 4, "q75": 6},
+   "unemp_cognitive_pct": {"q50": 4.6, "q25": 3, "q75": 8},
+   "labor_share_pct": {"q50": 57.2, "q25": 55, "q75": 59}
+  },
+  "site_copy": {
+   "url": "https://www.anthropic.com/institute/econ-scenarios",
+   "retrieved": "2026-09-10",
+   "quote": "The typical respondent's answers imply outcomes close to the \"substantial change\" scenario: GDP is 10% higher by 2030 than it would be without AI, and the overall unemployment rate has risen to around 5%.",
+   "note": "Neither figure in this sentence is the pair Table 4 prints (8.6 and 4.6). E6 records which summaries of the same survey do reproduce 10 and around 5, and does not assert which one the sentence means."
+  }
+ },
+ "discretisation": {
+  "declared_discretion": true,
+  "scheme": "each marginal replaced by three atoms at its published q25, q50, q75 with weights 0.25, 0.50, 0.25",
+  "chosen_when": "after the outcomes were visible; declared here rather than presented as a prior choice",
+  "effect_on_headline": "the coupling range this yields is an INNER bound: a finer discretisation of the same marginals can only widen it, never narrow it. The headline claim — that the five marginals do not determine the answer — does not depend on the scheme; the specific endpoints do.",
+  "cells": 243
+ },
+ "gates": [
+  "the fetched KERNEL bytes must match the pinned sha256, or the runner exits 2 and records nothing",
+  "the extracted kernel must reproduce all twelve printed numbers of REPORT Table 3 to the printed precision, or the runner exits 1",
+  "GDP must be verified monotone in each of the five parameters before any comonotone quantile is reported, or the runner exits 1"
+ ]
+}

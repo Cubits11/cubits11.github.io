@@ -1,0 +1,39 @@
+name: evidence-boundary
+
+# This workflow belongs to the trusted base branch. NEVER check out, import,
+# install from, or execute the PR head under pull_request_target.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+permissions:
+  contents: read
+concurrency:
+  group: evidence-boundary-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  evidence-boundary:
+    name: Trusted evidence boundary
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install PyYAML==6.0.3
+      - name: Read candidate Git objects without checking them out
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          [[ "$PR_NUMBER" =~ ^[0-9]+$ ]] || exit 2
+          [[ "$CANDIDATE_SHA" =~ ^[0-9a-f]{40}$ ]] || exit 2
+          [[ "$BASE_SHA" =~ ^[0-9a-f]{40}$ ]] || exit 2
+          git fetch --no-tags origin "refs/pull/$PR_NUMBER/head"
+          test "$(git rev-parse FETCH_HEAD)" = "$CANDIDATE_SHA" || exit 2
+          python scripts/evidence_guard.py --base "$BASE_SHA" --candidate "$CANDIDATE_SHA"

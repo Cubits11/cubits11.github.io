@@ -113,4 +113,12 @@ belongs in any future prereg as a gate, not a hope.
 - The programme's least favourable fact is untouched: joint measurement changed
   second-guard selection by at most 2.4 points on every per-item matrix
   examined, with no regret interval excluding zero.
-- Not registered in `claims.yaml`. Registration is an owner action.
+- **Registered 2026-09-08 as `E3B-001`.** (This line replaced "Not registered in
+  `claims.yaml`; registration is an owner action" — the owner action was taken.)
+  The registration carries the failed prediction(s) above in the commitment
+  itself, not only in this file, and `scripts/verify_e3.py` re-derives every
+  registered number — including the bootstrap interval — from
+  `results/observations.jsonl` alone on every push. Nothing in the numbers,
+  the predictions, the thresholds or the verdicts above was changed by the
+  registration; editing any of them now fires the claim's own local-content
+  trigger.

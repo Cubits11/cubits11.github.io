@@ -63,6 +63,13 @@ def load_templates() -> dict[str, dict]:
         for req in ("name", "description", "title", "labels"):
             if req not in spec:
                 fail(f"{p.name}: missing {req}")
+        # GitHub lists an issue form only when its description is 3–200 characters.
+        # Both forms sat at ~300 from 2026-09-01 to 2026-09-17 and were silently
+        # unlisted, so every prefilled link opened a blank issue. Seen on the file
+        # page: "Description must be between 3 and 200 characters."
+        desc = str(spec.get("description", ""))
+        if not 3 <= len(desc) <= 200:
+            fail(f"{p.name}: description is {len(desc)} characters; GitHub unlists the form outside 3–200")
         out[p.name] = {"ids": set(ids), "options": options}
     return out
 
@@ -211,6 +218,29 @@ def check_try_page(templates: dict) -> None:
     ok(f"try/index.html: {len(links)} intake links name real templates and fields")
 
 
+# Every other surface that hands a stranger a prefilled issue link. Each link
+# must name a form GitHub lists and only fields that form has; a link that opens
+# a blank issue is not an ingress.
+PREFILL_SURFACES = ("README.md", "CONTRIBUTING.md", "distribution/DISPATCH.md",
+                    "missing-column/reproduce/index.html", "worldspace/index.html")
+
+
+def check_prefill_surfaces(templates: dict) -> None:
+    total = 0
+    for rel in PREFILL_SURFACES:
+        path = ROOT / rel
+        if not path.exists():
+            fail(f"{rel} missing")
+            continue
+        links = re.findall(r'https://github\.com/[^\s"\'<>)]*issues/new\?[^\s"\'<>)]*', path.read_text())
+        if not links:
+            fail(f"{rel}: no prefilled issue link found")
+        for link in links:
+            check_url(link.replace("&amp;", "&"), templates, rel)
+        total += len(links)
+    ok(f"{len(PREFILL_SURFACES)} further surfaces: {total} prefilled links name listed forms and real fields")
+
+
 def check_dispatch() -> None:
     path = ROOT / "distribution" / "DISPATCH.md"
     if not path.exists():
@@ -247,6 +277,7 @@ def main() -> int:
     check_launch_units(exp["ids"])
     check_dossiers()
     check_try_page(templates)
+    check_prefill_surfaces(templates)
     if failures:
         print(f"\n{len(failures)} failure(s)")
         return 1

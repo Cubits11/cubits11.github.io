@@ -1,0 +1,30 @@
+{
+  "recorded_on": "2026-09-10",
+  "campaign_status": "SUPERSEDED_FOR_LAUNCH",
+  "campaign": "distribution/CAMPAIGN-2026-09-10.md",
+  "replacement": "distribution/NEXT-POST.md",
+  "records": [
+    {
+      "claim_id": "E6-001",
+      "anchor": "e6-marginals",
+      "disposition": "REJECT",
+      "transition_type": "CORRECT",
+      "status": "contradicted",
+      "title": "E6: the marginals were not held fixed",
+      "summary": "The permutation routine moves unequal-mass atoms. Only 16 of 1,296 constructions preserve the specified marginal weights. The advertised 2.12–18.07 fixed-marginal range is unsupported and is rejected. No replacement range is asserted.",
+      "basis": "Unanticipated violation of a premise; not a claim that the old numerical replay falsifier fired.",
+      "artifact": "experiments/e6/CORRECTION-2026-09-10.md"
+    },
+    {
+      "claim_id": "E7B-001",
+      "anchor": "e7b-pools",
+      "disposition": "REJECT",
+      "transition_type": "CORRECT",
+      "status": "contradicted",
+      "title": "E7B: the pools differ from the preregistration",
+      "summary": "Calibration uses the all-nine shared pool instead of each judge’s own pool, changing one threshold from 0.95 to 1.00. Pair evaluation also uses the global intersection. The preregistration-conforming confirmation claim is rejected; the original HELD labels are historical outputs.",
+      "basis": "The existing operating-point-rule mismatch falsifier is met; its fixed consequence is REJECT.",
+      "artifact": "experiments/e7b/CORRECTION-2026-09-10.md"
+    }
+  ]
+}

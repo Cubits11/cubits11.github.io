@@ -1,0 +1,231 @@
+{
+  "claims": [
+    "E3-001",
+    "E3B-001"
+  ],
+  "facts": {
+    "e3": {
+      "experiment": "E3",
+      "stratum": "harmful",
+      "n": 400,
+      "miss_G1": 393,
+      "miss_G2": 385,
+      "both_miss_observed": 379,
+      "band_counts": [
+        378,
+        385
+      ],
+      "band_slots": 8,
+      "plug_in_count": {
+        "exact": "30261/80",
+        "float": 378.2625
+      },
+      "structural_zero": false,
+      "sources": {
+        "rows": {
+          "path": "experiments/e3/results/observations.jsonl",
+          "sha256": "952416606e0caa7d2f58c45322907be6a9c35a0d651910947688977cf99b22c0",
+          "commit": "031dc66871dab39548ae83ed064bd8e19ff43c5c"
+        },
+        "result": {
+          "path": "experiments/e3/results/e3_result.json",
+          "sha256": "84e21e59665b8626d41a73325563ec022251d79187c5b8d91e25f7b5411b2717",
+          "commit": "3ca78ec080044290554ae984ed39e36542ca0ff1"
+        }
+      }
+    },
+    "e3b": {
+      "experiment": "E3B",
+      "stratum": "harmful",
+      "n": 400,
+      "miss_G1": 0,
+      "miss_G2": 159,
+      "both_miss_observed": 0,
+      "band_counts": [
+        0,
+        0
+      ],
+      "band_slots": 1,
+      "plug_in_count": {
+        "exact": "0",
+        "float": 0.0
+      },
+      "structural_zero": true,
+      "sources": {
+        "rows": {
+          "path": "experiments/e3b/results/observations.jsonl",
+          "sha256": "00e75bf47f68ec2487532d595c74362eb85d0e683f3a0d4f294ff2ae429e4631",
+          "commit": "058d6f635ce32b0a491482112b25d2e5e5c55ce9"
+        },
+        "result": {
+          "path": "experiments/e3b/results/e3_result.json",
+          "sha256": "a9685abb1ca63193325ddf319bb5d87cd0c395daf0e7614d571caefbefbfde87",
+          "commit": "058d6f635ce32b0a491482112b25d2e5e5c55ce9"
+        }
+      }
+    }
+  },
+  "parameters": {
+    "resolution": [
+      512,
+      256
+    ],
+    "samples": 48,
+    "frame": 0,
+    "ortho_scale": 10.0,
+    "camera_distance": 6,
+    "slot_pitch": 1.0,
+    "row_gap": 1.6,
+    "observed_radius": 0.32,
+    "ring_major": 0.32,
+    "ring_minor": 0.05,
+    "tick_radius": 0.03,
+    "tick_depth": 0.9,
+    "rail_radius": 0.012,
+    "segments": 32,
+    "rings": 16
+  },
+  "colours": {
+    "observed": [
+      0.3,
+      0.8,
+      0.65
+    ],
+    "feasible": [
+      0.12,
+      0.25,
+      0.28
+    ],
+    "plug_in": [
+      0.95,
+      0.65,
+      0.15
+    ],
+    "rail": [
+      0.1,
+      0.2,
+      0.18
+    ]
+  },
+  "build_script_sha256": "9ef05cdef8904a9c5880d3fdd944366c34a263dec7b10fd9f8cb8b93f1a59324",
+  "render": {
+    "kind": "blender_render_receipt",
+    "schema": 0,
+    "blend": {
+      "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/frechet_slots.blend",
+      "sha256": "eb9b9ad082b52b0fb971ddb8b01003a9f40904b7aab93d3a4cb8f8ce94680ed6"
+    },
+    "blender": {
+      "version_line": "Blender 5.1.2",
+      "build_date": "2026-05-19",
+      "build_time": "01:30:33",
+      "build_commit_date": "2026-05-18",
+      "build_commit_time": "13:43",
+      "build_hash": "ec6e62d40fa9"
+    },
+    "settings": {
+      "engine": "BLENDER_EEVEE",
+      "res_x": 512,
+      "res_y": 256,
+      "res_percentage": 100,
+      "format": "PNG",
+      "color_depth": "8",
+      "color_mode": "RGBA",
+      "view_transform": "Standard",
+      "look": "None",
+      "frame": 0,
+      "camera": "Camera_slots",
+      "camera_type": "ORTHO",
+      "camera_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          3.5
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          6.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ortho_scale": 10.0,
+      "clip_start": 0.10000000149011612,
+      "clip_end": 1000.0,
+      "sampling": {
+        "taa_render_samples": 48,
+        "use_taa_reprojection": true,
+        "use_raytracing": false,
+        "use_shadows": false
+      },
+      "objects": [
+        "Camera_slots",
+        "e3_feasible_378",
+        "e3_feasible_380",
+        "e3_feasible_381",
+        "e3_feasible_382",
+        "e3_feasible_383",
+        "e3_feasible_384",
+        "e3_feasible_385",
+        "e3_observed_379",
+        "e3_plug_in",
+        "e3_rail",
+        "e3b_observed_0",
+        "e3b_plug_in"
+      ],
+      "parameter_locator": "films/lib/blender/build_frechet_slots.py:PARAMETERS",
+      "claims": [
+        "E3-001",
+        "E3B-001"
+      ]
+    },
+    "renders": [
+      {
+        "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/frechet-slots-renders/first/frechet-slots.png",
+        "idat_sha256": "a2d4d6f7fe6954002512d0afc3013cff40739e8df8fac165a210415b4f04e3fa",
+        "file_sha256": "2871580be87b12abaccde1af68862c5d91664a74a10dafbc0050850ace887104"
+      },
+      {
+        "path": "/Users/pranavbhave/Documents/GitHub/cubits11.github.io/films/lib/blender/frechet-slots-renders/repeat/frechet-slots.png",
+        "idat_sha256": "a2d4d6f7fe6954002512d0afc3013cff40739e8df8fac165a210415b4f04e3fa",
+        "file_sha256": "eca2efb9fb3428619681fdc8883129a2fccd985d1572dbd797be9d5f0b374f87"
+      }
+    ],
+    "determinism": {
+      "identical_pixels": true,
+      "differing_chunks": [
+        "tEXt"
+      ],
+      "expected_differing": [
+        "tEXt"
+      ],
+      "unexpected": [],
+      "idat_sha256": "a2d4d6f7fe6954002512d0afc3013cff40739e8df8fac165a210415b4f04e3fa"
+    },
+    "non_claims": [
+      "Determinism verified on one host, one build, one scene, CPU/EEVEE only.",
+      "No claim holds across Blender versions, machines, sample counts, or GPU.",
+      "A matching IDAT means the image is identical. It means nothing about the scene's correctness."
+    ]
+  },
+  "non_claims": [
+    "Shows which feasible integer each run landed on, not why; it is not evidence of dependence, and the amber tick is the independence plug-in, a model's point, not an observation.",
+    "One pool and one frozen operating point per run, two research classifiers under 1B parameters; nothing about E2, its guards, its pools, or any deployed guardrail.",
+    "E3B's single slot is a structural zero: G1 missed no injection, so both-miss was fixed at 0 before any joint count; it is not evidence of independence or of a good guard.",
+    "Slot positions are exact integer counts recounted from committed rows; the image carries no numerals, and every number is in receipt.json, pinned to the commit that last touched its source.",
+    "One host and one Blender build, EEVEE on CPU; no cross-version, GPU, physical-device, independent-review or learning claim."
+  ]
+}

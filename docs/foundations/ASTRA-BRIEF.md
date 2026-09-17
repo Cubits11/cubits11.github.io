@@ -65,7 +65,10 @@ most** — it turns §2's rubric into a verifier.
 
 - `films/data/facts.json` is stale against `claims.yaml`; the gate says regenerate **and re-inspect every film**. That re-inspection is human. Do not regenerate and declare it done.
 - `claims_history.yaml` entry 38 fails the append-only check in the working tree. Do not commit around it.
-- MC-002 and MC-005 disagree on the BELLS licence (`none declared upstream` vs `MIT`).
+- ~~MC-002 and MC-005 disagree on the BELLS licence~~ — retracted claim, closed below.
+  **Closed 2026-09-06:** MC-005 was retracted for this defect. MC-002's
+  `none declared upstream` / `facts_only` is the register's only statement about
+  that file, and it records the absence of a licence rather than inferring one.
 - **K7 binds:** no second device may be audited until `distribution/QUEUE.md` item 5 produces one real viewer response.
 
 ### Non-claims for anything built from this brief

@@ -42,31 +42,42 @@ Registers nothing. Edits no registry. Writes exactly one file: ARTIFACTS/<date>-
 An empty cell ships. A forced cell is the failure this protocol exists to prevent.
 ```
 
-### First cut to run — it is already blocking the deploy
+### First cut to run — CLOSED 2026-09-06
 
-`MC-005 removal`. Diagnosed 2026-09-05, not acted on, because the fix requires a
-judgment only the owner can declare.
+`MC-005 removal` (the claim is now retracted). Diagnosed 2026-09-05, decided
+2026-09-06, and the kernel is
+green: `scripts/claims_history.py verify` passes with the prefix rule satisfied.
 
-`scripts/claims_history.py verify` fails: `entries[38] differs from the prior
-accepted revision`. Cause, from `prior_reference()` — the kernel compares the
-working tree against `HEAD^1`, and at that revision `entries[38]` is MC-005's
-registration (keys `commitment`, `digest_of_commitment`). In the working tree
-that slot now holds an MC-002 CLARIFY transition. **MC-005's history entry was
-replaced, not appended after.**
+What was wrong: `entries[38]` — the registration of the now-retracted MC-005 —
+had been replaced rather
+than appended after, so the working tree's history was not a prefix of the
+accepted one. What was done: entry 38 was kept, a **RETRACT** for MC-005 was
+appended as entry 39 with `direction_basis: DECLARED_HUMAN_JUDGMENT`, and the
+MC-002 CLARIFY followed it. The retraction reason is on the record and it is
+narrow: the registered support block declared `license: MIT` for a BELLS file
+whose upstream declares no licence, while MC-002 binds the same file and records
+`none declared upstream`. Two records disagreeing about one file's licence is a
+defect in the register, not a judgement about the result — and the reason says
+so explicitly, so the W1 selection-regret computation is untouched by the
+retraction.
 
-The kernel already names its own remedy elsewhere in the same file:
-`"protected state exists but the claim is gone — declare a RETRACT"`. So the
-append-only fix is to keep entry 38, append a RETRACT for MC-005, and append the
-MC-002 CLARIFY after it — 40 entries, prefix rule satisfied.
+**Where that computation now lives, and what it may be called.** The numbers are
+real, executed 2026-09-02, and reproducible: `experiments/e2/results/retrospective/`
+holds the run report, the three matrices, and `independent_t1.py`, which
+recomputes T1 from the raw released rows outside the analyzer's path. They are
+**unregistered**. No claim id carries them, no CI check re-asserts them, and no
+surface in this repository may attribute them to a registered claim.
+`scripts/verify_retracted.py` enforces exactly that: any line naming a retracted
+id must say on the same line that it is retracted, and the gate runs in the
+verification manifest.
 
-**Why an agent must not write it.** The entry's own field is
-`direction_basis: DECLARED_HUMAN_JUDGMENT`. A retraction reason is a judgment
-about a claim, and the schema says who declares it. There is also a live
-candidate reason on record: the OBS CUT found MC-005 recording `license: MIT`
-for a file whose upstream declares no licence, which MC-002 records correctly as
-`none declared upstream`. Whether that is *the* reason is the owner's to say.
-
-Run the cut on it. Do not write the entry.
+Re-registering the same content is not available as a shortcut. The kernel
+refuses a second registration for a claim that already has a protected state
+(`claims_history.py:333`), and registering it under a fresh id would reverse a
+recorded owner judgement without a recorded reason. If the owner wants these
+numbers registered, that is a new decision with its own entry — and it needs the
+licence block to match MC-002 and a CI re-assertion script before it is worth
+making.
 
 ---
 

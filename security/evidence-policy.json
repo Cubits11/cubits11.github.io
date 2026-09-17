@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "adopted_on": "2026-09-13",
+  "scope": "Already observed experiment inputs, estimators, outputs, and dated correction records. Corrections remain append-only new artifacts.",
+  "immutable": {
+    "corrections/records/2026-09-10-preserved-inputs.json": "b20ad976edcfcccf2a8fa7fa8db609a3b735bb5a2ab1a75c459395fe437a100d",
+    "corrections/records/2026-09-10.json": "a2cca203fd92ffe17ec09d841e90154cfd9cf966f4aeb1b1a62ad0c223cb2cc0",
+    "experiments/e3/PREREG.md": "b08f6c0b9eae0bfda4adf198018275324c9af090a1d77554202dcf3505224732",
+    "experiments/e3/freeze/FREEZE.md": "a98c1943ce988bef989a106ba842b16a44791e1362733b1b1a9aba835e6f869d",
+    "experiments/e3/freeze/LICENSE-OUTPUTS.md": "27d33ac62d2008f2e493a8b24fe50977e1cf5cddb175fdaecdcd48fa5e302508",
+    "experiments/e3/freeze/items_benign_calibration.csv": "7f15e497c0c4545363c3a9242e83a5d369a71cf773818b36e2bd011b69cc1c08",
+    "experiments/e3/freeze/items_benign_evaluation.csv": "4b534f7a1b11a2eea5e1ba70f9df51ecc2ae2e2df01924ca62783c4e7583ccc8",
+    "experiments/e3/freeze/items_harmful.csv": "0601969b26de75d39c31f841fd5399feb07551453d353206cda12855747110fc",
+    "experiments/e3/freeze/or-bench-80k.csv": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6",
+    "experiments/e3/freeze/or-bench-toxic.csv": "3be45901faae3b4b2b51bf7f8a2784c1650a1cc8c631dbc8b171d5312d4e0057",
+    "experiments/e3/freeze/sources.json": "2a10f8310e47d0f7de9371adc0f14fe988c612170fe0836ac142cb25422547ed",
+    "experiments/e3/results/e3_result.json": "84e21e59665b8626d41a73325563ec022251d79187c5b8d91e25f7b5411b2717",
+    "experiments/e3/results/items_benign_calibration.probs.json": "a6192f6c9c8fd7d1b523ee21753f4c8b24260cab71bc04b57ba08711f5f9bbd9",
+    "experiments/e3/results/items_benign_evaluation.probs.json": "1609e85eff3f04d22875da2e6a321955b4e941a0b13850cc8dc46c9b7fbe9ad7",
+    "experiments/e3/results/items_harmful.probs.json": "5101edb9b0b9dcefb7121543555c056e4a810e24b097a0c2f5adb3ab298a42e8",
+    "experiments/e3/results/observations.jsonl": "952416606e0caa7d2f58c45322907be6a9c35a0d651910947688977cf99b22c0",
+    "experiments/e3/run/analyze.py": "e7d871b45bfc1d90167895d205e8becacbe303068570b80ce32da336a3098261",
+    "experiments/e3/run/calibrate.py": "9d53d2fe1b812585df50d9c1ebfc951dcc9b8f4a1a1c3bd60941e1f9c7f65071",
+    "experiments/e3/run/draw.py": "4c6b8d509637579559bfc11776df7a672ea3a2c55caab73dbe62239867f76883",
+    "experiments/e3/run/emit_rows.py": "d2229e40b79922929402ed7df3ee4c23bcc62df7a899579bae2d9d2f0c77ace2",
+    "experiments/e3/run/score.py": "c64c9b4cfd762345d1e438c454db260c28999dd8a70ab31f2b9b3d7e7e3a792a",
+    "experiments/e3b/PREREG.md": "c82f51baf93adec55f71fa2c92998c8c9167d3f3e52d00526341051455e291b6",
+    "experiments/e3b/freeze/gandalf.csv": "7a9f5634480d98cd4032bd26f900298e896ce079774b76dbde8f679ef3b9c13f",
+    "experiments/e3b/freeze/items_benign_calibration.csv": "023729c1f29522d772d7c58e36992e8773f82f1969d00f0767c4d9f8929c78ae",
+    "experiments/e3b/freeze/items_benign_evaluation.csv": "87ca18d0006794a3db1fd9bbae86b2374269ce08bbb8ff6883885628ad856ab5",
+    "experiments/e3b/freeze/items_harmful.csv": "c69daaf76464dd3e002212803e7ea945d15d202046ee4829b22aeb4f62ae565e",
+    "experiments/e3b/freeze/or-bench-80k.csv": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6",
+    "experiments/e3b/freeze/sources.json": "f820900e62560b6b73c8b097727e82a8659b5a2dfba967044a8cf727a0d8a18c",
+    "experiments/e3b/results/e3_result.json": "a9685abb1ca63193325ddf319bb5d87cd0c395daf0e7614d571caefbefbfde87",
+    "experiments/e3b/results/items_benign_calibration.probs.json": "bf6083efece86144a34953bd4d93858a280bde38a78c2413fc2eea026246dfe4",
+    "experiments/e3b/results/items_benign_evaluation.probs.json": "0d0df8d5453fdade796f8530de74ead4b1c2cd14f30eee2bb6ea539a2cdd4ebe",
+    "experiments/e3b/results/items_harmful.probs.json": "d2dfb0204815c54fc41713f761aec29b563c2cc5b194bacbbc81259617423e34",
+    "experiments/e3b/results/observations.jsonl": "00e75bf47f68ec2487532d595c74362eb85d0e683f3a0d4f294ff2ae429e4631",
+    "experiments/e3b/run/analyze.py": "daea86b99638652426163eee4ef9a396c5e55af5e313f2844c52423921d6f2fb",
+    "experiments/e3b/run/calibrate.py": "5c72f5225f874226267b6fc3d47893df5127c9dc219792fbaa03d431672e7670",
+    "experiments/e3b/run/draw.py": "7858f2ece7df4794b1aad91f2a173113a135efefd6addb2847c0e27461dffaa0",
+    "experiments/e3b/run/emit_rows.py": "a8450b6f979f2e4b451f4635154697fbb1429e347ff1e7a8e19cec40cc457dc6",
+    "experiments/e3b/run/score.py": "d8287b8ffc4e55cb039406345f3381addc0c5f9ddfe015bd34feca8ac59f4dd0",
+    "experiments/e6/CORRECTION-2026-09-10.md": "710fe3ff32dae7769407e9c0bd4b9905e26c1ae7384246f7da9f6881bd4269f9",
+    "experiments/e6/freeze/cache/.gitignore": "d625b65045e826b5e8ace4fa325f603c78640324a4d3caf4e7ad3f1e7bf049b6",
+    "experiments/e6/freeze/cache/README.md": "7021bdfd00c6a60e20804abae15c8e812399cefecb6eece6622c736c2509137e",
+    "experiments/e6/freeze/sources.json": "ad4568cb1df854c2a7b5d892edb37206ae5a075968fe171c73b715f0c90f3236",
+    "experiments/e6/results/e6_result.json": "aacaea5be95cbc6567c24835c7a93d2c0fbe97342f43bf22b71ed7af6e6ce413",
+    "experiments/e6/results/observations.jsonl": "bfa64db79b174a68d80f071314daee29efa3c54060c6809e8d55dba7dc2b7a83",
+    "experiments/e6/run/measure.js": "65f6babbea4fb81b55eaff1c434c8afed8ea4510d8b780e12a69c7279eb781b6",
+    "experiments/e7/PREREG.md": "7cd86f323acc1133cf87051feb5158bc0b287017542eeff20a9676bc26f23f42",
+    "experiments/e7/freeze/cache/_inj_goals.json": "a4893cd63cb031f8bd7b8e41300bf4812046894a9b9068bc08bb669eca6f0eee",
+    "experiments/e7/freeze/cache/frontier_claude-opus-4-5_bench.json": "f3922edd67742874b4b30d8b803f2e657beac766cb75000c76513db87b226226",
+    "experiments/e7/freeze/cache/frontier_claude-sonnet-4-5_bench.json": "76920d99b765b296dada103449eab81c914ca84f4016aac3d84781baae450c28",
+    "experiments/e7/freeze/cache/frontier_deepseek-v3.2_bench.json": "f86c69dbd41b5223443884080953d91382cf12c38e1f8fd8d355b766d66a6262",
+    "experiments/e7/freeze/cache/frontier_glm-5_bench.json": "8db3ab343f09d0a35a82d3315d30837fbe2cc73440a7fadc5877f4e87c6f905e",
+    "experiments/e7/freeze/cache/frontier_kimi-k2.5_bench.json": "bd363ff1336518604e245a832f3364cc9bcda36788729ee9d30fc2bca64b1c5a",
+    "experiments/e7/freeze/cache/frontier_mistral-large-3_bench.json": "e37ea7e197f1ae33d4d03a81f7039c506d29f167765bdd4a7e3cdad4b20d4b6e",
+    "experiments/e7/freeze/cache/frontier_nova-pro_bench.json": "3a5a363d462a0b6056366c515f503ac9c00dee09e041a7576dfb37581e52b4b9",
+    "experiments/e7/results/e7_result.json": "7444f34fdecd82608c1873aa5e4e1327617c909471b2a5796c759d5bf4efa033",
+    "experiments/e7/results/observations.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/e7/run/measure.py": "8edd976f540c0a4000af7817c4f8f55ff795d4cc7068c1134f74ed0d6e62cf87",
+    "experiments/e7b/CORRECTION-2026-09-10.md": "61c3c978bd57a821a787e96bd64afb865acc97ecb19503e69353feb55bb62c04",
+    "experiments/e7b/PREREG.md": "9d97f550daa0199e5bce72358761595e5da5ee976e3edf450ad4592559076ffc",
+    "experiments/e7b/freeze/cache/_inj_goals.json": "a4893cd63cb031f8bd7b8e41300bf4812046894a9b9068bc08bb669eca6f0eee",
+    "experiments/e7b/freeze/cache/groq70b_bench.json": "d3aa3f75b046c1d8ac5dfc44a186f784be749c366ab9801384838da7662b912c",
+    "experiments/e7b/freeze/cache/mistral_bench.json": "efd2fae20d596bf2feacced773915c822165e77beb49711c93ba731fa628594e",
+    "experiments/e7b/freeze/cache/nim_google_gemma-4-31b-it_bench.json": "19d5d32a722476cf147482cb74e4b0bdd7c1cdc7b671441facdac641729fd0db",
+    "experiments/e7b/freeze/cache/nim_minimaxai_minimax-m3_bench.json": "0579979df600219c934928b26f77b6220e1ffa81f2e1c37809e992120a38af0e",
+    "experiments/e7b/freeze/cache/nim_mistralai_mistral-large-3-675b-instruct-2512_bench.json": "dc76811e2466f20a1b7ceb5f0a9953b21333e0379497bc6998be2a3b6087a521",
+    "experiments/e7b/freeze/cache/nim_mistralai_mistral-medium-3_5-128b_bench.json": "82775fc06b097e22cd659b4134dbde83ffb56f7a72cd0669c57d79972137701b",
+    "experiments/e7b/freeze/cache/nim_nvidia_nemotron-3-super-120b-a12b_bench.json": "2a005c919eed82f5a7eef282391fee98b14a9f526facb775689bfc0ddb4b80b9",
+    "experiments/e7b/freeze/cache/nim_qwen_qwen3_5-122b-a10b_bench.json": "d89fd5f9e2c3ec6e55e69704892b95c6d79054b8c11b006626a813cbd2276741",
+    "experiments/e7b/freeze/cache/nim_stepfun-ai_step-3_7-flash_bench.json": "b383851f2942c1a0e001c6c02f95383e9e3587e551188f38e92da97d9b3df2b9",
+    "experiments/e7b/results/e7_result.json": "ab6b7287caa3fa155bc2ff85fe587a1779fab404b6086c80294ba8334b9c1869",
+    "experiments/e7b/results/observations.jsonl": "114c58818aadc95c09bec1a84f13b26004596315b26f56f9fdf53ddab07da061",
+    "experiments/e7b/run/measure.py": "d47078392678aaf5c9430eaa8d9233e44cd90c6020d2ae0fb868f7ae2d354116",
+    "scripts/verify_e6.py": "0b4dc002d2b18f83d6e51cb1c586450c99257dcb22aebd0fcf8ee8296eed4854"
+  },
+  "trust_root": [
+    "security/evidence-policy.json",
+    "scripts/evidence_guard.py",
+    ".github/workflows/evidence-boundary.yml",
+    ".github/workflows/verify.yml",
+    ".github/CODEOWNERS",
+    "scripts/verification_manifest.py"
+  ],
+  "append_only": [
+    {
+      "path": "claims_history.yaml",
+      "format": "yaml",
+      "field": "entries",
+      "fixed_fields": [
+        "genesis"
+      ]
+    },
+    {
+      "path": "metrics/repo_state.jsonl",
+      "format": "jsonl"
+    },
+    {
+      "path": "distribution/traction/metrics.json",
+      "format": "json"
+    },
+    {
+      "path": "distribution/traction/approvals.json",
+      "format": "json"
+    },
+    {
+      "path": "distribution/traction/publications.json",
+      "format": "json"
+    },
+    {
+      "path": "distribution/traction/draft-history.json",
+      "format": "json"
+    }
+  ],
+  "workflow_paths": [
+    ".github/workflows/evidence-boundary.yml",
+    ".github/workflows/verify.yml"
+  ]
+}

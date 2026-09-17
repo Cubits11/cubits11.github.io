@@ -1,0 +1,91 @@
+{
+  "_generated_by": "scripts/ledger_snapshot.py",
+  "_source": ".claude/skills/evidence-ledger/ledger.py",
+  "_note": "Counts only. Blocker ages are excluded on purpose: they change with the calendar and would make this gate fire on days nothing happened. Run the ledger itself for ages.",
+  "as_of": "2026-09-17",
+  "claims": {
+    "total": 21,
+    "own_measurement": 4,
+    "executed_output": 10,
+    "by_origin": {
+      "own-artifact": 12,
+      "own-measurement": 4,
+      "third-party-artifact": 4,
+      "unsupported": 1
+    }
+  },
+  "observations": {
+    "rows": 5058,
+    "files": [
+      {
+        "file": "experiments/e3/results/observations.jsonl",
+        "rows": 2400
+      },
+      {
+        "file": "experiments/e3b/results/observations.jsonl",
+        "rows": 2400
+      },
+      {
+        "file": "experiments/e6/results/observations.jsonl",
+        "rows": 243
+      },
+      {
+        "file": "experiments/e7/results/observations.jsonl",
+        "rows": 0
+      },
+      {
+        "file": "experiments/e7b/results/observations.jsonl",
+        "rows": 15
+      }
+    ]
+  },
+  "blocking": {
+    "markers": 21,
+    "open": 14,
+    "cleared": 3,
+    "named": 4
+  },
+  "scaffolding": [
+    {
+      "experiment": "e2",
+      "governing_documents": 8,
+      "observation_rows": 0
+    },
+    {
+      "experiment": "e3",
+      "governing_documents": 6,
+      "observation_rows": 2400
+    },
+    {
+      "experiment": "e3b",
+      "governing_documents": 2,
+      "observation_rows": 2400
+    },
+    {
+      "experiment": "e6",
+      "governing_documents": 3,
+      "observation_rows": 243
+    },
+    {
+      "experiment": "e7",
+      "governing_documents": 3,
+      "observation_rows": 0
+    },
+    {
+      "experiment": "e7b",
+      "governing_documents": 3,
+      "observation_rows": 15
+    },
+    {
+      "experiment": "e8",
+      "governing_documents": 0,
+      "observation_rows": 0
+    }
+  ],
+  "outcomes": {
+    "qualified_total": 0,
+    "categories": 5,
+    "technical_interactions": 3,
+    "stop_threshold": 12
+  }
+}

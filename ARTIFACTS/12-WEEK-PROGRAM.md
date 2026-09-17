@@ -18,12 +18,22 @@ the second-guard selection by at most 2.4 points, and in the largest
 end-to-end measurement the stack was statistically indistinguishable from
 its single strongest member.**
 
+> **Registration status, 2026-09-08.** This fact is **UNREGISTERED**. The W1
+> artifact is committed at `experiments/e2/results/retrospective/` — run report,
+> three matrices, and `independent_t1.py`, which recomputes T1 from the raw
+> released rows outside the analyzer's path. No claim id carries these numbers
+> and no CI check re-asserts them: the claim that used to (retracted 2026-09-06)
+> was withdrawn over a licence defect in its support block, and the retraction
+> reason records that the computation itself is untouched. Every surface that
+> speaks these numbers must say "computed 2026-09-02, unregistered" in the same
+> breath; `scripts/verify_retracted.py` gates the attribution.
+
 Three sources, all VERIFIED this run:
 
 1. **BELLS 2025 released subset** (`non_adversarial_prompts.csv @ 507566c5`,
    sha256 `791dd4b0…`, 170 rows, 11 verdict columns). Computed 2026-09-02 on
-   the hash-verified file (scratchpad script; to be committed as the W1
-   artifact), harmful stratum n=82, native points:
+   the hash-verified file — the W1 artifact is now committed at
+   `experiments/e2/results/retrospective/` — harmful stratum n=82, native points:
    - Five specialized supervisors: for **0 of 5** incumbents does the
      partner maximizing measured union catch differ in union from the
      partner chosen by marginal rank. Regret 0 items.

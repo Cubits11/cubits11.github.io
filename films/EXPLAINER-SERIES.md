@@ -1,7 +1,16 @@
 # The Explainer Series — ten episodes
 
 **STATUS: DRAFT SCRIPTS. Nothing recorded, nothing uploaded, nothing scheduled.**
-Written 2026-09-05 on branch `claude/mc-005-selection-regret`. This file
+Written 2026-09-05; **reconciled against the record 2026-09-08** after E3 and
+E3B registered, MC-005 was retracted, and `exclusive_cells` was committed.
+Episode 10 was rewritten in full because its central sentence had gone false.
+
+**Standing rule for this deck.** Any counter this deck speaks — claims, rows,
+qualified outcomes, open blockers — is read from `metrics/ledger_snapshot.json`
+and quoted with that file's `as_of` date, never typed from memory.
+`scripts/ledger_snapshot.py --check` fails when the repository moves and the
+snapshot does not, which is the gate that would have caught Episode 10 three
+days earlier. Re-read it before any take. This file
 registers no claim, edits no registry, changes no generated page, and starts no
 campaign. Every numeral below carries a locator; two are flagged as
 **UNVERIFIED** and are barred from recording until checked.
@@ -114,13 +123,14 @@ Both must exit 0. Additionally, three per-episode blocks:
 
 | # | Blocker | Affects | State on 2026-09-05 |
 |---|---|---|---|
-| B1 | `exclusive_cells` is an **uncommitted working-tree addition** to MC-002. The 32-pattern table has no committed registry binding yet. | **Ep 2, Ep 4** | Open. I recomputed all 8 occupied patterns independently from the hash-verified released file and they agree exactly; the *fact* is solid, the *binding* is not. Commit and regenerate before filming. |
-| B2 | MC-002 records the BELLS file's licence as `none declared upstream`; MC-005 at HEAD records `license: MIT` for the same file. `ARTIFACTS/2026-09-05-FABLE-5.1-OBS-CUT.md` confirms the upstream repository declares no licence. | **Ep 7** | Open, and it is a registry inconsistency, not a filming detail. Do not record Ep 7 until one of the two records changes. |
-| B3 | The all-miss category split (Ep 2) and the LLM Guard file-B count (Ep 8) are computed in-session, not registered. | **Ep 2, Ep 8** | Ep 2's split is reproducible from the released file today. Ep 8's requires a count on upstream file `d6ebd0e5` that **has not been taken** — marked UNVERIFIED in place. |
-| B4 | `scripts/verification_manifest.py` **does not exit 0 on this working tree.** The claim-history kernel reports `entries[38] differs from the prior accepted revision — accepted history is append-only`, from the uncommitted `claims_history.yaml` change that accompanies B1. | **all ten** | Open as of 2026-09-05. This is the owner's in-progress edit, not something this deck touched, but the pre-flight rule is unconditional: nothing is recorded while the manifest fails. An accepted transition being rewritten rather than appended is also the exact shape the registry treats as serious — resolve it as a registry question first, not as a filming blocker. |
+| B1 | `exclusive_cells` had no committed registry binding. | **Ep 2, Ep 4** | **CLOSED 2026-09-06.** The 32-cell block is committed in MC-002's `expected`, declared by a CLARIFY transition in `claims_history.yaml`, re-asserted against the hash-verified file by `scripts/reanalyze_bells_subset.py` in CI, and required by `scripts/generate_missing_column.py` and `scripts/verify_figures.py`. |
+| B2 | Two registry records disagreed about the BELLS file's licence. | **Ep 7** | **CLOSED 2026-09-06.** MC-005 was retracted for exactly this defect; MC-002's `none declared upstream` with `commercial_reuse: facts_only` is the register's only statement about that file, and it records the absence of a licence rather than inferring one from silence. Ep 7's own anchors changed as a result — see Ep 7. |
+| B3 | The all-miss category split (Ep 2) and the LLM Guard file-B count (Ep 8) are computed in-session, not registered. | **Ep 2, Ep 8** | **Still open, and narrower than it was.** Ep 2's split is reproducible from the released file today. Ep 8's requires a count on upstream file `d6ebd0e5` that **has not been taken** — marked UNVERIFIED in place, and barred from recording until it is. |
+| B4 | The claim-history kernel reported `entries[38] differs from the prior accepted revision`. | **all ten** | **CLOSED 2026-09-06.** Entry 38 was kept, a RETRACT for MC-005 appended after it, and the MC-002 CLARIFY appended after that. `scripts/claims_history.py verify` passes: 44 entries, prefix rule satisfied, 19 live commitments equal to the chain tip. |
 
 Every numeral spoken on camera must resolve from `films/data/facts.json`, from
-`claims.yaml`, or from a command shown running on screen. If a spoken number
+`claims.yaml`, from `metrics/ledger_snapshot.json` with its date spoken aloud, or
+from a command shown running on screen. If a spoken number
 disagrees with the render, redo the take. No exceptions, including for a number
 you are certain about.
 
@@ -372,7 +382,7 @@ LangKit, NeMo, LLM Guard, where **1 means missed**:
 | union / all-miss | 73 / 9 (11.0%) | MC-002 `expected.union_detection`, `all_miss` |
 | product of miss rates | 3.5% | MC-002 proposition |
 | ratio, recomputed to product | ≈3.1× | MC-002 proposition |
-| the eight patterns | as tabled | MC-002 `expected.exclusive_cells` — **UNCOMMITTED (B1)**. Independently recomputed from the hash-verified file this session; the eight counts sum to 82 and each filter's row-sum equals `82 − catches`. |
+| the eight patterns | as tabled | MC-002 `expected.exclusive_cells` — **committed and bound.** Re-asserted from the hash-verified released file by `scripts/reanalyze_bells_subset.py` on every push; the eight counts sum to 82 and each filter's row-sum equals `82 − catches`. |
 
 ---
 
@@ -869,8 +879,17 @@ the finding hiding inside a number that looks like bookkeeping.
 
 **Public title:** *I Spent a Month on This. The Answer Was "It Doesn't Matter."*
 **Runtime:** 6:00 · **Form:** owner camera + terminal + one long unbroken take
-**Teaches F7 · Retrieves F4 and F3** · **Bound to:** MC-005
-**BLOCKED BY B2 — do not record until the licence contradiction is resolved.**
+**Teaches F7 · Retrieves F4 and F3** · **Bound to:** no registered claim.
+The numbers come from `experiments/e2/results/retrospective/REPORT.md` and are
+**unregistered**: MC-005, which used to carry them, was retracted 2026-09-06
+over a licence defect in its support block, and the retraction reason states
+that the computation itself is untouched.
+**RECORDING CONDITION.** Every number in this episode must be spoken as
+*computed 2026-09-02, unregistered, and not re-asserted by CI* — in the
+episode, out loud, not in a description. Saying them with the authority of a
+registration is the failure this deck exists to prevent. B2 is closed; this
+condition replaces it and does not expire until the owner registers the
+computation under a new id or decides not to.
 
 This is the episode that decides whether this channel is doing research or
 marketing. It is the one where my own result argues against my own pitch. It
@@ -1001,15 +1020,21 @@ Say it once. Do not soften it. Do not follow it with "but."
 
 | On screen | Value | Locator |
 |---|---|---|
-| maximum selection regret | ≤ 2 items (2.4 pp) | MC-005 proposition (HEAD) |
-| intervals excluding zero | 0 of 11 | MC-005 proposition |
-| specialized supervisors, same pick | 5 of 5, regret 0, CI [0,0] | MC-005 proposition |
-| positive excess joint miss | 45 of 45 non-degenerate pairs | MC-005 proposition |
-| the ten pairs not counted | 55 total pairs (11 choose 2) − 45 | DERIVED here, not stated by MC-005: LLM Guard misses all 82, so its miss indicator is constant and its excess joint miss is identically zero against every partner — exactly 10 pairs. Verify against the run report before speaking it. |
-| stratified odds ratio ≥ 1.5 | 23 of 36 defined | MC-005 proposition |
-| +inf ratios counted / undefined dropped | 17 and 9 of 45 | MC-005 scope, discrepancies D3 |
-| bootstrap | B = 2000, picks fixed, D4 | MC-005 scope |
-| executed | owner, 2026-09-02; **not re-asserted by CI on every push, and the record says so** | MC-005 scope |
+**Every row below is UNREGISTERED.** MC-005 is retracted; no claim id carries
+these numbers and no CI check re-asserts them. The locator is the run report
+and the matrices beside it, not the registry.
+
+| On screen | Value | Locator |
+|---|---|---|
+| maximum selection regret | ≤ 2 items (2.4 pp) | `experiments/e2/results/retrospective/REPORT.md` T1 — unregistered |
+| intervals excluding zero | 0 of 11 | same run report — unregistered |
+| specialized supervisors, same pick | 5 of 5, regret 0, CI [0,0] | same run report — unregistered |
+| positive excess joint miss | 45 of 45 non-degenerate pairs | same run report — unregistered |
+| the ten pairs not counted | 55 total pairs (11 choose 2) − 45 | DERIVED in this deck, not stated by the run report: LLM Guard misses all 82, so its miss indicator is constant and its excess joint miss is identically zero against every partner — exactly 10 pairs. Verify against the run report before speaking it. |
+| stratified odds ratio ≥ 1.5 | 23 of 36 defined | same run report — unregistered |
+| +inf ratios counted / undefined dropped | 17 and 9 of 45 | same run report — unregistered |
+| bootstrap | B = 2000, picks fixed, seed frozen 2026-09-01 | same run report — unregistered |
+| executed | owner, 2026-09-02; **unregistered, and not re-asserted by CI on any push** | the retraction of MC-005, `claims_history.yaml` entry 39 |
 | independent recomputation | agrees on every pick, union, regret, benign union | `experiments/e2/results/retrospective/independent_t1.py` |
 
 ---
@@ -1208,7 +1233,8 @@ sentence it is *not*.
 | "Most guardrails are useless" | Three of five added zero **to this group, on this stratum** |
 | "Pairwise testing is useless" | Two **constructed** worlds show it can't determine the triple |
 | "The census proves joint evidence doesn't exist" | One documented search, one reviewer, found five of twenty |
-| "Joint measurement is essential" | Changed the arithmetic in 45 of 45 pairs. Changed no decision. |
+| "Joint measurement is essential" | Changed the arithmetic in 45 of 45 pairs. Changed no decision — and that count is unregistered. |
+| "I measure guardrail dependence" | Two pilots, 4,800 rows, both primary predictions failed, both identified sets degenerate. |
 | "The benchmark is unreliable" | Its population is exactly recoverable. Its **selection rule** is not. |
 
 > Every one of those left-hand sentences would get more views than the
@@ -1261,27 +1287,43 @@ Beat.
 
 ---
 
-# EPISODE 10 · ZERO
+# EPISODE 10 · TWO OF NINETEEN
 
-**Public title:** *I Built a Research Program and It Has Measured Nothing*
+**Public title:** *I Built a Research Program. Here Is Everything It Has Actually Measured.*
 **Runtime:** 6:30 · **Form:** owner camera + one live terminal command, unedited
-**Mass retrieval: F1–F9** · **Bound to:** `.claude/skills/evidence-ledger/ledger.py`
+**Mass retrieval: F1–F9** · **Bound to:** `E3-001`, `E3B-001`, and
+`metrics/ledger_snapshot.json`
 
-The capstone, and the only episode that is genuinely uncomfortable to publish.
-It runs one command on camera and reads its output without cutting away.
+**Rewritten 2026-09-08.** The previous cut of this episode said "observation
+rows: zero" and "this repository has produced zero measurements of its own." It
+was written 2026-09-05 and both sentences were false by 2026-09-06, when E3 and
+E3B committed 4,800 rows. The episode that accused the whole field of quoting
+stale numbers had gone stale in three days, in the one place it could least
+afford to. That is why the deck now reads its counters from
+`metrics/ledger_snapshot.json` and speaks the date, and why
+`scripts/ledger_snapshot.py --check` fails the build when the repository moves
+and the snapshot does not.
+
+The capstone, and the only episode that is uncomfortable to publish. It runs one
+command on camera and reads its output without cutting away.
 
 ### Rejected conceits, and why
 
 - *Ending on hope.* Killed. Any "but here's what's next!" turn converts an
-  honest accounting into a pitch, and the whole series has been arguing that the
-  turn is where claims get inflated.
+  honest accounting into a pitch, and the whole series has argued that the turn
+  is where claims get inflated.
 - *Not making this episode.* Named because it was the real temptation. A channel
   that publishes nine competent explainers and hides the ledger is doing
-  marketing with a research aesthetic. The ledger is the differentiator; the
-  explainers are the doorway.
-- *Making it episode one.* Killed on ordering grounds. "I've measured nothing"
-  as a cold open with no prior context is self-deprecation. After nine episodes
-  of actual findings, it's an accounting.
+  marketing with a research aesthetic.
+- *Keeping the old "zero measurements" version because it is a better story.*
+  Killed, and this is the one worth naming. The old cut was more dramatic and it
+  is now false. A more quotable sentence that has stopped being true is exactly
+  the object this series exists to take apart, and it does not get an exemption
+  for being mine.
+- *Presenting the two pilots as a comeback.* Killed. Both failed their primary
+  prediction. The honest shape is not "and then I measured something" — it is
+  "and then I measured something, and it could not answer the question I built
+  it to answer."
 
 ### Cold recall · 0:00–0:30 *(mass retrieval — no answers given)*
 
@@ -1308,107 +1350,148 @@ Nine questions, fast, no pauses for answers:
 
 **PREDICTION HOLD — 3 seconds.**
 
-### The command · 1:30–3:00
+### The command · 1:30–3:10
 
-Run it live. Do not cut. Read the output as it appears.
+Run it live. Do not cut. Read the output as it appears, and say the date.
 
 ```bash
 python3 .claude/skills/evidence-ledger/ledger.py
 ```
 
-> Seventeen registered claims. Own measurements: **zero.**
+> Nineteen registered claims. The number of them resting on a measurement I made
+> myself: **two.** Both registered two days ago.
 >
-> Observation rows this repository has produced: **zero.**
+> Observation rows this repository has produced: **four thousand eight hundred.**
+> Two experiments, twenty-four hundred rows each.
 >
-> Qualified outcomes from the outside world: **zero.**
+> Outcomes produced by anybody who is not me — a reproduction, a correction, a
+> cold run: **zero.** Across five categories. Zero is recorded as zero.
 >
-> The main experiment has **eight governing documents and zero rows.** Documents
-> per row: infinity. The tool prints the infinity symbol, because I wrote it to.
+> Thirteen things are blocked on a human doing something.
 >
-> Eleven things are blocked on a human, and the oldest has been open four days.
+> And the main experiment, the one this whole programme is built around, still
+> has **eight governing documents and no data at all.** The tool prints
+> documents-per-row as an infinity symbol, because I wrote it to.
 
-### The honest accounting · 3:00–4:15
+### The honest accounting · 3:10–4:30
 
-> So what have I actually been doing? Two things, and it's worth being exact.
+> Two of nineteen. That number moved off zero on the sixth of September and it is
+> worth being exact about what moved it, because it is not a success story.
 >
-> **Recounting other people's public files.** Every empirical number in this
-> series is somebody else's measurement that I recomputed. That is real work —
-> nine of nine independent checks landing on a hidden population is real, and
-> three of five filters contributing zero is real. It is **arithmetic on
-> released bits**, and I loaded no model to get it.
+> **Two pilots. Both failed their main prediction.**
 >
-> **Building machinery that makes my own claims prosecutable.** Forty-six
-> automatic checks. A rule that already rejected one of my published numbers. A
-> registry where a claim expires if I don't re-check it.
+> The first one: twelve hundred items, two classifiers, twenty-four hundred rows.
+> I'd predicted the joint miss rate would come out above what independence
+> predicts, with a confidence interval clear of zero, and I had a reason —
+> every per-item matrix I'd looked at went that way. It came out at plus
+> nought-point-one-eight of a percentage point, interval straddling zero.
 >
-> What I have not done is **measure anything myself.** Not once. The experiment
-> that would is frozen, correctly, waiting on hardware I own and a human action I
-> haven't taken.
+> And the reason was my fault in a specific way. Both classifiers missed
+> ninety-six to ninety-eight percent of that material. They were injection
+> detectors and I'd pointed them at ordinary harmful requests. When both rates
+> sit at the top like that, the range the two scores leave open is one and
+> three-quarter points wide. There was nothing in there for a joint measurement
+> to find.
+>
+> So I ran it again on the material those detectors were built for. **It failed
+> harder.** One of them caught four hundred out of four hundred. Miss rate zero.
+> And if either filter misses nothing, then both-miss is exactly zero — the two
+> published rates have already told you the answer completely. The range was
+> **zero points wide.**
+>
+> Two experiments. Two useless ranges. At opposite ends.
 
-### The wrong answer on purpose · 4:15–4:45
+### The wrong answer on purpose · 4:30–5:00
 
-> Which means the machinery was premature. Should have measured first, built the
-> apparatus after.
+> So the programme's thesis is wrong. The missing column doesn't matter.
 
 Beat.
 
-> I don't think so, and I want to be precise about why, because "I was right to
-> build it" is exactly the self-serving conclusion to watch me for.
+> No — and I want to be careful here, because "my thesis survived" is exactly the
+> conclusion to watch me for. What the two runs suggest is narrower than my
+> thesis and narrower than that objection. **The range is wide in the middle and
+> degenerate at the ends.** When every filter's miss rate is somewhere ordinary,
+> the two scores leave a lot open and the joint measurement earns its cost. At
+> either extreme they have already answered you.
 >
-> The rule that rejected my census number was written **three days before** it
-> fired. If I'd written it after finding the missed evaluation, it would have
-> been worthless — that's a threshold chosen after seeing the outcome, and it's
-> the one thing this program treats as voiding the result retroactively.
+> That is a hypothesis my own two runs suggest. It is not a result of either run;
+> neither of them tested it. It is registered as a non-claim, in those words, on
+> both experiments.
 >
-> The apparatus has to be early or it isn't apparatus. **That's a reason for
-> some of it. It is not a reason for eight documents and zero rows.** Those are
-> different sentences and only the first one is defensible.
+> What does fall out of it is an engineering check, and it costs about forty
+> items: score a small slice, read the two miss rates, work out how wide the
+> range is, and abandon the pool if it is narrow. Both of my experiments would
+> have been stopped by that before I downloaded a single model.
 
-### Weakest sentence that survives · 4:45–5:10
+### The thing that argues against me hardest · 5:00–5:30
 
-> **This repository has produced zero measurements of its own. Everything
-> empirical in these ten episodes is a recount of somebody else's public file.
-> The apparatus that would catch me being wrong exists and has fired once. The
-> measurement it was built for has not started.**
+> One more, and it is the least favourable number I have.
+>
+> Somebody took every per-item matrix available and asked whether measuring the
+> joint would have changed *which* second filter you picked. At most about two
+> and a half percentage points, and not one case where the effect was
+> distinguishable from zero. Measuring the joint changed the arithmetic and
+> changed no decision.
+>
+> **That number is unregistered.** It has no claim id, no CI check re-asserts it,
+> and the claim that used to carry it was retracted over a defect in its own
+> support block. It is computed, it is reproducible, it is in the repository —
+> and it is not part of the register, and I am not allowed to say it as though
+> it were.
 
-### The one action · 5:10–6:00
+### Weakest sentence that survives · 5:30–5:55
 
-> There's one thing standing between here and the first row of my own data, and
-> it is not code and it is not a model.
+> **Two of nineteen registered claims rest on measurements I made. Both are
+> pilots whose primary prediction failed, on pools where the two scores had
+> already fixed the answer. Everything else empirical in these ten episodes is a
+> recount of somebody else's public file, and no outcome has yet been produced by
+> anyone who is not me.**
+
+### The one action · 5:55–6:15
+
+> There is one thing standing between here and a result I would defend, and it is
+> not compute and it is not funding.
 >
 > **Five people who have never seen this project need to watch one short film,
 > with the sound off, and answer three questions.** If two of them miss the same
-> question, the film doesn't ship and I rewrite it. That gate is frozen. I
-> haven't run it.
->
-> That is the whole bottleneck. Not compute. Not funding. Five strangers and a
-> stopwatch. Everything else in this repository is me building things I'm
-> allowed to build without asking anyone.
+> question, the film does not ship and I rewrite it. That gate is frozen. I have
+> not run it.
 
-### Fluency guard · 6:00–6:15
+### Fluency guard · 6:15–6:25
 
-> Ten episodes is a lot of fluency about a program with zero rows. If these got
-> good enough that the work started sounding established — that's the failure
-> mode this series was designed against, and I built it anyway, and you should
-> hold me to the counters rather than the delivery.
+> Ten episodes is a lot of fluency about a programme with two own-measurement
+> claims and two failed predictions. If these got good enough that the work
+> started sounding established — that is the failure mode this series was
+> designed against, and I built it anyway, and you should hold me to the counters
+> rather than the delivery.
 
-### Exit ticket · 6:15–6:30
+### Exit ticket · 6:25–6:30
 
-> Run the command yourself. It's in the repository. If the zeros have changed by
-> the time you're watching, that's the only evidence that any of this went
+> Run the command yourself. It is in the repository. If those counters have moved
+> by the time you are watching, that is the only evidence any of this went
 > anywhere. **cubits11.github.io**
 
 ### Bound numerals
 
+Every counter below is read from `metrics/ledger_snapshot.json`, **as of
+2026-09-08**, and the date is spoken on camera. If
+`python3 scripts/ledger_snapshot.py --check` fails, this episode is stale and
+does not get recorded until it is regenerated and this table is re-read.
+
 | On screen | Value | Locator |
 |---|---|---|
-| claims / own-measurement | 17 / **0** | `ledger.py`, 2026-09-05 run |
-| observation rows | 0 | same |
-| qualified outcomes | 0, across 5 categories | same; `distribution/outcomes.yaml` |
-| open blockers / oldest | 11 / 4 days | same |
-| e2 scaffolding | 8 documents, 0 rows | same |
-| automatic checks | 46 | `scripts/verification_manifest.py` |
-| external interactions before the stop rule | 3 of 12 | `distribution/QUEUE.md` item 9 |
+| registered claims | 19 | `metrics/ledger_snapshot.json` → `claims.total` |
+| resting on own measurement | **2** (E3-001, E3B-001) | same → `claims.own_measurement` |
+| observation rows | **4,800** (2,400 + 2,400) | same → `observations.rows` |
+| qualified outcomes | 0, across 5 categories | same → `outcomes.qualified_total`; `distribution/outcomes.yaml` |
+| open blockers | 13 | same → `blocking.open` (ages are read live from the ledger, never typed) |
+| e2 scaffolding | 8 documents, 0 rows | same → `scaffolding` |
+| external interactions before the stop rule | 3 of 12 | same → `outcomes.technical_interactions` |
+| E3 delta / CI | +0.0018, 95% CI [−0.00096, +0.00706], includes zero | `claims.yaml` E3-001 `expected` |
+| E3 Fréchet width | 1.75 pp, from marginals 0.9825 / 0.9625 | E3-001 `expected.harmful.frechet` |
+| E3B miss rates / width | 0.0000 and 0.3975 → width 0 | `claims.yaml` E3B-001 `expected` |
+| both pilots' primary prediction | FAILED | E3-001 and E3B-001 `expected.prediction_verdicts` |
+| selection regret ≤ 2 items (2.4 pp), 0 of 11 CIs exclude zero | **UNREGISTERED** | `experiments/e2/results/retrospective/REPORT.md`; the claim that carried it is retracted |
 | the cold gate | 5 minimum, 8 maximum; two failures on one question holds release | `distribution/launch-units.yaml` → `cold_test_gate`; `QUEUE.md` item 5 |
 
 ---

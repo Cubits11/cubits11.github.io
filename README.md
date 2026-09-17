@@ -253,3 +253,25 @@ DESIGN.md                   design-decision ledger + changelogs + field-artifact
 ```
 
 Content © Pranav Bhave. Code (HTML/CSS/JS) may be reused with attribution.
+
+## Scheduled feedback and release updates
+
+The existing local schedules record repository state daily and collect distribution
+observations every four hours. Missing days and missed observation windows remain
+missing; the jobs never interpolate evidence. Both jobs share a repository lock.
+They prefer `.venv/bin/python3`; create that environment with Python 3.12 or newer
+and install `requirements.txt` before enabling the schedules. `CUBITS11_PYTHON`
+can select another environment explicitly.
+
+A cycle starting from clean, synchronized `main` runs the verification manifest,
+commits only its permitted outputs on a `claude/cycle-*` branch, and opens a pull
+request. GitHub auto-merge uses a merge commit and remains subject to required
+checks and review rules. A failed API call leaves the branch available for recovery;
+a failed check retains the observations without publishing them. Logs live in
+`_private/cron/`. No cycle dispatches a new outreach message.
+
+This feedback loop records observations and tests known failures. It does not
+autonomously change scientific criteria, promote a hypothesis, or accept a
+contradicted result. Deployment checks compare the public pages, primary films,
+posters and claim metadata with the verified revision, so an older page returning
+HTTP 200 cannot stand in for the release.

@@ -1,0 +1,62 @@
+{
+  "e3": {
+    "experiment": "E3",
+    "stratum": "harmful",
+    "n": 400,
+    "miss_G1": 393,
+    "miss_G2": 385,
+    "both_miss_observed": 379,
+    "band_counts": [
+      378,
+      385
+    ],
+    "band_slots": 8,
+    "plug_in_count": {
+      "exact": "30261/80",
+      "float": 378.2625
+    },
+    "structural_zero": false,
+    "sources": {
+      "rows": {
+        "path": "experiments/e3/results/observations.jsonl",
+        "sha256": "952416606e0caa7d2f58c45322907be6a9c35a0d651910947688977cf99b22c0",
+        "commit": "031dc66871dab39548ae83ed064bd8e19ff43c5c"
+      },
+      "result": {
+        "path": "experiments/e3/results/e3_result.json",
+        "sha256": "84e21e59665b8626d41a73325563ec022251d79187c5b8d91e25f7b5411b2717",
+        "commit": "3ca78ec080044290554ae984ed39e36542ca0ff1"
+      }
+    }
+  },
+  "e3b": {
+    "experiment": "E3B",
+    "stratum": "harmful",
+    "n": 400,
+    "miss_G1": 0,
+    "miss_G2": 159,
+    "both_miss_observed": 0,
+    "band_counts": [
+      0,
+      0
+    ],
+    "band_slots": 1,
+    "plug_in_count": {
+      "exact": "0",
+      "float": 0.0
+    },
+    "structural_zero": true,
+    "sources": {
+      "rows": {
+        "path": "experiments/e3b/results/observations.jsonl",
+        "sha256": "00e75bf47f68ec2487532d595c74362eb85d0e683f3a0d4f294ff2ae429e4631",
+        "commit": "058d6f635ce32b0a491482112b25d2e5e5c55ce9"
+      },
+      "result": {
+        "path": "experiments/e3b/results/e3_result.json",
+        "sha256": "a9685abb1ca63193325ddf319bb5d87cd0c395daf0e7614d571caefbefbfde87",
+        "commit": "058d6f635ce32b0a491482112b25d2e5e5c55ce9"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+# Review routing only. GitHub rules must enforce reviews separately.
+# A single owner cannot independently approve their own pull request.
+/.github/ @Cubits11
+/security/ @Cubits11
+/scripts/ @Cubits11
+/tests/ @Cubits11
+/requirements.txt @Cubits11
+/claims.yaml @Cubits11
+/claims_history.yaml @Cubits11
+/experiments/ @Cubits11
+/corrections/ @Cubits11
+/research/ @Cubits11
+/metrics/ @Cubits11
+/distribution/traction/ @Cubits11

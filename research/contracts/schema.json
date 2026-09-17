@@ -1,0 +1,370 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cubits11.github.io/research/contracts/schema.json",
+  "title": "Executable analysis contract, bounded S2 schema",
+  "description": "Structural validation plus validate_contract.py semantic checks. Passing does not establish runtime consumption, adequate design, pre-observation freeze, or valid inference. The inference block compares declared numbers with each other; nobody has checked that the declared identification width is the width this design actually has.",
+  "$defs": {
+    "inference": {
+      "description": "Correction C2's inferential-adequacy declaration, separated into the three questions it was written against conflating: what the identified set permits before any n, what sampling is asked to resolve inside it, and what the decision requires of both. Required at status frozen, so it exists before an expensive run rather than after its outcomes.",
+      "type": "object",
+      "properties": {
+        "inferential_target": {
+          "description": "What the number is for. Widening this enum is a declared change, not a default.",
+          "enum": [
+            "sign_of_effect",
+            "magnitude_within_margin",
+            "bound_on_quantity"
+          ]
+        },
+        "identification": {
+          "description": "What the design's structure permits. No sample size reduces this width.",
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "number",
+              "minimum": 0
+            },
+            "width_max": {
+              "type": "number",
+              "minimum": 0
+            },
+            "source": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "width",
+            "width_max",
+            "source"
+          ],
+          "additionalProperties": false
+        },
+        "precision": {
+          "description": "What sampling is asked to deliver inside the identified set.",
+          "type": "object",
+          "properties": {
+            "desired_ci_half_width": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "desired_ci_half_width"
+          ],
+          "additionalProperties": false
+        },
+        "decision": {
+          "description": "What acting on the result requires. Declared before outcomes, never after.",
+          "type": "object",
+          "properties": {
+            "SESOI": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "equivalence_margin": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "loss": {
+              "type": "object",
+              "properties": {
+                "false_positive": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "false_negative": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "unit": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "false_positive",
+                "false_negative",
+                "unit"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "SESOI",
+            "equivalence_margin",
+            "loss"
+          ],
+          "additionalProperties": false
+        },
+        "minimum_information_condition": {
+          "description": "The adequacy rule validate_contract.py evaluates exactly. One rule is expressible today; another requires a declared addition here.",
+          "const": "identification_width_plus_sampling_within_sesoi"
+        }
+      },
+      "required": [
+        "inferential_target",
+        "identification",
+        "precision",
+        "decision",
+        "minimum_information_condition"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "constructed_fixture",
+            "draft",
+            "frozen"
+          ]
+        },
+        "estimand": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "guard_selection"
+        },
+        "operating_point": {
+          "type": "object",
+          "properties": {
+            "objective": {
+              "const": "maximum_sensitivity_under_fpr_budget"
+            },
+            "comparator": {
+              "enum": [
+                "ge",
+                "le"
+              ]
+            },
+            "direction": {
+              "enum": [
+                "lowest",
+                "highest"
+              ]
+            },
+            "fpr_budget": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "candidates": {
+              "const": "observed_benign_scores"
+            },
+            "no_feasible_candidate": {
+              "const": "exclude_judge"
+            }
+          },
+          "required": [
+            "objective",
+            "comparator",
+            "direction",
+            "fpr_budget",
+            "candidates",
+            "no_feasible_candidate"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "comparator": {
+                    "const": "ge"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "direction": {
+                    "const": "lowest"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "direction": {
+                    "const": "highest"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "declared_pools": {
+          "type": "object",
+          "properties": {
+            "calibration": {
+              "enum": [
+                "per_judge_benign",
+                "all_judges_shared_benign"
+              ]
+            },
+            "evaluation": {
+              "enum": [
+                "pair_shared_harmful",
+                "all_judges_shared_harmful"
+              ]
+            }
+          },
+          "required": [
+            "calibration",
+            "evaluation"
+          ],
+          "additionalProperties": false
+        },
+        "execution_plan": {
+          "type": "object",
+          "properties": {
+            "calibration": {
+              "enum": [
+                "per_judge_benign",
+                "all_judges_shared_benign"
+              ]
+            },
+            "evaluation": {
+              "enum": [
+                "pair_shared_harmful",
+                "all_judges_shared_harmful"
+              ]
+            }
+          },
+          "required": [
+            "calibration",
+            "evaluation"
+          ],
+          "additionalProperties": false
+        },
+        "inference": {
+          "$ref": "#/$defs/inference"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "status",
+        "estimand",
+        "kind",
+        "operating_point",
+        "declared_pools",
+        "execution_plan"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "frozen"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "inference"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "constructed_fixture",
+            "draft",
+            "frozen"
+          ]
+        },
+        "estimand": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "const": "finite_coupling"
+        },
+        "invariant": {
+          "const": "marginal_masses_preserved"
+        },
+        "marginal_weights": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "permutations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "inference": {
+          "$ref": "#/$defs/inference"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "status",
+        "estimand",
+        "kind",
+        "invariant",
+        "marginal_weights",
+        "permutations"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "frozen"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "inference"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

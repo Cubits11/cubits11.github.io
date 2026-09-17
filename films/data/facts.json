@@ -1,8 +1,8 @@
 {
  "_generated_by": "scripts/films/bind_facts.py — DO NOT EDIT; regenerate and re-inspect the films",
  "_inputs": {
-  "census.yaml": "0e130c67013fe834df32c7f8de5afac5cb8d2dc4f66b66423bd6a98016e7c598",
-  "claims.yaml": "3b597a200639e0c9781c59ac5b6bb6c1257cd1ec389ecfe3638bf21f52ab6357"
+  "census.yaml": "68b14081b85e18ca1a7b5bce33bbf38fe3b8dafe876e7329057241404037b425",
+  "claims.yaml": "9964c0137292e4338246d423c7124a0109b28973f4ca00f94317e855cd4dcc94"
  },
  "_kinds": [
   "OBSERVED",
@@ -587,7 +587,7 @@
    "claim": "MC-001",
    "kind": "DERIVED",
    "source": "compute_counts: len(unexamined_candidates)",
-   "value": 24
+   "value": 25
   },
   "MC-002.all_miss": {
    "claim": "MC-002",
@@ -1154,10 +1154,10 @@
     {
      "evidential_status": "supported_within_scope",
      "id": "MC-001",
-     "last_reviewed": "2026-09-07",
+     "last_reviewed": "2026-09-14",
      "maturity": "experimental",
      "provenance": "owner_authored",
-     "review_due": "2026-11-06",
+     "review_due": "2026-11-13",
      "review_window_days": 60
     },
     {
@@ -1240,13 +1240,49 @@
      "provenance": "owner_verified",
      "review_due": "2026-12-28",
      "review_window_days": 120
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "E3-001",
+     "last_reviewed": "2026-09-08",
+     "maturity": "experimental",
+     "provenance": "machine_generated_owner_executed",
+     "review_due": "2027-01-06",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "supported_within_scope",
+     "id": "E3B-001",
+     "last_reviewed": "2026-09-08",
+     "maturity": "experimental",
+     "provenance": "machine_generated_owner_executed",
+     "review_due": "2027-01-06",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "contradicted",
+     "id": "E6-001",
+     "last_reviewed": "2026-09-10",
+     "maturity": "experimental",
+     "provenance": "machine_generated_owner_executed",
+     "review_due": "2027-01-08",
+     "review_window_days": 120
+    },
+    {
+     "evidential_status": "contradicted",
+     "id": "E7B-001",
+     "last_reviewed": "2026-09-10",
+     "maturity": "experimental",
+     "provenance": "machine_generated_owner_executed",
+     "review_due": "2027-01-08",
+     "review_window_days": 120
     }
    ]
   },
   "REGISTRY.last_owner_review": {
    "kind": "REGISTRY",
    "source": "claims.yaml:last_owner_review",
-   "value": "2026-09-07"
+   "value": "2026-09-14"
   },
   "REGISTRY.version": {
    "kind": "REGISTRY",

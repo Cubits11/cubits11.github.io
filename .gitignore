@@ -1,8 +1,10 @@
 __pycache__/
 *.pyc
 _private/
+/Claude outputs/
 .venv/
 .DS_Store
 
 # Google Drive sync scratch
 .tmp.driveupload/
+.tmp.drivedownload/

@@ -18,6 +18,8 @@ from pathlib import Path
 
 import yaml
 
+from correction_records import notice as correction_notice
+
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 import facts as fact_registry  # noqa: E402
@@ -35,10 +37,11 @@ CSS = """
 .exp{border:1px solid var(--line-strong);background:var(--surface);padding:1.5rem 1.5rem 1.3rem;margin-top:1.4rem;scroll-margin-top:5.5rem}
 .exp h3{margin:0;font-size:1.25rem}
 .exp .meta{color:var(--muted);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;margin:.35rem 0 1rem}
-.exp dl{margin:0;display:grid;grid-template-columns:9.5rem 1fr;gap:.5rem 1rem;font-size:.94rem}
+.exp dl{margin:0;display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:.5rem 1rem;font-size:.94rem}
 .exp dt{color:var(--gold);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding-top:.25rem}
 .exp dd{margin:0;color:var(--muted)}
 .exp dd.ink{color:var(--ink)}
+.exp dd code{overflow-wrap:anywhere}
 .exp pre{margin:0;padding:.7rem .9rem;background:var(--bg);border:1px solid var(--line);overflow-x:auto;font-size:.86rem;line-height:1.5}
 .exp .row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.1rem}
 .ext-status{border:1px solid var(--line-strong);background:var(--surface);padding:1.3rem 1.5rem;margin-top:1.4rem}
@@ -54,7 +57,7 @@ CSS = """
 .film video{width:100%;height:auto;display:block;border:1px solid var(--line-strong);background:#0B0F0A}
 .ladder{margin:1rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.94rem}
 .ladder li{margin:.3rem 0}
-@media (max-width:720px){.exp dl{grid-template-columns:1fr}.exp dt{padding-top:.6rem}.film{grid-template-columns:1fr}}
+@media (max-width:720px){.exp dl{grid-template-columns:minmax(0,1fr)}.exp dt{padding-top:.6rem}.film{grid-template-columns:1fr}}
 """
 
 
@@ -145,6 +148,7 @@ def render(data: dict, ledger: dict, facts: dict, counts: dict) -> str:
   </div>
 </header>
 <main class="container" id="main">
+{correction_notice()}
   <section class="zone" id="film" aria-labelledby="film-h" style="margin-top:0;border-top:none;padding-top:0">
     <h2 id="film-h">Thirty seconds, sound off</h2>
     <div class="film">

@@ -578,22 +578,55 @@ def cmd_register(a: argparse.Namespace) -> int:
 
 
 # ------------------------------------------------------------------ reconstruct
-def first_parent_events() -> list[dict]:
-    """Every digest-level commitment event along the first-parent line of HEAD."""
-    log = [l.split() for l in git("log", "--format=%H %cs", "--reverse", "--first-parent", "--", "claims.yaml").split("\n") if l]
-    prev: dict[str, str] = {}
+def legacy_events(ref: str) -> list[dict]:
+    """Preserve the declared pre-genesis first-parent reconstruction."""
+    log = [line.split() for line in git('log', '--format=%H %cs', '--reverse',
+        '--first-parent', ref, '--', 'claims.yaml').splitlines() if line]
+    previous = {}
     events = []
     for sha, date in log:
-        cur = {k: v["digest"] for k, v in (claims_at(sha) or {}).items()}
-        for cid, d in cur.items():
-            if cid not in prev:
-                events.append({"commit": sha, "date": date, "claim_id": cid, "kind": "BIRTH", "from": None, "to": d})
-            elif prev[cid] != d:
-                events.append({"commit": sha, "date": date, "claim_id": cid, "kind": "CHANGE", "from": prev[cid], "to": d})
-        for cid, d in prev.items():
-            if cid not in cur:
-                events.append({"commit": sha, "date": date, "claim_id": cid, "kind": "REMOVAL", "from": d, "to": None})
-        prev = cur
+        current = {k: v['digest'] for k, v in (claims_at(sha) or {}).items()}
+        for cid in sorted(set(current) | set(previous)):
+            before, after = previous.get(cid), current.get(cid)
+            if before != after:
+                kind = 'REMOVAL' if after is None else 'BIRTH' if before is None else 'CHANGE'
+                events.append({'commit': sha, 'date': date, 'claim_id': cid,
+                               'kind': kind, 'from': before, 'to': after})
+        previous = current
+    return events
+
+
+def commitment_events(ref: str = "HEAD") -> list[dict]:
+    """Preserve the genesis reconstruction and audit later branch events once.
+
+    Comparing consecutive log entries loses branch-local events at a merge.
+    Compare each commit to its actual parents instead. A merge that creates a
+    new commitment still creates an event; selecting an existing parent's
+    state does not count that parent's transition twice.
+    """
+    hist = yaml.safe_load(HISTORY.read_text()) if HISTORY.exists() else {}
+    anchor = (hist.get('genesis') or {}).get('anchor_commit')
+    refs = [ref, '^' + anchor] if anchor else [ref]
+    log = [l.split() for l in git("log", "--full-history", "--format=%H %cs",
+        "--reverse", "--topo-order", *refs, "--", "claims.yaml").split("\n") if l]
+    cache = {}
+    def state(sha):
+        if sha not in cache:
+            cache[sha] = {k: v["digest"] for k, v in (claims_at(sha) or {}).items()}
+        return cache[sha]
+    events = legacy_events(anchor) if anchor else []
+    for sha, date in log:
+        cur = state(sha)
+        parents = [state(p) for p in git('show', '-s', '--format=%P', sha).split()]
+        prev = parents[0] if parents else {}
+        for cid in sorted(set(cur).union(*(set(p) for p in parents))):
+            after = cur.get(cid)
+            if any(p.get(cid) == after for p in parents):
+                continue
+            before = prev.get(cid)
+            kind = 'REMOVAL' if after is None else 'BIRTH' if before is None else 'CHANGE'
+            events.append({'commit': sha, 'date': date, 'claim_id': cid,
+                           'kind': kind, 'from': before, 'to': after})
     return events
 
 
@@ -616,7 +649,7 @@ def dated_declaration(sha: str, date: str, cid: str) -> bool:
 
 def cmd_reconstruct(check: bool = False) -> int:
     try:
-        events = first_parent_events()
+        events = commitment_events()
     except GitUnavailable as exc:
         print(f"UNDETERMINED  git history unavailable ({exc})")
         return 2
@@ -648,7 +681,7 @@ def cmd_reconstruct(check: bool = False) -> int:
         print(f"{e['commit'][:12]} {e['date']} {e['claim_id']:8s} {e['kind']:7s} "
               f"dated_in-record_declaration={'yes' if declared else 'no '} typed={'yes' if typed else 'no '}"
               + (f" contemporaneous={forward['transition_type']}" if forward else ""))
-    print(f"PREEXISTING_E5_TRANSITION_COUNT={len(transitions)}  (digest-level commitment changes and removals on the first-parent line; births excluded)")
+    print(f"PREEXISTING_E5_TRANSITION_COUNT={len(transitions)}  (reachable digest-level commitment changes and removals; inherited merge states and births excluded)")
     print(f"STRICT_SCAR_ELIGIBLE_COUNT={len(strict)}  (before and after states re-derived from git; a dated in-record declaration naming the claim in the same first-parent change; a coherent transition type declared in the reconstruction)")
     for s in strict:
         print(f"  qualifying: {s}")

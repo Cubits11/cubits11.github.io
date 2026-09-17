@@ -1,0 +1,60 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "fw": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#",
+      "@prefix": true
+    },
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "fw:falsifier": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#falsifier"
+    },
+    "fw:consequence": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#consequence"
+    },
+    "fw:forbiddenRescue": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#forbiddenRescue",
+      "@container": "@list"
+    },
+    "fw:nonClaim": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#nonClaim",
+      "@container": "@list"
+    },
+    "fw:scopeStatement": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#scopeStatement"
+    },
+    "fw:evidentialStatus": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#evidentialStatus"
+    },
+    "fw:lastReviewed": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#lastReviewed",
+      "@type": "xsd:date"
+    },
+    "fw:reviewWindow": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#reviewWindow",
+      "@type": "xsd:duration"
+    },
+    "fw:warrantExpires": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#warrantExpires",
+      "@type": "xsd:date"
+    },
+    "fw:supportUrl": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#supportUrl",
+      "@type": "@id"
+    },
+    "fw:supportBinding": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#supportBinding",
+      "@type": "@id"
+    },
+    "fw:boundRevision": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#boundRevision"
+    },
+    "fw:verdict": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#verdict"
+    },
+    "fw:verdictDate": {
+      "@id": "https://cubits11.github.io/ns/falsifiable/v1/#verdictDate",
+      "@type": "xsd:date"
+    }
+  }
+}

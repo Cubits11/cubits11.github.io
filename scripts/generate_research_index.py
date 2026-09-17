@@ -44,7 +44,8 @@ def render() -> str:
     ledger = outcomes_ledger.load()
     experiments = yaml.safe_load((ROOT / "distribution" / "experiments.yaml").read_text())
     films = {}
-    for m in sorted(ROOT.glob("films/*/manifest.yaml")):
+    film_manifests = sorted(ROOT.glob("films/*/manifest.yaml"))
+    for m in film_manifests:
         d = yaml.safe_load(m.read_text())
         for c in d.get("evidence_commits", []):
             films.setdefault(c["claim"], []).append(d["id"])
@@ -70,7 +71,7 @@ def render() -> str:
     for e in experiments["experiments"]:
         L.append(f"| {e['id']} | {e['minutes']} | `{e['command']}` | `{e['expected_final_line']}` |")
     L += ["", "## Communication artifacts", "",
-          "Six deterministic films under `films/` (manifests bind every number to the registries; see `films/README.md`); launch units in `distribution/launch-units.yaml` (status PREPARED); the experiment surface at `/try/`; the interactive instrument at `/worldspace/` (experiment E4 — `worldspace/manifest.yaml` binds every number, string and visible object; available, not yet validated with users).", ""]
+          f"{len(film_manifests)} deterministic films under `films/` (manifests bind every number to the registries; see `films/README.md`); launch units in `distribution/launch-units.yaml` (status PREPARED); the experiment surface at `/try/`; the interactive instrument at `/worldspace/` (experiment E4 — `worldspace/manifest.yaml` binds every number, string and visible object; available, not yet validated with users).", ""]
     return "\n".join(L)
 
 

@@ -2439,3 +2439,7 @@ unexamined_candidates:
     url: "https://www.medrxiv.org/content/10.64898/2026.06.04.26354950v2"
     source_locator: "medRxiv v2 posted 2026-06-11; GitHub release v1.02 dated 2026-06-05 at commit b700ab89e1ccab6f994c1badbf79223ea6d7250c (master is reported 9 commits ahead)"
     discovered_on: "2026-09-07"
+  - title: "AgentDrift / DriftNet (public item-level agent-trajectory dataset and path/terminal labels; shared multi-guard exposure and joint-outcome fit remain unexamined)"
+    url: "https://arxiv.org/abs/2609.10892"
+    source_locator: "DriftNet arXiv:2609.10892v1 submitted 2026-09-09; linked AgentDrift dataset paper arXiv:2609.06972v1 posted 2026-09-07 and mutable repository https://github.com/Asif-0209/AgentDrift (8 commits observed, no release/tag or immutable SHA retrieved)"
+    discovered_on: "2026-09-14"
