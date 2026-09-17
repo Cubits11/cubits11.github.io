@@ -46,8 +46,16 @@ diagnostics:
   cold_comprehension_trials: []
   # An invitation or open issue is diagnostic only; it is never credited as
   # an external reproduction, correction, release, PR, or cold run.
-  technical_interactions: 3     # replies that carried a number, source, or correction
+  technical_interactions: 4     # replies that carried a number, source, or correction
   technical_interaction_log:
+    - date: "2026-09-16"
+      kind: upstream_issue
+      url: https://github.com/CentreSecuriteIA/bells_leaderboard/issues/1
+      summary: >
+        Owner asked how the 170 released BELLS rows were selected, acknowledging
+        the published representative-examples description. Posted September 16
+        in America/New_York (September 17 UTC). Open with no comments when verified;
+        diagnostic only, not an independent reproduction or source correction.
     - date: "2026-09-02"
       kind: upstream_issue
       url: https://github.com/IBM/Adversarial-Prompt-Evaluation/issues/7

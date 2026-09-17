@@ -85,7 +85,7 @@
   "outcomes": {
     "qualified_total": 0,
     "categories": 5,
-    "technical_interactions": 3,
+    "technical_interactions": 4,
     "stop_threshold": 12
   }
 }

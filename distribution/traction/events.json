@@ -52,14 +52,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "70050c08430f7c32",
+    "id": "c3647a2ad0734be0",
     "kind": "metrics",
     "source": {
       "path": "distribution/outcomes.yaml",
-      "sha256": "2cefa442652376b870e95f86840e5716cc91da5ea91f9be46585d2a19ff23b66",
-      "commit": "26a9d578ffe77deecc191f02ae578e6f8ae6e2c0",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/26a9d578ffe77deecc191f02ae578e6f8ae6e2c0/distribution/outcomes.yaml",
-      "binding": "committed"
+      "sha256": "91f5decd619427fdb700ce5a458f73453402fc06c9b25a5c1ed039a74c64ef38",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",

@@ -43,3 +43,20 @@ dispatches:
       - {at: "T+7d",  rule: "same snapshot; no second film until the T+14d decision"}
       - {at: "T+14d", rule: "apply the campaign's decision rule; silence is NO_OBSERVED_RESPONSE"}
     outcome: null
+
+  - id: bells-selection-rule
+    sent_at_commit: null  # owner browser submission; checkout at send time not established
+    reproduction_commit: 4b659fb97bf50aff9793ff4a26c3410b7cf0a53c
+    adjudication:
+      - {on: substantive_response, rule: "Verify selection rule or correction against the cited artifact before awarding outcome credit."}
+      - {on: silence, rule: "Retain NO_OBSERVED_RESPONSE; do not duplicate the issue."}
+    dossier: distribution/dossiers/bells-misuse-2025.md
+    target: "CentreSecuriteIA/bells_leaderboard — issue tracker"
+    status: SENT_PENDING_RESPONSE
+    sent_by: owner
+    reported: "2026-09-16"
+    sent_at_utc: "2026-09-17T03:19:51Z"
+    permalink: https://github.com/CentreSecuriteIA/bells_leaderboard/issues/1
+    observed_comments: 0
+    message_as_sent: "Thank you for releasing per-item supervisor verdicts in `data/non_adversarial_prompts.csv`.\n\nAt commit `507566c5a4606c8e3dec0bd59a5c5fde62594951` the file has 170 rows, 82 of them with `harm_level` = `harmful`. On 9 of those 82 rows, all five specialized-supervisor columns (`lakera_guard`, `prompt_guard`, `langkit`, `nemo`, `llm_guard`) are 0. This script downloads the file at that commit, checks its SHA-256, and recomputes the count: https://github.com/Cubits11/cubits11.github.io/blob/4b659fb97bf50aff9793ff4a26c3410b7cf0a53c/scripts/reanalyze_bells_subset.py\n\nYour FAQ and the paper's Dataset Access appendix call the playground rows \"representative examples\". How were these 170 prompts selected from the full non-adversarial set? A sampling rule, a filter, manual choice, or a link to an existing description would answer it.\n\nI report 9/82 only as a count on these 170 released rows, not as an estimate for the full benchmark or for any deployed system. If I have misread the release, a correction is just as useful."
+    outcome: null

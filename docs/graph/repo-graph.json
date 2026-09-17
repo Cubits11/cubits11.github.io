@@ -4903,69 +4903,6 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 15,
-   "behind": 0,
-   "branch": "claude/inferential-adequacy",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 0,
-   "branch": "claude/issue-forms-ingress",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 17,
-   "behind": 0,
-   "branch": "claude/joint-cell-visible",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 14,
-   "behind": 0,
-   "branch": "claude/seo-falsifiable-web",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 17,
-   "behind": 0,
-   "branch": "claude/stack-merge",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 15,
-   "behind": 0,
-   "branch": "origin/claude/inferential-adequacy",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 0,
-   "branch": "origin/claude/issue-forms-ingress",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 17,
-   "behind": 0,
-   "branch": "origin/claude/joint-cell-visible",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 14,
-   "behind": 0,
-   "branch": "origin/claude/seo-falsifiable-web",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
@@ -4973,8 +4910,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/stack-merge",
-  "head": "4173a8c"
+  "branch": "main",
+  "head": "d3766ae"
  },
  "nodes": [
   {
@@ -5825,110 +5762,119 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 15,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 5,
    "head": "6a51abb",
    "id": "claude/inferential-adequacy",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "026554c",
    "id": "claude/issue-forms-ingress",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 17,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 3,
    "head": "4173a8c",
    "id": "claude/joint-cell-visible",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 14,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 6,
    "head": "5fe44bc",
    "id": "claude/seo-falsifiable-web",
    "last_commit": "2026-09-15",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 17,
-   "behind_origin_main": 0,
-   "head": "4173a8c",
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 1,
+   "head": "cc7c7ec",
    "id": "claude/stack-merge",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "4b659fb",
+   "head": "d3766ae",
    "id": "main",
-   "last_commit": "2026-09-07",
+   "last_commit": "2026-09-17",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "4b659fb",
+   "head": "d3766ae",
    "id": "origin",
-   "last_commit": "2026-09-07",
+   "last_commit": "2026-09-17",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 15,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 5,
    "head": "6a51abb",
    "id": "origin/claude/inferential-adequacy",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "026554c",
    "id": "origin/claude/issue-forms-ingress",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 17,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 3,
    "head": "4173a8c",
    "id": "origin/claude/joint-cell-visible",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 14,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 6,
    "head": "5fe44bc",
    "id": "origin/claude/seo-falsifiable-web",
    "last_commit": "2026-09-15",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 1,
+   "head": "cc7c7ec",
+   "id": "origin/claude/stack-merge",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "4b659fb",
+   "head": "d3766ae",
    "id": "origin/main",
-   "last_commit": "2026-09-07",
+   "last_commit": "2026-09-17",
    "reachable_from_origin_main": true,
    "type": "branch"
   },

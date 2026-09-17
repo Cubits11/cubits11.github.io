@@ -1,6 +1,8 @@
 # Dossier — bells-misuse-2025
 
-Row: `bells-misuse-2025` · classification PRESENT (computable_via_item_release) · reconstruction PARTIALLY_IDENTIFIED · status: PREPARED, nothing sent.
+Row: `bells-misuse-2025` · classification PRESENT (computable_via_item_release) · reconstruction PARTIALLY_IDENTIFIED · status: SENT September 16, 2026 (America/New_York), RESPONSE PENDING.
+
+Issue: https://github.com/CentreSecuriteIA/bells_leaderboard/issues/1 · sent 2026-09-17T03:19:51Z · zero comments when verified.
 
 **1. What the source publishes.** Per-supervisor results for twelve systems, and a released per-item subset: 170 non-adversarial prompts (82 harmful, 50 benign, 38 borderline) with binary verdict columns for five specialized supervisors, at a pinned commit (`507566c5…`, hash-verified in CI). Nothing joint is printed; the headline population's per-item outcomes and the ~4,165 adversarial prompts have no per-item release. The subset's selection rule is unstated.
 
@@ -18,8 +20,14 @@ Row: `bells-misuse-2025` · classification PRESENT (computable_via_item_release)
 
 **8. Correction condition.** Evidence that a released column is not the labelled system's verdict, that the subset was released with a stated rule the row misreports, or that a fuller per-item release existed on or before 2026-08-27. Any of these corrects MC-002 or the row under their registered falsifiers.
 
-**The ask, verbatim:**
+**The ask, verbatim (as posted):**
 
-> Your released 170-prompt subset lets anyone recompute what the five specialized supervisors miss *together*: 9 of 82 harmful prompts, against an independence plug-in of 2.87 — and the leave-one-out unions show three of the five add no exclusive coverage on that stratum. One question so the row about your work is right: how were the 170 prompts selected? If the row is wrong, say so — corrections land dated in the public file.
+> Thank you for releasing per-item supervisor verdicts in `data/non_adversarial_prompts.csv`.
+>
+> At commit `507566c5a4606c8e3dec0bd59a5c5fde62594951` the file has 170 rows, 82 of them with `harm_level` = `harmful`. On 9 of those 82 rows, all five specialized-supervisor columns (`lakera_guard`, `prompt_guard`, `langkit`, `nemo`, `llm_guard`) are 0. This script downloads the file at that commit, checks its SHA-256, and recomputes the count: https://github.com/Cubits11/cubits11.github.io/blob/4b659fb97bf50aff9793ff4a26c3410b7cf0a53c/scripts/reanalyze_bells_subset.py
+>
+> Your FAQ and the paper's Dataset Access appendix call the playground rows "representative examples". How were these 170 prompts selected from the full non-adversarial set? A sampling rule, a filter, manual choice, or a link to an existing description would answer it.
+>
+> I report 9/82 only as a count on these 170 released rows, not as an estimate for the full benchmark or for any deployed system. If I have misread the release, a correction is just as useful.
 
 **Channel.** GitHub issues on `CentreSecuriteIA/bells_leaderboard` (the row's recorded route). One message.
