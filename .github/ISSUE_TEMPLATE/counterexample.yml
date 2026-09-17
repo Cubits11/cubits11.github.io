@@ -1,10 +1,8 @@
 name: Counterexample, missed benchmark, or joint outcomes
 description: >-
-  Bring evidence that changes the record: a counterexample to a claim, a
-  benchmark the census missed, a benchmark that already reports the stack,
-  a narrower identified region, or item-level / joint outcomes you can
-  provide. A correction is placed beside the claim it corrects, dated,
-  with this issue linked.
+  Evidence that changes the record: a counterexample, a missed or misread
+  census row, a tighter bound, or joint outcomes. Corrections land dated
+  beside the claim, with this issue linked.
 title: "counterexample: <what it changes>"
 labels: ["counterexample"]
 body:

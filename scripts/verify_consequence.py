@@ -63,6 +63,13 @@ def load_templates() -> dict[str, dict]:
         for req in ("name", "description", "title", "labels"):
             if req not in spec:
                 fail(f"{p.name}: missing {req}")
+        # GitHub lists an issue form only when its description is 3–200 characters.
+        # Both forms sat at ~300 from 2026-09-01 to 2026-09-17 and were silently
+        # unlisted, so every prefilled link opened a blank issue. Seen on the file
+        # page: "Description must be between 3 and 200 characters."
+        desc = str(spec.get("description", ""))
+        if not 3 <= len(desc) <= 200:
+            fail(f"{p.name}: description is {len(desc)} characters; GitHub unlists the form outside 3–200")
         out[p.name] = {"ids": set(ids), "options": options}
     return out
 
