@@ -2168,6 +2168,13 @@
    "from": "scripts/verify_consequence.py",
    "inferred": true,
    "rel": "reads",
+   "to": "CONTRIBUTING.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "DISPATCH.md"
   },
   {
@@ -2301,6 +2308,13 @@
    "from": "scripts/verify_consequence.py",
    "inferred": true,
    "rel": "reads",
+   "to": "missing-column/reproduce/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "scripts"
   },
   {
@@ -2323,6 +2337,13 @@
    "inferred": true,
    "rel": "reads",
    "to": "try/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/index.html"
   },
   {
    "basis": "STATIC_REF",
@@ -3866,6 +3887,13 @@
  },
  "findings": [
   {
+   "claim": "REL-001",
+   "days_left": 6,
+   "detector": "D3",
+   "review_due": "2026-09-23",
+   "severity": "REVIEW"
+  },
+  {
    "config_seed": "MC-E3-PILOT-V1-FREEZE-2026-09-06",
    "detector": "D6",
    "draw_seed": "MC-E3B-PILOT-V1-FREEZE-2026-09-06",
@@ -3885,6 +3913,34 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
+   "ahead": 15,
+   "behind": 0,
+   "branch": "claude/inferential-adequacy",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "claude/issue-forms-ingress",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 17,
+   "behind": 0,
+   "branch": "claude/joint-cell-visible",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 14,
+   "behind": 0,
+   "branch": "claude/seo-falsifiable-web",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
@@ -3892,8 +3948,8 @@
   }
  ],
  "generated_from": {
-  "branch": "main",
-  "head": "9777b0a"
+  "branch": "claude/issue-forms-ingress",
+  "head": "ef65d07"
  },
  "nodes": [
   {
@@ -4379,7 +4435,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 106,
+   "days_left": 96,
    "id": "CC-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4388,7 +4444,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 106,
+   "days_left": 96,
    "id": "CC-002",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4397,7 +4453,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 106,
+   "days_left": 96,
    "id": "CC-003",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4406,7 +4462,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 106,
+   "days_left": 96,
    "id": "CC-004",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4415,7 +4471,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 106,
+   "days_left": 96,
    "id": "CC-005",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4424,7 +4480,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 120,
+   "days_left": 110,
    "id": "CC-006",
    "last_reviewed": "2026-09-07",
    "review_due": "2027-01-05",
@@ -4433,7 +4489,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 16,
+   "days_left": 6,
    "id": "REL-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-09-23",
@@ -4442,7 +4498,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 60,
+   "days_left": 50,
    "id": "MC-001",
    "last_reviewed": "2026-09-07",
    "review_due": "2026-11-06",
@@ -4451,7 +4507,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 50,
+   "days_left": 40,
    "id": "MC-002",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-10-27",
@@ -4460,7 +4516,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 52,
+   "days_left": 42,
    "id": "MC-003",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-10-29",
@@ -4469,7 +4525,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 53,
+   "days_left": 43,
    "id": "MC-004",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-10-30",
@@ -4478,7 +4534,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 80,
+   "days_left": 70,
    "id": "AF-001",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-11-26",
@@ -4487,7 +4543,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 106,
+   "days_left": 96,
    "id": "GA-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4496,7 +4552,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 106,
+   "days_left": 96,
    "id": "GV-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -4505,7 +4561,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 351,
+   "days_left": 341,
    "id": "GCE-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2027-08-24",
@@ -4514,7 +4570,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 113,
+   "days_left": 103,
    "id": "SITE-001",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-12-29",
@@ -4523,7 +4579,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 112,
+   "days_left": 102,
    "id": "SITE-002",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-12-28",
@@ -4569,9 +4625,45 @@
    "type": "experiment"
   },
   {
+   "ahead_of_origin_main": 15,
+   "behind_origin_main": 0,
+   "head": "6a51abb",
+   "id": "claude/inferential-adequacy",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 0,
+   "head": "ef65d07",
+   "id": "claude/issue-forms-ingress",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 17,
+   "behind_origin_main": 0,
+   "head": "4173a8c",
+   "id": "claude/joint-cell-visible",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 14,
+   "behind_origin_main": 0,
+   "head": "5fe44bc",
+   "id": "claude/seo-falsifiable-web",
+   "last_commit": "2026-09-15",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "9777b0a",
+   "head": "4b659fb",
    "id": "main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4580,7 +4672,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "9777b0a",
+   "head": "4b659fb",
    "id": "origin",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4589,7 +4681,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "9777b0a",
+   "head": "4b659fb",
    "id": "origin/main",
    "last_commit": "2026-09-07",
    "reachable_from_origin_main": true,
@@ -4605,5 +4697,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "309fc44a19ab387d4de101f36644beb717657c3264132333a2df1cc2bcfb51ff"
+ "stable_digest": "45ab4e97a1bc895f4e099191e8a176ca3ff48c21be82bdf28bfc12a5d2cac50e"
 }
