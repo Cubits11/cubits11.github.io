@@ -4903,6 +4903,20 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "claude/bells-sent-recorded",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "origin/claude/bells-sent-recorded",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
@@ -4910,8 +4924,8 @@
   }
  ],
  "generated_from": {
-  "branch": "main",
-  "head": "d3766ae"
+  "branch": "claude/bells-sent-recorded",
+  "head": "baf018b"
  },
  "nodes": [
   {
@@ -5762,6 +5776,15 @@
    "type": "experiment"
   },
   {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 0,
+   "head": "baf018b",
+   "id": "claude/bells-sent-recorded",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 5,
    "head": "6a51abb",
@@ -5822,6 +5845,15 @@
    "id": "origin",
    "last_commit": "2026-09-17",
    "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 0,
+   "head": "baf018b",
+   "id": "origin/claude/bells-sent-recorded",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
