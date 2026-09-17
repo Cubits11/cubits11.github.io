@@ -218,6 +218,29 @@ def check_try_page(templates: dict) -> None:
     ok(f"try/index.html: {len(links)} intake links name real templates and fields")
 
 
+# Every other surface that hands a stranger a prefilled issue link. Each link
+# must name a form GitHub lists and only fields that form has; a link that opens
+# a blank issue is not an ingress.
+PREFILL_SURFACES = ("README.md", "CONTRIBUTING.md", "distribution/DISPATCH.md",
+                    "missing-column/reproduce/index.html", "worldspace/index.html")
+
+
+def check_prefill_surfaces(templates: dict) -> None:
+    total = 0
+    for rel in PREFILL_SURFACES:
+        path = ROOT / rel
+        if not path.exists():
+            fail(f"{rel} missing")
+            continue
+        links = re.findall(r'https://github\.com/[^\s"\'<>)]*issues/new\?[^\s"\'<>)]*', path.read_text())
+        if not links:
+            fail(f"{rel}: no prefilled issue link found")
+        for link in links:
+            check_url(link.replace("&amp;", "&"), templates, rel)
+        total += len(links)
+    ok(f"{len(PREFILL_SURFACES)} further surfaces: {total} prefilled links name listed forms and real fields")
+
+
 def check_dispatch() -> None:
     path = ROOT / "distribution" / "DISPATCH.md"
     if not path.exists():
@@ -254,6 +277,7 @@ def main() -> int:
     check_launch_units(exp["ids"])
     check_dossiers()
     check_try_page(templates)
+    check_prefill_surfaces(templates)
     if failures:
         print(f"\n{len(failures)} failure(s)")
         return 1

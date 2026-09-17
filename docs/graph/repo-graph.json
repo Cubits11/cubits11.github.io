@@ -2532,6 +2532,13 @@
    "from": "scripts/verify_consequence.py",
    "inferred": true,
    "rel": "reads",
+   "to": "CONTRIBUTING.md"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "DISPATCH.md"
   },
   {
@@ -2665,6 +2672,13 @@
    "from": "scripts/verify_consequence.py",
    "inferred": true,
    "rel": "reads",
+   "to": "missing-column/reproduce/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "scripts"
   },
   {
@@ -2687,6 +2701,13 @@
    "inferred": true,
    "rel": "reads",
    "to": "try/index.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_consequence.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "worldspace/index.html"
   },
   {
    "basis": "STATIC_REF",
@@ -4856,14 +4877,6 @@
  },
  "findings": [
   {
-   "detector": "D2",
-   "generator": "scripts/generate_conformance_record.py",
-   "severity": "FIX",
-   "tail": [
-    "Run: python3 scripts/generate_conformance_record.py"
-   ]
-  },
-  {
    "claim": "REL-001",
    "days_left": 6,
    "detector": "D3",
@@ -4897,7 +4910,14 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 16,
+   "ahead": 1,
+   "behind": 0,
+   "branch": "claude/issue-forms-ingress",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 17,
    "behind": 0,
    "branch": "claude/joint-cell-visible",
    "detector": "D4",
@@ -4911,6 +4931,41 @@
    "severity": "TOPOLOGY"
   },
   {
+   "ahead": 17,
+   "behind": 0,
+   "branch": "claude/stack-merge",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 15,
+   "behind": 0,
+   "branch": "origin/claude/inferential-adequacy",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "origin/claude/issue-forms-ingress",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 17,
+   "behind": 0,
+   "branch": "origin/claude/joint-cell-visible",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 14,
+   "behind": 0,
+   "branch": "origin/claude/seo-falsifiable-web",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
@@ -4918,8 +4973,8 @@
   }
  ],
  "generated_from": {
-  "branch": "HEAD",
-  "head": "2139046"
+  "branch": "claude/stack-merge",
+  "head": "4173a8c"
  },
  "nodes": [
   {
@@ -5779,9 +5834,18 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 16,
+   "ahead_of_origin_main": 1,
    "behind_origin_main": 0,
-   "head": "2139046",
+   "head": "026554c",
+   "id": "claude/issue-forms-ingress",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 17,
+   "behind_origin_main": 0,
+   "head": "4173a8c",
    "id": "claude/joint-cell-visible",
    "last_commit": "2026-09-17",
    "reachable_from_origin_main": false,
@@ -5793,6 +5857,15 @@
    "head": "5fe44bc",
    "id": "claude/seo-falsifiable-web",
    "last_commit": "2026-09-15",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 17,
+   "behind_origin_main": 0,
+   "head": "4173a8c",
+   "id": "claude/stack-merge",
+   "last_commit": "2026-09-17",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
@@ -5815,6 +5888,42 @@
    "type": "branch"
   },
   {
+   "ahead_of_origin_main": 15,
+   "behind_origin_main": 0,
+   "head": "6a51abb",
+   "id": "origin/claude/inferential-adequacy",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 0,
+   "head": "026554c",
+   "id": "origin/claude/issue-forms-ingress",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 17,
+   "behind_origin_main": 0,
+   "head": "4173a8c",
+   "id": "origin/claude/joint-cell-visible",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 14,
+   "behind_origin_main": 0,
+   "head": "5fe44bc",
+   "id": "origin/claude/seo-falsifiable-web",
+   "last_commit": "2026-09-15",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
    "head": "4b659fb",
@@ -5833,5 +5942,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "9079463757c8bb6d864f294330cdda5169e6b4fb3de80d2f9f396fe44a99a61b"
+ "stable_digest": "ece537443dbcee46662cff06ef6d8d45462c78e48001064d8a3db804f052d516"
 }
