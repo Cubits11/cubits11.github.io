@@ -1,0 +1,69 @@
+{
+  "engine": "BLENDER_EEVEE",
+  "res_x": 512,
+  "res_y": 256,
+  "res_percentage": 100,
+  "format": "PNG",
+  "color_depth": "8",
+  "color_mode": "RGBA",
+  "view_transform": "Standard",
+  "look": "None",
+  "frame": 0,
+  "camera": "Camera_slots",
+  "camera_type": "ORTHO",
+  "camera_matrix": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      3.5
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      6.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "ortho_scale": 10.0,
+  "clip_start": 0.10000000149011612,
+  "clip_end": 1000.0,
+  "sampling": {
+    "taa_render_samples": 48,
+    "use_taa_reprojection": true,
+    "use_raytracing": false,
+    "use_shadows": false
+  },
+  "objects": [
+    "Camera_slots",
+    "e3_feasible_378",
+    "e3_feasible_380",
+    "e3_feasible_381",
+    "e3_feasible_382",
+    "e3_feasible_383",
+    "e3_feasible_384",
+    "e3_feasible_385",
+    "e3_observed_379",
+    "e3_plug_in",
+    "e3_rail",
+    "e3b_observed_0",
+    "e3b_plug_in"
+  ],
+  "parameter_locator": "films/lib/blender/build_frechet_slots.py:PARAMETERS",
+  "claims": [
+    "E3-001",
+    "E3B-001"
+  ]
+}
