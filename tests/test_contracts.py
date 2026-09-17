@@ -19,6 +19,19 @@ def fixture(name):
     return contract.load(BASE / 'fixtures' / (name + '.json'))
 
 
+GROUP = {'width': 'identification', 'width_max': 'identification',
+         'desired_ci_half_width': 'precision',
+         'SESOI': 'decision', 'equivalence_margin': 'decision'}
+
+
+def with_numbers(**changes):
+    """The valid frozen contract with declared quantities replaced, one group at a time."""
+    c = fixture('valid-frozen-inference')
+    for key, value in changes.items():
+        c['inference'][GROUP[key]][key] = value
+    return c
+
+
 class Contracts(unittest.TestCase):
     def test_valid_controls(self):
         for name in ('valid-guard-selection', 'valid-fixed-marginals'):
@@ -79,6 +92,64 @@ class Contracts(unittest.TestCase):
             for text in ('{"id":"first","id":"second"}', '{"budget":NaN}', '{"budget":Infinity}'):
                 path.write_text(text)
                 with self.assertRaises(ValueError): contract.load(path)
+
+
+class InferentialAdequacy(unittest.TestCase):
+    """C2's three quantities, each rejected on its own terms. Declared numbers only."""
+
+    def only(self, c, reason):
+        errors = contract.validate(c)
+        self.assertEqual(len(errors), 1, errors)
+        self.assertIn(reason, errors[0])
+
+    def test_valid_frozen_control(self):
+        self.assertEqual(contract.validate(fixture('valid-frozen-inference')), [])
+
+    def test_identification_limit_is_not_a_sample_size_problem(self):
+        self.only(fixture('inference-identification-limited'), 'no sample size reduces')
+
+    def test_admitted_width_wider_than_the_effect_it_would_act_on(self):
+        self.only(with_numbers(width_max=.03), 'exceeds the SESOI')
+
+    def test_precision_that_could_never_conclude_equivalence(self):
+        self.only(with_numbers(SESOI=.05, desired_ci_half_width=.012), 'conclude equivalence')
+
+    def test_margin_that_would_waive_an_effect_worth_acting_on(self):
+        self.only(with_numbers(equivalence_margin=.03), 'would call equivalent')
+
+    def test_minimum_information_is_not_implied_by_the_three_group_checks(self):
+        # Every group passes alone; identification plus sampling still overruns the SESOI.
+        self.only(with_numbers(desired_ci_half_width=.01, equivalence_margin=.012), 'minimum information')
+
+    def test_boundary_admitted_under_exact_decimal_arithmetic(self):
+        self.assertGreater(.1 + 2 * .1, .3)  # binary arithmetic would reject this design
+        self.assertEqual(contract.validate(with_numbers(
+            width=.1, width_max=.1, desired_ci_half_width=.1,
+            equivalence_margin=.2, SESOI=.3)), [])
+
+    def test_an_unimplemented_condition_fails_closed(self):
+        c = with_numbers()
+        c['inference']['minimum_information_condition'] = 'some_future_rule'
+        self.assertTrue(any('no check implements' in e for e in contract.inference_errors(c)))
+        self.assertTrue(contract.validate(c))  # today the schema refuses it first
+
+    def test_the_gate_binds_to_frozen_status_in_both_kinds(self):
+        c = with_numbers(); del c['inference']
+        self.assertTrue(any('inference' in e for e in contract.validate(c)))
+        c['status'] = 'draft'
+        self.assertEqual(contract.validate(c), [])
+        coupling = fixture('valid-fixed-marginals')
+        self.assertEqual(contract.validate(coupling), [])
+        coupling['status'] = 'frozen'
+        self.assertTrue(any('inference' in e for e in contract.validate(coupling)))
+
+    def test_historical_fixtures_are_not_retrofitted(self):
+        for name in ('valid-guard-selection', 'valid-fixed-marginals', 'e6-marginal-failure',
+                     'e7-threshold-direction', 'e7b-pool-mismatch'):
+            c = fixture(name)
+            self.assertEqual(c['status'], 'constructed_fixture', name)
+            self.assertNotIn('inference', c, name)
+            self.assertFalse([e for e in contract.validate(c) if 'inference' in e], name)
 
 
 if __name__ == '__main__':

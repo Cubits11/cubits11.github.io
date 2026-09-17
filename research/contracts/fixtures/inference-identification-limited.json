@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "constructed-identification-limited",
+  "status": "frozen",
+  "estimand": "pairwise joint miss on shared harmful cases",
+  "kind": "guard_selection",
+  "operating_point": {
+    "objective": "maximum_sensitivity_under_fpr_budget",
+    "comparator": "ge",
+    "direction": "lowest",
+    "fpr_budget": 0.05,
+    "candidates": "observed_benign_scores",
+    "no_feasible_candidate": "exclude_judge"
+  },
+  "declared_pools": {
+    "calibration": "per_judge_benign",
+    "evaluation": "pair_shared_harmful"
+  },
+  "execution_plan": {
+    "calibration": "per_judge_benign",
+    "evaluation": "pair_shared_harmful"
+  },
+  "inference": {
+    "inferential_target": "sign_of_effect",
+    "identification": {
+      "width": 0.012,
+      "width_max": 0.01,
+      "source": "constructed: width of the identified set at the declared marginals"
+    },
+    "precision": {
+      "desired_ci_half_width": 0.004
+    },
+    "decision": {
+      "SESOI": 0.03,
+      "equivalence_margin": 0.01,
+      "loss": {
+        "false_positive": 1,
+        "false_negative": 4,
+        "unit": "relative cost, one wrongly blocked benign case = 1"
+      }
+    },
+    "minimum_information_condition": "identification_width_plus_sampling_within_sesoi"
+  }
+}
