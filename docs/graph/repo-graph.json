@@ -4987,7 +4987,7 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 3,
+   "ahead": 4,
    "behind": 0,
    "branch": "claude/e8-contract",
    "detector": "D4",
@@ -5001,6 +5001,13 @@
    "severity": "TOPOLOGY"
   },
   {
+   "ahead": 5,
+   "behind": 0,
+   "branch": "origin/claude/e8-contract",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
@@ -5009,7 +5016,7 @@
  ],
  "generated_from": {
   "branch": "claude/e8-contract",
-  "head": "2bc48c1"
+  "head": "ac2492b"
  },
  "nodes": [
   {
@@ -5853,7 +5860,7 @@
     "RESULT.md": false,
     "freeze/FREEZE.md": false
    },
-   "first_result_commit_epoch": null,
+   "first_result_commit_epoch": 1789692868,
    "id": "experiments/e8",
    "observation_rows": 0,
    "stops": [],
@@ -5869,9 +5876,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 3,
+   "ahead_of_origin_main": 4,
    "behind_origin_main": 0,
-   "head": "2bc48c1",
+   "head": "ac2492b",
    "id": "claude/e8-contract",
    "last_commit": "2026-09-17",
    "reachable_from_origin_main": false,
@@ -5950,6 +5957,15 @@
    "type": "branch"
   },
   {
+   "ahead_of_origin_main": 5,
+   "behind_origin_main": 0,
+   "head": "01fea45",
+   "id": "origin/claude/e8-contract",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 5,
    "head": "6a51abb",
@@ -6013,5 +6029,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "c54b0e5442b7e55cb2464607503d9468ff2b45cd071aa7909ebe691b172f3852"
+ "stable_digest": "74b5974e77b448b12b640d79994dcdbbe0d8a3afcddbbbfa948088a080514a10"
 }

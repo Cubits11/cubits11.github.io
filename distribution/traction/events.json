@@ -337,6 +337,51 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
+    "id": "4e6d82f89345e881",
+    "kind": "experiment",
+    "source": {
+      "path": "experiments/e8/PREREG.md",
+      "sha256": "6e5b6206fed2e876a80f7191cc8f9a0acc5545faabef448a7198d4776c58f5f1",
+      "commit": "ac2492b843765cc69eff9b198a15edc50496c36b",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/ac2492b843765cc69eff9b198a15edc50496c36b/experiments/e8/PREREG.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "78e8d0eca4e1d811",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e8/freeze/scouting.json",
+      "sha256": "75187d65b866ce3be54288f2b8398d3767bd243a3df02213b5bb6999804b6fa8",
+      "commit": "ac2492b843765cc69eff9b198a15edc50496c36b",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/ac2492b843765cc69eff9b198a15edc50496c36b/experiments/e8/freeze/scouting.json",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "f671f973837e07ae",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e8/freeze/sources.json",
+      "sha256": "adc8e28cd53ca1a97c623502a92ee68a3bd4cc048e8f3ac0ab3825b921c0ff66",
+      "commit": "0ae1f21d1ac93a5fae68c607504db12e5055a3fb",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/0ae1f21d1ac93a5fae68c607504db12e5055a3fb/experiments/e8/freeze/sources.json",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
     "id": "7e2d93b184e5a6fb",
     "kind": "film",
     "source": {
