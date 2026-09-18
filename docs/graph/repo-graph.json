@@ -3141,7 +3141,21 @@
    "from": "scripts/verify_prereg.py",
    "inferred": true,
    "rel": "reads",
+   "to": "contract.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_prereg.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "experiments"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_prereg.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "research/contracts/validate_contract.py"
   },
   {
    "basis": "STATIC_REF",
@@ -4837,6 +4851,69 @@
    "to": "experiments/e7b/PREREG.md"
   },
   {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/PREREG.md"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/.gitignore"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/items_benign_calibration.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/items_benign_scout.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/items_scout_itw-jailbreak.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/items_scout_mosscap-test.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/items_scout_spml-injection.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/scouting.json"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/sources.json"
+  },
+  {
    "basis": "REGISTRY",
    "from": "distribution/traction",
    "inferred": false,
@@ -4903,14 +4980,21 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 1,
+   "ahead": 2,
    "behind": 0,
    "branch": "claude/bells-sent-recorded",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 1,
+   "ahead": 3,
+   "behind": 0,
+   "branch": "claude/e8-contract",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 2,
    "behind": 0,
    "branch": "origin/claude/bells-sent-recorded",
    "detector": "D4",
@@ -4924,8 +5008,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/bells-sent-recorded",
-  "head": "baf018b"
+  "branch": "claude/e8-contract",
+  "head": "2bc48c1"
  },
  "nodes": [
   {
@@ -5765,7 +5849,7 @@
   },
   {
    "docs": {
-    "PREREG.md": false,
+    "PREREG.md": true,
     "RESULT.md": false,
     "freeze/FREEZE.md": false
    },
@@ -5776,10 +5860,19 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 1,
+   "ahead_of_origin_main": 2,
    "behind_origin_main": 0,
-   "head": "baf018b",
+   "head": "b6e6a93",
    "id": "claude/bells-sent-recorded",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 3,
+   "behind_origin_main": 0,
+   "head": "2bc48c1",
+   "id": "claude/e8-contract",
    "last_commit": "2026-09-17",
    "reachable_from_origin_main": false,
    "type": "branch"
@@ -5848,9 +5941,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 1,
+   "ahead_of_origin_main": 2,
    "behind_origin_main": 0,
-   "head": "baf018b",
+   "head": "b6e6a93",
    "id": "origin/claude/bells-sent-recorded",
    "last_commit": "2026-09-17",
    "reachable_from_origin_main": false,
@@ -5920,5 +6013,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "ece537443dbcee46662cff06ef6d8d45462c78e48001064d8a3db804f052d516"
+ "stable_digest": "c54b0e5442b7e55cb2464607503d9468ff2b45cd071aa7909ebe691b172f3852"
 }

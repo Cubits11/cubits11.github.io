@@ -55,6 +55,25 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 EXPERIMENTS = ROOT / "experiments"
 SIDECAR = "PREREG.estimator.json"
+CONTRACT = "contract.json"   # correction C1: the canonical executable declaration
+
+
+def check_contract(exp: str, contract: Path) -> None:
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "validate_contract", ROOT / "research/contracts/validate_contract.py")
+    vc = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(vc)
+    try:
+        errors = vc.validate(vc.load(contract))
+    except ValueError as e:
+        errors = [str(e)]
+    for e in errors:
+        fail(f"{exp}: {CONTRACT} rejected — {e}")
+    if not errors:
+        status = vc.load(contract)["status"]
+        ok(f"{exp}: {CONTRACT} validated (status {status}); PREREG.md renders it, and "
+           f"declaration is not runtime consumption")
 
 failures: list[str] = []
 QUIET = False          # set while running mutants, whose failures are the point
@@ -285,7 +304,14 @@ def scan(show: bool) -> int:
         if not prereg.exists():
             continue
         sidecar = d / SIDECAR
-        if sidecar.exists():
+        contract = d / CONTRACT
+        if contract.exists():
+            # Correction C1: the executable contract is the canonical declaration and
+            # PREREG.md renders it. Validated by research/contracts/validate_contract.py;
+            # this scan establishes declaration, not runtime consumption.
+            declared.append(d.name)
+            check_contract(d.name, contract)
+        elif sidecar.exists():
             declared.append(d.name)
             check_sidecar(d.name, prereg, sidecar)
         else:
@@ -294,7 +320,7 @@ def scan(show: bool) -> int:
     total = len(declared) + len(undeclared)
     if show or undeclared:
         for name in undeclared:
-            print(f"      {name}: undeclared — no {SIDECAR}; conformance is not "
+            print(f"      {name}: undeclared — no {CONTRACT} and no {SIDECAR}; conformance is not "
                   f"mechanically checked for this experiment")
     if failures:
         print(f"\n{len(failures)} conformance check(s) failed.")
@@ -302,7 +328,7 @@ def scan(show: bool) -> int:
     print(f"\nconformance: {len(declared)} of {total} preregistrations declare a "
           f"machine-readable estimator. Undeclared preregistrations are reported, not "
           f"failed — gating a frozen file after its outcomes are visible is the rescue "
-          f"this repository forbids. New experiments carry the sidecar.")
+          f"this repository forbids. New experiments carry {CONTRACT}.")
     return 0
 
 

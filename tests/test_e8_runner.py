@@ -151,5 +151,18 @@ class Runner(unittest.TestCase):
         self.assertIsNone(re.search(r"comparator\W+=\W+['\"](ge|le)['\"]", src), "a comparator literal")
 
 
+class Preregistration(unittest.TestCase):
+    def test_prereg_renders_its_sources(self):
+        # Correction C1: PREREG.md is a rendering of the contract, the scouting record and the
+        # freeze. A hand edit to the prose that is not an edit to its source is drift.
+        spec = importlib.util.spec_from_file_location("render_prereg", ROOT / "experiments/e8/run/render_prereg.py")
+        render = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(render)
+        prereg = ROOT / "experiments/e8/PREREG.md"
+        if not prereg.exists():
+            self.skipTest("E8 has no PREREG.md yet")
+        self.assertEqual(prereg.read_text(), render.render())
+
+
 if __name__ == "__main__":
     unittest.main()
