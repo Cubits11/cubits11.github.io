@@ -4914,6 +4914,97 @@
    "to": "experiments/e8/freeze/sources.json"
   },
   {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/PREREG.md"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/.gitignore"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/freeze.json"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/items_calibration.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/items_measurement_itw-jailbreak.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/items_measurement_mosscap-test.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/items_measurement_spml-injection.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/items_scout_itw-jailbreak.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/items_scout_mosscap-test.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/items_scout_spml-injection.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/items_stress.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/protocol.json"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e9",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e9/freeze/sources.json"
+  },
+  {
    "basis": "REGISTRY",
    "from": "distribution/traction",
    "inferred": false,
@@ -4955,7 +5046,7 @@
  "findings": [
   {
    "claim": "REL-001",
-   "days_left": 6,
+   "days_left": 5,
    "detector": "D3",
    "review_due": "2026-09-23",
    "severity": "REVIEW"
@@ -4980,34 +5071,6 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 2,
-   "behind": 0,
-   "branch": "claude/bells-sent-recorded",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 4,
-   "behind": 0,
-   "branch": "claude/e8-contract",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 2,
-   "behind": 0,
-   "branch": "origin/claude/bells-sent-recorded",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 5,
-   "behind": 0,
-   "branch": "origin/claude/e8-contract",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
@@ -5015,8 +5078,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/e8-contract",
-  "head": "ac2492b"
+  "branch": "claude/e9-contract",
+  "head": "9bb2aff"
  },
  "nodes": [
   {
@@ -5593,7 +5656,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 96,
+   "days_left": 95,
    "id": "CC-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5602,7 +5665,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 96,
+   "days_left": 95,
    "id": "CC-002",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5611,7 +5674,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 96,
+   "days_left": 95,
    "id": "CC-003",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5620,7 +5683,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 96,
+   "days_left": 95,
    "id": "CC-004",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5629,7 +5692,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 96,
+   "days_left": 95,
    "id": "CC-005",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5638,7 +5701,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 110,
+   "days_left": 109,
    "id": "CC-006",
    "last_reviewed": "2026-09-07",
    "review_due": "2027-01-05",
@@ -5647,7 +5710,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 6,
+   "days_left": 5,
    "id": "REL-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-09-23",
@@ -5656,7 +5719,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 57,
+   "days_left": 56,
    "id": "MC-001",
    "last_reviewed": "2026-09-14",
    "review_due": "2026-11-13",
@@ -5665,7 +5728,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 40,
+   "days_left": 39,
    "id": "MC-002",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-10-27",
@@ -5674,7 +5737,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 42,
+   "days_left": 41,
    "id": "MC-003",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-10-29",
@@ -5683,7 +5746,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 43,
+   "days_left": 42,
    "id": "MC-004",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-10-30",
@@ -5692,7 +5755,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 70,
+   "days_left": 69,
    "id": "AF-001",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-11-26",
@@ -5701,7 +5764,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 96,
+   "days_left": 95,
    "id": "GA-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5710,7 +5773,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 96,
+   "days_left": 95,
    "id": "GV-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5719,7 +5782,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 341,
+   "days_left": 340,
    "id": "GCE-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2027-08-24",
@@ -5728,7 +5791,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 103,
+   "days_left": 102,
    "id": "SITE-001",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-12-29",
@@ -5737,7 +5800,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 102,
+   "days_left": 101,
    "id": "SITE-002",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-12-28",
@@ -5746,7 +5809,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 111,
+   "days_left": 110,
    "id": "E3-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
@@ -5755,7 +5818,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 111,
+   "days_left": 110,
    "id": "E3B-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
@@ -5764,7 +5827,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 113,
+   "days_left": 112,
    "id": "E6-001",
    "last_reviewed": "2026-09-10",
    "review_due": "2027-01-08",
@@ -5773,7 +5836,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 113,
+   "days_left": 112,
    "id": "E7B-001",
    "last_reviewed": "2026-09-10",
    "review_due": "2027-01-08",
@@ -5867,64 +5930,22 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 2,
+   "docs": {
+    "PREREG.md": true,
+    "RESULT.md": false,
+    "freeze/FREEZE.md": false
+   },
+   "first_result_commit_epoch": null,
+   "id": "experiments/e9",
+   "observation_rows": 0,
+   "stops": [],
+   "type": "experiment"
+  },
+  {
+   "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "b6e6a93",
-   "id": "claude/bells-sent-recorded",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 4,
-   "behind_origin_main": 0,
-   "head": "ac2492b",
-   "id": "claude/e8-contract",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 5,
-   "head": "6a51abb",
-   "id": "claude/inferential-adequacy",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 19,
-   "head": "026554c",
-   "id": "claude/issue-forms-ingress",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 3,
-   "head": "4173a8c",
-   "id": "claude/joint-cell-visible",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 6,
-   "head": "5fe44bc",
-   "id": "claude/seo-falsifiable-web",
-   "last_commit": "2026-09-15",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 1,
-   "head": "cc7c7ec",
-   "id": "claude/stack-merge",
+   "head": "9bb2aff",
+   "id": "claude/e9-contract",
    "last_commit": "2026-09-17",
    "reachable_from_origin_main": true,
    "type": "branch"
@@ -5932,7 +5953,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "d3766ae",
+   "head": "9bb2aff",
    "id": "main",
    "last_commit": "2026-09-17",
    "reachable_from_origin_main": true,
@@ -5941,79 +5962,16 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "d3766ae",
+   "head": "9bb2aff",
    "id": "origin",
    "last_commit": "2026-09-17",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 2,
-   "behind_origin_main": 0,
-   "head": "b6e6a93",
-   "id": "origin/claude/bells-sent-recorded",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 5,
-   "behind_origin_main": 0,
-   "head": "01fea45",
-   "id": "origin/claude/e8-contract",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 5,
-   "head": "6a51abb",
-   "id": "origin/claude/inferential-adequacy",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 19,
-   "head": "026554c",
-   "id": "origin/claude/issue-forms-ingress",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 3,
-   "head": "4173a8c",
-   "id": "origin/claude/joint-cell-visible",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 6,
-   "head": "5fe44bc",
-   "id": "origin/claude/seo-falsifiable-web",
-   "last_commit": "2026-09-15",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 1,
-   "head": "cc7c7ec",
-   "id": "origin/claude/stack-merge",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "d3766ae",
+   "head": "9bb2aff",
    "id": "origin/main",
    "last_commit": "2026-09-17",
    "reachable_from_origin_main": true,
@@ -6029,5 +5987,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "74b5974e77b448b12b640d79994dcdbbe0d8a3afcddbbbfa948088a080514a10"
+ "stable_digest": "b47359a3de0f7bb1e2135989dfad784cdaf9f1507a896581e47d95fb3208268f"
 }

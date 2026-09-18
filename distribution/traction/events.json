@@ -382,6 +382,66 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
+    "id": "103f6df704f6cf9a",
+    "kind": "experiment",
+    "source": {
+      "path": "experiments/e9/PREREG.md",
+      "sha256": "171f9ebfff2cd195c6b1e3907f12993be2f02154a541d0e2318bd9c19e975f10",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "9e02fb13e699553a",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e9/freeze/freeze.json",
+      "sha256": "7823904703a406840c9cba37dba40942bc065a9c4d1c06b89a6e70c12ce416a5",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "e7b43b067759d798",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e9/freeze/protocol.json",
+      "sha256": "a094fe0abb0aba7eb71d0eac1fcf99b8609dd9280d6e5ea8ff19bdf2206617d1",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "de8b500a76ba6830",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e9/freeze/sources.json",
+      "sha256": "f8fb045ae627388cc4ea7f336198fb773cc58bbc930a97977bcacfe6a6da5e2b",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
     "id": "7e2d93b184e5a6fb",
     "kind": "film",
     "source": {

@@ -1,0 +1,22 @@
+{
+ "frozen_on": "2026-09-18",
+ "seed": "MC-E9-FREEZE-2026-09-18",
+ "bootstrap": {
+  "B": 2000,
+  "interval": "percentile, 95%, items resampled with replacement",
+  "same_as": "E3 and E3B"
+ },
+ "contract_sha256": "43811798ae46e92eb14f933c96e855b625c3507230aac709ba510da4af69835b",
+ "protocol_declared_sha256": "dbafd3b84430d6f27a248224d97682b0df3e26f7190b0619b5e89428cb9fe4a9",
+ "items": {
+  "items_calibration.csv": "2a123b52135bd36ad5d26e83c23793040a0788a891a5fc44092904814da74e34",
+  "items_measurement_itw-jailbreak.csv": "a033954593a07b97311e864c2d835ffe590df53f4ef5c806e45484280635903f",
+  "items_measurement_mosscap-test.csv": "2f2fd151d4f12b9aaa3fd41ae447e529777dc42a5debdad080e7a23bfc76f829",
+  "items_measurement_spml-injection.csv": "af30996b09e51688c243d63eb5cd9112d0bc03dfb326a0a8ad819555a78c0a57",
+  "items_scout_itw-jailbreak.csv": "30be032536898c711790664336655edef1d348e4dda821c575e042859831fae8",
+  "items_scout_mosscap-test.csv": "58e6d8d7e2a888943b6fad041a02d0e17c5a16c3dafdb97e1e847f427b1832c6",
+  "items_scout_spml-injection.csv": "9c34e80823d77d406f4e84d58017ab071ccd6b9673313b9851ceb76314356e1b",
+  "items_stress.csv": "9dd4a50e56f3825bee4e0849f0850f48f8ce96d5bb27cdcbe8deb266637fe954"
+ },
+ "order_witness": "score.py refuses every E9 set until this file, the frozen contract and that set's item list are committed and this file is on origin/main byte for byte. The time GitHub received it is an out-of-repository witness that the freeze preceded the first score."
+}
