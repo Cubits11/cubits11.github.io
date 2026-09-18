@@ -13,7 +13,7 @@ Registry v0.4 · last owner review 2026-09-14 · one question: *Do published per
 | paired outcome releases | 0 |
 | upstream prs | 0 |
 | human cold runs | 0 |
-| technical interactions (diagnostic, not an outcome) | 3 |
+| technical interactions (diagnostic, not an outcome) | 4 |
 
 Zero is the recorded value where it is zero. The stop rule and the procedure for recording an outcome are in `distribution/EXTERNAL_EVENTS.md`.
 

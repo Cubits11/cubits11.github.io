@@ -52,13 +52,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "70050c08430f7c32",
+    "id": "c93d03ba49aff94d",
     "kind": "metrics",
     "source": {
       "path": "distribution/outcomes.yaml",
-      "sha256": "2cefa442652376b870e95f86840e5716cc91da5ea91f9be46585d2a19ff23b66",
-      "commit": "26a9d578ffe77deecc191f02ae578e6f8ae6e2c0",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/26a9d578ffe77deecc191f02ae578e6f8ae6e2c0/distribution/outcomes.yaml",
+      "sha256": "91f5decd619427fdb700ce5a458f73453402fc06c9b25a5c1ed039a74c64ef38",
+      "commit": "baf018bfd3997716cc8800f51861bb81edd98652",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/baf018bfd3997716cc8800f51861bb81edd98652/distribution/outcomes.yaml",
       "binding": "committed"
     },
     "draft_ids": [],
@@ -329,6 +329,51 @@
       "sha256": "d932e5dca1877a1d0ef9081464d2d47744178b36c62e21ef22794c77ff86bbf0",
       "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
       "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/experiments/e7b/RESULT.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "4e6d82f89345e881",
+    "kind": "experiment",
+    "source": {
+      "path": "experiments/e8/PREREG.md",
+      "sha256": "6e5b6206fed2e876a80f7191cc8f9a0acc5545faabef448a7198d4776c58f5f1",
+      "commit": "ac2492b843765cc69eff9b198a15edc50496c36b",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/ac2492b843765cc69eff9b198a15edc50496c36b/experiments/e8/PREREG.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "78e8d0eca4e1d811",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e8/freeze/scouting.json",
+      "sha256": "75187d65b866ce3be54288f2b8398d3767bd243a3df02213b5bb6999804b6fa8",
+      "commit": "ac2492b843765cc69eff9b198a15edc50496c36b",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/ac2492b843765cc69eff9b198a15edc50496c36b/experiments/e8/freeze/scouting.json",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
+    "id": "f671f973837e07ae",
+    "kind": "freeze",
+    "source": {
+      "path": "experiments/e8/freeze/sources.json",
+      "sha256": "adc8e28cd53ca1a97c623502a92ee68a3bd4cc048e8f3ac0ab3825b921c0ff66",
+      "commit": "0ae1f21d1ac93a5fae68c607504db12e5055a3fb",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/0ae1f21d1ac93a5fae68c607504db12e5055a3fb/experiments/e8/freeze/sources.json",
       "binding": "committed"
     },
     "draft_ids": [],

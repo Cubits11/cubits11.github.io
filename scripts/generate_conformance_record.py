@@ -90,7 +90,8 @@ def render() -> str:
     # contract declaration coverage, counted from the tree
     preregs = sorted(p.name for p in (ROOT / "experiments").iterdir()
                      if (p / "PREREG.md").exists())
-    declared = [e for e in preregs if (ROOT / "experiments" / e / vp.SIDECAR).exists()]
+    declared = [e for e in preregs if (ROOT / "experiments" / e / vp.SIDECAR).exists()
+                or (ROOT / "experiments" / e / vp.CONTRACT).exists()]
 
     disp = {r["claim_id"]: r for r in corr["records"]}
     # Direct indexing on purpose: a missing key must raise here rather than

@@ -5,7 +5,7 @@
   "description": "Structural validation plus validate_contract.py semantic checks. Passing does not establish runtime consumption, adequate design, pre-observation freeze, or valid inference. The inference block compares declared numbers with each other; nobody has checked that the declared identification width is the width this design actually has.",
   "$defs": {
     "inference": {
-      "description": "Correction C2's inferential-adequacy declaration, separated into the three questions it was written against conflating: what the identified set permits before any n, what sampling is asked to resolve inside it, and what the decision requires of both. Required at status frozen, so it exists before an expensive run rather than after its outcomes.",
+      "description": "Correction C2's inferential-adequacy declaration, separated into the three questions it was written against conflating: what the identified set permits before any n, what sampling is asked to resolve inside it, and what the decision requires of both. Required at status frozen, so it exists before an expensive run rather than after its outcomes. An optional fourth group, informativeness, declares the floor a marginal-only width must clear for the target to be answerable at all.",
       "type": "object",
       "properties": {
         "inferential_target": {
@@ -100,6 +100,24 @@
         "minimum_information_condition": {
           "description": "The adequacy rule validate_contract.py evaluates exactly. One rule is expressible today; another requires a declared addition here.",
           "const": "identification_width_plus_sampling_within_sesoi"
+        },
+        "informativeness": {
+          "description": "Edge Q of the plane, for a target that needs room rather than a bound. |q_obs - q_ind| can never exceed the width of the marginal-only identified set, so a design that would show a discrepancy the SESOI acts on must land on a pool whose realized Frechet width is at least this floor. Realized at analysis from the observed marginals, never at validation: a declared floor is a promise about the consequence, not evidence about any pool. Below the floor the run reports IDENTIFICATION-LIMITED and claims no discrepancy.",
+          "type": "object",
+          "properties": {
+            "marginal_only_width_min": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "consequence_when_below": {
+              "const": "IDENTIFICATION-LIMITED"
+            }
+          },
+          "required": [
+            "marginal_only_width_min",
+            "consequence_when_below"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [

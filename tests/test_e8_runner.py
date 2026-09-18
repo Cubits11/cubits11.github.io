@@ -118,11 +118,50 @@ class Runner(unittest.TestCase):
             self._run(c, sc)
         self.assertIn("excluded ['G2']", str(ctx.exception))
 
+    def test_realized_width_below_the_declared_floor_is_identification_limited(self):
+        # Five of ten missed by each guard: lo = 0, hi = 5, marginal-only width 1/2.
+        c = frozen()
+        c["inference"]["informativeness"] = {"marginal_only_width_min": 0.6,
+                                             "consequence_when_below": "IDENTIFICATION-LIMITED"}
+        c["inference"]["decision"]["SESOI"] = 0.6      # the floor may not sit below the SESOI
+        c["inference"]["decision"]["equivalence_margin"] = 0.6
+        ident = self._run(c)["identification"]
+        self.assertEqual(ident["marginal_only_width"], "1/2")
+        self.assertEqual(ident["status"], "IDENTIFICATION-LIMITED")
+        self.assertFalse(ident["delta_claimable"])
+        self.assertEqual(ident["delta_all_miss"], "3/20")   # 4/10 - (5/10)(5/10), recorded, not claimed
+        c["inference"]["informativeness"]["marginal_only_width_min"] = 0.5   # the boundary is admitted
+        c["inference"]["decision"]["SESOI"] = 0.5
+        c["inference"]["decision"]["equivalence_margin"] = 0.5
+        ident = self._run(c)["identification"]
+        self.assertEqual(ident["status"], "INFORMATIVE")
+        self.assertTrue(ident["delta_claimable"])
+
+    def test_a_contract_without_a_floor_gets_no_verdict(self):
+        ident = self._run(frozen())["identification"]
+        self.assertEqual(ident["status"], "NOT-DECLARED")
+        self.assertFalse(ident["delta_claimable"])
+        self.assertIsNone(ident["floor"])
+
     def test_runner_source_holds_no_claim_critical_literal(self):
         src = RUNNER.read_text()
         self.assertIsNone(re.search(r"[=(]\s*['\"](lowest|highest)['\"]", src), "a direction literal")
         self.assertNotIn("0.05", src, "a budget literal")
+        self.assertIsNone(re.search(r"width_min\W*[=:]\s*[0-9]", src), "a floor literal")
         self.assertIsNone(re.search(r"comparator\W+=\W+['\"](ge|le)['\"]", src), "a comparator literal")
+
+
+class Preregistration(unittest.TestCase):
+    def test_prereg_renders_its_sources(self):
+        # Correction C1: PREREG.md is a rendering of the contract, the scouting record and the
+        # freeze. A hand edit to the prose that is not an edit to its source is drift.
+        spec = importlib.util.spec_from_file_location("render_prereg", ROOT / "experiments/e8/run/render_prereg.py")
+        render = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(render)
+        prereg = ROOT / "experiments/e8/PREREG.md"
+        if not prereg.exists():
+            self.skipTest("E8 has no PREREG.md yet")
+        self.assertEqual(prereg.read_text(), render.render())
 
 
 if __name__ == "__main__":

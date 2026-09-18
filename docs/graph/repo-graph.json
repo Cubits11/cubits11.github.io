@@ -3141,7 +3141,21 @@
    "from": "scripts/verify_prereg.py",
    "inferred": true,
    "rel": "reads",
+   "to": "contract.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_prereg.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "experiments"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_prereg.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "research/contracts/validate_contract.py"
   },
   {
    "basis": "STATIC_REF",
@@ -4837,6 +4851,69 @@
    "to": "experiments/e7b/PREREG.md"
   },
   {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/PREREG.md"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/.gitignore"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/items_benign_calibration.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/items_benign_scout.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/items_scout_itw-jailbreak.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/items_scout_mosscap-test.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/items_scout_spml-injection.csv"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/scouting.json"
+  },
+  {
+   "basis": "GIT",
+   "from": "experiments/e8",
+   "inferred": false,
+   "rel": "governed_by",
+   "to": "experiments/e8/freeze/sources.json"
+  },
+  {
    "basis": "REGISTRY",
    "from": "distribution/traction",
    "inferred": false,
@@ -4903,65 +4980,30 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 15,
+   "ahead": 2,
    "behind": 0,
-   "branch": "claude/inferential-adequacy",
+   "branch": "claude/bells-sent-recorded",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 1,
+   "ahead": 4,
    "behind": 0,
-   "branch": "claude/issue-forms-ingress",
+   "branch": "claude/e8-contract",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 17,
+   "ahead": 2,
    "behind": 0,
-   "branch": "claude/joint-cell-visible",
+   "branch": "origin/claude/bells-sent-recorded",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 14,
+   "ahead": 5,
    "behind": 0,
-   "branch": "claude/seo-falsifiable-web",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 17,
-   "behind": 0,
-   "branch": "claude/stack-merge",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 15,
-   "behind": 0,
-   "branch": "origin/claude/inferential-adequacy",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 0,
-   "branch": "origin/claude/issue-forms-ingress",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 17,
-   "behind": 0,
-   "branch": "origin/claude/joint-cell-visible",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 14,
-   "behind": 0,
-   "branch": "origin/claude/seo-falsifiable-web",
+   "branch": "origin/claude/e8-contract",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -4973,8 +5015,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/stack-merge",
-  "head": "4173a8c"
+  "branch": "claude/e8-contract",
+  "head": "ac2492b"
  },
  "nodes": [
   {
@@ -5814,121 +5856,166 @@
   },
   {
    "docs": {
-    "PREREG.md": false,
+    "PREREG.md": true,
     "RESULT.md": false,
     "freeze/FREEZE.md": false
    },
-   "first_result_commit_epoch": null,
+   "first_result_commit_epoch": 1789692868,
    "id": "experiments/e8",
    "observation_rows": 0,
    "stops": [],
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 15,
+   "ahead_of_origin_main": 2,
    "behind_origin_main": 0,
+   "head": "b6e6a93",
+   "id": "claude/bells-sent-recorded",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 4,
+   "behind_origin_main": 0,
+   "head": "ac2492b",
+   "id": "claude/e8-contract",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 5,
    "head": "6a51abb",
    "id": "claude/inferential-adequacy",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "026554c",
    "id": "claude/issue-forms-ingress",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 17,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 3,
    "head": "4173a8c",
    "id": "claude/joint-cell-visible",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 14,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 6,
    "head": "5fe44bc",
    "id": "claude/seo-falsifiable-web",
    "last_commit": "2026-09-15",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 1,
+   "head": "cc7c7ec",
+   "id": "claude/stack-merge",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 0,
+   "head": "d3766ae",
+   "id": "main",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 0,
+   "head": "d3766ae",
+   "id": "origin",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 2,
+   "behind_origin_main": 0,
+   "head": "b6e6a93",
+   "id": "origin/claude/bells-sent-recorded",
+   "last_commit": "2026-09-17",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 17,
+   "ahead_of_origin_main": 5,
    "behind_origin_main": 0,
-   "head": "4173a8c",
-   "id": "claude/stack-merge",
+   "head": "01fea45",
+   "id": "origin/claude/e8-contract",
    "last_commit": "2026-09-17",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
-   "head": "4b659fb",
-   "id": "main",
-   "last_commit": "2026-09-07",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
-   "head": "4b659fb",
-   "id": "origin",
-   "last_commit": "2026-09-07",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 15,
-   "behind_origin_main": 0,
+   "behind_origin_main": 5,
    "head": "6a51abb",
    "id": "origin/claude/inferential-adequacy",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "026554c",
    "id": "origin/claude/issue-forms-ingress",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 17,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 3,
    "head": "4173a8c",
    "id": "origin/claude/joint-cell-visible",
    "last_commit": "2026-09-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 14,
-   "behind_origin_main": 0,
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 6,
    "head": "5fe44bc",
    "id": "origin/claude/seo-falsifiable-web",
    "last_commit": "2026-09-15",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 1,
+   "head": "cc7c7ec",
+   "id": "origin/claude/stack-merge",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "4b659fb",
+   "head": "d3766ae",
    "id": "origin/main",
-   "last_commit": "2026-09-07",
+   "last_commit": "2026-09-17",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
@@ -5942,5 +6029,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "ece537443dbcee46662cff06ef6d8d45462c78e48001064d8a3db804f052d516"
+ "stable_digest": "74b5974e77b448b12b640d79994dcdbbe0d8a3afcddbbbfa948088a080514a10"
 }
