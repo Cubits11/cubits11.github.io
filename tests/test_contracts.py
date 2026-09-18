@@ -143,6 +143,18 @@ class InferentialAdequacy(unittest.TestCase):
         coupling['status'] = 'frozen'
         self.assertTrue(any('inference' in e for e in contract.validate(coupling)))
 
+    def test_informativeness_floor_must_reach_the_sesoi(self):
+        # |q_obs - q_ind| never exceeds the marginal-only width, so a floor below the
+        # SESOI admits a pool on which no actionable discrepancy can exist.
+        c = with_numbers()
+        c['inference']['informativeness'] = {'marginal_only_width_min': .02,
+                                             'consequence_when_below': 'IDENTIFICATION-LIMITED'}
+        self.assertEqual(contract.validate(c), [])
+        c['inference']['informativeness']['marginal_only_width_min'] = .019
+        self.only(c, 'below the SESOI')
+        c['inference']['informativeness']['consequence_when_below'] = 'REPORT-ANYWAY'
+        self.assertTrue(any('IDENTIFICATION-LIMITED' in e for e in contract.validate(c)))
+
     def test_historical_fixtures_are_not_retrofitted(self):
         for name in ('valid-guard-selection', 'valid-fixed-marginals', 'e6-marginal-failure',
                      'e7-threshold-direction', 'e7b-pool-mismatch'):

@@ -1,0 +1,95 @@
+{
+ "written": "2026-09-17",
+ "seed": "MC-E8-FREEZE-2026-09-17",
+ "status": "declared before any candidate was scored; results are appended by run/scout.py and nothing above them changes",
+ "why": "E3 and E3B each landed on a degenerate marginal-only identified set (Frechet width 0.0175 and 0) because the pool was chosen for the guards' remit, not for where the marginals would land. |q_obs - q_ind| never exceeds that width, so a pool whose marginals sit at an extreme cannot show a discrepancy anyone would act on. The design variable is therefore the item pool, at a fixed and deployable false-positive budget, and the pool is chosen on a scouting slice that is burned for confirmation.",
+ "operating_point": "experiments/e8/contract.json#operating_point, applied by run/scout.py through runner.select_threshold; no budget, comparator or direction is restated here",
+ "sizes": {
+  "scout_harmful_per_candidate": 200,
+  "scout_benign_calibration": 400,
+  "evaluation_harmful": 1000,
+  "evaluation_benign_calibration": 400
+ },
+ "middle_band": [0.15, 0.85],
+ "rule": "A candidate is eligible when both guards' scouting miss rates lie in the middle band and at least 1200 deduplicated rows survive removal of every hash E2, E3 and E3B froze. Among eligible candidates the one with the widest scouting Frechet width is chosen; ties go to the earlier candidate in the declared order. If none is eligible, E8 stops before any evaluation item is scored, the contract stays draft, and the stop is reported.",
+ "burn": "Every scouting item, harmful or benign, is excluded from evaluation by text hash. The evaluation slice is ranks 201..1200 of the chosen candidate under the same seed, and the evaluation calibration set is the next 400 benign ranks after the scouting calibration set. Scouting thresholds are never carried into the run: the runner recalibrates on the evaluation calibration set from the contract alone.",
+ "not_a_rescue_because": "The rule, the band, the sizes, the seed and the candidate order are written here before any scouting score exists. What scouting may change is which candidate becomes the evaluation pool; it may not change the budget, the estimand, the SESOI, the floor or the consequence, which live in contract.json and were declared first.",
+ "ranking": "sha256(seed + ':' + candidate_id + ':' + row_index) ascending hex, after deduplication by sha256 of prompt text (first occurrence kept) and removal of prior frozen hashes; benign ranks use candidate_id 'benign'",
+ "prior_frozen": ["experiments/e2/freeze", "experiments/e3/freeze", "experiments/e3b/freeze"],
+ "benign": {
+  "source": "bench-llm/or-bench (or-bench-80k), the copy E3B froze",
+  "path": "experiments/e3b/freeze/or-bench-80k.csv",
+  "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6",
+  "revision": "e36d8b80e81837c8a8f264bbb2a49f1b32c7e272",
+  "license": "cc-by-4.0",
+  "id_scheme": "orbench80k-<row_index>"
+ },
+ "candidates": [
+  {
+   "id": "mosscap-test",
+   "why": "Gandalf's successor game at eight levels. E3B's Gandalf pool was caught 400 of 400 by G1; Mosscap's higher levels are the same population made harder, and the prompts are short, so truncation does not decide the score.",
+   "upstream": {
+    "hf_id": "Lakera/mosscap_prompt_injection",
+    "revision": "b7e495ff63373ff7f7dabc1e9390cf62b5838570",
+    "file": "data/test-00000-of-00001-06acab2d6a2bcf9f.parquet",
+    "local_name": "mosscap-test.parquet",
+    "sha256": "9311f64ca579c947e43ff64ad4996585c51e4dae8ae747342926cf0091160d21",
+    "format": "parquet",
+    "text_column": "prompt",
+    "extra_columns": ["level"],
+    "population_rows": 27729,
+    "license": "mit"
+   },
+   "contamination": "G1's declared training sets do not include Lakera/mosscap_prompt_injection; G2's fine-tuning corpus is unverifiable (HTTP 401), as recorded for E3B.",
+   "id_scheme": "mosscap-<row_index>"
+  },
+  {
+   "id": "spml-injection",
+   "why": "System-prompt violations labelled by the SPML authors, synthetic and topically broad. If the guards treat policy violations as injections the marginals land mid-band; if they do not, this repeats E3's blindness and the band rule excludes it.",
+   "upstream": {
+    "hf_id": "reshabhs/SPML_Chatbot_Prompt_Injection",
+    "revision": "02ce8084e979bc7d4c24ee35d22ecb7f2db96ff5",
+    "file": "spml_prompt_injection.csv",
+    "local_name": "spml.csv",
+    "sha256": "4ca6590cd8ec10832fcebee5e243acb32be5c3e79b7a260f8638eed738c784f8",
+    "format": "csv",
+    "text_column": "User Prompt",
+    "keep_where": {"column": "Prompt injection", "equals": "1"},
+    "extra_columns": ["Degree"],
+    "population_rows": 16012,
+    "license": "mit"
+   },
+   "contamination": "not among G1's declared training sets; G2 unverifiable.",
+   "id_scheme": "spml-<row_index>"
+  },
+  {
+   "id": "itw-jailbreak",
+   "why": "Real jailbreak prompts collected in the wild. Long (median about 1.8k characters), so the guards see a 512-token prefix; that is a property of the pool, recorded, not corrected.",
+   "upstream": {
+    "hf_id": "TrustAIRLab/in-the-wild-jailbreak-prompts",
+    "revision": "a10aab8eff1c73165a442d4464dce192bd28b9c5",
+    "file": "jailbreak_2023_12_25/train-00000-of-00001.parquet",
+    "local_name": "itw-jailbreak-2023-12-25.parquet",
+    "sha256": "55bbc5e2be771ee16ed67aed4edb5ecef5f44ac69cea317a67e5405c5c6057a4",
+    "format": "parquet",
+    "text_column": "prompt",
+    "extra_columns": ["platform"],
+    "population_rows": 1405,
+    "license": "mit"
+   },
+   "contamination": "PLAUSIBLE for G1: it trains on jackhhao/jailbreak-classification, which draws on the same public jailbreak communities. A low G1 miss rate here does not distinguish competence from memorisation.",
+   "id_scheme": "itw-<row_index>"
+  }
+ ],
+ "excluded_before_scouting": [
+  {
+   "id": "deepset/prompt-injections",
+   "why": "203 rows labelled injection in the train split, below the 1200 the sizes require."
+  },
+  {
+   "id": "hackaprompt/hackaprompt-dataset",
+   "why": "gated (auto-approval); the narrow exemption of 2026-09-06 admits ungated sources only."
+  }
+ ],
+ "results": null
+}

@@ -43,6 +43,17 @@ def inference_errors(contract):
         # The boundary is admitted: a design that exactly meets its declared condition passes.
         bad.append(f'minimum information: identification {width} plus sampling {2 * half} = {width + 2 * half} '
                    f'exceeds the SESOI {sesoi}')
+    informativeness = inference.get('informativeness')
+    if informativeness is not None:
+        # |q_obs - q_ind| never exceeds the width of the marginal-only identified set, so a
+        # floor below the SESOI admits a pool on which no discrepancy the contract would act
+        # on can exist. The floor is compared with the SESOI here; whether a pool clears it
+        # is known only after its marginals are observed, and the runner reports that.
+        floor = Decimal(str(informativeness['marginal_only_width_min']))
+        if floor < sesoi:
+            bad.append(f'informativeness: the marginal-only width floor {floor} is below the SESOI {sesoi}; '
+                       f'|q_obs - q_ind| never exceeds that width, so a pool clearing the floor could still '
+                       f'hold no discrepancy this contract would act on')
     return bad
 
 

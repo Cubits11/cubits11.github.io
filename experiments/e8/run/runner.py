@@ -23,6 +23,10 @@ The runner writes observations.jsonl, one row per evaluation item carrying the
 full score vector and the flag per guard, and result.json, which derives the
 joint cells from those rows and records the sha256 of the contract, the scores
 and this file. Cells are derived at analysis, never stored as a separate table.
+result.json also carries the realized marginal-only identified width against
+the informativeness floor the contract declared, and applies the contract's
+consequence when the width falls below it: IDENTIFICATION-LIMITED, delta not
+claimed. The floor comes from the contract; this file holds no number for it.
 
 What this does not establish. The runner consumes the contract; nothing here
 proves the scores were produced by the guards the contract names, that the
@@ -155,8 +159,39 @@ def execute(contract: dict, scores: dict) -> tuple[list[dict], dict]:
               "evaluation": {"pool": contract["execution_plan"]["evaluation"], "n": n,
                              "miss_counts": miss_counts, "all_miss": all_miss,
                              "band_counts": [lo, hi], "plug_in_all_miss_count": str(plug_in * n),
-                             "cells_derived_from_rows": patterns}}
+                             "cells_derived_from_rows": patterns},
+              "identification": identification(contract, n, lo, hi, all_miss, plug_in)}
     return rows, result
+
+
+def identification(contract: dict, n: int, lo: int, hi: int, all_miss: int, plug_in: Fraction) -> dict:
+    """The realized marginal-only width against the floor the contract declared, if it declared one.
+
+    The width is what a reader holding only the marginals could say about the
+    all-miss rate: (hi - lo) / n. The discrepancy delta = q_obs - q_ind can never
+    exceed it. A contract that declares an informativeness floor has promised the
+    consequence of falling below it; the runner applies that consequence and
+    claims nothing about delta in that case. A contract without the group gets
+    the width and the discrepancy, and no verdict.
+    """
+    width = Fraction(hi - lo, n)
+    delta = Fraction(all_miss, n) - plug_in
+    out = {"marginal_only_width": str(width), "delta_all_miss": str(delta)}
+    group = (contract.get("inference") or {}).get("informativeness")
+    if group is None:
+        out.update({"floor": None, "status": "NOT-DECLARED", "delta_claimable": False,
+                    "note": "the contract declares no marginal-only width floor; no verdict is issued"})
+        return out
+    floor = Fraction(str(group["marginal_only_width_min"]))
+    below = width < floor
+    out.update({"floor": str(floor),
+                "status": group["consequence_when_below"] if below else "INFORMATIVE",
+                "delta_claimable": not below})
+    if below:
+        out["note"] = ("the marginals identify the joint to within less than the declared floor, so no "
+                       "discrepancy this contract would act on can exist on this pool; delta is recorded "
+                       "and not claimed")
+    return out
 
 
 def run(contract_path: Path, scores_path: Path, out: Path, require_frozen: bool = True) -> dict:
@@ -191,9 +226,12 @@ def main() -> int:
     except Refusal as exc:
         print(f"REFUSED: {exc}")
         return 1
-    ev = result["evaluation"]
+    ev, ident = result["evaluation"], result["identification"]
     print(f"E8 under contract {result['contract_id']}: n={ev['n']} thresholds={result['thresholds']} "
           f"miss={ev['miss_counts']} all-miss={ev['all_miss']} band={ev['band_counts']}")
+    print(f"identification: marginal-only width {ident['marginal_only_width']} against floor {ident['floor']} "
+          f"-> {ident['status']}; delta {ident['delta_all_miss']} "
+          f"{'claimable' if ident['delta_claimable'] else 'not claimed'}")
     return 0
 
 
