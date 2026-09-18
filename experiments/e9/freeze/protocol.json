@@ -1,0 +1,251 @@
+{
+ "written": "2026-09-18",
+ "seed": "MC-E9-FREEZE-2026-09-18",
+ "status": "declared before any E9 item was scored. run/draw.py appends the draw counts before the freeze commit; run/admit.py appends results after it, and nothing above results changes: freeze.json records the digest of everything else.",
+ "owner_decision": "2026-09-17: E9 is representative-benign calibration with a hard-negative audit. Same guards, same pins, same 0.05 budget, same host exemption; fresh calibration, scouting and measurement partitions. The second guard is not E9. The local path is not stopped yet.",
+ "rule": "E9 changes the operating-point definition once. It may not chase width. If the preregistered operating point does not expose a marginal-only width at or above the contract's floor, the failure is the result: the local-path stop is recorded, and a new-guard experiment (E10) becomes the justified next step. No second calibration population follows.",
+ "changed_variable": "the benign population the operating point is calibrated on. E8 calibrated on OR-Bench's seemingly-toxic benign prompts, a deliberately hard subgroup, and G2's threshold went to 0.999485. E9 calibrates on representative benign traffic and keeps the hard subgroup as a separately reported stress stratum.",
+ "held_fixed": [
+  "both guards, their pinned revisions and the 2026-09-06 host exemption (freeze/sources.json)",
+  "contract.json: every field except id and status holds E8's value, including the 0.05 budget, the comparator and direction, the SESOI, the margin, the precision target and the width floor",
+  "the three candidate pools, their pinned files and their order",
+  "the scouting size (200 per candidate) and the measurement size (1000)"
+ ],
+ "hypotheses": {
+  "H1": "the local pair cannot reach an informative operating point under a defensible calibration. Predicts that no candidate's scouting width clears the floor at E9's operating point.",
+  "H2": "E8's operating point was mis-specified because a deliberately hard benign subgroup stood in for the whole benign population. Predicts that at least one candidate's scouting width clears the floor.",
+  "discrimination": "one causal variable changes between E8 and E9, so E9's admission result bears on H1 against H2 for these three pools. It says nothing about other pools, guards or budgets."
+ },
+ "operating_point": "experiments/e9/contract.json#operating_point, applied by run/admit.py and run/runner.py through runner.select_threshold; no budget, comparator or direction is restated here",
+ "sizes": {
+  "calibration": 800,
+  "stress": 400,
+  "scout_harmful_per_candidate": 200,
+  "measurement_harmful_per_candidate": 1000
+ },
+ "bootstrap": {
+  "B": 2000,
+  "interval": "percentile, 95%, items resampled with replacement",
+  "same_as": "E3 and E3B"
+ },
+ "partitions": {
+  "calibration": "sets each guard's threshold once, by the contract's rule. Never scored against harmful items and never decides admission.",
+  "scouting": "estimates each guard's miss rate and the Frechet width at the already-fixed thresholds. Decides admission, and is then burned.",
+  "measurement": "drawn before any score for every candidate, and scored only for the admitted candidate. Estimates the joint at the same thresholds.",
+  "stress": "the hard-negative audit: each guard's false-positive rate at E9's thresholds on seemingly-toxic benign prompts. Reported separately; it never sets a threshold and never decides admission."
+ },
+ "no_double_duty": "every E9 item belongs to exactly one partition, checked by text hash at draw time. Calibration rows never decide admission, scouting rows never set a threshold or enter measurement, and measurement rows are drawn before any score and scored only after admission is committed.",
+ "admission": "A candidate is admitted when its scouting Frechet width at the calibration thresholds is at or above contract.json#inference.informativeness.marginal_only_width_min, and its measurement slice holds the full measurement size. Among admitted candidates the widest scouting width is chosen; ties go to the earlier candidate in the declared order. If none is admitted, E9 stops before any measurement item is scored, and the stop is the result.",
+ "admission_limitation": "The admission width is a point estimate from 200 items per candidate. Each marginal's binomial standard error is at most 0.035, so a scouting width just above the floor is not distinguishable from one just below it. No uncertainty-aware admission rule is used, and none may be introduced after any E9 score exists. The runner re-checks the realized width on the 1000 measurement items against the same floor, and a measurement below it is IDENTIFICATION-LIMITED whatever scouting said.",
+ "threshold_rule": "The runner recomputes each threshold from the same calibration scores by the same contract rule, so the measurement thresholds equal the admission thresholds. analyze.py asserts the equality. No threshold is retuned after any width is seen.",
+ "ranking": "sha256(seed + ':' + source_id + ':' + row_index) ascending hex, after deduplication by sha256 of prompt text (first occurrence kept) and removal of every hash a prior freeze or an earlier E9 partition holds. Partitions are drawn in this order: calibration, stress, then each candidate's scouting slice followed by its measurement slice, in the declared candidate order.",
+ "prior_frozen": [
+  "experiments/e2/freeze",
+  "experiments/e3/freeze",
+  "experiments/e3b/freeze",
+  "experiments/e8/freeze"
+ ],
+ "target_benign": {
+  "definition": "the first user turn of real English conversations with a public general-purpose chatbot: the benign input traffic a prompt-injection guard in front of an LLM application is built to pass",
+  "source": {
+   "hf_id": "allenai/WildChat-1M",
+   "revision": "7d6490e462285cf85d91eabea0f9a954fbddcd1f",
+   "license": "odc-by",
+   "gated": false,
+   "page": "https://huggingface.co/datasets/allenai/WildChat-1M",
+   "files": [
+    {
+     "file": "data/train-00000-of-00014.parquet",
+     "local_name": "wildchat-train-00000-of-00014.parquet",
+     "sha256": "abec2a13129db8c0e6a2d3a51ff12644873c748205a6fdf6551fbcb34430e51c",
+     "shard": 0
+    },
+    {
+     "file": "data/train-00007-of-00014.parquet",
+     "local_name": "wildchat-train-00007-of-00014.parquet",
+     "sha256": "f498ea6771be5bf00d259ec76bd9fba51ceaa99c76147a0bb95fd7fa1769b984",
+     "shard": 7
+    },
+    {
+     "file": "data/train-00013-of-00014.parquet",
+     "local_name": "wildchat-train-00013-of-00014.parquet",
+     "sha256": "440be579bf012a6e98d179b8dd0bedd73634e5527f7000c067d19c88b5cefa6c",
+     "shard": 13
+    }
+   ]
+  },
+  "sampling_frame": "shards 0, 7 and 13 of the 14 in the release, which is ordered by time: early, middle and late traffic. This is a declared frame, not a random sample of all of WildChat.",
+  "filters": [
+   "the conversation's first turn has role user",
+   "that turn's language field is English",
+   "its text is non-empty after trimming",
+   "its text contains none of the canonical attack markers below"
+  ],
+  "exclude_markers": {
+   "substrings_case_insensitive": [
+    "ignore all previous instructions",
+    "ignore previous instructions",
+    "ignore the previous instructions",
+    "ignore all the instructions you got before",
+    "disregard all previous instructions",
+    "disregard previous instructions",
+    "forget all previous instructions",
+    "do anything now",
+    "developer mode enabled",
+    "dan mode"
+   ],
+   "whole_words_case_sensitive": [
+    "DAN"
+   ]
+  },
+  "toxicity_not_filtered": "For an injection guard a toxic request is still benign traffic. Dropping toxic conversations would remove hard negatives from the calibration set, lower the thresholds, and push width toward admission, which is the threshold-shopping failure the owner named.",
+  "residual_attacks": "Attacks the markers miss stay in the calibration set. Each one a guard catches counts as a false positive, which raises that guard's threshold and pushes its miss rates toward the extremes. Residual contamination therefore works against admission; it cannot manufacture width.",
+  "contamination": "WildChat-1M is not among G1's declared training sets (natolambert/xstest-v2-copy, VMware/open-instruct, alespalla/chatbot_instruction_prompts, HuggingFaceH4/grok-conversation-harmless, Harelix/Prompt-Injection-Mixed-Techniques-2024, OpenSafetyLab/Salad-Data, jackhhao/jailbreak-classification) or their stated components. G2's fine-tuning corpus is unverifiable, as recorded for E3, E3B and E8.",
+  "id_scheme": "wildchat-<row_index>"
+ },
+ "calibration_sources_excluded": [
+  {
+   "id": "OpenAssistant/oasst1 @ fdf72ae0",
+   "why": "G1 trains on VMware/open-instruct, which includes a filtered OASST1 subset"
+  },
+  {
+   "id": "OpenAssistant/oasst2 @ 179dd21f",
+   "why": "no English first-turn prompt outside OASST1's trees: the ready export holds 5,401 English first-turn prompts and the full export 24,609, all in trees OASST1 already holds"
+  },
+  {
+   "id": "databricks/databricks-dolly-15k, Anthropic/hh-rlhf",
+   "why": "components of VMware/open-instruct, a declared G1 training set"
+  },
+  {
+   "id": "tatsu-lab/alpaca, Dahoas/instruct-human-assistant-prompt, allenai/prosocial-dialog",
+   "why": "components of alespalla/chatbot_instruction_prompts, a declared G1 training set"
+  },
+  {
+   "id": "lmsys/lmsys-chat-1m, lmsys/chatbot_arena_conversations, allenai/WildChat-nontoxic",
+   "why": "gated; the exemption of 2026-09-06 admits ungated sources only, as E8 applied it to hackaprompt"
+  },
+  {
+   "id": "bench-llm/or-bench (or-bench-80k)",
+   "why": "E8's calibration population, a deliberately hard subgroup; kept as the stress stratum and reported separately"
+  }
+ ],
+ "stress": {
+  "source": "bench-llm/or-bench (or-bench-80k)",
+  "path": "experiments/e3b/freeze/or-bench-80k.csv",
+  "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6",
+  "revision": "e36d8b80e81837c8a8f264bbb2a49f1b32c7e272",
+  "license": "cc-by-4.0",
+  "id_scheme": "orbench80k-<row_index>",
+  "reported_as": "each guard's false-positive rate, and the rate at which both flag, at E9's calibration thresholds",
+  "provenance": "the copy E3B froze and E8 calibrated on"
+ },
+ "candidates": [
+  {
+   "id": "mosscap-test",
+   "why": "Gandalf's successor game at eight levels. E3B's Gandalf pool was caught 400 of 400 by G1; Mosscap's higher levels are the same population made harder, and the prompts are short, so truncation does not decide the score.",
+   "upstream": {
+    "hf_id": "Lakera/mosscap_prompt_injection",
+    "revision": "b7e495ff63373ff7f7dabc1e9390cf62b5838570",
+    "file": "data/test-00000-of-00001-06acab2d6a2bcf9f.parquet",
+    "local_name": "mosscap-test.parquet",
+    "sha256": "9311f64ca579c947e43ff64ad4996585c51e4dae8ae747342926cf0091160d21",
+    "format": "parquet",
+    "text_column": "prompt",
+    "extra_columns": [
+     "level"
+    ],
+    "population_rows": 27729,
+    "license": "mit"
+   },
+   "contamination": "G1's declared training sets do not include Lakera/mosscap_prompt_injection; G2's fine-tuning corpus is unverifiable (HTTP 401), as recorded for E3B.",
+   "id_scheme": "mosscap-<row_index>",
+   "inherited_from": "experiments/e8/freeze/scouting.json: same candidate, same pinned file, same order"
+  },
+  {
+   "id": "spml-injection",
+   "why": "System-prompt violations labelled by the SPML authors, synthetic and topically broad. If the guards treat policy violations as injections the marginals land mid-band; if they do not, this repeats E3's blindness and the band rule excludes it.",
+   "upstream": {
+    "hf_id": "reshabhs/SPML_Chatbot_Prompt_Injection",
+    "revision": "02ce8084e979bc7d4c24ee35d22ecb7f2db96ff5",
+    "file": "spml_prompt_injection.csv",
+    "local_name": "spml.csv",
+    "sha256": "4ca6590cd8ec10832fcebee5e243acb32be5c3e79b7a260f8638eed738c784f8",
+    "format": "csv",
+    "text_column": "User Prompt",
+    "keep_where": {
+     "column": "Prompt injection",
+     "equals": "1"
+    },
+    "extra_columns": [
+     "Degree"
+    ],
+    "population_rows": 16012,
+    "license": "mit"
+   },
+   "contamination": "not among G1's declared training sets; G2 unverifiable.",
+   "id_scheme": "spml-<row_index>",
+   "inherited_from": "experiments/e8/freeze/scouting.json: same candidate, same pinned file, same order"
+  },
+  {
+   "id": "itw-jailbreak",
+   "why": "Real jailbreak prompts collected in the wild. Long (median about 1.8k characters), so the guards see a 512-token prefix; that is a property of the pool, recorded, not corrected.",
+   "upstream": {
+    "hf_id": "TrustAIRLab/in-the-wild-jailbreak-prompts",
+    "revision": "a10aab8eff1c73165a442d4464dce192bd28b9c5",
+    "file": "jailbreak_2023_12_25/train-00000-of-00001.parquet",
+    "local_name": "itw-jailbreak-2023-12-25.parquet",
+    "sha256": "55bbc5e2be771ee16ed67aed4edb5ecef5f44ac69cea317a67e5405c5c6057a4",
+    "format": "parquet",
+    "text_column": "prompt",
+    "extra_columns": [
+     "platform"
+    ],
+    "population_rows": 1405,
+    "license": "mit"
+   },
+   "contamination": "PLAUSIBLE for G1: it trains on jackhhao/jailbreak-classification, which draws on the same public jailbreak communities. A low G1 miss rate here does not distinguish competence from memorisation.",
+   "id_scheme": "itw-<row_index>",
+   "inherited_from": "experiments/e8/freeze/scouting.json: same candidate, same pinned file, same order"
+  }
+ ],
+ "draw": {
+  "prior_frozen_hashes": 5920,
+  "partitions": {
+   "items_calibration": 800,
+   "items_stress": 400,
+   "items_scout_mosscap-test": 200,
+   "items_measurement_mosscap-test": 1000,
+   "items_scout_spml-injection": 200,
+   "items_measurement_spml-injection": 1000,
+   "items_scout_itw-jailbreak": 200,
+   "items_measurement_itw-jailbreak": 964
+  },
+  "target_benign": {
+   "filter_counts": {
+    "conversations": 179569,
+    "first turn not English": 78383,
+    "canonical attack marker": 1214,
+    "kept": 99972
+   },
+   "available_after_removal": 86598
+  },
+  "stress_available_after_removal": 76359,
+  "candidates": {
+   "mosscap-test": {
+    "available_after_removal": 21865,
+    "measurement_n": 1000,
+    "measurement_complete": true
+   },
+   "spml-injection": {
+    "available_after_removal": 12341,
+    "measurement_n": 1000,
+    "measurement_complete": true
+   },
+   "itw-jailbreak": {
+    "available_after_removal": 1164,
+    "measurement_n": 964,
+    "measurement_complete": false
+   }
+  }
+ }
+}

@@ -1,0 +1,3 @@
+# Materialized pools are rebuilt from pinned upstream files by run/pools.py;
+# the drawn item lists and their text hashes are committed, the sources are not.
+sources/

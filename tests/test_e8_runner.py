@@ -3,6 +3,10 @@
 
 Synthetic scores under constructed contracts only. No frozen experiment is
 replayed here, and no row this file writes is an observation of anything.
+
+E9 is E8 with one variable changed, the calibration population. Its checks live
+in this file so that E9 adds no row to the verification manifest, which is a
+trust-root file whose every change is a separately reviewed migration.
 """
 import copy
 import importlib.util
@@ -162,6 +166,77 @@ class Preregistration(unittest.TestCase):
         if not prereg.exists():
             self.skipTest("E8 has no PREREG.md yet")
         self.assertEqual(prereg.read_text(), render.render())
+
+
+E9 = ROOT / "experiments/e9"
+
+
+def _module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _code(path):
+    """The source after the module docstring."""
+    return path.read_text().split('"""', 2)[2]
+
+
+class E9Contract(unittest.TestCase):
+    def test_only_id_and_status_differ_from_e8(self):
+        e8 = json.loads((ROOT / "experiments/e8/contract.json").read_text())
+        e9 = json.loads((E9 / "contract.json").read_text())
+        self.assertEqual({k for k in set(e8) | set(e9) if e8.get(k) != e9.get(k)}, {"id", "status"})
+        self.assertEqual(e9["status"], "frozen")
+
+    def test_frozen_inputs_match_the_freeze_record(self):
+        if not (E9 / "freeze/freeze.json").exists():
+            self.skipTest("E9 has no freeze.json yet")
+        self.assertEqual(_module("e9_freeze", E9 / "run/freeze.py").check(), [])
+
+    def test_partitions_are_disjoint_and_new(self):
+        draw = _module("e9_draw", E9 / "run/draw.py")
+        names = sorted(p.stem for p in (E9 / "freeze").glob("items_*.csv"))
+        if not names:
+            self.skipTest("E9 has drawn nothing yet")
+        sets = {n: draw.read_items(n) for n in names}
+        prior = draw.prior_hashes(draw.plan())
+        for i, a in enumerate(names):
+            self.assertFalse(sets[a] & prior, f"{a} reuses an item a prior freeze holds")
+            for b in names[i + 1:]:
+                self.assertFalse(sets[a] & sets[b], f"{a} and {b} share items")
+
+
+class E9Runner(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.dir = Path(self.tmp.name)
+        self.runner = _module("e9_runner", E9 / "run/runner.py")
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_logic_is_e8s_with_e9s_identity(self):
+        self.assertEqual(_code(E9 / "run/runner.py").replace("E9", "E8").replace("e9", "e8"), _code(RUNNER))
+
+    def test_rows_carry_e9s_identity(self):
+        cpath, spath = self.dir / "contract.json", self.dir / "scores.json"
+        cpath.write_text(json.dumps(frozen()))
+        spath.write_text(json.dumps(scores()))
+        result = self.runner.run(cpath, spath, self.dir / "out")
+        rows = [json.loads(l) for l in (self.dir / "out/observations.jsonl").read_text().splitlines()]
+        self.assertEqual({r["experiment"] for r in rows}, {"E9"})
+        self.assertEqual(result["experiment"], "E9")
+        self.assertEqual(result["thresholds"], {"G1": 0.20, "G2": 0.70})
+
+
+class E9Preregistration(unittest.TestCase):
+    def test_prereg_renders_its_sources(self):
+        prereg = E9 / "PREREG.md"
+        if not prereg.exists():
+            self.skipTest("E9 has no PREREG.md yet")
+        self.assertEqual(prereg.read_text(), _module("e9_render", E9 / "run/render_prereg.py").render())
 
 
 if __name__ == "__main__":
