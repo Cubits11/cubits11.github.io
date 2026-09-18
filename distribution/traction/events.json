@@ -382,14 +382,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "103f6df704f6cf9a",
+    "id": "0061712f99598b45",
     "kind": "experiment",
     "source": {
       "path": "experiments/e9/PREREG.md",
       "sha256": "171f9ebfff2cd195c6b1e3907f12993be2f02154a541d0e2318bd9c19e975f10",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "6ac65de910b264464c4c9fdcf9f8d5e3e217eeda",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/6ac65de910b264464c4c9fdcf9f8d5e3e217eeda/experiments/e9/PREREG.md",
+      "binding": "committed"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
@@ -397,14 +397,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "9e02fb13e699553a",
+    "id": "cc28623703b5901c",
     "kind": "freeze",
     "source": {
       "path": "experiments/e9/freeze/freeze.json",
       "sha256": "7823904703a406840c9cba37dba40942bc065a9c4d1c06b89a6e70c12ce416a5",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "6ac65de910b264464c4c9fdcf9f8d5e3e217eeda",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/6ac65de910b264464c4c9fdcf9f8d5e3e217eeda/experiments/e9/freeze/freeze.json",
+      "binding": "committed"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
@@ -412,14 +412,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "e7b43b067759d798",
+    "id": "8f2a0ee98317c68f",
     "kind": "freeze",
     "source": {
       "path": "experiments/e9/freeze/protocol.json",
       "sha256": "a094fe0abb0aba7eb71d0eac1fcf99b8609dd9280d6e5ea8ff19bdf2206617d1",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "6ac65de910b264464c4c9fdcf9f8d5e3e217eeda",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/6ac65de910b264464c4c9fdcf9f8d5e3e217eeda/experiments/e9/freeze/protocol.json",
+      "binding": "committed"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
@@ -427,14 +427,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "de8b500a76ba6830",
+    "id": "33a03b89e2a60cdc",
     "kind": "freeze",
     "source": {
       "path": "experiments/e9/freeze/sources.json",
       "sha256": "f8fb045ae627388cc4ea7f336198fb773cc58bbc930a97977bcacfe6a6da5e2b",
-      "commit": null,
-      "url": null,
-      "binding": "pending_commit"
+      "commit": "6ac65de910b264464c4c9fdcf9f8d5e3e217eeda",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/6ac65de910b264464c4c9fdcf9f8d5e3e217eeda/experiments/e9/freeze/sources.json",
+      "binding": "committed"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
