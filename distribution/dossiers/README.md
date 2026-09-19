@@ -26,3 +26,10 @@ has been sent. Status of every ask below: **PREPARED**.
 | [bells-misuse-2025](bells-misuse-2025.md) | PRESENT via partial release | confirm the subset's selection rule, or release the remaining per-item verdicts | none needed — the reproduction exists |
 | [bells-o-2026](bells-o-2026.md) | ABSENT, per-item outcomes exist by construction | release per-item verdicts for one workload, or one leave-one-out row | `contrib/guardbench_joint.py` adapts to id-keyed JSON |
 | [multimodal-safeguard-bench-2026](multimodal-safeguard-bench-2026.md) | PRESENT via full release | one yes/no: was the printed LG4→text / LG4∨SG2→image route executed item-level, or reconstructed? | issue already open (#1) |
+| [scier-2024](scier-2024.md) — **not a census row** | ABSENT, predictions unreleased | one integer: of the 2,948 mentions in the pinned `test.jsonl`, how many did PURE, PL-Marker and HGERE all miss? | none, deliberately — no prediction file exists to read |
+
+`scier-2024` is the one exception to the rule above: it derives from no row in
+`census.yaml`, because it is scientific information extraction rather than a
+guardrail stack. It is prepared so that widening the census can be decided
+against a real artifact. That decision is open — see
+`distribution/TEMPLE-2026-09-19.md`.
