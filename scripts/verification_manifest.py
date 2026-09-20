@@ -58,6 +58,7 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("MC-004 semantic scope", "scripts/verify_mc004_semantics.py"),
     ("degeneracy diagnostic", "scripts/degeneracy.py"),
     ("direction well-formed", "scripts/direction.py", "--check"),
+    ("K-INFRA counts days, not rows", "tests/test_direction_k_infra.py"),
     ("conformance record drift", "scripts/generate_conformance_record.py", "--check"),
     ("preregistration conformance", "scripts/verify_prereg.py"),
     ("preregistration-conformance fixtures and mutants", "scripts/verify_prereg.py", "--test"),
