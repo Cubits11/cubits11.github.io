@@ -93,7 +93,7 @@ def render_experiment(e: dict, facts: dict, films: dict) -> str:
       <dl>
         <dt>Question</dt><dd class="ink">{esc(e["question"])}</dd>
         <dt>Needs</dt><dd>{esc(e["input"])}</dd>
-        <dt>Run</dt><dd><pre><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
+        <dt>Run</dt><dd><pre tabindex="0" role="region" aria-label="Run commands, scrollable"><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
 {esc(e["command"])}</code></pre></dd>
         <dt>Variant</dt><dd><code>{esc(e["variant"])}</code></dd>
         <dt>Expected</dt><dd class="ink">final line: <code>{esc(e["expected_final_line"])}</code></dd>

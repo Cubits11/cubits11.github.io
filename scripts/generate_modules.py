@@ -312,7 +312,7 @@ def render_module(m: dict, claims_by_id: dict) -> str:
         else:
             text = sections.get(key.lstrip("_"))
             if key == "reproducibility" and text:
-                inner = f"<pre>{esc(text)}</pre>"
+                inner = f'<pre tabindex="0" role="region" aria-label="Reproduction note, scrollable">{esc(text)}</pre>'
             else:
                 inner = f"<p>{esc(text)}</p>" if text else ""
         if inner:

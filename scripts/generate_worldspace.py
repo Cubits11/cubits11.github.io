@@ -216,6 +216,8 @@ CSS = r"""
 .ws-h1 span{color:var(--wsm);letter-spacing:.06em;text-transform:none;margin-left:.6rem}
 .ws-sound{appearance:none;background:transparent;border:1px solid var(--wsls);color:var(--wsm);border-radius:999px;padding:.45rem .8rem;font:400 .62rem/1 var(--mono);letter-spacing:.1em;cursor:pointer;min-height:2rem}
 .ws-sound[aria-pressed="true"]{color:var(--wsi);border-color:var(--wsi)}
+/* The dark field behind a translucent header drops nav contrast below 4.5:1; the header is opaque here. */
+.site-head{background:var(--bg)}
 .ws-band{position:sticky;top:3.4rem;z-index:5;background:var(--wsbg);padding:.7rem 0 .55rem;margin-top:.6rem;box-shadow:0 .6rem .6rem -.6rem rgba(0,0,0,.6)}
 .ws-readouts{display:grid;grid-template-columns:repeat(3,max-content);justify-content:center;gap:clamp(1.4rem,5vw,4.5rem);margin:0;text-align:left}
 .ws-stamp-row{margin:.15rem 0 0;text-align:center;min-height:0}
@@ -496,7 +498,7 @@ def render(m: dict, data: dict, facts: dict) -> str:
       <p class="ws-status mono">{esc(s["status_strip"])}</p>
       <h2 id="exit-h" class="ws-exit-h">{esc(s["exit_1"])}<br><b>{esc(s["exit_2"])}</b></h2>
       <p class="lead">{esc(s["exit_lead"])}</p>
-      <pre><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
+      <pre tabindex="0" role="region" aria-label="Reproduction commands, scrollable"><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
 {esc(data["tryA"]["command"])}</code></pre>
       <p class="final mono">expected final line: <code>{esc(data["tryA"]["final"])}</code></p>
       <div class="ws-routes">

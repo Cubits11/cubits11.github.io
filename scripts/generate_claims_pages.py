@@ -749,7 +749,7 @@ def render_namespace() -> str:
   <section class="gsec">
     <div class="glabel"><span class="gno">03</span><span class="gname">Use</span></div>
     <p>Use the published context alongside schema.org. JSON-LD consumers can preserve the custom properties; applications decide whether to interpret them:</p>
-    <pre class="ex">{esc(example)}</pre>
+    <pre class="ex" tabindex="0" role="region" aria-label="Example claim node, scrollable">{esc(example)}</pre>
     <p>The context document: <a class="u" href="/ns/falsifiable/v1/context.json"><code>/ns/falsifiable/v1/context.json</code></a>. Both it and this page are generated from the same constants that render the claim pages, so a term cannot be defined here and emitted differently there.</p>
   </section>
   <section class="gsec">

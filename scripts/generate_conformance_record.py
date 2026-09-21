@@ -307,7 +307,7 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
 <ul>{"".join(blind)}</ul>
 
 <h2>Reproduce</h2>
-<pre><code>git clone https://github.com/Cubits11/cubits11.github.io &amp;&amp; cd cubits11.github.io
+<pre tabindex="0" role="region" aria-label="Reproduction commands, scrollable"><code>git clone https://github.com/Cubits11/cubits11.github.io &amp;&amp; cd cubits11.github.io
 python3 scripts/verify_prereg.py --test    # the fixtures and the mutants
 python3 scripts/direction.py               # the heading this page projects
 python3 scripts/generate_conformance_record.py --check   # this page, against its sources</code></pre>

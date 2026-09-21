@@ -24,6 +24,16 @@ side effect of a layout fix. Run it before a release that touches layout:
     python scripts/check_layout.py                    # find a browser, check
     python scripts/check_layout.py --browser /path    # name one
     python scripts/check_layout.py --shots out/       # also write screenshots
+    python scripts/check_layout.py --all              # every route in sitemap.xml
+
+When the Python `playwright` package is importable, pages are laid out in a
+device-emulated viewport instead of a --window-size window. That removes the
+~485px clamp described at WIDTHS, so 360 and 390 are measured at 360 and 390.
+Run against the tree before the overflow-wrap fix, this mode fails
+/claims/e7b-001/ and /ns/falsifiable/v1/ at 360px by 16px each (an unbroken
+file path; a namespace URL) — pages the clamped run passed. A separate
+element-level scan also found /claims/e3b-001/ 5px wide at 360px; the probe's
+document-level reading does not show that one.
 """
 
 from __future__ import annotations
@@ -145,11 +155,49 @@ def measure(browser: str, url: str, width: int,
     return int(match.group(1)), int(match.group(2)), match.group(3)
 
 
+def sitemap_routes() -> tuple[str, ...]:
+    text = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+    return tuple(re.sub(r"^https://cubits11\.github\.io", "", u)
+                 for u in re.findall(r"<loc>([^<]+)</loc>", text))
+
+
+def playwright_session(browser: str):
+    """A device-emulated Chromium, or None when playwright is not installed."""
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        return None
+    pw = sync_playwright().start()
+    return pw, pw.chromium.launch(executable_path=browser)
+
+
+def measure_emulated(chromium, url: str, width: int,
+                     shot: Path | None) -> tuple[int, int, str] | None:
+    page = chromium.new_page(viewport={"width": width, "height": 900},
+                             reduced_motion="reduce")
+    try:
+        page.goto(url, wait_until="load", timeout=60000)
+        title = page.title()
+        if shot:
+            page.screenshot(path=str(shot), full_page=True)
+    finally:
+        page.close()
+    match = re.match(r"PROBE\|(\d+)\|(\d+)\|(.*)", title)
+    if not match:
+        return None
+    return int(match.group(1)), int(match.group(2)), match.group(3)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--browser", help="path to a Chromium-family binary")
     parser.add_argument("--shots", help="directory to write screenshots into")
+    parser.add_argument("--all", action="store_true",
+                        help="check every route in sitemap.xml, not only the landing pages")
     args = parser.parse_args()
+    global PAGES
+    if args.all:
+        PAGES = sitemap_routes()
 
     browser = find_browser(args.browser)
     if not browser:
@@ -169,13 +217,17 @@ def main() -> int:
         tree.mkdir()
         build_probe_tree(tree)
         server, port = serve(tree)
+        session = playwright_session(browser)
+        print("ok    viewport: " + ("device-emulated (true widths)" if session
+                                    else "window-size (phone widths clamp; see WIDTHS)"))
         try:
             for route in PAGES:
                 for width in WIDTHS:
                     url = f"http://127.0.0.1:{port}{route}"
                     name = (route.strip("/") or "home").replace("/", "-")
                     shot = shots / f"{name}-{width}.png" if shots else None
-                    reading = measure(browser, url, width, shot)
+                    reading = (measure_emulated(session[1], url, width, shot) if session
+                               else measure(browser, url, width, shot))
                     if reading is None:
                         failures.append(
                             f"{route} @ {width}px: the probe did not report — "
@@ -191,6 +243,9 @@ def main() -> int:
                         print(f"ok    {route} @ {width}px: no horizontal "
                               f"overflow (client {client}px)")
         finally:
+            if session:
+                session[1].close()
+                session[0].stop()
             server.shutdown()
 
     if failures:

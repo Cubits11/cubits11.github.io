@@ -180,7 +180,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
       <dl>
         <dt>Question</dt><dd class="ink">Do two published miss rates determine how often both guards miss the same item?</dd>
         <dt>Needs</dt><dd>Python 3.10 or newer and this repository. No packages, no network.</dd>
-        <dt>Run</dt><dd><pre><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
+        <dt>Run</dt><dd><pre tabindex="0" role="region" aria-label="Run commands, scrollable"><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
 python3 scripts/try_same_scores.py</code></pre></dd>
         <dt>Variant</dt><dd><code>python3 scripts/try_same_scores.py --marginals 0.05 0.02   # any two rates; labelled CONSTRUCTED</code></dd>
         <dt>Expected</dt><dd class="ink">final line: <code>MATCH  TRY-A  marginals 0.10/0.10  both-miss interval [0.00, 0.10]  endpoints attained  independence 0.01 is one point</code></dd>
@@ -202,7 +202,7 @@ python3 scripts/try_same_scores.py</code></pre></dd>
       <dl>
         <dt>Question</dt><dd class="ink">From a public per-item release, how many of 82 harmful prompts did all five supervisors miss — and what did the five published miss rates alone permit?</dd>
         <dt>Needs</dt><dd>Python 3.10 or newer, `pip install -r requirements.txt` (PyYAML only), and network access to fetch one pinned CSV from GitHub. The file is hash-verified before a single count is taken.</dd>
-        <dt>Run</dt><dd><pre><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
+        <dt>Run</dt><dd><pre tabindex="0" role="region" aria-label="Run commands, scrollable"><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
 python3 scripts/reanalyze_bells_subset.py</code></pre></dd>
         <dt>Variant</dt><dd><code>python3 scripts/identification.py --bells   # the identification envelope, offline</code></dd>
         <dt>Expected</dt><dd class="ink">final line: <code>MC-002 reproduced: the missing column, computed from the bound public release, matches the registered claim.</code></dd>
@@ -224,7 +224,7 @@ python3 scripts/reanalyze_bells_subset.py</code></pre></dd>
       <dl>
         <dt>Question</dt><dd class="ink">Does an evaluation you know preserve what its compared systems miss together, or only what each misses alone?</dd>
         <dt>Needs</dt><dd>Python 3.10 or newer, this repository, and one public evaluation of two or more guardrails that you can read. The script asks the census&#x27;s frozen questions and classifies from your answers; it never reads the source for you.</dd>
-        <dt>Run</dt><dd><pre><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
+        <dt>Run</dt><dd><pre tabindex="0" role="region" aria-label="Run commands, scrollable"><code>git clone https://github.com/Cubits11/cubits11.github.io.git &amp;&amp; cd cubits11.github.io
 python3 scripts/try_audit.py</code></pre></dd>
         <dt>Variant</dt><dd><code>python3 scripts/try_audit.py --answers fixtures/try/audit-example.json   # a worked example, no prompts</code></dd>
         <dt>Expected</dt><dd class="ink">final line: <code>AUDIT  TRY-C  example-eval-2026  PRESENT  printed_full_stack  rung=threshold_not_contradicted  (worked example, not a census row)</code></dd>

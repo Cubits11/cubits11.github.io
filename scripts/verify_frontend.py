@@ -98,10 +98,22 @@ def audit_scroll_regions(page: Path) -> list[str]:
                 errors.append(f"{rel}: .{cls} scroll region is not keyboard-focusable (needs tabindex=\"0\")")
             if 'aria-label' not in attrs and 'aria-labelledby' not in attrs:
                 errors.append(f"{rel}: .{cls} scroll region has no accessible name")
+    # A <pre> never wraps, so any line longer than the viewport scrolls it —
+    # on a phone that is most of them. axe flagged eight that a static reading
+    # of class names missed. Every <pre> is therefore a scroll region.
+    # One exemption, named: the traction dashboard is written by
+    # scripts/distribute.py, whose regeneration also re-drafts posts that carry
+    # owner approvals. Changing its markup is the owner's call, not a side
+    # effect of an accessibility gate.
+    pre_exempt = rel == "distribution/traction/dashboard.html"
     for match in re.finditer(r"<pre([^>]*)>", html):
         attrs = match.group(1)
-        if "tabindex" in attrs and 'aria-label' not in attrs:
-            errors.append(f"{rel}: focusable <pre> has no accessible name")
+        if pre_exempt:
+            continue
+        if 'tabindex="0"' not in attrs:
+            errors.append(f"{rel}: <pre> scroll region is not keyboard-focusable (needs tabindex=\"0\")")
+        if 'aria-label' not in attrs and 'aria-labelledby' not in attrs:
+            errors.append(f"{rel}: <pre> scroll region has no accessible name")
     return errors
 
 

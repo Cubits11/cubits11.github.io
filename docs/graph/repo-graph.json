@@ -135,6 +135,13 @@
   },
   {
    "basis": "STATIC_REF",
+   "from": "scripts/check_layout.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "sitemap.xml"
+  },
+  {
+   "basis": "STATIC_REF",
    "from": "scripts/check_links.py",
    "inferred": true,
    "rel": "reads",
@@ -2896,6 +2903,13 @@
    "from": "scripts/verify_frontend.py",
    "inferred": true,
    "rel": "reads",
+   "to": "distribution/traction/dashboard.html"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verify_frontend.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "index.html"
   },
   {
@@ -5045,8 +5059,24 @@
  },
  "findings": [
   {
+   "detector": "D2",
+   "generator": "scripts/films/build_flagship.py",
+   "severity": "FIX",
+   "tail": [
+    "AssertionError: source-map.json stale: rebuild flagship"
+   ]
+  },
+  {
+   "detector": "D2",
+   "generator": "scripts/generate_sitemap.py",
+   "severity": "FIX",
+   "tail": [
+    "Run: python scripts/generate_sitemap.py"
+   ]
+  },
+  {
    "claim": "REL-001",
-   "days_left": 5,
+   "days_left": 2,
    "detector": "D3",
    "review_due": "2026-09-23",
    "severity": "REVIEW"
@@ -5073,7 +5103,126 @@
   {
    "ahead": 1,
    "behind": 0,
-   "branch": "claude/e9-contract",
+   "branch": "origin/claude/k-infra-calendar-weeks",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 4,
+   "behind": 0,
+   "branch": "origin/claude/temple-researcher-outreach-on2v73",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 37,
+   "branch": "origin/icloud-snapshot/2026-09-19",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "origin/icloud-snapshot/2026-09-19-site",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 6,
+   "branch": "origin/rescue/commit-01fea45b4e98",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 196,
+   "branch": "origin/rescue/commit-119f257b763c",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 15,
+   "branch": "origin/rescue/commit-2139046f7192",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 89,
+   "branch": "origin/rescue/commit-22fa9f9a8456",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 2,
+   "branch": "origin/rescue/commit-28e8ac07e6c0",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 3,
+   "behind": 81,
+   "branch": "origin/rescue/commit-4a362b5d714f",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 101,
+   "branch": "origin/rescue/commit-5e70a9df4626",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 226,
+   "branch": "origin/rescue/commit-80250a3e7fc4",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 196,
+   "branch": "origin/rescue/commit-93200984af16",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 93,
+   "branch": "origin/rescue/commit-bd0c87d0f1ea",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 15,
+   "branch": "origin/rescue/commit-c74849b7a928",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 4,
+   "behind": 81,
+   "branch": "origin/rescue/commit-cec26e585b5a",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 88,
+   "branch": "origin/rescue/commit-ea88d6552c2f",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 157,
+   "branch": "origin/rescue/commit-f8e555738fc2",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -5085,8 +5234,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/e9-contract",
-  "head": "6ac65de"
+  "branch": "claude/phone-width-a11y",
+  "head": "f2249c1"
  },
  "nodes": [
   {
@@ -5663,7 +5812,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 95,
+   "days_left": 92,
    "id": "CC-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5672,7 +5821,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 95,
+   "days_left": 92,
    "id": "CC-002",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5681,7 +5830,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 95,
+   "days_left": 92,
    "id": "CC-003",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5690,7 +5839,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 95,
+   "days_left": 92,
    "id": "CC-004",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5699,7 +5848,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 95,
+   "days_left": 92,
    "id": "CC-005",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5708,7 +5857,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 109,
+   "days_left": 106,
    "id": "CC-006",
    "last_reviewed": "2026-09-07",
    "review_due": "2027-01-05",
@@ -5717,7 +5866,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 5,
+   "days_left": 2,
    "id": "REL-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-09-23",
@@ -5726,7 +5875,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 56,
+   "days_left": 53,
    "id": "MC-001",
    "last_reviewed": "2026-09-14",
    "review_due": "2026-11-13",
@@ -5735,7 +5884,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 39,
+   "days_left": 36,
    "id": "MC-002",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-10-27",
@@ -5744,7 +5893,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 41,
+   "days_left": 38,
    "id": "MC-003",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-10-29",
@@ -5753,7 +5902,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 42,
+   "days_left": 39,
    "id": "MC-004",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-10-30",
@@ -5762,7 +5911,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 69,
+   "days_left": 66,
    "id": "AF-001",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-11-26",
@@ -5771,7 +5920,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 95,
+   "days_left": 92,
    "id": "GA-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5780,7 +5929,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 95,
+   "days_left": 92,
    "id": "GV-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5789,7 +5938,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 340,
+   "days_left": 337,
    "id": "GCE-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2027-08-24",
@@ -5798,7 +5947,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 102,
+   "days_left": 99,
    "id": "SITE-001",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-12-29",
@@ -5807,7 +5956,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 101,
+   "days_left": 98,
    "id": "SITE-002",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-12-28",
@@ -5816,7 +5965,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 110,
+   "days_left": 107,
    "id": "E3-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
@@ -5825,7 +5974,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 110,
+   "days_left": 107,
    "id": "E3B-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
@@ -5834,7 +5983,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 112,
+   "days_left": 109,
    "id": "E6-001",
    "last_reviewed": "2026-09-10",
    "review_due": "2027-01-08",
@@ -5843,7 +5992,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 112,
+   "days_left": 109,
    "id": "E7B-001",
    "last_reviewed": "2026-09-10",
    "review_due": "2027-01-08",
@@ -5949,39 +6098,201 @@
    "type": "experiment"
   },
   {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 0,
+   "head": "f2249c1",
+   "id": "claude/phone-width-a11y",
+   "last_commit": "2026-09-18",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 0,
+   "head": "f2249c1",
+   "id": "main",
+   "last_commit": "2026-09-18",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 0,
+   "head": "f2249c1",
+   "id": "origin",
+   "last_commit": "2026-09-18",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 1,
    "behind_origin_main": 0,
-   "head": "6ac65de",
-   "id": "claude/e9-contract",
-   "last_commit": "2026-09-18",
+   "head": "80ca38e",
+   "id": "origin/claude/k-infra-calendar-weeks",
+   "last_commit": "2026-09-20",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 4,
+   "behind_origin_main": 0,
+   "head": "e40fd8c",
+   "id": "origin/claude/temple-researcher-outreach-on2v73",
+   "last_commit": "2026-09-19",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 37,
+   "head": "b9b7b1b",
+   "id": "origin/icloud-snapshot/2026-09-19",
+   "last_commit": "2026-09-19",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 0,
+   "head": "d0ac440",
+   "id": "origin/icloud-snapshot/2026-09-19-site",
+   "last_commit": "2026-09-19",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "9bb2aff",
-   "id": "main",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
-   "head": "9bb2aff",
-   "id": "origin",
-   "last_commit": "2026-09-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
-   "head": "9bb2aff",
+   "head": "f2249c1",
    "id": "origin/main",
-   "last_commit": "2026-09-17",
+   "last_commit": "2026-09-18",
    "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 6,
+   "head": "79148e6",
+   "id": "origin/rescue/commit-01fea45b4e98",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 196,
+   "head": "119f257",
+   "id": "origin/rescue/commit-119f257b763c",
+   "last_commit": "2026-08-29",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 15,
+   "head": "73e6691",
+   "id": "origin/rescue/commit-2139046f7192",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 89,
+   "head": "22fa9f9",
+   "id": "origin/rescue/commit-22fa9f9a8456",
+   "last_commit": "2026-09-05",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 2,
+   "head": "28e8ac0",
+   "id": "origin/rescue/commit-28e8ac07e6c0",
+   "last_commit": "2026-09-18",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 3,
+   "behind_origin_main": 81,
+   "head": "4a362b5",
+   "id": "origin/rescue/commit-4a362b5d714f",
+   "last_commit": "2026-09-05",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 101,
+   "head": "38e1a09",
+   "id": "origin/rescue/commit-5e70a9df4626",
+   "last_commit": "2026-09-02",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 226,
+   "head": "1a17fe1",
+   "id": "origin/rescue/commit-80250a3e7fc4",
+   "last_commit": "2026-08-23",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 196,
+   "head": "9320098",
+   "id": "origin/rescue/commit-93200984af16",
+   "last_commit": "2026-08-29",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 93,
+   "head": "bd0c87d",
+   "id": "origin/rescue/commit-bd0c87d0f1ea",
+   "last_commit": "2026-09-05",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 15,
+   "head": "089f9b9",
+   "id": "origin/rescue/commit-c74849b7a928",
+   "last_commit": "2026-09-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 4,
+   "behind_origin_main": 81,
+   "head": "cec26e5",
+   "id": "origin/rescue/commit-cec26e585b5a",
+   "last_commit": "2026-09-05",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 88,
+   "head": "ea88d65",
+   "id": "origin/rescue/commit-ea88d6552c2f",
+   "last_commit": "2026-09-05",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 157,
+   "head": "f8e5557",
+   "id": "origin/rescue/commit-f8e555738fc2",
+   "last_commit": "2026-08-31",
+   "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
@@ -5994,5 +6305,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "b47359a3de0f7bb1e2135989dfad784cdaf9f1507a896581e47d95fb3208268f"
+ "stable_digest": "99d71b73dd9fafc1da0702a5d7748a3788715b46d8b4a33b4449e89fecd45dbf"
 }

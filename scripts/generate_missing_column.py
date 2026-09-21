@@ -1059,7 +1059,7 @@ def render_landing(data: dict) -> str:
       empty directory: a POSIX shell with <span class="mono">git</span> and
       Python&nbsp;3.11+ (with its standard <span class="mono">venv</span> module) is the
       whole environment. Nothing on this page requires trusting this page.</p>
-    <pre style="background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.4rem 0 0">git clone https://github.com/Cubits11/cubits11.github.io.git
+    <pre tabindex="0" role="region" aria-label="Reproduction commands, scrollable" style="background:var(--surface);border:1px solid var(--line-strong);padding:1.1rem 1.2rem;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--ink);margin:1.4rem 0 0">git clone https://github.com/Cubits11/cubits11.github.io.git
 cd cubits11.github.io
 python3 -m venv .venv
 . .venv/bin/activate
@@ -1678,7 +1678,7 @@ def render_reproduce(data: dict) -> str:
       <span class="mono">venv</span> module). The script downloads the eight pinned
       files from the bound commit and refuses to count anything until every hash
       matches.</p>
-    <pre style="{pre_style}">git clone https://github.com/Cubits11/cubits11.github.io.git
+    <pre tabindex="0" role="region" aria-label="Commands and expected output, scrollable" style="{pre_style}">git clone https://github.com/Cubits11/cubits11.github.io.git
 cd cubits11.github.io
 python3 -m venv .venv
 . .venv/bin/activate
@@ -1690,7 +1690,7 @@ python scripts/reanalyze_msbench.py</pre>
     <p class="zone-intro">Dozens of <span class="mono">ok</span> assertion lines —
       every recomputed quantity that overlaps the release's own printed metrics is
       asserted equal to the printed value — then this summary and exit code 0:</p>
-    <pre style="{pre_style}">{esc(reanalyze_msbench.summary_line("benign", "text", bt["union"], bt["n"], bt["all_miss"]))}
+    <pre tabindex="0" role="region" aria-label="Commands and expected output, scrollable" style="{pre_style}">{esc(reanalyze_msbench.summary_line("benign", "text", bt["union"], bt["n"], bt["all_miss"]))}
 {esc(reanalyze_msbench.summary_line("benign", "image", bi["union"], bi["n"], bi["all_miss"]))}
 {esc(reanalyze_msbench.summary_line("harmful", "text", ht["union"], ht["n"], ht["all_miss"]))}
 {esc(reanalyze_msbench.summary_line("harmful", "image", hi["union"], hi["n"], hi["all_miss"]))}
@@ -1701,7 +1701,7 @@ python scripts/reanalyze_msbench.py</pre>
     <h2 id="fail-h">What must fail</h2>
     <p class="zone-intro">A reproduction that cannot fail proves nothing. Save the
       eight files locally, flip one byte of any of them, and re-run offline:</p>
-    <pre style="{pre_style}">python scripts/reanalyze_msbench.py --dir path/to/mutated_full_run
+    <pre tabindex="0" role="region" aria-label="Commands and expected output, scrollable" style="{pre_style}">python scripts/reanalyze_msbench.py --dir path/to/mutated_full_run
 FAIL  guard_…jsonl: sha256 …  != recorded …  — the bound artifact changed;
       MC-004 must be re-reviewed, not silently recomputed   (exit code 1)</pre>
     <p class="zone-intro" style="margin-top:.9rem">The same flip smuggled past the hash
