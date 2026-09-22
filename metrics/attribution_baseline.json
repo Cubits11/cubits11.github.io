@@ -1,0 +1,6 @@
+{
+  "commit": "f2249c113335feb8b2a3ccb9e4cd9951e002592a",
+  "recorded": "2026-09-22",
+  "rule": "From this commit forward, every commit on this repository carries a Cubits11 author and committer and no machine-attribution trailer. Enforced by scripts/verify_attribution.py; prevented by .githooks/commit-msg. Commits before this point are not rewritten: their SHAs are pinned by published permalinks that a rewrite would break.",
+  "decided_by": "owner, 2026-09-22"
+}
