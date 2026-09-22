@@ -6,7 +6,10 @@
     "environment": "isolated Python environment with requirements.txt installed"
   },
   "clean_clone": {
-    "status": "PENDING_REPLAY_AFTER_REPORT_FIX"
+    "command": "python scripts/verify_clean_clone.py --commit HEAD",
+    "status": "PASS",
+    "commit": "2902082b11caafb79e3765fe3618af09d1c891b4",
+    "record_followup": "Only REPORT.md and verification.json updated after this replay; design and screenshot bytes unchanged."
   },
   "browser_capture": "after.json",
   "layout_and_interaction": "interaction-layout.json",

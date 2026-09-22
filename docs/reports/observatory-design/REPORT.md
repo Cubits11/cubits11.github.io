@@ -92,7 +92,9 @@ label fixed it before the final capture.
 - Repository graph drift check: passed.
 - Existing WORLDSPACE capture procedure: passed; receipt and screenshots refreshed.
 - Canonical manifest: passed in the isolated environment; see [verification.json](verification.json).
-- Clean-clone replay: pending a committed candidate.
+- Clean-clone replay: passed for `2902082b11caafb79e3765fe3618af09d1c891b4`.
+  This final report update changes only the observation record; the verified
+  design source and screenshot bytes are unchanged.
 
 The initial verification attempt found stale sitemap dates. After regeneration,
 a subsequent attempt exposed missing `jsonschema` in the system interpreter.
