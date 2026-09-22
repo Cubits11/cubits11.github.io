@@ -23,17 +23,21 @@ That asymmetry is deliberate and is the substance of this file:
     python3 scripts/verify_attribution.py --history # the pre-baseline count
     python3 scripts/verify_attribution.py --test    # the fixtures, in memory
 
-One exemption, and its reasoning. GitHub commits a merge on the owner's behalf
-as `GitHub <noreply@github.com>`: the synthetic commit CI builds to test a pull
-request, and the commit the merge button writes. Those are plumbing, not
-authorship -- no one is claiming credit for a merge -- and a rule that failed on
-them would fail on every merge into main forever. So a commit with two or more
-parents carrying exactly that identity is exempt from the identity check. It is
-NOT exempt from the trailer check, and its parents are each checked on their
-own, which is where content actually enters.
+One exemption, and its reasoning. On a merge GitHub writes -- the synthetic
+commit CI builds to test a pull request, and the commit the merge button
+writes -- the author stays the person and the committer becomes
+`GitHub <noreply@github.com>`. That committer slot is plumbing, not authorship,
+and a rule that failed on it would fail on every merge into main forever. So on
+a commit with two or more parents whose committer is exactly that identity, the
+committer slot alone is exempt. The author is always checked, so a merge still
+names a person; a single-parent commit made as GitHub is someone committing as
+GitHub and fails; and a merge authored by a model fails on its author.
+
+The exemption is not exempt from the trailer check, and the merge's parents are
+each checked on their own, which is where content actually enters.
 
 The residual: a merge commit can carry conflict-resolution content that exists
-in no parent, and under this exemption that content is unattributed. That is
+in no parent, and that content is attributed only by the merge's author. That is
 accepted rather than hidden. Closing it would mean checking merge-diff
 provenance, which is a different gate than this one.
 
@@ -103,17 +107,32 @@ def bound_commits() -> list[str]:
 WEB_FLOW = ("github", "noreply@github.com")
 
 
+def identities_to_check(parents: str, an: str, ae: str, cn: str, ce: str):
+    """Which identities the rule binds on this commit.
+
+    On a merge, GitHub commits on the owner's behalf: the author stays the
+    person, the committer becomes `GitHub <noreply@github.com>`. Only that
+    committer slot is exempt, and only on a merge. The author is always
+    checked, so a merge still names a person, and a single-parent commit
+    made as GitHub is someone committing as GitHub and fails.
+
+    One function so the gate and its fixtures cannot disagree.
+    """
+    roles = [("author", an, ae)]
+    committer_is_plumbing = (
+        len(parents.split()) > 1
+        and (cn.strip().lower(), ce.strip().lower()) == WEB_FLOW
+    )
+    if not committer_is_plumbing:
+        roles.append(("committer", cn, ce))
+    return tuple(roles)
+
+
 def violations(sha: str) -> list[str]:
     record = git("show", "-s", "--format=%an%n%ae%n%cn%n%ce%n%P%n%B", sha)
     an, ae, cn, ce, parents, *body = record.split("\n")
     found: list[str] = []
-    merge_plumbing = (
-        len(parents.split()) > 1
-        and (cn.strip().lower(), ce.strip().lower()) == WEB_FLOW
-        and (an.strip().lower(), ae.strip().lower()) == WEB_FLOW
-    )
-    identities = () if merge_plumbing else (("author", an, ae), ("committer", cn, ce))
-    for role, name, email in identities:
+    for role, name, email in identities_to_check(parents, an, ae, cn, ce):
         if email.strip().lower() not in PERMITTED_EMAILS:
             found.append(f"{role} email {email!r} is not a Cubits11 identity")
         if name.strip().lower() not in PERMITTED_NAMES:
@@ -190,27 +209,38 @@ def test() -> int:
         if got != expected:
             failures.append(f"  identity {label}: expected {expected}, got {got}")
 
-    # The web-flow exemption, which a live CI run found before these did.
-    # A merge GitHub wrote is plumbing; the same identity on a single-parent
-    # commit is someone committing as GitHub, and is not exempt.
-    for label, parents, name, email, expected_exempt in (
-        ("github merge", "aaa bbb", "GitHub", "noreply@github.com", True),
-        ("github single parent", "aaa", "GitHub", "noreply@github.com", False),
-        ("model merge", "aaa bbb", "Claude", "noreply@anthropic.com", False),
-        ("owner merge", "aaa bbb", "Cubits11",
-         "90584946+Cubits11@users.noreply.github.com", False),
+    # The web-flow exemption, exercised through the function the gate uses.
+    # An earlier version of these fixtures re-implemented the condition inline
+    # and so agreed with a bug the gate had; they now call identities_to_check.
+    OWNER = ("Cubits11", "90584946+Cubits11@users.noreply.github.com")
+    GH = ("GitHub", "noreply@github.com")
+    for label, parents, author, committer, expect_roles in (
+        # What GitHub actually builds for a PR: owner authors, GitHub commits.
+        ("pr test merge", "aaa bbb", OWNER, GH, ("author",)),
+        ("merge button", "aaa bbb", OWNER, GH, ("author",)),
+        # Not a merge: committing as GitHub is not exempt.
+        ("single parent as github", "aaa", GH, GH, ("author", "committer")),
+        # A merge does not launder the author.
+        ("merge authored by a model", "aaa bbb", ("Claude", "noreply@anthropic.com"),
+         GH, ("author",)),
+        # An ordinary local merge is checked on both slots.
+        ("local merge", "aaa bbb", OWNER, OWNER, ("author", "committer")),
     ):
-        got = (
-            len(parents.split()) > 1
-            and (name.strip().lower(), email.strip().lower()) == WEB_FLOW
-        )
-        if got != expected_exempt:
-            failures.append(f"  web-flow {label}: expected {expected_exempt}, got {got}")
+        got = tuple(r for r, _, _ in identities_to_check(
+            parents, author[0], author[1], committer[0], committer[1]))
+        if got != expect_roles:
+            failures.append(f"  web-flow {label}: expected {expect_roles}, got {got}")
+
+    # The exemption must not let a model-authored merge through.
+    bad = identities_to_check("aaa bbb", "Claude", "noreply@anthropic.com",
+                              "GitHub", "noreply@github.com")
+    if not any(e.lower() not in PERMITTED_EMAILS for _, _, e in bad):
+        failures.append("  web-flow: a model-authored merge was not caught")
     if failures:
         print(f"attribution fixtures: {len(failures)} failed")
         print("\n".join(failures))
         return 1
-    print(f"attribution fixtures: {len(FIXTURES) + 7} passed")
+    print(f"attribution fixtures: {len(FIXTURES) + 9} passed")
     return 0
 
 
