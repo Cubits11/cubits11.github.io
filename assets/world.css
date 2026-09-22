@@ -85,3 +85,110 @@
 @media(prefers-reduced-motion:no-preference){.world-threshold a strong{transition:color .2s}.world-threshold a:hover strong{color:var(--gold)}.bench-world rect{transition:width .18s,height .18s,x .18s,y .18s}}
 @media(max-width:850px){.world-intro,.world-page-header{grid-template-columns:1fr}.world-intro{gap:2.5rem}.world-title{max-width:12em}.world-plate{max-width:36rem;width:100%}.workbench{grid-template-columns:1fr}.bench-display{border-right:0;border-bottom:1px solid var(--line)}.world-page-header{gap:0}.world-shelves{grid-template-columns:1fr 1fr}.world-threshold{gap:1rem}}
 @media(max-width:540px){.world-threshold,.world-shelves,.world-proof{grid-template-columns:1fr}.world-threshold{margin-top:2rem}.world-threshold a{padding:.8rem 0;border-bottom:1px solid var(--line)}.world-eyebrow{font-size:.6rem;letter-spacing:.04em;margin-bottom:1.6rem}.world-pair{gap:1rem}.world-plate{padding:1rem}.world-title{font-size:3.5rem}.world-page{padding-top:5rem}.world-section{padding:2.5rem 0}.bench-world{gap:1rem}.bench-world dl{font-size:.7rem}.world-pair strong{font-size:2rem}}
+
+/* Observatory edition: a shared spatial language for the entrance and instrument.
+   Evidence colors retain their existing meanings; decoration carries no status. */
+.world-entrance{position:relative;padding:clamp(3rem,6vw,6rem) 0 0;background:var(--bg)}
+.world-entrance .container{position:relative}
+.world-eyebrow{font-size:.72rem;letter-spacing:.13em;line-height:1.7;flex-wrap:wrap}
+.world-eyebrow::before{width:3rem}
+.world-intro{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:clamp(2rem,5vw,5rem);align-items:center}
+.world-intro>*{min-width:0}
+.world-title{font-size:clamp(3.6rem,7vw,6.5rem);line-height:1.02;letter-spacing:-.055em;font-weight:440;text-wrap:balance}
+.world-title em{display:inline-block;font-weight:420}
+.world-lede{font-size:clamp(1rem,1.5vw,1.18rem);line-height:1.8;max-width:32em;margin:2rem 0}
+.world-actions{gap:1rem 1.6rem;margin-top:2rem}
+.world-actions .btn{border-radius:2px;min-height:52px;letter-spacing:.045em;padding:1rem 1.35rem}
+.world-actions .btn span{font-size:1.25rem;margin-left:.6rem}
+.world-link{padding-block:.7rem}
+.world-plate{padding:clamp(1.2rem,2.5vw,2.2rem);border-color:var(--gold);box-shadow:0 18px 48px #0000000c, inset 0 0 0 6px var(--bg);outline:1px solid var(--line);outline-offset:7px}
+.world-plate-top{font-size:.67rem;line-height:1.7;flex-wrap:wrap;padding-bottom:1.1rem;border-bottom:1px solid var(--line-strong)}
+.world-plate-top span:first-child{color:var(--gold)}
+.world-pair{gap:1.5rem;margin-top:1.5rem}
+.world-pair svg{padding:.4rem;background:var(--bg)}
+.world-pair figcaption{font-size:.85rem;padding-top:1rem}
+.world-pair strong{font:400 .9rem/1.5 var(--sans);letter-spacing:0}
+.world-count{display:block;font:420 clamp(2.7rem,4.5vw,4rem)/1.15 var(--serif);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.world-legend{padding-top:.75rem;font-size:.8rem}
+.world-footnote{font-size:.82rem;border-top:1px solid var(--line);padding-top:1rem}
+.world-threshold{gap:0;margin-top:clamp(3rem,6vw,5rem);padding:0;border-top:1px solid var(--line-strong)}
+.world-threshold a{position:relative;padding:1.8rem 1.6rem 2rem;border-right:1px solid var(--line);}
+.world-threshold a:first-child{padding-left:0}
+.world-threshold a:last-child{border-right:0}
+.world-threshold strong{font-size:1.45rem;font-weight:450;line-height:1.25;margin:.7rem 0}
+.world-threshold p{font-size:.9rem;max-width:28em}
+.world-threshold a:hover,.world-threshold a:focus-visible{background:var(--surface)}
+.observatory-home .hero{padding-block:clamp(4rem,8vw,7rem)}
+.observatory-home .hero-h1{font-size:clamp(2.3rem,4.4vw,3.8rem);font-weight:450;line-height:1.12;text-wrap:balance}
+.observatory-home .sec-head{padding-bottom:1.5rem;border-bottom:1px solid var(--line)}
+.observatory-home .card{box-shadow:0 12px 36px #00000008}
+.observatory-home .snapshot-note{font-size:.85rem;line-height:1.65}
+.world-page-header{padding:3rem 0 4rem;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:4rem}
+.world-page-header h1{font-size:clamp(3.5rem,6.8vw,6rem);font-weight:440;line-height:1.03;letter-spacing:-.045em}
+.world-page-header p{font-size:1.05rem;line-height:1.8}
+.world-section{padding-block:clamp(3rem,5vw,5rem)}
+.world-section-heading{gap:1rem 2rem;margin-bottom:2rem}
+.world-section-heading h2{font-weight:450;line-height:1.14;text-wrap:balance}
+.workbench{box-shadow:0 16px 56px #0000000c;border-top:2px solid var(--gold)}
+.bench-topline{flex-wrap:wrap;font-size:.7rem;line-height:1.7}
+.bench-result{font-size:clamp(3.6rem,7vw,6.8rem);font-weight:420;line-height:1.1;margin:1.6rem 0 .8rem}
+.bench-display{padding:clamp(1.25rem,3vw,3rem)}
+.bench-caption{min-height:0;font-size:.95rem}
+.bench-axis{height:24px;margin-top:2rem;border:1px solid var(--line-strong)}
+.bench-point{height:34px}
+.bench-scale{font-size:.75rem}
+.bench-world svg{outline:1px solid var(--line-strong);outline-offset:5px}
+.bench-world dl{font-size:.85rem}
+.bench-world dd{font-size:1.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--line)}
+.bench-controls{background:var(--bg);padding:clamp(1.25rem,3vw,2.5rem)}
+.bench-controls fieldset{margin-bottom:2rem}
+.bench-controls legend{font-size:.72rem;line-height:1.7;color:var(--gold);padding-top:1rem;border-top:1px solid var(--line-strong);width:100%}
+.bench-control-label{font-size:.95rem;align-items:baseline}
+.bench-control-label output{font:400 1.4rem var(--serif);font-variant-numeric:tabular-nums}
+.bench-options{gap:.65rem}
+.bench-options label{padding:.75rem;font-size:.9rem;border-color:var(--line-strong);cursor:pointer;align-items:flex-start}
+.bench-options input{flex:none;margin-top:.35rem}
+.bench-options label:has(:checked){border-color:var(--evidence);box-shadow:inset 3px 0 var(--evidence);background:var(--surface)}
+.bench-options label:focus-within{outline:2px solid var(--gold);outline-offset:3px}
+.bench-note{font-size:.85rem;line-height:1.7}
+.bench-buttons button,.bench-reset{background:var(--surface);font-size:.85rem}
+.bench-buttons button:disabled{cursor:not-allowed}
+.bench-status{border-left:2px solid var(--evidence);padding:.8rem 1rem;background:var(--bg);font-size:.9rem;color:var(--ink)}
+.bench-status[data-invalid=true]{border-left-color:var(--invalid)}
+.world-proof{gap:1rem;padding-top:1.5rem}
+.world-proof details{border:1px solid var(--line-strong);padding:.6rem 1.2rem;align-self:start;background:var(--surface)}
+.world-proof summary{font-size:.95rem}
+.world-proof details[open]{border-top:2px solid var(--gold)}
+.world-shelves{gap:2rem}
+.world-shelf{padding-top:0;border-top:0}
+.world-shelf video{outline:1px solid var(--line-strong);outline-offset:5px;margin-bottom:1.8rem}
+.world-shelf h3{font-size:1.8rem;font-weight:450;line-height:1.15}
+.world-shelf .mono{font-size:.72rem}
+.world-close{padding-block:4rem;font-weight:440}
+@media(prefers-reduced-motion:no-preference){
+ .world-actions .btn span{transition:transform .2s var(--ease)}
+ .world-actions .btn:hover span{transform:translate(2px,-2px)}
+ .world-threshold a,.bench-options label{transition:background-color .2s,border-color .2s}
+}
+@media(max-width:1000px) and (min-width:851px){.world-title{font-size:4.5rem}.world-plate{padding:1.2rem}}
+@media(max-width:850px){
+ .world-intro,.world-page-header{grid-template-columns:1fr;gap:2.5rem}
+ .world-title{max-width:11em}.world-plate{max-width:none;margin-top:1rem}
+ .world-pair svg{max-height:240px}
+ .world-page-header{padding:2rem 0 3rem}.world-page-header p{margin:0}
+ .world-threshold a{padding:1.3rem 1rem}.world-threshold strong{font-size:1.2rem}
+}
+@media(max-width:540px){
+ .world-title{font-size:clamp(3rem,14vw,4.4rem)}
+ .world-eyebrow{font-size:.68rem;gap:.7rem;margin-bottom:2rem}.world-eyebrow::before{width:1.8rem}
+ .world-entrance{padding-top:2.5rem}.world-lede{margin-block:1.5rem}
+ .world-actions{align-items:flex-start;gap:.5rem}.world-actions .btn{justify-content:space-between;width:100%}
+ .world-plate{outline-offset:4px}.world-plate-top{font-size:.65rem}.world-pair{gap:1rem}
+ .world-threshold a,.world-threshold a:first-child{padding:1.3rem .5rem;border-right:0;border-bottom:1px solid var(--line)}
+ .world-threshold strong{font-size:1.5rem}.world-threshold a:last-child{border-bottom:0}
+ .world-page-header h1{font-size:clamp(3rem,13vw,4rem)}
+ .bench-world{gap:1rem}.bench-world dl{font-size:.75rem}.bench-world dd{font-size:1.5rem}
+ .world-section-heading .mono{font-size:.68rem}
+ .world-close{padding-block:2.5rem}
+}
+@media print{.world-plate,.workbench,.observatory-home .card{box-shadow:none;outline:0}}

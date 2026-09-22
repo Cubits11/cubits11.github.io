@@ -1,0 +1,1622 @@
+{
+  "browser": "153.0.8010.12",
+  "layout": [
+    {
+      "route": "/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/answers/how-to-evaluate-guardrails-you-plan-to-stack/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/answers/what-does-the-second-guardrail-add/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/answers/why-guardrail-miss-rates-do-not-multiply/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/archive/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/af-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/cc-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/cc-002/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/cc-003/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/cc-004/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/cc-005/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/cc-006/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/e3-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/e3b-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/e6-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/e7b-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/ga-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/gce-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/gv-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/mc-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/mc-002/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/mc-003/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/mc-004/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/rel-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/site-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/claims/site-002/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/corrections/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/essays/when-marginals-are-not-enough/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/explore/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/leave-one-out/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/parity-cube/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/same-scores-different-worlds/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/same-scores__social-square/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/the-correction-invitation/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/the-falsifier-that-fired/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/the-missing-column-census/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/the-missing-column-trailer/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/the-multiplication/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/the-stack/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/thirteen-worlds/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/films/what-the-seal-proves/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/d-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/d-002/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/d-003/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/d-004/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/d-005/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/d-006/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/d-007/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/d-008/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/d-009/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/d-010/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/foundations/meshes/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/ledger/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/missing-column/disclosure/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/missing-column/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/missing-column/reproduce/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/modules/001-marginals/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/modules/002-pairwise-is-not-enough/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/modules/003-kernel-of-a-receipt/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/modules/004-attestation-boundary/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/modules/005-claims-expire/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/modules/006-witnesses/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/modules/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/notes/noetic-log-001/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/notes/noetic-log-002/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/now/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/ns/falsifiable/v1/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/observatory/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/overlap/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/records/conformance/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/resume/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/stack-study/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/trials/necromancer/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/try/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/work/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/worldspace/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/writing/",
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/answers/how-to-evaluate-guardrails-you-plan-to-stack/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/answers/what-does-the-second-guardrail-add/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/answers/why-guardrail-miss-rates-do-not-multiply/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/archive/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/af-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/cc-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/cc-002/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/cc-003/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/cc-004/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/cc-005/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/cc-006/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/e3-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/e3b-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/e6-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/e7b-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/ga-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/gce-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/gv-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/mc-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/mc-002/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/mc-003/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/mc-004/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/rel-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/site-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/claims/site-002/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/corrections/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/essays/when-marginals-are-not-enough/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/explore/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/leave-one-out/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/parity-cube/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/same-scores-different-worlds/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/same-scores__social-square/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/the-correction-invitation/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/the-falsifier-that-fired/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/the-missing-column-census/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/the-missing-column-trailer/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/the-multiplication/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/the-stack/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/thirteen-worlds/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/films/what-the-seal-proves/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/d-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/d-002/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/d-003/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/d-004/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/d-005/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/d-006/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/d-007/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/d-008/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/d-009/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/d-010/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/foundations/meshes/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/ledger/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/missing-column/disclosure/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/missing-column/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/missing-column/reproduce/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/modules/001-marginals/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/modules/002-pairwise-is-not-enough/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/modules/003-kernel-of-a-receipt/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/modules/004-attestation-boundary/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/modules/005-claims-expire/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/modules/006-witnesses/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/modules/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/notes/noetic-log-001/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/notes/noetic-log-002/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/now/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/ns/falsifiable/v1/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/observatory/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/overlap/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/records/conformance/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/resume/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/stack-study/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/trials/necromancer/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/try/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/work/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/worldspace/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/writing/",
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "route": "/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/answers/how-to-evaluate-guardrails-you-plan-to-stack/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/answers/what-does-the-second-guardrail-add/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/answers/why-guardrail-miss-rates-do-not-multiply/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/archive/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/af-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/cc-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/cc-002/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/cc-003/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/cc-004/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/cc-005/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/cc-006/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/e3-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/e3b-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/e6-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/e7b-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/ga-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/gce-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/gv-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/mc-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/mc-002/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/mc-003/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/mc-004/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/rel-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/site-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/claims/site-002/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/corrections/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/essays/when-marginals-are-not-enough/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/explore/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/leave-one-out/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/parity-cube/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/same-scores-different-worlds/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/same-scores__social-square/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/the-correction-invitation/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/the-falsifier-that-fired/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/the-missing-column-census/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/the-missing-column-trailer/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/the-multiplication/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/the-stack/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/thirteen-worlds/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/films/what-the-seal-proves/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/d-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/d-002/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/d-003/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/d-004/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/d-005/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/d-006/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/d-007/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/d-008/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/d-009/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/d-010/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/foundations/meshes/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/ledger/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/missing-column/disclosure/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/missing-column/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/missing-column/reproduce/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/modules/001-marginals/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/modules/002-pairwise-is-not-enough/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/modules/003-kernel-of-a-receipt/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/modules/004-attestation-boundary/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/modules/005-claims-expire/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/modules/006-witnesses/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/modules/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/notes/noetic-log-001/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/notes/noetic-log-002/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/now/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/ns/falsifiable/v1/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/observatory/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/overlap/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/records/conformance/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/resume/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/stack-study/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/trials/necromancer/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/try/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/work/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/worldspace/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/writing/",
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "route": "/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/answers/how-to-evaluate-guardrails-you-plan-to-stack/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/answers/what-does-the-second-guardrail-add/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/answers/why-guardrail-miss-rates-do-not-multiply/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/archive/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/af-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/cc-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/cc-002/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/cc-003/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/cc-004/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/cc-005/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/cc-006/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/e3-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/e3b-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/e6-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/e7b-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/ga-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/gce-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/gv-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/mc-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/mc-002/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/mc-003/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/mc-004/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/rel-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/site-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/claims/site-002/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/corrections/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/essays/when-marginals-are-not-enough/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/explore/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/leave-one-out/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/parity-cube/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/same-scores-different-worlds/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/same-scores__social-square/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/the-correction-invitation/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/the-falsifier-that-fired/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/the-missing-column-census/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/the-missing-column-trailer/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/the-multiplication/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/the-stack/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/thirteen-worlds/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/films/what-the-seal-proves/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/d-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/d-002/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/d-003/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/d-004/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/d-005/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/d-006/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/d-007/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/d-008/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/d-009/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/d-010/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/foundations/meshes/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/ledger/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/missing-column/disclosure/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/missing-column/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/missing-column/reproduce/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/modules/001-marginals/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/modules/002-pairwise-is-not-enough/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/modules/003-kernel-of-a-receipt/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/modules/004-attestation-boundary/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/modules/005-claims-expire/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/modules/006-witnesses/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/modules/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/notes/noetic-log-001/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/notes/noetic-log-002/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/now/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/ns/falsifiable/v1/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/observatory/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/overlap/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/records/conformance/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/resume/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/stack-study/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/trials/necromancer/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/try/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/work/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/worldspace/",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "route": "/writing/",
+      "width": 1280,
+      "scrollWidth": 1280
+    }
+  ],
+  "checks": [
+    "Menu opens by keyboard; Escape closes and restores focus",
+    "Range responds to keyboard and updates output",
+    "Independence produces point and disables unavailable movement",
+    "Contradictory interval shows Empty set and hides witness",
+    "Reset restores original construction",
+    "Theme persists across reload",
+    "No-JavaScript homepage and static instrument remain readable"
+  ],
+  "exploreAccessibility": {
+    "violations": [],
+    "incomplete": [
+      "color-contrast",
+      "video-caption"
+    ]
+  },
+  "overflow": []
+}

@@ -1,0 +1,1334 @@
+check claim registry
+ok    registry schema v0.4 loaded with 21 claims
+ok    last_owner_review 2026-09-14 covers all claim reviews
+ok    index.html states the registry's last owner review date (2026-09-14)
+ok    index.html: current claim count is explicitly bound to claims.yaml (21)
+ok    ledger/index.html: current claim count is explicitly bound to claims.yaml (21)
+ok    now/index.html: historical claim count is explicitly dated
+ok    observatory/index.html: current claim count is explicitly bound to claims.yaml (21)
+ok    MC-002: bound commit 507566c5 reachable from CentreSecuriteIA/bells_leaderboard's default branch
+ok    CC-001: bound commit 167aa1ee reachable from Cubits11/cc-framework's default branch
+ok    CC-002: bound commit 3e22c39d reachable from Cubits11/cc-framework's default branch
+ok    CC-003: bound commit ee61a710 reachable from Cubits11/cc-framework's default branch
+ok    CC-004: bound commit 167aa1ee reachable from Cubits11/cc-framework's default branch
+ok    CC-005: bound commit 0b945025 reachable from Cubits11/cc-framework's default branch
+ok    CC-006: bound commit e372a5b5 reachable from Cubits11/cc-framework's default branch
+ok    GCE-001: bound commit 75e90c2f reachable from Cubits11/cc-framework's default branch
+ok    GV-001: bound commit 3fbe3efc reachable from Cubits11/ghost-visualizer's default branch
+ok    GA-001: bound commit 98c90d82 reachable from PSUCyberSecurityLab/ghost-ark's default branch
+ok    MC-004: bound commit fb6f32e6 reachable from PatrickKollman/Multimodal-Safeguard-Bench's default branch
+ok    CC-001: reviewed 2026-08-24 (window 120d, fresh)
+ok    CC-001: support URL embeds the bound commit 167aa1ee
+ok    CC-001: evidence unchanged — Cubits11/cc-framework/src/cc/kernel/strict.py matches bound ref
+ok    CC-001: manual trigger declared — kernel semantics change outside the bound module file
+ok    CC-001: support URL resolves — https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+ok    CC-001: rendered in ledger
+ok    CC-002: reviewed 2026-08-24 (window 120d, fresh)
+ok    CC-002: support URL embeds the bound commit 3e22c39d
+ok    CC-002: evidence unchanged — Cubits11/cc-framework/docs/claims/CLAIM_BOUNDARY_MANIFEST.md matches bound ref
+ok    CC-002: support URL resolves — https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md
+ok    CC-002: rendered in ledger
+ok    CC-003: reviewed 2026-08-24 (window 120d, fresh)
+ok    CC-003: support URL embeds the bound commit ee61a710
+ok    CC-003: evidence unchanged — Cubits11/cc-framework/docs/research/E1_DEPENDENCE_EVIDENCE_STUDY.md matches bound ref
+ok    CC-003: manual trigger declared — E2 produces empirical results — the synthetic scoping here must be restated
+ok    CC-003: support URL resolves — https://github.com/Cubits11/cc-framework/blob/ee61a710243c74ec49d5896167d0913327e6b5d3/docs/research/E1_DEPENDENCE_EVIDENCE_STUDY.md
+ok    CC-003: rendered in ledger
+ok    CC-004: reviewed 2026-08-24 (window 120d, fresh)
+ok    CC-004: support URL embeds the bound commit 167aa1ee
+ok    CC-004: evidence unchanged — Cubits11/cc-framework/src/cc/kernel/sensitivity.py matches bound ref
+ok    CC-004: manual trigger declared — witness API change outside the bound module file
+ok    CC-004: support URL resolves — https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6
+ok    CC-004: rendered in ledger
+ok    CC-005: reviewed 2026-08-24 (window 120d, fresh)
+ok    CC-005: support URL embeds the bound commit 0b945025
+ok    CC-005: evidence unchanged — Cubits11/cc-framework/docs/research/E2_MEASUREMENT_CONTRACT.md matches bound ref
+ok    CC-005: manual trigger declared — a conforming dataset is collected — E2's status must be restated
+ok    CC-005: support URL resolves — https://github.com/Cubits11/cc-framework/blob/0b9450251b6988fa23d8e6e4fb556a08b05e652e/docs/research/E2_MEASUREMENT_CONTRACT.md
+ok    CC-005: rendered in ledger
+ok    CC-006: reviewed 2026-09-07 (window 120d, fresh)
+ok    CC-006: support URL embeds the bound commit e372a5b5
+ok    CC-006: evidence unchanged — Cubits11/cc-framework/docs/research/E2_DRYRUN_FINDING.md matches bound ref
+ok    CC-006: manual trigger declared — real E2 data is collected — this claim is superseded by an E2 result
+ok    CC-006: support URL resolves — https://github.com/Cubits11/cc-framework/blob/e372a5b50c68b98a56f8f5c5a87a6d1ca8fca992/docs/research/E2_DRYRUN_FINDING.md
+ok    CC-006: rendered in ledger
+ok    REL-001: reviewed 2026-08-24 (window 30d, fresh)
+ok    REL-001: manual trigger declared — a public protocol revision is bound, a real E2 result activates or prevents activation, or participant recruitment begins
+ok    REL-001: owner-attested — no public support URL, by declaration
+ok    REL-001: rendered in ledger
+ok    MC-001: reviewed 2026-09-14 (window 60d, fresh)
+ok    MC-001: census.yaml matches recorded hash
+ok    MC-001: manual trigger declared — a new qualifying evaluation is published or reported, an author corrects a row, or a benchmark publishes a previously absent joint statistic
+
+ok    MC-001: self-support path exists in this checkout — census.yaml (deployment liveness is a separate gate)
+ok    MC-001: rendered in ledger
+ok    MC-002: third-party rights recorded (none declared upstream, facts_only)
+ok    MC-002: reviewed 2026-08-28 (window 60d, fresh)
+ok    MC-002: support URL embeds the bound commit 507566c5
+ok    MC-002: evidence unchanged — CentreSecuriteIA/bells_leaderboard/data/non_adversarial_prompts.csv matches bound ref
+ok    MC-002: manual trigger declared — the authors release the full per-item dataset, state the subset's selection rule, or correct the released verdicts
+
+ok    MC-002: support URL resolves — https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv
+ok    MC-002: rendered in ledger
+ok    MC-003: reviewed 2026-08-30 (window 60d, fresh)
+ok    MC-003: scripts/identification.py matches recorded hash
+ok    MC-003: manual trigger declared — a reader identifies an error in the stated Fréchet, finite-grid, or aggregate exclusive-coverage bounds, or a result is used outside the declared static full-exposure assumptions
+
+ok    MC-003: self-support path exists in this checkout — scripts/identification.py (deployment liveness is a separate gate)
+ok    MC-003: rendered in ledger
+ok    MC-004: third-party rights recorded (MIT, permitted)
+ok    MC-004: reviewed 2026-08-31 (window 60d, fresh)
+ok    MC-004: support URL embeds the bound commit fb6f32e6
+ok    MC-004: evidence unchanged — PatrickKollman/Multimodal-Safeguard-Bench/results/full_run/guard_llama_guard_4_harmful.jsonl matches bound ref
+ok    MC-004: evidence unchanged — PatrickKollman/Multimodal-Safeguard-Bench/results/full_run/guard_llama_guard_4_benign.jsonl matches bound ref
+ok    MC-004: evidence unchanged — PatrickKollman/Multimodal-Safeguard-Bench/results/full_run/guard_llama_guard_3_vision_harmful.jsonl matches bound ref
+ok    MC-004: evidence unchanged — PatrickKollman/Multimodal-Safeguard-Bench/results/full_run/guard_llama_guard_3_vision_benign.jsonl matches bound ref
+ok    MC-004: evidence unchanged — PatrickKollman/Multimodal-Safeguard-Bench/results/full_run/guard_shield_gemma_2_harmful.jsonl matches bound ref
+ok    MC-004: evidence unchanged — PatrickKollman/Multimodal-Safeguard-Bench/results/full_run/guard_shield_gemma_2_benign.jsonl matches bound ref
+ok    MC-004: evidence unchanged — PatrickKollman/Multimodal-Safeguard-Bench/results/full_run/metrics.json matches bound ref
+ok    MC-004: evidence unchanged — PatrickKollman/Multimodal-Safeguard-Bench/results/full_run/ensemble.json matches bound ref
+ok    MC-004: evidence unchanged — PatrickKollman/Multimodal-Safeguard-Bench/src/msbench/guards.py matches bound ref
+ok    MC-004: evidence unchanged — PatrickKollman/Multimodal-Safeguard-Bench/src/msbench/pipeline.py matches bound ref
+ok    MC-004: evidence unchanged — PatrickKollman/Multimodal-Safeguard-Bench/writeup/paper.tex matches bound ref
+ok    MC-004: manual trigger declared — the authors publish a corrected or extended full_run, print their own three-guard joint statistics, document a matched operating-point calibration, or publish a source-defined translation from all native predicates to one shared catch event
+
+ok    MC-004: support URL resolves — https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run
+ok    MC-004: rendered in ledger
+ok    AF-001: third-party rights recorded (CC BY-NC-SA 4.0 (c) 2025 Rick Dakan, Joseph Feller, Anthropic PBC, noncommercial_only)
+ok    AF-001: reviewed 2026-08-28 (window 90d, fresh)
+ok    AF-001: scripts/mixture_bounds.py matches recorded hash
+ok    AF-001: manual trigger declared — the report publishes the artifact share, states which comparison group the differences are against, corrects a figure, or expands the analysis to a different sample
+
+ok    AF-001: support URL resolves — https://academy.claude.com/tutorials/the-ai-fluency-index
+ok    AF-001: rendered in ledger
+ok    GA-001: rights unknown — evidence usable for analysis, barred from any derivative until resolved
+ok    GA-001: reviewed 2026-08-24 (window 120d, fresh)
+ok    GA-001: support URL embeds the bound commit 98c90d82
+ok    GA-001: evidence unchanged — PSUCyberSecurityLab/ghost-ark/docs/research/00_THESIS.md matches bound ref
+ok    GA-001: support URL resolves — https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md
+ok    GA-001: rendered in ledger
+ok    GV-001: reviewed 2026-08-24 (window 120d, fresh)
+ok    GV-001: support URL embeds the bound commit 3fbe3efc
+ok    GV-001: evidence unchanged — Cubits11/ghost-visualizer/README.md matches bound ref
+ok    GV-001: manual trigger declared — hosted deployment added — the site may then link a live demo
+ok    GV-001: support URL resolves — https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7
+ok    GV-001: rendered in ledger
+ok    GCE-001: reviewed 2026-08-24 (window 365d, fresh)
+ok    GCE-001: support URL embeds the bound commit 75e90c2f
+ok    GCE-001: evidence unchanged — Cubits11/cc-framework/docs/theory/metric_taxonomy.md matches bound ref
+ok    GCE-001: manual trigger declared — GCE repository resumed or reframed
+ok    GCE-001: support URL resolves — https://github.com/Cubits11/cc-framework/blob/75e90c2f1f84fa89562ed4fe46f137e0be236476/docs/theory/metric_taxonomy.md
+ok    GCE-001: rendered in ledger
+ok    SITE-001: reviewed 2026-08-31 (window 120d, fresh)
+ok    SITE-001: DESIGN.md matches recorded hash
+ok    SITE-001: manual trigger declared — site redesign
+ok    SITE-001: self-support path exists in this checkout — DESIGN.md (deployment liveness is a separate gate)
+ok    SITE-001: rendered in ledger
+ok    SITE-002: reviewed 2026-08-30 (window 120d, fresh)
+ok    SITE-002: scripts/verify_claims.py matches recorded hash
+ok    SITE-002: manual trigger declared — workflow triggers or cadence change
+ok    SITE-002: self-support path exists in this checkout — scripts/verify_claims.py (deployment liveness is a separate gate)
+ok    SITE-002: rendered in ledger
+ok    E3-001: reviewed 2026-09-08 (window 120d, fresh)
+ok    E3-001: experiments/e3/results/observations.jsonl matches recorded hash
+ok    E3-001: experiments/e3/results/e3_result.json matches recorded hash
+ok    E3-001: experiments/e3/RESULT.md matches recorded hash
+ok    E3-001: manual trigger declared — a third pilot is run on a pool where both guards' miss rates are intermediate
+ok    E3-001: self-support path exists in this checkout — experiments/e3/results/observations.jsonl (deployment liveness is a separate gate)
+ok    E3-001: rendered in ledger
+ok    E3B-001: reviewed 2026-09-08 (window 120d, fresh)
+ok    E3B-001: experiments/e3b/results/observations.jsonl matches recorded hash
+ok    E3B-001: experiments/e3b/results/e3_result.json matches recorded hash
+ok    E3B-001: experiments/e3b/RESULT.md matches recorded hash
+ok    E3B-001: manual trigger declared — the contamination status of either guard's training corpus becomes checkable
+ok    E3B-001: self-support path exists in this checkout — experiments/e3b/results/observations.jsonl (deployment liveness is a separate gate)
+ok    E3B-001: rendered in ledger
+ok    E6-001: reviewed 2026-09-10 (window 120d, fresh)
+ok    E6-001: experiments/e6/results/observations.jsonl matches recorded hash
+ok    E6-001: experiments/e6/results/e6_result.json matches recorded hash
+ok    E6-001: experiments/e6/RESULT.md matches recorded hash
+ok    E6-001: experiments/e6/freeze/sources.json matches recorded hash
+ok    E6-001: experiments/e6/CORRECTION-2026-09-10.md matches recorded hash
+ok    E6-001: corrections/records/2026-09-10.json matches recorded hash
+ok    E6-001: corrections/records/2026-09-10-preserved-inputs.json matches recorded hash
+ok    E6-001: manual trigger declared — Anthropic publishes the model's output at the Table 2 median vector, releases the 3,259 five-vectors, or ships a kernel whose digest differs from the pinned bytes
+
+ok    E6-001: self-support path exists in this checkout — experiments/e6/results/observations.jsonl (deployment liveness is a separate gate)
+ok    E6-001: rendered in ledger
+ok    E7B-001: reviewed 2026-09-10 (window 120d, fresh)
+ok    E7B-001: experiments/e7b/results/observations.jsonl matches recorded hash
+ok    E7B-001: experiments/e7b/results/e7_result.json matches recorded hash
+ok    E7B-001: experiments/e7b/PREREG.md matches recorded hash
+ok    E7B-001: experiments/e7b/RESULT.md matches recorded hash
+ok    E7B-001: experiments/e7b/CORRECTION-2026-09-10.md matches recorded hash
+ok    E7B-001: corrections/records/2026-09-10.json matches recorded hash
+ok    E7B-001: corrections/records/2026-09-10-preserved-inputs.json matches recorded hash
+ok    E7B-001: manual trigger declared — a pool with intermediate marginals and more than 21 harmful items becomes available, or the upstream repository's scores change at a new commit
+
+ok    E7B-001: self-support path exists in this checkout — experiments/e7b/results/observations.jsonl (deployment liveness is a separate gate)
+ok    E7B-001: rendered in ledger
+
+Registry verified: shaped, falsifiers and forbidden rescues declared, bound, fresh, triggers quiet, support reachable, ledger covered.
+check finite device audits
+{"device": "D-001", "locator": "docs/foundations/devices.yaml:audit_state_space.D-001", "model_locator": "docs/foundations/AUDIT-MODELS.md:D-001", "non_claims": ["nothing about overlap, thresholds, or exposure", "Digital model N2 only; no deployed interface or physical device verified.", "Self-assessment only; no independent audit, other criteria, or learner efficacy established."], "reason": "unbounded without a stated marble budget \u2014 bound it before auditing", "rung": "unaudited", "status": "parameters_required"}
+{"candidate_count": 11, "device": "D-002", "feasible_count": 11, "locator": "docs/foundations/devices.yaml:audit_state_space.D-002", "model_locator": "docs/foundations/AUDIT-MODELS.md:D-002", "non_claims": ["exposure. Every coin is on the table and seen by both, so the device silently assumes full exposure \u2014 which is exactly why A4 needs D-005.\n", "Digital model N2 only; no deployed interface or physical device verified.", "Self-assessment only; no independent audit, other criteria, or learner efficacy established."], "reachable_count": 11, "rung": "SELF-AUDITED", "scope": "integer overlap counts; population=100, miss counts=(10,10); readout=overlap/100", "status": "equal"}
+{"candidate_count": 2, "device": "D-003", "feasible_count": 2, "locator": "docs/foundations/devices.yaml:audit_state_space.D-003", "model_locator": "docs/foundations/AUDIT-MODELS.md:D-003", "non_claims": ["any rate, and nothing about routing order", "Digital model N2 only; no deployed interface or physical device verified.", "Self-assessment only; no independent audit, other criteria, or learner efficacy established."], "reachable_count": 2, "rung": "SELF-AUDITED", "scope": "named composition rules only; no rates or routing order", "status": "equal"}
+{"candidate_count": 21, "device": "D-004", "feasible_count": 21, "locator": "docs/foundations/devices.yaml:audit_state_space.D-004", "model_locator": "docs/foundations/AUDIT-MODELS.md:D-004", "non_claims": ["overlap between the two detectors; use D-002 for that", "Digital model N2 only; no deployed interface or physical device verified.", "Self-assessment only; no independent audit, other criteria, or learner efficacy established."], "reachable_count": 21, "rung": "SELF-AUDITED", "scope": "fixed strict ordering of 20 objects; one ruler; binary suffix readout", "status": "equal"}
+{"candidate_count": 2, "device": "D-005", "feasible_count": 2, "locator": "docs/foundations/devices.yaml:audit_state_space.D-005", "model_locator": "docs/foundations/AUDIT-MODELS.md:D-005", "non_claims": ["adaptive attackers; the page does not change under observation", "Digital model N2 only; no deployed interface or physical device verified.", "Self-assessment only; no independent audit, other criteria, or learner efficacy established."], "reachable_count": 2, "rung": "SELF-AUDITED", "scope": "whole-page encodes full exposure; slip encodes routed exposure", "status": "equal"}
+{"candidate_count": 4, "device": "D-006", "feasible_count": 3, "locator": "docs/foundations/devices.yaml:audit_state_space.D-006", "model_locator": "docs/foundations/AUDIT-MODELS.md:D-006", "non_claims": ["Sudoku has a unique global solution and this problem does not. Say so, or the device teaches that more evidence always resolves to a point.\n", "Digital model N2 only; no deployed interface or physical device verified.", "Self-assessment only; no independent audit, other criteria, or learner efficacy established.", "Representative local Latin-cell constraints only; registry provides no concrete givens or global puzzle."], "reachable_count": 3, "rung": "SELF-AUDITED", "scope": "representative Latin cell: symbols=1..4; row excludes 1; column adds no exclusion", "status": "equal"}
+{"candidate_count": 70, "device": "D-007", "feasible_count": 2, "locator": "docs/foundations/devices.yaml:audit_state_space.D-007", "model_locator": "docs/foundations/AUDIT-MODELS.md:D-007", "non_claims": ["how large the gap is in practice. Both arrangements are constructed. This is a possibility proof and must be said out loud as one.\n", "Digital model N2 only; no deployed interface or physical device verified.", "Self-assessment only; no independent audit, other criteria, or learner efficacy established.", "Atomic digital parity switching only; loose beads and emptying intermediates are not certified.", "The physical device excludes non-sighted learners; no equivalent path is verified."], "reachable_count": 2, "rung": "SELF-AUDITED", "scope": "four occupied distinct binary corners; uniform pair shadows; atomic parity switch only", "status": "equal"}
+{"device": "D-008", "locator": "docs/foundations/devices.yaml:audit_state_space.D-008", "model_locator": "docs/foundations/AUDIT-MODELS.md:D-008", "non_claims": ["anything about why the marks fell where they did", "Digital model N2 only; no deployed interface or physical device verified.", "Self-assessment only; no independent audit, other criteria, or learner efficacy established."], "reason": "2^k mark patterns \u2014 enumerable for small k", "rung": "unaudited", "status": "parameters_required"}
+{"device": "D-009", "locator": "docs/foundations/devices.yaml:audit_state_space.D-009", "model_locator": "docs/foundations/AUDIT-MODELS.md:D-009", "non_claims": ["N2 is not merely failed, it is undefined: there is no configuration space. Recorded at the lower rung rather than argued up. If every device came out FAITHFUL the ladder would be decoration.\n", "Digital model N2 only; no deployed interface or physical device verified.", "Self-assessment only; no independent audit, other criteria, or learner efficacy established."], "reason": "not configurational \u2014 no audit script possible", "rung": "ILLUSTRATIVE", "status": "no_audit_possible"}
+{"device": "D-010", "locator": "docs/foundations/devices.yaml:audit_state_space.D-010", "model_locator": "docs/foundations/AUDIT-MODELS.md:D-010", "non_claims": ["Teaches the recovery trick honestly, but the reachable space is not the feasible space of denominators. Does not clear N2. Do not argue it up.\n", "Digital model N2 only; no deployed interface or physical device verified.", "Self-assessment only; no independent audit, other criteria, or learner efficacy established."], "reason": "candidate denominators up to a stated ceiling \u2014 enumerable", "rung": "ILLUSTRATIVE", "status": "parameters_required"}
+check device and render refusal paths
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.004s
+
+OK
+check foundations generated drift and room bindings
+01_ArrivalHall / Camera_Arrival: unmapped
+02_ClaimCapsuleChamber / Camera_ClaimCapsule: unmapped
+03_EvidenceVault / Camera_EvidenceVault: unmapped
+04_SupportGraphOrrery / Camera_SupportGraphOrrery: unmapped
+05_NonClaimsWall / Camera_NonClaimsWall: A10 — a falsifier is written before the outcome
+06_DecayClockRoom / Camera_DecayClockRoom: concept=claim_freshness (not an invented atom)
+07_ChallengeRange / Camera_ChallengeRange: A10 — a falsifier is written before the outcome
+07_ChallengeRange / Camera_ChallengeRange: concept=falsifiers (not an invented atom)
+08_ReplayManifestEngine / Camera_ReplayManifestEngine: unmapped
+09_HumanReviewTribunal / Camera_HumanReviewTribunal: unmapped
+10_LedgerTower / Camera_LedgerTower: unmapped
+11_FrechetAtomGarden / Camera_FrechetAtomGarden: A2 — two rates do not fix their overlap
+11_FrechetAtomGarden / Camera_FrechetAtomGarden: A6 — a bound is an answer; a point inside it is not
+11_FrechetAtomGarden / Camera_FrechetAtomGarden: A7 — evidence can permit a set
+00_WorldRoot / Camera_WorldHero: unmapped
+unmapped rooms: 8; rooms without atom binding: 9 (locator: docs/foundations/devices.yaml:room_atom_map)
+Foundations source and generated outputs agree.
+check foundations projection and mesh artifacts
+Foundations verified: source locators, generated T1 transitions, projection IDATs, and device-only Draco exports.
+Non-claims: this gate does not replace rendering, browser tests, independent review, or learner observation.
+check claim-history kernel
+ok    genesis: 17 states equal claims.yaml at anchor fd31559cadd6
+ok    chain: 50 entries link from genesis 1ebe94609f90 to tip 4a8f7a510eff (12 contemporaneous, 38 retrospective)
+ok    live: 21 commitments equal the chain tip
+ok    retrospective: 38 reconstructed transitions re-derived from git objects and tied to the genesis
+ok    prefix: prior accepted history (50 entries) is an exact prefix of the candidate (50)
+ok    claim-history kernel: every live commitment is either its genesis state or reached by a declared transition (prior f2249c113335)
+check retracted-id attribution
+ok    every mention of AS-001, BIO-001, CRED-001, MC-005 says on its own line that it is retracted
+check retracted-id attribution fixtures
+ok    a bare attribution must fail: 'bound to ZZ-999' -> flagged
+ok    a bare proposition reference must fail: 'ZZ-999 proposition' -> flagged
+ok    an acquitted mention must pass: 'ZZ-999 (retracted 2026-09-06)' -> clean
+ok    unregistered acquits: 'computed, unregistered — formerly ZZ-999' -> clean
+ok    an unrelated line must pass: 'nothing here names a claim' -> clean
+ok    the id must match whole: 'ZZ-9999 is a different token' -> clean
+
+fixtures pass: the gate flags bare attribution and clears acquitted mentions
+check claim-history mutants
+ok    M1 proposition changed, no transition — CC-001: commitment changed without a declared transition (protected 894a5a4b1067, live 14ff19e52d36)
+ok    M2a forbidden rescue removed, no transition — MC-003: commitment changed without a declared transition (protected 1985013d67e9, live dc8c4221bd2e)
+ok    M2b forbidden rescue reworded, no transition — MC-003: commitment changed without a declared transition (protected 1985013d67e9, live 2750039d6057)
+ok    M3a commitment changed + genesis re-minted — genesis states do not equal the commitments recorded at the anchor commit — a genesis cannot be re-minted
+ok    M3b commitment changed + genesis re-minted + claimed as a fresh kernel — genesis states do not equal the commitments recorded at the anchor commit — a genesis cannot be re-minted · prior absent; anchor content check must ca
+ok    M4a prior entry edited — entries[1]: previous_transition_digest does not link to the preceding entry
+ok    M4b prior entry deleted — entries[0]: previous_transition_digest does not link to the preceding entry
+ok    M4c prior entry edited and the whole chain re-linked — entries[0] differs from the prior accepted revision — accepted history is append-only · only the prefix rule against the prior accepted revision can c
+ok    M5 wrong from_digest — entries[50]: from_digest 000000000000 does not match CC-001's protected state 894a5a4b1067
+ok    M6a to_digest does not match recorded content — entries[50]: to_digest does not match the recorded to_commitment
+ok    M6b live state differs from the declared to_commitment — CC-001: commitment changed without a declared transition (protected ad4b09912f5a, live ef3e23a16da0)
+ok    M7 YAML re-serialized (keys sorted, width 60, quoted), parsed commitment identical — verified · bytes differ=True, digests identical=True
+ok    M8a wording changed, called formatting-only (no entry) — CC-001: commitment changed without a declared transition (protected 894a5a4b1067, live 8d5022d1e03b)
+ok    M8b wording changed, entry typed FORMAT_ONLY — entries[50]: transition_type 'FORMAT_ONLY' is not one of ['CLARIFY', 'CORRECT', 'EXPAND', 'NARROW', 'RETRACT', 'SUPERSEDE'] — there is no formatting-o
+ok    M9 valid declared NARROW appended — verified
+ok    M10 prior states reconstructable (post-genesis from the file, pre-genesis from git) — post-genesis match=True, pre-genesis CC-001@cf57f2c7baf4 match=True
+ok    M11a declared NARROW MACHINE_CHECKED, interval expands — entries[50]: declared NARROW but expected/identified_set moves from [0.0, 12.0] to [0.0, 13.0]
+ok    M11b declared NARROW MACHINE_CHECKED, interval shrinks — verified
+ok    M11c prose-only NARROW claims MACHINE_CHECKED — entries[50]: MACHINE_CHECKED requires at least one interval to move; none did · no structured rule applies
+ok    M0 committed state — verified
+ok    claim-history mutants: 20/20 behaved as required
+check claim-history reconstruction
+cf57f2c7baf4 2026-08-20 BIO-001  CHANGE  dated_in-record_declaration=no  typed=yes
+cf57f2c7baf4 2026-08-20 CC-001   CHANGE  dated_in-record_declaration=yes typed=yes
+cf57f2c7baf4 2026-08-20 SITE-001 CHANGE  dated_in-record_declaration=yes typed=yes
+6179e4741b85 2026-08-23 CC-001   CHANGE  dated_in-record_declaration=no  typed=yes
+6179e4741b85 2026-08-23 GA-001   CHANGE  dated_in-record_declaration=no  typed=yes
+6179e4741b85 2026-08-23 GV-001   CHANGE  dated_in-record_declaration=no  typed=yes
+7ea5a5dabffb 2026-08-23 SITE-002 CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 AS-001   CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 BIO-001  CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 CC-001   CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 CC-002   CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 CC-003   CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 CC-004   CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 CC-005   CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 CC-006   CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 CRED-001 CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 GA-001   CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 GCE-001  CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 GV-001   CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 SITE-001 CHANGE  dated_in-record_declaration=no  typed=yes
+4f6a87f98e6c 2026-08-27 SITE-002 CHANGE  dated_in-record_declaration=no  typed=yes
+7d2bd8394601 2026-08-27 MC-001   CHANGE  dated_in-record_declaration=no  typed=yes
+1ba6d8cbba6f 2026-08-27 MC-001   CHANGE  dated_in-record_declaration=yes typed=yes
+eb5423a0b9f5 2026-08-28 MC-001   CHANGE  dated_in-record_declaration=no  typed=yes
+0e7ee61e6bfc 2026-08-28 MC-001   CHANGE  dated_in-record_declaration=yes typed=yes
+0e7ee61e6bfc 2026-08-28 MC-002   CHANGE  dated_in-record_declaration=yes typed=yes
+6cf423e120c3 2026-08-28 MC-002   CHANGE  dated_in-record_declaration=no  typed=yes
+a8d9319a56a6 2026-08-28 AS-001   REMOVAL dated_in-record_declaration=no  typed=yes
+a8d9319a56a6 2026-08-28 BIO-001  REMOVAL dated_in-record_declaration=no  typed=yes
+a8d9319a56a6 2026-08-28 CRED-001 REMOVAL dated_in-record_declaration=no  typed=yes
+a8d9319a56a6 2026-08-28 MC-002   CHANGE  dated_in-record_declaration=no  typed=yes
+a8d9319a56a6 2026-08-28 MC-003   CHANGE  dated_in-record_declaration=no  typed=yes
+06a714fc3710 2026-08-30 MC-001   CHANGE  dated_in-record_declaration=yes typed=yes
+06a714fc3710 2026-08-30 MC-003   CHANGE  dated_in-record_declaration=no  typed=yes
+69364148b813 2026-08-30 MC-001   CHANGE  dated_in-record_declaration=yes typed=yes
+f6110584fc1b 2026-08-31 MC-004   CHANGE  dated_in-record_declaration=yes typed=yes
+679523d5b8dc 2026-08-31 MC-004   CHANGE  dated_in-record_declaration=yes typed=yes
+9f5cec278aa2 2026-09-01 SITE-002 CHANGE  dated_in-record_declaration=no  typed=yes
+26ce503da263 2026-09-06 MC-002   CHANGE  dated_in-record_declaration=no  typed=no  contemporaneous=CLARIFY
+26ce503da263 2026-09-06 MC-005   REMOVAL dated_in-record_declaration=no  typed=no  contemporaneous=RETRACT
+b6a30b64a9b9 2026-09-07 CC-006   CHANGE  dated_in-record_declaration=no  typed=no  contemporaneous=CLARIFY
+ea720a22807d 2026-09-10 E6-001   CHANGE  dated_in-record_declaration=no  typed=no  contemporaneous=NARROW
+48e98e44be87 2026-09-15 E6-001   CHANGE  dated_in-record_declaration=no  typed=no  contemporaneous=CORRECT
+48e98e44be87 2026-09-15 E7B-001  CHANGE  dated_in-record_declaration=no  typed=no  contemporaneous=CORRECT
+PREEXISTING_E5_TRANSITION_COUNT=44  (reachable digest-level commitment changes and removals; inherited merge states and births excluded)
+STRICT_SCAR_ELIGIBLE_COUNT=9  (before and after states re-derived from git; a dated in-record declaration naming the claim in the same first-parent change; a coherent transition type declared in the reconstruction)
+  qualifying: CC-001@cf57f2c7baf4:2026-08-20:CLARIFY
+  qualifying: SITE-001@cf57f2c7baf4:2026-08-20:CORRECT
+  qualifying: MC-001@1ba6d8cbba6f:2026-08-27:NARROW
+  qualifying: MC-001@0e7ee61e6bfc:2026-08-28:NARROW
+  qualifying: MC-002@0e7ee61e6bfc:2026-08-28:NARROW
+  qualifying: MC-001@06a714fc3710:2026-08-30:CORRECT
+  qualifying: MC-001@69364148b813:2026-08-30:CLARIFY
+  qualifying: MC-004@f6110584fc1b:2026-08-31:CORRECT
+  qualifying: MC-004@679523d5b8dc:2026-08-31:CLARIFY
+check claim history across merges
+.
+----------------------------------------------------------------------
+Ran 1 test in 1.255s
+
+OK
+check census
+ok    frozen criteria lock: v1 wording matches 1524143e1d0c (sha256 f3315adceb3d)
+ok    sensitivity named-products-only: named exclusions reproduce N/M/K 19/13/5
+ok    sensitivity pre-freeze-visibility-evidenced: named exclusions reproduce N/M/K 19/13/4
+ok    v0 row lock holds: history unchanged (2e1b32478747…)
+ok    adjudication status declared: single_primary_reviewer for 20 examined row(s)
+ok    MC-001 expected counts match the census (N/M/K 20/14/5)
+ok    MC-001 M ladder matches the census (14/12/0)
+ok    census block: criteria v1 wording locked 2026-08-27, revision history present
+ok    rows: 20 examined · 0 under review · 9 excluded · 25 unexamined
+ok    counts recomputed: N=20 M=14 K=5 (scopes {'printed_partial_stack': 1, 'printed_full_stack': 2, 'computable_via_item_release': 2})
+ok    M ladder: 14 shared basis · 12 no stated threshold mismatch · 0 documented matched thresholds with full exposure
+Census verified: criteria lock, adjudication status, row shape, classification consistency, and mechanical counts all hold.
+check census protocol v1
+ok    protocol declares itself prospective and pre-observation
+ok    inaccessible evidence is explicitly barred from becoming absence
+ok    the falsification route for the headline is stated in the protocol
+ok    state machine defines all 8 states
+ok    only VERIFIED records count toward totals
+ok    state machine law forbids inability-to-verify becoming absence
+ok    disclosure ladder defines L1-L6
+ok    L6 records that an OR union is not automatically the deployed system
+ok    all 7 kinds of negative are kept distinct
+ok    reconstruction classes match the enforcer exactly
+ok    a reconstruction class may not be assigned from a failed retrieval
+ok    preservation states match the enforcer exactly
+ok    falsification is quantified: 11 further complete-joint artifacts would make the headline false
+ok    3 downgrade conditions pre-registered
+ok    headline recomputed under 5 alternative inclusion rules
+ok    2 blocking reasons are separated from exclusions
+ok    an unretrievable descriptive field no longer blocks verification
+ok    method_detail states a positive minimum rather than a circular one
+ok    all five v1.1 edge cases present (artifact identity, precedence, self-contradiction, fail-open, shared model)
+ok    L5 is defined at M=2 (identical to L4)
+ok    reconstruction class assignment is total over the rung lattice
+ok    v1.1 does not claim to predate the observation that produced it
+
+Protocol v1 verified: prospective, complete, and identical to the vocabulary the census enforcer applies.
+check census invariant mutations
+ok    unmutated census passes the invariants
+ok    a past row is silently edited: rejected
+ok    UNVERIFIED promoted to NOT_IDENTIFIABLE: rejected
+ok    EXACTLY_RECONSTRUCTIBLE without item release: rejected
+ok    DIRECTLY_REPORTED without a printed composition: rejected
+ok    a class asserted with no evidence: rejected
+ok    the snapshot declaration is removed: rejected
+ok    the currency caveat is weakened: rejected
+ok    preservation stated as a fact about the world: rejected
+
+ok    all 8 mutations rejected; every gate demonstrably fails when its property is broken
+check asset quarantine
+ok    quarantined asset absent from the tree: assets/img/og-mc004-degeneracy.png
+Quarantine verified: every asset the protocol quarantines is out of the tree.
+check ledger drift
+ok    ledger/index.html matches the registry (generated, no drift)
+check figure assertions
+ok    Fig. 02: 11 frames present (q = 0..10)
+ok    Fig. 02: marginals pinned, overlap area equals q, atoms coherent, axis linear, independence tick at exactly 1% — in all eleven frames
+ok    essay number line: AND [0,10]%, OR [10,20]%, independence dots at 1% and 19% on a linear scale
+ok    missing column: residual panels match their stated counts in both worlds, and the missing cell holds no number
+ok    disclosure ladder: four rungs, correct order, ascending
+ok    BELLS co-miss grid: 32 exact cells, 16 structural zeros, 8 observed zeros, membership dots, and bar geometry all agree with MC-002
+
+Figures verified: the committed markup cannot state a probability its geometry does not draw.
+check module drift
+ok    7 module pages match the registries (generated, no drift)
+check observatory drift
+ok    observatory/index.html matches the registry (generated, no drift)
+check missing-column drift
+ok    4 missing-column pages match the census (generated, no drift)
+check fact-binding fixtures
+ok    fixture: the shipped 'Its 4' sentence is caught
+ok    fixture: stale phrasing caught: 'The 4 is an inclusive discovery count of art'
+ok    fixture: stale phrasing caught: 'Its 4 is a heterogeneous discovery count.'
+ok    fixture: stale phrasing caught: 'Four provide heterogeneous joint-evidence ar'
+ok    fixture: stale phrasing caught: "4 provide one of the census's declared joint"
+ok    fixture: stale phrasing caught: 'Nineteen artifacts examined against primary '
+ok    fixture: current values in the same phrasings pass
+ok    fixture: the live page states K on at least two surfaces
+ok    fixture: every current K surface follows K=7
+ok    fixture: K=7 page passes its own audit
+ok    fixture: K=7 leaves N unchanged
+ok    fixture: every current K surface follows K=9
+ok    fixture: K=9 page passes its own audit
+ok    fixture: K=9 leaves N unchanged
+ok    fixture: N moves independently and its page still agrees with itself
+ok    fixture: an unknown fact id fails
+ok    fixture: a wrong current value fails
+ok    fixture: an undated historical value fails
+ok    fixture: a dated historical value passes
+ok    fixture: an undated historical region fails
+ok    fixture: an undated superseded N/M/K envelope fails
+ok    fixture: the current envelope needs no date
+ok    fixture: a page that stops stating its facts fails
+ok    fixture: a review predating a correction fails
+ok    fixture: a review on or after the correction passes
+ok    fixture: the generator's replay manifest is self-contained
+ok    fixture: replay mutation caught: clone line removed
+ok    fixture: replay mutation caught: cd line removed
+ok    fixture: replay mutation caught: venv creation removed
+ok    fixture: replay mutation caught: venv activation removed
+ok    fixture: replay mutation caught: dependency install removed
+ok    fixture: replay mutation caught: an advertised check removed
+ok    fixture: replay mutation caught: an advertised check reordered before setup
+ok    fixture: replay mutation caught: a check retargeted at a ghost script
+ok    fixture: replay mutation caught: whole-repository pointer removed
+ok    fixture: the generator's reproduction packet is complete
+ok    fixture: reproduce mutation caught: reproduction command removed
+ok    fixture: reproduce mutation caught: bound commit removed
+ok    fixture: reproduce mutation caught: a pinned hash removed
+ok    fixture: reproduce mutation caught: success line reworded
+ok    fixture: reproduce mutation caught: issue form link removed
+ok    fixture: reproduce mutation caught: setup block loses its clone
+ok    fixture: evidence modes reconcile with K
+Fact binding holds under adversarial fixtures.
+check current fact surfaces
+ok    96 pages agree with the census (ABSENT=14 K=5 K.computable_via_item_release=2 K.does_both=1 K.printed_full_stack=2 K.printed_partial_stack=1 K.prints_composition_result=4 K.releases_computable_items=2 M=14 M1=14 M2=12 M3=0 N=20)
+Every current factual surface agrees with the census arithmetic.
+check claim spine fixtures
+ok    fixture: the live spine is green before any mutation
+ok    fixture: registry:MC-003 [MC-003] fails when MC-002.n_benign moves 50→51
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks n_benign, stays green
+ok    fixture: registry:MC-003 [MC-003] fails when MC-002.n_borderline moves 38→39
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks n_borderline, stays green
+ok    fixture: registry:MC-003 [MC-003] fails when MC-003.denominator moves 82→83
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks denominator, stays green
+ok    fixture: registry:MC-003 [MC-003] fails when MC-003.identified_set_lower moves 0→1
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_lower, stays green
+ok    fixture: registry:MC-003 [MC-003] fails when MC-003.identified_set_upper moves 12→13
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_upper, stays green
+ok    fixture: registry:MC-003 [MC-003] fails when MC-003.release_recomputed_all_miss moves 9→10
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks release_recomputed_all_miss, stays green
+ok    fixture: film:thirteen-worlds [MC-003, MC-002] fails when MC-002.all_miss moves 9→10
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks all_miss, stays green
+ok    fixture: film:thirteen-worlds [MC-003, MC-002] fails when MC-002.union_detection moves 73→74
+ok    fixture:   and device:D-006 [MC-003], which never speaks union_detection, stays green
+ok    fixture: film:thirteen-worlds [MC-003, MC-002] fails when MC-003.denominator moves 82→83
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks denominator, stays green
+ok    fixture: film:thirteen-worlds [MC-003, MC-002] fails when MC-003.identified_set_lower moves 0→1
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_lower, stays green
+ok    fixture: film:thirteen-worlds [MC-003, MC-002] fails when MC-003.identified_set_size moves 13→14
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks identified_set_size, stays green
+ok    fixture: film:thirteen-worlds [MC-003, MC-002] fails when MC-003.identified_set_upper moves 12→13
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_upper, stays green
+ok    fixture: device:D-006 [MC-003] fails when MC-003.denominator moves 82→83
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks denominator, stays green
+ok    fixture: device:D-006 [MC-003] fails when MC-003.identified_set_lower moves 0→1
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_lower, stays green
+ok    fixture: device:D-006 [MC-003] fails when MC-003.identified_set_size moves 13→14
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks identified_set_size, stays green
+ok    fixture: device:D-006 [MC-003] fails when MC-003.identified_set_upper moves 12→13
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_upper, stays green
+ok    fixture: device:D-006 [MC-003] fails when MC-003.release_recomputed_all_miss moves 9→10
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks release_recomputed_all_miss, stays green
+ok    fixture: page:observatory-MC-003 [MC-003] fails when MC-003.denominator moves 82→83
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks denominator, stays green
+ok    fixture: page:observatory-MC-003 [MC-003] fails when MC-003.identified_set_lower moves 0→1
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_lower, stays green
+ok    fixture: page:observatory-MC-003 [MC-003] fails when MC-003.identified_set_upper moves 12→13
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_upper, stays green
+ok    fixture: page:observatory-MC-003 [MC-003] fails when MC-003.release_recomputed_all_miss moves 9→10
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks release_recomputed_all_miss, stays green
+ok    fixture: page:ledger-MC-003 [MC-003] fails when MC-003.denominator moves 82→83
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks denominator, stays green
+ok    fixture: page:ledger-MC-003 [MC-003] fails when MC-003.identified_set_lower moves 0→1
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_lower, stays green
+ok    fixture: page:ledger-MC-003 [MC-003] fails when MC-003.identified_set_upper moves 12→13
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_upper, stays green
+ok    fixture: page:ledger-MC-003 [MC-003] fails when MC-003.release_recomputed_all_miss moves 9→10
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks release_recomputed_all_miss, stays green
+ok    fixture: page:explore-thirteen-worlds [MC-003] fails when MC-003.identified_set_size moves 13→14
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks identified_set_size, stays green
+ok    fixture: registry:MC-002 [MC-002] fails when MC-002.all_miss moves 9→10
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks all_miss, stays green
+ok    fixture: registry:MC-002 [MC-002] fails when MC-002.benign_union_flagged moves 19→20
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks benign_union_flagged, stays green
+ok    fixture: registry:MC-002 [MC-002] fails when MC-002.n_benign moves 50→51
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks n_benign, stays green
+ok    fixture: registry:MC-002 [MC-002] fails when MC-002.n_harmful moves 82→83
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks n_harmful, stays green
+ok    fixture: registry:MC-002 [MC-002] fails when MC-002.n_prompts moves 170→171
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks n_prompts, stays green
+ok    fixture: registry:MC-002 [MC-002] fails when MC-002.union_detection moves 73→74
+ok    fixture:   and device:D-006 [MC-003], which never speaks union_detection, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-002.all_miss moves 9→10
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks all_miss, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-002.leave_one_out_union.lakera_guard moves 70→71
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks leave_one_out_union.lakera_guard, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-002.leave_one_out_union.llm_guard moves 73→74
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks leave_one_out_union.llm_guard, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-002.leave_one_out_union.nemo moves 55→56
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks leave_one_out_union.nemo, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-002.n_harmful moves 82→83
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks n_harmful, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-002.union_detection moves 73→74
+ok    fixture:   and device:D-006 [MC-003], which never speaks union_detection, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-003.aggregate_unique_contribution_bounds.lakera_guard.0 moves 0→1
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks aggregate_unique_contribution_bounds.lakera_guard.0, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-003.aggregate_unique_contribution_bounds.lakera_guard.1 moves 3→4
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks aggregate_unique_contribution_bounds.lakera_guard.1, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-003.aggregate_unique_contribution_bounds.langkit.0 moves 0→1
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks aggregate_unique_contribution_bounds.langkit.0, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-003.aggregate_unique_contribution_bounds.langkit.1 moves 3→4
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks aggregate_unique_contribution_bounds.langkit.1, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-003.aggregate_unique_contribution_bounds.llm_guard.1 moves 0→1
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks aggregate_unique_contribution_bounds.llm_guard.1, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-003.aggregate_unique_contribution_bounds.nemo.0 moves 0→1
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks aggregate_unique_contribution_bounds.nemo.0, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-003.aggregate_unique_contribution_bounds.nemo.1 moves 21→22
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks aggregate_unique_contribution_bounds.nemo.1, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-003.aggregate_unique_contribution_bounds.prompt_guard.0 moves 0→1
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks aggregate_unique_contribution_bounds.prompt_guard.0, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-003.aggregate_unique_contribution_bounds.prompt_guard.1 moves 3→4
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks aggregate_unique_contribution_bounds.prompt_guard.1, stays green
+ok    fixture: film:leave-one-out [MC-002, MC-003] fails when MC-003.members_zero_exclusive_full_stack_coverage moves 3→4
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks members_zero_exclusive_full_stack_coverage, stays green
+ok    fixture: film:the-missing-column-trailer [MC-003, MC-002, MC-001, CC-001] fails when CC-001.bounds.and.0 moves 0.0→1.0
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks bounds.and.0, stays green
+ok    fixture: film:the-missing-column-trailer [MC-003, MC-002, MC-001, CC-001] fails when CC-001.bounds.and.1 moves 0.1→1.1
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks bounds.and.1, stays green
+ok    fixture: film:the-missing-column-trailer [MC-003, MC-002, MC-001, CC-001] fails when CC-001.marginals.0 moves 0.1→1.1
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks marginals.0, stays green
+ok    fixture: film:the-missing-column-trailer [MC-003, MC-002, MC-001, CC-001] fails when CC-001.marginals.1 moves 0.1→1.1
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks marginals.1, stays green
+ok    fixture: film:the-missing-column-trailer [MC-003, MC-002, MC-001, CC-001] fails when MC-002.all_miss moves 9→10
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks all_miss, stays green
+ok    fixture: film:the-missing-column-trailer [MC-003, MC-002, MC-001, CC-001] fails when MC-003.denominator moves 82→83
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks denominator, stays green
+ok    fixture: film:the-missing-column-trailer [MC-003, MC-002, MC-001, CC-001] fails when MC-003.identified_set_lower moves 0→1
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_lower, stays green
+ok    fixture: film:the-missing-column-trailer [MC-003, MC-002, MC-001, CC-001] fails when MC-003.identified_set_size moves 13→14
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks identified_set_size, stays green
+ok    fixture: film:the-missing-column-trailer [MC-003, MC-002, MC-001, CC-001] fails when MC-003.identified_set_upper moves 12→13
+ok    fixture:   and page:explore-thirteen-worlds [MC-003], which never speaks identified_set_upper, stays green
+ok    fixture: page:observatory-MC-002 [MC-002] fails when MC-002.all_miss moves 9→10
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks all_miss, stays green
+ok    fixture: page:observatory-MC-002 [MC-002] fails when MC-002.benign_union_flagged moves 19→20
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks benign_union_flagged, stays green
+ok    fixture: page:observatory-MC-002 [MC-002] fails when MC-002.n_benign moves 50→51
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks n_benign, stays green
+ok    fixture: page:observatory-MC-002 [MC-002] fails when MC-002.n_harmful moves 82→83
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks n_harmful, stays green
+ok    fixture: page:observatory-MC-002 [MC-002] fails when MC-002.n_prompts moves 170→171
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks n_prompts, stays green
+ok    fixture: page:observatory-MC-002 [MC-002] fails when MC-002.union_detection moves 73→74
+ok    fixture:   and device:D-006 [MC-003], which never speaks union_detection, stays green
+ok    fixture: page:ledger-MC-002 [MC-002] fails when MC-002.all_miss moves 9→10
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks all_miss, stays green
+ok    fixture: page:ledger-MC-002 [MC-002] fails when MC-002.benign_union_flagged moves 19→20
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks benign_union_flagged, stays green
+ok    fixture: page:ledger-MC-002 [MC-002] fails when MC-002.n_benign moves 50→51
+ok    fixture:   and film:thirteen-worlds [MC-003, MC-002], which never speaks n_benign, stays green
+ok    fixture: page:ledger-MC-002 [MC-002] fails when MC-002.n_harmful moves 82→83
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks n_harmful, stays green
+ok    fixture: page:ledger-MC-002 [MC-002] fails when MC-002.n_prompts moves 170→171
+ok    fixture:   and registry:MC-003 [MC-003], which never speaks n_prompts, stays green
+ok    fixture: page:ledger-MC-002 [MC-002] fails when MC-002.union_detection moves 73→74
+ok    fixture:   and device:D-006 [MC-003], which never speaks union_detection, stays green
+ok    fixture: MC-003.identified_set_upper→13: device, film, page, registry renderings all fail (device:D-006, film:the-missing-column-trailer, film:thirteen-worlds, page:ledger-MC-003, page:observatory-MC-003, registry:MC-003)
+ok    fixture: MC-003.identified_set_size→14: device, film, page renderings all fail (device:D-006, film:the-missing-column-trailer, film:thirteen-worlds, page:explore-thirteen-worlds)
+ok    fixture: a rendering that changes its number fails against the unchanged claim
+ok    fixture: a phrasing the rendering stopped saying fails
+ok    fixture: a phrasing naming an unknown key fails
+ok    fixture: an unbound numeral in hand-authored prose fails
+ok    fixture: a year is not swept as a quantity
+ok    fixture: S2 fires on 'guardrails' in an MC-002 rendering
+ok    fixture: S2 does not fire on the negated non-claim form
+ok    fixture: S2 does not fire on the product name NeMo Guardrails
+ok    fixture: S2 fires on 'deployed', 'stacks' and 'production'
+ok    fixture: S2 lets MC-003, whose proposition says 'guardrails', license it — and fires for MC-002, which the same film also asserts
+ok    fixture: a rendering that loses a non-claim fails S3
+ok    fixture: S4 reports a row for every claim
+ok    fixture: S4 reports at least one claim with zero registered renderings
+Spine binding holds under adversarial fixtures.
+check claim spine
+ok    registry:MC-003 [MC-003] — 9 numerals agree (exclusive.lakera_guard=3 exclusive.llm_guard=0 exclusive.nemo=18 n_benign=50 n_borderline=38 denomin…)
+ok    film:thirteen-worlds [MC-003, MC-002] — 16 numerals agree (all_miss=9 all_miss_pct_1dp=11.0 independence_pct_2dp=3.49 independence_prompts_2dp=2.87 k_guards=5 …)
+ok    device:D-006 [MC-003] — 5 numerals agree (denominator=82 identified_set_lower=0 identified_set_size=13 identified_set_upper=12 release_recompu…)
+ok    page:observatory-MC-003 [MC-003] — 7 numerals agree (exclusive.lakera_guard=3 exclusive.llm_guard=0 exclusive.nemo=18 denominator=82 identified_set_lower…)
+ok    page:ledger-MC-003 [MC-003] — 7 numerals agree (exclusive.lakera_guard=3 exclusive.llm_guard=0 exclusive.nemo=18 denominator=82 identified_set_lower…)
+ok    page:explore-thirteen-worlds [MC-003] — 1 numerals agree (identified_set_size=13)
+ok    registry:MC-002 [MC-002] — 10 numerals agree (all_miss=9 all_miss_pct_1dp=11.0 benign_union_flagged=19 independence_pct_1dp=3.5 k_guards=5 n_benig…)
+ok    film:leave-one-out [MC-002, MC-003] — 23 numerals agree (all_miss=9 exclusive.lakera_guard=3 exclusive.langkit=0 exclusive.llm_guard=0 exclusive.nemo=18 excl…)
+ok    film:the-missing-column-trailer [MC-003, MC-002, MC-001, CC-001] — 23 numerals agree (and_lower_pct=0 and_upper_pct=10 bounds.and.0=0.0 bounds.and.1=0.1 independence_and=0.01000000000000…)
+ok    page:observatory-MC-002 [MC-002] — 9 numerals agree (all_miss=9 all_miss_pct_1dp=11.0 benign_union_flagged=19 independence_pct_1dp=3.5 n_benign=50 n_harm…)
+ok    page:ledger-MC-002 [MC-002] — 9 numerals agree (all_miss=9 all_miss_pct_1dp=11.0 benign_union_flagged=19 independence_pct_1dp=3.5 n_benign=50 n_harm…)
+S4    renderings per claim — a fact about the repository, not a target
+      CC-001     1  film:the-missing-column-trailer   (bound by film evidence outside the spine: same-scores-different-worlds, same-scores__social-square, the-multiplication, the-stack)
+      CC-002     0  
+      CC-003     0     (bound by film evidence outside the spine: parity-cube)
+      CC-004     0     (bound by film evidence outside the spine: same-scores-different-worlds, same-scores__social-square, the-stack)
+      CC-005     0  
+      CC-006     0  
+      REL-001    0  
+      MC-001     1  film:the-missing-column-trailer   (bound by film evidence outside the spine: the-falsifier-that-fired, the-missing-column-census)
+      MC-002     5  film:thirteen-worlds, film:leave-one-out, film:the-missing-column-trailer, page:observatory-MC-002, page:ledger-MC-002
+      MC-003     7  film:thirteen-worlds, device:D-006, page:observatory-MC-003, page:ledger-MC-003, page:explore-thirteen-worlds, film:leave-one-out, film:the-missing-column-trailer
+      MC-004     0  
+      AF-001     0  
+      GA-001     0     (bound by film evidence outside the spine: what-the-seal-proves)
+      GV-001     0  
+      GCE-001    0  
+      SITE-001   0  
+      SITE-002   0  
+      E3-001     0  
+      E3B-001    0  
+      E6-001     0  
+      E7B-001    0  
+      excluded  room-11-FrechetAtomGarden — probed 2026-09-05 with films/lib/blender/probe_world_labels.py, read-only: the garden's labels are its title, the line "finite atoms witness endpoint bounds", eight atom indices 0–7, and two witness panels reading "endpoint: lower / upper, feasible: True". It speaks no numeral of MC-003 and carries no non-claim, so a change to the identified set cannot make it fail — it asserts nothing about the identified set. Eight atoms are the 2^3 outcomes of three binary guards, the structure of CC-003/CC-004, not the {0…12}/82 set. Excluded from the gate rather than bound to a claim it does not render; docs/foundations/devices.yaml:room_atom_map binds it to atoms A2/A6/A7 only, and says that is a proposed carrying capacity, not an audited outcome.
+ok    spine: 9 renderings agree with claims.yaml across 4 claims; a green spine says nothing about whether any claim is true
+check growth page drift
+ok    4 growth pages match their generator
+check acquisition surfaces
+ok    80 pages: unique titles and descriptions, canonical URLs, valid JSON-LD, social metadata
+ok    conversion pages keep their calls to action
+ok    every campaign link resolves and uses the declared vocabulary
+ok    every tagged URL in the launch pack is attributable
+ok    the identity sentence is identical everywhere it appears
+ok    the résumé PDF exists, is linked, and is not gated
+ok    the social card is 1200x630
+ok    96 HTML files: every one a checked destination or a declared build input
+ok    sitemap lists every public page and nothing else
+ok    every public page has exactly one h1 and a declared lang
+Acquisition surfaces verified.
+check acquisition coverage fixtures
+ok    caught: a film source loses its noindex directive (1 report(s))
+ok    caught: a public destination becomes crawl-blocked (22 report(s))
+ok    caught: a public page loses its only h1 (1 report(s))
+ok    caught: a public page drops out of the sitemap (1 report(s))
+
+4 mutation(s), 0 uncaught.
+check claim page drift
+ok    25 claim surfaces match the registry
+check claim metadata semantics
+ok    claim metadata: title mutations, vocabulary coverage, typed dates, explicit lists, mutable support and script escaping
+check sitemap drift
+ok    sitemap.xml matches discovered pages
+check MJGD identities
+ok    fixture: denominator 4
+ok    fixture: per-guard counts
+ok    fixture: union 3 (items 0,1,2)
+ok    fixture: all-miss 1 (item 3)
+ok    fixture: B catches 1 among the 2 A missed
+ok    fixture: 2 prior misses when B is added
+ok    fixture: pairwise both-catch 1, both-miss 1
+ok    seed 0: union + all-miss = denominator
+ok    seed 0: residual coverage telescopes to the union
+ok    seed 0: ['guard_0', 'guard_1'] intersection within [59, 112]
+ok    seed 0: ['guard_0', 'guard_2'] intersection within [77, 112]
+ok    seed 0: ['guard_1', 'guard_2'] intersection within [105, 140]
+ok    seed 0: union and all-miss invariant under stack order
+ok    seed 1: union + all-miss = denominator
+ok    seed 1: residual coverage telescopes to the union
+ok    seed 1: ['guard_0', 'guard_1'] intersection within [38, 101]
+ok    seed 1: ['guard_0', 'guard_2'] intersection within [71, 101]
+ok    seed 1: ['guard_1', 'guard_2'] intersection within [112, 142]
+ok    seed 1: union and all-miss invariant under stack order
+ok    seed 2: union + all-miss = denominator
+ok    seed 2: residual coverage telescopes to the union
+ok    seed 2: ['guard_0', 'guard_1'] intersection within [44, 111]
+ok    seed 2: ['guard_0', 'guard_2'] intersection within [81, 111]
+ok    seed 2: ['guard_1', 'guard_2'] intersection within [97, 127]
+ok    seed 2: union and all-miss invariant under stack order
+ok    seed 3: union + all-miss = denominator
+ok    seed 3: residual coverage telescopes to the union
+ok    seed 3: ['guard_0', 'guard_1'] intersection within [45, 110]
+ok    seed 3: ['guard_0', 'guard_2'] intersection within [82, 110]
+ok    seed 3: ['guard_1', 'guard_2'] intersection within [103, 131]
+ok    seed 3: union and all-miss invariant under stack order
+ok    seed 4: union + all-miss = denominator
+ok    seed 4: residual coverage telescopes to the union
+ok    seed 4: ['guard_0', 'guard_1'] intersection within [41, 101]
+ok    seed 4: ['guard_0', 'guard_2'] intersection within [75, 101]
+ok    seed 4: ['guard_1', 'guard_2'] intersection within [111, 137]
+ok    seed 4: union and all-miss invariant under stack order
+ok    refuses a single guard
+ok    refuses ragged decision vectors
+ok    refuses an empty denominator
+ok    seed 11: compact (mask, count) table reduces identically to per-item scoring
+ok    seed 11: table is at most 2**4 cells for 239 positives — size does not follow N
+ok    seed 12: compact (mask, count) table reduces identically to per-item scoring
+ok    seed 12: table is at most 2**4 cells for 253 positives — size does not follow N
+ok    seed 13: compact (mask, count) table reduces identically to per-item scoring
+ok    seed 13: table is at most 2**4 cells for 258 positives — size does not follow N
+ok    compact table: union 15, all-miss 2 over denominator 17
+ok    leave-one-out identity holds for A
+ok    leave-one-out identity holds for B
+ok    unique contribution is the count caught by that guard alone
+ok    refuses a mask wider than the declared order
+ok    refuses a negative count
+ok    refuses a boolean masquerading as a count
+ok    refuses a stack past the local guard limit
+
+Disclosure arithmetic verified: identities hold, refusals refuse, and one kernel serves both entry points.
+check MJGD v1 fixtures
+ok    schema is valid JSON
+ok    five conformance fixtures validate with expected states
+ok    refuses duplicate JSON keys
+ok    refuses an unsupported schema version
+ok    refuses an unknown packet field
+ok    refuses a tampered complete-evidence union
+ok    declared execution order controls raw prefix unions
+ok    refuses a raw prefix reported in systems-list order
+ok    refuses an aggregate leave-one-out inconsistent with pattern counts
+ok    refuses an aggregate pattern table with an omitted zero pattern
+ok    refuses an unrecomputed benign union in an aggregate-pattern packet
+ok    refuses an observed static result from marginals only
+ok    refuses a static result inserted into route evidence
+ok    refuses a benign result inserted into held route evidence
+ok    refuses an omitted item-system decision cell
+ok    refuses a benign result inserted into held missing data
+ok    refuses a duplicate system id
+ok    BELLS envelope: denominator 82, union 73, all-miss 9
+ok    BELLS: union + all-miss = denominator
+ok    BELLS: no leave-one-out union exceeds the full union
+ok    independence plug-in is the product it claims to be (0.034947)
+ok    no independence multiplication outside identification.py (none)
+ok    aggregate pattern table and raw item table give identical metrics
+ok    all-miss equals the zero-pattern count (3)
+ok    union + all-miss = denominator on the expanded table
+ok    reordering leaves every system's own catch count unchanged
+ok    reordering leaves union and all-miss unchanged
+ok    reordering leaves every leave-one-out union unchanged (order-free)
+ok    reordering DOES change ordered prefix unions ([14, 19, 21] -> [13, 16, 21])
+ok    refuses an aggregate table missing the zero pattern
+ok    A={0,1}, B={1,2}: residual 2 != unique contribution 1 — order-dependent vs removal-relative
+ok    no union/all-miss/leave-one-out recomputation outside the canonical owner (none)
+ok    the second pattern calculator is removed
+
+MJGD v1 validator verified: complete, aggregate, marginal, route, and hold states.
+check identification bounds
+ok    k=2, p=(.5,.5): identified set [0, .5]
+ok    positive lower endpoint: p=(.9,.9) has [0.8, .9], width .1 (not min p)
+ok    zero lower endpoint for [0.3, 0.4, 0.5]: width equals min p only in this case
+ok    zero lower endpoint for [0.1, 0.9, 0.5, 0.2]: width equals min p only in this case
+ok    independence product lies in the continuous set for [0.3, 0.4, 0.5]
+ok    independence product lies in the continuous set for [0.9, 0.9, 0.9]
+ok    independence product lies in the continuous set for [0.0, 0.4]
+ok    independence product lies in the continuous set for [0.3, 1.0]
+ok    nested-event construction reaches upper endpoint 0.300
+ok    circle-complement construction reaches lower endpoint 0.000
+ok    nested-event construction reaches upper endpoint 0.900
+ok    circle-complement construction reaches lower endpoint 0.800
+ok    nested-event construction reaches upper endpoint 0.750
+ok    circle-complement construction reaches lower endpoint 0.450
+ok    non-degenerate marginals leave zero strict improvement compatible
+ok    a singleton marginal set can rule strict improvement out
+ok    positive benign union-flag floor follows from marginals (20%)
+ok    finite all-miss and exclusive-coverage formulas exhaustive for n<=4, k<=3
+ok    BELLS harmful stratum: exact finite all-miss set is {0/82 ... 12/82}
+ok    one same-denominator union identifies static all-miss (1 - 73/82)
+ok    MC-003 expected identified_set_lower=0 matches (0)
+ok    MC-003 expected identified_set_upper=12 matches (12)
+ok    MC-003 expected identified_set_size=13 matches (13)
+ok    MC-003 expected release_recomputed_all_miss=9 matches (9)
+ok    MC-003 expected denominator=82 matches (82)
+ok    MC-003 expected benign_burden_floor_pct=20 matches (20)
+ok    MC-003 expected improvement_floor_pct=0 matches (0)
+ok    MC-003 expected members_zero_exclusive_full_stack_coverage=3 matches (3)
+ok    MC-003 expected aggregate_unique_contribution_bounds={'lakera_guard': [0, 3], 'prompt_guard': [0, 3], 'langkit': [0, 3], 'nemo': [0, 21], 'llm_guard': [0, 0]} matches ({'lakera_guard': [0, 3], 'prompt_guard': [0, 3], 'langkit': [0, 3], 'nemo': [0, 21], 'llm_guard': [0, 0]})
+
+Identification arithmetic verified: sharp continuous and finite bounds, aggregate exclusive-coverage limits, and registered BELLS transforms.
+check pattern-count rank
+Frozen public map: N + packet positiveMetrics
+Kernel: mjgd_reference.joint_disclosure_from_patterns
+
+  K   2^K  rows  rank  null  id?
+  1     2     6     2     0  yes
+ok    K=1: full column rank 2
+  2     4     9     4     0  yes
+ok    K=2: full column rank 4
+  3     8    12     8     0  yes
+ok    K=3: rank 8 == min(2^K, 3K-1)=8
+  4    16    15    11     5   no
+ok    K=4: rank 11 == min(2^K, 3K-1)=11
+  5    32    18    14    18   no
+ok    K=5: rank 14 == min(2^K, 3K-1)=14
+ok    K=4: rank 11, nullity 5
+ok    K=5: rank 14, nullity 18
+ok    K=2: public y from linear maps equals kernel projection
+ok    K=2: N = 1^T c
+ok    K=2: kernel still emits residual and pairwise internally
+ok    K=3: public y from linear maps equals kernel projection
+ok    K=3: N = 1^T c
+ok    K=3: kernel still emits residual and pairwise internally
+ok    K=4: public y from linear maps equals kernel projection
+ok    K=4: N = 1^T c
+ok    K=4: kernel still emits residual and pairwise internally
+ok    K=5: public y from linear maps equals kernel projection
+ok    K=5: N = 1^T c
+ok    K=5: kernel still emits residual and pairwise internally
+ok    K=4: counterexample vectors differ, same N
+ok    K=4: public A_K c = A_K c'
+ok    K=4: kernel-projected public fields agree
+ok    K=4: kernel pairwise distinguishes the pair (not public)
+      counterexample K=4: c={'0101': 1, '1010': 1}  c'={'0110': 1, '1001': 1}  N=2
+ok    K=5: counterexample vectors differ, same N
+ok    K=5: public A_K c = A_K c'
+ok    K=5: kernel-projected public fields agree
+ok    K=5: kernel pairwise distinguishes the pair (not public)
+      counterexample K=5: c={'01010': 1, '10100': 1}  c'={'01100': 1, '10010': 1}  N=2
+ok    fixture catches
+ok    fixture union/all-miss
+ok    fixture prefixes
+ok    fixture loo
+
+Pattern-rank verified: 2^K is a sufficient statistic for every kernel output; the public packet map has rank min(2^K, 3K-1) for K>=3 (full for K<=3); K>=4 is not identifiable, with an explicit nonneg integer counterexample. Pairwise is kernel-internal, not in the public packet, and is what distinguishes the counterexample.
+check mixture bounds
+ok    r=0.087, d=-0.037: subgroup interval matches a sweep [0.0500, 0.0870]
+ok    r=0.087, d=-0.037: ratio interval matches a sweep [0.5747, 0.7016]
+ok    r=0.511, d=0.147: subgroup interval matches a sweep [0.5110, 0.6580]
+ok    r=0.511, d=0.147: ratio interval matches a sweep [1.2877, 1.4038]
+ok    r=0.203, d=-0.052: subgroup interval matches a sweep [0.1510, 0.2030]
+ok    r=0.203, d=-0.052: ratio interval matches a sweep [0.7438, 0.7961]
+ok    r=0.3, d=0.145: subgroup interval matches a sweep [0.3000, 0.4450]
+ok    r=0.3, d=0.145: ratio interval matches a sweep [1.4833, 1.9355]
+ok    r=0.158, d=-0.031: subgroup interval matches a sweep [0.1270, 0.1580]
+ok    r=0.158, d=-0.031: ratio interval matches a sweep [0.8038, 0.8360]
+ok    r=0.411, d=0.134: subgroup interval matches a sweep [0.4110, 0.5450]
+ok    r=0.411, d=0.134: ratio interval matches a sweep [1.3260, 1.4838]
+ok    a zero difference leaves nothing undetermined
+ok    r=0.087 lies inside both subgroup intervals — a pooled rate is a mixture, never outside its parts
+ok    r=0.511 lies inside both subgroup intervals — a pooled rate is a mixture, never outside its parts
+ok    r=0.087: the against-overall reading sits at the interval's low end (0.5747), so the robust claim is the interval
+ok    r=0.203: the against-overall reading sits at the interval's low end (0.7438), so the robust claim is the interval
+ok    an impossible (rate, difference) pair raises
+ok    AF-001 expected checks_facts_reduction_min_pct=29 matches the computation (29)
+ok    AF-001 expected checks_facts_reduction_max_pct=43 matches the computation (43)
+ok    AF-001 expected behaviours_rising=3 matches the computation (3)
+ok    AF-001 expected behaviours_falling=3 matches the computation (3)
+ok    AF-001's transcribed figures are the ones this file computes on
+
+Mixture bounds verified: closed form matches the sweep, pooled rate interior,
+the against-overall reading is an endpoint, infeasible inputs refused.
+check BELLS reproduction
+ok    CSV verified: sha256 matches the bound artifact (23090 bytes)
+ok    released prompts: 170 (as claimed)
+ok    harmful denominator: 82 (as claimed)
+ok    union detection: 73 (as claimed)
+ok    all-miss: 9 (as claimed)
+ok    benign prompts: 50 (as claimed)
+ok    benign flagged by ≥1: 19 (as claimed)
+ok    borderline stratum: 38 (as claimed — named, not folded into either denominator)
+ok    leave-one-out without lakera_guard: 70/82 (unique contribution 3, removal-relative — not a residual)
+ok    leave-one-out without prompt_guard: 73/82 (unique contribution 0, removal-relative — not a residual)
+ok    leave-one-out without langkit: 73/82 (unique contribution 0, removal-relative — not a residual)
+ok    leave-one-out without nemo: 55/82 (unique contribution 18, removal-relative — not a residual)
+ok    leave-one-out without llm_guard: 73/82 (unique contribution 0, removal-relative — not a residual)
+ok    benign flags lakera_guard: 7/50 (as claimed)
+ok    benign flags prompt_guard: 0/50 (as claimed)
+ok    benign flags langkit: 8/50 (as claimed)
+ok    benign flags nemo: 10/50 (as claimed)
+ok    benign flags llm_guard: 0/50 (as claimed)
+ok    per-guard lakera_guard: 52/82 (as claimed)
+ok    per-guard prompt_guard: 5/82 (as claimed)
+ok    per-guard langkit: 25/82 (as claimed)
+ok    per-guard nemo: 70/82 (as claimed)
+ok    per-guard llm_guard: 0/82 (as claimed)
+ok    exclusive miss cells: all 32 cells match the registered partition
+ok    exclusive miss cells: llm_guard catches 0/82; 16 cells are structurally empty
+
+derived from the hash-verified source file; compared with the
+registered expected counts above:
+  recomputed static all-miss: 9/82 = 11.0%
+  independent-miss product : 3.5%  (= 2.87 prompts)
+  ratio                    : 3.14×
+  residual coverage, in column order:
+    lakera_guard  catches 52 of 82 prior misses
+    prompt_guard  catches  0 of 30 prior misses
+    langkit       catches  3 of 30 prior misses
+    nemo          catches 18 of 27 prior misses
+    llm_guard     catches  0 of  9 prior misses
+
+MC-002 reproduced: the missing column, computed from the bound public release, matches the registered claim.
+check MSBench reproduction
+ok    8 release files verified against their recorded sha256 (commit fb6f32e6b50b)
+ok    one Boolean verdict per item per guard; identical item and modality sets across all three guards in both files
+ok    harmful_text denominator: 200 (as claimed)
+ok    harmful_text union: 192 (as claimed)
+ok    harmful_text all-zero-bit: 8 (as claimed)
+ok    harmful_text native-unsafe llama_guard_4: 185/200 (as claimed)
+ok    harmful_text union without llama_guard_4: 178/200 (unique contribution 14)
+ok    harmful_text native-unsafe llama_guard_3_vision: 178/200 (as claimed)
+ok    harmful_text union without llama_guard_3_vision: 185/200 (unique contribution 7)
+ok    harmful_text native-unsafe shield_gemma_2: 0/200 (as claimed)
+ok    harmful_text union without shield_gemma_2: 192/200 (unique contribution 0)
+ok    harmful_text native-label pattern table: 4 nonzero cells of 8 (as claimed)
+ok    harmful_image denominator: 200 (as claimed)
+ok    harmful_image union: 200 (as claimed)
+ok    harmful_image all-zero-bit: 0 (as claimed)
+ok    harmful_image native-unsafe llama_guard_4: 164/200 (as claimed)
+ok    harmful_image union without llama_guard_4: 200/200 (unique contribution 0)
+ok    harmful_image native-unsafe llama_guard_3_vision: 200/200 (as claimed)
+ok    harmful_image union without llama_guard_3_vision: 194/200 (unique contribution 6)
+ok    harmful_image native-unsafe shield_gemma_2: 174/200 (as claimed)
+ok    harmful_image union without shield_gemma_2: 200/200 (unique contribution 0)
+ok    harmful_image native-label pattern table: 4 nonzero cells of 8 (as claimed)
+ok    benign_text denominator: 250 (as claimed)
+ok    benign_text union: 32 (as claimed)
+ok    benign_text all-zero-bit: 218 (as claimed)
+ok    benign_text native-unsafe llama_guard_4: 18/250 (as claimed)
+ok    benign_text union without llama_guard_4: 25/250 (unique contribution 7)
+ok    benign_text native-unsafe llama_guard_3_vision: 25/250 (as claimed)
+ok    benign_text union without llama_guard_3_vision: 18/250 (unique contribution 14)
+ok    benign_text native-unsafe shield_gemma_2: 0/250 (as claimed)
+ok    benign_text union without shield_gemma_2: 32/250 (unique contribution 0)
+ok    benign_text native-label pattern table: 4 nonzero cells of 8 (as claimed)
+ok    benign_image denominator: 250 (as claimed)
+ok    benign_image union: 250 (as claimed)
+ok    benign_image all-zero-bit: 0 (as claimed)
+ok    benign_image native-unsafe llama_guard_4: 41/250 (as claimed)
+ok    benign_image union without llama_guard_4: 250/250 (unique contribution 0)
+ok    benign_image native-unsafe llama_guard_3_vision: 250/250 (as claimed)
+ok    benign_image union without llama_guard_3_vision: 56/250 (unique contribution 194)
+ok    benign_image native-unsafe shield_gemma_2: 23/250 (as claimed)
+ok    benign_image union without shield_gemma_2: 250/250 (unique contribution 0)
+ok    benign_image native-label pattern table: 4 nonzero cells of 8 (as claimed)
+ok    printed agreement — llama_guard_4 detection_recall_text: 185/200 = 0.925
+ok    printed agreement — llama_guard_4 detection_recall_image: 164/200 = 0.82
+ok    printed agreement — llama_guard_4 over_refusal: 59/500 = 0.118
+ok    printed agreement — llama_guard_3_vision detection_recall_text: 178/200 = 0.89
+ok    printed agreement — llama_guard_3_vision detection_recall_image: 200/200 = 1.0
+ok    printed agreement — llama_guard_3_vision over_refusal: 275/500 = 0.55
+ok    printed agreement — shield_gemma_2 detection_recall_text: 0/200 = 0.0
+ok    printed agreement — shield_gemma_2 detection_recall_image: 174/200 = 0.87
+ok    printed agreement — shield_gemma_2 over_refusal: 23/500 = 0.046
+ok    printed agreement — lg4_lg3v detection_recall_text: 192/200 = 0.96
+ok    printed agreement — lg4_lg3v detection_recall_image: 200/200 = 1.0
+ok    printed agreement — lg4_lg3v over_refusal: 282/500 = 0.564
+ok    printed agreement — lg4_sg2_modality_routed detection_recall_text: 185/200 = 0.925
+ok    printed agreement — lg4_sg2_modality_routed detection_recall_image: 194/200 = 0.97
+ok    printed agreement — lg4_sg2_modality_routed over_refusal: 74/500 = 0.148
+ok    printed agreement — the paper reports SG2 on 30 of the 36 harmful image rows where LG4 is 0 (its pairwise residual)
+
+derived from the hash-verified release files; every overlapping
+quantity above is asserted equal to the release's own printing
+(benign burden first — it is the least favorable column):
+   benign text  OR(native-unsafe)= 32/250 — all-native-safe 218/250
+   benign image OR(native-unsafe)=250/250 — all-native-safe 0/250
+  harmful text  OR(native-unsafe)=192/200 — all-native-safe 8/200
+  harmful image OR(native-unsafe)=200/200 — all-native-safe 0/200
+
+MC-004 reproduced: the three-guard native-label bit statistics, computed from the bound public release, match the registered claim.
+check MC-004 semantic scope
+ok    MC-004 names native unsafe labels
+ok    MC-004 names the missing translation
+ok    MC-004 preserves its counterfactual harness action
+ok    MC-004 proposition does not call bits catches
+ok    MC-004 carries the semantic non-claim
+ok    ground-truth event remains distinct from native action
+ok    native action translation is explicitly not established
+ok    reproduction page names its released-bit aggregate
+ok    reproduction page preserves the action/safety boundary
+ok    README carries the shared-event boundary
+ok    README carries the counterfactual action boundary
+ok    unsafe social draft is rejected
+MC-004 semantic scope verified: aligned bits are not a shared event.
+check degeneracy diagnostic
+ok    8 release files verified against their recorded sha256 (commit fb6f32e6b50b)
+
+  modality = image
+    mechanism                   harmful   benign      Δ_L   state
+    llama_guard_4                0.8200   0.1640  +0.6560   INFORMATIVE   (164/200 harmful-label bits=1, 41/250 benign-label bits=1)
+    llama_guard_3_vision         1.0000   1.0000  +0.0000   CONSTANT_TRUE   (200/200 harmful-label bits=1, 250/250 benign-label bits=1)
+    shield_gemma_2               0.8700   0.0920  +0.7780   INFORMATIVE   (174/200 harmful-label bits=1, 23/250 benign-label bits=1)
+    STATIC OR (all three)        1.0000   1.0000  +0.0000   CONSTANT_TRUE   (200/200 harmful-label bits=1, 250/250 benign-label bits=1)
+ok    image: OR-closure holds — llama_guard_3_vision is constant-True, so the static OR is constant-True and the other members' verdicts cannot change its output
+
+  modality = text
+    mechanism                   harmful   benign      Δ_L   state
+    llama_guard_4                0.9250   0.0720  +0.8530   INFORMATIVE   (185/200 harmful-label bits=1, 18/250 benign-label bits=1)
+    llama_guard_3_vision         0.8900   0.1000  +0.7900   INFORMATIVE   (178/200 harmful-label bits=1, 25/250 benign-label bits=1)
+    shield_gemma_2               0.0000   0.0000  +0.0000   CONSTANT_FALSE   (0/200 harmful-label bits=1, 0/250 benign-label bits=1)
+    STATIC OR (all three)        0.9600   0.1280  +0.8320   INFORMATIVE   (192/200 harmful-label bits=1, 32/250 benign-label bits=1)
+
+  pooling check — does an aggregate rate conceal a conditional constant?
+    llama_guard_4: pooled benign-label bit rate 0.118; per-modality image=0.164, text=0.072
+    llama_guard_3_vision: pooled benign-label bit rate 0.550 conceals image=1.000 — constant on image
+    shield_gemma_2: pooled benign-label bit rate 0.046; per-modality image=0.092, text=0.000
+
+Degeneracy diagnostic complete. A harmful-label adapter-bit rate without its benign-label rate at the same conditioning does not distinguish the release's labels from a constant bit.
+check direction well-formed
+ok    direction well-formed: 10 steps, 7 audited corrections, 7 plane edges, budget 2 infra / 4 work
+check conformance record drift
+ok    records/conformance/index.html matches its sources (generated, no drift)
+check preregistration conformance
+check preregistration conformance
+ok    e8: contract.json validated (status draft); PREREG.md renders it, and declaration is not runtime consumption
+ok    e9: contract.json validated (status frozen); PREREG.md renders it, and declaration is not runtime consumption
+      e3: undeclared — no contract.json and no PREREG.estimator.json; conformance is not mechanically checked for this experiment
+      e3b: undeclared — no contract.json and no PREREG.estimator.json; conformance is not mechanically checked for this experiment
+      e7: undeclared — no contract.json and no PREREG.estimator.json; conformance is not mechanically checked for this experiment
+      e7b: undeclared — no contract.json and no PREREG.estimator.json; conformance is not mechanically checked for this experiment
+
+conformance: 2 of 6 preregistrations declare a machine-readable estimator. Undeclared preregistrations are reported, not failed — gating a frozen file after its outcomes are visible is the rescue this repository forbids. New experiments carry contract.json.
+check preregistration-conformance fixtures and mutants
+check preregistration-conformance regression fixtures
+ok    E7 direction: budget 0.05 admits [0.96, 1.0]; the defective 'highest' end misses 100% of harmful items at FPR 0.01, the 'lowest' end catches 60% at FPR 0.05
+ok    E6 invariance: permutation (1, 0, 2) sends [0.25, 0.5, 0.25] to [0.5, 0.25, 0.25]; only 2 of 6 permutations preserve the masses, so 16 of 1296 enumerated constructions are valid
+ok    E7B pools: the same scores calibrate to 0.96 on the own pool (n=100) and 0.39 on the shared pool (n=40); pool identity is part of the estimator, not an implementation detail
+
+3 fixtures hold. Each reconstructs a defect that voided a real run here, and each asserts the defective rule still gets it wrong.
+
+check the gate fires on defective declarations
+ok    rejected: E7 as declared: highest threshold under a budget
+ok    rejected: E7 as declared: direction left unstated
+ok    rejected: E6 as declared: marginals held fixed over unequal masses
+ok    rejected: E6 as declared: invariant asserted with nothing to check it against
+ok    rejected: E7B as declared: evaluation pool unstated
+ok    rejected: a quantity computed but never named in the prose
+ok    rejected: no estimand at all
+
+7 mutants rejected. The gate fires.
+check executable contract counterexamples and valid controls
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 0.456s
+
+OK
+check E8 runner consumes the contract it is given
+.................
+----------------------------------------------------------------------
+Ran 17 tests in 0.153s
+
+OK
+check frozen evidence preservation
+PASS: frozen evidence pins
+check epistemic tampering and recovery fixtures
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.920s
+
+OK
+check E3 and E3B re-asserted from committed rows
+ok    E3-001: 2400 committed rows reproduce every registered quantity (delta +0.001844, CI [-0.000956, +0.007062], Frechet width 0.0175)
+ok    E3B-001: 2400 committed rows reproduce every registered quantity (delta +0.000000, CI [+0.000000, +0.000000], Frechet width 0.0000)
+
+E3 and E3B re-asserted from committed rows. Both pilots' primary predictions failed and are registered as failed.
+check E6 historical arithmetic replay (claim rejected)
+E6 verifier -- re-deriving from 243 committed rows, no network, no model re-run
+
+ok    row count = 243
+ok    declared cells = 243
+ok    preregistered flag is false = False
+ok    sources.json agrees E6 is not preregistered = False
+ok    every row carries the pinned kernel digest
+ok    rows span exactly the three published quantiles of m2030: [0.2, 0.44, 0.59]
+ok    rows span exactly the three published quantiles of d2030: [0.22, 0.4, 0.61]
+ok    rows span exactly the three published quantiles of psi: [0.25, 0.47, 0.65]
+ok    rows span exactly the three published quantiles of a2030: [0.09, 0.44, 1.02]
+ok    rows span exactly the three published quantiles of mu: [0.025, 0.064, 0.111]
+ok    all 243 cells distinct
+ok    primary GDP at the vector of published medians = 9.8833
+ok    primary unemployment at the same vector = 4.8934
+ok    comonotone q25 of GDP = 1.0071
+ok    comonotone q75 of GDP = 40.1248
+ok    comonotone median GDP = 9.8833
+ok    independent median GDP = 8.3154
+ok    comonotone median unemployment = 4.8934
+ok    independent median unemployment = 4.5568
+ok    independent weights sum to one = 1.0
+ok    independent mean GDP = 10.012161328125
+ok    independent mean unemployment = 4.934083203125
+ok    rank-permutation couplings enumerated = 1296
+ok    min median GDP over couplings = 2.1169
+ok    max median GDP over couplings = 18.0684
+ok    support of GDP over the 243 cells (min) = 1.0071
+ok    support of GDP over the 243 cells (max) = 40.1248
+ok    the measured joint's median (8.6) lies strictly inside the coupling range [2.1169, 18.0684] -- the marginals do not determine it
+ok    coupling range is 15.95 points wide, more than half the joint's own median value
+ok    GDP monotone increasing in m2030
+ok    GDP monotone increasing in d2030
+ok    GDP monotone increasing in psi
+ok    GDP monotone increasing in a2030
+ok    GDP monotone increasing in mu
+
+E6 verified: 34 checks re-derived from the committed rows alone.
+check correction dispositions, preserved evidence and overlap example
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.387s
+
+OK
+check ledger snapshot drift
+ok    ledger snapshot current (as of 2026-09-18): 21 claims, 4 resting on own measurement, 5058 observation rows, 0 qualified outcomes, 14 open blockers
+check portable static-OR receipt
+ok  good fixture
+ok  declared harness action fixture
+ok  isolated default threshold
+ok  default synonym vendor_default
+ok  default synonym matched
+ok  default synonym unknown
+ok  combined blank-event test
+ok  native-label aggregate is not a catch contract
+ok  harness action needs a declared action
+ok  harness action cannot smuggle a shared translation
+ok  NA decision
+ok  missing cell
+ok  missing declared item
+ok  missing declared system
+ok  duplicate cell
+ok  threshold drift
+ok  split drift
+ok  operator smuggling
+ok  deployed composition
+ok  routed exposure
+static-OR receipt regressions passed
+check portable route receipt
+ok    illustrative static reconstruction is held
+ok    declared direct parallel trace
+ok    derived static reconstruction is held
+ok    row hash mismatch
+ok    duplicate JSON field
+ok    default operating point
+ok    nonfinite threshold
+ok    route action mismatch
+ok    blocked row cannot pretend observed prevention
+ok    direct sequential route
+ok    sequential post-termination exposure
+route-receipt regressions passed
+check qualified outcome ledger
+QUALIFIED OUTCOMES (someone who is not the author did work)
+  independent_reproductions      0
+  source_corrections             0
+  paired_outcome_releases        0
+  upstream_prs                   0
+  human_cold_runs                0
+  TOTAL                          0
+
+DIAGNOSTICS (not evidence)
+  impressions                  —
+  clicks                       —
+  cold_comprehension_trials    []
+  technical_interactions       4
+  interaction 2026-09-16 upstream_issue: https://github.com/CentreSecuriteIA/bells_leaderboard/issues/1
+  interaction 2026-09-02 upstream_issue: https://github.com/IBM/Adversarial-Prompt-Evaluation/issues/7
+  interaction 2026-08-31 upstream_issue: https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/issues/1
+  interaction 2026-08-31 compatibility_issue: https://github.com/open-eval/OpenEval/issues/2
+  cold_comprehension_trials      0  — diagnostic, never an outcome
+
+STOP RULE  (4/12 technical interactions, 0 qualified)
+  not triggered — 8 interactions remain before the null result is called.
+check internal links
+checked 1876 internal references across 96 pages
+Internal links verified: every committed reference resolves.
+check frontend structure and scroll regions
+ok    frontend structural gates passed (69 pages; local preflight checked; scroll regions keyboard-reachable)
+check remote-evidence failure states
+ok    service unreachable -> UNDETERMINED, never 'lacks preservation'
+ok    empty payload + CDX unreachable -> UNDETERMINED, never absence
+ok    empty payload + CDX finds a capture -> UNDETERMINED, indices disagree
+ok    both indices answer 'no capture' -> a real, reportable absence
+ok    fresh capture -> pass
+ok    capture predates review -> stale, and named as stale
+ok    remote-evidence failure states hold (6 cases; absence requires two agreeing indices, and undetermined is never reported as absent)
+check claim-registry failure states
+ok    support URL not reached -> UNDETERMINED, never a dead binding
+ok    support URL answers 404 -> a real, reportable finding
+ok    trigger fetch not reached -> UNDETERMINED, never TRIGGER FIRED
+ok    bound content really diverged -> TRIGGER FIRED, and said so
+ok    trigger URL answers 404 -> a finding about the binding, not the network
+ok    ancestry clone did not complete -> UNDETERMINED, never 'NOT reachable'
+ok    git answered 'not an ancestor' -> a real dangling binding
+ok    git could not answer -> UNDETERMINED, not a dangling binding
+ok    commit is an ancestor -> pass
+ok    transport classification
+ok    exit-code contract
+ok    claim-registry remote failure states hold (11 cases; unreached is never reported as refuted)
+check resume PDF receipt
+ok    résumé PDF is bound to its 3 sources (renderer: Chromium 141.0.7390.37)
+check film facts current
+ok    film facts current: 96 bound facts derived from the registries
+check film manifests and renders
+ok    leave-one-out: manifest bound (12 facts), receipt fresh, 1021 frames @ 30fps, 34s, determinism ok, 0 overflows, 3 claim frames
+ok    parity-cube: manifest bound (7 facts), receipt fresh, 961 frames @ 30fps, 32s, determinism ok, 0 overflows, 2 claim frames
+ok    same-scores-different-worlds: manifest bound (7 facts), receipt fresh, 901 frames @ 30fps, 30s, determinism ok, 0 overflows, 2 claim frames
+ok    same-scores__social-square: manifest bound (5 facts), receipt fresh, 331 frames @ 30fps, 11s, determinism ok, 0 overflows, 6 claim frames
+ok    the-correction-invitation: manifest bound (0 facts), receipt fresh, 301 frames @ 30fps, 10s, determinism ok, 0 overflows, 2 claim frames
+ok    the-falsifier-that-fired: manifest bound (6 facts), receipt fresh, 1051 frames @ 30fps, 35s, determinism ok, 0 overflows, 6 claim frames
+ok    the-missing-column-census: manifest bound (18 facts), receipt fresh, 1201 frames @ 30fps, 40s, determinism ok, 0 overflows, 3 claim frames
+ok    the-missing-column-trailer: manifest bound (16 facts), receipt fresh, 1021 frames @ 30fps, 34s, determinism ok, 0 overflows, 7 claim frames
+ok    the-multiplication: manifest bound (2 facts), receipt fresh, 421 frames @ 30fps, 14s, determinism ok, 0 overflows, 3 claim frames
+ok    the-stack: manifest bound (5 facts), receipt fresh, 1351 frames @ 30fps, 45s, determinism ok, 0 overflows, 7 claim frames
+ok    thirteen-worlds: manifest bound (17 facts), receipt fresh, 1081 frames @ 30fps, 36s, determinism ok, 0 overflows, 2 claim frames
+ok    what-the-seal-proves: manifest bound (8 facts), receipt fresh, 1021 frames @ 30fps, 34s, determinism ok, 0 overflows, 2 claim frames
+ok    12 film(s) verified against the bound facts
+check film watch page drift
+ok    13 film pages verified
+check film publication metadata
+ok    film metadata: failed deployments, wrong paths, undated publication and failed renders refuse; render date cannot become upload date
+check flagship recording source map
+ok    flagship source map: 7 sections, 510 s, 939 words; weaker sentences present once; fact tokens and film ranges checked
+NOTE  editorial package only: final camera, voice, captures, speech alignment and assembly-commit gate still required
+check film slate gate
+ok    slate: 34 live concepts pass the gate, 8 killed with reasons; SLATE.md current
+check experiment surface drift
+ok    /try/ matches experiments.yaml, outcomes.yaml and the bound facts
+check external-consequence system
+ok    DISPATCH.md and dispatch-log agree: 3 owner-reported dispatch(es), the rest PREPARED — NOT SENT
+ok    issue templates: counterexample.yml, reproduction.yml
+ok    TRY-A executes offline and prints the promised final line
+ok    TRY-C executes offline and prints the promised final line
+ok    experiments.yaml: 3 experiments bound to registered claims, facts, films and intake routes
+ok    launch-units.yaml: 7 units bound to films, posters, campaigns and experiments; none marked sent
+ok    dossiers: 5 rows, each with the eight derived items and no harvested address
+ok    try/index.html: 12 intake links name real templates and fields
+ok    5 further surfaces: 9 prefilled links name listed forms and real fields
+ok    external-consequence system verified
+check worldspace drift
+ok    /worldspace/ matches the manifest, the bound facts and experiments.yaml
+check worldspace instrument
+ok    manifest: 11 fact bindings equal the registry; 17 visible objects carry a status
+ok    worlds: 11 embedded, marginals held at 0.10/0.10 in every one, endpoints are CC-004's witnesses, independence = 0.01
+ok    constructions: film arrangement reproduced; 154 distinct specimens, 14 per position, all at the declared scores; count 2.9965 × 10^26 exact
+ok    text: 55 declared strings present; ledger tags and non-claims rendered from the manifest
+ok    routes: primary, claim, witness, experiment-B anchors resolve; the disagreement form names real fields
+ok    runtime: no transport, no storage, no randomness; halt, keyboard, range, switch, live region and reduced-motion paths present
+ok    QA receipt fresh: 77 captures, every declared critical state present with assertions true; html 58050 B, js 23106 B, 0 third-party requests
+ok    WORLDSPACE verified: bindings, worlds, constructions, text, routes, runtime hygiene, static proof, QA receipt
+check research index drift
+ok    research index matches the registries
+check distribution invariants
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 8.155s
+
+OK
+check distribution provenance and drift
+ok: orient → extract → draft → verify → queue → ingest → learn; publish only for approved revisions
+check repo graph drift
+ok    repo graph current: 134 nodes, 680 edges, 24 live findings
+check cadence series integrity
+ok    cadence series append-only and chained: 19 rows (5 live), 2026-08-20 to 2026-09-18
+check cadence fixtures
+ok    a clean chain passes
+ok    an edited row breaks the chain
+ok    a dropped row breaks the chain
+ok    reordered rows break the chain
+ok    an added field breaks the schema
+ok    a removed field breaks the schema
+ok    an undeclared basis is rejected
+ok    a rewritten committed row is not a prefix
+ok    a truncated series is not a prefix
+ok    appending to committed rows is a prefix
+ok    cadence fixtures: 10 planted states, every mutation caught
+check cadence publication isolation
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 8.841s
+
+OK
+check scheduled protected-branch publication
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK
+Queued repository update: https://github.com/example/pr/1
+Auto-merge requested subject to required checks; returned to main
+check public discovery exclusions
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.033s
+
+OK
+check deployed release identity
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.012s
+
+OK
+check E2 instrument properties and planted violations
+ok    P1 sweep: achieved FPR <= target and one step lower overshoots
+ok    P2 permutation: planted dependence outside band; destroyed dependence inside — planted +0.2046 > +0.0159; destroyed +0.0096
+ok    P3 duplicate-column: exact p(1-p) when aligned; collapses under planted row misalignment — aligned 0.2376 vs misaligned 0.0001
+ok    P4 independent calculator: agrees to 1e-12 on 100 tables and flags a corrupted primary
+ok    P5 Frechet: 200 random tables inside the set; both endpoints achieved by explicit couplings
+ok    P6 missingness bounds: bracket full-data Delta in 100 cell-masked trials AND match brute-force enumeration exactly on 20 small cases
+ok    P7 Wilson: coverage in [0.93, 0.97] at p=0.1 n=800; zero-count lower bound is 0 — coverage 0.938
+ok    P8 h.miss.v1: flagged harmful item is NOT a miss (0); flagged benign item IS a flag (1)
+ok    P9 null world: independent generator yields Delta inside the permutation band on all three pairs
+planted inversion caught
+ok    P10 planted inversion caught (X marginal-best, Y joint-best, regret exactly 70/200, CI>0); no inversion reported without Y; independent calculator refuses a corrupted primary
+ok    P11 MH stratified OR exact (4.6) on a hand-built two-stratum table; crude Haldane OR matches the pooled table — mh 4.600000 crude 4.265306
+ok    P12 frozen sample rule enforced: every band, calibration excluded, constants match PREREG_SELECTION.md — n_min 1097 n_stop 600; leaked-cal n 599
+Instrument proven: every property held and every planted violation was caught.
+check trial IV drift
+ok    trials/necromancer/index.html matches the manifest and cases (50713 bytes)
+check trial IV instrument and pilot freeze
+ok    manifest: trained case 3/3/2 across 8 templates; 16 rule sources still say what the page quotes; 2 mythic objects justified
+ok    freeze: 7 inputs unchanged since 2026-09-02; key digest c251608e1640…
+note  no key file present locally; the frozen digest stands unverified here
+ok    bare cases: pre and cold carry eight moves each; no key in the case file or the page
+ok    arms: seed PC-001-NECROMANCER-2026-09-02 → ABABABBABA; instrument be77f8830a30…
+ok    text: 71 declared strings present; non-claims and the governing rule rendered from the manifest
+ok    runtime: no transport, no storage, no randomness; live region, seal digest, arm lookup and receipt present
+ok    scorer: constants equal the manifest; self-test cases decide CONTINUE, NARROW, KILL and UNDETERMINED as frozen
+ok    QA receipt fresh: both arms ran end to end through every phase with every assertion true; html 50806 B, js 17860 B
+ok    TRIAL IV verified: manifest, bare cases, arms, text, runtime hygiene, scorer, freeze, QA receipt
+check prepared joint reporters
+ok    guardbench reporter matches brute force (union 67, all-miss 13, exclusive {'A': 11, 'B': 8, 'C': 15})
+ok    guardbench union + all-miss = positives
+ok    guardbench reporter refuses misaligned ids with UNKNOWN
+ok    guardbench CLI runs on harness-shaped files
+ok    ape reporter [jailbreak_a] matches brute force (union 73, all-miss 2, LOO consistent)
+ok    ape reporter [jailbreak_b] matches brute force (union 36, all-miss 1, LOO consistent)
+ok    ape --data accepts the .json form and resolves the harness's result name
+ok    ape result path is result_<model>_<data-without-.json>.pickle
+ok    ape CLI runs on harness-shaped pickles with --data given as .json
+ok    ape CLI refuses (exit 2, nothing printed) on prompt mismatch: REFUSED  m4: prompts differ from m1 (order or content) — refusing to align — no joint stat
+ok    ape CLI refuses (exit 2, nothing printed) on source mismatch: REFUSED  m2: sources differ from m1 — refusing to align — no joint statistic is printed (e
+ok    ape CLI refuses (exit 2, nothing printed) on label mismatch: REFUSED  m3: labels differ from m1 — refusing to align — no joint statistic is printed (ex
+ok    ape CLI refuses (exit 2, nothing printed) on y_pred length mismatch: REFUSED  m1: y_pred has 149 entries for 150 prompts — no joint statistic is printed (exit 
+ok    ape CLI refuses (exit 2, nothing printed) on x/y length mismatch: REFUSED  m2: x_test (150), y_test (147) and source (150) lengths differ — no joint statist
+ok    ape CLI refuses (exit 2, nothing printed) on non-binary label: REFUSED  m1: y_test contains a non-binary value 2 — no joint statistic is printed (exit 2)
+ok    ape CLI refuses (exit 2, nothing printed) on non-binary prediction: REFUSED  m2: y_pred contains a non-binary value 0.7 — no joint statistic is printed (exit 
+ok    ape CLI refuses (exit 2, nothing printed) on missing field: REFUSED  m3: result lacks source — no joint statistic is printed (exit 2)
+ok    ape CLI refuses a single model (exit 2)
+ok    ape CLI refuses duplicate model names (exit 2)
+ok    ape CLI exits 1 with the expected filename when a pickle is missing
+ok    ape docstring discloses the pickle trust boundary
+ok    prepared joint reporters: match brute force, honour the input contract, refuse with the declared status
+ok    deterministic verification manifest: 83 unique checks

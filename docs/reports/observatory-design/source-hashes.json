@@ -1,0 +1,17 @@
+{
+  "baseline_commit": "21fe5bd0c72ab62014f256c0d8ba5655a952dd50",
+  "after": {
+    "index.html": "e28a9c6a8d0df66895a0d0116e82430771b7a7775b64d9f1c8cd81278d9945fd",
+    "assets/world.css": "77e5cde9d24ec0465b374b7de69687745f8446a548aa81347e4419a1615e363f",
+    "assets/site.css": "32e0d6174ca97e6864fe48d5e27f893e5f232b9269bf9e961065f0a3fb8fd446",
+    "assets/site.js": "e39497231f4496f4342f93881081ac4f8c3ea8d66709ad47317b3a95c8525988",
+    "assets/world.js": "185bfcaf362e60fdea6e1ebededdc56a1ebed225ef2fc95bdd87b25640a72a61",
+    "explore/index.html": "ffe28d36737cf014fca0cf7f79660c2e581a9dda7dc49a868ffc84ced70aee45",
+    "sitemap.xml": "3061bbc797f6a6d8651d257b64308f2e967f17549708f1e5703cf5a51e2a5dfd",
+    "films/flagship/source-map.json": "81c00353fb2e7b79fd52bc9172b626dec71e395991b4bc06ce5c77bbff8a7377",
+    "worldspace/index.html": "4208cc8c6cba6cc71cffe70b9b77d25436f574fe0362f21b85bf0e39ed1f67ea",
+    "worldspace/worldspace.js": "8a3d539b7ae001ffdfb714f9df36371681e188856f00d555d8733a1321569a51",
+    "worldspace/manifest.yaml": "3f8c8740d0c00de45f81e9bf5df0d74fca54dd1d16c096f4832b2b9e47ad1a17",
+    "worldspace/qa/receipt.json": "2a770138e55e3d9338f4564e005a26aa465e6a079392db998b43c6d3f365b70a"
+  }
+}

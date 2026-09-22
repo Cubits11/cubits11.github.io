@@ -1,0 +1,1355 @@
+{
+  "capturedAt": "2026-09-22T01:03:56.601Z",
+  "browser": "153.0.8010.12",
+  "axe": "4.13.0",
+  "results": [
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 360,
+      "initial": {
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodes": [
+              [
+                "span:nth-child(1) > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".u[href$=\"missing-column/\"]"
+              ],
+              [
+                ".u[href$=\"disclosure/\"]"
+              ],
+              [
+                ".foot-links > .u:nth-child(3)"
+              ],
+              [
+                ".foot-links > .u:nth-child(4)"
+              ],
+              [
+                ".u:nth-child(5)"
+              ],
+              [
+                ".u[href$=\"work/\"]"
+              ],
+              [
+                ".u[href$=\"observatory/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".u[href$=\"writing/\"]"
+              ],
+              [
+                ".u[href$=\"modules/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"archive/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"now/\"]"
+              ],
+              [
+                ".u:nth-child(14)"
+              ],
+              [
+                ".foot-base > .u"
+              ]
+            ]
+          }
+        ]
+      },
+      "settled": {
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodes": [
+              [
+                "span:nth-child(1) > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".hlbl"
+              ],
+              [
+                "text[y=\"62\"]"
+              ],
+              [
+                "text[y=\"77\"]"
+              ],
+              [
+                "text[y=\"194\"]"
+              ],
+              [
+                "text[y=\"209\"]"
+              ],
+              [
+                "text[y=\"170.8\"]"
+              ],
+              [
+                ".hf0 > .hmono[y=\"214\"][x=\"40\"]"
+              ],
+              [
+                ".hf0 > .hmono[y=\"236\"][x=\"40\"]"
+              ],
+              [
+                "text[y=\"194.0\"]"
+              ],
+              [
+                "#work > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"archive/\"]"
+              ],
+              [
+                "#method > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "code"
+              ],
+              [
+                ".method-note > .u[href$=\"ledger/\"]"
+              ],
+              [
+                "#research > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "p:nth-child(3) > .u[href$=\"now/\"]"
+              ],
+              [
+                "#writing > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "#contact > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                ".u[href$=\"missing-column/\"]"
+              ],
+              [
+                ".u[href$=\"disclosure/\"]"
+              ],
+              [
+                ".foot-links > .u:nth-child(3)"
+              ],
+              [
+                ".foot-links > .u:nth-child(4)"
+              ],
+              [
+                ".u:nth-child(5)"
+              ],
+              [
+                ".u[href$=\"work/\"]"
+              ],
+              [
+                ".u[href$=\"observatory/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".u[href$=\"writing/\"]"
+              ],
+              [
+                ".u[href$=\"modules/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"archive/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"now/\"]"
+              ],
+              [
+                ".u:nth-child(14)"
+              ],
+              [
+                ".foot-base > .u"
+              ]
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "width": 360,
+        "scrollWidth": 360,
+        "reveals": [
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          }
+        ]
+      },
+      "errors": [],
+      "screenshot": "after-home-light-360.png",
+      "sha256": "5575dbb22539246a1c23bc75a26cef0a1d7d0a86ae9490567b3887a0e0c46845"
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 1440,
+      "initial": {
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodes": [
+              [
+                "span:nth-child(1) > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".u[href$=\"missing-column/\"]"
+              ],
+              [
+                ".u[href$=\"disclosure/\"]"
+              ],
+              [
+                ".foot-links > .u:nth-child(3)"
+              ],
+              [
+                ".foot-links > .u:nth-child(4)"
+              ],
+              [
+                ".u:nth-child(5)"
+              ],
+              [
+                ".u[href$=\"work/\"]"
+              ],
+              [
+                ".u[href$=\"observatory/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".u[href$=\"writing/\"]"
+              ],
+              [
+                ".u[href$=\"modules/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"archive/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"now/\"]"
+              ],
+              [
+                ".u:nth-child(14)"
+              ],
+              [
+                ".foot-base > .u"
+              ]
+            ]
+          }
+        ]
+      },
+      "settled": {
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodes": [
+              [
+                "span:nth-child(1) > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".hlbl"
+              ],
+              [
+                "text[y=\"62\"]"
+              ],
+              [
+                "text[y=\"77\"]"
+              ],
+              [
+                "text[y=\"194\"]"
+              ],
+              [
+                "text[y=\"209\"]"
+              ],
+              [
+                "text[y=\"170.8\"]"
+              ],
+              [
+                ".hf0 > .hmono[y=\"214\"][x=\"40\"]"
+              ],
+              [
+                ".hf0 > .hmono[y=\"236\"][x=\"40\"]"
+              ],
+              [
+                "text[y=\"194.0\"]"
+              ],
+              [
+                "#work > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"archive/\"]"
+              ],
+              [
+                "#method > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "code"
+              ],
+              [
+                ".method-note > .u[href$=\"ledger/\"]"
+              ],
+              [
+                "#research > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "p:nth-child(3) > .u[href$=\"now/\"]"
+              ],
+              [
+                "#writing > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "#contact > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                ".u[href$=\"missing-column/\"]"
+              ],
+              [
+                ".u[href$=\"disclosure/\"]"
+              ],
+              [
+                ".foot-links > .u:nth-child(3)"
+              ],
+              [
+                ".foot-links > .u:nth-child(4)"
+              ],
+              [
+                ".u:nth-child(5)"
+              ],
+              [
+                ".u[href$=\"work/\"]"
+              ],
+              [
+                ".u[href$=\"observatory/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".u[href$=\"writing/\"]"
+              ],
+              [
+                ".u[href$=\"modules/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"archive/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"now/\"]"
+              ],
+              [
+                ".u:nth-child(14)"
+              ],
+              [
+                ".foot-base > .u"
+              ]
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "reveals": [
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          }
+        ]
+      },
+      "errors": [],
+      "screenshot": "after-home-light-1440.png",
+      "sha256": "22ffa790bd8faa3a9612546acb4923d110abdab8f76feea87a125ab68851ef17"
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 360,
+      "initial": {
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodes": [
+              [
+                "span:nth-child(1) > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".u[href$=\"missing-column/\"]"
+              ],
+              [
+                ".u[href$=\"disclosure/\"]"
+              ],
+              [
+                ".foot-links > .u:nth-child(3)"
+              ],
+              [
+                ".foot-links > .u:nth-child(4)"
+              ],
+              [
+                ".u:nth-child(5)"
+              ],
+              [
+                ".u[href$=\"work/\"]"
+              ],
+              [
+                ".u[href$=\"observatory/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".u[href$=\"writing/\"]"
+              ],
+              [
+                ".u[href$=\"modules/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"archive/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"now/\"]"
+              ],
+              [
+                ".u:nth-child(14)"
+              ],
+              [
+                ".foot-base > .u"
+              ]
+            ]
+          }
+        ]
+      },
+      "settled": {
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodes": [
+              [
+                "span:nth-child(1) > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".hlbl"
+              ],
+              [
+                "text[y=\"62\"]"
+              ],
+              [
+                "text[y=\"77\"]"
+              ],
+              [
+                "text[y=\"194\"]"
+              ],
+              [
+                "text[y=\"209\"]"
+              ],
+              [
+                "text[y=\"170.8\"]"
+              ],
+              [
+                ".hf0 > .hmono[y=\"214\"][x=\"40\"]"
+              ],
+              [
+                ".hf0 > .hmono[y=\"236\"][x=\"40\"]"
+              ],
+              [
+                "text[y=\"194.0\"]"
+              ],
+              [
+                "#work > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"archive/\"]"
+              ],
+              [
+                "#method > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "code"
+              ],
+              [
+                ".method-note > .u[href$=\"ledger/\"]"
+              ],
+              [
+                "#research > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "p:nth-child(3) > .u[href$=\"now/\"]"
+              ],
+              [
+                "#writing > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "#contact > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                ".u[href$=\"missing-column/\"]"
+              ],
+              [
+                ".u[href$=\"disclosure/\"]"
+              ],
+              [
+                ".foot-links > .u:nth-child(3)"
+              ],
+              [
+                ".foot-links > .u:nth-child(4)"
+              ],
+              [
+                ".u:nth-child(5)"
+              ],
+              [
+                ".u[href$=\"work/\"]"
+              ],
+              [
+                ".u[href$=\"observatory/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".u[href$=\"writing/\"]"
+              ],
+              [
+                ".u[href$=\"modules/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"archive/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"now/\"]"
+              ],
+              [
+                ".u:nth-child(14)"
+              ],
+              [
+                ".foot-base > .u"
+              ]
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "width": 360,
+        "scrollWidth": 360,
+        "reveals": [
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          }
+        ]
+      },
+      "errors": [],
+      "screenshot": "after-home-dark-360.png",
+      "sha256": "d6f456551fd871f6fb942d36172e77ac1575443677f25fcca3a28633509cc436"
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 1440,
+      "initial": {
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodes": [
+              [
+                "span:nth-child(1) > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".u[href$=\"missing-column/\"]"
+              ],
+              [
+                ".u[href$=\"disclosure/\"]"
+              ],
+              [
+                ".foot-links > .u:nth-child(3)"
+              ],
+              [
+                ".foot-links > .u:nth-child(4)"
+              ],
+              [
+                ".u:nth-child(5)"
+              ],
+              [
+                ".u[href$=\"work/\"]"
+              ],
+              [
+                ".u[href$=\"observatory/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".u[href$=\"writing/\"]"
+              ],
+              [
+                ".u[href$=\"modules/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"archive/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"now/\"]"
+              ],
+              [
+                ".u:nth-child(14)"
+              ],
+              [
+                ".foot-base > .u"
+              ]
+            ]
+          }
+        ]
+      },
+      "settled": {
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "nodes": [
+              [
+                "span:nth-child(1) > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".hlbl"
+              ],
+              [
+                "text[y=\"62\"]"
+              ],
+              [
+                "text[y=\"77\"]"
+              ],
+              [
+                "text[y=\"194\"]"
+              ],
+              [
+                "text[y=\"209\"]"
+              ],
+              [
+                "text[y=\"170.8\"]"
+              ],
+              [
+                ".hf0 > .hmono[y=\"214\"][x=\"40\"]"
+              ],
+              [
+                ".hf0 > .hmono[y=\"236\"][x=\"40\"]"
+              ],
+              [
+                "text[y=\"194.0\"]"
+              ],
+              [
+                "#work > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".sec-intro.reveal.pre > .u[href$=\"archive/\"]"
+              ],
+              [
+                "#method > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "code"
+              ],
+              [
+                ".method-note > .u[href$=\"ledger/\"]"
+              ],
+              [
+                "#research > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "p:nth-child(3) > .u[href$=\"now/\"]"
+              ],
+              [
+                "#writing > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                "#contact > .container > .sec-head > .sec-no[aria-hidden=\"true\"]"
+              ],
+              [
+                ".u[href$=\"missing-column/\"]"
+              ],
+              [
+                ".u[href$=\"disclosure/\"]"
+              ],
+              [
+                ".foot-links > .u:nth-child(3)"
+              ],
+              [
+                ".foot-links > .u:nth-child(4)"
+              ],
+              [
+                ".u:nth-child(5)"
+              ],
+              [
+                ".u[href$=\"work/\"]"
+              ],
+              [
+                ".u[href$=\"observatory/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"ledger/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"claims/\"]"
+              ],
+              [
+                ".u[href$=\"writing/\"]"
+              ],
+              [
+                ".u[href$=\"modules/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"archive/\"]"
+              ],
+              [
+                ".foot-links > .u[href$=\"now/\"]"
+              ],
+              [
+                ".u:nth-child(14)"
+              ],
+              [
+                ".foot-base > .u"
+              ]
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "reveals": [
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          },
+          {
+            "opacity": "1"
+          }
+        ]
+      },
+      "errors": [],
+      "screenshot": "after-home-dark-1440.png",
+      "sha256": "d1fbe2ce53280bdcb50aabd02412f9c06b517a545be2a9099a9a7da1429c571a"
+    },
+    {
+      "route": "/explore/",
+      "theme": "light",
+      "width": 360,
+      "initial": {
+        "violations": [],
+        "incomplete": []
+      },
+      "settled": {
+        "violations": [],
+        "incomplete": []
+      },
+      "geometry": {
+        "width": 360,
+        "scrollWidth": 360,
+        "reveals": []
+      },
+      "errors": [],
+      "screenshot": "after-explore-light-360.png",
+      "sha256": "87074ee5d99a99c7d4b056b7c7524a14f6f9f57208cd901666305c4e3dff28ce"
+    },
+    {
+      "route": "/explore/",
+      "theme": "light",
+      "width": 1440,
+      "initial": {
+        "violations": [],
+        "incomplete": []
+      },
+      "settled": {
+        "violations": [],
+        "incomplete": []
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "reveals": []
+      },
+      "errors": [],
+      "screenshot": "after-explore-light-1440.png",
+      "sha256": "154fcdb9e3ad24466ae10628f38afe5cf4ec5de9b6a19d90f9b8132ec97fd293"
+    },
+    {
+      "route": "/explore/",
+      "theme": "dark",
+      "width": 360,
+      "initial": {
+        "violations": [],
+        "incomplete": []
+      },
+      "settled": {
+        "violations": [],
+        "incomplete": []
+      },
+      "geometry": {
+        "width": 360,
+        "scrollWidth": 360,
+        "reveals": []
+      },
+      "errors": [],
+      "screenshot": "after-explore-dark-360.png",
+      "sha256": "848303f9e90c0242003bac8fccd9dd0ba2deca7add1dff3211266c9b5f989887"
+    },
+    {
+      "route": "/explore/",
+      "theme": "dark",
+      "width": 1440,
+      "initial": {
+        "violations": [],
+        "incomplete": []
+      },
+      "settled": {
+        "violations": [],
+        "incomplete": []
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "reveals": []
+      },
+      "errors": [],
+      "screenshot": "after-explore-dark-1440.png",
+      "sha256": "5f6c635e846d0f74066359a6f5c2965ed3da54eef356175da1994f248406bf1c"
+    }
+  ]
+}
