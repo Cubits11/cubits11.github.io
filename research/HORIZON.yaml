@@ -1,0 +1,260 @@
+# The ten-year horizon. Three trajectories, held open on purpose.
+#
+# DIRECTION.yaml answers "what is the next step." This answers "which of three
+# futures is that step a step toward." It governs nothing and gates nothing;
+# scripts/horizon.py reads it so that a session with no memory can recover the
+# bet, not just the task.
+#
+# THE TRADE, recorded at the moment it was made (2026-09-22):
+#   14 human blockers open, oldest 17 days. Qualified external outcomes: 0 of 5
+#   buckets. Writing this file is scaffolding and K-INFRA exists to catch it.
+#   It was written anyway, at owner request, on one condition: the selector it
+#   ships with ranks a cleared blocker and an external outcome ABOVE every step
+#   this file proposes. A horizon that cannot lose to a blocker is a daydream.
+#
+# If this file exceeds ~400 lines it has become the thing it was written against.
+
+version: 1
+opened: 2026-09-22
+owner_decision_required_to_change: true
+governs: nothing
+read_by: scripts/horizon.py
+
+# ─────────────────────────────────────────────────────────────────────────────
+premise:
+  # The diagnosis this file is a response to. Stated so a later session can
+  # check whether it stopped being true, which is the only reason to rewrite.
+  measured_2026_09_22:
+    own_measurement_claims: 4
+    observation_rows: 5058
+    qualified_outcomes: 0
+    technical_interactions: 4
+    blockers_open: 14
+    governing_documents: 26
+  diagnosis: >
+    This repository can prove its owner is careful. It has not yet made a
+    stranger want to know what its owner found. Internal epistemic machinery is
+    mature; external uptake is zero. Every trajectory below is a different
+    theory of why, and they cost the same hours.
+  non_claim: >
+    Zero qualified outcomes is not evidence the work is wrong. It is evidence
+    the work has not been touched. Those are different failures with different
+    cures, and this file does not assume which one holds.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Three trajectories. Deliberately rivalrous: each wants the same weeks.
+# Exactly one is `active`. The others stay live, dated, and falsifiable so that
+# switching is a recorded decision rather than a drift.
+trajectories:
+
+  - id: T1
+    name: THE INSTRUMENT
+    one_line: I become the person who measures what guardrails miss together.
+    bet: >
+      The field's gap is arithmetic that nobody is producing. Joint outcomes are
+      absent because measuring them is work, not because reporting them is hard.
+      Whoever runs the instrument owns the number.
+    terminal_state_2036: >
+      A standing public series of joint-outcome measurements over deployed
+      guardrail stacks, re-run on a schedule, cited when someone quotes a
+      composed miss rate. The series, not any single paper, is the artifact.
+    unit_of_progress: observation rows from instruments this repository ran
+    fails_if: >
+      Someone with GPUs and a team produces the same series faster, or joint
+      outcomes turn out to be stable enough across stacks that one measurement
+      answers the question permanently and there is no series to run.
+    hardest_constraint: >
+      An 8 GB M1 and a boundary that refuses gated guards. Scale is the whole
+      risk; every year below is a scale-acquisition year in disguise.
+    kill_condition:
+      id: K-T1
+      condition: "18 months with no measurement route beyond the sub-1B ungated exemption"
+      consequence: "the instrument is capped below the systems anyone deploys; say so and switch"
+
+  - id: T2
+    name: THE STANDARD
+    one_line: I become the reason evaluations publish what they currently drop.
+    bet: >
+      The gap is a reporting convention, not a missing experiment. Per-item
+      outcomes already exist inside every eval harness; they are discarded at
+      aggregation. Changing one field in how results are emitted is cheaper than
+      re-measuring the world, and it compounds through other people's work.
+    terminal_state_2036: >
+      Paired or per-item joint outcome disclosure is a normal field in eval
+      reporting, present in harnesses and review rubrics, and the reason it is
+      there is traceable to this work.
+    unit_of_progress: changes landed in repositories this repository does not own
+    fails_if: >
+      Maintainers agree it is correct and nobody ships it, twice, from different
+      projects, for stated cost reasons. That is the field declining the trade,
+      and no further advocacy changes it.
+    hardest_constraint: >
+      Every landing is another person's hand. External actions are owner-only
+      here, so throughput is bounded by owner attention, not by Claude time.
+    kill_condition:
+      id: K-T2
+      condition: "8 substantive maintainer engagements with 0 merged changes"
+      consequence: "the primitive is unwanted or mis-specified; stop advocating, publish the spec, switch"
+
+  - id: T3
+    name: THE DISCIPLINE
+    one_line: >
+      Guardrails were the instance. The object is semantic drift between the
+      computation declared and the computation executed.
+    bet: >
+      The composition problem is one member of a class. Conventional research
+      software safeguards check that code ran; almost nothing checks that the
+      declared science ran. A conformance corpus and an executable contract
+      format generalize past AI safety to any empirical field with a
+      preregistration culture.
+    terminal_state_2036: >
+      A named conformance corpus with an equivalent-mutant-classified detection
+      record, an executable contract format other groups adopt, and a measured
+      escape rate for semantic defects. Guardrails are chapter one.
+    unit_of_progress: mutation classes with classified equivalents and measured detection
+    fails_if: >
+      SM1-SM4 measured prospectively show conformance checking intercepts
+      nothing that ordinary review does not already catch, on a corpus this
+      repository did not construct after seeing the failures.
+    hardest_constraint: >
+      This is the trajectory most able to become pure infrastructure. It is
+      already where the budget rule strains. It needs an outside corpus early or
+      it becomes research infrastructure about research infrastructure.
+    kill_condition:
+      id: K-T3
+      condition: "SM1-SM4 measured on an externally sourced corpus at detection indistinguishable from unaided review"
+      consequence: "the discipline has no delta; publish the negative result, it is the best one here"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Year by year. Each entry is a state, not a task list: what must be TRUE at the
+# end of that year for the trajectory to still be worth another year.
+# Years are labelled Y1..Y10 from 2026-09-22.
+arcs:
+
+  T1:
+    Y1:  "One prospective multi-guard joint measurement exists, contract-bound, from guards inside the exemption. Its identification width is stated before its point estimate."
+    Y2:  "A second, independently sourced guard family measured under the same contract. Between-stack variation in joint miss is a number, not a conjecture."
+    Y3:  "Scale constraint resolved or declared permanent: either an authorized box runs the 8-12B tier, or the series states its ceiling in every release."
+    Y4:  "The series has a fixed cadence and a stable schema. Someone else's stack has been measured at their request."
+    Y5:  "Re-measurement of an earlier stack detects drift over model versions. The series earns its recurrence."
+    Y6:  "A deployment decision somewhere cites a joint number from this series. Recorded as a qualified outcome or not at all."
+    Y7:  "Coverage is broad enough that absence from the series is itself informative."
+    Y8:  "The instrument is operable by someone who is not the author, from documentation alone, verified by a cold run."
+    Y9:  "Custodianship plan exists: the series survives the author losing interest."
+    Y10: "The series is the reference. Quoting a composed miss rate without it is visibly a gap."
+
+  T2:
+    Y1:  "One reporting-primitive specification exists with a reference implementation against a real harness, and one maintainer has engaged with it substantively."
+    Y2:  "First merged change in a repository this repository does not own. Bucket upstream_prs is non-empty."
+    Y3:  "A second project adopts independently. Adoption is no longer a single relationship."
+    Y4:  "A benchmark releases paired outcomes and cites the primitive as the reason. paired_outcome_releases non-empty."
+    Y5:  "The primitive appears in a review rubric or reporting checklist written by someone else."
+    Y6:  "Downstream tooling consumes the field without knowing where it came from. Adoption exceeds attribution."
+    Y7:  "Enough releases carry the field that cross-benchmark joint analysis is possible without new measurement."
+    Y8:  "A negative consequence of the primitive is documented and addressed. Standards that never cost anything were never adopted."
+    Y9:  "Maintenance transferred or formalized; the spec has a home that is not a personal site."
+    Y10: "Dropping joint outcomes reads as an omission rather than a default."
+
+  T3:
+    Y1:  "SM1-SM4 preregistered and measured prospectively on E8+, with equivalent mutants classified BEFORE any detection proportion is spoken."
+    Y2:  "Corpus includes defects this repository did not author and did not select after seeing outcomes."
+    Y3:  "Runtime conformance replaces static reference checking: edge E determined from execution trace."
+    Y4:  "Edges U, Q, V, T each have a verifier or a recorded decision that they cannot have one."
+    Y5:  "One group outside this repository runs the contract format on their own experiment."
+    Y6:  "Detection record spans more than one empirical field."
+    Y7:  "Escape rate SM4 has a confidence interval and a stated identification limit."
+    Y8:  "The corpus is maintained by more than one person and accepts external defect submissions."
+    Y9:  "A methods venue or equivalent carries the conformance result, positive or negative."
+    Y10: "Semantic conformance is a thing people check for, with a name, whoever gets the credit."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Year one, in detail, for all three. This is the part that is actually
+# actionable. Quarters from 2026-09-22.
+year_one:
+
+  common_floor:
+    # True regardless of which trajectory is active. These are the blockers and
+    # they outrank every trajectory step in scripts/horizon.py.
+    - id: F1
+      what: "Clear or formally close the 14 open human blockers, oldest first."
+      why: "No trajectory advances while the oldest is 17 days and growing. A blocker that will never be cleared should be closed as a declared limit, not left open."
+      owner_hand: true
+    - id: F2
+      what: "Move qualified_outcomes off zero in any one of the five buckets."
+      why: "Every trajectory is measured in someone else's work. Zero in all five is the single fact that makes all three theories unfalsifiable today."
+      owner_hand: true
+    - id: F3
+      what: "Keep the cadence series unbroken; a 4-day sensor gap is already recorded."
+      why: "The only instrument that can tell evidence from scaffolding is the one with gaps in it right now."
+      owner_hand: false
+
+  T1:
+    Q1:
+      - "E8/E9 runners consume contract.json directly (DIRECTION S3). No retrofit."
+      - "Per-item raw multi-guard score vectors stored; joint cells derived (S6)."
+      - "Identification width, sampling precision and decision relevance separated in the contract BEFORE the run (S5, correction C2)."
+    Q2:
+      - "First prospective joint measurement executed inside the exemption. Point estimate is not spoken before the identification width."
+      - "run-envelope.json per run; registry rejects a hand-typed empirical number (S7)."
+    Q3:
+      - "Second guard family characterized under the DISCOVERY stream. Promotion to confirmatory is forbidden without a fresh freeze (C4)."
+      - "Owner decision recorded: does the authorized box run the 8-12B tier this year, or does the series declare its ceiling permanently?"
+    Q4:
+      - "Release the series v1 with its ceiling stated in the same paragraph as its first number."
+      - "Invite one cold run of the instrument. A cold run that needs a clarifying question is a documentation defect, recorded as such."
+    year_end_test: "A joint miss rate this repository measured, with a width, a ceiling, and a reproduction command a stranger ran."
+
+  T2:
+    Q1:
+      - "Write the primitive as a specification, not an essay: field name, type, semantics, what it costs to emit, what breaks without it."
+      - "Reference implementation as a patch against one real harness, runnable, with a before/after showing the field populated."
+    Q2:
+      - "Owner dispatches the spec to the highest-value maintainer in the 20-row census. One, not twenty; a broadcast is not an engagement."
+      - "Record the response verbatim in outcomes.yaml as a technical interaction, including a refusal."
+    Q3:
+      - "Second and third dispatch, each with the objection from the previous one already answered in the patch."
+      - "If 8 substantive engagements reach 0 merged, K-T2 fires. Check honestly."
+    Q4:
+      - "Either a merged change exists, or the spec is published standalone with the recorded reasons it was declined. Both are results; only one is a qualified outcome."
+    year_end_test: "A diff in someone else's repository, or a documented account of why the field will not take it."
+
+  T3:
+    Q1:
+      - "SM1-SM4 preregistered on E8+ before any detection number exists (S8)."
+      - "Equivalent-mutant classification protocol frozen first. A kill rate over unclassified mutants is not a measurement."
+    Q2:
+      - "Execution-trace conformance for edge E (S4). Static reference checking is retired, not supplemented."
+      - "Budget check: infra outstanding must not exceed work outstanding. This quarter is where T3 most likely violates it."
+    Q3:
+      - "Source defects from outside this repository. A corpus authored and selected here cannot measure this here."
+      - "Edges U, Q, V, T: a verifier each, or a recorded decision that none is possible."
+    Q4:
+      - "First prospective SM figures reported with the retrospective 2/5 still labelled retrospective (C5)."
+    year_end_test: "A detection proportion over classified mutants, on defects this repository did not author."
+
+# ─────────────────────────────────────────────────────────────────────────────
+selection:
+  active: T2
+  active_since: 2026-09-22
+  rationale: >
+    Chosen against preference. T1 and T3 are the work this repository is better
+    at and would rather do, and both are bounded by the same wall: T1 by an 8 GB
+    host it cannot widen without an owner decision, T3 by a corpus it is not
+    allowed to author. T2 is the only trajectory whose year-one test is
+    satisfiable with the hardware, the boundary and the blockers exactly as they
+    stand, and it is the only one that attacks the measured deficit directly:
+    qualified_outcomes = 0 is a statement about other people's repositories, and
+    T2 is the only trajectory whose unit of progress is a change inside one.
+  dissent: >
+    T2's throughput is owner attention, which is the scarcest input here and the
+    one already absorbing 14 blockers. If owner dispatch capacity does not
+    materialize, T2 stalls harder than T1 would, and the stall looks like
+    progress because specifications are easy to write.
+  review: 2026-12-22
+  switch_protocol: >
+    Switching is an owner decision recorded here with a date, the fired kill
+    condition or the reason none fired, and what was true that was not true
+    before. A trajectory abandoned without a recorded reason is a trajectory
+    that will be re-adopted by accident.
+  history:
+    - {date: 2026-09-22, from: null, to: T2, reason: "opened; selected on satisfiability under current constraints, not preference"}
