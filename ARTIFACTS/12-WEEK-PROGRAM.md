@@ -542,6 +542,25 @@ would not establish anything about deployed routes, vendors, or prevalence.
 
 ## 14. KILL CONDITIONS
 
+> **K1 status, 2026-09-21 (evaluated one day past its date).** **K1 FIRED.**
+> No guard has passed a license gate. The three wave-1 entries in
+> `experiments/e2/freeze/sources.json` hold the owner-pending placeholder,
+> not a `license_bytes_sha256`; no `experiments/e2/run/LICENSES.md` or
+> `LG4_CONVERSION.md` exists on any ref (`git log --all --diff-filter=A --
+> '*LICENSES.md' '*LG4_CONVERSION.md'` is empty), so the four wave-2 guards
+> have no license record either. 0 of the 3 required guards and 0 of the 2
+> required lineages passed by 2026-09-20. By the rule below the program is
+> on **HOLD, design-only**. Every week that needs an E2 row (W3–W8, W10–W12)
+> is on hold with it; W9, the owner's external asks, does not depend on a
+> license gate and is not covered by this note.
+> `experiments/e2/freeze/PREREG_SELECTION.md` §9 defers K1's evaluation
+> until the owner's authenticated pull exists. That reading carries no date;
+> this section's does. The dated rule is applied and the choice is recorded
+> here. Nothing else changes: no threshold, item, estimator or claim.
+> §14 and §8 define no lift condition for this HOLD; none is added here.
+> "HOLD published" (§8 W2, §9) is not met by this note until it is on `main`
+> and on a public surface.
+
 - **K1 · by 2026-09-20 (end W2):** fewer than 3 guards or 2 lineages pass
   the license gates → HOLD; program stays design-only and says so.
 - **K2 · by 2026-10-04 (end W4):** complete-case n < 1,097 → precision HOLD
