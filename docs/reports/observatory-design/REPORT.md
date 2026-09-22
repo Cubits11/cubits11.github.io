@@ -91,13 +91,17 @@ label fixed it before the final capture.
 - Public discovery regression: passed.
 - Repository graph drift check: passed.
 - Existing WORLDSPACE capture procedure: passed; receipt and screenshots refreshed.
-- Canonical manifest: passed in the isolated environment; see [release-gates.txt](release-gates.txt).
+- Canonical manifest: passed in the isolated environment; see [verification.json](verification.json).
 - Clean-clone replay: pending a committed candidate.
 
 The initial verification attempt found stale sitemap dates. After regeneration,
 a subsequent attempt exposed missing `jsonschema` in the system interpreter.
 The declared requirements were installed into an isolated temporary environment
 and the canonical manifest was restarted there. Neither failure was called green.
+The first clean-clone attempt additionally rejected the attached raw test log
+because its historical-ID output lacks the repository’s required same-line
+retraction labels. That log attachment was removed and replaced by a concise
+verification record; no verifier or historical claim was changed.
 
 ## Reproduce the browser observations
 

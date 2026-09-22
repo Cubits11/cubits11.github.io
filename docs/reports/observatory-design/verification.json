@@ -1,0 +1,14 @@
+{
+  "record_type": "observations_not_policy",
+  "canonical_manifest": {
+    "command": "python scripts/verification_manifest.py",
+    "status": "PASS",
+    "environment": "isolated Python environment with requirements.txt installed"
+  },
+  "clean_clone": {
+    "status": "PENDING_REPLAY_AFTER_REPORT_FIX"
+  },
+  "browser_capture": "after.json",
+  "layout_and_interaction": "interaction-layout.json",
+  "screenshot_integrity": "SHA256SUMS"
+}
