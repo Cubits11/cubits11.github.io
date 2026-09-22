@@ -23,6 +23,20 @@ That asymmetry is deliberate and is the substance of this file:
     python3 scripts/verify_attribution.py --history # the pre-baseline count
     python3 scripts/verify_attribution.py --test    # the fixtures, in memory
 
+One exemption, and its reasoning. GitHub commits a merge on the owner's behalf
+as `GitHub <noreply@github.com>`: the synthetic commit CI builds to test a pull
+request, and the commit the merge button writes. Those are plumbing, not
+authorship -- no one is claiming credit for a merge -- and a rule that failed on
+them would fail on every merge into main forever. So a commit with two or more
+parents carrying exactly that identity is exempt from the identity check. It is
+NOT exempt from the trailer check, and its parents are each checked on their
+own, which is where content actually enters.
+
+The residual: a merge commit can carry conflict-resolution content that exists
+in no parent, and under this exemption that content is unattributed. That is
+accepted rather than hidden. Closing it would mean checking merge-diff
+provenance, which is a different gate than this one.
+
 What this does NOT do: verify that a human wrote any particular line. It
 verifies attribution hygiene -- that no machine signs this log -- which is a
 statement about the record, not about the labour.
@@ -85,11 +99,21 @@ def bound_commits() -> list[str]:
     return [line for line in out.splitlines() if line]
 
 
+# GitHub's own merge identity. See the exemption in the module docstring.
+WEB_FLOW = ("github", "noreply@github.com")
+
+
 def violations(sha: str) -> list[str]:
-    record = git("show", "-s", "--format=%an%n%ae%n%cn%n%ce%n%B", sha)
-    an, ae, cn, ce, *body = record.split("\n")
+    record = git("show", "-s", "--format=%an%n%ae%n%cn%n%ce%n%P%n%B", sha)
+    an, ae, cn, ce, parents, *body = record.split("\n")
     found: list[str] = []
-    for role, name, email in (("author", an, ae), ("committer", cn, ce)):
+    merge_plumbing = (
+        len(parents.split()) > 1
+        and (cn.strip().lower(), ce.strip().lower()) == WEB_FLOW
+        and (an.strip().lower(), ae.strip().lower()) == WEB_FLOW
+    )
+    identities = () if merge_plumbing else (("author", an, ae), ("committer", cn, ce))
+    for role, name, email in identities:
         if email.strip().lower() not in PERMITTED_EMAILS:
             found.append(f"{role} email {email!r} is not a Cubits11 identity")
         if name.strip().lower() not in PERMITTED_NAMES:
@@ -165,11 +189,28 @@ def test() -> int:
         got = email.lower() in PERMITTED_EMAILS
         if got != expected:
             failures.append(f"  identity {label}: expected {expected}, got {got}")
+
+    # The web-flow exemption, which a live CI run found before these did.
+    # A merge GitHub wrote is plumbing; the same identity on a single-parent
+    # commit is someone committing as GitHub, and is not exempt.
+    for label, parents, name, email, expected_exempt in (
+        ("github merge", "aaa bbb", "GitHub", "noreply@github.com", True),
+        ("github single parent", "aaa", "GitHub", "noreply@github.com", False),
+        ("model merge", "aaa bbb", "Claude", "noreply@anthropic.com", False),
+        ("owner merge", "aaa bbb", "Cubits11",
+         "90584946+Cubits11@users.noreply.github.com", False),
+    ):
+        got = (
+            len(parents.split()) > 1
+            and (name.strip().lower(), email.strip().lower()) == WEB_FLOW
+        )
+        if got != expected_exempt:
+            failures.append(f"  web-flow {label}: expected {expected_exempt}, got {got}")
     if failures:
         print(f"attribution fixtures: {len(failures)} failed")
         print("\n".join(failures))
         return 1
-    print(f"attribution fixtures: {len(FIXTURES) + 3} passed")
+    print(f"attribution fixtures: {len(FIXTURES) + 7} passed")
     return 0
 
 
