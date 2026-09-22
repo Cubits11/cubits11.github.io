@@ -172,7 +172,7 @@ def report(h: dict) -> int:
     W.append("")
     W.append("FLOOR         true regardless of trajectory; outranks every step above")
     for f in h["year_one"]["common_floor"]:
-        hand = "owner's hand" if f["owner_hand"] else "here"
+        hand = "OWNER" if f["owner_hand"] else "here"
         W.append(f"  {f['id']}  [{hand}] {f['what']}")
     W.append("")
     W.append("  python3 scripts/horizon.py --next   # the next problem, selected")

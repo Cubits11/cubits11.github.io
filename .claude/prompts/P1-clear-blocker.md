@@ -5,6 +5,7 @@ Run first:
 ```bash
 python3 .claude/skills/evidence-ledger/ledger.py
 python3 scripts/horizon.py --next
+python3 scripts/owner_actions.py      # the markers, grouped into real actions
 ```
 
 The selector put you here because an open blocker is at least 14 days old. A
