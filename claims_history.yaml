@@ -2639,3 +2639,34 @@ entries:
         P5_two_thirds_above_independence: HELD
       pairs_at_upper_bound: 7
   digest: 4a8f7a510eff285e97aa79495fe51982ce1c96074550723d8d9f2093375aeea5
+- kind: falsifier_assessment
+  subject_transition_digest: 3405d1d9d4f086cf17ebc7a1217fc9e563448a65d50293641ca170b61fa59c23
+  falsifier_assessment: NOT_FIRED
+  recorded_at: '2026-09-25'
+  evidence_refs:
+  - experiments/e6/CORRECTION-2026-09-10.md
+  - corrections/records/2026-09-10.json:records[0].basis
+  - git:48e98e44be87497bcd0c4c650e8123efde98c625
+  reason: 'Transcribes the E6-001 correction declared 2026-09-10 and first committed at 48e98e4 (2026-09-15):
+    "The old falsifier did not explicitly test preservation of marginal masses." (experiments/e6/CORRECTION-2026-09-10.md)
+    and "not a claim that the old numerical replay falsifier fired" (corrections/records/2026-09-10.json
+    records[0].basis). The rejection rests on a premise failure, not on the declared falsifier. Not a
+    new judgment. Recorded under decision record 10 (D4, delegated), 2026-09-25.'
+  previous_transition_digest: 4a8f7a510eff285e97aa79495fe51982ce1c96074550723d8d9f2093375aeea5
+  digest: 78c793f44df4c6a66a732926f411aa8f57110995e9df92eea394621518db11de
+- kind: falsifier_assessment
+  subject_transition_digest: 4a8f7a510eff285e97aa79495fe51982ce1c96074550723d8d9f2093375aeea5
+  falsifier_assessment: FIRED
+  recorded_at: '2026-09-25'
+  evidence_refs:
+  - experiments/e7b/CORRECTION-2026-09-10.md
+  - corrections/records/2026-09-10.json:records[1].basis
+  - git:48e98e44be87497bcd0c4c650e8123efde98c625
+  reason: 'Transcribes the E7B-001 correction declared 2026-09-10 and first committed at 48e98e4 (2026-09-15):
+    "The existing operating-point-rule mismatch falsifier is met; its fixed consequence is REJECT." (corrections/records/2026-09-10.json
+    records[1].basis) and "That condition is met." (experiments/e7b/CORRECTION-2026-09-10.md). This assesses
+    the calibration defect against the operating-point clause; the pair-evaluation-pool defect is not
+    assessed against any clause here. Not a new judgment. Recorded under decision record 10 (D4, delegated),
+    2026-09-25.'
+  previous_transition_digest: 78c793f44df4c6a66a732926f411aa8f57110995e9df92eea394621518db11de
+  digest: ecf6a603aad9b7e59df8b2aad934009ab8c3e8c6944b465c932541b492aeac4f
