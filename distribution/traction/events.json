@@ -397,6 +397,21 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
+    "id": "38684bd8a46d7c93",
+    "kind": "result",
+    "source": {
+      "path": "experiments/e9/RESULT.md",
+      "sha256": "e7ff687745a10f905c84fad1afacb545ba6f0fab501b20595be38d275add9789",
+      "commit": "f3ffb956f7e7f3a4e7ec76456c4493566eace428",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/f3ffb956f7e7f3a4e7ec76456c4493566eace428/experiments/e9/RESULT.md",
+      "binding": "committed"
+    },
+    "draft_ids": [],
+    "state": "candidate_requires_claim_audit",
+    "hold_reason": "Inventory alone does not authorize a claim; source-specific release gates and an approved reproduction route are required.",
+    "novelty": "snapshot; not asserted newly published"
+  },
+  {
     "id": "cc28623703b5901c",
     "kind": "freeze",
     "source": {
@@ -412,13 +427,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "8f2a0ee98317c68f",
+    "id": "63df293c6da0bb11",
     "kind": "freeze",
     "source": {
       "path": "experiments/e9/freeze/protocol.json",
-      "sha256": "a094fe0abb0aba7eb71d0eac1fcf99b8609dd9280d6e5ea8ff19bdf2206617d1",
-      "commit": "6ac65de910b264464c4c9fdcf9f8d5e3e217eeda",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/6ac65de910b264464c4c9fdcf9f8d5e3e217eeda/experiments/e9/freeze/protocol.json",
+      "sha256": "ae51fb1df5a45e6414a53fe61663c25140ef56e2c5c4e082b0d3f67bc432d703",
+      "commit": "216a7748a2d8168b6ce9c4064712afe4016b1421",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/216a7748a2d8168b6ce9c4064712afe4016b1421/experiments/e9/freeze/protocol.json",
       "binding": "committed"
     },
     "draft_ids": [],
