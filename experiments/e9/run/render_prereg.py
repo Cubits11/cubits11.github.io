@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Render experiments/e9/PREREG.md from the contract, the protocol, the freeze and any results.
+"""Render experiments/e9/PREREG.md from frozen sources, and RESULT.md once results exist.
 
-    python3 experiments/e9/run/render_prereg.py            # write PREREG.md
+    python3 experiments/e9/run/render_prereg.py            # write PREREG.md (and RESULT.md)
     python3 experiments/e9/run/render_prereg.py --check    # exit 1 on drift
 
 Correction C1: the contract is the canonical executable semantics and the
@@ -208,57 +208,165 @@ def render() -> str:
           "- The stress stratum's false-positive rates describe these guards on seemingly-toxic prompts at E9's",
           "  thresholds. They are not a deployment false-positive rate.",
           "- Nothing here transfers to E2's guards, pools or operating points."]
-    r = p.get("results")
-    if r:
-        L += ["", "## Admission result", ""]
-        if r.get("candidates"):
-            L += [f"Thresholds from the {r['calibration_n']} calibration items: "
-                  + " ".join(f"{g} {t:.6f}" for g, t in r["thresholds"].items())
-                  + ". E8's, calibrated on the stress population: "
-                  + " ".join(f"{g} {t:.6f}" for g, t in r["e8_comparison"]["thresholds"]["E8"].items()) + ".",
-                  "",
-                  "| candidate | n | miss G1 | miss G2 | Fréchet width | E8 width | clears floor | complete | admitted |",
-                  "|---|---|---|---|---|---|---|---|---|"]
-            for row in r["candidates"]:
-                e8w = r["e8_comparison"]["scouting"][row["id"]]["E8_width"]
-                L += [f"| `{row['id']}` | {row['n']} | {row['miss_float'].get('G1', float('nan')):.4f} | "
-                      f"{row['miss_float'].get('G2', float('nan')):.4f} | {row['width_float']:.4f} | {e8w:.4f} | "
-                      f"{'yes' if row['width_clears_floor'] else 'no'} | {'yes' if row['measurement_complete'] else 'no'} | "
-                      f"{'**yes**' if row['admitted'] else 'no'} |"]
-            s = r["stress"]
-            L += ["",
-                  f"Stress stratum, {s['n']} seemingly-toxic benign prompts at E9's thresholds: false-positive rate "
-                  + ", ".join(f"{g} {v:.4f}" for g, v in s["false_positive_rate_float"].items())
-                  + f"; both flag {s['both_flagged_rate']:.4f}."]
-        L += ["", f"**{r['verdict']}**"]
-    if a:
-        L += ["", "## Measurement result", "",
-              f"Pool `{a['admitted_pool']}`, n = {a['n']}, at the admission thresholds (asserted equal).",
-              "",
-              "| quantity | value |", "|---|---|"]
-        L += [f"| miss rate, {g} | {v:.4f} |" for g, v in a["miss_rates"].items()]
-        L += [f"| q_obs, both miss | {a['q_obs']:.4f} |",
-              f"| q_ind, independence plug-in | {a['q_ind']:.4f} |",
-              f"| discrepancy | {a['delta']:+.4f} |",
-              f"| 95% bootstrap interval, B = {a['bootstrap_B']} | [{a['delta_ci95'][0]:+.4f}, {a['delta_ci95'][1]:+.4f}] |",
-              f"| realized marginal-only width | {a['marginal_only_width']:.4f} (floor {a['declared_floor']}) |",
-              f"| Fréchet interval | [{a['frechet'][0]:.4f}, {a['frechet'][1]:.4f}]; q_obs inside: "
-              f"{'yes' if a['inside_frechet'] else 'no'} |",
-              "", f"**{a['verdict']}**"]
+    return "\n".join(L) + "\n"
+
+
+def render_result() -> str | None:
+    """RESULT.md: what the frozen design produced. None until analysis exists.
+
+    PREREG.md is a pre-result object and stays one. Outcomes, and the record of
+    how they were checked against the predictions PREREG.md fixed, render here
+    and only here. Every number is read from freeze/protocol.json's results,
+    results/analysis.json or the contract; the prose below states scope and
+    threats, never a value."""
+    c, p = load(E9 / "contract.json"), load(FREEZE / "protocol.json")
+    f, a = load(FREEZE / "freeze.json"), load(E9 / "results" / "analysis.json")
+    r = (p or {}).get("results")
+    if not (a and r):
+        return None
+    dec, prec = c["inference"]["decision"], c["inference"]["precision"]
+    sesoi, floor = dec["SESOI"], c["inference"]["informativeness"]["marginal_only_width_min"]
+    lo, hi = a["delta_ci95"]
+    declared = {k: v for k, v in p.items() if k != "results"}
+    digest = hashlib.sha256(json.dumps(declared, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+    digest_holds = digest == f["protocol_declared_sha256"]
+    yes = lambda b: "held" if b else "**did not hold**"
+    preds = [
+        ("1. Admission", f"H2: at least one scouting width at or above {floor}",
+         f"`{r['admitted']}` admitted; {r['hypothesis']}", r["hypothesis"] == "H2"),
+        ("2. Realized width", f"marginal-only width on the measurement set at or above {floor}",
+         f"{a['marginal_only_width']:.4f} ({a['identification_status']})", a["marginal_only_width"] >= floor),
+        ("3. Instrument", "observed all-miss rate inside the Fréchet interval",
+         f"{a['q_obs']:.4f} in [{a['frechet'][0]:.4f}, {a['frechet'][1]:.4f}]", a["inside_frechet"]),
+        ("4. Precision", f"95% interval half width at most {prec['desired_ci_half_width']}",
+         f"{a['realized_ci_half_width']:.4f}", a["precision_met"]),
+        ("5. Direction", "discrepancy positive, interval excludes zero",
+         f"{a['delta']:+.4f}, [{lo:+.4f}, {hi:+.4f}]", a["delta"] > 0 and a["ci_excludes_zero"]),
+    ]
+    L = ["# E9 — result",
+         "",
+         "**Rendered by `run/render_prereg.py` from `freeze/protocol.json` (its `results` block), "
+         "`results/analysis.json` and `contract.json`. No number here is typed by hand; an edit that is "
+         "not an edit to those sources fails the manifest.** The design, predictions and forbidden rescues "
+         "are in `PREREG.md`, which renders only frozen sources and holds no outcome.",
+         "",
+         "## The result, at its scope",
+         "",
+         f"On the admitted pool `{a['admitted_pool']}`, for guards {', '.join(a['guards'])} at the frozen "
+         f"operating point, on {a['n']} measurement items, the observed rate at which both guards miss is "
+         f"{a['q_obs']:.4f}; the independence plug-in from the two observed miss rates is {a['q_ind']:.4f}. "
+         f"The discrepancy is {a['delta']:+.4f} (95% bootstrap interval [{lo:+.4f}, {hi:+.4f}], "
+         f"B = {a['bootstrap_B']}). The two miss rates alone leave the all-miss rate anywhere in "
+         f"[{a['frechet'][0]:.4f}, {a['frechet'][1]:.4f}], a width of {a['marginal_only_width']:.4f}.",
+         "",
+         f"Preregistered verdict: **{a['verdict'].split(':', 1)[0]}**. The rule is the one "
+         "`run/analyze.py` carried in the freeze commit, before any E9 score existed: the interval "
+         "excludes zero and the point discrepancy reaches the SESOI.",
+         ""]
+    if lo < sesoi <= a["delta"]:
+        L += [f"The point estimate reaches the SESOI of {sesoi}; the interval does not lie wholly beyond it "
+              f"(its lower end is {lo:.4f}). The measurement establishes a discrepancy from zero. It does not "
+              f"establish that the discrepancy exceeds {sesoi}.", ""]
+    L += ["## The predictions PREREG.md fixed, checked",
+          "",
+          "| prediction | stated before any score | observed | |",
+          "|---|---|---|---|"]
+    L += [f"| {n} | {s} | {o} | {yes(b)} |" for n, s, o, b in preds]
+    L += ["", "## Admission", "",
+          f"Thresholds from the {r['calibration_n']} calibration items: "
+          + " ".join(f"{g} {t:.6f}" for g, t in r["thresholds"].items())
+          + ". E8's, calibrated on the stress population: "
+          + " ".join(f"{g} {t:.6f}" for g, t in r["e8_comparison"]["thresholds"]["E8"].items())
+          + f". The measurement run recomputed the same thresholds: "
+          f"{'asserted equal' if a['thresholds_equal_admission'] else '**differ**'}.",
+          "",
+          "| candidate | n | miss G1 | miss G2 | Fréchet width | E8 width | clears floor | complete | admitted |",
+          "|---|---|---|---|---|---|---|---|---|"]
+    for row in r["candidates"]:
+        e8w = r["e8_comparison"]["scouting"][row["id"]]["E8_width"]
+        L += [f"| `{row['id']}` | {row['n']} | {row['miss_float'].get('G1', float('nan')):.4f} | "
+              f"{row['miss_float'].get('G2', float('nan')):.4f} | {row['width_float']:.4f} | {e8w:.4f} | "
+              f"{'yes' if row['width_clears_floor'] else 'no'} | {'yes' if row['measurement_complete'] else 'no'} | "
+              f"{'**yes**' if row['admitted'] else 'no'} |"]
+    s = r["stress"]
+    L += ["",
+          f"Stress stratum, {s['n']} seemingly-toxic benign prompts at E9's thresholds: false-positive rate "
+          + ", ".join(f"{g} {v:.4f}" for g, v in s["false_positive_rate_float"].items())
+          + f"; both flag {s['both_flagged_rate']:.4f}. Reported, never deciding.",
+          "",
+          "## Measurement",
+          "",
+          "| quantity | value |", "|---|---|"]
+    L += [f"| miss rate, {g} | {v:.4f} |" for g, v in a["miss_rates"].items()]
+    L += [f"| both miss, observed | {a['q_obs']:.4f} |",
+          f"| both miss, independence plug-in | {a['q_ind']:.4f} |",
+          f"| discrepancy | {a['delta']:+.4f} (exact {a['delta_exact']}) |",
+          f"| 95% bootstrap interval | [{lo:+.4f}, {hi:+.4f}] |",
+          f"| marginal-only Fréchet interval | [{a['frechet'][0]:.4f}, {a['frechet'][1]:.4f}] |",
+          f"| marginal-only width | {a['marginal_only_width']:.4f} (floor {a['declared_floor']}) |",
+          "",
+          "## Threats to validity",
+          "",
+          "- **Pool selection.** Admission chose the pool whose scouting marginals left the widest identified "
+          "set among candidates with a complete measurement slice. The measurement items are disjoint from "
+          "every scouting item, so no item decided admission and measured the joint, but the result describes "
+          "a pool selected for intermediate marginals, not pools in general.",
+          "- **The interval omits calibration uncertainty.** The bootstrap resamples measurement items with "
+          "the thresholds held at their admission values. Variation from re-drawing the calibration set is "
+          "not in the interval.",
+          "- **The operating point is declared, not deployed.** Thresholds sit at a 5% false-positive budget "
+          "on representative benign traffic; the stress stratum shows how much higher one guard's "
+          "false-positive rate is on hard negatives.",
+          "- **Training contamination.** The second guard's fine-tuning corpus could not be verified; the "
+          "admitted pool is not among the first guard's declared training sets (see `PREREG.md`).",
+          "- **Where the verdict rule lives.** SESOI and margin are in the frozen contract; the rule that "
+          "combines them into a verdict is in `run/analyze.py`, committed in the freeze commit and unchanged "
+          "since, but not rendered into `PREREG.md`'s prose. Correction C1 asks for claim-critical choices to "
+          "live in the contract; this one does not.",
+          "- **The protocol file gained a results block.** `run/admit.py` appended the admission record to "
+          "`freeze/protocol.json`. Everything above that block still hashes to the frozen declaration digest: "
+          + ("**holds**." if digest_holds else "**FAILS**.")
+          + " The file is therefore not byte-immutable after freeze; later experiments keep outcomes out of "
+          "`freeze/`.",
+          "- **One analyst, no independent replication.** Every step ran on the owner's machine from this "
+          "repository. Re-running the committed scripts is replay, not reproduction.",
+          "",
+          "## What this does not establish",
+          "",
+          "- that guard pairs in general depart from independence, or in which direction;",
+          "- anything about a deployed stack, a routing policy, or either guard's vendor;",
+          "- that either guard, or the pair, is safe or unsafe;",
+          "- the size of the discrepancy on other pools, other thresholds or other benign populations.",
+          "",
+          "## Provenance",
+          "",
+          "| object | sha256 |", "|---|---|"]
+    L += [f"| `{v['path']}` | `{v['sha256'][:16]}…` |" for k, v in a["provenance"].items() if isinstance(v, dict)]
+    L += ["",
+          "Replay from a clone: `python3 experiments/e9/run/runner.py --contract experiments/e9/contract.json "
+          "--scores experiments/e9/results/scores.json --out experiments/e9/results` then "
+          "`python3 experiments/e9/run/analyze.py`. Scoring itself needs the pinned guards and "
+          "`run/score.py`'s refusals; see `PREREG.md`."]
     return "\n".join(L) + "\n"
 
 
 def main() -> int:
-    out = render()
-    target = E9 / "PREREG.md"
+    outputs = {E9 / "PREREG.md": render(), E9 / "RESULT.md": render_result()}
     if "--check" in sys.argv:
-        if not target.exists() or target.read_text() != out:
-            print("DRIFT: experiments/e9/PREREG.md is not the rendering of its sources")
-            return 1
-        print("ok    experiments/e9/PREREG.md renders its sources")
-        return 0
-    target.write_text(out)
-    print("wrote experiments/e9/PREREG.md")
+        bad = 0
+        for target, out in outputs.items():
+            if out is None:
+                continue
+            if not target.exists() or target.read_text() != out:
+                print(f"DRIFT: {target.relative_to(ROOT)} is not the rendering of its sources")
+                bad = 1
+            else:
+                print(f"ok    {target.relative_to(ROOT)} renders its sources")
+        return bad
+    for target, out in outputs.items():
+        if out is not None:
+            target.write_text(out)
+            print(f"wrote {target.relative_to(ROOT)}")
     return 0
 
 

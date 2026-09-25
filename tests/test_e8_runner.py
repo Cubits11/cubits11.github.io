@@ -238,6 +238,20 @@ class E9Preregistration(unittest.TestCase):
             self.skipTest("E9 has no PREREG.md yet")
         self.assertEqual(prereg.read_text(), _module("e9_render", E9 / "run/render_prereg.py").render())
 
+    def test_result_renders_its_sources(self):
+        render = _module("e9_render_result", E9 / "run/render_prereg.py").render_result()
+        result = E9 / "RESULT.md"
+        if render is None:
+            self.assertFalse(result.exists(), "RESULT.md exists but E9 has no analysis to render")
+            return
+        self.assertEqual(result.read_text(), render)
+
+    def test_prereg_holds_no_outcome(self):
+        """PREREG.md is a pre-result object: no admission or measurement section, ever."""
+        text = (E9 / "PREREG.md").read_text()
+        for heading in ("## Admission result", "## Measurement result", "# E9 — result"):
+            self.assertNotIn(heading, text)
+
 
 if __name__ == "__main__":
     unittest.main()
