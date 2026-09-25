@@ -5,6 +5,7 @@ import yaml
 ROOT=Path(__file__).resolve().parent.parent
 sys.path.insert(0,str(ROOT/'scripts'))
 import distribute
+import claims_history as history
 
 class Corrections(unittest.TestCase):
     def test_frozen_bytes_are_unchanged(self):
@@ -21,15 +22,21 @@ class Corrections(unittest.TestCase):
             self.assertTrue(current.endswith(old))
     def test_dispositions_and_history_agree(self):
         reg={c['id']:c for c in yaml.safe_load((ROOT/'claims.yaml').read_text())['claims']}
-        hist=yaml.safe_load((ROOT/'claims_history.yaml').read_text())['entries']
+        doc=yaml.safe_load((ROOT/'claims_history.yaml').read_text()); hist=doc['entries']
         for row in json.loads((ROOT/'corrections/records/2026-09-10.json').read_text())['records']:
             c=reg[row['claim_id']]
             self.assertEqual(row['disposition'],'REJECT')
             self.assertEqual(c['dimensions']['evidential_status'],'contradicted')
             self.assertTrue(c['proposition'].startswith('REJECTED AS STATED'))
-            self.assertEqual(c['falsifier']['consequence'],'REJECT')
-            last=[e for e in hist if e.get('claim_id')==c['id']][-1]
+            last=[e for e in hist if e.get('kind')=='transition' and e.get('claim_id')==c['id']][-1]
             self.assertEqual(last['transition_type'],'CORRECT')
+            # Disposition and falsifier satisfaction are separate axes. Only a transition
+            # assessed FIRED ties the disposition to the predecessor's declared consequence;
+            # E6 was rejected on a premise its falsifier never tested, so its REJECT
+            # consequence matching its REJECT disposition is a coincidence, not a derivation.
+            view=history.transition_view(doc,last['digest'])
+            if view['falsifier_assessment']['effective']=='FIRED':
+                self.assertEqual(row['disposition'],view['predecessor_falsifier_consequence'])
     def test_audit_demonstrates_both_failures(self):
         audit=json.loads((ROOT/'distribution/research-2026-09-10/audit-results.json').read_text())
         self.assertNotEqual(audit['e6']['counterexample_resulting_weights'],audit['e6']['specified_weights'])
