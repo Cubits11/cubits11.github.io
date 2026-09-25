@@ -1,0 +1,208 @@
+{
+ "status": "EXPLORATORY \u2014 run after E9's outcome was read; see the module docstring. E9's preregistered verdict is in experiments/e9/RESULT.md and is not changed here.",
+ "seed": "EXPLORATORY-E9-ROBUSTNESS-2026-09-25",
+ "self_check": "frozen thresholds, table and exact discrepancy recomputed from results/scores.json and equal to results/analysis.json",
+ "A_table_and_residual_coverage": {
+  "cells": {
+   "g1_catch_g2_catch": 198,
+   "g1_catch_g2_miss": 465,
+   "g1_miss_g2_catch": 15,
+   "both_miss": 322
+  },
+  "residual_coverage": {
+   "g2_catches_after_g1_misses": {
+    "k": 15,
+    "n": 337,
+    "rate": 0.04451,
+    "wilson95": [
+     0.027157,
+     0.072131
+    ]
+   },
+   "g1_catches_after_g2_misses": {
+    "k": 465,
+    "n": 787,
+    "rate": 0.590851,
+    "wilson95": [
+     0.55614,
+     0.62468
+    ]
+   }
+  },
+  "reads": "a stack that adds G2 behind G1 catches this share of what G1 missed, and the reverse"
+ },
+ "B_conditional_association": {
+  "odds_ratio": 9.1406,
+  "p_two_sided": 3.793e-24,
+  "question": "given the observed margins, are the two miss indicators associated? Exploratory; not the preregistered analysis."
+ },
+ "C_nested_recalibration_bootstrap": {
+  "B": 2000,
+  "replicates": 2000,
+  "thresholds_moved_in": 1987,
+  "delta_95": [
+   0.038785,
+   0.076396
+  ],
+  "frozen_delta_95_thresholds_fixed": [
+   0.047169,
+   0.066904
+  ],
+  "share_delta_positive": 1.0,
+  "share_delta_at_or_above_sesoi": 0.746,
+  "width_95": [
+   0.157,
+   0.283
+  ],
+  "share_width_at_or_above_floor": 1.0,
+  "g2_after_g1_miss_95": [
+   0.023121,
+   0.071875
+  ]
+ },
+ "D_operating_point_surface": [
+  {
+   "fpr_budget": "0.01",
+   "frozen": false,
+   "miss": {
+    "G1": 0.453,
+    "G2": 0.93
+   },
+   "both_miss": 0.444,
+   "delta": 0.02271,
+   "delta_95_thresholds_fixed_B500": [
+    0.01504,
+    0.029708
+   ],
+   "g2_after_g1_miss": 0.019868,
+   "width": 0.07
+  },
+  {
+   "fpr_budget": "0.02",
+   "frozen": false,
+   "miss": {
+    "G1": 0.385,
+    "G2": 0.882
+   },
+   "both_miss": 0.374,
+   "delta": 0.03443,
+   "delta_95_thresholds_fixed_B500": [
+    0.02648,
+    0.04275
+   ],
+   "g2_after_g1_miss": 0.028571,
+   "width": 0.118
+  },
+  {
+   "fpr_budget": "0.03",
+   "frozen": false,
+   "miss": {
+    "G1": 0.357,
+    "G2": 0.848
+   },
+   "both_miss": 0.344,
+   "delta": 0.041264,
+   "delta_95_thresholds_fixed_B500": [
+    0.032055,
+    0.04949
+   ],
+   "g2_after_g1_miss": 0.036415,
+   "width": 0.152
+  },
+  {
+   "fpr_budget": "0.04",
+   "frozen": false,
+   "miss": {
+    "G1": 0.343,
+    "G2": 0.825
+   },
+   "both_miss": 0.329,
+   "delta": 0.046025,
+   "delta_95_thresholds_fixed_B500": [
+    0.03661,
+    0.055538
+   ],
+   "g2_after_g1_miss": 0.040816,
+   "width": 0.175
+  },
+  {
+   "fpr_budget": "0.05",
+   "frozen": true,
+   "miss": {
+    "G1": 0.337,
+    "G2": 0.787
+   },
+   "both_miss": 0.322,
+   "delta": 0.056781,
+   "delta_95_thresholds_fixed_B500": [
+    0.046223,
+    0.066503
+   ],
+   "g2_after_g1_miss": 0.04451,
+   "width": 0.213
+  },
+  {
+   "fpr_budget": "0.06",
+   "frozen": false,
+   "miss": {
+    "G1": 0.331,
+    "G2": 0.74
+   },
+   "both_miss": 0.314,
+   "delta": 0.06906,
+   "delta_95_thresholds_fixed_B500": [
+    0.058674,
+    0.08039
+   ],
+   "g2_after_g1_miss": 0.05136,
+   "width": 0.26
+  },
+  {
+   "fpr_budget": "0.075",
+   "frozen": false,
+   "miss": {
+    "G1": 0.323,
+    "G2": 0.706
+   },
+   "both_miss": 0.301,
+   "delta": 0.072962,
+   "delta_95_thresholds_fixed_B500": [
+    0.062268,
+    0.08273
+   ],
+   "g2_after_g1_miss": 0.068111,
+   "width": 0.294
+  },
+  {
+   "fpr_budget": "0.10",
+   "frozen": false,
+   "miss": {
+    "G1": 0.305,
+    "G2": 0.662
+   },
+   "both_miss": 0.28,
+   "delta": 0.07809,
+   "delta_95_thresholds_fixed_B500": [
+    0.06663,
+    0.09014
+   ],
+   "g2_after_g1_miss": 0.081967,
+   "width": 0.305
+  }
+ ],
+ "E_not_computable_here": [
+  "cluster sensitivity by Mosscap level: the level column is in freeze/sources/, which is rebuilt from the pinned upstream file and not committed",
+  "near-duplicate sensitivity: prompt texts are not committed; only their sha256 is",
+  "any population beyond the admitted pool, guard pair or benign calibration population"
+ ],
+ "non_claims": [
+  "not a result of E9 and not a replacement for its verdict",
+  "an operating point read off section D is chosen after the rows were seen and is exploratory",
+  "agreement between these analyses and E9 is not independent replication: same rows, same analyst"
+ ],
+ "inputs_sha256": {
+  "contract.json": "43811798ae46e92eb14f933c96e855b625c3507230aac709ba510da4af69835b",
+  "results/scores.json": "9a9d7c2f2f5fde6696e53d09c27fd7b3bd8d5f9b215812a6d4bd745425982d45",
+  "results/analysis.json": "4ea9d46e68ac655f23add5b6ca0b257edefd98c6f79979b0d37bf05543fd07cb"
+ }
+}

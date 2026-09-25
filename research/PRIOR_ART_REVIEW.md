@@ -24,6 +24,23 @@ The repository's E2 path still requires the authorized host and authenticated mo
 
 The immediate operational improvement is to keep Git responsible for repository history and remove concurrent Drive synchronization of this checkout. The next research improvement is to use these identified references when defining the smallest comparative experiment, retaining the frozen historical results and correction dispositions. Nothing in this review licenses retrofitting a new contract onto an already observed experiment.
 
+## Neighbors identified 2026-09-25
+
+A second pass checked five citations another assistant supplied, and searched for neighbors of the guardrail-composition axis. Scope is narrower than the 2026-09-13 review: `arxiv.org` refused direct fetches from this host, so every assertion below rests on search-engine snippets of the abstract and submission record, not on the paper. Treat each as an identified citation with an unverified reading.
+
+| paper | what the snippet supports | consequence for phrasing here |
+|---|---|---|
+| Besanson, *One Gate Is Not Enough* [7] | composition of authority, resource and evidence pre-action gates for agents; remediation by one gate can invalidate another's judgment; the composed plane detects no class that no member detects | "composing AI safety controls" is occupied. It studies control-plane soundness, not the joint miss rate of classifiers on shared items |
+| Ghanem, *Who Audits Whom, on What Substrate, with What Evidence?* [8] | principal, substrate and evidence independence; the beta-factor common-cause model applied to agentic audits; audit grade is the minimum of the three | "common-cause failure for AI agents" is occupied. Any claim that two reviewers here are independent needs all three axes |
+| *The Calibration Turn in AI-Assisted Research* [9] | "evidence-licensed claims"; five operators ending in claim calibration | "evidence-licensed" and "claim calibration" are not distinguishing terms for this repository |
+| *Evidence-Ledger Adjudication for Claim-Evidence Traceability* [10] | auditable support relations from generated claims to evidence packets | "evidence ledger" is not distinguishing |
+| Tiltack et al., *Making AI-Assisted Claims Independently Challengeable* [11] | a machine-readable protocol for falsifiable publication records; laws including authorization freshness and continuing challengeability | the closest neighbor to `claims.yaml` found so far. Freshness windows and challengeable records are in it; a comparison field by field is owed before any governance novelty is stated |
+| Kim et al., *Correlated Errors in Large Language Models* [12]; *Nine Judges, Two Effective Votes* [13]; *State-dependent error correlations shape voting thresholds* [14] | LLMs and LLM judges err together far more than chance; correlation reduces effective panel size and shifts voting thresholds | E9's positive dependence between two classifiers is the expected direction, not a surprise. What E9 adds is a measurement at a frozen operating point on a pool admitted for identification width, reported against the marginal-only set |
+
+One supplied citation did not resolve: a September 2026 *Nature Human Behaviour* argument that Registered Reports suit ML research because review precedes validation outcomes. Two searches found the journal's Registered Report format and 2026 Registered Reports, but not that article. It is not cited here until found.
+
+Nothing in this pass found a paper that derives joint-disclosure requirements for a guardrail stack from what per-guard reporting leaves unidentified, or that measures the stack's joint miss against its marginal-only identified set. That is a statement about these searches, not about the literature: the search remains targeted, not systematic.
+
 ## Search record and limits
 
 Queries included `"Preregistration as Code"`, `"Preregistration as Code" "2021" simulated`, `"repository" "safeguards" "mutation" research 2026`, `research software "23" "mutants" safeguards`, and targeted searches of the RO-Crate specification, GitHub artifact-attestation documentation and FAIR4RS principles. The broader numeric mutation query was noisy; the repository/safeguard query identified the exact August preprint. Primary sources were then opened to confirm the relevant assertions. No Google Drive connector was needed.
@@ -38,3 +55,11 @@ This is targeted source verification and comparative analysis, not an empirical 
 4. RO-Crate community, [RO-Crate Structure, version 1.2](https://www.researchobject.org/ro-crate/specification/1.2/structure). Specification.
 5. GitHub, [Artifact attestations](https://docs.github.com/en/actions/concepts/security/artifact-attestations). Official documentation, accessed 13 September 2026.
 6. Research Software Alliance (August 2022), [FAIR for Research Software (FAIR4RS): A summary](https://www.researchsoft.org/blog/2022-08/), reproducing the 2022 FAIR4RS principles and linking their DOI.
+7. Gaston Besanson (18 August 2026), [One Gate Is Not Enough: Composing Stateful Pre-Action Controls for Agentic AI](https://arxiv.org/abs/2608.18360). Search snippet of abstract only.
+8. Mohamed Chahine Ghanem (September 2026), [Who Audits Whom, on What Substrate, with What Evidence? An Independence-Graded Audit Protocol for Agentic AI](https://arxiv.org/abs/2609.18272). Search snippet of abstract only.
+9. [The Calibration Turn in AI-Assisted Research: A Conceptual and Methodological Framework for Evidence-Licensed Claims](https://arxiv.org/abs/2606.31273) (June 2026). Search snippet only.
+10. [Evidence-Ledger Adjudication for Claim-Evidence Traceability](https://arxiv.org/abs/2607.26512) (July 2026). Search snippet only.
+11. Torsten Olivi Tiltack et al. (15 September 2026), [Making AI-Assisted Claims Independently Challengeable: Publication Authority and a Protocol for Falsifiable Publication Records](https://arxiv.org/abs/2609.17631). Search snippet only.
+12. Kim, Garg, Peng and Garg (ICML 2025), [Correlated Errors in Large Language Models](https://arxiv.org/abs/2506.07962).
+13. [Nine Judges, Two Effective Votes: Correlated Errors Undermine LLM Evaluation Panels](https://arxiv.org/abs/2605.29800) (May 2026). Title and listing only.
+14. [State-dependent error correlations shape voting thresholds in committees of AI agents](https://arxiv.org/abs/2607.23931) (July 2026). Title and listing only.

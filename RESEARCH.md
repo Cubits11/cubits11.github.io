@@ -88,6 +88,15 @@ beyond 0.05. The interval does not include calibration uncertainty. One pool
 was chosen for having intermediate marginals. Full scope and threats:
 [`experiments/e9/RESULT.md`](experiments/e9/RESULT.md).
 
+An exploratory reanalysis, run after the outcome was read and changing nothing
+above ([`research/exploratory/e9_robustness.json`](research/exploratory/e9_robustness.json)),
+tests two of those limits and adds one quantity. Re-selecting both thresholds on resampled
+calibration sets widens the interval to [+0.0388, +0.0764]; the discrepancy
+is positive in every replicate and reaches 0.05 in 1,492 of 2,000. At false-positive
+budgets of 0.01, 0.02, 0.03 and 0.04 it stays positive and falls below 0.05, so the
+sign is stable across operating points and the size is not. The decision-facing
+number is residual coverage: of the 337 items G1 misses, G2 catches 15.
+
 ## 4. Claims as executable objects
 
 Every public claim is a registry entry with a support binding, a falsifier and

@@ -94,6 +94,21 @@ class ResearchSynthesis(unittest.TestCase):
         self.assertQuoted(f"{words[clears]} of {words[len(admitted)]} pools cleared the floor", "E9 admission")
         self.assertEqual(chosen, 1)
 
+    def test_e9_exploratory_reanalysis(self):
+        d = json.loads((ROOT / "research/exploratory/e9_robustness.json").read_text(encoding="utf-8"))
+        self.assertTrue(d["status"].startswith("EXPLORATORY"))
+        c = d["C_nested_recalibration_bootstrap"]
+        lo, hi = c["delta_95"]
+        self.assertQuoted(f"[{lo:+.4f}, {hi:+.4f}]", "nested recalibration interval")
+        self.assertEqual(c["share_delta_positive"], 1.0)
+        n_sesoi = round(c["share_delta_at_or_above_sesoi"] * c["replicates"])
+        self.assertQuoted(f"reaches 0.05 in {n_sesoi:,} of {c['replicates']:,}", "replicates at the SESOI")
+        below = [r["fpr_budget"] for r in d["D_operating_point_surface"] if r["delta"] < 0.05]
+        self.assertTrue(all(r["delta"] > 0 for r in d["D_operating_point_surface"]))
+        self.assertQuoted(f"budgets of {', '.join(below[:-1])} and {below[-1]}", "budgets below the SESOI")
+        rc = d["A_table_and_residual_coverage"]["residual_coverage"]["g2_catches_after_g1_misses"]
+        self.assertQuoted(f"of the {rc['n']} items G1 misses, G2 catches {rc['k']}", "residual coverage")
+
     def test_no_unbound_percentages(self):
         """Every percentage in the text is one of the figures asserted above."""
         level = load("experiments/e9/freeze/freeze.json")["bootstrap"]["interval"]
