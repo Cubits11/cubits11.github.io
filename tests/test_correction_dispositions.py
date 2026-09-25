@@ -35,6 +35,10 @@ class Corrections(unittest.TestCase):
             # E6 was rejected on a premise its falsifier never tested, so its REJECT
             # consequence matching its REJECT disposition is a coincidence, not a derivation.
             view=history.transition_view(doc,last['digest'])
+            # A formal correction record states a disposition; the transition it records must
+            # also say, as a stored assessment, whether the predecessor falsifier fired.
+            self.assertIn(view['falsifier_assessment']['effective'],('FIRED','NOT_FIRED','UNDETERMINED'),
+                          f"{c['id']}: correction transition {last['digest'][:12]} has no stored falsifier assessment")
             if view['falsifier_assessment']['effective']=='FIRED':
                 self.assertEqual(row['disposition'],view['predecessor_falsifier_consequence'])
     def test_audit_demonstrates_both_failures(self):
