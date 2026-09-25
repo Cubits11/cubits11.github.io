@@ -63,6 +63,7 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("preregistration-conformance fixtures and mutants", "scripts/verify_prereg.py", "--test"),
     ("executable contract counterexamples and valid controls", "tests/test_contracts.py"),
     ("E8 runner consumes the contract it is given", "tests/test_e8_runner.py"),
+    ("research synthesis quotes its sources", "tests/test_research_synthesis.py"),
     ("frozen evidence preservation", "scripts/evidence_guard.py", "--local"),
     ("epistemic tampering and recovery fixtures", "tests/test_epistemic_security.py"),
     ("E3 and E3B re-asserted from committed rows", "scripts/verify_e3.py"),

@@ -69,6 +69,12 @@ prints it from the tuple.
   `verify_prereg.py` remains the legacy sidecar scan and historical fixture
   corpus; its static reference check does not prove runtime consumption.
   Frozen experiments remain untouched and undeclared rather than retrofitted.
+- **A preregistration never becomes a result, and `freeze/` never stores
+  outcomes.** From E10: `freeze/` is byte-immutable after the freeze commit;
+  admission, measurement and analysis outputs go under `results/`; `PREREG.md`
+  renders frozen sources only; `RESULT.md` renders results. E9 predates this:
+  `admit.py` appended its record to `freeze/protocol.json`, and E9's
+  `RESULT.md` says so rather than the history being rewritten.
 - **The cadence series only appends.** `metrics/repo_state.jsonl` is a hash
   chain of daily repository state; an edited, reordered, dropped or truncated
   row fails `scripts/cadence.py check`. CI enforces the chain and never the

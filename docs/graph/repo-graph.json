@@ -2368,6 +2368,13 @@
   },
   {
    "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "tests/test_research_synthesis.py"
+  },
+  {
+   "basis": "STATIC_REF",
    "from": "scripts/verify_census.py",
    "inferred": true,
    "rel": "reads",
@@ -4044,6 +4051,15 @@
    "to": "tests/test_e8_runner.py"
   },
   {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "research synthesis quotes its sources",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_research_synthesis.py"
+  },
+  {
    "args": [
     "--local"
    ],
@@ -5046,10 +5062,10 @@
  "findings": [
   {
    "detector": "D2",
-   "generator": "scripts/generate_conformance_record.py",
+   "generator": "scripts/generate_sitemap.py",
    "severity": "FIX",
    "tail": [
-    "Run: python3 scripts/generate_conformance_record.py"
+    "Run: python scripts/generate_sitemap.py"
    ]
   },
   {
@@ -5091,7 +5107,7 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 7,
+   "ahead": 9,
    "behind": 0,
    "branch": "claude/e9-result",
    "detector": "D4",
@@ -5281,7 +5297,7 @@
  ],
  "generated_from": {
   "branch": "claude/e9-result",
-  "head": "f3ffb95"
+  "head": "41e2b2f"
  },
  "nodes": [
   {
@@ -5852,7 +5868,7 @@
    "type": "script"
   },
   {
-   "checks": 83,
+   "checks": 84,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
@@ -6144,9 +6160,9 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 7,
+   "ahead_of_origin_main": 9,
    "behind_origin_main": 0,
-   "head": "f3ffb95",
+   "head": "41e2b2f",
    "id": "claude/e9-result",
    "last_commit": "2026-09-25",
    "reachable_from_origin_main": false,
@@ -6405,5 +6421,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "b53d5f753d59757cd3dccd5c225299115f3d900c9e845f29b578b9fa904096b3"
+ "stable_digest": "9e1494a325de8d63d30905dc6f4fdaeff03c7a6ccc235256db9b8935457edf0d"
 }
