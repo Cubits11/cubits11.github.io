@@ -5061,14 +5061,6 @@
  },
  "findings": [
   {
-   "detector": "D2",
-   "generator": "scripts/generate_sitemap.py",
-   "severity": "FIX",
-   "tail": [
-    "Run: python scripts/generate_sitemap.py"
-   ]
-  },
-  {
    "claim": "REL-001",
    "days_left": -2,
    "detector": "D3",
@@ -5107,7 +5099,7 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 9,
+   "ahead": 12,
    "behind": 0,
    "branch": "claude/e9-result",
    "detector": "D4",
@@ -5124,6 +5116,13 @@
    "ahead": 8,
    "behind": 0,
    "branch": "claude/wonderful-volta-eohfbq",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 11,
+   "behind": 0,
+   "branch": "origin/claude/e9-result",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -5297,7 +5296,7 @@
  ],
  "generated_from": {
   "branch": "claude/e9-result",
-  "head": "41e2b2f"
+  "head": "b784333"
  },
  "nodes": [
   {
@@ -6160,9 +6159,9 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 9,
+   "ahead_of_origin_main": 12,
    "behind_origin_main": 0,
-   "head": "41e2b2f",
+   "head": "b784333",
    "id": "claude/e9-result",
    "last_commit": "2026-09-25",
    "reachable_from_origin_main": false,
@@ -6193,6 +6192,15 @@
    "id": "main",
    "last_commit": "2026-09-18",
    "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 11,
+   "behind_origin_main": 0,
+   "head": "cd10ef7",
+   "id": "origin/claude/e9-result",
+   "last_commit": "2026-09-25",
+   "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
