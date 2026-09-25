@@ -232,6 +232,58 @@ def check_missing_column() -> None:
            "both worlds, and the missing cell holds no number")
 
 
+def check_homepage_sequence() -> None:
+    """The homepage's own motif cell stays numberless, and each entrance world
+    that links into Fig. 02 is the frame it links to.
+
+    The entrance worlds are 100-item constructions in which A and B each miss
+    ten; that is Fig. 02's pinned 10% marginals. A world stating N misses
+    together is therefore the Fig. 02 world q = N%. The link may only claim the
+    endpoint witnesses, and must name which one it is."""
+    html = (ROOT / "index.html").read_text()
+    before = len(failures)
+
+    cells = re.findall(r'<td class="mc-missing">(.*?)</td>', html, re.S)
+    if len(cells) != 1:
+        fail(f"homepage: expected one missing motif cell, found {len(cells)}")
+    elif re.search(r"\d", re.sub(r"<[^>]+>", "", cells[0])):
+        fail("homepage: the motif's missing cell contains a number — "
+             "the whole point is that it must not")
+
+    frames = {int(q) for q in re.findall(r'<g class="hf hf(\d+)">', html)}
+    names = {0: "the lower endpoint witness", 10: "the upper endpoint witness"}
+    figures = re.findall(r'<figure><svg viewBox="0 0 222 222".*?</figure>', html, re.S)
+    bound = []
+    for fig in figures:
+        link = re.search(r'<a class="world-bind" href="#world-q(\d+)" data-q="(\d+)">(.*?)</a>',
+                         fig, re.S)
+        if not link:
+            continue
+        href_q, data_q, text = int(link.group(1)), int(link.group(2)), link.group(3)
+        together = re.search(r"<strong>(\d+) together</strong>A misses 10\. B misses 10\.", fig)
+        title = re.search(r"<title[^>]*>Constructed 100-item world: A misses ten, B misses ten, "
+                          r"both miss (\d+)\.</title>", fig)
+        if href_q != data_q:
+            fail(f"homepage: entrance link targets q={href_q} but sets q={data_q}")
+        if not together or not title or int(together.group(1)) != data_q \
+                or int(title.group(1)) != data_q:
+            fail(f"homepage: entrance world linked to q={data_q}% does not state "
+                 f"{data_q} of 100 together with 10-and-10 marginals")
+        if data_q not in names or names[data_q] not in text or f"q = {data_q}%" not in text:
+            fail(f"homepage: entrance link to q={data_q}% is not a named endpoint witness")
+        if data_q not in frames:
+            fail(f"homepage: entrance link to q={data_q}% has no Fig. 02 frame")
+        if f'<span class="world-target" id="world-q{data_q}"></span>' not in html:
+            fail(f"homepage: entrance link to q={data_q}% has no target in Fig. 02")
+        bound.append(data_q)
+    if sorted(bound) != [0, 10]:
+        fail(f"homepage: expected entrance links to both endpoint witnesses, found {bound}")
+
+    if len(failures) == before:
+        ok("homepage: the motif's missing cell holds no number, and both entrance "
+           "worlds link to the Fig. 02 witness they draw")
+
+
 def check_disclosure_ladder() -> None:
     path = ROOT / "missing-column" / "disclosure" / "index.html"
     if not path.exists():
@@ -446,6 +498,7 @@ def main() -> int:
     check_fig02()
     check_essay_numberline()
     check_missing_column()
+    check_homepage_sequence()
     check_disclosure_ladder()
     check_bells_exclusive_comiss_grid()
     print()
