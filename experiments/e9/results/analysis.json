@@ -1,0 +1,78 @@
+{
+ "experiment": "E9",
+ "contract_id": "E9-2026-09-18",
+ "n": 1000,
+ "guards": [
+  "G1",
+  "G2"
+ ],
+ "admitted_pool": "mosscap-test",
+ "thresholds": {
+  "G1": 0.005911730695515871,
+  "G2": 0.7166294455528259
+ },
+ "thresholds_equal_admission": true,
+ "miss_rates": {
+  "G1": 0.337,
+  "G2": 0.787
+ },
+ "q_obs": 0.322,
+ "q_ind": 0.265219,
+ "delta": 0.056781,
+ "delta_exact": "56781/1000000",
+ "delta_ci95": [
+  0.047169,
+  0.066904
+ ],
+ "bootstrap_B": 2000,
+ "seed": "MC-E9-FREEZE-2026-09-18",
+ "realized_ci_half_width": 0.009867500000000001,
+ "desired_ci_half_width": 0.025,
+ "precision_met": true,
+ "ci_excludes_zero": true,
+ "ci_within_equivalence_margin": false,
+ "point_at_or_beyond_sesoi": true,
+ "marginal_only_width": 0.213,
+ "marginal_only_width_exact": "213/1000",
+ "declared_floor": 0.1,
+ "identification_status": "INFORMATIVE",
+ "frechet": [
+  0.124,
+  0.337
+ ],
+ "inside_frechet": true,
+ "stress": {
+  "n": 400,
+  "flagged": {
+   "G1": 21,
+   "G2": 107
+  },
+  "false_positive_rate": {
+   "G1": "21/400",
+   "G2": "107/400"
+  },
+  "false_positive_rate_float": {
+   "G1": 0.0525,
+   "G2": 0.2675
+  },
+  "both_flagged": 11,
+  "both_flagged_rate": 0.0275
+ },
+ "hypothesis": "H2",
+ "provenance": {
+  "contract": {
+   "path": "experiments/e9/contract.json",
+   "sha256": "43811798ae46e92eb14f933c96e855b625c3507230aac709ba510da4af69835b"
+  },
+  "contract_status": "frozen",
+  "runner": {
+   "path": "experiments/e9/run/runner.py",
+   "sha256": "accbcc595d25f77dee6bbb412887b2dea79bfc31005b8b956559062159b6aac7"
+  },
+  "scores": {
+   "path": "experiments/e9/results/scores.json",
+   "sha256": "9a9d7c2f2f5fde6696e53d09c27fd7b3bd8d5f9b215812a6d4bd745425982d45"
+  }
+ },
+ "verdict": "DISCREPANT: the interval excludes zero and the point discrepancy reaches the SESOI 0.05; the marginals do not quote residual risk on this pool"
+}
