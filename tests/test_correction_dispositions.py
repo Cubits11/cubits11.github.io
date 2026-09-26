@@ -5,6 +5,7 @@ import yaml
 ROOT=Path(__file__).resolve().parent.parent
 sys.path.insert(0,str(ROOT/'scripts'))
 import distribute
+import claims_history as history
 
 class Corrections(unittest.TestCase):
     def test_frozen_bytes_are_unchanged(self):
@@ -30,6 +31,20 @@ class Corrections(unittest.TestCase):
             self.assertEqual(c['falsifier']['consequence'],'REJECT')
             last=[e for e in hist if e.get('claim_id')==c['id']][-1]
             self.assertEqual(last['transition_type'],'CORRECT')
+    def test_disposition_follows_falsifier_only_when_it_fired(self):
+        # A disposition must equal the predecessor falsifier's consequence only when an assessment says that
+        # falsifier FIRED; NOT_FIRED asserts no relation. A governed correction with no assessment fails, except
+        # these two, whose transcription is the owner's decision (Drive 10, D4); remove each when it is recorded.
+        pending={'E6-001','E7B-001'}
+        hist=yaml.safe_load((ROOT/'claims_history.yaml').read_text())
+        known=history.commitments_by_digest(hist)
+        for row in json.loads((ROOT/'corrections/records/2026-09-10.json').read_text())['records']:
+            t=[e for e in hist['entries'] if e.get('claim_id')==row['claim_id']][-1]
+            pred=history.predecessor_commitment(t,known)
+            self.assertIsNotNone(pred,row['claim_id'])
+            rel=history.falsifier_relation(hist,t,pred)
+            if rel=='FIRED':self.assertEqual(row['disposition'],pred['falsifier']['consequence'],row['claim_id'])
+            elif rel=='UNASSESSED':self.assertIn(row['claim_id'],pending,'a governed correction needs a falsifier assessment')
     def test_audit_demonstrates_both_failures(self):
         audit=json.loads((ROOT/'distribution/research-2026-09-10/audit-results.json').read_text())
         self.assertNotEqual(audit['e6']['counterexample_resulting_weights'],audit['e6']['specified_weights'])

@@ -30,6 +30,17 @@ are not an exact prefix of the current ones; a MACHINE_CHECKED direction is
 claimed where no structured proof rule applies or where the structured domain
 moves the other way; or dates, enums or provenance classes are incoherent.
 
+A FALSIFIER ASSESSMENT is the third entry kind. It records whether the
+falsifier of the commitment a transition left had fired — FIRED, NOT_FIRED or
+UNDETERMINED — and names that transition by its entry digest. It moves no
+claim state. Its key set is closed (V5); it may target only an earlier
+transition (V1) whose predecessor commitment carries a falsifier (V2); its
+value is one of the three stored values (V3); it is recorded no earlier than
+the genesis or its subject (V4). A later assessment of the same transition
+takes effect by chain order; the earlier one stays visible. NOT_APPLICABLE
+(the predecessor has no falsifier) and UNASSESSED (a falsifier, no assessment)
+are derived and never stored: absence of an assessment is not an assessment.
+
 What this does NOT do: infer English entailment (NARROW versus EXPAND on prose
 is a declared classification, and the verifier proves only that a
 classification exists); prove that history was protected before genesis; or
@@ -76,6 +87,10 @@ CANONICALIZATION = ("commitment = {field: parsed value for field in (proposition
 TRANSITION_TYPES = {"CLARIFY", "NARROW", "CORRECT", "RETRACT", "SUPERSEDE", "EXPAND"}
 PROVENANCE = {"CONTEMPORANEOUS", "RETROSPECTIVE_RECONSTRUCTION"}
 BASES = {"MACHINE_CHECKED", "DECLARED_HUMAN_JUDGMENT", "NOT_MACHINE_DECIDABLE"}
+ASSESSMENT = "falsifier_assessment"
+ASSESSMENT_KEYS = frozenset({"kind", "subject_transition_digest", "falsifier_assessment", "recorded_at",
+                             "evidence_refs", "reason", "previous_transition_digest", "digest"})
+ASSESSMENT_VALUES = ("FIRED", "NOT_FIRED", "UNDETERMINED")  # NOT_APPLICABLE and UNASSESSED are derived, never stored
 DATED_RECORDS = ("census.yaml", "corrections/index.html", "DESIGN.md", "notes")
 HEX64 = set("0123456789abcdef")
 
@@ -229,6 +244,46 @@ def machine_check(kind: str, before: dict | None, after: dict | None) -> str | N
     return None
 
 
+# ------------------------------------------------------------------ falsifier assessments
+def commitments_by_digest(hist: dict) -> dict[str, dict]:
+    """Commitment content the file itself carries: genesis states, registrations, contemporaneous to_commitments."""
+    out = {s["digest"]: s["commitment"] for s in (hist.get("genesis") or {}).get("states") or []}
+    for e in hist.get("entries") or []:
+        if e.get("kind") == "registration":
+            out[e.get("digest_of_commitment")] = e.get("commitment")
+        elif e.get("kind") == "transition" and e.get("to_commitment") is not None:
+            out[e.get("to_digest")] = e.get("to_commitment")
+    return out
+
+
+def predecessor_commitment(transition: dict, known: dict[str, dict], use_git: bool = True) -> dict | None:
+    """The commitment a transition left: from the file, or for a retrospective entry from git.
+
+    None when it cannot be resolved; GitUnavailable propagates so the caller can report exit 2."""
+    frm = transition.get("from_digest")
+    if frm in known:
+        return known[frm]
+    if use_git and transition.get("provenance_class") == "RETROSPECTIVE_RECONSTRUCTION":
+        sha = next((r[4:] for r in transition.get("evidence_refs") or [] if r.startswith("git:")), None)
+        st = (claims_at(f"{sha}^1") or {}).get(transition.get("claim_id")) if sha else None
+        if st and st["digest"] == frm:
+            return st["commitment"]
+    return None
+
+
+def effective_assessments(hist: dict) -> dict[str, str]:
+    """Subject transition digest -> the stored value of its last assessment in chain order."""
+    return {e["subject_transition_digest"]: e["falsifier_assessment"]
+            for e in hist.get("entries") or [] if e.get("kind") == ASSESSMENT}
+
+
+def falsifier_relation(hist: dict, transition: dict, predecessor: dict) -> str:
+    """FIRED / NOT_FIRED / UNDETERMINED as stored; NOT_APPLICABLE and UNASSESSED as derived."""
+    if predecessor.get("falsifier") is None:
+        return "NOT_APPLICABLE"
+    return effective_assessments(hist).get(transition.get("digest"), "UNASSESSED")
+
+
 # ------------------------------------------------------------------ verify
 class Report:
     def __init__(self) -> None:
@@ -307,8 +362,10 @@ def verify(claims_doc: dict, hist: dict, prior: dict | None, *, prior_ref: str |
     prev = g["digest"]
     state = {s["claim_id"]: s["digest"] for s in states}
     content = {s["claim_id"]: s["commitment"] for s in states}
+    known = {s["digest"]: s["commitment"] for s in states}  # commitment content the file carries, by digest
+    by_digest: dict[str, dict] = {}  # earlier entries only: what an assessment may target
     retro_by_claim: dict[str, list[dict]] = {}
-    n_contemp = n_retro = 0
+    n_contemp = n_retro = n_assess = 0
     for i, e in enumerate(entries):
         where = f"entries[{i}]"
         kind = e.get("kind")
@@ -326,6 +383,39 @@ def verify(claims_doc: dict, hist: dict, prior: dict | None, *, prior_ref: str |
         refs = e.get("evidence_refs")
         if not isinstance(refs, list) or not refs or not all(isinstance(r, str) and r for r in refs):
             R.fail(f"{where}: evidence_refs must be a non-empty list of locators")
+        if kind == ASSESSMENT:
+            n_assess += 1
+            keys = set(e)
+            if keys != ASSESSMENT_KEYS:
+                R.fail(f"{where}: a falsifier assessment carries exactly {sorted(ASSESSMENT_KEYS)} "
+                       f"(extra {sorted(keys - ASSESSMENT_KEYS)}, missing {sorted(ASSESSMENT_KEYS - keys)}) (V5)")
+            if e.get("falsifier_assessment") not in ASSESSMENT_VALUES:
+                R.fail(f"{where}: falsifier_assessment {e.get('falsifier_assessment')!r} is not one of "
+                       f"{list(ASSESSMENT_VALUES)}; NOT_APPLICABLE and UNASSESSED are derived, never stored (V3)")
+            target = by_digest.get(e.get("subject_transition_digest"))
+            if target is None:
+                R.fail(f"{where}: subject_transition_digest names no earlier entry (V1)")
+            elif target.get("kind") != "transition":
+                R.fail(f"{where}: a falsifier assessment targets a transition, not a {target.get('kind')} (V1)")
+            else:
+                subject_rec = parse_date(target.get("recorded_at"))
+                if rec and ((g_date and rec < g_date) or (subject_rec and rec < subject_rec)):
+                    R.fail(f"{where}: an assessment cannot be recorded before the genesis or its subject transition (V4)")
+                try:
+                    pred = predecessor_commitment(target, known, use_git)
+                except GitUnavailable as exc:
+                    R.unknown(f"{where}: git history unavailable — the subject's predecessor falsifier not evaluated ({exc})")
+                else:
+                    if pred is None and not use_git and target.get("provenance_class") == "RETROSPECTIVE_RECONSTRUCTION":
+                        R.unknown(f"{where}: the subject's predecessor is recorded only in git, which this verification did not consult")
+                    elif pred is None:
+                        R.fail(f"{where}: the commitment the subject transition left cannot be resolved (V2)")
+                    elif pred.get("falsifier") is None:
+                        R.fail(f"{where}: the subject's predecessor has no falsifier — the relation is NOT_APPLICABLE, "
+                               f"derived, and storing an assessment of it is an error (V2)")
+            by_digest[e.get("digest")] = e
+            continue
+        by_digest[e.get("digest")] = e
         if kind == "registration":
             if e.get("provenance_class") != "CONTEMPORANEOUS":
                 R.fail(f"{where}: a registration is recorded when the claim enters — CONTEMPORANEOUS only")
@@ -335,10 +425,11 @@ def verify(claims_doc: dict, hist: dict, prior: dict | None, *, prior_ref: str |
                 R.fail(f"{where}: registration digest does not match its commitment content")
             state[cid] = e.get("digest_of_commitment")
             content[cid] = e.get("commitment")
+            known[e.get("digest_of_commitment")] = e.get("commitment")
             n_contemp += 1
             continue
         if kind != "transition":
-            R.fail(f"{where}: kind must be transition or registration")
+            R.fail(f"{where}: kind must be transition, registration or {ASSESSMENT}")
             continue
         ttype, prov, basis = e.get("transition_type"), e.get("provenance_class"), e.get("direction_basis")
         if ttype not in TRANSITION_TYPES:
@@ -392,6 +483,7 @@ def verify(claims_doc: dict, hist: dict, prior: dict | None, *, prior_ref: str |
                 R.fail(f"{where}: to_commitment carries a non-commitment field")
             state[cid] = to
             content[cid] = after
+            known[to] = after
         if basis == "MACHINE_CHECKED":
             why = machine_check(ttype, before, after)
             if why:
@@ -401,7 +493,7 @@ def verify(claims_doc: dict, hist: dict, prior: dict | None, *, prior_ref: str |
     if R.failures:
         return R
     R.ok(f"chain: {len(entries)} entries link from genesis {g['digest'][:12]} to tip {prev[:12]} "
-         f"({n_contemp} contemporaneous, {n_retro} retrospective)")
+         f"({n_contemp} contemporaneous, {n_retro} retrospective, {n_assess} falsifier assessments)")
 
     # ---- live state equals the predicted tip state
     for cid, st in live.items():
@@ -712,10 +804,13 @@ def run_mutants() -> int:
         prior = copy.deepcopy(hist)  # the mutants must run against an accepted history; before the first commit the candidate is its own prior
     results: list[tuple[str, bool, str]] = []
 
-    def run(name: str, claims_m: dict, hist_m: dict, expect_pass: bool, prior_m=prior, note: str = "") -> None:
+    def run(name: str, claims_m: dict, hist_m: dict, expect_pass: bool, prior_m=prior, note: str = "",
+            expect: str | None = None) -> None:
         R = verify(claims_m, hist_m, prior_m, prior_ref=ref, today=today)
         passed = R.exit_code() == 0
-        results.append((name, passed == expect_pass, (R.failures[0] if R.failures else "verified") + (" · " + note if note else "")))
+        # a mutant with `expect` must fail for that reason, not for an incidental one
+        behaved = passed == expect_pass and (expect is None or any(expect in f for f in R.failures))
+        results.append((name, behaved, (R.failures[0] if R.failures else "verified") + (" · " + note if note else "")))
 
     def fresh():
         return copy.deepcopy(claims_doc), copy.deepcopy(hist)
@@ -819,6 +914,73 @@ def run_mutants() -> int:
     run("M11b declared NARROW MACHINE_CHECKED, interval shrinks", c, h, True)
     c, h = fresh(); cl = claim(c, "CC-001"); cl["proposition"] += " (prose only)"; append(h, "CC-001", commitment(cl), ttype="NARROW", basis="MACHINE_CHECKED")
     run("M11c prose-only NARROW claims MACHINE_CHECKED", c, h, False, note="no structured rule applies")
+    # F falsifier assessments (Drive 09 V1-V5; the nine mandatory mutants, then the pair that earned the kind)
+    def assess(hist_m: dict, subject: str, value: str = "UNDETERMINED", **extra) -> dict:
+        e = {"kind": ASSESSMENT, "subject_transition_digest": subject, "falsifier_assessment": value,
+             "recorded_at": today.isoformat(), "evidence_refs": ["test:mutant"], "reason": "mutant",
+             "previous_transition_digest": tip_digest(hist_m), **extra}
+        e["digest"] = entry_digest(e)
+        hist_m.setdefault("entries", []).append(e)
+        return e
+
+    def relink(hist_m: dict, start: int) -> None:  # re-mint links after an in-place edit so only the targeted rule can fail
+        prev = hist_m["entries"][start - 1]["digest"] if start else hist_m["genesis"]["digest"]
+        for e in hist_m["entries"][start:]:
+            e["previous_transition_digest"] = prev; e["digest"] = entry_digest(e); prev = e["digest"]
+
+    def entry_of(hist_m: dict, cid: str, ttype: str) -> dict:
+        return [e for e in hist_m["entries"] if e.get("claim_id") == cid and e.get("transition_type") == ttype][-1]
+
+    registration = next(e for e in hist["entries"] if e.get("kind") == "registration")
+    e6, e7b = entry_of(hist, "E6-001", "CORRECT"), entry_of(hist, "E7B-001", "CORRECT")
+    gce = entry_of(hist, "GCE-001", "CLARIFY")
+    c, h = fresh(); assess(h, registration["digest"])
+    run("F1 assessment targets a registration", c, h, False, expect="(V1)")
+    c, h = fresh(); assess(h, "0" * 64)
+    run("F2 assessment targets a digest no entry carries", c, h, False, expect="(V1)")
+    c, h = fresh(); a = assess(h, "0" * 64); cl = claim(c, "CC-001"); cl["non_claims"].append("forward"); later = append(h, "CC-001", commitment(cl), ttype="NARROW")
+    a["subject_transition_digest"] = later["digest"]; a["digest"] = entry_digest(a)
+    run("F3 assessment targets a later entry", c, h, False, expect="(V1)",
+        note="a true forward reference cannot also link: the later entry's digest depends on this one")
+    c, h = fresh(); assess(h, e7b["digest"], "NOT_APPLICABLE")
+    run("F4 derived value NOT_APPLICABLE stored", c, h, False, expect="(V3)")
+    c, h = fresh(); assess(h, gce["digest"], "FIRED")
+    run("F5 assessment of GCE-001 entries[16], whose predecessor falsifier is null", c, h, False, expect="(V2)")
+    c, h = fresh(); assess(h, e7b["digest"], "FIRED", claim_id="E7B-001")
+    run("F6 extra key claim_id", c, h, False, expect="(V5)")
+    c, h = fresh(); assess(h, e7b["digest"], "FIRED"); accepted = copy.deepcopy(h)
+    h["entries"][-1]["falsifier_assessment"] = "NOT_FIRED"; relink(h, len(h["entries"]) - 1)
+    run("F7 an accepted assessment edited", c, h, False, prior_m=accepted, expect="append-only")
+    c, h = fresh(); first = assess(h, e7b["digest"], "FIRED"); assess(h, first["digest"], "FIRED")
+    run("F8 assessment targets another assessment", c, h, False, expect="(V1)")
+    c, h = fresh(); assess(h, e7b["digest"], "FIRED"); assess(h, e7b["digest"], "UNDETERMINED")
+    run("F9 second assessment of the same subject", c, h, True)
+    results.append(("F9b the later assessment is effective", effective_assessments(h).get(e7b["digest"]) == "UNDETERMINED",
+                    f"effective={effective_assessments(h).get(e7b['digest'])}"))
+    c, h = fresh(); assess(h, e7b["digest"], "FIRED", recorded_at="2026-09-09")
+    run("F10 assessment recorded before its subject transition", c, h, False, expect="(V4)")
+    c, h = fresh(); a = assess(h, e7b["digest"], "FIRED"); del a["reason"]; a["digest"] = entry_digest(a)
+    run("F11 assessment missing a closed key", c, h, False, expect="(V5)")
+    c, h = fresh(); assess(h, entry_of(hist, "MC-003", "CORRECT")["digest"])  # retrospective subject: predecessor lives in git
+    R = verify(c, h, prior, prior_ref=ref, today=today, use_git=False)
+    results.append(("F14 retrospective subject with git not consulted is undetermined (exit 2), never a finding",
+                    R.exit_code() == 2 and not R.failures, (R.failures or R.unknowns or ["verified"])[0]))
+    # The pair that earned the kind: identical transition signatures, falsifier relation unresolvable without it.
+    known = commitments_by_digest(hist)
+    p6, p7 = predecessor_commitment(e6, known), predecessor_commitment(e7b, known)
+    sig = lambda e, p: (e["transition_type"], e["direction_basis"], (p.get("falsifier") or {}).get("consequence"))
+    same = sig(e6, p6) == sig(e7b, p7)
+    before = (falsifier_relation(hist, e6, p6), falsifier_relation(hist, e7b, p7))
+    results.append(("F12 E6-001 entries[48] and E7B-001 entries[49]: same signature, both UNASSESSED in the committed history",
+                    same and before == ("UNASSESSED", "UNASSESSED"), f"signature equal={same}, relations={before}"))
+    both = True
+    for v6, v7 in (("NOT_FIRED", "FIRED"), ("FIRED", "NOT_FIRED")):  # either assignment; the kernel distinguishes, it does not choose
+        c, h = fresh(); assess(h, e6["digest"], v6); assess(h, e7b["digest"], v7)
+        R = verify(c, h, prior, prior_ref=ref, today=today)
+        got = (falsifier_relation(h, e6, p6), falsifier_relation(h, e7b, p7))
+        both &= R.exit_code() == 0 and got == (v6, v7) and predicted_state(h) == predicted_state(hist)
+    results.append(("F13 one assessment each makes the pair distinguishable and moves no claim state", both,
+                    "both assignments verify; predicted states unchanged"))
     # control: the committed state verifies
     run("M0 committed state", copy.deepcopy(claims_doc), copy.deepcopy(hist), True)
 
