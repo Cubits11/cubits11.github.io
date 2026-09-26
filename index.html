@@ -684,6 +684,8 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
         <a class="btn" href="/resume/">Résumé</a>
         <a class="btn" href="https://github.com/Cubits11">GitHub ↗</a>
         <a class="btn" href="https://www.linkedin.com/in/pranav-bhave-2a328721a/">LinkedIn ↗</a>
+        <a class="btn" href="https://orcid.org/0009-0001-9175-462X">ORCID ↗</a>
+        <a class="btn" href="https://x.com/PranavBhave_">X ↗</a>
       </div>
       <span id="copyStatus" class="sr-only" role="status" aria-live="polite"></span>
     </div>
@@ -861,11 +863,12 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
   "@type": "ProfilePage",
   "@id": "https://cubits11.github.io/#profilepage",
   "isPartOf": { "@id": "https://cubits11.github.io/#website" },
-  "dateModified": "2026-09-07",
+  "dateModified": "2026-09-26",
   "mainEntity": {
     "@type": "Person",
     "@id": "https://cubits11.github.io/#person",
     "name": "Pranav Bhave",
+    "alternateName": "Cubits11",
     "url": "https://cubits11.github.io/",
     "image": "https://cubits11.github.io/assets/img/portrait-960.jpg",
     "jobTitle": "AI Assurance Researcher & Engineer",
@@ -876,14 +879,41 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
       "Partial identification",
       "Fr\u00e9chet\u2013Hoeffding bounds",
       "AI evaluation methodology",
-      "Claim registries and falsifiability"
+      "Claim registries and falsifiability",
+      "Provenance limits of AI-governance receipts"
     ],
     "sameAs": [
       "https://github.com/Cubits11",
+      "https://orcid.org/0009-0001-9175-462X",
       "https://www.linkedin.com/in/pranav-bhave-2a328721a/",
       "https://x.com/PranavBhave_"
     ]
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "@id": "https://cubits11.github.io/#cc-framework",
+  "name": "CC-Framework",
+  "description": "Treats composed-guardrail failure as a partial-identification problem: individual rail failure rates are known, their joint dependence is not. Given marginal evidence and declared dependence assumptions, it computes sharp Fréchet–Hoeffding bounds on stacked-system failure with endpoint witnesses.",
+  "codeRepository": "https://github.com/Cubits11/cc-framework",
+  "programmingLanguage": "Python",
+  "license": "https://opensource.org/licenses/MIT",
+  "author": { "@id": "https://cubits11.github.io/#person" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "@id": "https://cubits11.github.io/#ghost-ark",
+  "name": "Ghost-Ark",
+  "description": "A verifier and measurement harness for the provenance limits of AI-governance receipts.",
+  "codeRepository": "https://github.com/PSUCyberSecurityLab/ghost-ark",
+  "author": { "@id": "https://cubits11.github.io/#person" },
+  "sourceOrganization": { "@type": "Organization", "name": "S2 Lab, Penn State" }
 }
 </script>
 </body>

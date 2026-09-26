@@ -5,6 +5,7 @@ type: software
 authors:
   - family-names: Bhave
     given-names: Pranav
+    orcid: "https://orcid.org/0009-0001-9175-462X"
 url: "https://cubits11.github.io/"
 repository-code: "https://github.com/Cubits11/cubits11.github.io"
 abstract: >
