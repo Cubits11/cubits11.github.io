@@ -1,0 +1,102 @@
+{
+  "suite": "13.12 Blind Discrimination Suite v1 (2026-09-26)",
+  "author": "Claude (Anthropic), Claude Code session session_01NbrQgbCN1Wpmto5LGLH6Vu",
+  "cases": [
+    {
+      "id": "S-01",
+      "target": "CLAUDE",
+      "task_type": "Codebase",
+      "prompt": "Add a `--json` flag to `scripts/cadence.py report` that prints the same fields the text report prints, as one JSON object. Ground truth: `scripts/cadence.py` and `metrics/repo_state.jsonl`; do not change what any field means. Do not touch `metrics/repo_state.jsonl` (append-only chain). Validation: `python3 scripts/cadence.py report --json | python3 -m json.tool` succeeds; `python3 scripts/cadence.py check` still exits 0; `python3 scripts/verification_manifest.py` exits 0. Then `git add -A && git commit -m 'cadence: --json'` and push the branch. Stop there; return the diff and the three command outputs."
+    },
+    {
+      "id": "S-02",
+      "target": "ASTRA",
+      "task_type": "Codebase",
+      "prompt": "In `scripts/check_links.py`, internal links ending in `/index.html` are reported as broken when the directory form resolves. Reproduce it first from the checker's current output; if no such link is reported, stop and say so. Otherwise make the checker treat `x/index.html` and `x/` as the same target, and add a test under `tests/` that fails before your change and passes after. Don't edit generated pages or `sitemap.xml`. `python3 scripts/check_links.py` and `python3 scripts/verification_manifest.py` must both exit 0. Local sandbox: run whatever tests you need without asking."
+    },
+    {
+      "id": "S-03",
+      "target": "CLAUDE",
+      "task_type": "Codebase",
+      "prompt": "Change the help text of the `--check` flag in `scripts/generate_ledger.py` from its current wording to 'fail if the generated page differs from the committed one'. Use a planner subagent to scope the change, three implementer subagents in parallel (one per candidate file), and a separate evaluator subagent to grade the result. Acceptance: `python3 scripts/generate_ledger.py --help` shows the new text; `python3 scripts/generate_ledger.py --check` exits 0; `python3 scripts/verification_manifest.py` exits 0. Touch only that file. Return the diff."
+    },
+    {
+      "id": "S-04",
+      "target": "CLAUDE",
+      "task_type": "Scientific",
+      "prompt": "`experiments/e9/freeze/protocol.json` has a spelling error in one description string ('calibraton'). Fix the spelling, re-run `python3 scripts/verification_manifest.py` until it exits 0, and commit only that file with an explicit path. Return the diff."
+    },
+    {
+      "id": "S-05",
+      "target": "DUAL",
+      "task_type": "Scientific",
+      "prompt": "Astra has written `ARTIFACTS/2026-09-27-E9-REVIEW-ASTRA.md`, a point-by-point check that E9's verdict follows from `experiments/e9/contract.json`. Give Claude the same repository at the same commit, including that file, and have Claude check each of Astra's points against the primary files (`contract.json`, `freeze/protocol.json`, `run/`) and mark each agree / disagree with a file:line citation. Record the pair as an independent two-model review in `ARTIFACTS/2026-09-27-E9-REVIEW-PAIR.md`. No registry edits."
+    },
+    {
+      "id": "S-06",
+      "target": "CLAUDE",
+      "task_type": "Codebase",
+      "prompt": "Fix the typo 'recieve' in README.md."
+    },
+    {
+      "id": "S-07",
+      "target": "CLAUDE",
+      "task_type": "Owner Action",
+      "prompt": "Prepare the message for `distribution/QUEUE.md` item 5 (the cold-viewer comprehension trial) as `distribution/drafts/2026-09-27-item5-invite.md`. The owner sends it; you do not send, post, open an issue, or change item 5, `outcomes.yaml` or `dispatch-log.yaml`. Use only the rules already in `distribution/launch-units.yaml` -> `cold_test_gate`; add no rule. Acceptance: `git diff --stat` shows exactly one new file; every numeral in the draft is listed at its end with a `file:key` locator; `python3 scripts/verification_manifest.py` exits 0. Stop after the file exists."
+    },
+    {
+      "id": "S-08",
+      "target": "CLAUDE",
+      "task_type": "Codebase",
+      "prompt": "Reduce `ledger/index.html` below 150 KB transferred; measure its current size first. Source is `claims.yaml` -> `scripts/generate_ledger.py` -> `ledger/index.html`; never hand-edit the page. Keep every number on the page identical. Run the generator's `--check` and the verification manifest before committing."
+    },
+    {
+      "id": "S-09",
+      "target": "ASTRA",
+      "task_type": "Codebase",
+      "prompt": "Before starting, read in full: CLAUDE.md, DESIGN.md, VIS_SPECS.md, AUDIT.md, RESEARCH.md, research/DIRECTION.yaml, ARTIFACTS/12-WEEK-PROGRAM.md, docs/foundations/PROGRAM.md and every file under .claude/skills/. Ask before running any command. Task: in `scripts/verify_figures.py` the tolerance 1e-9 is written as a literal in two places; make the second use the first. Acceptance: `python3 scripts/verify_figures.py` exits 0 and prints the same output as before; `python3 scripts/verification_manifest.py` exits 0; the diff touches only that file. Stop after."
+    },
+    {
+      "id": "S-10",
+      "target": "ASTRA",
+      "task_type": "Design",
+      "prompt": "Environment: Codex CLI on the owner's Mac. `/Applications/Blender.app/Contents/MacOS/Blender -v` printed 5.1.2 in this session; the world file is at ~/Documents/GitHub/cc-framework/visual_identity/claim_observatory/claim_observatory_world_v3.blend (read-only). Task: render `Camera_WorldHero` frame 120 twice with `films/lib/blender/render.py` and commit the receipt it writes as `films/lib/blender/world-hero-receipt.json`. Acceptance: the receipt shows `identical_pixels: true` and `unexpected: []`; if it does not, commit nothing and report the difference. Do not modify the world file or render.py. Run freely in the local checkout; no pushes."
+    },
+    {
+      "id": "S-11",
+      "target": "ASTRA",
+      "task_type": "Browser",
+      "prompt": "Environment: Codex cloud task; no browser or computer-use tool is enabled for this task. Verify that `/foundations/` renders completely with JavaScript disabled at 375 px and 1280 px, and attach screenshots of both. If anything is missing, fix the generator (`scripts/generate_foundations.py`), never the page. Acceptance: both screenshots attached; `python3 scripts/generate_foundations.py --check` exits 0. Stop after."
+    },
+    {
+      "id": "S-12",
+      "target": "ASTRA",
+      "task_type": "Codebase",
+      "prompt": "Bug: `scripts/check_links.py` flags `foo/index.html` links as broken even though `foo/` resolves. First reproduce it from the checker's current output; if no such link is reported, stop and tell me. Otherwise make the checker treat the two forms as one target, and add a test in `tests/` that fails without the fix and passes with it. Don't touch generated pages or `sitemap.xml`. `python3 scripts/check_links.py` and `python3 scripts/verification_manifest.py` must both exit 0. It's a local sandbox; run tests as needed, no need to check in with me."
+    },
+    {
+      "id": "S-13",
+      "target": "CLAUDE",
+      "task_type": "Codebase",
+      "prompt": "On branch `claude/readme-repro`, update the reproduction section of README.md so its commands match the E9 entries in `scripts/verification_manifest.py`'s CHECKS tuple (read the tuple; do not paraphrase from memory). Change only README.md. `python3 scripts/verification_manifest.py` must exit 0. When it does, merge the branch into main and push so the public site updates. Return the diff and the manifest's final line."
+    },
+    {
+      "id": "S-14",
+      "target": "CLAUDE",
+      "task_type": "Codebase",
+      "prompt": "Measure `ledger/index.html`'s size first, then get it under 150 KB. The page is generated (`claims.yaml` -> `scripts/generate_ledger.py` -> `ledger/index.html`), so change the generator, not the page. Every number on the page stays identical. Before committing, run the generator's `--check` and `python3 scripts/verification_manifest.py`."
+    },
+    {
+      "id": "S-15",
+      "target": "CLAUDE",
+      "task_type": "Scientific",
+      "prompt": "Read `experiments/e9/freeze/protocol.json` and `experiments/e9/contract.json`. Without editing either, write `ARTIFACTS/2026-09-27-E9-THRESHOLD-CROSSWALK.md`: one row per threshold in protocol.json, the contract.json key that encodes it, and whether the two agree, each cell labelled OBSERVED / DERIVED / UNKNOWN. Acceptance: `git diff --stat` shows exactly one new file; every row cites `file:line` or `file:key`; `python3 scripts/verification_manifest.py` exits 0. Stop after the file is written; if the two files disagree, report the disagreement and change nothing."
+    },
+    {
+      "id": "S-16",
+      "target": "DUAL",
+      "task_type": "Scientific",
+      "prompt": "We want a two-model independent review of E9. Astra already did its pass (`ARTIFACTS/2026-09-27-E9-REVIEW-ASTRA.md`). Now have Claude go through Astra's review item by item, verify each against the primary files (`experiments/e9/contract.json`, `freeze/protocol.json`, `run/`), and mark agree / disagree with citations. Write the combined record to `ARTIFACTS/2026-09-27-E9-REVIEW-PAIR.md` and label it an independent review. No registry edits."
+    }
+  ]
+}
