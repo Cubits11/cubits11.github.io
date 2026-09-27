@@ -1,0 +1,23 @@
+{
+ "record": "E1b - three pairs E1 could not score. Written before any of them was run. Extends E1 (predeclaration 6e7d2822...) without editing it.",
+ "written_by": "Claude Code remote session session_01NbrQgbCN1Wpmto5LGLH6Vu, 2026-09-27, under the owner's grant of the same day ('full permissions granted to take owner decisions')",
+ "pairs": [
+  {"id": "X1", "question": "Is g.issuer redundant because the append channel only admits owner-issued grants, or can a non-owner mint an approval that the publish gate honours?",
+   "W0": "approval row for try-a at its current revision written by the owner", "W1": "the same row written by an agent session with `distribute.py approve`", "D0": "publish admissible", "D1": "publish inadmissible (self-issued is not an owner approval)",
+   "method": "scratch worktree of f2249c1, no credentials, no push: run `approve` as the agent, then `publish --dry-run`; read every precondition in dispatch_preconditions for an issuer check; search the tests and the manifest for any check on who wrote approvals.json",
+   "expected": "the dry run prints the publish requests for the self-minted approval; no precondition reads the issuer; the only barriers left are a clean pushed tree, which any claude/* branch satisfies, and possession of the four X credentials. The mechanism collapses the pair, so issuer is EARNED as a verifiable binding, not as a prose field"},
+  {"id": "X2", "question": "Can the same check on the same subject return different verdicts under a legitimate environment change, so that v.environment (or a hermeticity rule) is earned?",
+   "W0": "scripts/verify_claims.py at f2249c1 run in this container, behind the egress proxy", "W1": "the same script at the same commit run by GitHub Actions (verify.yml, run of 2026-09-21)", "D0": "support URLs verified (the subject is unchanged)", "D1": "support URLs verified",
+   "kind": "control-like: the correct decision is the same in both worlds; the check must not differ",
+   "method": "compare the per-claim support-URL verdicts in both environments; probe one failing URL here and read who answered (proxy or origin); fetch the same bytes by another route to show the subject exists",
+   "expected": "11 support URLs FAIL here with HTTP 403 and PASS in CI; the 403 is written by the proxy, not the origin; the verdict depends on the environment. Either v.environment is recorded, or environment-caused access failures are classified UNEVALUABLE so that PASS/FAIL stay environment-independent"},
+  {"id": "X3", "question": "Do the owner-side records (13.05 Prompt Intake, Freeze Ledger, Execution Receipts; 13.11 MARD) bind a receipt to the exact bytes dispatched?",
+   "W0": "draft D frozen twice (v1, then v2 superseding it); v1 dispatched", "W1": "the same freezes; v2 dispatched", "D0": "13.10-style score of v1 applies to the run", "D1": "score of v1 does not apply",
+   "method": "read the live 13.05 structure from its export (sha256 5605973e...); populate a local copy with both worlds using only the columns the sheet defines; compare the receipt rows; check MARD's task-identity fields",
+   "expected": "the receipt rows are identical in both worlds: receipts carry DRAFT ID but no freeze id, version or digest; snapshots are mutable cells with no digest; MARD carries references, not digests. The existing record type does NOT close R9a, which withdraws E1's 'B + 13.05 = 15/15' claim. The smallest fix is one digest of the dispatched bytes on the receipt, matched against a digest on the freeze row, or dispatch bytes committed to git"}
+ ],
+ "decision_rules": {
+  "earned": "a field or rule is earned when the current mechanism gives the same decision on W0 and W1 where the correct decisions differ, and adding it restores the difference",
+  "withdraw": "if X3 collapses, E1's claim that the owner-side 13.05 records carry R9a is withdrawn in the handoff, not silently corrected"
+ }
+}

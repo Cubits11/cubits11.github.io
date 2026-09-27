@@ -1,0 +1,1321 @@
+{
+ "predeclaration_sha256": "6e7d28229e18d2aadc524b32755679ccbf901c53b7f7acf29729884accf5b361",
+ "post_run_harness_changes": [
+  "run 1 read preoutcome_scores.json from f2249c1, where it does not exist; it is read from d49480e",
+  "run 2 left the aggregate unset for single-requirement pairs, so masking req_per_check also collapsed P3a, P3b, P3c and P6; the aggregate now defaults to the combination of the derived results. No verdict and no earned/unearned classification changed."
+ ],
+ "facts": {
+  "p1": {
+   "clean_rc": 1,
+   "clean_tree": "741cba74e5cf80426b28b01a1a73f3601ec29a81",
+   "untracked_rc": 0,
+   "untracked_head_tree": "741cba74e5cf80426b28b01a1a73f3601ec29a81",
+   "untracked_files": 1,
+   "committed_rc": 0,
+   "committed_tree": "33237cb91ff2fc46ccc9488d4be854acde38dbe5",
+   "command": "python3 scripts/generate_foundations.py --check"
+  },
+  "p3a": {
+   "stale_rc": 1,
+   "current_rc": 0,
+   "command": "python3 scripts/films/build_flagship.py --check",
+   "stale_map_from": "94a1cb5",
+   "sources_at": "15e9b9d"
+  },
+  "p3b": {
+   "last_reviewed": "2026-08-24",
+   "window_days": 30,
+   "line": "elif (today - reviewed).days > window:",
+   "2026-09-23_due": false,
+   "2026-09-24_due": true
+  },
+  "p3c": {
+   "af001_unknown_line": "UNKNOWN  AF-001: support URL was not reached (<urlopen error Tunnel connection failed: 403 Forbidden>): https://academy.claude.com/tutorials/the-ai-fluency-index \u2014 liveness unevaluated, not disproved",
+   "source": {
+    "source": "verify_claims.py run in a fresh clone of f2249c1 plus the kernel series",
+    "run_file": "glassroot/vc_clean2.out",
+    "recorded_on": "2026-09-27"
+   }
+  },
+  "p4": {
+   "block_lines": [
+    "git fetch origin",
+    "git switch main && git pull --ff-only",
+    "git merge --no-ff origin/{BRANCH}",
+    "python3 scripts/verification_manifest.py",
+    "git push origin main"
+   ],
+   "steps": [
+    {
+     "kind": "git-local",
+     "subject": "local"
+    },
+    {
+     "kind": "git-local",
+     "subject": "local"
+    },
+    {
+     "kind": "git-local",
+     "subject": "local"
+    },
+    {
+     "kind": "run-checks",
+     "subject": "local"
+    },
+    {
+     "kind": "push",
+     "subject": "branch:main"
+    }
+   ],
+   "push_follows_manifest_ungated": true,
+   "ruleset_rule_types": [
+    "deletion",
+    "non_fast_forward",
+    "pull_request",
+    "required_status_checks"
+   ],
+   "ruleset_meta": {
+    "fetched_at": "2026-09-27T00:34:10Z",
+    "url": "https://api.github.com/repos/Cubits11/cubits11.github.io/rules/branches/main",
+    "auth": "none"
+   },
+   "bypass_actors": "not readable without admin access"
+  },
+  "p5": {
+   "approved_revision": "8318df5ab8fdfcfd87dc94649ee392c1de9e7daa75955080cae74b09398c8dfc",
+   "approval_for_approved": true,
+   "current_revision": "c3bbd334a3db0cde7fee72f8d8ae093943aec186c2948484f8c983689c20c360",
+   "approval_for_current": false,
+   "receipt_for_approved": true,
+   "receipt_published_at": "2026-09-07T17:44:12Z",
+   "other_receipts": 2,
+   "recheck_site": "distribute.py dispatch_preconditions: approval_for(post) on the draft's revision computed at publish time",
+   "current_drafts_without_approval": [
+    "show-overlap",
+    "try-a",
+    "try-b",
+    "try-c"
+   ]
+  },
+  "p5a": {
+   "issuer": "delegate (Claude Cowork session under owner delegation)",
+   "names_grantee": false,
+   "authorized_content": true,
+   "merge_is_owner_action": true
+  },
+  "p6": {
+   "pushed_refs_carrying_key": [
+    "claude/lucid-franklin-jloow0"
+   ],
+   "http_observation": {
+    "fetched_at": "2026-09-27T00:34:11Z",
+    "http": 200,
+    "auth": "none",
+    "sha256": "02e3cc11f3444f9f74577d57c92239d3839f95d35b516fce513373906eb67478"
+   }
+  },
+  "p7": {
+   "subject": "4a8f7a510eff285e97aa79495fe51982ce1c96074550723d8d9f2093375aeea5",
+   "claim": "E7B-001",
+   "predecessor_consequence": "REJECT",
+   "relation_committed": "UNASSESSED",
+   "relation_NOT_FIRED": "NOT_FIRED",
+   "relation_FIRED": "FIRED",
+   "A_has_relation": false,
+   "e7b_changed_thresholds": 1,
+   "evidence_test": "tests/test_correction_dispositions.py test_audit_demonstrates_both_failures asserts changed_thresholds == 1"
+  },
+  "r8": {
+   "commits": {
+    "32f0e3a": {
+     "author": "Pranav Bhave",
+     "author_date": "2026-09-05T22:21:20-04:00",
+     "trailers": ""
+    },
+    "14ca608": {
+     "author": "Pranav Bhave",
+     "author_date": "2026-09-05T22:21:20-04:00",
+     "trailers": ""
+    },
+    "62bfbbc": {
+     "author": "Pranav Bhave",
+     "author_date": "2026-09-05T22:21:20-04:00",
+     "trailers": ""
+    }
+   },
+   "brief_rules": [
+    "f2249c1:docs/foundations/ASTRA-BRIEF.md:15:REPO github.com/Cubits11/cubits11.github.io  BRANCH claude/<topic>  AUTHOR Cubits11 only, no co-author trailers",
+    "f2249c1:docs/foundations/FABLE-BRIEF.md:159:Author is Cubits11 alone; no co-author trailers, in commits or anywhere else."
+   ],
+   "claude_trailered_in_last_200_main": 63,
+   "this_session_commit_trailer": true,
+   "owner_side_receipt_columns": {
+    "source": "Drive 13.05 workbook, exported in this session (scratchpad dashboard_13.05.xlsx)",
+    "Execution Receipts": [
+     "RUN ID",
+     "DRAFT ID",
+     "DATE",
+     "MODEL / HARNESS",
+     "EFFORT",
+     "DURATION",
+     "COST",
+     "ACTUAL METHOD",
+     "ARTIFACTS",
+     "CHECKS",
+     "RESULT",
+     "FAILURES",
+     "DEVIATIONS",
+     "OWNER CORRECTIONS",
+     "PROMPT DIAGNOSTIC",
+     "MODEL DIAGNOSTIC",
+     "PROMOTION"
+    ],
+    "Execution Receipts rows": 0,
+    "Prompt Intake fields": [
+     "Draft ID",
+     "Target Model",
+     "Task Type",
+     "Prompt Draft",
+     "Owner Intent",
+     "Truth Roots",
+     "Known Invariants",
+     "Known Boundaries",
+     "Desired Completion",
+     "Available Tools / Environment",
+     "Effort Preference",
+     "Status",
+     "Assessment Timestamp",
+     "Assessed By",
+     "Notes"
+    ]
+   }
+  },
+  "r9": {
+   "scored_blob": "697be2bb203663095ce6903afe3b692c6bbadeeb",
+   "scored_commit": "f3a6a1e",
+   "scored_commit_blob": "697be2bb203663095ce6903afe3b692c6bbadeeb",
+   "dispatch_time_commit": "e90bd5a",
+   "dispatch_time_blob": "b20a1b819d2d5f8b31134f8692fce2c05108309f",
+   "sectionA_T6_scored": "6306e6c3ebbeb7882ba385711e8711b793dd52aedd3bc189b48e485f5486eeb4",
+   "sectionA_T6_dispatch_time": "6306e6c3ebbeb7882ba385711e8711b793dd52aedd3bc189b48e485f5486eeb4",
+   "sectionA_all_rows_dispatch_time": "2a7406ae0b90822f87d537b224e5b29cbca3a7d12614a69cce0654f905907e2b",
+   "prompt_field_is_prose": "ASTRA-BRIEF section A + T6 (scripts/generate_foundations.py ",
+   "dispatch_record_in_repo": null
+  },
+  "p2": {
+   "decision": "HOLD",
+   "hard_vetoes": [
+    "V04",
+    "V05"
+   ],
+   "gate_reads_readiness": false,
+   "gate_search": "no script reads preoutcome_scores.json",
+   "dispatch_record": "session record; commits carry the Claude-Session trailer (d49480e)"
+  }
+ },
+ "matrix": {
+  "A/RECORDED": {
+   "P1": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P1b": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P2": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P2c": {
+    "W0": "NO",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P3b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3c": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P4": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P5c": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P6": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7a": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "P7b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R8": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "R9a": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "R9b": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": false
+   }
+  },
+  "A/CAPACITY": {
+   "P1": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P1b": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P2": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P2c": {
+    "W0": "NO",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P3b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3c": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P4": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P5c": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P6": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7a": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "P7b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R8": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R9a": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "R9b": {
+    "W0": "YES",
+    "W1": "YES",
+    "ok": true
+   }
+  },
+  "B/RECORDED": {
+   "P1": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P1b": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P2": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P2c": {
+    "W0": "NO",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P3b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3c": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P4": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P5c": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P6": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7a": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "P7b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R8": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "R9a": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "R9b": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": false
+   }
+  },
+  "B/CAPACITY": {
+   "P1": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P1b": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P2": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P2c": {
+    "W0": "NO",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P3b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3c": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P4": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P5c": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P6": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R8": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R9a": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "R9b": {
+    "W0": "YES",
+    "W1": "YES",
+    "ok": true
+   }
+  },
+  "B+13.05/RECORDED": {
+   "P1": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P1b": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P2": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P2c": {
+    "W0": "NO",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P3b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3c": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P4": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P5c": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P6": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7a": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "P7b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R8": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "R9a": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "R9b": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": false
+   }
+  },
+  "B+13.05/CAPACITY": {
+   "P1": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P1b": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P2": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P2c": {
+    "W0": "NO",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P3b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3c": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P4": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P5c": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P6": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R8": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R9a": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R9b": {
+    "W0": "YES",
+    "W1": "YES",
+    "ok": true
+   }
+  },
+  "C": {
+   "P1": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P1b": {
+    "W0": "NO",
+    "W1": "NO",
+    "ok": false
+   },
+   "P2": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P2c": {
+    "W0": "NO",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P3b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3c": {
+    "W0": "YES",
+    "W1": "YES",
+    "ok": false
+   },
+   "P4": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5b": {
+    "W0": "NO",
+    "W1": "NO",
+    "ok": false
+   },
+   "P5c": {
+    "W0": "NO",
+    "W1": "NO",
+    "ok": false
+   },
+   "P6": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7b": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": false
+   },
+   "R8": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R9a": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   },
+   "R9b": {
+    "W0": "UNDECIDED",
+    "W1": "UNDECIDED",
+    "ok": false
+   }
+  },
+  "K": {
+   "P1": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P1b": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P2": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P2c": {
+    "W0": "NO",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P3b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P3c": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P4": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P5b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P5c": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "P6": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7a": {
+    "W0": "NO",
+    "W1": "YES",
+    "ok": true
+   },
+   "P7b": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R8": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R9a": {
+    "W0": "YES",
+    "W1": "NO",
+    "ok": true
+   },
+   "R9b": {
+    "W0": "YES",
+    "W1": "YES",
+    "ok": true
+   }
+  }
+ },
+ "fails": {
+  "A/RECORDED": [
+   "P7a",
+   "R8",
+   "R9a",
+   "R9b"
+  ],
+  "A/CAPACITY": [
+   "P7a",
+   "R9a"
+  ],
+  "B/RECORDED": [
+   "P7a",
+   "R8",
+   "R9a",
+   "R9b"
+  ],
+  "B/CAPACITY": [
+   "R9a"
+  ],
+  "B+13.05/RECORDED": [
+   "P7a",
+   "R8",
+   "R9a",
+   "R9b"
+  ],
+  "B+13.05/CAPACITY": [],
+  "C": [
+   "P1b",
+   "P3c",
+   "P5b",
+   "P5c",
+   "P7b",
+   "R9a",
+   "R9b"
+  ],
+  "K": []
+ },
+ "K_single_removal": {
+  "G": [
+   "P2",
+   "P2c",
+   "P5a",
+   "P5b",
+   "P5c"
+  ],
+  "V": [
+   "P1",
+   "P1b",
+   "P3a",
+   "P3b",
+   "P3c",
+   "P6",
+   "P7b",
+   "R9a",
+   "R9b"
+  ],
+  "Rc": [
+   "P5c",
+   "R8",
+   "R9a",
+   "R9b"
+  ],
+  "T": [
+   "P7a",
+   "P7b"
+  ],
+  "FA": [
+   "P7a"
+  ],
+  "g.id": [],
+  "g.issuer": [],
+  "g.grantee": [
+   "P5a"
+  ],
+  "g.actions": [
+   "P5a"
+  ],
+  "g.subject_selector": [
+   "P5b"
+  ],
+  "g.conditions": [
+   "P5c"
+  ],
+  "g.policy_digest": [],
+  "g.not_before": [],
+  "g.expires": [],
+  "v.verifier": [],
+  "v.check": [
+   "P1b"
+  ],
+  "v.subject_digest": [
+   "R9a",
+   "R9b"
+  ],
+  "v.policy_digest": [],
+  "v.environment": [],
+  "v.result": [
+   "P1",
+   "P1b",
+   "P3a",
+   "P3b",
+   "P3c",
+   "P6",
+   "P7b"
+  ],
+  "v.evidence_refs": [],
+  "r.action": [],
+  "r.executor": [
+   "R8"
+  ],
+  "r.subject_digest": [
+   "R9a",
+   "R9b"
+  ],
+  "fail_closed": [
+   "P3c"
+  ],
+  "derive_now": [
+   "P3b",
+   "P3c",
+   "P6"
+  ],
+  "req_per_check": [
+   "P1b"
+  ],
+  "recheck_at_execution": [
+   "P5b"
+  ],
+  "default_deny": [
+   "P2",
+   "P2c",
+   "P5a",
+   "P5b",
+   "P5c"
+  ],
+  "veto": [],
+  "epi_evidence": [
+   "P7b"
+  ]
+ },
+ "K_backward_elimination": {
+  "order": [
+   "G",
+   "V",
+   "Rc",
+   "T",
+   "FA",
+   "g.id",
+   "g.issuer",
+   "g.grantee",
+   "g.actions",
+   "g.subject_selector",
+   "g.conditions",
+   "g.policy_digest",
+   "g.not_before",
+   "g.expires",
+   "v.verifier",
+   "v.check",
+   "v.subject_digest",
+   "v.policy_digest",
+   "v.environment",
+   "v.result",
+   "v.evidence_refs",
+   "r.action",
+   "r.executor",
+   "r.subject_digest",
+   "fail_closed",
+   "derive_now",
+   "req_per_check",
+   "recheck_at_execution",
+   "default_deny",
+   "veto",
+   "epi_evidence"
+  ],
+  "irreducible": [
+   "G",
+   "V",
+   "Rc",
+   "T",
+   "FA",
+   "g.grantee",
+   "g.actions",
+   "g.subject_selector",
+   "g.conditions",
+   "v.check",
+   "v.subject_digest",
+   "v.result",
+   "r.executor",
+   "r.subject_digest",
+   "fail_closed",
+   "derive_now",
+   "req_per_check",
+   "recheck_at_execution",
+   "default_deny",
+   "epi_evidence"
+  ],
+  "removed": [
+   "g.expires",
+   "g.id",
+   "g.issuer",
+   "g.not_before",
+   "g.policy_digest",
+   "r.action",
+   "v.environment",
+   "v.evidence_refs",
+   "v.policy_digest",
+   "v.verifier",
+   "veto"
+  ]
+ },
+ "K_redundancy_among_unearned": [],
+ "C_single_removal": {
+  "Ia": [
+   "P1",
+   "P3a"
+  ],
+  "Ie": [
+   "R8"
+  ],
+  "Ac": [
+   "P2",
+   "P2c",
+   "P4",
+   "P5a"
+  ],
+  "So": [],
+  "Vc": [
+   "P1"
+  ],
+  "Es": [],
+  "Fa": [
+   "P7a"
+  ],
+  "Fe": [
+   "P3a",
+   "P3b"
+  ]
+ },
+ "comparison": {
+  "A/CAPACITY": {
+   "expected_fail": [
+    "P7a",
+    "R9a"
+   ],
+   "actual_fail": [
+    "P7a",
+    "R9a"
+   ],
+   "match": true
+  },
+  "A/RECORDED": {
+   "expected_fail": [
+    "P7a",
+    "R8",
+    "R9a",
+    "R9b"
+   ],
+   "actual_fail": [
+    "P7a",
+    "R8",
+    "R9a",
+    "R9b"
+   ],
+   "match": true
+  },
+  "B/CAPACITY": {
+   "expected_fail": [
+    "R9a"
+   ],
+   "actual_fail": [
+    "R9a"
+   ],
+   "match": true
+  },
+  "B/RECORDED": {
+   "expected_fail": [
+    "P7a",
+    "R8",
+    "R9a",
+    "R9b"
+   ],
+   "actual_fail": [
+    "P7a",
+    "R8",
+    "R9a",
+    "R9b"
+   ],
+   "match": true
+  },
+  "C": {
+   "expected_fail": [
+    "P1b",
+    "P3c",
+    "P5b",
+    "P5c",
+    "P7b",
+    "R9a",
+    "R9b"
+   ],
+   "actual_fail": [
+    "P1b",
+    "P3c",
+    "P5b",
+    "P5c",
+    "P7b",
+    "R9a",
+    "R9b"
+   ],
+   "match": true
+  },
+  "K_single_removal_earned": {
+   "expected": [
+    "FA",
+    "G",
+    "Rc",
+    "T",
+    "V",
+    "default_deny",
+    "derive_now",
+    "epi_evidence",
+    "fail_closed",
+    "g.actions",
+    "g.conditions",
+    "g.grantee",
+    "g.subject_selector",
+    "r.executor",
+    "r.subject_digest",
+    "recheck_at_execution",
+    "req_per_check",
+    "v.check",
+    "v.result",
+    "v.subject_digest"
+   ],
+   "actual": [
+    "FA",
+    "G",
+    "Rc",
+    "T",
+    "V",
+    "default_deny",
+    "derive_now",
+    "epi_evidence",
+    "fail_closed",
+    "g.actions",
+    "g.conditions",
+    "g.grantee",
+    "g.subject_selector",
+    "r.executor",
+    "r.subject_digest",
+    "recheck_at_execution",
+    "req_per_check",
+    "v.check",
+    "v.result",
+    "v.subject_digest"
+   ],
+   "match": true
+  },
+  "K_single_removal_unearned": {
+   "expected": [
+    "g.expires",
+    "g.id",
+    "g.issuer",
+    "g.not_before",
+    "g.policy_digest",
+    "r.action",
+    "v.environment",
+    "v.evidence_refs",
+    "v.policy_digest",
+    "v.verifier",
+    "veto"
+   ],
+   "actual": [
+    "g.expires",
+    "g.id",
+    "g.issuer",
+    "g.not_before",
+    "g.policy_digest",
+    "r.action",
+    "v.environment",
+    "v.evidence_refs",
+    "v.policy_digest",
+    "v.verifier",
+    "veto"
+   ],
+   "match": true
+  },
+  "C_single_removal_unearned": {
+   "expected": [
+    "Es",
+    "So"
+   ],
+   "actual": [
+    "Es",
+    "So"
+   ],
+   "match": true
+  }
+ },
+ "stop_rule": {
+  "B_capacity_primary_fail": [
+   "R9a"
+  ],
+  "B_capacity_control_fail": [],
+  "B_plus_owner_side_capacity_fail": [],
+  "STOP": false
+ }
+}

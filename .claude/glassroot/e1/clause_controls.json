@@ -1,0 +1,25 @@
+{
+ "legacy-prefix membership": {
+  "verdict_flips": [
+   "P7"
+  ],
+  "reason_only_flips": [
+   "P6"
+  ]
+ },
+ "exactness": {
+  "verdict_flips": [
+   "P1",
+   "P4",
+   "P5",
+   "P8"
+  ],
+  "reason_only_flips": []
+ },
+ "non-empty": {
+  "verdict_flips": [
+   "P3"
+  ],
+  "reason_only_flips": []
+ }
+}

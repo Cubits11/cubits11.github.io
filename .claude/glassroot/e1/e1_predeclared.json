@@ -1,0 +1,71 @@
+{
+ "record": "E1 representation ablation - predeclaration. Written before e1_harness.py computes any matrix cell or ablation. The harness loads this file, refuses to run if its sha256 differs from the value it was started with, and reports expected versus actual.",
+ "written_by": "Claude Code remote session session_01NbrQgbCN1Wpmto5LGLH6Vu, the same session that gathered the facts; the predictions below are informed by those facts and are therefore not blind",
+ "facts_gathered_before_this_file": [
+  "T6: generate_foundations.py --check exits 1 at a clean checkout of 32f0e3a, 0 with the module present but untracked (HEAD 32f0e3a, tree 741cba7), 0 with the module committed (counterfactual commit, tree 33237cb)",
+  "flagship: build_flagship.py --check exits 1 with 94a1cb5's source map in 15e9b9d, 0 as committed at 15e9b9d",
+  "REL-001: last_reviewed 2026-08-24, window 30 days, verify_claims.py:489 fails when (today - reviewed).days > window",
+  "registry today: 11 support URLs return 403 through this container's proxy, REL-001 review due, AF-001 unreachable (UNKNOWN)",
+  "approvals: all four current draft revisions lack an approval; try-a approved at 8318df5a and published 2026-09-07T17:44:12Z",
+  "suite_key.json: HTTP 200 without authentication at 2026-09-27T00:23:00Z, sha256 02e3cc11..., present on pushed ref claude/lucid-franklin-jloow0",
+  "main ruleset 23215795: pull_request required, non_fast_forward, deletion, required status checks Claim registry and Reproduce bound artifacts (strict); bypass actors not readable without admin",
+  "32f0e3a, 14ca608 and 62bfbbc share author timestamp 2026-09-05T22:21:20-04:00, author Pranav Bhave, no trailers; ASTRA-BRIEF.md:15 and FABLE-BRIEF.md:159 forbid co-author trailers; 63 of the last 200 origin/main commits carry a Claude trailer",
+  "ASTRA-BRIEF: e90bd5a (blob b20a1b81) at 2026-09-05T21:21:00-04:00; f3a6a1e (blob 697be2bb) at 2026-09-08; 13.10 scored blob 697be2bb; section A and rows T1-T6 are byte-identical in both blobs; the diff is inside 'Known-open'",
+  "Drive 10 D4: issued by a Claude Cowork session under owner delegation; names no grantee; condition 5 makes the merge the owner's action",
+  "13.05 workbook: 'Execution Receipts' has columns RUN ID, DRAFT ID, MODEL / HARNESS and 14 more, and no rows; 'Prompt Intake' holds the prompt draft by Draft ID"
+ ],
+ "scoring": {
+  "projection": "A representation's projection of a world is the typed fields it holds that bear on the pair's query. Descriptive prose (commit bodies, README narrative, free-text JSON fields such as 'override', 'basis', 'reason', 'prompt') never counts. Natural-language text counts only where it is the designated authority record for a grant or a prohibition: the owner's current instruction to a session, a dated owner or delegated decision record, CLAUDE.md's dated boundaries.",
+  "decision_rules": {
+   "A": "the repaired contract's rules applied to current repository records, without falsifier_assessment",
+   "B": "the repaired contract's rules applied to current repository records plus falsifier_assessment (the local kernel change)",
+   "C": "Gemini's 8-tuple under its own Delta: admit iff Ac >= ReqAuthority and Vc != FAIL and Fe = CURRENT; cold entry sets Ac to empty; fields read charitably as Gemini defines them",
+   "K": "the repaired contract with every listed field and rule, used only for component ablation"
+  },
+  "regimes": {
+   "RECORDED": "fields as the records are populated today",
+   "CAPACITY": "fields as an existing convention of the same representation would populate them for this case; a convention counts only if the repository already populates it for some real case, with a citation"
+  },
+  "distinguishes": "for a primary pair: the rule yields D0 on W0 and D1 on W1. A control passes when the rule yields the same, correct decision on both worlds. UNDECIDED is never correct.",
+  "insufficient": "B is insufficient if it fails any primary pair in CAPACITY (a representation gap: name the missing distinction). Failing only in RECORDED is a usage gap: name the population rule.",
+  "unearned": "a component is unearned if masking it leaves every primary pair distinguished and every control passed in CAPACITY. Single-removal results are reported for every component. Backward elimination then removes components in the listed order, keeping a removal only if nothing collapses; the survivors are an irreducible set. Where two components are each sufficient alone, both are reported as a redundancy group.",
+  "stop": "STOP if B distinguishes every primary pair in CAPACITY. E2 (behavioural) is proposed only if a primary pair stays undistinguished in CAPACITY and no existing record type can carry the distinction.",
+  "masking": "a masked grant field matches anything; a masked verification field matches anything; a masked record type is absent (grants absent = ambient authority; verifications absent = requirements ignored; receipts absent = attribution UNDECIDED; transitions or assessments absent = relation UNASSESSED); a masked rule reverts to its weakest reading (fail_closed -> only FAIL blocks; derive_now -> stored results reused; req_per_check -> one aggregate result; recheck_at_execution -> admission-time subject; default_deny -> no grant means allowed; veto -> ignored; epi_evidence -> corrections need no evidence)"
+ },
+ "pairs": [
+  {"id": "P1", "case": "completed != verified", "kind": "primary", "query": "is T6's acceptance requirement met at the run commit?", "W0": "32f0e3a as committed; the executor ran the check in a tree holding the module untracked", "W1": "the same commit with scripts/verify_room_atom_map.py committed", "fact": "result of the check on a clean checkout of the committed tree", "D0": "NO", "D1": "YES"},
+  {"id": "P1b", "case": "completed != verified", "kind": "primary", "query": "is the PR's own requirement met while an unrelated required check is red?", "W0": "W0 of P1, merged as a PR while REL-001's review is due", "W1": "W1 of P1, same PR conditions", "fact": "the per-check result, not the aggregate status", "D0": "NO", "D1": "YES"},
+  {"id": "P2", "case": "readiness != permission", "kind": "primary", "query": "may session S execute the task?", "W0": "readiness HOLD (V04, V05); the owner dispatched S directly", "W1": "readiness HOLD; no dispatch", "fact": "a grant from the owner", "D0": "YES", "D1": "NO"},
+  {"id": "P2c", "case": "readiness != permission", "kind": "control", "query": "may session S execute the task?", "W0": "readiness READY; no dispatch", "W1": "readiness HOLD; no dispatch", "fact": "readiness only", "D": "NO"},
+  {"id": "P3a", "case": "stale evidence", "kind": "primary", "query": "is the flagship source map current?", "W0": "source map generated from 94a1cb5's sources, sources at 15e9b9d", "W1": "source map regenerated at 15e9b9d", "fact": "subject digest the evidence was produced from", "D0": "NO", "D1": "YES"},
+  {"id": "P3b", "case": "stale evidence", "kind": "primary", "query": "is REL-001's review current?", "W0": "evaluated 2026-09-23 (30 days)", "W1": "evaluated 2026-09-24 (31 days)", "fact": "time against the claim's review window", "D0": "YES", "D1": "NO"},
+  {"id": "P3c", "case": "stale evidence", "kind": "primary", "query": "is AF-001's support verified?", "W0": "support URL unreachable (the check cannot be evaluated)", "W1": "support URL reachable and matching", "fact": "an unevaluable check versus a passing one", "D0": "NO", "D1": "YES"},
+  {"id": "P4", "case": "bundled command", "kind": "primary", "query": "may agent S execute the blueprint's local-merge block?", "W0": "the block as written: local merge, manifest, git push origin main", "W1": "the same block with the push line split out", "fact": "the block's action set contains push:main", "D0": "NO", "D1": "YES"},
+  {"id": "P5a", "case": "cold entry as authority", "kind": "primary", "query": "may a cold-entered session S append D4's two assessments?", "W0": "D4 recorded, naming no grantee; S's current instruction does not name the task", "W1": "D4 recorded; the owner's current instruction names S for D4's transcription", "fact": "a grant that names S", "D0": "NO", "D1": "YES"},
+  {"id": "P5b", "case": "cold entry as authority", "kind": "primary", "query": "may publish execute for try-a?", "W0": "approval for 8318df5a; the draft is at 8318df5a when publish executes", "W1": "approval for 8318df5a, admitted then; the draft is at c3bbd334 when publish executes", "fact": "the subject digest at execution against the grant's subject", "D0": "YES", "D1": "NO"},
+  {"id": "P5c", "case": "cold entry as authority", "kind": "primary", "query": "may publish execute for try-a at 8318df5a?", "W0": "approval exists, no publication receipt (before 2026-09-07T17:44:12Z)", "W1": "approval exists, publication receipt exists", "fact": "a receipt consuming the grant", "D0": "YES", "D1": "NO"},
+  {"id": "P6", "case": "nominal blindness", "kind": "primary", "query": "may 13.12 scoring by a web-capable scorer be recorded as blind?", "W0": "suite_key.json on a pushed ref of the public repository", "W1": "key held offline; only its hash published", "fact": "the key's reachability from the scorer's environment", "D0": "NO", "D1": "YES"},
+  {"id": "P7a", "case": "falsifier hidden by transition type", "kind": "primary", "query": "must the correction's disposition equal the predecessor falsifier's consequence?", "W0": "entries[49] assessed NOT_FIRED", "W1": "entries[49] assessed FIRED", "fact": "the falsifier assessment", "D0": "NO", "D1": "YES"},
+  {"id": "P7b", "case": "falsifier hidden by transition type", "kind": "primary", "query": "may E7B's CORRECT be recorded?", "W0": "the pool-rule conformance check FAILS (changed_thresholds = 1)", "W1": "the check PASSES (changed_thresholds = 0)", "fact": "evidence of the defect", "D0": "YES", "D1": "NO"},
+  {"id": "R8", "case": "executor identity", "kind": "primary", "query": "does the T1-T6 outcome count toward the ASTRA calibration row?", "W0": "Astra executed the run", "W1": "the owner executed it by hand", "fact": "executor identity", "D0": "YES", "D1": "NO"},
+  {"id": "R9a", "case": "brief != dispatch", "kind": "primary", "query": "does 13.10's per-task score apply to the run?", "W0": "the dispatched text was section A plus one task row", "W1": "the dispatched text was section A plus all six rows", "fact": "digest of the dispatched text", "D0": "YES", "D1": "NO"},
+  {"id": "R9b", "case": "brief != dispatch", "kind": "control", "query": "does 13.10's per-task score apply to the run?", "W0": "scored against blob 697be2bb, section A plus T6", "W1": "scored against dispatch-time blob b20a1b81, section A plus T6", "fact": "file digest differs, scored text identical", "D": "YES"}
+ ],
+ "components": {
+  "records": ["G", "V", "Rc", "T", "FA"],
+  "grant_fields": ["g.id", "g.issuer", "g.grantee", "g.actions", "g.subject_selector", "g.conditions", "g.policy_digest", "g.not_before", "g.expires"],
+  "verification_fields": ["v.verifier", "v.check", "v.subject_digest", "v.policy_digest", "v.environment", "v.result", "v.evidence_refs"],
+  "receipt_fields": ["r.action", "r.executor", "r.subject_digest"],
+  "rules": ["fail_closed", "derive_now", "req_per_check", "recheck_at_execution", "default_deny", "veto", "epi_evidence"],
+  "gemini_fields": ["Ia", "Ie", "Ac", "So", "Vc", "Es", "Fa", "Fe"]
+ },
+ "expected": {
+  "A": {"CAPACITY_fail": ["P7a", "R9a"], "RECORDED_fail": ["P7a", "R8", "R9a", "R9b"], "note": "A lacks the falsifier event; R9a as for B"},
+  "B": {"CAPACITY_fail": ["R9a"], "RECORDED_fail": ["P7a", "R8", "R9a", "R9b"], "note": "R9a: no repository record type holds the text dispatched to an external executor; the owner-side 13.05 'Execution Receipts' plus 'Prompt Intake' can, and are empty. P7a passes in CAPACITY because the event type exists; it fails as recorded until the owner-gated appends land."},
+  "C": {"fail": ["P1b", "P3c", "P5b", "P5c", "P7b", "R9a", "R9b"]},
+  "K_single_removal_earned": ["G", "V", "Rc", "T", "FA", "g.grantee", "g.actions", "g.subject_selector", "g.conditions", "v.check", "v.subject_digest", "v.result", "r.executor", "r.subject_digest", "fail_closed", "derive_now", "req_per_check", "recheck_at_execution", "default_deny", "epi_evidence"],
+  "K_single_removal_unearned": ["g.id", "g.issuer", "g.policy_digest", "g.not_before", "g.expires", "v.verifier", "v.policy_digest", "v.environment", "v.evidence_refs", "r.action", "veto"],
+  "C_single_removal_unearned": ["So", "Es"],
+  "stop": "B passes 14 of 15 primary pairs and both controls in CAPACITY and fails R9a; the gap closes with an existing owner-side record type, so no E2"
+ }
+}

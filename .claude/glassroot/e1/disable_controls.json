@@ -1,0 +1,54 @@
+{
+ "V1 no earlier entry": {
+  "rc": 1,
+  "flipped": [
+   "F2",
+   "F3"
+  ],
+  "summary": "FAIL  claim-history mutants: 33/35 behaved as required"
+ },
+ "V1 target not a transition": {
+  "rc": 1,
+  "flipped": [
+   "F1",
+   "F8"
+  ],
+  "summary": "FAIL  claim-history mutants: 33/35 behaved as required"
+ },
+ "V2 predecessor falsifier null": {
+  "rc": 1,
+  "flipped": [
+   "F5"
+  ],
+  "summary": "FAIL  claim-history mutants: 34/35 behaved as required"
+ },
+ "V3 enum": {
+  "rc": 1,
+  "flipped": [
+   "F4"
+  ],
+  "summary": "FAIL  claim-history mutants: 34/35 behaved as required"
+ },
+ "V4 dates": {
+  "rc": 1,
+  "flipped": [
+   "F10"
+  ],
+  "summary": "FAIL  claim-history mutants: 34/35 behaved as required"
+ },
+ "V5 closed keys": {
+  "rc": 1,
+  "flipped": [
+   "F6",
+   "F11"
+  ],
+  "summary": "FAIL  claim-history mutants: 33/35 behaved as required"
+ },
+ "no-git retrospective = unknown (F14)": {
+  "rc": 1,
+  "flipped": [
+   "F14"
+  ],
+  "summary": "FAIL  claim-history mutants: 34/35 behaved as required"
+ }
+}

@@ -1,0 +1,93 @@
+[
+ {
+  "control": "P0 committed state",
+  "expected": "pass",
+  "actual": "pass",
+  "behaved": true,
+  "message": "passed"
+ },
+ {
+  "control": "P1 E6 assessed, list unchanged",
+  "expected": "fail",
+  "actual": "fail",
+  "behaved": true,
+  "message": "AssertionError: Items in the first set but not the second: '3405d1d9d4f086cf17ebc7a1217fc9e563448a65d50293641ca170b61fa59c23' : the exemption lists exactly the legacy corrections still unassessed"
+ },
+ {
+  "control": "P2 E6 assessed and removed: the set shrinks",
+  "expected": "pass",
+  "actual": "pass",
+  "behaved": true,
+  "message": "passed"
+ },
+ {
+  "control": "P3 both assessed and removed: empty set fails",
+  "expected": "fail",
+  "actual": "fail",
+  "behaved": true,
+  "message": "AssertionError: frozenset() is not true : the exemption is empty: delete LEGACY_UNASSESSED, LEGACY_END and this check"
+ },
+ {
+  "control": "P4 member removed without an assessment",
+  "expected": "fail",
+  "actual": "fail",
+  "behaved": true,
+  "message": "AssertionError: Items in the second set but not the first: '3405d1d9d4f086cf17ebc7a1217fc9e563448a65d50293641ca170b61fa59c23' : the exemption lists exactly the legacy corrections still unassessed"
+ },
+ {
+  "control": "P5 legacy MC-003 entries[28] added",
+  "expected": "fail",
+  "actual": "fail",
+  "behaved": true,
+  "message": "AssertionError: Items in the first set but not the second: 'c1814120e28855d779398c9a846dfd80dc9f39b945a6ec757d2ba7bc569502be' : the exemption lists exactly the legacy corrections still unassessed"
+ },
+ {
+  "control": "P6 new E6 correction (entries[50]) unassessed",
+  "expected": "fail",
+  "actual": "fail",
+  "behaved": true,
+  "message": "AssertionError: 'ffe0833e486e1a18e28e2cbe853c665f745272a499fd578e5c01e526cca56cba' not found in {'6d34ea3c71d29082a140791e31a01128765ecbe92c9ee8fd3b0c632be0242af2', '3405d1d9d4f086cf17ebc7a1217fc9e563"
+ },
+ {
+  "control": "P7 new E6 correction listed in place of the old one",
+  "expected": "fail",
+  "actual": "fail",
+  "behaved": true,
+  "message": "AssertionError: 'ffe0833e486e1a18e28e2cbe853c665f745272a499fd578e5c01e526cca56cba' not found in {'6d34ea3c71d29082a140791e31a01128765ecbe92c9ee8fd3b0c632be0242af2', '3405d1d9d4f086cf17ebc7a1217fc9e563"
+ },
+ {
+  "control": "P8 legacy entry digest altered (the kernel also fails this)",
+  "expected": "fail",
+  "actual": "fail",
+  "behaved": true,
+  "message": "AssertionError: Items in the first set but not the second: '4a8f7a510eff285e97aa79495fe51982ce1c96074550723d8d9f2093375aeea5' Items in the second set but not the first: '000000000000000000000000000000"
+ },
+ {
+  "control": "P9 E7B FIRED, disposition NARROW (mismatch)",
+  "expected": "fail",
+  "actual": "fail",
+  "behaved": true,
+  "message": "AssertionError: 'NARROW' != 'REJECT' - NARROW + REJECT : E7B-001"
+ },
+ {
+  "control": "P10 E7B FIRED, disposition REJECT (match)",
+  "expected": "pass",
+  "actual": "pass",
+  "behaved": true,
+  "message": "passed"
+ },
+ {
+  "control": "P11 E6 NOT_FIRED, disposition NARROW: no relation asserted",
+  "expected": "pass",
+  "actual": "pass",
+  "behaved": true,
+  "message": "passed"
+ },
+ {
+  "control": "P12 E6 UNDETERMINED and removed: an assessment, not an exemption",
+  "expected": "pass",
+  "actual": "pass",
+  "behaved": true,
+  "message": "passed"
+ }
+]

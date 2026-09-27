@@ -1,0 +1,18 @@
+{
+ "receipt_rows_identical_across_worlds": true,
+ "freeze_rows_joinable_from_receipt": [
+  "FZ-1",
+  "FZ-2"
+ ],
+ "receipt_columns_naming_version_or_bytes": [],
+ "decision_without_fix": "UNDECIDED: the receipt joins to both FZ-1 and FZ-2 by DRAFT ID",
+ "with_digest_column": {
+  "W0": [
+   "FZ-1"
+  ],
+  "W1": [
+   "FZ-2"
+  ]
+ },
+ "decision_with_fix": "W0 -> FZ-1 (score of v1 applies), W1 -> FZ-2 (it does not)"
+}

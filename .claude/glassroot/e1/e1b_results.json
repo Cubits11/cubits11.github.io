@@ -1,0 +1,34 @@
+{
+ "predeclaration": {"file": "e1b_predeclared.json", "sha256": "58a7d673e7e997985c52ebb4a0410bfefcb8889b039937e2f298c20dbe28f33d", "recorded_at": "2026-09-27T01:52:16Z"},
+ "X1": {
+  "verdict": "EARNED - issuance is not bound to the owner by any repository mechanism",
+  "dynamic_step": "REFUSED by this session's Claude Code auto-mode classifier before anything ran (agent minting an owner approval, even in a scratch worktree). Not retried by any other route. The refusal is a property of this executor's harness, not of the repository.",
+  "static_evidence": [
+   "scripts/distribute.py:344 approval_for matches approvals.json rows on draft_id and draft_revision only",
+   "scripts/distribute.py:348 approve() writes {draft_id, draft_revision, basis, approved_at, posts_sha256}; basis is free text ('who approved and on what record')",
+   "scripts/distribute.py:362 dispatch_preconditions: clean tree; HEAD on ANY remote branch; verify(draft()); approval_for; not already published. No check of issuer, commit author, signature or branch = main",
+   "scripts/distribute.py:336 credentials(): four environment variables; the only barrier that remains is their custody (a bearer capability binding the holder, not the issuer)",
+   "scripts/distribute.py:519 the queue states 'full verification_manifest exit 0 at dispatch revision' as required_before_dispatch; the publish path never runs the manifest (a stated requirement with no gate)",
+   "no test or manifest check reads who wrote approvals.json (grep of *.py)",
+   "main ruleset: pull_request required with required_approving_review_count 0, so 'merged to main' is not an owner-only channel for a principal holding write access"
+  ],
+  "pair": {"W0": "owner-written approval", "W1": "agent-written approval", "mechanism_decision": "same (both honoured)", "correct": "differ"}
+ },
+ "X2": {
+  "verdict": "EARNED as a rule, not a field: a check's PASS/FAIL must not depend on the environment; environment-caused access failures are UNEVALUABLE",
+  "evidence": [
+   "this container, 2026-09-27: verify_claims.py at f2249c1 reports 11 support URLs FAIL 'HTTP Error 403: Forbidden'",
+   "the 403 body is the agent proxy's policy message ('GitHub access to this repository is not enabled for this session...'), not the origin's",
+   "the same subject exists: git fetch of cc-framework 167aa1ee (the CC-001 support commit) succeeds through the proxy's git lane in the same session",
+   "GitHub Actions run 35639025671 (2026-09-21, head f2249c1): job 'Claim registry' concluded success, so every support URL passed there",
+   "scripts/verify_claims.py:127 transport_failure() returns False for every HTTPError; its own docstring names only 404 and 410 as real findings"
+  ],
+  "consequence_for_E1": "E1 killed v.environment because every relied-on check is re-derived on a clean checkout. X2 shows re-derivation in a restricted environment can still return a false FAIL. The field stays killed only if checks are hermetic; verify_claims.py is not, today."
+ },
+ "X3": {
+  "verdict": "COLLAPSES - the owner-side records do not bind a receipt to the dispatched bytes; E1's 'B + 13.05 = 15/15' is withdrawn",
+  "evidence": "x3_result.json: receipt rows identical in both worlds; the receipt joins to FZ-1 and FZ-2 by DRAFT ID; no receipt column names a version, freeze id or digest; snapshots are editable cells without digests",
+  "mard": "13.11 MARD carries prompt_version, which separates an honestly recorded v1/v2 dispatch, but nothing separates two dispatches of the same intended version with different bytes (the 13.11 R9 failure). Only a digest of the dispatched bytes does",
+  "smallest_fix": "one digest of the exact dispatched bytes on the receipt (r.subject_digest, already in the contract), matched to a digest on the freeze row; or dispatch bytes committed to git, whose blob id is that digest"
+ }
+}

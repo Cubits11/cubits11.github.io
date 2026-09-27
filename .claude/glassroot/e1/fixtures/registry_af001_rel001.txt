@@ -1,0 +1,10 @@
+FAIL  REL-001: review due — last reviewed 2026-08-24, window 30d
+ok    REL-001: manual trigger declared — a public protocol revision is bound, a real E2 result activates or prevents activation, or participant recruitment begins
+ok    REL-001: owner-attested — no public support URL, by declaration
+ok    REL-001: rendered in ledger
+ok    AF-001: third-party rights recorded (CC BY-NC-SA 4.0 (c) 2025 Rick Dakan, Joseph Feller, Anthropic PBC, noncommercial_only)
+ok    AF-001: reviewed 2026-08-28 (window 90d, fresh)
+ok    AF-001: scripts/mixture_bounds.py matches recorded hash
+ok    AF-001: manual trigger declared — the report publishes the artifact share, states which comparison group the differences are against, corrects a figure, or expands the analysis to a different sample
+UNKNOWN  AF-001: support URL was not reached (<urlopen error Tunnel connection failed: 403 Forbidden>): https://academy.claude.com/tutorials/the-ai-fluency-index — liveness unevaluated, not disproved
+ok    AF-001: rendered in ledger
