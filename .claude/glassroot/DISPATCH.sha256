@@ -1,0 +1,19 @@
+# The admitted dispatch: "ASTRA - GLASSROOT HANDOFF v2", 2026-09-27.
+# The prompt text itself is held by the owner; only its digests are published here.
+2ea177d2131ab1ed5b51f3f329e038fcaa2b6c4cdf1d4cea6e02bd083fe0f890  prompt, raw bytes (4506, ASCII)
+2ea177d2131ab1ed5b51f3f329e038fcaa2b6c4cdf1d4cea6e02bd083fe0f890  prompt, canonical form
+872c6ebc88388754b964efd9e9e07c30f457318114ee428b0f43801c7250f704  AX2 sealed expected answers (salted; held by the owner)
+#
+# Canonical form: decode UTF-8; replace CRLF and then CR with LF; normalize to NFC;
+# strip trailing spaces and tabs from every line; drop leading and trailing blank
+# lines; end with exactly one LF.
+#
+#   import hashlib, sys, unicodedata
+#   raw = sys.stdin.buffer.read().decode("utf-8")
+#   t = unicodedata.normalize("NFC", raw.replace("\r\n", "\n").replace("\r", "\n"))
+#   t = "\n".join(l.rstrip(" \t") for l in t.split("\n")).strip("\n") + "\n"
+#   print(hashlib.sha256(t.encode("utf-8")).hexdigest())
+#
+# Pre-dispatch certificate: python3 .claude/readiness-calibration/meet/readiness_meet.py \
+#   .claude/readiness-calibration/meet/cases/astra_v2_dispatch.json
+# -> REVIEW; the decisive observation is which harness runs the executor and what it can reach.

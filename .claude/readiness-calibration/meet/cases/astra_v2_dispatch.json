@@ -1,0 +1,40 @@
+{
+ "record": "Pre-dispatch certificate for 'ASTRA - GLASSROOT HANDOFF v2' (sha256 2ea177d2131ab1ed5b51f3f329e038fcaa2b6c4cdf1d4cea6e02bd083fe0f890, raw and canonical equal). Written 2026-09-27 by the session that wrote the prompt, so it is not an independent assessment (13.04 C01).",
+ "cases": [
+  {
+   "id": "ASTRA-GLASSROOT-HANDOFF-v2",
+   "expect_13_04": {
+    "decision": "HOLD",
+    "vetoes": {"V06": "the harness that runs the executor, and its access, are unspecified in the prompt"},
+    "note": "13.04 scores an unspecified tool as a hard veto, the same as an unavailable one"
+   },
+   "variables": {
+    "harness": {
+     "question": "which harness runs the executor, and with what access: a shell (git, python3 >= 3.11 with PyYAML, HTTPS to github.com), the repository, and the owner's Drive?",
+     "domain": ["shell+repo+drive", "shell+repo", "repo+drive, no shell", "chat only"]
+    }
+   },
+   "obligations": {
+    "A": {"holds": true, "evidence": "the owner dispatches it; it grants only reads and disposable scratch work, and names every owner-only act as excluded (prompt BOUNDARIES; capsule section 4)"},
+    "I": {"holds": {"var": "harness", "in": ["shell+repo+drive", "shell+repo"]},
+          "evidence": "the executor compares the canonical sha256 of what it received with DISPATCH.sha256 before acting (prompt IDENTITY); that needs a way to compute a hash and to read the repository"},
+    "T": {"holds": {"var": "harness", "in": ["shell+repo+drive", "repo+drive, no shell"]},
+          "evidence": "the capsule, 13.04, 13.05, 09 and 10 are in the owner's Drive; the code and data are in the repository; the prompt names both by identifier"},
+    "Q": {"holds": true, "evidence": "the checks the prompt relies on pass now (2026-09-27): readiness_meet.py --selftest exit 0 on claude/glassroot-handoff; claims_history.py --test 42/42 on c1b71f9; verify_claims_states.py 12 cases on 3d5f743"},
+    "V": {"holds": true, "evidence": "AX1 compares two digests; AX2 answers are scored against a sealed key held by the owner; AX3 records have a fixed format; every K label requires a command or a counterexample"},
+    "X": {"holds": {"var": "harness", "in": ["shell+repo+drive", "shell+repo"]},
+          "evidence": "AX3 and section 8 need git, python3 >= 3.11 with PyYAML and HTTPS to github.com"}
+   },
+   "observations": {
+    "ask-harness": {"reveals": ["harness"], "cost": 1,
+                    "how": "the owner states which harness runs the executor and what it can reach, before dispatch"}
+   },
+   "interventions": {
+    "attach-drive-exports": {"what": "the owner attaches exports of the capsule, 13.04, 13.05, 09 and 10 to the dispatch",
+                             "replaces": {"T": {"holds": true, "evidence": "exports attached"}}},
+    "dispatch-to-a-shell": {"what": "dispatch to a harness with a shell and repository access",
+                            "replaces": {"I": {"holds": true, "evidence": "shell harness"}, "X": {"holds": true, "evidence": "shell harness"}}}
+   }
+  }
+ ]
+}

@@ -5,6 +5,7 @@ and nothing here counts toward `scripts/cadence.py`.
 
 | file | what it does | when it can run |
 |---|---|---|
+| `DISPATCH.sha256` | the digests of the admitted Astra prompt (raw and canonical) and of the sealed AX2 answers, with the canonical-form code; the texts themselves are held by the owner | the executor checks its prompt against it before acting |
 | `owner/d4_transcribe.py` | appends the two falsifier-assessment transcriptions that Drive 10 decision D4 authorized, then deletes the test exemption that waits for them | after REL-001's review has landed, from the root of a checkout of `claude/falsifier-assessment-kernel`; it refuses unless `scripts/verification_manifest.py` exits 0 (D4 condition 1) |
 
 `d4_transcribe.py` was dry-run on 2026-09-27 in a disposable clone of `c1b71f9`.
