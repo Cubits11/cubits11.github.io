@@ -1,0 +1,26 @@
+{
+ "label": "patched",
+ "python": "3.12.3",
+ "git_status_porcelain_empty": true,
+ "distribute_cli": {
+  "rc": 0,
+  "planted_ran": [],
+  "planted_saw_credentials": false
+ },
+ "gate": {
+  "rc": 0,
+  "answered": [
+   1,
+   2
+  ],
+  "tools": [
+   "x_gate_status",
+   "x_publish_dry_run",
+   "x_cycle",
+   "x_publish"
+  ],
+  "planted_ran": [],
+  "poisoned_cache_for_distribute_ran": false,
+  "stderr_tail": []
+ }
+}

@@ -1,5 +1,6 @@
 __pycache__/
-*.pyc
+# No *.pyc rule. Python 3 writes bytecode only under __pycache__/, so a .pyc anywhere
+# else was put there, and git status has to show it (.claude/x/README.md, X10).
 _private/
 /Claude outputs/
 .venv/

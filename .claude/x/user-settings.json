@@ -1,0 +1,61 @@
+{
+  "sandbox": {
+    "enabled": true,
+    "allowUnsandboxedCommands": false,
+    "credentials": {
+      "files": [
+        {
+          "path": "~/.config/glassroot",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.xurl",
+          "mode": "deny"
+        }
+      ],
+      "envVars": [
+        {
+          "name": "X_API_KEY",
+          "mode": "deny"
+        },
+        {
+          "name": "X_API_KEY_SECRET",
+          "mode": "deny"
+        },
+        {
+          "name": "X_ACCESS_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "X_ACCESS_TOKEN_SECRET",
+          "mode": "deny"
+        },
+        {
+          "name": "CLIENT_ID",
+          "mode": "deny"
+        },
+        {
+          "name": "CLIENT_SECRET",
+          "mode": "deny"
+        }
+      ]
+    }
+  },
+  "permissions": {
+    "deny": [
+      "Read(~/.config/glassroot/**)",
+      "Read(~/.xurl/**)",
+      "Edit(~/.config/glassroot/**)",
+      "Edit(~/.xurl/**)",
+      "Bash(xurl *)"
+    ],
+    "allow": [
+      "mcp__xgate__x_gate_status",
+      "mcp__xgate__x_publish_dry_run"
+    ],
+    "ask": [
+      "mcp__xgate__x_cycle",
+      "mcp__xgate__x_publish"
+    ]
+  }
+}

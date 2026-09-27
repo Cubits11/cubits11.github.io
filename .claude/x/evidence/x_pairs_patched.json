@@ -1,0 +1,88 @@
+{
+ "checkout": "<checkout>",
+ "patched": true,
+ "X5": {
+  "W0": {
+   "outcome": "published",
+   "posts_sent": 2,
+   "source_url": "https://x.com/PranavBhave_/status/3000000000000000001"
+  },
+  "W1": {
+   "outcome": "refused: Credentials act as @someone_else (2000000002), not the recorded principal @PranavBhave_ (1000000001); nothing was posted",
+   "posts_sent": 0,
+   "source_url": null
+  }
+ },
+ "X6": {
+  "naive_rule": {
+   "W0_equal": [
+    false,
+    false
+   ],
+   "W1_equal": [
+    false,
+    false
+   ]
+  },
+  "receipt": {
+   "W0": [
+    {
+     "post_id": "3000000000000000001",
+     "approved_sha256": "aef45afefc60317ceef51f57e7e0e7b4bdf7c71ad44ee49ca9edcda05310e2f5",
+     "observed_sha256": "aef45afefc60317ceef51f57e7e0e7b4bdf7c71ad44ee49ca9edcda05310e2f5",
+     "equal": true,
+     "author_matches": true
+    },
+    {
+     "post_id": "3000000000000000002",
+     "approved_sha256": "e0e2c20d086945b489d94cb26445701e0140fd2669d083fc200b9b23113e4c31",
+     "observed_sha256": "e0e2c20d086945b489d94cb26445701e0140fd2669d083fc200b9b23113e4c31",
+     "equal": true,
+     "author_matches": true
+    }
+   ],
+   "W1": [
+    {
+     "post_id": "3000000000000000001",
+     "approved_sha256": "aef45afefc60317ceef51f57e7e0e7b4bdf7c71ad44ee49ca9edcda05310e2f5",
+     "observed_sha256": "aef45afefc60317ceef51f57e7e0e7b4bdf7c71ad44ee49ca9edcda05310e2f5",
+     "equal": true,
+     "author_matches": true
+    },
+    {
+     "post_id": "3000000000000000002",
+     "approved_sha256": "e0e2c20d086945b489d94cb26445701e0140fd2669d083fc200b9b23113e4c31",
+     "observed_sha256": "1ca75b6396adee998c02f8a20f2b239c306c04e6fad8b710c52f77dc4d540f17",
+     "equal": false,
+     "author_matches": true
+    }
+   ],
+   "W0_ok": true,
+   "W1_ok": false
+  }
+ },
+ "X7": {
+  "W0_owner_signed": "published",
+  "W1_agent_unsigned": "refused: The approval for fx-thread at ffffffffffff is unsigned. On the owner machine: distribute.py approve --draft-id fx-thread --basis \"...\" --sign-with ~/.ssh/<signing key>",
+  "posts_sent": [
+   2,
+   0
+  ],
+  "stranger_key": "refused: The approval signature for fx-thread does not verify against Cubits11's signing keys for this revision and account: no key on the owner account made this signature",
+  "signed_other_revision": "refused: The approval signature for fx-thread does not verify against Cubits11's signing keys for this revision and account: Signature verification failed: incorrect signature",
+  "signed_other_account": "refused: The approval signature for fx-thread does not verify against Cubits11's signing keys for this revision and account: Signature verification failed: incorrect signature",
+  "github_unreachable": "refused: Cannot read Cubits11's SSH signing keys from GitHub (fixture); dispatch refuses",
+  "no_principal_recorded": "refused: No X principal recorded in distribution/traction/principal.json; on the owner machine run: distribute.py principal"
+ },
+ "X8": {
+  "no_credentials_in_caller": "refused: Publishing needs environment credentials (never tracked): X_API_KEY, X_API_KEY_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET",
+  "posts_sent": 0
+ },
+ "X9": {
+  "outcome": "refused: X API 503 on POST /tweets: fixture failure",
+  "posts_live": 1,
+  "receipt_rows": 1,
+  "receipt_status": "PARTIAL",
+  "second_attempt": "re-dispatch refused: fx-thread at this revision was partially published; resolve the recorded PARTIAL receipt by hand before any further dispatch"
+ }
+}

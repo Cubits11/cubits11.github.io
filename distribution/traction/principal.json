@@ -1,0 +1,5 @@
+{
+  "username": "PranavBhave_",
+  "account_id": null,
+  "basis": "All three recorded publications (publications.json: try-a, try-b and try-c, 2026-09-07) and distribution/dispatch-log.yaml name @PranavBhave_. The numeric id is recorded on the owner machine by `python3 scripts/distribute.py principal`, which reads GET /2/users/me with the publishing credentials. Until then dispatch compares handles, which an account rename would break. Record the id before signing any approval: the signed payload includes it."
+}

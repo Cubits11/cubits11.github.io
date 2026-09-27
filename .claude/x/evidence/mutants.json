@@ -1,0 +1,128 @@
+{
+ "unmutated suite": "PASS",
+ "M1 publish skips the principal check": {
+  "test": "test_publish_refuses_credentials_that_act_as_another_account",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'not the recorded principal @PranavBhave_' not found in ''"
+ },
+ "M2 read-back keeps t.co links": {
+  "test": "test_observed_text_undoes_what_x_does_to_a_post",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'Same scores https://t.co/abc123 & limits.' != 'Same scores https://cubits11.github.io/overlap/ & limits.'"
+ },
+ "M3 read-back keeps &amp;": {
+  "test": "test_observed_text_undoes_what_x_does_to_a_post",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'Same scores https://cubits11.github.io/overlap/ &amp; limits.' != 'Same scores https://cubits11.github.io/overlap/ & limits.'"
+ },
+ "M4 dispatch skips the signature": {
+  "test": "test_only_an_owner_signature_admits_a_dispatch",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'Cannot read' not found in ''"
+ },
+ "M5 a partial thread leaves no receipt": {
+  "test": "test_partial_thread_is_recorded_and_blocks_redispatch",
+  "outcome": "KILLED",
+  "failure": "FAILED (errors=1)"
+ },
+ "M6 read-back always reports a match": {
+  "test": "test_readback_matches_what_was_approved_and_flags_what_was_not",
+  "outcome": "KILLED",
+  "failure": "AssertionError: True is not false"
+ },
+ "M7 a partial receipt does not block re-dispatch": {
+  "test": "test_partial_thread_is_recorded_and_blocks_redispatch",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'partially published' not found in 'fx-thread at this revision is already published'"
+ },
+ "M8 a missing approval row is treated as an empty one": {
+  "test": "test_dispatch_refuses_without_an_approval_or_a_clean_pushed_tree",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'No approval recorded' not found in ''"
+ },
+ "M9 a dirty tree is accepted": {
+  "test": "test_dispatch_refuses_without_an_approval_or_a_clean_pushed_tree",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'clean tree' not found in ''"
+ },
+ "M10 an unpushed HEAD is accepted": {
+  "test": "test_dispatch_refuses_without_an_approval_or_a_clean_pushed_tree",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'push before publishing' not found in ''"
+ },
+ "C1 a credentials file open to others is accepted": {
+  "test": "test_credentials_file_is_owner_only_and_never_echoed",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'open to other users' not found in ('SENTINEL-a', 'SENTINEL-b', 'SENTINEL-c', 'SENTINEL-d')"
+ },
+ "C2 a malformed line is echoed in the error": {
+  "test": "test_credentials_file_is_owner_only_and_never_echoed",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'line 1 is not NAME=value' not found in '<tmp>/x-credentials line 1 (SENTINEL-bare-value) is not NAME=value for one of X_API_KEY, X_A"
+ },
+ "G1 status returns the credentials": {
+  "test": "test_the_gate_holds_the_credentials_and_never_returns_them",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'SENTINEL-X_API_KEY-must-not-leave-the-gate' unexpectedly found in '{\"jsonrpc\": \"2.0\", \"id\": 1, \"result\": {\"protocolVersion\": \"2025-06-18\", \"cap"
+ },
+ "G2 x_publish does not check the named revision": {
+  "test": "test_the_gate_holds_the_credentials_and_never_returns_them",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'nothing was sent' not found in 'HOLD: Dispatch revision must be a clean tree; commit first'"
+ },
+ "I1 a tool with no hint counts as a read": {
+  "test": "test_inventory_freezes_tools_and_treats_unhinted_tools_as_writes",
+  "outcome": "KILLED",
+  "failure": "AssertionError: {'all[13 chars]api__delete_post', 'mcp__xapi__search'], 'deny[29 chars]le']} != {'all[13 chars]api__search'], 'deny': ['mcp__xapi__delete_pos[29"
+ },
+ "I2 the inventory reads only the first page": {
+  "test": "test_inventory_freezes_tools_and_treats_unhinted_tools_as_writes",
+  "outcome": "KILLED",
+  "failure": "AssertionError: Lists differ: ['search'] != ['delete_post', 'publish_article', 'search']"
+ },
+ "MX1 distribute.py keeps the repository on sys.path": {
+  "test": "test_nothing_planted_in_the_repository_runs_where_credentials_are",
+  "outcome": "KILLED",
+  "failure": "AssertionError: Lists differ: ['PLANTED-contextlib', 'PLANTED-json', 'PLANTED-yaml'] != []"
+ },
+ "MX2 the gate imports distribute by name, its directory first": {
+  "test": "test_nothing_planted_in_the_repository_runs_where_credentials_are",
+  "outcome": "KILLED",
+  "failure": "AssertionError: Lists differ: ['PLANTED-cache', 'PLANTED-contextlib', 'PLANTED-json', 'PLANTED-yaml'] != []"
+ },
+ "MX3 the gate loads distribute through the import system (trusts cached bytecode)": {
+  "test": "test_nothing_planted_in_the_repository_runs_where_credentials_are",
+  "outcome": "KILLED",
+  "failure": "AssertionError: Lists differ: ['PLANTED-cache'] != []"
+ },
+ "MX4 the gate removes only its own directory": {
+  "test": "test_nothing_planted_in_the_repository_runs_where_credentials_are",
+  "outcome": "KILLED",
+  "failure": "AssertionError: Lists differ: ['PLANTED-contextlib'] != []"
+ },
+ "MX7 .gitignore hides *.pyc outside __pycache__": {
+  "test": "test_nothing_planted_in_the_repository_runs_where_credentials_are",
+  "outcome": "KILLED",
+  "failure": "AssertionError: Tuples differ: (True, True) != (False, True)"
+ },
+ "MX5 the launcher does not compare the gate with main": {
+  "test": "test_the_template_launcher_starts_only_the_gate_on_main",
+  "outcome": "KILLED",
+  "failure": "AssertionError: Tuples differ: ([{'jsonrpc': '2.0', 'id': 1, 'result': {'p[2108 chars]], 0) != ([], 1)"
+ },
+ "MX6 the launcher accepts a Python inside the repository": {
+  "test": "test_the_template_launcher_starts_only_the_gate_on_main",
+  "outcome": "KILLED",
+  "failure": "AssertionError: Tuples differ: ([], 127) != ([], 1)"
+ },
+ "D1 the doctor finds no missing setting": {
+  "test": "test_setup_doctor_names_each_missing_step_and_prints_no_secret",
+  "outcome": "KILLED",
+  "failure": "AssertionError: Lists differ: ['1 n[26 chars]ment', '4 user settings', '7 xapi inventory fr[13 chars]ied'] != ['1 n[26 chars]ment']"
+ },
+ "D2 the doctor accepts any interpreter": {
+  "test": "test_setup_doctor_names_each_missing_step_and_prints_no_secret",
+  "outcome": "KILLED",
+  "failure": "AssertionError: 'inside the repository' not found in ''"
+ }
+}

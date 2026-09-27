@@ -1,0 +1,53 @@
+{
+ "checkout": "<base checkout at f2249c1>",
+ "patched": false,
+ "X5": {
+  "W0": {
+   "outcome": "published",
+   "posts_sent": 2,
+   "source_url": "https://x.com/PranavBhave_/status/3000000000000000001"
+  },
+  "W1": {
+   "outcome": "published",
+   "posts_sent": 2,
+   "source_url": "https://x.com/someone_else/status/3000000000000000001"
+  }
+ },
+ "X6": {
+  "naive_rule": {
+   "W0_equal": [
+    false,
+    false
+   ],
+   "W1_equal": [
+    false,
+    false
+   ]
+  },
+  "receipt": {
+   "W0": null,
+   "W1": null,
+   "W0_ok": null,
+   "W1_ok": null
+  }
+ },
+ "X7": {
+  "W0_owner_signed": "published",
+  "W1_agent_unsigned": "published",
+  "posts_sent": [
+   2,
+   2
+  ]
+ },
+ "X8": {
+  "no_credentials_in_caller": "refused: Publishing needs environment credentials (never tracked): X_API_KEY, X_API_KEY_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET",
+  "posts_sent": 0
+ },
+ "X9": {
+  "outcome": "refused: X API 503 on POST /tweets: fixture failure",
+  "posts_live": 1,
+  "receipt_rows": 0,
+  "receipt_status": null,
+  "second_attempt": "re-dispatch admitted"
+ }
+}

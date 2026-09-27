@@ -1,0 +1,58 @@
+{
+ "xurl": "xurl v1.3.2",
+ "capture_rc": 0,
+ "capture_stderr_tail": [
+  "4 tools (2 read-only by the server's own hint); sha256 545672b2a7e32cc564e823d399b1e8f656a9906b98adc161e53fb716fc45ee41",
+  "wrote <work>/xapi-inventory.json and <work>/xapi-inventory.permissions.json"
+ ],
+ "tools": [
+  "createArticle",
+  "deletePost",
+  "getUsersMe",
+  "searchPostsRecent"
+ ],
+ "tools_sha256": "545672b2a7e32cc564e823d399b1e8f656a9906b98adc161e53fb716fc45ee41",
+ "allow": [
+  "mcp__xapi__getUsersMe",
+  "mcp__xapi__searchPostsRecent"
+ ],
+ "deny": [
+  "mcp__xapi__createArticle",
+  "mcp__xapi__deletePost"
+ ],
+ "bridge_sent_authorization": [
+  "Bearer FAKE-ACCESS-TOKEN-FIXTURE"
+ ],
+ "bridge_echoed_session": [
+  "sess-fixture-1"
+ ],
+ "methods_seen": [
+  "initialize",
+  "tools/list",
+  "notifications/initialized",
+  "tools/list",
+  "initialize",
+  "notifications/initialized",
+  "tools/list",
+  "tools/list",
+  "initialize",
+  "tools/list",
+  "notifications/initialized",
+  "tools/list"
+ ],
+ "compare_unchanged_rc": 0,
+ "compare_unchanged_diff": {
+  "added": [],
+  "removed": [],
+  "changed": []
+ },
+ "compare_drift_rc": 1,
+ "compare_drift_diff": {
+  "added": [
+   "sendDirectMessage"
+  ],
+  "removed": [],
+  "changed": []
+ },
+ "inventory_holds_no_token": true
+}

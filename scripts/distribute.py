@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 """Evidence distribution: python3 scripts/distribute.py run (offline) · approve · publish · snapshot."""
-from __future__ import annotations
+import os
+import sys
+if __name__ == '__main__':
+    # Run as a script, this process may hold the publishing credentials, and Python
+    # searches the script's own directory first on every import. A session can write
+    # anywhere in the repository, and git ignores *.pyc, so a planted file could run
+    # before any check. Every repository directory except installed packages leaves
+    # sys.path before anything else is imported; os and sys are already loaded at
+    # startup, so importing them searched nothing.
+    _repo = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    sys.path[:] = [p for p in sys.path if 'site-packages' in p
+                   or not (os.path.realpath(p or os.curdir) + os.sep).startswith(_repo + os.sep)]
 import argparse
 import datetime as dt
 import hashlib
@@ -10,7 +21,7 @@ import pathlib
 import re
 import statistics
 import subprocess
-import sys
+import unicodedata
 from urllib.parse import urlencode, urlsplit, urlunsplit
 import yaml
 
@@ -296,11 +307,14 @@ def learn(publications, snapshots):
 
 
 # ── publishing: X API v2, OAuth 1.0a user context, standard library only ─────
-# Credentials are read from the environment and never written anywhere. The
-# stage refuses unless: the tree is clean, HEAD is on a remote (the dispatch
-# revision is public), the draft's current revision carries an approval in
-# approvals.json, and verify() passes at this revision.
+# Credentials are read from the environment, or from the owner-only file that
+# X_CREDENTIALS_FILE names, and never written anywhere. The stage refuses unless:
+# the tree is clean, HEAD is on a remote (the dispatch revision is public), the
+# draft's current revision carries an approval in approvals.json signed by the
+# owner, the credentials act as the recorded principal, and verify() passes at
+# this revision.
 ENV = ('X_API_KEY', 'X_API_KEY_SECRET', 'X_ACCESS_TOKEN', 'X_ACCESS_TOKEN_SECRET')
+CREDENTIALS_FILE = 'X_CREDENTIALS_FILE'
 API = 'https://api.x.com/2'
 
 
@@ -334,28 +348,170 @@ def x_request(method, path, creds, body=None, query=None):
 
 
 def credentials():
+    """The four OAuth 1.0a values: from the file X_CREDENTIALS_FILE names if it is set, else the environment.
+
+    A process that starts the gate can pass it a path instead of the secrets, so
+    the secrets never enter that process's environment or its other children's.
+    """
     import os
+    if os.environ.get(CREDENTIALS_FILE):
+        return credentials_file(pathlib.Path(os.environ[CREDENTIALS_FILE]).expanduser())
     missing = [k for k in ENV if not os.environ.get(k)]
     if missing:
         raise ValueError('Publishing needs environment credentials (never tracked): ' + ', '.join(missing))
     return tuple(os.environ[k] for k in ENV)
 
 
+def credentials_file(path):
+    """NAME=value lines for exactly the names in ENV. Errors name lines and names, never values."""
+    try:
+        mode = path.stat().st_mode
+        text = path.read_text()
+    except OSError as e:
+        raise ValueError(f'The credentials file {path} cannot be read ({e.strerror})')
+    if mode & 0o077:
+        raise ValueError(f'{path} is open to other users (mode {mode & 0o777:o}); run: chmod 600 {path}')
+    values = {}
+    for n, line in enumerate(text.splitlines(), 1):
+        line = line.strip()
+        if not line or line.startswith('#'):
+            continue
+        name, sep, value = line.partition('=')
+        name = name.removeprefix('export ').strip()
+        if not sep or name not in ENV:
+            raise ValueError(f'{path} line {n} is not NAME=value for one of ' + ', '.join(ENV))
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in '"\'':
+            value = value[1:-1]
+        values[name] = value
+    missing = [k for k in ENV if not values.get(k)]
+    if missing:
+        raise ValueError(f'{path} lacks ' + ', '.join(missing))
+    return tuple(values[k] for k in ENV)
+
+
 def approval_for(post):
     return next((a for a in records('approvals.json') if a['draft_id'] == post['id'] and a['draft_revision'] == post['revision']), None)
 
 
-def approve(draft_id, basis):
+# ── who publishes, and who may approve ────────────────────────────────────────
+# A credential proves that X will accept a request, not which account it acts as
+# or that the owner wanted this post. The principal file names the account; the
+# approval carries a signature from a key only the owner holds. Both are checked
+# before the first request of a dispatch.
+NAMESPACE = 'glassroot-x-approval'
+OWNER_LOGIN = 'Cubits11'   # GitHub account whose SSH signing keys may sign approvals
+
+
+def principal():
+    """The X account publishing must act as. Recorded by the owner, never inferred at dispatch."""
+    doc = records('principal.json')
+    if not isinstance(doc, dict) or not doc.get('username'):
+        raise ValueError('No X principal recorded in distribution/traction/principal.json; '
+                         'on the owner machine run: distribute.py principal')
+    return doc
+
+
+def check_principal(me, who):
+    """Compare-and-swap on identity: the account the credentials act as must be the recorded one."""
+    if who.get('account_id'):
+        same = str(me.get('id')) == str(who['account_id'])
+    else:
+        same = str(me.get('username', '')).lower() == who['username'].lower()
+    if not same:
+        raise ValueError(f'Credentials act as @{me.get("username")} ({me.get("id")}), not the recorded principal '
+                         f'@{who["username"]} ({who.get("account_id") or "id not yet observed"}); nothing was posted')
+
+
+def observe_principal():
+    """Owner-run: record the id of the account the credentials act as. Refuses to switch accounts."""
+    me = x_request('GET', '/users/me', credentials())['data']
+    doc = records('principal.json')
+    doc = doc if isinstance(doc, dict) else {}
+    if doc.get('username') and doc['username'].lower() != me['username'].lower():
+        raise ValueError(f'Credentials act as @{me["username"]}, but the recorded principal is @{doc["username"]}; '
+                         'change principal.json by hand if the account is meant to change')
+    doc.update(username=me['username'], account_id=str(me['id']),
+               observed_at=dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z'),
+               observed_by='GET /2/users/me with the publishing credentials')
+    (ROOT / BASE / 'principal.json').write_text(json.dumps(doc, indent=2) + '\n')
+    return doc
+
+
+def approval_payload(post, who):
+    """The exact bytes an approval signs: the action, the draft revision, its posts and the account."""
+    return json.dumps({'action': 'publish', 'draft_id': post['id'], 'draft_revision': post['revision'],
+                       'posts_sha256': digest(post['posts']),
+                       'principal': {'username': who['username'].lower(), 'account_id': who.get('account_id')}},
+                      sort_keys=True, separators=(',', ':')).encode()
+
+
+def owner_signing_keys():
+    """The owner's SSH signing keys as GitHub publishes them: a root of trust no repository write can change."""
+    import urllib.request as ur
+    req = ur.Request(f'https://api.github.com/users/{OWNER_LOGIN}/ssh_signing_keys',
+                     headers={'Accept': 'application/vnd.github+json', 'User-Agent': 'cubits11-distribute/1'})
+    try:
+        with ur.urlopen(req, timeout=20) as r:
+            keys = [k['key'] for k in json.loads(r.read().decode())]
+    except Exception as e:  # noqa: BLE001
+        raise ValueError(f'Cannot read {OWNER_LOGIN}\'s SSH signing keys from GitHub ({e}); '
+                         'the approval is unverifiable, so dispatch refuses')
+    if not keys:
+        raise ValueError(f'{OWNER_LOGIN} has no SSH signing key on GitHub; add one before approvals can be verified')
+    return keys
+
+
+def verify_approval(post, row):
+    """Refuse unless the approval's signature verifies, for this payload, against the owner's keys."""
+    import shutil, tempfile
+    if not row.get('signature'):
+        raise ValueError(f'The approval for {post["id"]} at {post["revision"][:12]} is unsigned. On the owner machine: '
+                         f'distribute.py approve --draft-id {post["id"]} --basis "..." --sign-with ~/.ssh/<signing key>')
+    if not shutil.which('ssh-keygen'):
+        raise ValueError('ssh-keygen is needed to verify approvals')
+    payload = approval_payload(post, principal())
+    with tempfile.TemporaryDirectory() as tmp:
+        t = pathlib.Path(tmp)
+        (t / 'allowed_signers').write_text(''.join(f'{OWNER_LOGIN} namespaces="{NAMESPACE}" {k}\n'
+                                                   for k in owner_signing_keys()))
+        (t / 'approval.sig').write_text(row['signature'])
+        r = subprocess.run(['ssh-keygen', '-Y', 'verify', '-f', str(t / 'allowed_signers'), '-I', OWNER_LOGIN,
+                            '-n', NAMESPACE, '-s', str(t / 'approval.sig')], input=payload, capture_output=True)
+    if r.returncode:
+        why = r.stderr.decode().strip()[:200] or 'no key on the owner account made this signature'
+        raise ValueError(f'The approval signature for {post["id"]} does not verify against {OWNER_LOGIN}\'s '
+                         f'signing keys for this revision and account: {why}')
+
+
+def sign_approval(post, key_path):
+    """Owner-run: sign the approval payload with an SSH key; the key never leaves ssh-keygen or its agent."""
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        payload = pathlib.Path(tmp) / 'approval.json'
+        payload.write_bytes(approval_payload(post, principal()))
+        subprocess.run(['ssh-keygen', '-Y', 'sign', '-f', str(key_path), '-n', NAMESPACE, str(payload)], check=True)
+        return (payload.parent / 'approval.json.sig').read_text()
+
+
+def approve(draft_id, basis, signature=None, sign_with=None):
     posts = draft()
     verify(posts)
     post = next((p for p in posts if p['id'] == draft_id), None)
     if post is None:
         raise ValueError(f'Unknown draft: {draft_id}')
+    if sign_with:
+        signature = sign_approval(post, sign_with)
     rows = [a for a in records('approvals.json') if not (a['draft_id'] == draft_id and a['draft_revision'] == post['revision'])]
-    rows.append({'draft_id': draft_id, 'draft_revision': post['revision'], 'basis': basis,
-                 'approved_at': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z'),
-                 'posts_sha256': digest(post['posts'])})
+    row = {'draft_id': draft_id, 'draft_revision': post['revision'], 'basis': basis,
+           'approved_at': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z'),
+           'posts_sha256': digest(post['posts'])}
+    if signature:
+        row['signature'] = signature
+    rows.append(row)
     (ROOT / BASE / 'approvals.json').write_text(json.dumps(rows, indent=2) + '\n')
+    if not signature:
+        print('unsigned approval recorded: dispatch refuses it until it is signed with --sign-with', file=sys.stderr)
     return post
 
 
@@ -367,9 +523,16 @@ def dispatch_preconditions(post, dry_run=False):
         if not git('branch', '-r', '--contains', head):
             raise ValueError('HEAD is not on any remote; push before publishing so the dispatch revision is public')
     verify(draft())
-    if approval_for(post) is None:
+    row = approval_for(post)
+    if row is None:
         raise ValueError(f'No approval recorded for {post["id"]} at revision {post["revision"][:12]}; run: distribute.py approve --draft-id {post["id"]} --basis "..."')
-    if any(r['draft_revision'] == post['revision'] for r in records('publications.json')):
+    principal()
+    verify_approval(post, row)
+    done = [r for r in records('publications.json') if r['draft_revision'] == post['revision']]
+    if any(r.get('status') == 'PARTIAL' for r in done):
+        raise ValueError(f'{post["id"]} at this revision was partially published; resolve the recorded PARTIAL '
+                         'receipt by hand before any further dispatch')
+    if done:
         raise ValueError(f'{post["id"]} at this revision is already published')
     return head
 
@@ -384,28 +547,85 @@ def publish(draft_id, dry_run=False):
         print(json.dumps({'draft_id': draft_id, 'revision': post['revision'], 'dispatch_revision': head,
                           'requests': [{'method': 'POST', 'path': '/tweets', 'body': b} for b in bodies],
                           'chaining': 'each body after the first gains reply.in_reply_to_tweet_id of the previous response id',
-                          'credentials': 'not read in dry run'}, indent=2))
+                          'credentials': 'not read in dry run',
+                          'principal': principal()}, indent=2))
         return None
     creds = credentials()
     me = x_request('GET', '/users/me', creds)['data']
+    check_principal(me, principal())
     ids = []
-    for body in bodies:
+
+    def receipt(**extra):
+        now = dt.datetime.now(dt.timezone.utc)
+        row = {'post_id': ids[0], 'source_url': f'https://x.com/{me["username"]}/status/{ids[0]}',
+               'draft_id': post['id'], 'draft_revision': post['revision'],
+               'published_at': now.isoformat(timespec='seconds').replace('+00:00', 'Z'),
+               'dispatch_revision': head, 'thread_post_ids': list(ids),
+               'post_type': post['post_type'], 'audience': post['audience_hypothesis'], 'topic': post['topic'],
+               'hook': post['hook'], 'visual': post['visual'], 'cta': post['cta'],
+               'thread_structure': post['thread_structure'], 'time_slot': f'utc-{now.hour:02d}', **extra}
+        rows = records('publications.json') + [row]
+        validate_publications(rows, draft())
+        (ROOT / BASE / 'publications.json').write_text(json.dumps(rows, indent=2) + '\n')
+        return row
+
+    try:
+        for body in bodies:
+            if ids:
+                body['reply'] = {'in_reply_to_tweet_id': ids[-1]}
+            ids.append(x_request('POST', '/tweets', creds, body=body)['data']['id'])
+    except Exception as exc:
+        # Posts already accepted are live. Record them before re-raising, so the
+        # log never holds fewer posts than X does and the revision cannot be re-sent.
         if ids:
-            body['reply'] = {'in_reply_to_tweet_id': ids[-1]}
-        ids.append(x_request('POST', '/tweets', creds, body=body)['data']['id'])
-    now = dt.datetime.now(dt.timezone.utc)
-    row = {'post_id': ids[0], 'source_url': f'https://x.com/{me["username"]}/status/{ids[0]}',
-           'draft_id': post['id'], 'draft_revision': post['revision'],
-           'published_at': now.isoformat(timespec='seconds').replace('+00:00', 'Z'),
-           'dispatch_revision': head, 'thread_post_ids': ids,
-           'post_type': post['post_type'], 'audience': post['audience_hypothesis'], 'topic': post['topic'],
-           'hook': post['hook'], 'visual': post['visual'], 'cta': post['cta'],
-           'thread_structure': post['thread_structure'], 'time_slot': f'utc-{now.hour:02d}'}
-    rows = records('publications.json') + [row]
-    validate_publications(rows, draft())
-    (ROOT / BASE / 'publications.json').write_text(json.dumps(rows, indent=2) + '\n')
-    print(f'published {post["id"]} as {row["source_url"]} ({len(ids)} posts)')
+            receipt(status='PARTIAL', error=str(exc)[:300])
+            print(f'PARTIAL: {len(ids)} of {len(bodies)} posts of {post["id"]} are live and recorded', file=sys.stderr)
+        raise
+    checks, ok = readback(ids, post['posts'], creds, me)
+    row = receipt(readback=checks, readback_ok=ok)
+    print(f'published {post["id"]} as {row["source_url"]} ({len(ids)} posts); '
+          f'read-back {"matches the approved text" if ok else "DIFFERS or was not evaluated: see the receipt"}')
     return row
+
+
+def canonical(text):
+    return unicodedata.normalize('NFC', text).strip()
+
+
+def observed_text(tweet):
+    """What X stored, projected back onto what was sent.
+
+    X rewrites every URL to a t.co link and escapes &, < and > in `text`, and a
+    long post's full text is in `note_tweet`. Comparing raw bytes would call every
+    post with a link or an ampersand a mismatch, so the t.co links are expanded
+    from the post's own entities and the escapes are decoded first.
+    """
+    note = tweet.get('note_tweet') or {}
+    text = note.get('text') or tweet.get('text', '')
+    for u in (note.get('entities') or tweet.get('entities') or {}).get('urls', []):
+        if u.get('url') and u.get('expanded_url'):
+            text = text.replace(u['url'], u['expanded_url'])
+    return canonical(html.unescape(text))
+
+
+def readback(ids, approved, creds, me):
+    """Fetch the posts back and compare each with its approved text; never fatal, always recorded."""
+    sha = lambda s: hashlib.sha256(s.encode()).hexdigest()
+    try:
+        data = x_request('GET', '/tweets', creds,
+                         query={'ids': ','.join(ids), 'tweet.fields': 'author_id,entities,note_tweet'}).get('data') or []
+    except Exception as exc:  # noqa: BLE001
+        return [{'status': 'UNEVALUATED', 'error': str(exc)[:200]}], False
+    by_id = {t['id']: t for t in data}
+    checks = []
+    for ident, text in zip(ids, approved):
+        t = by_id.get(ident)
+        seen = observed_text(t) if t else None
+        checks.append({'post_id': ident, 'approved_sha256': sha(canonical(text)),
+                       'observed_sha256': sha(seen) if seen is not None else None,
+                       'equal': seen == canonical(text),
+                       'author_matches': bool(t) and str(t.get('author_id')) == str(me['id'])})
+    return checks, all(c['equal'] and c['author_matches'] for c in checks)
 
 
 def snapshot(post_id):
@@ -539,10 +759,12 @@ def dashboard(data):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('stage', choices=['run', 'orient', 'extract', 'draft', 'verify', 'queue', 'ingest', 'learn', 'approve', 'publish', 'snapshot', 'due', 'replies', 'cycle'], nargs='?', default='run')
+    ap.add_argument('stage', choices=['run', 'orient', 'extract', 'draft', 'verify', 'queue', 'ingest', 'learn', 'approve', 'publish', 'snapshot', 'due', 'replies', 'cycle', 'principal'], nargs='?', default='run')
     ap.add_argument('--check', action='store_true')
     ap.add_argument('--draft-id')
     ap.add_argument('--basis', help='approve: who approved and on what record')
+    ap.add_argument('--sign-with', type=pathlib.Path, help='approve: an SSH signing key registered on the owner GitHub account')
+    ap.add_argument('--signature', type=pathlib.Path, help='approve: an ssh-keygen -Y signature file made over the approval payload')
     ap.add_argument('--dry-run', action='store_true', help='publish: print the exact requests; read no credentials')
     ap.add_argument('--post-id', help='snapshot: the recorded root post id')
     ap.add_argument('--at', help='Proposed timezone-qualified slot; never schedules on X')
@@ -552,7 +774,8 @@ def main():
     if a.stage == 'approve':
         if not (a.draft_id and a.basis):
             ap.error('approve requires --draft-id and --basis')
-        post = approve(a.draft_id, a.basis)
+        post = approve(a.draft_id, a.basis, signature=a.signature.read_text() if a.signature else None,
+                       sign_with=a.sign_with)
         print(f'approved {post["id"]} at revision {post["revision"][:12]}; regenerating the bundle')
     if a.stage == 'publish':
         if not a.draft_id:
@@ -560,6 +783,10 @@ def main():
         publish(a.draft_id, dry_run=a.dry_run)
         if a.dry_run:
             return 0
+    if a.stage == 'principal':
+        who = observe_principal()
+        print(f'principal recorded: @{who["username"]} ({who["account_id"]})')
+        return 0
     if a.stage == 'snapshot':
         if not a.post_id:
             ap.error('snapshot requires --post-id')

@@ -1,0 +1,37 @@
+{
+ "label": "base",
+ "python": "3.12.3",
+ "git_status_porcelain_empty": true,
+ "distribute_cli": {
+  "rc": 0,
+  "planted_ran": [
+   "__future__",
+   "contextlib",
+   "json",
+   "yaml"
+  ],
+  "planted_saw_credentials": true
+ },
+ "gate": {
+  "rc": 0,
+  "answered": [
+   1,
+   2
+  ],
+  "tools": [
+   "x_gate_status",
+   "x_publish_dry_run",
+   "x_cycle",
+   "x_publish"
+  ],
+  "planted_ran": [
+   "__future__",
+   "contextlib",
+   "distribute-cache",
+   "json",
+   "yaml"
+  ],
+  "poisoned_cache_for_distribute_ran": true,
+  "stderr_tail": []
+ }
+}

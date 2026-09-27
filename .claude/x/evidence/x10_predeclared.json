@@ -1,0 +1,19 @@
+{
+  "declared_before_running": true,
+  "id": "X10",
+  "kill_condition": "If the base run does not execute the planted module, the finding is false and the patch is not earned.",
+  "patch": "distribute.py drops its own directory from sys.path before any import when run as a script (its `from __future__ import annotations` line, itself an import, is removed). x_gate_mcp.py removes every repository path from sys.path before any import and executes distribute.py from its source text, so no cached bytecode is read.",
+  "prediction_base": {
+    "git_status_porcelain_empty": true,
+    "planted_module_ran": true,
+    "planted_module_saw_credentials": true
+  },
+  "prediction_patched": {
+    "gate_planted_modules_ran": false,
+    "gate_poisoned_pyc_for_distribute_ran": false,
+    "git_status_porcelain_empty": true,
+    "planted_module_ran": false
+  },
+  "question": "Can a file that a session writes into scripts/, and that git does not show, run inside the process that holds the X credentials, before any dispatch check?",
+  "setup": "A copy of the repository at the x-gate working tree. Plant scripts/__future__.pyc (a sourceless bytecode file compiled from a module that writes a marker file). *.pyc is in .gitignore. Put four SENTINEL values in the environment as X_* credentials. Run `python3 scripts/distribute.py --help` from the copy's root."
+}

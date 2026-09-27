@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "xgate": {
+      "type": "stdio",
+      "command": "/bin/sh",
+      "args": [
+        "-c",
+        "case \"$GLASSROOT_PYTHON\" in \"$GLASSROOT_REPO\"/*) echo \"x-gate: GLASSROOT_PYTHON is inside the repository; not starting\" >&2; exit 1;; esac; cd \"$GLASSROOT_REPO\" && git fetch -q origin main && for f in scripts/distribute.py scripts/x_gate_mcp.py; do [ \"$(git rev-parse FETCH_HEAD:\"$f\")\" = \"$(git hash-object --no-filters -- \"$f\")\" ] || { echo \"x-gate: $f differs from origin/main; not starting\" >&2; exit 1; }; done && exec \"$GLASSROOT_PYTHON\" scripts/x_gate_mcp.py"
+      ],
+      "env": {
+        "GLASSROOT_REPO": "/ABSOLUTE/PATH/TO/cubits11.github.io",
+        "GLASSROOT_PYTHON": "/ABSOLUTE/PATH/TO/python3-outside-the-repository",
+        "X_CREDENTIALS_FILE": "~/.config/glassroot/x-credentials"
+      }
+    },
+    "xapi": {
+      "type": "stdio",
+      "command": "/ABSOLUTE/PATH/TO/go/bin/xurl",
+      "args": [
+        "--app",
+        "glassroot-read",
+        "mcp"
+      ]
+    }
+  }
+}
