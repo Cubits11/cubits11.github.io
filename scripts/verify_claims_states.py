@@ -40,6 +40,12 @@ spec.loader.exec_module(vc)
 TIMEOUT = urllib.error.URLError(socket.timeout("timed out"))
 NOT_FOUND = urllib.error.HTTPError(
     "https://example.invalid/x", 404, "Not Found", {}, None)
+FORBIDDEN = urllib.error.HTTPError(
+    "https://example.invalid/x", 403, "Forbidden", {}, None)
+
+
+def http_error(code: int) -> urllib.error.HTTPError:
+    return urllib.error.HTTPError("https://example.invalid/x", code, "", {}, None)
 
 
 def raiser(exc):
@@ -71,6 +77,11 @@ def liveness_transport():
 
 def liveness_http_error():
     vc.fetch = raiser(NOT_FOUND)
+    vc.check_url_liveness("CC-001", "https://example.invalid/a")
+
+
+def liveness_refused():
+    vc.fetch = raiser(FORBIDDEN)
     vc.check_url_liveness("CC-001", "https://example.invalid/a")
 
 
@@ -144,6 +155,11 @@ CASES = [
      ["FAIL", "returned an error"],
      ["UNKNOWN", "not disproved"]),
 
+    ("support URL refused with 403 -> UNDETERMINED, never a dead binding",
+     liveness_refused, 0, 1,
+     ["UNKNOWN", "was not reached", "not disproved"],
+     ["FAIL", "returned an error"]),
+
     ("trigger fetch not reached -> UNDETERMINED, never TRIGGER FIRED",
      trigger_transport, 0, 1,
      ["UNKNOWN", "did not complete", "unevaluated, not observed"],
@@ -207,6 +223,14 @@ def classification() -> list[str]:
                         "HTTPError must be excluded before URLError is tested")
     if not vc.transport_failure(TIMEOUT):
         problems.append("a timeout was not classified as a transport failure")
+    for code in (410, 400):
+        if vc.transport_failure(http_error(code)):
+            problems.append(f"a {code} was classified as unevaluated; it is a "
+                            f"finding about the binding")
+    for code in (401, 403, 407, 408, 425, 429, 500, 502, 503, 504):
+        if not vc.transport_failure(http_error(code)):
+            problems.append(f"a {code} was classified as a finding; it is an "
+                            f"answer about access, not about the binding")
     return problems
 
 

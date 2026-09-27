@@ -124,15 +124,24 @@ def unknown(msg: str) -> None:
     print(f"UNKNOWN  {msg}")
 
 
-def transport_failure(exc: BaseException) -> bool:
-    """True when the exception means the server was never reached.
+# Statuses that describe this host's access, not the resource: authentication,
+# a refusal by the origin or by a proxy between this host and it, a timeout, a
+# rate limit, a server error. None of them says a binding is dead. An egress
+# proxy's 403 turned eleven support URLs FAIL in a session whose CI run of the
+# same commit passed them (GLASSROOT X2, 2026-09-27).
+REFUSED = frozenset({401, 403, 407, 408, 425, 429})
 
-    HTTPError is tested first and deliberately excluded: it subclasses
-    URLError, and the server did answer — a 404 or 410 on a bound support URL
-    is a real finding about the binding, not a network condition.
+
+def transport_failure(exc: BaseException) -> bool:
+    """True when the exception means the resource was never observed.
+
+    HTTPError is tested first: it subclasses URLError, and the server did
+    answer. A 404 or 410 on a bound support URL is a real finding about the
+    binding. A status in REFUSED, or any 5xx, is an answer about access, and
+    is reported as unevaluated rather than as a finding.
     """
     if isinstance(exc, urllib.error.HTTPError):
-        return False
+        return exc.code in REFUSED or exc.code >= 500
     return isinstance(exc, (urllib.error.URLError, TimeoutError, ConnectionError,
                             socket.timeout, socket.gaierror, OSError))
 
