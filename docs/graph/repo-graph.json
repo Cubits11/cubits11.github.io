@@ -5046,10 +5046,10 @@
  "findings": [
   {
    "claim": "REL-001",
-   "days_left": 5,
+   "days_left": -4,
    "detector": "D3",
    "review_due": "2026-09-23",
-   "severity": "REVIEW"
+   "severity": "FAIL"
   },
   {
    "config_seed": "MC-E3-PILOT-V1-FREEZE-2026-09-06",
@@ -5073,7 +5073,7 @@
   {
    "ahead": 1,
    "behind": 0,
-   "branch": "claude/e9-contract",
+   "branch": "claude/x-gate",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -5085,8 +5085,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/e9-contract",
-  "head": "6ac65de"
+  "branch": "claude/x-gate",
+  "head": "193bd15"
  },
  "nodes": [
   {
@@ -5657,13 +5657,34 @@
    "type": "script"
   },
   {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/x_gate_mcp.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/x_mcp_inventory.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/x_setup.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
    "checks": 83,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
   {
    "consequence": "REJECT",
-   "days_left": 95,
+   "days_left": 86,
    "id": "CC-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5672,7 +5693,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 95,
+   "days_left": 86,
    "id": "CC-002",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5681,7 +5702,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 95,
+   "days_left": 86,
    "id": "CC-003",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5690,7 +5711,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 95,
+   "days_left": 86,
    "id": "CC-004",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5699,7 +5720,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 95,
+   "days_left": 86,
    "id": "CC-005",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5708,7 +5729,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 109,
+   "days_left": 100,
    "id": "CC-006",
    "last_reviewed": "2026-09-07",
    "review_due": "2027-01-05",
@@ -5717,7 +5738,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 5,
+   "days_left": -4,
    "id": "REL-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-09-23",
@@ -5726,7 +5747,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 56,
+   "days_left": 47,
    "id": "MC-001",
    "last_reviewed": "2026-09-14",
    "review_due": "2026-11-13",
@@ -5735,7 +5756,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 39,
+   "days_left": 30,
    "id": "MC-002",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-10-27",
@@ -5744,7 +5765,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 41,
+   "days_left": 32,
    "id": "MC-003",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-10-29",
@@ -5753,7 +5774,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 42,
+   "days_left": 33,
    "id": "MC-004",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-10-30",
@@ -5762,7 +5783,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 69,
+   "days_left": 60,
    "id": "AF-001",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-11-26",
@@ -5771,7 +5792,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 95,
+   "days_left": 86,
    "id": "GA-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5780,7 +5801,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 95,
+   "days_left": 86,
    "id": "GV-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -5789,7 +5810,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 340,
+   "days_left": 331,
    "id": "GCE-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2027-08-24",
@@ -5798,7 +5819,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 102,
+   "days_left": 93,
    "id": "SITE-001",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-12-29",
@@ -5807,7 +5828,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 101,
+   "days_left": 92,
    "id": "SITE-002",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-12-28",
@@ -5816,7 +5837,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 110,
+   "days_left": 101,
    "id": "E3-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
@@ -5825,7 +5846,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 110,
+   "days_left": 101,
    "id": "E3B-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
@@ -5834,7 +5855,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 112,
+   "days_left": 103,
    "id": "E6-001",
    "last_reviewed": "2026-09-10",
    "review_due": "2027-01-08",
@@ -5843,7 +5864,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 112,
+   "days_left": 103,
    "id": "E7B-001",
    "last_reviewed": "2026-09-10",
    "review_due": "2027-01-08",
@@ -5951,36 +5972,36 @@
   {
    "ahead_of_origin_main": 1,
    "behind_origin_main": 0,
-   "head": "6ac65de",
-   "id": "claude/e9-contract",
-   "last_commit": "2026-09-18",
+   "head": "193bd15",
+   "id": "claude/x-gate",
+   "last_commit": "2026-09-27",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "9bb2aff",
+   "head": "f2249c1",
    "id": "main",
-   "last_commit": "2026-09-17",
+   "last_commit": "2026-09-18",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "9bb2aff",
+   "head": "f2249c1",
    "id": "origin",
-   "last_commit": "2026-09-17",
+   "last_commit": "2026-09-18",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "9bb2aff",
+   "head": "f2249c1",
    "id": "origin/main",
-   "last_commit": "2026-09-17",
+   "last_commit": "2026-09-18",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
@@ -5994,5 +6015,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "b47359a3de0f7bb1e2135989dfad784cdaf9f1507a896581e47d95fb3208268f"
+ "stable_digest": "c44bf2ca40e1976f581d321907e7212c5c5b052e8097d5e0d82aaa1fc952b3a6"
 }
