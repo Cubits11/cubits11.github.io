@@ -1,0 +1,112 @@
+RETRO-ASTRA-T1: HOLD  (worlds compatible 4, admissible 0; Kleene projection HOLD)
+  A     U  depends on k7_scope
+        frozen V04: K7 forbids auditing a second device until QUEUE item 5 yields a viewer response; acceptance requires a rung for every device
+  I     0
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A: 'OUTPUT one commit per task' and rule 7 run in the working tree; no explicit-path commit, no acceptance on the committed tree. (Lenient reading: also 0; no explicit paths.)
+  T     1
+        §A READ FIRST names the files; frozen core.evidence 14-17
+  Q     U  depends on harness
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A rule 7: 'verification_manifest.py must exit 0 before any commit'; Known-open: 'claims_history.yaml entry 38 fails the append-only check in the working tree. Do not commit around it.'; FORBIDDEN: 'touching ... claims_history.yaml'. On the owner's tree the precondition cannot pass without the forbidden edit. The clean-checkout manifest at dispatch was not re-run here.
+  V     1
+        acceptance: audit_device.py --all exits 0 and prints a rung per device
+  X     1
+        pure Python / generator; no Blender (frozen row fires no V06)
+  HOLD fails in every world: I
+  change compiler-I -> REVIEW, then observe ask-both
+
+RETRO-ASTRA-T2: HOLD  (worlds compatible 2, admissible 0; Kleene projection HOLD)
+  A     1
+        §A: branch claude/<topic>; FORBIDDEN list; no owner-only act requested
+  I     0
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A: 'OUTPUT one commit per task' and rule 7 run in the working tree; no explicit-path commit, no acceptance on the committed tree. (Lenient reading: also 0; no explicit paths.)
+  T     1
+        §A READ FIRST names the files; frozen core.evidence 14-17
+  Q     U  depends on harness
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A rule 7: 'verification_manifest.py must exit 0 before any commit'; Known-open: 'claims_history.yaml entry 38 fails the append-only check in the working tree. Do not commit around it.'; FORBIDDEN: 'touching ... claims_history.yaml'. On the owner's tree the precondition cannot pass without the forbidden edit. The clean-checkout manifest at dispatch was not re-run here.
+  V     1
+        acceptance: two renders, identical_pixels true, unexpected []
+  X     U  depends on harness
+        §A: BLENDER /Applications/Blender.app, WORLD ~/Documents/GitHub/cc-framework/... (frozen V06)
+  HOLD fails in every world: I
+  change compiler-I + owner-fixes-entry-38 -> REVIEW, then observe ask-harness
+
+RETRO-ASTRA-T3: HOLD  (worlds compatible 2, admissible 0; Kleene projection HOLD)
+  A     1
+        §A: branch claude/<topic>; FORBIDDEN list; no owner-only act requested
+  I     0
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A: 'OUTPUT one commit per task' and rule 7 run in the working tree; no explicit-path commit, no acceptance on the committed tree. (Lenient reading: also 0; no explicit paths.)
+  T     1
+        §A READ FIRST names the files; frozen core.evidence 14-17
+  Q     U  depends on harness
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A rule 7: 'verification_manifest.py must exit 0 before any commit'; Known-open: 'claims_history.yaml entry 38 fails the append-only check in the working tree. Do not commit around it.'; FORBIDDEN: 'touching ... claims_history.yaml'. On the owner's tree the precondition cannot pass without the forbidden edit. The clean-checkout manifest at dispatch was not re-run here.
+  V     1
+        acceptance: face IDATs equal across arrangements, corner IDATs differ (mechanical)
+  X     U  depends on harness
+        §A: BLENDER /Applications/Blender.app, WORLD ~/Documents/GitHub/cc-framework/... (frozen V06)
+  HOLD fails in every world: I
+  change compiler-I + owner-fixes-entry-38 -> REVIEW, then observe ask-harness
+
+RETRO-ASTRA-T4: HOLD  (worlds compatible 2, admissible 0; Kleene projection HOLD)
+  A     1
+        §A: branch claude/<topic>; FORBIDDEN list; no owner-only act requested
+  I     0
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A: 'OUTPUT one commit per task' and rule 7 run in the working tree; no explicit-path commit, no acceptance on the committed tree. (Lenient reading: also 0; no explicit paths.)
+  T     U  depends on harness
+        frozen V06: 8 of 12 camera/room names are not in the prompt and live in the .blend in another repo
+  Q     U  depends on harness
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A rule 7: 'verification_manifest.py must exit 0 before any commit'; Known-open: 'claims_history.yaml entry 38 fails the append-only check in the working tree. Do not commit around it.'; FORBIDDEN: 'touching ... claims_history.yaml'. On the owner's tree the precondition cannot pass without the forbidden edit. The clean-checkout manifest at dispatch was not re-run here.
+  V     0
+        frozen A02: acceptance checks parse + presence, not whether a mapping is right; the builder grades itself
+  X     U  depends on harness
+        §A: BLENDER /Applications/Blender.app, WORLD ~/Documents/GitHub/cc-framework/... (frozen V06)
+  HOLD fails in every world: I, V
+  change compiler-I + owner-adjudicates-mappings + owner-fixes-entry-38 -> REVIEW, then observe ask-harness
+
+RETRO-ASTRA-T5: HOLD  (worlds compatible 2, admissible 0; Kleene projection HOLD)
+  A     1
+        §A: branch claude/<topic>; FORBIDDEN list; no owner-only act requested
+  I     0
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A: 'OUTPUT one commit per task' and rule 7 run in the working tree; no explicit-path commit, no acceptance on the committed tree. (Lenient reading: also 0; no explicit paths.)
+  T     1
+        §A READ FIRST names the files; frozen core.evidence 14-17
+  Q     U  depends on harness
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A rule 7: 'verification_manifest.py must exit 0 before any commit'; Known-open: 'claims_history.yaml entry 38 fails the append-only check in the working tree. Do not commit around it.'; FORBIDDEN: 'touching ... claims_history.yaml'. On the owner's tree the precondition cannot pass without the forbidden edit. The clean-checkout manifest at dispatch was not re-run here.
+  V     0
+        frozen A04: 'loads in a bare three.js page' has no stated inspection method
+  X     U  depends on harness
+        §A: BLENDER /Applications/Blender.app, WORLD ~/Documents/GitHub/cc-framework/... (frozen V06)
+  HOLD fails in every world: I, V
+  change compiler-I + name-a-load-check + owner-fixes-entry-38 -> REVIEW, then observe ask-harness
+
+RETRO-ASTRA-T6: HOLD  (worlds compatible 2, admissible 0; Kleene projection HOLD)
+  A     1
+        §A: branch claude/<topic>; FORBIDDEN list; no owner-only act requested
+  I     0
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A: 'OUTPUT one commit per task' and rule 7 run in the working tree; no explicit-path commit, no acceptance on the committed tree. (Lenient reading: also 0; no explicit paths.)
+  T     1
+        §A READ FIRST names the files; frozen core.evidence 14-17
+  Q     U  depends on harness
+        docs/foundations/ASTRA-BRIEF.md @ blob 697be2bb §A rule 7: 'verification_manifest.py must exit 0 before any commit'; Known-open: 'claims_history.yaml entry 38 fails the append-only check in the working tree. Do not commit around it.'; FORBIDDEN: 'touching ... claims_history.yaml'. On the owner's tree the precondition cannot pass without the forbidden edit. The clean-checkout manifest at dispatch was not re-run here.
+  V     0
+        frozen core blocker: 'no prose above the fold', 'nothing plays before an answer' have no mechanical check; the builder grades them
+  X     1
+        pure Python / generator; no Blender (frozen row fires no V06)
+  HOLD fails in every world: I, V
+  change compiler-I + independent-grader -> REVIEW, then observe ask-harness
+
+RETRO-FABLE-SPINE: HOLD  (worlds compatible 2, admissible 0; Kleene projection HOLD)
+  A     1
+        FABLE-BRIEF standing constraints: explicit authority lines; K7 restated
+  I     0
+        FABLE-BRIEF: 'Commit with explicit paths' binds the change set; acceptance 'verify_spine.py --check exits 0' is not run on the committed tree. Strict: 0. Lenient: 1.
+  T     1
+        frozen core.evidence 18
+  Q     1
+        brief dated after the entry-38 fix; no conflicting precondition stated
+  V     U  depends on room_label
+        acceptance requires the room label to fail under the MC-003 mutation; frozen pfp: its source is the world .blend in cc-framework, read-only, maybe unreachable
+  X     1
+        pure Python gate; mutation in a scratch branch
+  HOLD fails in every world: I
+  change compiler-I -> REVIEW, then observe read-room-label
+

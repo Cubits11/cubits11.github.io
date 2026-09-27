@@ -1,0 +1,138 @@
+{
+  "record": "PRE-OUTCOME READINESS SCORES - FROZEN BEFORE ANY OUTCOME LOOKUP",
+  "frozen_at_utc": "authoritative value is the Drive createdTime of this file; written at approx. 2026-09-26T14:00Z, before any outcome lookup",
+  "rubric": "13.04 Readiness Evaluator v1.0 (core /100 threshold 82; Astra fit and Claude fit /100 threshold 75; V01-V10 hard; A01-A04, C01-C04 model-specific)",
+  "rater": "Claude (Anthropic), Claude Code remote session session_01NbrQgbCN1Wpmto5LGLH6Vu. A second rater, different provider from the ChatGPT controller that wrote the rubric and the 12 gold cases.",
+  "rater_is_not": "ground truth. These are one rater's pre-registered judgments. Disagreement with outcomes or with the ChatGPT watcher is the informative quantity.",
+  "freshness_gate": "not scored per prompt; the source-watch gate is a property of the controller, not of the prompt (see review finding F5). Treated as passing (>=70) for every row.",
+  "repo_head": "f2249c113335feb8b2a3ccb9e4cd9951e002592a",
+  "sources": {
+    "ASTRA-BRIEF": {"path": "docs/foundations/ASTRA-BRIEF.md", "git_blob": "697be2bb203663095ce6903afe3b692c6bbadeeb", "sha256": "05c8fad81106b52c59980071bf610baaed64ec113232d726ac35fa278372e23d", "dispatch_form": "section A contract + one row of section B, per the brief's own instruction"},
+    "FABLE-BRIEF": {"path": "docs/foundations/FABLE-BRIEF.md", "git_blob": "fd27c3872ffd9776a251f1fe7dac178d51a092f4", "sha256": "82980cb3e933ba9617f7a693a52490a0e899d93fe190fc9c01c2af3ae5eefbc6", "dispatch_form": "section B (the spine) + Standing constraints"},
+    "E3-BRIEF": {"path": "experiments/e3/EXECUTION-BRIEF.md", "git_blob": "9c25ab858375919fc237374703e2ffd957f7bed0", "sha256": "1576133be4ef3ec5f49e86b58c3ee070c34ffc9b14d7a988bc626e0a7a7076a8", "dispatch_form": "CONTRACT block + task table"},
+    "HOMEPAGE-BRIEF": {"path": "Drive 08 - Execution Protocols & Prompts, section HOMEPAGE EPISTEMIC-KINETICS EXECUTION BRIEF", "dispatch_form": "brief as written"},
+    "SESSION": {"path": "the user message that opened session_01NbrQgbCN1Wpmto5LGLH6Vu (2026-09-26T13:50:23Z)", "dispatch_form": "raw: 'Can you deeply build all of this. Access the drive and everything:' + pasted ChatGPT summary of the 13.xx engine + 'Upgrade and build as much as possible.'"}
+  },
+  "exposure_legend": {
+    "BLIND": "rater had not seen any outcome evidence (commits, files, results, receipts) for this prompt when scoring",
+    "EXPOSED": "rater had already seen outcome evidence; score is recorded but the row is excluded from any calibration count",
+    "PRE-RUN": "scored before the run it governs had produced anything"
+  },
+  "rows": [
+    {
+      "id": "RETRO-ASTRA-T1", "target": "ASTRA", "task_type": "Codebase", "exposure": "BLIND",
+      "prompt": "ASTRA-BRIEF section A + T1 (scripts/audit_device.py: reachable == feasible per device; --all exits 0, rung per device, D-009 no_audit_possible)",
+      "core": {"goal": 16, "evidence": 17, "boundary": 16, "verification": 12, "truth_state": 14, "scope": 9, "total": 84},
+      "fit": {"context_economy": 10, "completion": 16, "decision_boundaries": 11, "tool_runtime": 13, "validation": 11, "freshness": 8, "effort": 1, "total": 70},
+      "hard_vetoes": ["V04"], "soft_flags": ["A01"],
+      "veto_evidence": {"V04": "the brief's own Known-open section: K7 forbids auditing a second device until QUEUE item 5 yields a viewer response; T1 acceptance requires a rung for every device. Unresolved in the prompt.", "A01": "section A carries Blender paths, render traps and the world file into a pure-Python task; READ FIRST names API-FACTS.md (Blender) for a task with no bpy"},
+      "decision": "HOLD",
+      "blocker": "V04 - K7 vs --all. Next observation: one sentence saying whether a mechanical set-equality check counts as an 'audit' under K7.",
+      "predicted_failure_point": "exit-code semantics when a device is unfaithful (acceptance says exits 0; the tool is meant to fail on a witness)"
+    },
+    {
+      "id": "RETRO-ASTRA-T2", "target": "ASTRA", "task_type": "Codebase", "exposure": "BLIND",
+      "prompt": "ASTRA-BRIEF section A + T2 (films/lib/blender/render.py pinned harness; render twice; refuse receipt on unexpected diffs)",
+      "core": {"goal": 17, "evidence": 16, "boundary": 16, "verification": 12, "truth_state": 14, "scope": 9, "total": 84},
+      "fit": {"context_economy": 14, "completion": 16, "decision_boundaries": 11, "tool_runtime": 5, "validation": 12, "freshness": 8, "effort": 1, "total": 67},
+      "hard_vetoes": ["V06"], "soft_flags": [],
+      "veto_evidence": {"V06": "requires /Applications/Blender.app and a world file in a separate repo under ~/Documents; the brief states only 'an external model with repo access'. Clear only if the harness ran on the owner's Mac."},
+      "decision": "HOLD",
+      "blocker": "V06 - where does the executor run? Next observation: harness identity (local Codex CLI on the owner's machine vs cloud).",
+      "predicted_failure_point": "Blender binary or world file not reachable from the executor"
+    },
+    {
+      "id": "RETRO-ASTRA-T3", "target": "ASTRA", "task_type": "Design", "exposure": "BLIND",
+      "prompt": "ASTRA-BRIEF section A + T3 (Bead Cube scene; six orthographic cameras; face IDATs identical across arrangements, corner insets differ)",
+      "core": {"goal": 16, "evidence": 14, "boundary": 16, "verification": 13, "truth_state": 14, "scope": 8, "total": 81},
+      "fit": {"context_economy": 14, "completion": 16, "decision_boundaries": 11, "tool_runtime": 5, "validation": 13, "freshness": 8, "effort": 1, "total": 68},
+      "hard_vetoes": ["V06"], "soft_flags": [],
+      "veto_evidence": {"V06": "same Blender dependency as T2"},
+      "decision": "HOLD",
+      "blocker": "V06, then core 81 < 82 (corner-inset undefined).",
+      "predicted_failure_point": "Blender availability; 'corner-inset' camera definition"
+    },
+    {
+      "id": "RETRO-ASTRA-T4", "target": "ASTRA", "task_type": "Codebase", "exposure": "BLIND",
+      "prompt": "ASTRA-BRIEF section A + T4 (room->atom map in devices.yaml for 12 cameras)",
+      "core": {"goal": 14, "evidence": 12, "boundary": 16, "verification": 7, "truth_state": 13, "scope": 9, "total": 71},
+      "fit": {"context_economy": 13, "completion": 12, "decision_boundaries": 11, "tool_runtime": 8, "validation": 7, "freshness": 8, "effort": 1, "total": 60},
+      "hard_vetoes": ["V06"], "soft_flags": ["A02"],
+      "veto_evidence": {"V06": "8 of 12 camera/room names are not in the prompt and live in the .blend in another repo", "A02": "acceptance checks parse + presence, not whether a mapping is right; the mapping is a semantic judgment the builder grades itself"},
+      "decision": "HOLD",
+      "blocker": "Verification 7/15 - no check that a mapping is correct. Next observation: who adjudicates room->atom correctness.",
+      "predicted_failure_point": "mappings accepted on presence alone"
+    },
+    {
+      "id": "RETRO-ASTRA-T5", "target": "ASTRA", "task_type": "Browser", "exposure": "BLIND",
+      "prompt": "ASTRA-BRIEF section A + T5 (glTF export per web device; <2 MB; loads in bare three.js page; state machine is T1 code)",
+      "core": {"goal": 12, "evidence": 12, "boundary": 16, "verification": 9, "truth_state": 13, "scope": 7, "total": 69},
+      "fit": {"context_economy": 12, "completion": 12, "decision_boundaries": 11, "tool_runtime": 5, "validation": 8, "freshness": 8, "effort": 1, "total": 57},
+      "hard_vetoes": ["V06"], "soft_flags": ["A04"],
+      "veto_evidence": {"V06": "Blender + a browser; 'web devices' not enumerated", "A04": "'loads in a bare three.js page' has no stated inspection method"},
+      "decision": "HOLD",
+      "blocker": "Goal 12/20 - which devices are 'web devices'; depends on T1.",
+      "predicted_failure_point": "dependency on T1 and an undefined device set"
+    },
+    {
+      "id": "RETRO-ASTRA-T6", "target": "ASTRA", "task_type": "Design", "exposure": "BLIND",
+      "prompt": "ASTRA-BRIEF section A + T6 (scripts/generate_foundations.py -> /foundations/ with --check; PROGRAM.md section 5 rules; JS-off)",
+      "core": {"goal": 14, "evidence": 16, "boundary": 16, "verification": 11, "truth_state": 13, "scope": 7, "total": 77},
+      "fit": {"context_economy": 12, "completion": 14, "decision_boundaries": 11, "tool_runtime": 12, "validation": 11, "freshness": 8, "effort": 1, "total": 69},
+      "hard_vetoes": [], "soft_flags": ["A01"],
+      "veto_evidence": {"A01": "Blender contract carried into a page generator task"},
+      "decision": "HOLD",
+      "blocker": "core 77 < 82: design rules ('no prose above the fold', 'nothing plays before an answer') have no mechanical check and the builder grades them.",
+      "predicted_failure_point": "section 5 design rules satisfied by assertion rather than check"
+    },
+    {
+      "id": "RETRO-FABLE-SPINE", "target": "CLAUDE", "task_type": "Codebase", "exposure": "BLIND",
+      "prompt": "FABLE-BRIEF section B (spine.yaml + scripts/verify_spine.py, rules S1-S4, --check, --explain, mutation test across renderings) + Standing constraints",
+      "core": {"goal": 17, "evidence": 18, "boundary": 18, "verification": 14, "truth_state": 14, "scope": 7, "total": 88},
+      "fit": {"task_decomposition": 12, "truth_root_relevance": 13, "evaluator_need": 11, "harness_simplicity": 13, "subagent": 8, "permission_sandbox": 9, "handoff_receipt": 7, "long_run_context": 6, "total": 79},
+      "hard_vetoes": [], "soft_flags": [],
+      "veto_evidence": {},
+      "decision": "READY",
+      "blocker": null,
+      "predicted_failure_point": "the room-label rendering: its source is the world .blend in cc-framework (read-only, maybe unreachable), so the mutation test's 'room label fails' leg is the likeliest to be unmet or met by a string copy"
+    },
+    {
+      "id": "RETRO-E3-EXEC", "target": "CLAUDE", "task_type": "Scientific", "exposure": "EXPOSED",
+      "exposure_note": "rater had seen the evidence ledger (e3: 2400 observation rows) and CLAUDE.md's 2026-09-06 owner exemption before scoring",
+      "prompt": "E3 EXECUTION-BRIEF CONTRACT + tasks E3-1..E3-6",
+      "core": {"goal": 18, "evidence": 19, "boundary": 19, "verification": 14, "truth_state": 15, "scope": 7, "total": 92},
+      "fit": {"task_decomposition": 13, "truth_root_relevance": 14, "evaluator_need": 12, "harness_simplicity": 13, "subagent": 8, "permission_sandbox": 9, "handoff_receipt": 8, "long_run_context": 7, "total": 84},
+      "hard_vetoes": [], "soft_flags": [],
+      "decision": "READY",
+      "blocker": null,
+      "note": "the host-boundary precondition is correctly written as ask-do-not-amend, so V03 is clear"
+    },
+    {
+      "id": "RETRO-HOMEPAGE", "target": "CLAUDE", "task_type": "Design", "exposure": "EXPOSED",
+      "exposure_note": "rater had read Drive 07's receipt for this run (branch-purpose mixing; mutation controls used) before scoring",
+      "prompt": "Drive 08 HOMEPAGE EPISTEMIC-KINETICS EXECUTION BRIEF",
+      "core": {"goal": 15, "evidence": 17, "boundary": 15, "verification": 13, "truth_state": 14, "scope": 8, "total": 82},
+      "fit": {"task_decomposition": 11, "truth_root_relevance": 12, "evaluator_need": 6, "harness_simplicity": 12, "subagent": 8, "permission_sandbox": 7, "handoff_receipt": 5, "long_run_context": 6, "total": 67},
+      "hard_vetoes": [], "soft_flags": ["C01"],
+      "veto_evidence": {"C01": "falsifiers such as 'motion becomes more memorable than proposition' are subjective and graded by the builder"},
+      "decision": "HOLD",
+      "blocker": "Claude fit 67 < 75: no independent evaluator for the subjective falsifiers; base branch unstated."
+    },
+    {
+      "id": "CLAUDE-2026-09-26-01", "target": "CLAUDE", "task_type": "Multi-App", "exposure": "PRE-RUN",
+      "prompt": "this session's opening message",
+      "core": {"goal": 6, "evidence": 15, "boundary": 8, "verification": 2, "truth_state": 9, "scope": 3, "total": 43},
+      "fit": {"task_decomposition": 4, "truth_root_relevance": 11, "evaluator_need": 3, "harness_simplicity": 12, "subagent": 8, "permission_sandbox": 4, "handoff_receipt": 2, "long_run_context": 5, "total": 49},
+      "hard_vetoes": ["V04", "V05"], "soft_flags": ["C01"],
+      "veto_evidence": {
+        "V04": "'build as much as possible' contradicts the pasted summary's own conclusion ('building more doctrine before exposing it to a real prompt would mostly be avoiding the test'), research/DIRECTION.yaml's standing line ('Do not write a governing document'), and Drive 07 ('do not create more global doctrine unless it solves an observed problem')",
+        "V05": "no observable completion; 'as much as possible' makes every stopping point equally valid",
+        "C01": "the builder is the only judge of whether what it built is an upgrade"
+      },
+      "decision": "HOLD",
+      "blocker": "V05 - no end state. Next observation: one sentence naming what must be true for this session to count as done.",
+      "override": "run anyway: the owner dispatched directly, bypassing the engine. Runbook override A applies; recorded, score not changed.",
+      "resolution_used_by_executor": "build only what produces evidence about the engine (blind scores, outcome audit, discriminating cases, verified defects); write no new doctrine"
+    }
+  ]
+}

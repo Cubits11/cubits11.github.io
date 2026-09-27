@@ -1,0 +1,114 @@
+{
+ "record": "Named controls for readiness_meet.py. Each rule of the evaluator is disabled in turn by --selftest; a rule that flips no control is reported as unearned. The expectations were written with the controls and before the first run.",
+ "cases": [
+  {
+   "id": "C-READY",
+   "expect": "READY",
+   "note": "sanity: every obligation established with evidence, nothing unresolved",
+   "variables": {},
+   "obligations": {
+    "A": {"holds": true, "evidence": "owner-issued grant covers read + scratch writes"},
+    "I": {"holds": true, "evidence": "dispatch digest committed; executor compares before acting"},
+    "T": {"holds": true, "evidence": "roots named by id; executor has read access (observed)"},
+    "Q": {"holds": true, "evidence": "required checks re-run now, each PASS"},
+    "V": {"holds": true, "evidence": "acceptance is a command with an exit code"},
+    "X": {"holds": true, "evidence": "harness observed: shell, git, python3, network"}
+   }
+  },
+  {
+   "id": "C-HOLD-KNOWN",
+   "expect": "HOLD",
+   "note": "sanity: V fails in every world (13.04 V05, no observable completion)",
+   "variables": {},
+   "obligations": {
+    "A": {"holds": true, "evidence": "grant exists"},
+    "I": {"holds": true, "evidence": "no repository writes requested"},
+    "T": {"holds": true, "evidence": "roots named"},
+    "Q": {"holds": true, "evidence": "no prerequisite checks"},
+    "V": {"holds": false, "evidence": "'as much as possible' names no end state (13.10 row CLAUDE-2026-09-26-01)"},
+    "X": {"holds": true, "evidence": "tools present"}
+   }
+  },
+  {
+   "id": "C-REVIEW-HARNESS",
+   "expect": "REVIEW",
+   "note": "13.10 RETRO-ASTRA-T2 shape: the tool is unspecified, not known unavailable; 13.04 V06 scores both as a veto",
+   "variables": {"harness": {"question": "where does the executor run?", "domain": ["owner_mac", "cloud"]}},
+   "obligations": {
+    "A": {"holds": true, "evidence": "brief grants the build on a claude/<topic> branch"},
+    "I": {"holds": true, "evidence": "control case: identity assumed established"},
+    "T": {"holds": true, "evidence": "READ FIRST names the files"},
+    "Q": {"holds": true, "evidence": "no prerequisite check"},
+    "V": {"holds": true, "evidence": "acceptance: two renders, identical_pixels true"},
+    "X": {"holds": {"var": "harness", "in": ["owner_mac"]}, "evidence": "Blender at /Applications/Blender.app exists only on the owner's Mac"}
+   },
+   "observations": {"ask-harness": {"reveals": ["harness"], "cost": 1, "how": "one question to the dispatcher"}}
+  },
+  {
+   "id": "C-GAP",
+   "expect": "HOLD",
+   "note": "correlated unknowns: X needs the owner's Mac, I needs a clean clone of the admitted commit; the Mac working tree is dirty. Each obligation is satisfiable; together they are not. The Kleene meet says REVIEW.",
+   "variables": {"harness": {"question": "where does the executor run, and on what tree?", "domain": ["owner_mac_dirty_tree", "cloud_clean_clone"]}},
+   "obligations": {
+    "A": {"holds": true, "evidence": "grant exists"},
+    "I": {"holds": {"var": "harness", "in": ["cloud_clean_clone"]}, "evidence": "acceptance is judged from a clean checkout of the commit; only the clean clone acts on that subject"},
+    "T": {"holds": true, "evidence": "roots named"},
+    "Q": {"holds": true, "evidence": "no prerequisite check"},
+    "V": {"holds": true, "evidence": "acceptance command stated"},
+    "X": {"holds": {"var": "harness", "in": ["owner_mac_dirty_tree"]}, "evidence": "Blender exists only on the owner's Mac"}
+   },
+   "observations": {"ask-harness": {"reveals": ["harness"], "cost": 1}},
+   "interventions": {
+    "clean-worktree-on-mac": {
+     "what": "require the run and its acceptance in a fresh worktree of the admitted commit on the Mac",
+     "replaces": {"I": {"holds": true, "evidence": "fresh worktree of the admitted commit, on either harness"}}
+    }
+   }
+  },
+  {
+   "id": "C-INCONSISTENT",
+   "expect": "INCONSISTENT",
+   "note": "13.12 shape: the README said the key was sealed; an unauthenticated fetch returned it (d49480e). Blind scoring requires an unreadable key.",
+   "variables": {"key_readable": {"question": "can the scorer read suite_key.json?", "domain": ["yes", "no"]}},
+   "constraints": [
+    {"holds": {"var": "key_readable", "in": ["no"]}, "source": "README before d49480e: 'a sealed suite key'"},
+    {"holds": {"var": "key_readable", "in": ["yes"]}, "source": "raw URL returned all sixteen dispositions, HTTP 200, no authentication"}
+   ],
+   "obligations": {
+    "A": {"holds": true, "evidence": "grant exists"},
+    "I": {"holds": true, "evidence": "cases hashed"},
+    "T": {"holds": true, "evidence": "roots named"},
+    "Q": {"holds": {"var": "key_readable", "in": ["no"]}, "evidence": "a blind score requires a key the scorer cannot read"},
+    "V": {"holds": true, "evidence": "key comparison is mechanical"},
+    "X": {"holds": true, "evidence": "tools present"}
+   }
+  },
+  {
+   "id": "C-MISSING-I",
+   "expect": "REJECTED",
+   "note": "default-deny: a case that never mentions identity cannot be READY by omission (13.10: V08 fired on none of six rows)",
+   "variables": {},
+   "obligations": {
+    "A": {"holds": true, "evidence": "grant exists"},
+    "T": {"holds": true, "evidence": "roots named"},
+    "Q": {"holds": true, "evidence": "no prerequisite check"},
+    "V": {"holds": true, "evidence": "acceptance command stated"},
+    "X": {"holds": true, "evidence": "tools present"}
+   }
+  },
+  {
+   "id": "C-NO-EVIDENCE",
+   "expect": "REJECTED",
+   "note": "an obligation asserted true with no evidence is an assertion, not an establishment",
+   "variables": {},
+   "obligations": {
+    "A": {"holds": true, "evidence": "grant exists"},
+    "I": {"holds": true},
+    "T": {"holds": true, "evidence": "roots named"},
+    "Q": {"holds": true, "evidence": "no prerequisite check"},
+    "V": {"holds": true, "evidence": "acceptance command stated"},
+    "X": {"holds": true, "evidence": "tools present"}
+   }
+  }
+ ]
+}
