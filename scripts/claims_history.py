@@ -55,6 +55,8 @@ genesis forward.
     python3 scripts/claims_history.py append --claim ID --type NARROW --basis DECLARED_HUMAN_JUDGMENT \
         --event-at YYYY-MM-DD --reason "..." --evidence git:<sha> [--evidence ...]
     python3 scripts/claims_history.py register --claim ID --reason "..." --evidence ...
+    python3 scripts/claims_history.py assess --subject <entry digest> --value FIRED --reason "..." --evidence ...
+    python3 scripts/claims_history.py resolve ID[@DIGEST]  # read-only JSON: one commitment and its lineage
     python3 scripts/claims_history.py digest              # print every live commitment digest
 
 Exit codes follow the registry's contract: 0 verified, 1 a check failed,
@@ -790,6 +792,237 @@ def cmd_reconstruct(check: bool = False) -> int:
     return 0
 
 
+# ------------------------------------------------------------------ assess
+def cmd_assess(a: argparse.Namespace) -> int:
+    """Append one falsifier assessment, and only if the candidate chain still verifies."""
+    claims_doc, hist = load_both()
+    entry = {"kind": ASSESSMENT, "subject_transition_digest": a.subject, "falsifier_assessment": a.value,
+             "recorded_at": dt.date.today().isoformat(), "evidence_refs": list(a.evidence), "reason": a.reason,
+             "previous_transition_digest": tip_digest(hist)}
+    entry["digest"] = entry_digest(entry)
+    candidate = copy.deepcopy(hist)
+    candidate.setdefault("entries", []).append(entry)
+    try:
+        ref = prior_reference()
+        prior = history_at(ref)
+    except GitUnavailable as exc:
+        print(f"UNDETERMINED  git history unavailable ({exc}); nothing appended")
+        return 2
+    R = verify(claims_doc, candidate, prior, prior_ref=ref, today=dt.date.today())
+    if R.exit_code():
+        for m in R.failures + R.unknowns:
+            print(f"{'FAIL' if m in R.failures else 'UNDETERMINED'}  {m}")
+        print("nothing appended")
+        return R.exit_code()
+    write_history(candidate)
+    print(f"appended falsifier_assessment {a.value} for {a.subject[:12]} (entry {entry['digest'][:12]}); the chain verifies")
+    return 0
+
+
+# ------------------------------------------------------------------ resolve (read-only; Drive 09 contract)
+UNAVAILABLE = "UNAVAILABLE"  # an interface condition, never a falsifier-assessment value (UNDETERMINED is one)
+NOT_IN_GIT = "NOT_IN_GIT"    # git was consulted and no commit carries this state: a finding, not an interface failure
+_PARSED: dict[str, dict] = {}
+
+
+def _parsed_blob(blob: str) -> dict:
+    if blob not in _PARSED:
+        _PARSED[blob] = yaml.safe_load(git("cat-file", "blob", blob)) or {}
+    return _PARSED[blob]
+
+
+def _blob_at(sha: str, path: str) -> str | None:
+    r = subprocess.run(["git", "rev-parse", "--verify", "--quiet", f"{sha}:{path}"], cwd=ROOT, capture_output=True, text=True)
+    return r.stdout.strip() or None
+
+
+def _timeline(cid: str) -> list[dict]:
+    """Every commit reachable from HEAD that touched claims.yaml, oldest first, with the claim's commitment
+    digest and its dimensions there. Raises GitUnavailable."""
+    out, parsed = [], {}
+    for line in git("log", "--full-history", "--reverse", "--topo-order", "--format=%H %cI", "--", "claims.yaml").splitlines():
+        sha, when = line.split()
+        blob = _blob_at(sha, "claims.yaml")
+        if blob not in parsed:
+            doc = _parsed_blob(blob) if blob else {}
+            c = next((x for x in doc.get("claims") or [] if x.get("id") == cid), None)
+            parsed[blob] = (digest(commitment(c)) if c else None, c.get("dimensions") if c else None)
+        d, dims = parsed[blob]
+        out.append({"commit": sha, "committed_at": when, "digest": d, "dimensions": dims})
+    return out
+
+
+def _entries_first_seen() -> dict[str, dict]:
+    """Entry digest -> the first commit reachable from HEAD whose claims_history.yaml carries it."""
+    seen: dict[str, dict] = {}
+    for line in git("log", "--full-history", "--reverse", "--topo-order", "--format=%H %cI", "--",
+                    "claims_history.yaml").splitlines():
+        sha, when = line.split()
+        blob = _blob_at(sha, "claims_history.yaml")
+        if not blob:
+            continue
+        for e in _parsed_blob(blob).get("entries") or []:
+            seen.setdefault(e.get("digest"), {"commit": sha, "committed_at": when})
+    return seen
+
+
+def resolve(claims_doc: dict, hist: dict, target: str, *, use_git: bool = True) -> tuple[dict, int]:
+    """Project one commitment of one claim lineage and every transition of that lineage.
+
+    Returns (object, code) with code 0 resolved, 1 claim or digest not found or prefix ambiguous, 2 a required
+    field UNAVAILABLE. Kernel verification is the caller's to add."""
+    cid, _, want = target.partition("@")
+    entries = hist.get("entries") or []
+    live = live_states(claims_doc).get(cid)
+    states: dict[str, dict] = {}
+    for i, s in enumerate((hist.get("genesis") or {}).get("states") or []):
+        if s.get("claim_id") == cid:
+            states[s["digest"]] = {"source": "GENESIS", "locator": f"genesis.states[{i}]", "commitment": s.get("commitment")}
+    lineage = []
+    for i, e in enumerate(entries):
+        if e.get("claim_id") != cid:
+            continue
+        if e.get("kind") == "registration":
+            states.setdefault(e["digest_of_commitment"], {"source": "REGISTRATION", "locator": f"entries[{i}]",
+                                                          "commitment": e.get("commitment")})
+        elif e.get("kind") == "transition":
+            lineage.append((i, e))
+            ref = next((r[4:] for r in e.get("evidence_refs") or [] if r.startswith("git:")), None)
+            for key, side in ((e.get("from_digest"), "from"), (e.get("to_digest"), "to")):
+                if key is None or key in states:
+                    continue
+                if side == "to" and e.get("to_commitment") is not None:
+                    states[key] = {"source": "STORED_TO_COMMITMENT", "locator": f"entries[{i}].to_commitment",
+                                   "commitment": e["to_commitment"]}
+                elif e.get("provenance_class") == "RETROSPECTIVE_RECONSTRUCTION" and ref:
+                    rev = ref if side == "to" else f"{ref}^1"
+                    st = None
+                    if use_git:
+                        try:
+                            st = (claims_at(rev) or {}).get(cid)
+                        except GitUnavailable:
+                            st = None
+                    states[key] = {"source": "GIT_RECONSTRUCTION", "locator": f"git:{rev}:claims.yaml",
+                                   "commitment": st["commitment"] if st and st["digest"] == key else UNAVAILABLE}
+                else:
+                    states[key] = {"source": "UNRECORDED_BIRTH", "locator": None, "commitment": UNAVAILABLE}
+    if not states and live is None:
+        return {"query": target, "error": f"{cid} names no claim lineage"}, 1
+    if want:
+        if len(want) < 12 or not set(want) <= HEX64:
+            return {"query": target, "error": "a digest must be 64 hex characters, or a unique prefix of at least 12"}, 1
+        hits = [d for d in states if d.startswith(want)]
+        if not hits:
+            return {"query": target, "error": f"no commitment of {cid} begins {want}"}, 1
+        if len(hits) > 1:
+            return {"query": target, "error": f"prefix {want} is ambiguous within {cid}: {sorted(hits)}"}, 1
+        d = hits[0]
+    else:
+        if live is None:
+            return {"query": target, "error": f"{cid} has no live commitment; name a digest"}, 1
+        d = live["digest"]
+    missing: list[str] = []
+
+    def need(path: str, value):
+        if value == UNAVAILABLE:
+            missing.append(path)
+        return value
+
+    timeline, first_seen = None, None
+    if use_git:
+        try:
+            timeline, first_seen = _timeline(cid), _entries_first_seen()
+        except GitUnavailable:
+            timeline, first_seen = None, None
+    src = states.get(d) or {"source": "LIVE_ONLY", "locator": "claims.yaml", "commitment": live["commitment"] if live else UNAVAILABLE}
+    content = src["commitment"]
+    seen = [t for t in timeline if t["digest"] == d] if timeline is not None else None
+    state = {
+        "commitment": need("state.commitment", content),
+        "commitment_digest": d,
+        "commitment_source": src["source"],
+        "commitment_locator": src["locator"],
+        "is_live": bool(live and live["digest"] == d),
+        "declared_falsifier_consequence": need("state.declared_falsifier_consequence",
+                                              UNAVAILABLE if content == UNAVAILABLE else (content.get("falsifier") or {}).get("consequence")),
+        "entered_by": [f"entries[{i}]" for i, e in lineage if e.get("to_digest") == d]
+                      + [src["locator"]] * (src["source"] in ("GENESIS", "REGISTRATION")),
+        "left_by": [f"entries[{i}]" for i, e in lineage if e.get("from_digest") == d],
+        "commitment_first_seen": need("state.commitment_first_seen", UNAVAILABLE if seen is None else NOT_IN_GIT
+                                      if not seen else {k: seen[0][k] for k in ("commit", "committed_at")}),
+        "dimensions_at_first_seen": need("state.dimensions_at_first_seen",
+                                         UNAVAILABLE if seen is None else NOT_IN_GIT if not seen else seen[0]["dimensions"]),
+        "dimensions_at_last_seen": need("state.dimensions_at_last_seen",
+                                        UNAVAILABLE if seen is None else NOT_IN_GIT if not seen else seen[-1]["dimensions"]),
+        "dimensions_changed_within_interval": need("state.dimensions_changed_within_interval",
+                                                   UNAVAILABLE if seen is None else NOT_IN_GIT if not seen
+                                                   else any(t["dimensions"] != seen[0]["dimensions"] for t in seen)),
+    }
+    history_by_subject: dict[str, list] = {}
+    for k, e in enumerate(entries):
+        if e.get("kind") == ASSESSMENT:
+            history_by_subject.setdefault(e.get("subject_transition_digest"), []).append(
+                {"entry_index": k, "entry_digest": e.get("digest"), "value": e.get("falsifier_assessment"),
+                 "recorded_at": e.get("recorded_at")})
+    projections = []
+    for i, e in lineage:
+        pre = states.get(e.get("from_digest"), {}).get("commitment", UNAVAILABLE)
+        if pre == UNAVAILABLE or pre is None:
+            effective = UNAVAILABLE
+        else:
+            effective = falsifier_relation(hist, e, pre)
+        change = UNAVAILABLE
+        before = after = UNAVAILABLE
+        if timeline is not None:
+            change = before = after = NOT_IN_GIT
+            for j, t in enumerate(timeline):
+                if t["digest"] == e.get("to_digest") and any(p["digest"] == e.get("from_digest") for p in timeline[:j]):
+                    change = {"commit": t["commit"], "committed_at": t["committed_at"], "from_state_in_git": True}
+                    after = t["dimensions"]
+                    before = next(p["dimensions"] for p in reversed(timeline[:j]) if p["digest"] == e.get("from_digest"))
+                    break
+            else:
+                # the predecessor never reached a commit: it was recorded and left within one change
+                first_to = next((t for t in timeline if t["digest"] == e.get("to_digest")), None)
+                if first_to and not any(t["digest"] == e.get("from_digest") for t in timeline):
+                    change = {"commit": first_to["commit"], "committed_at": first_to["committed_at"], "from_state_in_git": False}
+                    after = first_to["dimensions"]
+        n = f"transitions[entries[{i}]]"
+        projections.append({
+            "entry_index": i, "entry_digest": e.get("digest"), "transition_type": e.get("transition_type"),
+            "from_digest": e.get("from_digest"), "to_digest": e.get("to_digest"),
+            "provenance_class": e.get("provenance_class"), "direction_basis": e.get("direction_basis"),
+            "evidence_refs": e.get("evidence_refs"), "reason": {"prose": e.get("reason")},
+            "declared": {"event_at": e.get("event_at"), "recorded_at": e.get("recorded_at")},
+            "git": {"entry_first_seen": need(f"{n}.git.entry_first_seen",
+                                             UNAVAILABLE if first_seen is None else first_seen.get(e.get("digest"), UNAVAILABLE)),
+                    "commitment_change_commit": need(f"{n}.git.commitment_change_commit", change)},
+            "dimensions_before": need(f"{n}.dimensions_before", before),
+            "dimensions_after": need(f"{n}.dimensions_after", after),
+            "falsifier_assessment": {"effective": need(f"{n}.falsifier_assessment.effective", effective),
+                                     "history": history_by_subject.get(e.get("digest"), [])},
+            "fired_consequence": (pre.get("falsifier") or {}).get("consequence") if effective == "FIRED" else None,
+        })
+    obj = {"query": target, "claim_id": cid, "state": state, "transitions": projections, "unavailable": missing}
+    return obj, (2 if missing else 0)
+
+
+def cmd_resolve(target: str) -> int:
+    claims_doc, hist = load_both()
+    obj, code = resolve(claims_doc, hist, target)
+    try:
+        ref = prior_reference()
+        R = verify(claims_doc, hist, history_at(ref), prior_ref=ref, today=dt.date.today())
+        kernel = R.exit_code()
+    except GitUnavailable:
+        kernel = 2
+    obj["kernel_verify"] = kernel
+    print(json.dumps(obj, indent=1, ensure_ascii=False, default=str))
+    if code == 1 or kernel == 1:
+        return 1
+    return 2 if (code == 2 or kernel == 2) else 0
+
+
 # ------------------------------------------------------------------ mutants
 def run_mutants() -> int:
     claims_doc, hist = load_both()
@@ -966,12 +1199,14 @@ def run_mutants() -> int:
     results.append(("F14 retrospective subject with git not consulted is undetermined (exit 2), never a finding",
                     R.exit_code() == 2 and not R.failures, (R.failures or R.unknowns or ["verified"])[0]))
     # The pair that earned the kind: identical transition signatures, falsifier relation unresolvable without it.
+    # Judged on the history as it stood before the kind existed (entries[:50]), so later transcriptions keep it true.
     known = commitments_by_digest(hist)
     p6, p7 = predecessor_commitment(e6, known), predecessor_commitment(e7b, known)
     sig = lambda e, p: (e["transition_type"], e["direction_basis"], (p.get("falsifier") or {}).get("consequence"))
     same = sig(e6, p6) == sig(e7b, p7)
-    before = (falsifier_relation(hist, e6, p6), falsifier_relation(hist, e7b, p7))
-    results.append(("F12 E6-001 entries[48] and E7B-001 entries[49]: same signature, both UNASSESSED in the committed history",
+    legacy = {**hist, "entries": hist["entries"][:50]}
+    before = (falsifier_relation(legacy, e6, p6), falsifier_relation(legacy, e7b, p7))
+    results.append(("F12 E6-001 entries[48] and E7B-001 entries[49]: same signature, both UNASSESSED before the kind existed",
                     same and before == ("UNASSESSED", "UNASSESSED"), f"signature equal={same}, relations={before}"))
     both = True
     for v6, v7 in (("NOT_FIRED", "FIRED"), ("FIRED", "NOT_FIRED")):  # either assignment; the kernel distinguishes, it does not choose
@@ -981,6 +1216,40 @@ def run_mutants() -> int:
         both &= R.exit_code() == 0 and got == (v6, v7) and predicted_state(h) == predicted_state(hist)
     results.append(("F13 one assessment each makes the pair distinguishable and moves no claim state", both,
                     "both assignments verify; predicted states unchanged"))
+    # resolve (Drive 09): read-only, structure only, UNAVAILABLE never mistaken for UNDETERMINED
+    obj, code = resolve(claims_doc, hist, "NO-SUCH-001")
+    results.append(("R1 resolve of an unknown claim exits 1", code == 1, obj.get("error", "")))
+    obj, code = resolve(claims_doc, hist, "E7B-001@" + e7b["to_digest"][:11])
+    results.append(("R2 a digest prefix shorter than 12 exits 1", code == 1, obj.get("error", "")))
+    obj, code = resolve(claims_doc, hist, "E7B-001@" + e7b["to_digest"][:12])
+    t49 = next(t for t in obj.get("transitions", []) if t["entry_digest"] == e7b["digest"])
+    results.append(("R3 E7B-001 at a unique 12-character prefix resolves its commitment and entries[49]",
+                    code == 0 and obj["state"]["commitment_digest"] == e7b["to_digest"]
+                    and obj["state"]["commitment_source"] == "STORED_TO_COMMITMENT" and t49["transition_type"] == "CORRECT",
+                    f"code={code}, source={obj.get('state', {}).get('commitment_source')}, unavailable={obj.get('unavailable')}"))
+    obj, _ = resolve(claims_doc, hist, "GCE-001@" + gce["to_digest"])
+    t16 = next(t for t in obj["transitions"] if t["entry_digest"] == gce["digest"])
+    results.append(("R4 GCE-001 entries[16]: NOT_APPLICABLE is derived, and nothing fired",
+                    t16["falsifier_assessment"]["effective"] == "NOT_APPLICABLE" and t16["fired_consequence"] is None,
+                    f"effective={t16['falsifier_assessment']['effective']}"))
+    mc3 = entry_of(hist, "MC-003", "CORRECT")
+    obj, _ = resolve(claims_doc, hist, "MC-003@" + mc3["to_digest"])
+    t28 = next(t for t in obj["transitions"] if t["entry_digest"] == mc3["digest"])
+    results.append(("R5 MC-003 entries[28] stays UNASSESSED: its predecessor comes from git, no assessment exists",
+                    t28["falsifier_assessment"]["effective"] == "UNASSESSED" and not t28["falsifier_assessment"]["history"],
+                    f"effective={t28['falsifier_assessment']['effective']}"))
+    obj, code = resolve(claims_doc, hist, "MC-003@" + mc3["to_digest"], use_git=False)
+    t28 = next(t for t in obj["transitions"] if t["entry_digest"] == mc3["digest"])
+    results.append(("R6 without git, git-derived fields are UNAVAILABLE (exit 2), never UNDETERMINED",
+                    code == 2 and t28["falsifier_assessment"]["effective"] == UNAVAILABLE
+                    and t28["git"]["commitment_change_commit"] == UNAVAILABLE,
+                    f"code={code}, unavailable={len(obj['unavailable'])}"))
+    c, h = fresh(); assess(h, e7b["digest"], "FIRED")
+    obj, _ = resolve(c, h, "E7B-001")
+    t49 = next(t for t in obj["transitions"] if t["entry_digest"] == e7b["digest"])
+    results.append(("R7 once E7B-001 entries[49] is assessed FIRED, resolve reports the fired consequence REJECT",
+                    t49["falsifier_assessment"]["effective"] == "FIRED" and t49["fired_consequence"] == "REJECT",
+                    f"effective={t49['falsifier_assessment']['effective']}, fired={t49['fired_consequence']}"))
     # control: the committed state verifies
     run("M0 committed state", copy.deepcopy(claims_doc), copy.deepcopy(hist), True)
 
@@ -1006,6 +1275,12 @@ def main() -> int:
     ad.add_argument("--reason", required=True); ad.add_argument("--evidence", action="append", required=True)
     rg = sub.add_parser("register")
     rg.add_argument("--claim", required=True); rg.add_argument("--reason", required=True); rg.add_argument("--evidence", action="append", required=True)
+    asn = sub.add_parser("assess")
+    asn.add_argument("--subject", required=True, help="entry digest of the transition whose predecessor falsifier is assessed")
+    asn.add_argument("--value", required=True, choices=ASSESSMENT_VALUES)
+    asn.add_argument("--reason", required=True); asn.add_argument("--evidence", action="append", required=True)
+    rs = sub.add_parser("resolve")
+    rs.add_argument("target", help="CLAIM_ID[@DIGEST]; a digest prefix of at least 12 hex characters if unique in the lineage")
     a = ap.parse_args()
     if a.test:
         return run_mutants()
@@ -1021,6 +1296,10 @@ def main() -> int:
         return cmd_append(a)
     if a.cmd == "register":
         return cmd_register(a)
+    if a.cmd == "assess":
+        return cmd_assess(a)
+    if a.cmd == "resolve":
+        return cmd_resolve(a.target)
     return 0
 
 
