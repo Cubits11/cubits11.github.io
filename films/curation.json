@@ -38,7 +38,8 @@
         "Vendor settings are unstated. This does not rank products or cover unreleased adversarial prompts.",
         "Item positions are constructed. Only the displayed aggregate counts come from the release.",
         "The joint rows identify shared misses in this file, not general dependence, causal contribution, or every overlap."
-      ]
+      ],
+      "phone_composition": true
     },
     "leave-one-out": {
       "heading": "Which items does only one guard catch?",
@@ -48,7 +49,8 @@
         "Vendor settings are unstated. This does not rank products or cover unreleased adversarial prompts.",
         "Only aggregate counts come from the release; the positions of items are constructed.",
         "Exclusive coverage is not causal contribution, a Shapley value, or a map of all overlaps."
-      ]
+      ],
+      "phone_composition": true
     },
     "parity-cube": {
       "heading": "Can every pair agree while all three differ?",
@@ -56,7 +58,8 @@
       "limits": [
         "This synthetic E1 construction shows possibility, not the frequency of this pattern in real guardrail stacks.",
         "No real guardrail, vendor, or deployment is measured, and no practical or deployed value of the framework is validated."
-      ]
+      ],
+      "phone_composition": true
     },
     "the-missing-column-census": {
       "heading": "Which evaluations preserve joint evidence?",
@@ -66,7 +69,8 @@
         "The census records reporting fields, not the quality or scores of each per-system evaluation.",
         "Coverage is limited to the examined set; 25 unexamined candidates remain unknown, not absent.",
         "Declared sensitivity counts remain labeled alternatives to the corrected 20/14/5 counts."
-      ]
+      ],
+      "phone_composition": true
     },
     "what-the-seal-proves": {
       "heading": "What does a receipt actually prove?",
@@ -76,7 +80,8 @@
         "The film uses its own canonicalizer; it does not build on the lab repository, whose reuse licence is unstated.",
         "Canonicalizer collisions are shown as possible, not prevalent.",
         "Verifier acceptance establishes no semantic safety, authorization, or correctness."
-      ]
+      ],
+      "phone_composition": true
     },
     "same-scores__social-square": {
       "synopsis": "A square cut of the same constructed shared-miss example.",
@@ -85,7 +90,7 @@
         "The interval does not recover the true relationship between real guards or certify a stack as safe.",
         "The independence point is one assumption's selection, not an identified answer inside the interval."
       ],
-      "phone_composition": true
+      "phone_composition": false
     },
     "the-multiplication": {
       "synopsis": "A short insert isolating the independence assumption behind multiplying individual miss rates.",
@@ -111,7 +116,8 @@
         "The census covers its examined set. A missing reporting field proves neither poor performance nor universal absence.",
         "The released-file counts describe one selected subset under unstated vendor settings, not a population rate or product ranking.",
         "A stack interpretation requires common full exposure and fixed thresholds. Exclusive coverage does not establish causal contribution or all overlaps."
-      ]
+      ],
+      "phone_composition": true
     },
     "the-falsifier-that-fired": {
       "synopsis": "A missed qualifying source changed the census. Follow the rejected count, preserved history, and corrected result.",
@@ -120,13 +126,15 @@
         "A missing reporting field does not show poor guardrail or stack performance.",
         "Sensitivity counts remain declared alternatives, never replacements for the corrected 20/14/5 counts.",
         "The correction process is not claimed to be novel or a standard."
-      ]
+      ],
+      "phone_composition": true
     },
     "the-correction-invitation": {
       "synopsis": "The route for challenging the record with a checkable source.",
       "limits": [
         "This invitation records no submitted correction and does not guarantee that every challenge is valid."
-      ]
+      ],
+      "phone_composition": true
     }
   }
 }
