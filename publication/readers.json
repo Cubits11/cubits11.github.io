@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "protocol_sha256": null,
+  "artifact_sha256": {},
+  "facilitator": {
+    "id": null,
+    "attests_humans": false,
+    "attests_unfamiliar": false,
+    "attests_distinct": false,
+    "recorded_on": null
+  },
+  "rater": {
+    "id": null,
+    "criteria": {}
+  },
+  "participants": []
+}

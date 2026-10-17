@@ -474,6 +474,13 @@
    "from": "scripts/films/render_film.py",
    "inferred": true,
    "rel": "reads",
+   "to": "films/data/facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/render_film.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "films/lib/film.js"
   },
   {
@@ -1059,6 +1066,27 @@
   },
   {
    "basis": "STATIC_REF",
+   "from": "scripts/generate_public_state.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/check-status.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_public_state.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/deadlines.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_public_state.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/status-preview.js"
+  },
+  {
+   "basis": "STATIC_REF",
    "from": "scripts/generate_research_index.py",
    "inferred": true,
    "rel": "writes",
@@ -1196,6 +1224,20 @@
    "inferred": true,
    "rel": "reads",
    "to": "/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/films/same-scores-different-worlds/renders/same-scores-different-worlds__vertical.mp4"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/films/same-scores-different-worlds/renders/same-scores-different-worlds__vertical.poster.png"
   },
   {
    "basis": "STATIC_REF",
@@ -2154,6 +2196,13 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "scripts/generate_public_state.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "scripts/generate_research_index.py"
   },
   {
@@ -2483,6 +2532,13 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "tests/test_film_capture.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "tests/test_history_merges.py"
   },
   {
@@ -2491,6 +2547,20 @@
    "inferred": true,
    "rel": "reads",
    "to": "tests/test_public_discovery.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "tests/test_public_state.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "tests/test_publication_gate.py"
   },
   {
    "basis": "STATIC_REF",
@@ -4350,6 +4420,15 @@
    "to": "scripts/films/verify_films.py"
   },
   {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "film capture and phone text refusal paths",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_film_capture.py"
+  },
+  {
    "args": [
     "--check"
    ],
@@ -4523,6 +4602,35 @@
    "inferred": false,
    "rel": "runs",
    "to": "tests/test_public_discovery.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "public status failure states and deadline boundaries",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_public_state.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "public status and draft board drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_public_state.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "publication hold refusal paths (synthetic fixtures, not reader evidence)",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_publication_gate.py"
   },
   {
    "args": [],
@@ -4815,87 +4923,6 @@
    "rel": "pins",
    "sha256": "b20ad976edcfcccf2a8fa7fa8db609a3b735bb5a2ab1a75c459395fe437a100d",
    "to": "corrections/records/2026-09-10-preserved-inputs.json"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "2262983c6765a7f8fb6719c594852d82cab9efb5b40cf6ee4719a331e8c8226b",
-   "to": "experiments/e9/results/observations.jsonl"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "4ea9d46e68ac655f23add5b6ca0b257edefd98c6f79979b0d37bf05543fd07cb",
-   "to": "experiments/e9/results/analysis.json"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "6513df2ab4470aebca36169b5362bb4ccbc14665be1a281d5fae1d57278f729a",
-   "to": "experiments/e9/results/result.json"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "e7ff687745a10f905c84fad1afacb545ba6f0fab501b20595be38d275add9789",
-   "to": "experiments/e9/RESULT.md"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "171f9ebfff2cd195c6b1e3907f12993be2f02154a541d0e2318bd9c19e975f10",
-   "to": "experiments/e9/PREREG.md"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "43811798ae46e92eb14f933c96e855b625c3507230aac709ba510da4af69835b",
-   "to": "experiments/e9/contract.json"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "7823904703a406840c9cba37dba40942bc065a9c4d1c06b89a6e70c12ce416a5",
-   "to": "experiments/e9/freeze/freeze.json"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "ae51fb1df5a45e6414a53fe61663c25140ef56e2c5c4e082b0d3f67bc432d703",
-   "to": "experiments/e9/freeze/protocol.json"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "bebd9f042edf2e41f1820ac3f2aa2ba4551bf2d2dbb615311f6ad9e887261375",
-   "to": "experiments/e9/run/analyze.py"
   },
   {
    "basis": "GIT",
@@ -5302,6 +5329,22 @@
  },
  "findings": [
   {
+   "detector": "D2",
+   "generator": "scripts/films/build_flagship.py",
+   "severity": "FIX",
+   "tail": [
+    "AssertionError: source-map.json stale: rebuild flagship"
+   ]
+  },
+  {
+   "detector": "D2",
+   "generator": "scripts/generate_conformance_record.py",
+   "severity": "FIX",
+   "tail": [
+    "Run: python3 scripts/generate_conformance_record.py"
+   ]
+  },
+  {
    "claim": "MC-002",
    "days_left": 10,
    "detector": "D3",
@@ -5424,15 +5467,15 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 4,
+   "ahead": 5,
    "behind": 0,
    "branch": "e9-001/register",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 3,
-   "behind": 34,
+   "ahead": 5,
+   "behind": 0,
    "branch": "site/empirical-repair",
    "detector": "D4",
    "severity": "TOPOLOGY"
@@ -5529,8 +5572,8 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 3,
-   "behind": 6,
+   "ahead": 5,
+   "behind": 0,
    "branch": "origin/e9-001/register",
    "detector": "D4",
    "severity": "TOPOLOGY"
@@ -5650,7 +5693,7 @@
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
-   "test": "tests/test_film_capture.py"
+   "test": "tests/check-status.test.cjs"
   },
   {
    "detector": "D8",
@@ -5660,8 +5703,8 @@
   }
  ],
  "generated_from": {
-  "branch": "e9-001/register",
-  "head": "5655f4f"
+  "branch": "site/empirical-repair",
+  "head": "d6d8f36"
  },
  "nodes": [
   {
@@ -5898,6 +5941,13 @@
   {
    "has_check_mode": true,
    "has_test_mode": false,
+   "id": "scripts/generate_public_state.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
    "id": "scripts/generate_research_index.py",
    "kind": "generator",
    "type": "script"
@@ -5976,6 +6026,13 @@
    "has_check_mode": false,
    "has_test_mode": false,
    "id": "scripts/outcomes.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/publication_gate.py",
    "kind": "instrument",
    "type": "script"
   },
@@ -6267,7 +6324,7 @@
    "type": "script"
   },
   {
-   "checks": 86,
+   "checks": 90,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
@@ -6458,15 +6515,6 @@
    "last_reviewed": "2026-09-10",
    "review_due": "2027-01-08",
    "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/main/experiments/e7b/results/observations.jsonl",
-   "type": "claim"
-  },
-  {
-   "consequence": "REJECT",
-   "days_left": 120,
-   "id": "E9-001",
-   "last_reviewed": "2026-10-17",
-   "review_due": "2027-02-14",
-   "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/results/observations.jsonl",
    "type": "claim"
   },
   {
@@ -6703,9 +6751,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 4,
+   "ahead_of_origin_main": 5,
    "behind_origin_main": 0,
-   "head": "5655f4f",
+   "head": "a8bfe8c",
    "id": "e9-001/register",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
@@ -6730,9 +6778,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 3,
-   "behind_origin_main": 34,
-   "head": "ea84f0c",
+   "ahead_of_origin_main": 5,
+   "behind_origin_main": 0,
+   "head": "d6d8f36",
    "id": "site/empirical-repair",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
@@ -6865,9 +6913,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 3,
-   "behind_origin_main": 6,
-   "head": "c15f5ed",
+   "ahead_of_origin_main": 5,
+   "behind_origin_main": 0,
+   "head": "a8bfe8c",
    "id": "origin/e9-001/register",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
@@ -7036,5 +7084,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "ca18d7dd00654bf4b87b7dd54b78c399cf8d5fe5d5b304e9dfd2e495ec3f4f1d"
+ "stable_digest": "a06bdd37aaf6e3be5661f801c901b04bf8b4a0e300cca2f4078d58a11138a851"
 }

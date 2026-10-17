@@ -1,13 +1,11 @@
 id: the-multiplication
 title: The multiplication
 duration_s: 14
-thesis: Separate scores need an independence assumption to license their product as
-  a joint miss rate.
+thesis: Separate scores need an independence assumption to license their product as a joint miss rate.
 epistemic_operation: expose the assumption inside a product
-claim: The product of the CC-001 illustrative marginals is the independence-world
-  value, not a measured stack result.
-scope: Camera insert for the flagship; same-input illustrative evaluation, not sequentially
-  filtered evaluation.
+claim: The product of the CC-001 illustrative marginals is the independence-world value, not a measured stack
+  result.
+scope: Camera insert for the flagship; same-input illustrative evaluation, not sequentially filtered evaluation.
 status: supported_within_scope
 evidence:
 - fact: CC-001.marginals
@@ -29,8 +27,7 @@ evidence_commits:
 - claim: CC-001
   repo: Cubits11/cc-framework
   commit: 167aa1ee514ee3d797ed9be2c60120d0c1db71f6
-falsifier: Any product differs from the bound independence value, or a product frame
-  omits the assumption label.
+falsifier: Any product differs from the bound independence value, or a product frame omits the assumption label.
 non_claims:
 - No measured system, deployment risk estimate, or independence test is shown.
 claim_frames:
@@ -45,5 +42,6 @@ render:
   fps: 30
   formats:
   - master
+  - vertical
   poster_t: 8
 cta_route: /try/

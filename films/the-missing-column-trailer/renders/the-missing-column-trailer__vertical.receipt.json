@@ -1,0 +1,145 @@
+{
+ "film": "the-missing-column-trailer",
+ "format": "vertical",
+ "title": "The Missing Column \u2014 trailer",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
+ "rendered_on": "2026-10-17",
+ "inputs": {
+  "film.html": "d3273ae02e6d197bb250f321a2730d6f4f53b2ec3ac1763b926b110bb3fe9a46",
+  "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
+ },
+ "facts_subset": {
+  "file": "films/data/facts.json",
+  "over": "facts_used",
+  "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
+  "sha256": "a553c72312048ced53f1a64ed95966a6cf5cf6ef2bd309b91a68c002d6f345c6"
+ },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
+ "runtime": {
+  "chrome": "155.0.8059.82",
+  "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
+  "crf": 20
+ },
+ "fps": 30,
+ "frames": 1021,
+ "duration_s": 34,
+ "phone_text": {
+  "minimum_canvas_px": 54,
+  "audited_draws": 12461,
+  "minimum_examples": [
+   "Illustration",
+   "No measured system",
+   "Guard A misses 10/100.",
+   "Guard B misses 10/100.",
+   "A shared miss is one item both"
+  ],
+  "media_width_css_px": 280,
+  "minimum_css_px": 14.0,
+  "limit": "Font geometry only; legibility and comprehension require reader evidence."
+ },
+ "width": 1080,
+ "height": 1920,
+ "frames_digest": "a0c792af1fe4b659e94709c9b3a949a97f8f50c102cd3bc2212b96763cfb6e58",
+ "determinism": {
+  "sampled_frames": 5,
+  "identical": true
+ },
+ "text_overflows": [],
+ "facts_used": [
+  "CC-001.and_bounds",
+  "CC-001.independence_and",
+  "CC-001.marginals",
+  "CC-004.witness_lower",
+  "CC-004.witness_upper",
+  "MC-001.K",
+  "MC-001.K.releases_computable_items",
+  "MC-001.M",
+  "MC-001.M3",
+  "MC-001.N",
+  "MC-001.frozen_as_of",
+  "MC-002.all_miss",
+  "MC-002.independence_plugin_prompts",
+  "MC-002.n_harmful",
+  "MC-003.identified_set_lower",
+  "MC-003.identified_set_upper"
+ ],
+ "outputs": {
+  "master": "renders/the-missing-column-trailer__vertical.mp4",
+  "master_sha256": "7998281244e2f98b415ab14a35222ee42b697f8a81c416a39134c9f495bae5bf",
+  "master_bytes": 661095,
+  "master_duration_probe_s": 34.03,
+  "poster": "renders/the-missing-column-trailer__vertical.poster.png",
+  "poster_t": 32.4,
+  "stills": [
+   "renders/stills/vertical-open.jpg",
+   "renders/stills/vertical-q1.jpg",
+   "renders/stills/vertical-mid.jpg",
+   "renders/stills/vertical-q3.jpg",
+   "renders/stills/vertical-end.jpg"
+  ],
+  "claim_frames": [
+   {
+    "n": 1,
+    "t": 0.4,
+    "label": "opening: A 10/100, B 10/100, both 0/100 \u2014 nothing has moved",
+    "still": "renders/stills/vertical-claim-01.jpg"
+   },
+   {
+    "n": 2,
+    "t": 3,
+    "label": "mid-transition: half the rings landed, the readouts unchanged",
+    "still": "renders/stills/vertical-claim-02.jpg"
+   },
+   {
+    "n": 3,
+    "t": 7,
+    "label": "opposite endpoint 10/100 and the name SAME SCORES. DIFFERENT WORLDS.",
+    "still": "renders/stills/vertical-claim-03.jpg"
+   },
+   {
+    "n": 4,
+    "t": 12,
+    "label": "the interval 0\u201310% with the amber 1% labelled as what independence picks",
+    "still": "renders/stills/vertical-claim-04.jpg"
+   },
+   {
+    "n": 5,
+    "t": 20,
+    "label": "the census: 20 \u00b7 14 \u00b7 0 \u00b7 5 (2 via release), frozen 2026-08-27",
+    "still": "renders/stills/vertical-claim-05.jpg"
+   },
+   {
+    "n": 6,
+    "t": 27.5,
+    "label": "BELLS: the set {0 \u2026 12} of 82, the released 9, the amber 2.87 expectation",
+    "still": "renders/stills/vertical-claim-06.jpg"
+   },
+   {
+    "n": 7,
+    "t": 32.4,
+    "label": "the close: title, BRING THE COUNTEREXAMPLE, locator",
+    "still": "renders/stills/vertical-claim-07.jpg"
+   }
+  ],
+  "phone_previews": [
+   "renders/stills/phone-vertical-open.jpg",
+   "renders/stills/phone-vertical-q1.jpg",
+   "renders/stills/phone-vertical-mid.jpg",
+   "renders/stills/phone-vertical-q3.jpg",
+   "renders/stills/phone-vertical-end.jpg",
+   "renders/stills/phone-vertical-claim-01.jpg",
+   "renders/stills/phone-vertical-claim-02.jpg",
+   "renders/stills/phone-vertical-claim-03.jpg",
+   "renders/stills/phone-vertical-claim-04.jpg",
+   "renders/stills/phone-vertical-claim-05.jpg",
+   "renders/stills/phone-vertical-claim-06.jpg",
+   "renders/stills/phone-vertical-claim-07.jpg"
+  ]
+ },
+ "render_seconds": 48.6
+}

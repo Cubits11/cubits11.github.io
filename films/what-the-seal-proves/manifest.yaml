@@ -72,10 +72,12 @@ non_claims:
   - verifier acceptance is never treated here as evidence of semantic safety, authorization, or correctness
 claim_frames:
   - t: 16.8
-    shows: two receipts with different raw digests now share one canonical digest under the seal
+    shows: two receipts with different raw digests share one canonical digest; the master shows its seal and the phone shows its pipeline
   - t: 24.0
-    shows: the verified seal, the boundary line, and the three dark doors SAFE? AUTHORIZED? CORRECT? — not established by the receipt
+    shows: the matching canonical digest, boundary line and safety/authorization/correctness limits; master uses three dark doors
 render:
   fps: 30
   formats: [master, vertical]
   poster_t: 24.0
+phone_layout: >-
+  Dedicated 1080×1920 phone composition with two readable raw receipt strings, one canonical form, and a vertically separated receipt boundary. Every phone text label is at least 54px; the toy-illustration/no-measured-system warning remains on every frame.

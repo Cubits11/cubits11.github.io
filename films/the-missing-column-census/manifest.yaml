@@ -120,3 +120,10 @@ render:
   fps: 30
   formats: [master, vertical]
   poster_t: 23.5
+
+phone_layout:
+  canvas: [1080, 1920]
+  minimum_essential_text_px: 54
+  minimum_display_width_css_px: 280
+  composition: dedicated vertical edit; evidence numbers and scientific scope unchanged
+  provenance: persistent scene-specific distinction between counts, constructions, and deployed systems

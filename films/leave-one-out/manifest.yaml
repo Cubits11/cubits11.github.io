@@ -85,12 +85,19 @@ non_claims:
   - "says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release"
 claim_frames:
   - t: 12.0
-    shows: all five lamps on — 73/82 lit, 9 dark; aggregate-only bounds on exclusive coverage beside each lamp
+    shows: all five together — 73/82 flagged, 9 missed; aggregate-only bounds on each guard’s exclusive coverage
   - t: 16.3
     shows: NeMo Guardrails shuttered — 18 windows go dark, 55/82 still lit by the other four
   - t: 29.0
-    shows: the summary line — 3 of 5 lamps light nothing the others don't, on this stratum; identified values beside each lamp
+    shows: summary — 3 of 5 guards have zero exclusive coverage on this stratum; all five identified values shown
 render:
   fps: 30
   formats: [master, vertical]
   poster_t: 16.3
+
+phone_layout:
+  canvas: [1080, 1920]
+  minimum_essential_text_px: 54
+  minimum_display_width_css_px: 280
+  composition: dedicated vertical edit; evidence numbers and scientific scope unchanged
+  provenance: persistent scene-specific distinction between counts, constructions, and deployed systems

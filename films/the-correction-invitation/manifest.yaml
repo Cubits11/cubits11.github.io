@@ -27,5 +27,8 @@ render:
   fps: 30
   formats:
   - master
+  - vertical
   poster_t: 5
 cta_route: /corrections/
+phone_layout: >-
+  Dedicated 1080×1920 phone composition with a large correction route and actionable source/input/result request. Every phone text label is at least 54px. A persistent invitation/no-completed-review label prevents the end card being read as a result.

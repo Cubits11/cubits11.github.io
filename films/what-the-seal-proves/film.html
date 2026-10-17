@@ -70,7 +70,63 @@ function gate(g, x, y, label, alpha, L, active) {
   g.restore();
 }
 
+// Phone text uses a 54px minimum; the toy example stays scoped on every frame.
+function renderPhone(t, g, L) {
+  const label = (s, y, o = {}) => text(g, s, 80, y, { font: 'sans', size: 56, color: TOK.ink, maxW: 920, ...o });
+  const raw = (s, y) => {
+    const cut = s.lastIndexOf(' ', 25);
+    text(g, s.slice(0, cut), 80, y, { font: 'mono', size: 54, color: TOK.ink, maxW: 920 });
+    text(g, s.slice(cut), 80, y + 76, { font: 'mono', size: 54, color: TOK.ink, maxW: 920 });
+  };
+  label('Illustration — no measured system', 84, { size: 54, color: TOK.review });
+  if (t < 9.6) {
+    label('Different bytes.', 250, { font: 'serif', size: 90 });
+    label('RECEIPT A', 400, { color: TOK.muted });
+    raw(RAW_A, 500);
+    label('RECEIPT B', 760, { color: TOK.muted });
+    raw(RAW_B, 860);
+    label('Raw SHA-256 differs:', 1130, { color: TOK.review });
+    label(D_A.slice(0, 12) + '…', 1230, { font: 'mono', size: 54 });
+    label(D_B.slice(0, 12) + '…', 1330, { font: 'mono', size: 54 });
+    label('Toy canonicalizer:', 1580, { color: TOK.muted });
+    label('Sort keys.', 1680);
+    label('Whole floats become integers.', 1770, { size: 54 });
+  } else if (t < T_CUT) {
+    label('One canonical form.', 250, { font: 'serif', size: 82 });
+    label('For both receipts:', 410, { color: TOK.muted });
+    const key = CANON.indexOf(',') + 1;
+    text(g, CANON.slice(0, key), 80, 520, { font: 'mono', size: 54, maxW: 920 });
+    text(g, CANON.slice(key), 80, 600, { font: 'mono', size: 54, maxW: 920 });
+    ['Parse', 'Canonicalize', 'Digest'].forEach((s, i) => {
+      const y = 790 + i * 185;
+      line(g, 100, y + 40, 980, y + 40, TOK.lineStrong, 4);
+      text(g, s, 540, y, { font: 'sans', size: 68, align: 'center', color: TOK.evidence, maxW: 920 });
+    });
+    label('SHA-256', 1420, { color: TOK.evidence });
+    label(D_C.slice(0, 12) + '…', 1520, { font: 'mono', size: 54, color: TOK.evidence });
+    label('Two documents.', 1690, { font: 'serif', size: 78 });
+    label('One digest.', 1790, { font: 'serif', size: 78 });
+  } else {
+    label('A matching digest.', 250, { font: 'serif', size: 84 });
+    label('Canonical bytes match.', 370, { size: 62, color: TOK.evidence });
+    ring(g, 540, 650, 165, TOK.evidence, 6);
+    ring(g, 540, 650, 145, TOK.evidence, 2);
+    text(g, 'SHA-256', 540, 635, { font: 'sans', size: 58, color: TOK.evidence, align: 'center' });
+    text(g, D_C.slice(0, 8), 540, 710, { font: 'mono', size: 54, color: TOK.evidence, align: 'center' });
+    line(g, 80, 920, 1000, 920, TOK.review, 5, [18, 12]);
+    label('Does not establish:', 1040, { size: 62, color: TOK.review });
+    ['Safety', 'Authorization', 'Semantic correctness'].forEach((s, i) => {
+      label(s, 1190 + 155 * i, { size: 64, color: TOK.muted });
+      line(g, 80, 1220 + 155 * i, 1000, 1220 + 155 * i, TOK.lineStrong, 3);
+    });
+    label('The receipt stops here.', 1750, { font: 'serif', size: 76 });
+  }
+  label('Toy example · GA-001 boundary', 1870, { size: 54, color: TOK.muted });
+}
+
 function render(t, g, L, { fact }) {
+  if (L.vertical) { renderPhone(t, g, L); return; }
+  text(g, 'Illustration — no measured system', 120, 65, { font: 'sans', size: 30, color: TOK.review, maxW: 1400 });
   const u = L.u;
   if (t < T_CUT) {
     kicker(g, 'TWO RECEIPTS · ONE PIPELINE · ONE SEAL', L.m + 20 * u, L.vertical ? 150 * u : 120 * u, { size: 18 * u, maxW: L.W - 2 * L.m });
@@ -177,8 +233,8 @@ Film.define({
   id: 'what-the-seal-proves', title: 'What the Seal Proves',
   duration: DUR, fps: 30, poster_t: 24.0,
   claimFrames: [
-    { t: 16.8, label: 'two receipts with different raw digests now share one canonical digest under the seal' },
-    { t: 24.0, label: 'the verified seal, the boundary line, and the three dark doors: SAFE? AUTHORIZED? CORRECT? — not established by the receipt' }
+    { t: 16.8, label: 'two receipts with different raw digests share one canonical digest; the master shows its seal and the phone shows its pipeline' },
+    { t: 24.0, label: 'the matching canonical digest, boundary line and safety/authorization/correctness limits; master uses three dark doors' }
   ],
   setup, render
 });

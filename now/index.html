@@ -22,6 +22,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F0A'/%3E%3Crect x='12' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='11' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='12' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='35' y='32' width='17' height='17' rx='4' fill='%23EDE8DA'/%3E%3Crect x='13.5' y='53' width='37' height='0.1' rx='2' fill='none' stroke='%23C9A15E' stroke-width='3'/%3E%3C/svg%3E">
 <script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++)m[i].content=t==='dark'?'#0B0F0A':'#F1EDE2'}}catch(e){}</script>
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/status.css">
+<script defer src="/assets/draft-board.js"></script>
 <style>
 .container{width:min(720px,100% - 2*clamp(1.25rem,5vw,3rem))}
 .mono{font-size:.7rem}
@@ -63,13 +65,19 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
 </header>
 <header class="page">
   <div class="container">
-    <p class="eyebrow mono">Now · updated 2026-09-08 · owner-attested, dated, replaced when stale</p>
+    <p class="eyebrow mono">Research board · public record checked 2026-10-17</p>
     <h1>Can dependence evidence be measured at feasible cost — before it has to be assumed?</h1>
-    <p class="standfirst">One claim should become more inspectable every working day. This page
-      names the claim currently on the bench, and the honest state of everything around it.</p>
+    <p class="standfirst">Published results, pending drafts, rejected findings and untested work have different statuses. Draft links below are pinned observations; their current branch state is checked when this page opens.</p>
   </div>
 </header>
 <main class="container" id="main">
+<p><a href="/status/">Live checks and registry-derived review dates</a> · <a href="/corrections/">Rejected findings and corrections</a></p>
+<!-- PUBLIC-DRAFT-BOARD:START -->
+<article class="status-notice" data-draft-revision="592ed515dc78acd4034a055024a64003e93d4172" data-publication-state="Published result — claim registration pending"><p class="mono">Published result — claim registration pending · observed 2026-10-17</p>
+<h2>E9 — 1,000-item scoped result</h2><p>E9’s 1,000-item result merged in PR 26. A post-result claim registration, E9-001, is proposed in draft PR 31 and is not in the registry. The result is not a completion of E2 and does not establish deployment safety.</p><p>The result discloses a verdict rule outside readable preregistration prose, selected pools, omitted calibration uncertainty and no independent replication. Its interval excludes zero but does not lie wholly beyond the 0.05 effect-size threshold.</p>
+<p><a href="https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/RESULT.md">Read the pinned result</a> · <a href="https://github.com/Cubits11/cubits11.github.io/pull/26">Inspect publication record</a></p>
+<p>Observed revision <code>592ed515dc78acd4034a055024a64003e93d4172</code>. This board is a dated observation, not a live claim that the repository is unchanged.</p></article>
+<!-- PUBLIC-DRAFT-BOARD:END -->
 
   <div class="mv">
     <span class="mono state-open">Measured · both predictions failed · 2026-09-06</span>
@@ -156,8 +164,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
       was exercised against three toy mechanisms. Sixty-six rows passed the real E2 validator
       with zero violations; the observed dependence was indistinguishable from independence at
       twenty-two items, and the controls behaved exactly. It is not E2, and it says so on its
-      face; what moved is that the instrument is proven and the cost of the real study is now a
-      number.</p>
+      face. The pipeline passed 66 synthetic rows and its declared controls. Validity on real guardrail data remains untested; the study-cost estimate is conditional on the planning assumptions.</p>
     <div class="chips" style="margin-top:.9rem">
       <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/327f0684f49768531594d593902ed8907fc717af/docs/research/E2_DRYRUN_FINDING.md">The dry-run finding ↗</a>
       <a class="chip chip-internal" href="/ledger/#CC-006">Claim CC-006 →</a>
@@ -170,7 +177,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <p>CC-Framework's first empirical rung was frozen before any dataset was inspected, and no
       conforming dataset has been collected. On 2026-08-23 the measurement pipeline was
       rehearsed end to end on three synthetic mechanisms — a documented dry run, not E2 — which
-      validated the instrument and put a number on what real E2 costs: about 1,097 shared items
+      exercised the pipeline and supplied a conditional planning estimate: about 1,097 shared items
       run through every guardrail to estimate the rates to within five points. That is the bar
       the next artifact must clear. E2 stays frozen and untested until it does.</p>
     <div class="chips" style="margin-top:.9rem">
@@ -211,9 +218,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
       carries no evidence because there is none to carry.</p>
   </div>
 
-  <p class="attest">This page is hand-written and owner-attested; it carries no evidence markers
-    and borrows none. When it goes stale, it is replaced, not accreted — the previous state
-    survives in git history, which is where history belongs.</p>
+  <p class="attest">The research pipeline is generated from dated public observations; the earlier entries retain their historical dates. Publication does not establish independent replication or complete a different experiment. Unknown repository status is labeled explicitly. Earlier page states remain in repository history.</p>
 
 </main>
 <footer>

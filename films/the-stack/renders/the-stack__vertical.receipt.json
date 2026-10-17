@@ -1,0 +1,134 @@
+{
+ "film": "the-stack",
+ "format": "vertical",
+ "title": "The Stack",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
+ "rendered_on": "2026-10-17",
+ "inputs": {
+  "film.html": "1d063264d012abb46cd22779ec3a2bcbe8002c5557d3034110772c6e0d5b1be0",
+  "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
+ },
+ "facts_subset": {
+  "file": "films/data/facts.json",
+  "over": "facts_used",
+  "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
+  "sha256": "3a9edd335b527b30cac3e72ed14ca31b9673a4f05e309bfaff25a0b87e48496a"
+ },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
+ "runtime": {
+  "chrome": "155.0.8059.82",
+  "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
+  "crf": 20
+ },
+ "fps": 30,
+ "frames": 1351,
+ "duration_s": 45,
+ "phone_text": {
+  "minimum_canvas_px": 54,
+  "audited_draws": 22067,
+  "minimum_examples": [
+   "Illustration \u2014 no measured system",
+   "Same items. Parallel evaluations.",
+   "100 items",
+   "Guard A",
+   "Guard B"
+  ],
+  "media_width_css_px": 280,
+  "minimum_css_px": 14.0,
+  "limit": "Font geometry only; legibility and comprehension require reader evidence."
+ },
+ "width": 1080,
+ "height": 1920,
+ "frames_digest": "2020f59be42a3f7d3ca8c496383896970bf9eabe0eccf0e6c2191686a6131789",
+ "determinism": {
+  "sampled_frames": 5,
+  "identical": true
+ },
+ "text_overflows": [],
+ "facts_used": [
+  "CC-001.and_bounds",
+  "CC-001.independence_and",
+  "CC-001.marginals",
+  "CC-004.witness_lower",
+  "CC-004.witness_upper"
+ ],
+ "outputs": {
+  "master": "renders/the-stack__vertical.mp4",
+  "master_sha256": "80e97fce9dee5735310f526b3a75443faa08fbff585d64bbd8b701649c6ba412",
+  "master_bytes": 1020924,
+  "master_duration_probe_s": 45.03,
+  "poster": "renders/the-stack__vertical.poster.png",
+  "poster_t": 29,
+  "stills": [
+   "renders/stills/vertical-open.jpg",
+   "renders/stills/vertical-q1.jpg",
+   "renders/stills/vertical-mid.jpg",
+   "renders/stills/vertical-q3.jpg",
+   "renders/stills/vertical-end.jpg"
+  ],
+  "claim_frames": [
+   {
+    "n": 1,
+    "t": 0.5,
+    "label": "parallel branches each receive all 100 items; both miss counts are fixed at 10/100",
+    "still": "renders/stills/vertical-claim-01.jpg"
+   },
+   {
+    "n": 2,
+    "t": 8,
+    "label": "Guard A misses ten of its full 100-item exposure",
+    "still": "renders/stills/vertical-claim-02.jpg"
+   },
+   {
+    "n": 3,
+    "t": 14,
+    "label": "Guard B also sees all 100 items; its ten misses are disjoint from A, shared count zero",
+    "still": "renders/stills/vertical-claim-03.jpg"
+   },
+   {
+    "n": 4,
+    "t": 22,
+    "label": "B miss identities migrate; shared misses increase while both denominators stay 100",
+    "still": "renders/stills/vertical-claim-04.jpg"
+   },
+   {
+    "n": 5,
+    "t": 27.5,
+    "label": "both guards miss the same ten items, shared count 10/100",
+    "still": "renders/stills/vertical-claim-05.jpg"
+   },
+   {
+    "n": 6,
+    "t": 33,
+    "label": "permitted range 0\u201310%, with independence explicitly selecting 1%",
+    "still": "renders/stills/vertical-claim-06.jpg"
+   },
+   {
+    "n": 7,
+    "t": 43,
+    "label": "fixed full-exposure denominators and shared-miss range remain visible",
+    "still": "renders/stills/vertical-claim-07.jpg"
+   }
+  ],
+  "phone_previews": [
+   "renders/stills/phone-vertical-open.jpg",
+   "renders/stills/phone-vertical-q1.jpg",
+   "renders/stills/phone-vertical-mid.jpg",
+   "renders/stills/phone-vertical-q3.jpg",
+   "renders/stills/phone-vertical-end.jpg",
+   "renders/stills/phone-vertical-claim-01.jpg",
+   "renders/stills/phone-vertical-claim-02.jpg",
+   "renders/stills/phone-vertical-claim-03.jpg",
+   "renders/stills/phone-vertical-claim-04.jpg",
+   "renders/stills/phone-vertical-claim-05.jpg",
+   "renders/stills/phone-vertical-claim-06.jpg",
+   "renders/stills/phone-vertical-claim-07.jpg"
+  ]
+ },
+ "render_seconds": 67.4
+}

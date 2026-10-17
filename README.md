@@ -275,3 +275,11 @@ autonomously change scientific criteria, promote a hypothesis, or accept a
 contradicted result. Deployment checks compare the public pages, primary films,
 posters and claim metadata with the verified revision, so an older page returning
 HTTP 200 cannot stand in for the release.
+
+## Public status and review dates
+
+`publications.yaml` records dated public promises and research publication states. `scripts/generate_public_state.py` combines it with review dates calculated from `claims.yaml`; it does not alter scientific status or renew a review. The browser requests public GitHub workflow observations and shows UNKNOWN on unavailable, malformed or stale responses. `/status/preview/` exercises synthetic failure and unavailable states.
+
+When a review is renewed, retain its previous window in `review_dispositions` with the before/after registry revisions. The generator reads those pinned registry versions to calculate the old deadline and renewal date. REL-001’s elapsed September 23 window remains visible beside its current November review date. These records document review administration; they do not establish a scientific result.
+
+Validation: `python3 tests/test_public_state.py` (Python dependencies plus Node.js 20 or newer). `CUBITS11_NODE` may name a local Node executable when it is not on PATH. The canonical verification manifest includes these cases and generated-state drift. Render exports check exact image dimensions, compare Canvas pixels against five browser screenshots before using batched export, and preserve the previous MP4 on encoder failure.

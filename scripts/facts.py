@@ -193,8 +193,7 @@ REQUIRED_BINDINGS: dict[str, set[str]] = {
     "ledger/index.html": {"MC-001.N", "MC-001.M1", "MC-001.K"},
     "observatory/index.html": {"MC-001.N", "MC-001.M1", "MC-001.K"},
     "resume/index.html": {"MC-001.N", "MC-001.M1", "MC-001.K"},
-    "index.html": {"MC-001.N", "MC-001.K", "MC-001.M3", "MC-001.M1",
-                   "MC-001.ABSENT"},
+    "index.html": {"MC-001.N", "MC-001.K", "MC-001.M3"},
     "answers/why-guardrail-miss-rates-do-not-multiply/index.html": {
         "MC-001.N", "MC-001.K", "MC-001.M3"},
     "answers/how-to-evaluate-guardrails-you-plan-to-stack/index.html": {

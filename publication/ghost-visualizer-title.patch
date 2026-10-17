@@ -1,0 +1,75 @@
+diff --git a/README.md b/README.md
+index ac4cf84..52917d6 100644
+--- a/README.md
++++ b/README.md
+@@ -2,11 +2,11 @@
+ 
+ Ghost Visualizer is a React/Vite visual essay about a narrow but important evaluation problem: two guardrails can each score 90% on harmful examples while their composed OR safety is only bounded, not determined, unless dependence is inspected.
+ 
+-The current demo exists to visualize bounded claims under stated assumptions. It is not an AI safety certificate and does not claim deployment readiness.
++The current demo exists to visualize bounded claims under stated assumptions. Its title is **What AI Guardrail Scores Cannot Tell You**: marginal scores leave shared failures undetermined; that does not establish deception. It is not an AI safety certificate and does not claim deployment readiness.
+ 
+ ## What It Does
+ 
+-- Plays a seven-scene cinematic story, “Why AI Safety Scores Lie.”
++- Plays a seven-scene cinematic story, “What AI Guardrail Scores Cannot Tell You.”
+ - Shows how identical marginal guardrail scores can hide shared misses.
+ - Computes harmful-class atom counts, marginals, OR composition, Frechet-Hoeffding bounds, endpoint witnesses, and a receipt object from deterministic sample rows.
+ - Provides Evidence Mode for inspecting the computed receipt and downloading JSON.
+diff --git a/docs/ghost-visualizer-repository-vision.md b/docs/ghost-visualizer-repository-vision.md
+index 49388fc..ee95adf 100644
+--- a/docs/ghost-visualizer-repository-vision.md
++++ b/docs/ghost-visualizer-repository-vision.md
+@@ -24,7 +24,7 @@ What may be delusional:
+ - Turning every metaphor into a feature.
+ - Assuming "interactive visual essay platform" is a product by itself. It is not. The product is claim discipline made visible.
+ 
+-The flagship should be: **Why AI Safety Scores Lie** as the canonical public demo, followed by **The Correlation Cliff** as the second artifact and **How to Read an AI Safety Receipt** as the credibility bridge.
++The flagship should be: **What AI Guardrail Scores Cannot Tell You** as the canonical public demo, followed by **The Correlation Cliff** as the second artifact and **How to Read an AI Safety Receipt** as the credibility bridge.
+ 
+ What would impress different audiences:
+ - A professor: formal definitions, proof sketches, Fréchet-Hoeffding bounds, endpoint witnesses, invariant tests, citations, and no overclaiming.
+@@ -138,7 +138,7 @@ Immediate visualization priorities: Atom Table Fluid Machine, Correlation Cliff,
+ 
+ | Title | Thesis | Hook + metaphor | Required visuals | Why people care / why experts respect it | Difficulty | Length |
+ |---|---|---|---|---|---|---|
+-| Why AI Safety Scores Lie | Marginal scores can hide shared failure. | "Two 90% guardrails can still fail together." Dot worlds. | Current scenes. | Clear public shock; valid partial-identification lesson. | Done-ish. | 5 min. |
++| What AI Guardrail Scores Cannot Tell You | Marginal scores can hide shared failure. | "Two 90% guardrails can still fail together." Dot worlds. | Current scenes. | Clear public shock; valid partial-identification lesson. | Done-ish. | 5 min. |
+ | The Correlation Cliff | Small dependence changes can destroy comfort. | A safety plateau collapses. | Correlation Cliff, fluid atoms. | Makes risk visceral; formal dependence sensitivity. | Medium. | 5 min. |
+ | The Hidden Geometry of Guardrails | Safety claims live in feasible regions. | A score becomes a polytope. | Possible Worlds Polytope, endpoint witnesses. | Visual math spectacle; credible convex-constraint framing. | Hard. | 12 min. |
+ | Why "99% Safe" Can Be Meaningless | A point score without assumptions is not a guarantee. | A shining number casts a long shadow. | Safety Shadowgraph, Assumption Furnace. | Destroys false certainty; respects identification limits. | Medium. | 5 min. |
+@@ -159,7 +159,7 @@ Immediate visualization priorities: Atom Table Fluid Machine, Correlation Cliff,
+ | Safety Theater | Controls can look impressive while proving little. | A stage set collapses behind the curtain. | Non-claim firewall, receipt black box. | Broad resonance; must avoid cynicism. | Medium. | 5 min. |
+ | The Receipt Is the Product | Governance value lives in bounded, reproducible claims. | A receipt becomes an artifact people can trust. | Evidence galaxy, witness museum, builder output. | Enterprise bridge; rigorous if real. | Medium. | 5 min. |
+ 
+-The best series arc is: **Scores Lie -> Correlation Cliff -> Four Atoms -> Safety Claim -> Receipt -> Benchmarks -> Red Teams -> Partial Identification**.
++The best series arc is: **Guardrail Score Limits -> Correlation Cliff -> Four Atoms -> Safety Claim -> Receipt -> Benchmarks -> Red Teams -> Partial Identification**.
+ 
+ ## 8. Repository Architecture Evolution
+ 
+diff --git a/index.html b/index.html
+index 00523e9..807c89b 100644
+--- a/index.html
++++ b/index.html
+@@ -7,7 +7,7 @@
+       name="description"
+       content="A cinematic proof system showing why isolated AI safety scores can hide dependent failures."
+     />
+-    <title>Why AI Safety Scores Lie</title>
++    <title>What AI Guardrail Scores Cannot Tell You</title>
+   </head>
+   <body>
+     <div id="root"></div>
+diff --git a/src/components/CinematicShell.tsx b/src/components/CinematicShell.tsx
+index 86b3804..fc5d340 100644
+--- a/src/components/CinematicShell.tsx
++++ b/src/components/CinematicShell.tsx
+@@ -110,7 +110,7 @@ export function CinematicShell({
+       <header className="app-chrome">
+         <div>
+           <p className="eyebrow">Ghost Visualizer</p>
+-          <h1>Why AI Safety Scores Lie</h1>
++          <h1>What AI Guardrail Scores Cannot Tell You</h1>
+         </div>
+         <div className="chrome-meta">
+           <span>{activeScene.number}</span>

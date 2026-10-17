@@ -39,7 +39,51 @@ function envelope(g, vals, x, y, color, alpha, strike) {
   });
 }
 
+// This phone composition reports the actual registry correction, not guardrail performance.
+// Every text label is >=54 canvas px (14 CSSpx at 280px media width).
+function renderPhone(t, g, L) {
+  const label = (s, y, o = {}) => text(g, s, 80, y, { font: 'sans', size: 56, color: TOK.ink, maxW: 920, ...o });
+  label('Registry record — bounded search', 84, { size: 54, color: TOK.review });
+  label('A falsifier fired.', 230, { font: 'serif', size: 90 });
+  label('If a qualifying row was missed:', 365, { size: 54, color: TOK.muted });
+  label('REJECT the stated counts.', 450, { size: 62, color: TOK.evidence });
+  label(`At freeze: ${FROZEN}`, 640, { color: TOK.muted });
+  CORR.from.forEach((v, i) => {
+    const x = 220 + i * 320;
+    text(g, String(v), x, 820, { font: 'serif', size: 132, color: TOK.ink, align: 'center' });
+    text(g, ['examined', 'same basis', 'joint file'][i], x, 910, { font: 'sans', size: 54, color: TOK.muted, align: 'center', maxW: 310 });
+    const strike = sm(t, T_REJECT + 0.6, T_REJECT + 1.6);
+    if (strike > 0) line(g, x - 85, 770, x - 85 + 170 * strike, 770, TOK.invalid, 9);
+  });
+  if (t < T_ROW) {
+    label('The consequence was fixed', 1180, { size: 62 });
+    label('before the count.', 1270, { size: 62 });
+  } else if (t < T_NEW) {
+    label('A qualifying row was missed:', 1100, { size: 58, color: TOK.review });
+    const split = CORR.row_added.lastIndexOf('-', 24);
+    label(CORR.row_added.slice(0, split + 1), 1210, { font: 'mono', size: 54 });
+    label(CORR.row_added.slice(split + 1), 1290, { font: 'mono', size: 54 });
+    label(`Added ${CORR.date}`, 1410, { size: 54, color: TOK.muted });
+    label('Published before the freeze.', 1500, { size: 54, color: TOK.muted });
+    label('REJECT', 1700, { size: 100, color: TOK.invalid, alpha: sm(t, T_REJECT, T_REJECT + 0.5) });
+  } else {
+    label(`Superseding: ${CORR.to.join(' / ')}`, 1110, { size: 70, color: TOK.evidence });
+    label(`Corrected ${CORR.date}`, 1220, { size: 54, color: TOK.muted });
+    label(`Today: ${N} / ${M} / ${K}`, 1330, { size: 58 });
+    if (t >= T_SENS) {
+      label('Declared sensitivities', 1440, { size: 58, color: TOK.review });
+      label(`Named products: ${SENS[0].envelope.join(' / ')}`, 1540, { size: 54 });
+      label('Pre-freeze visibility:', 1630, { size: 54 });
+      label(SENS[1].envelope.join(' / '), 1710, { size: 66 });
+    }
+    label('Old counts retained.', 1800, { size: 60, alpha: sm(t, T_SENT, T_SENT + 0.6) });
+  }
+  label('MC-001 · one primary reviewer', 1870, { size: 54, color: TOK.muted });
+}
+
 function render(t, g, L) {
+  if (L.vertical) { renderPhone(t, g, L); return; }
+  text(g, 'Registry record — bounded search', 120, 65, { font: 'sans', size: 30, color: TOK.review, maxW: 1400 });
   kicker(g, `THE CENSUS · FROZEN ${FROZEN} · CRITERIA LOCKED BEFORE CLASSIFICATION`, 120, 150, { size: 22, maxW: 1400 });
   // the seal, on screen from the start
   const sealY = 300;
@@ -97,7 +141,7 @@ Film.define({
     { t: 0.5, label: 'the seal written before the count and the frozen envelope 19 / 13 / 4' },
     { t: 7.0, label: 'a row the search missed arrives, dated 2026-08-30' },
     { t: 13.5, label: 'REJECT by its own rule; the old envelope struck through, not erased' },
-    { t: 20.0, label: 'the superseding envelope 20 / 14 / 5 beside the struck one' },
+    { t: 20.0, label: 'the superseding envelope 20 / 14 / 5 with the struck old one retained' },
     { t: 27.0, label: 'the declared sensitivities 19/13/5 and 19/13/4 under their own labels' },
     { t: 33.0, label: 'the sentence and the locator' }
   ],

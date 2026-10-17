@@ -2,10 +2,10 @@
  "film": "the-missing-column-census",
  "format": "master",
  "title": "The Missing Column, Counted",
- "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "2f8a89eeafc964d7608e5a2f0aad5e43ee628982346ff1adadb34f5f3727c1cb",
+  "film.html": "556d2d45959e360ad9066ddb4f45d5fa97df4a701577f39a0a61dba2011f1db9",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
  },
@@ -15,6 +15,11 @@
   "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
   "sha256": "287a6bdb77d9ac3cee2c3af732d75b49a2ca367788590acab73296fbed130b26"
  },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
  "runtime": {
   "chrome": "155.0.8059.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
@@ -23,9 +28,10 @@
  "fps": 30,
  "frames": 1201,
  "duration_s": 40,
+ "phone_text": null,
  "width": 1920,
  "height": 1080,
- "frames_digest": "4ff000dd0bec80b8f2751be11e86f3b9088d83f3b251922da606e0c5808012d2",
+ "frames_digest": "4a939f62dbd266463678cd3c2866362306bf0f80830868d6d9efe46a712a99e2",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -53,8 +59,8 @@
  ],
  "outputs": {
   "master": "renders/the-missing-column-census__master.mp4",
-  "master_sha256": "039ce14e26b4164ccf66022a00be42ff13a3c4a00e74f01b0550cc293df556bf",
-  "master_bytes": 1365510,
+  "master_sha256": "128eeb35c0485030d919d3190fa7773a9dc43fd4715c0494e8ec7fb561e6a78d",
+  "master_bytes": 1437618,
   "master_duration_probe_s": 40.03,
   "poster": "renders/the-missing-column-census__master.poster.png",
   "poster_t": 23.5,
@@ -81,11 +87,11 @@
    {
     "n": 3,
     "t": 34,
-    "label": "the edge of the search: undefined examined, undefined excluded, undefined unexamined",
+    "label": "the edge of the bounded search: examined, excluded and unexamined candidate counts",
     "still": "renders/stills/master-claim-03.jpg"
    }
   ],
   "phone_previews": []
  },
- "render_seconds": 331.0
+ "render_seconds": 71.9
 }

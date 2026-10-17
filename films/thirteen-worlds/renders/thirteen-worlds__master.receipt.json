@@ -2,10 +2,10 @@
  "film": "thirteen-worlds",
  "format": "master",
  "title": "Thirteen Worlds, One File",
- "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "4e425d521078bd01593b43548c8523c4d244737d51441b437d0a3008ae32e962",
+  "film.html": "4cc2144e4c2f4b0822dd07fa8ae7712dd0d8c0192b8e39f37d752560ca4c81a6",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
  },
@@ -15,6 +15,11 @@
   "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
   "sha256": "57a870b1a16c1e819e069d3213dacd86e759172dc0db4f824af513ab13062c5a"
  },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
  "runtime": {
   "chrome": "155.0.8059.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
@@ -23,9 +28,10 @@
  "fps": 30,
  "frames": 1081,
  "duration_s": 36,
+ "phone_text": null,
  "width": 1920,
  "height": 1080,
- "frames_digest": "09cff90f7bbb563325f5edd749ce149eec2e6748199c4249ebe5afae1281cb7d",
+ "frames_digest": "ede0325f6a21c0b3324a8c7d08deb3235859b4a66541e10ba4b31b4fb4a7240e",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -52,8 +58,8 @@
  ],
  "outputs": {
   "master": "renders/thirteen-worlds__master.mp4",
-  "master_sha256": "67484de68633cfe62921446e836d887b77d9ddab017d5774fa7261e6dd7513d2",
-  "master_bytes": 1090591,
+  "master_sha256": "0d1a28c3f92331fb13fe35252613566723f370ee2d71089d38aa3600dfa10a85",
+  "master_bytes": 1156116,
   "master_duration_probe_s": 36.03,
   "poster": "renders/thirteen-worlds__master.poster.png",
   "poster_t": 27,
@@ -68,17 +74,17 @@
    {
     "n": 1,
     "t": 16.5,
-    "label": "the sliding rod nested: all-miss reads 12/82, the upper endpoint min p, with the finite identified set {0\u202612} on the axis",
+    "label": "the sliding rod nested: all-miss reads 12/82; the five fixed rates permit the finite set {0\u202612}",
     "still": "renders/stills/master-claim-01.jpg"
    },
    {
     "n": 2,
     "t": 27,
-    "label": "the union (73/82) pins the all-miss count at 9/82 while the independence plug-in (2.87 prompts) sits off-grid",
+    "label": "the released union (73/82) pins the all-miss count at 9/82; the five rates alone still permit {0\u202612}",
     "still": "renders/stills/master-claim-02.jpg"
    }
   ],
   "phone_previews": []
  },
- "render_seconds": 156.6
+ "render_seconds": 51.0
 }

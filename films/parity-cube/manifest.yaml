@@ -69,10 +69,12 @@ non_claims:
   - no real guardrail, vendor, or deployment appears; E1 is synthetic
 claim_frames:
   - t: 14.0
-    shows: two cubes with identical singles (0.50) and identical pairwise both-fail (0.25) drawn under each
+    shows: two cubes with shared identical singles (0.50) and identical pairwise both-fail (0.25)
   - t: 20.5
-    shows: the all-three-fail corner labelled 0 in world E and 0.25 in world O
+    shows: all-three-fail values 0 in world E and 0.25 in world O; the master labels the corner, the phone labels each cube
 render:
   fps: 30
   formats: [master, vertical]
   poster_t: 20.5
+phone_layout: >-
+  Dedicated 1080×1920 phone composition with two stacked parity cubes, explicit 0% versus 25% three-way failure and shared 50% singleton / 25% pair values. Every phone text label is at least 54px; the constructed/no-measured-system warning remains on every frame.

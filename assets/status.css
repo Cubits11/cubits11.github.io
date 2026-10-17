@@ -1,0 +1,10 @@
+.check-status{border-left:3px solid var(--review);padding:.65rem .9rem;font-size:.86rem;line-height:1.55;background:var(--surface);overflow-wrap:anywhere}
+.check-status[data-check-state="failed"]{border-color:var(--invalid)}
+.check-status[data-check-state="passed"]{border-color:var(--evidence)}
+.check-status a{text-underline-offset:3px}.check-detail{display:block;color:var(--muted);font-size:.78rem;margin-top:.25rem}
+.status-list{list-style:none;padding:0;margin:1.4rem 0}.status-list li{padding:1rem 0;border-top:1px solid var(--line)}
+.status-label{display:inline-block;font-family:var(--mono);font-size:.72rem;margin-right:.6rem;color:var(--review)}
+.status-list p{margin:.35rem 0;color:var(--muted)}.status-list time{font-variant-numeric:tabular-nums}
+.status-shell{padding:7rem 0 3rem}.status-shell h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1}.status-shell h2{margin-top:2.4rem}
+.status-shell .container{max-width:850px}.status-notice{border:1px solid var(--line);padding:1rem;margin:1.2rem 0}
+.status-fixture-controls{display:flex;flex-wrap:wrap;gap:.7rem;margin:1rem 0}.status-fixture-controls button{min-height:44px}

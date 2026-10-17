@@ -111,7 +111,47 @@ function axis(g, x0, x1, y, t, L, alpha, dotQ, showInd, indBelow) {
   g.restore();
 }
 
+// Dedicated phone composition: labels are at least 54 source pixels,
+// exactly 14 CSS pixels at a 280px player inside a 320px phone viewport.
+function renderPhone(t, g, L) {
+  const label = (s, x, y, o = {}) => text(g, s, x, y, { font: 'sans', size: 54, color: TOK.ink, maxW: 920, ...o });
+  label('Illustration — no measured system', 80, 88, { color: TOK.review });
+  text(g, 'Same scores.', 80, 205, { font: 'serif', size: 76, weight: 500, maxW: 920 });
+  text(g, 'Different shared failures.', 80, 292, { font: 'serif', size: 68, weight: 500, maxW: 920 });
+  label('Both guards see all 100 items.', 80, 378, { color: TOK.muted });
+  label('A misses', 80, 470); label('B misses', 610, 470);
+  text(g, `${A_CELLS.length}/${N}`, 80, 580, { font: 'serif', size: 112, weight: 500 });
+  text(g, `${B_HOME.length}/${N}`, 610, 580, { font: 'serif', size: 112, weight: 500 });
+  label('Scores stay fixed.', 80, 653, { color: TOK.evidence });
+  if (t < T_SPLIT) {
+    drawSheet(g, 220, 740, 64, t, { aIn: 1, bIn: 1, forcedQ: null, alpha: 1 });
+    label('Filled: A misses · Ring: B misses', 80, 1480, { color: TOK.muted });
+    label(`Both miss: ${qLanded(t)}/${N}`, 80, 1595, { size: 64 });
+    label('Only which items changes.', 80, 1685, { color: TOK.evidence });
+  } else {
+    drawSheet(g, 110, 795, 34, t, { forcedQ: 0, alpha: 1 });
+    drawSheet(g, 630, 795, 34, t, { forcedQ: SIDE, alpha: 1 });
+    label('World L', 280, 745, { align: 'center' });
+    label('World U', 800, 745, { align: 'center' });
+    label(`Both: 0/${N}`, 280, 1240, { align: 'center', size: 54 });
+    label(`Both: ${SIDE}/${N}`, 800, 1240, { align: 'center', size: 54 });
+    label('Filled: A misses · Ring: B misses', 80, 1330, { color: TOK.muted });
+    label('Possible shared misses:', 80, 1430, { color: TOK.evidence });
+    line(g, 160, 1530, 920, 1530, TOK.evidence, 10);
+    label(H.pct(LO), 160, 1500, { align: 'center' });
+    label(H.pct(HI), 920, 1500, { align: 'center' });
+    const ix = lerp(160, 920, IND / HI);
+    disc(g, ix, 1530, 16, TOK.review);
+    label(`Independence picks ${H.pct(IND)}.`, 80, 1630, { color: TOK.review });
+    label('One assumption; one point.', 80, 1705, { color: TOK.review });
+  }
+  label('CC-001 / CC-004 · bounds', 80, 1805, { color: TOK.muted });
+  label('cubits11.github.io/try', 80, 1875, { color: TOK.gold });
+}
+
 function render(t, g, L, { fact }) {
+  if (L.vertical) { renderPhone(t, g, L); return; }
+  text(g, 'Illustration — no measured system', 80, 66, { font: 'sans', size: 30, color: TOK.review, maxW: 680 });
   const u = L.u;
   const c = L.vertical ? 72 * u : 64 * u;                // cell size
   const sheetW = SIDE * c;
