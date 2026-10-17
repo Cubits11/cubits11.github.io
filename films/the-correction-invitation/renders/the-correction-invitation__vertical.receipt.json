@@ -2,13 +2,18 @@
  "film": "the-correction-invitation",
  "format": "vertical",
  "title": "A record that can change",
- "rendered_from_head": "f5c63d2455aeab475f73854ec22bc28ff07b1804",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
   "film.html": "18657cfce560342b9d091291f8423fbb0fc32318d6c4d70ba7374e1f3d609bf1",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
-  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "18dd628ed1521b5ad577c27da865ddbdadc2799e53f9d8cf1230fe7038b723a2"
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
+ },
+ "facts_subset": {
+  "file": "films/data/facts.json",
+  "over": "facts_used",
+  "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
+  "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
  },
  "capture": {
   "method": "canvas-png",
@@ -82,5 +87,5 @@
    "renders/stills/phone-vertical-claim-02.jpg"
   ]
  },
- "render_seconds": 66.6
+ "render_seconds": 15.4
 }

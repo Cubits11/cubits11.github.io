@@ -2,13 +2,18 @@
  "film": "what-the-seal-proves",
  "format": "vertical",
  "title": "What the Seal Proves",
- "rendered_from_head": "f5c63d2455aeab475f73854ec22bc28ff07b1804",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
   "film.html": "4f3428be4deaabe00c219ad7150cdd89be82126c7621419a5235e338cb535dc1",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
-  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "18dd628ed1521b5ad577c27da865ddbdadc2799e53f9d8cf1230fe7038b723a2"
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
+ },
+ "facts_subset": {
+  "file": "films/data/facts.json",
+  "over": "facts_used",
+  "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
+  "sha256": "aa2a9d41de33604531e54c68d52b8d73f855d9f293be32ce6b0440024dde5c09"
  },
  "capture": {
   "method": "canvas-png",
@@ -93,5 +98,5 @@
    "renders/stills/phone-vertical-claim-02.jpg"
   ]
  },
- "render_seconds": 86.8
+ "render_seconds": 63.6
 }

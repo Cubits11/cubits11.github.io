@@ -2,13 +2,18 @@
  "film": "the-stack",
  "format": "vertical",
  "title": "The Stack",
- "rendered_from_head": "592ed515dc78acd4034a055024a64003e93d4172",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "a2acbd31a421c02bc37aca16a40a63d8b199ac19252481698228beae0c3194e6",
+  "film.html": "1d063264d012abb46cd22779ec3a2bcbe8002c5557d3034110772c6e0d5b1be0",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
-  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
+ },
+ "facts_subset": {
+  "file": "films/data/facts.json",
+  "over": "facts_used",
+  "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
+  "sha256": "3a9edd335b527b30cac3e72ed14ca31b9673a4f05e309bfaff25a0b87e48496a"
  },
  "capture": {
   "method": "canvas-png",
@@ -23,9 +28,23 @@
  "fps": 30,
  "frames": 1351,
  "duration_s": 45,
+ "phone_text": {
+  "minimum_canvas_px": 54,
+  "audited_draws": 22067,
+  "minimum_examples": [
+   "Illustration \u2014 no measured system",
+   "Same items. Parallel evaluations.",
+   "100 items",
+   "Guard A",
+   "Guard B"
+  ],
+  "media_width_css_px": 280,
+  "minimum_css_px": 14.0,
+  "limit": "Font geometry only; legibility and comprehension require reader evidence."
+ },
  "width": 1080,
  "height": 1920,
- "frames_digest": "b23af9644692d53ae621319f6a6889569d59369d18426db8624f7417608ede81",
+ "frames_digest": "2020f59be42a3f7d3ca8c496383896970bf9eabe0eccf0e6c2191686a6131789",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -40,8 +59,8 @@
  ],
  "outputs": {
   "master": "renders/the-stack__vertical.mp4",
-  "master_sha256": "97d37ffc46da16708e596296f0a3fff81b66c5ab54725b01bf42c313beadc032",
-  "master_bytes": 940559,
+  "master_sha256": "80e97fce9dee5735310f526b3a75443faa08fbff585d64bbd8b701649c6ba412",
+  "master_bytes": 1020924,
   "master_duration_probe_s": 45.03,
   "poster": "renders/the-stack__vertical.poster.png",
   "poster_t": 29,
@@ -111,5 +130,5 @@
    "renders/stills/phone-vertical-claim-07.jpg"
   ]
  },
- "render_seconds": 425.7
+ "render_seconds": 67.4
 }

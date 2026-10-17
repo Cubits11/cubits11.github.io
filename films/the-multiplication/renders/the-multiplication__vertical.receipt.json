@@ -2,13 +2,18 @@
  "film": "the-multiplication",
  "format": "vertical",
  "title": "The multiplication",
- "rendered_from_head": "f5c63d2455aeab475f73854ec22bc28ff07b1804",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "f9584db1f9b09e25a9f25c397d198213e748b0cef1b8c63f79dbf6495aead72e",
+  "film.html": "57fda06552bc5dad9d39431f466cf9c1420c3f8cafcf5cfe53fa18dbf1f1c733",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
-  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
+ },
+ "facts_subset": {
+  "file": "films/data/facts.json",
+  "over": "facts_used",
+  "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
+  "sha256": "c06b0653020929dd3161b26a21c863c3ee03de1d71851640d15324e5a42f73ee"
  },
  "capture": {
   "method": "canvas-png",
@@ -23,9 +28,23 @@
  "fps": 30,
  "frames": 421,
  "duration_s": 14,
+ "phone_text": {
+  "minimum_canvas_px": 54,
+  "audited_draws": 5008,
+  "minimum_examples": [
+   "Illustration \u2014 no measured system",
+   "Both guards see the same items.",
+   "Guard A misses",
+   "Guard B misses",
+   "Assuming independent failures"
+  ],
+  "media_width_css_px": 280,
+  "minimum_css_px": 14.0,
+  "limit": "Font geometry only; legibility and comprehension require reader evidence."
+ },
  "width": 1080,
  "height": 1920,
- "frames_digest": "9e173bb15597bbed7241ffd2f17be91b8b3d77425a91833b1770ea6216904363",
+ "frames_digest": "216ef4da435e11bb1f49db1b861edd016a9aab165b25ae9169aedb4612718257",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -37,8 +56,8 @@
  ],
  "outputs": {
   "master": "renders/the-multiplication__vertical.mp4",
-  "master_sha256": "776794859de6aee239e42942927c3874f53584f1d7c1ece89726317f19b1e151",
-  "master_bytes": 227622,
+  "master_sha256": "8196824eeaebbc3b550ab5b96cb3a4617c0dba561c6fbd4bd11071d5bb37dab5",
+  "master_bytes": 250088,
   "master_duration_probe_s": 14.03,
   "poster": "renders/the-multiplication__vertical.poster.png",
   "poster_t": 8,
@@ -80,5 +99,5 @@
    "renders/stills/phone-vertical-claim-03.jpg"
   ]
  },
- "render_seconds": 112.9
+ "render_seconds": 30.5
 }
