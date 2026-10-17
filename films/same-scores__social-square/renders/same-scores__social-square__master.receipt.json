@@ -2,10 +2,10 @@
  "film": "same-scores__social-square",
  "format": "master",
  "title": "Same Scores \u2014 social square",
- "rendered_from_head": "c7d20ddcfb81e6cb0cb5e708ac6cb0b60d19a61c",
+ "rendered_from_head": "8f5db990e2293fb725f140f07415afc81acdc482",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "cda2bb93faef407208e8d2f4b710fbad1b69542f5e2726446435bcf1b80a4fbe",
+  "film.html": "8299792092668a2f6e5926b42aa0b007c3941875f6feb4cd2f340bfca0a571a5",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
  },
@@ -31,7 +31,7 @@
  "phone_text": null,
  "width": 1920,
  "height": 1080,
- "frames_digest": "9e811d8d3d28776d5abbcb74dbee829de3c42a5404be6628d187a861ae5d8b57",
+ "frames_digest": "4b33e5627eb7120f15112aea5f2ce5dedbe58be3488495859297bacb1ebb444e",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -46,8 +46,8 @@
  ],
  "outputs": {
   "master": "renders/same-scores__social-square__master.mp4",
-  "master_sha256": "4457c3c666dcb7e7520a54d077c39f3aa3d2c37defc9f32d57aeababf727270d",
-  "master_bytes": 282607,
+  "master_sha256": "d688cb4ee449d6502616fb6d4d718cd66575398f39236adeafe32e383594f123",
+  "master_bytes": 281701,
   "master_duration_probe_s": 11.03,
   "poster": "renders/same-scores__social-square__master.poster.png",
   "poster_t": 10.8,
@@ -98,5 +98,5 @@
   ],
   "phone_previews": []
  },
- "render_seconds": 17.6
+ "render_seconds": 16.3
 }
