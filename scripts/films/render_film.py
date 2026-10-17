@@ -10,7 +10,9 @@ H.264 master, keeps a poster, five review stills (0/25/50/75/100 %), a contact
 sheet, and one still per declared claim frame — then deletes the frames.
 
 A render receipt records what was rendered from what: the git HEAD, sha256 of
-the film source, the runtime, and the facts file; the frame count, duration,
+the film source, the runtime and the tokens CSS; the facts the film read
+through its fact accessor (facts_used) and one digest over exactly those facts'
+values (facts_subset, see facts_digest.py); the frame count, duration,
 resolution; a digest over every frame's sha256; text overflows reported by the
 runtime; and a determinism check (five sampled frames re-captured after the
 pass and compared byte-for-byte).
@@ -38,6 +40,8 @@ import threading
 import time
 from datetime import date
 from pathlib import Path
+
+import facts_digest
 
 ROOT = Path(__file__).resolve().parents[2]
 FILMS = ROOT / "films"
@@ -144,6 +148,8 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
     renders.mkdir(parents=True, exist_ok=True)
     stills_dir.mkdir(parents=True, exist_ok=True)
     url = f"http://127.0.0.1:{port}/films/{slug}/film.html?capture=1&format={fmt}"
+    facts_path = FILMS / "data" / "facts.json"
+    facts_bytes = facts_path.read_bytes()  # the page fetches this file; it must not move under the render
     tmp = Path(tempfile.mkdtemp(prefix=f"film-{slug}-{fmt}-"))
     frames = tmp / "frames"
     frames.mkdir()
@@ -205,6 +211,9 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
             browser.close()
         if errors:
             raise SystemExit(f"page errors during render of {slug}: {errors[:3]}")
+        if facts_path.read_bytes() != facts_bytes:
+            raise SystemExit(f"{facts_path.relative_to(ROOT)} changed during the render of {slug}; render again")
+        facts_bound = facts_digest.binding(json.loads(facts_bytes)["facts"], facts_used)
 
         stem = f"{slug}__{fmt}"
         mp4 = renders / f"{stem}.mp4"
@@ -246,8 +255,8 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
                 "film.html": sha256_file(film_html),
                 "films/lib/film.js": sha256_file(FILMS / "lib" / "film.js"),
                 "films/lib/tokens.css": sha256_file(FILMS / "lib" / "tokens.css"),
-                "films/data/facts.json": sha256_file(FILMS / "data" / "facts.json"),
             },
+            "facts_subset": facts_bound,
             "runtime": {"chrome": chrome_version, "ffmpeg": Path(ff).name, "crf": args.crf},
             "fps": fps, "frames": total, "duration_s": round(meta["duration"], 3),
             "width": W, "height": H,
