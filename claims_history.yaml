@@ -831,19 +831,19 @@ genesis:
         and the ledger says so
   digest: 1ebe94609f903a04062a83deb8575a0ac5f2ed6c9e28d4018d37a136e052a474
 reconstruction:
-  method: preserve the declared first-parent reconstruction through the genesis anchor, then audit
-    reachable post-genesis commits against their actual parents without counting inherited merge states
-    twice; a transition counts as strict-Scar-eligible when its before and
-    after states are re-derivable from git, the same first-parent change adds one contiguous block to
-    a dated record file (census.yaml, corrections/index.html, DESIGN.md, notes/) naming the claim id and
-    carrying the commit date, and a coherent transition type is declared here
+  method: preserve the declared first-parent reconstruction through the genesis anchor, then audit reachable
+    post-genesis commits against their actual parents without counting inherited merge states twice; a
+    transition counts as strict-Scar-eligible when its before and after states are re-derivable from git,
+    the same first-parent change adds one contiguous block to a dated record file (census.yaml, corrections/index.html,
+    DESIGN.md, notes/) naming the claim id and carrying the commit date, and a coherent transition type
+    is declared here
   evidence_class: repository-internal (git objects, git dates, dated prose entries); no out-of-repository
     witness is asserted
-  preexisting_transition_count: 44
-  count_note: 44 as of 2026-09-15. The two additional events are the E6-001 and E7B-001
-    corrections committed at 48e98e44be87. Both are covered by existing contemporaneous
-    declarations. The original genesis, transition entries and nine retrospective qualifying
-    locators are unchanged. This aggregate includes post-genesis events despite its legacy name.
+  preexisting_transition_count: 45
+  count_note: 44 as of 2026-09-15. The two additional events are the E6-001 and E7B-001 corrections committed
+    at 48e98e44be87. Both are covered by existing contemporaneous declarations. The original genesis,
+    transition entries and nine retrospective qualifying locators are unchanged. This aggregate includes
+    post-genesis events despite its legacy name.
   strict_scar_eligible_count: 9
   qualifying_transition_locators:
   - CC-001@cf57f2c7baf4:2026-08-20:CLARIFY
@@ -2639,3 +2639,46 @@ entries:
         P5_two_thirds_above_independence: HELD
       pairs_at_upper_bound: 7
   digest: 4a8f7a510eff285e97aa79495fe51982ce1c96074550723d8d9f2093375aeea5
+- kind: transition
+  claim_id: GV-001
+  from_digest: 33ecb8570400b2a500739f2ed993fb44a1e4ffb737692b51b09b1f87853f5c0f
+  to_digest: 302c3ba34b681f251712b95ab9eea2905ea9a0b3e7a5c2809e75266a8d7f232c
+  transition_type: CLARIFY
+  event_at: '2026-10-17'
+  recorded_at: '2026-10-17'
+  provenance_class: CONTEMPORANEOUS
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - https://github.com/Cubits11/ghost-visualizer/pull/1
+  - https://github.com/Cubits11/ghost-visualizer/commit/5d4de25bea0726d304ee6ce418f3bbf2ac3104bd
+  reason: 'The owner retitled the visual essay on 2026-10-17 from "Why AI Safety Scores Lie" to "What
+    AI Guardrail Scores Cannot Tell You": the old title implied deception, and the claim is only that
+    marginal scores leave shared failures undetermined. The proposition quotes the title, so the quoted
+    title changes and the old one is kept as history. Scenes, computations, Evidence Mode, scope, falsifier,
+    forbidden rescues and non-claims are unchanged.'
+  previous_transition_digest: 4a8f7a510eff285e97aa79495fe51982ce1c96074550723d8d9f2093375aeea5
+  to_commitment:
+    proposition: 'Ghost Visualizer is a seven-scene React/Vite visual essay ("What AI Guardrail Scores
+      Cannot Tell You"; titled "Why AI Safety Scores Lie" until 2026-10-17) that computes marginals, OR
+      composition, Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from deterministic
+      sample rows, with an Evidence Mode for inspection.
+
+      '
+    scope: 'The repository at the bound commit. Runs locally; there is no hosted deployment, so the site
+      links source, not a live demo.
+
+      '
+    falsifier:
+      condition: 'A local run from the bound revision lacks the stated seven scenes, deterministic sample-row
+        computations, or Evidence Mode for inspection.
+
+        '
+      consequence: NARROW
+    forbidden_rescues:
+    - do not count hard-coded or mocked screenshots as deterministic computations
+    - do not recast a local-only source project as a hosted interactive demo
+    non_claims:
+    - not an AI-safety certificate; no deployment-readiness claim
+    - its own public-readiness review scores it for private serious-contact demo use; the site therefore
+      links source rather than exhibiting its media as a flagship
+  digest: 7a8b00629d225a7d021fe5619b759b6cc89851f3678c175056a5e46bb45ecf3a

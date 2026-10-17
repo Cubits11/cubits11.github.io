@@ -1593,7 +1593,7 @@
       "identifier": "GV-001",
       "name": "Ghost Visualizer, a visual essay that computes safety scores",
       "description": "GV-001: Ghost Visualizer, a visual essay that computes safety scores. NARROW if a local run from the bound revision lacks the stated seven scenes…",
-      "text": "Ghost Visualizer is a seven-scene React/Vite visual essay (\"Why AI Safety Scores Lie\") that computes marginals, OR composition, Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from deterministic sample rows, with an Evidence Mode for inspection.",
+      "text": "Ghost Visualizer is a seven-scene React/Vite visual essay (\"What AI Guardrail Scores Cannot Tell You\"; titled \"Why AI Safety Scores Lie\" until 2026-10-17) that computes marginals, OR composition, Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from deterministic sample rows, with an Evidence Mode for inspection.",
       "url": "https://cubits11.github.io/claims/gv-001/",
       "author": {
         "@type": "Person",
@@ -1612,7 +1612,7 @@
         "name": "Cubits11 claim registry",
         "url": "https://cubits11.github.io/ledger/"
       },
-      "dateModified": "2026-08-24",
+      "dateModified": "2026-10-17",
       "fw:scopeStatement": "The repository at the bound commit. Runs locally; there is no hosted deployment, so the site links source, not a live demo.",
       "fw:falsifier": "A local run from the bound revision lacks the stated seven scenes, deterministic sample-row computations, or Evidence Mode for inspection.",
       "fw:consequence": "NARROW",
@@ -1624,17 +1624,17 @@
         "not an AI-safety certificate; no deployment-readiness claim",
         "its own public-readiness review scores it for private serious-contact demo use; the site therefore links source rather than exhibiting its media as a flagship"
       ],
-      "fw:lastReviewed": "2026-08-24",
+      "fw:lastReviewed": "2026-10-17",
       "fw:reviewWindow": "P120D",
-      "fw:warrantExpires": "2026-12-22",
+      "fw:warrantExpires": "2027-02-14",
       "fw:evidentialStatus": "supported_within_scope",
       "fw:supportUrl": {
-        "@id": "https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7"
+        "@id": "https://github.com/Cubits11/ghost-visualizer/commit/bf8d87b2013c9827c4a37da920883e7e5d29af68"
       },
       "fw:supportBinding": {
-        "@id": "https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7"
+        "@id": "https://github.com/Cubits11/ghost-visualizer/commit/bf8d87b2013c9827c4a37da920883e7e5d29af68"
       },
-      "fw:boundRevision": "3fbe3efc89b6328bac493e62a32571d8e380d4f7"
+      "fw:boundRevision": "bf8d87b2013c9827c4a37da920883e7e5d29af68"
     },
     {
       "@context": [

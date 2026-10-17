@@ -1216,8 +1216,9 @@ claims:
 
   - id: GV-001
     proposition: >
-      Ghost Visualizer is a seven-scene React/Vite visual essay ("Why AI
-      Safety Scores Lie") that computes marginals, OR composition,
+      Ghost Visualizer is a seven-scene React/Vite visual essay ("What AI
+      Guardrail Scores Cannot Tell You"; titled "Why AI Safety Scores Lie"
+      until 2026-10-17) that computes marginals, OR composition,
       Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from
       deterministic sample rows, with an Evidence Mode for inspection.
     scope: >
@@ -1230,19 +1231,20 @@ claims:
       evidential_status: supported_within_scope
       maturity: in_development
     support:
-      url: "https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7"
-      commit: "3fbe3efc89b6328bac493e62a32571d8e380d4f7"
+      url: "https://github.com/Cubits11/ghost-visualizer/commit/bf8d87b2013c9827c4a37da920883e7e5d29af68"
+      commit: "bf8d87b2013c9827c4a37da920883e7e5d29af68"
       note: >
         Re-reviewed 2026-08-23 when the public-readiness non-claim was
-        added; entry edits and review dates travel together.
-    last_reviewed: "2026-08-24"
+        added; re-pinned 2026-10-17 when the owner retitled the essay. Entry
+        edits and review dates travel together.
+    last_reviewed: "2026-10-17"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
         enforcement: executable
         repo: Cubits11/ghost-visualizer
         path: README.md
-        bound_ref: "3fbe3efc89b6328bac493e62a32571d8e380d4f7"
+        bound_ref: "bf8d87b2013c9827c4a37da920883e7e5d29af68"
         note: fires when the README on the default branch is reframed
       - type: manual
         enforcement: manual
