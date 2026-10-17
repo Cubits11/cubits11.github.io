@@ -474,6 +474,13 @@
    "from": "scripts/films/render_film.py",
    "inferred": true,
    "rel": "reads",
+   "to": "films/data/facts.json"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/films/render_film.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "films/lib/film.js"
   },
   {
@@ -1059,6 +1066,27 @@
   },
   {
    "basis": "STATIC_REF",
+   "from": "scripts/generate_public_state.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/check-status.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_public_state.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/deadlines.js"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_public_state.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/assets/status-preview.js"
+  },
+  {
+   "basis": "STATIC_REF",
    "from": "scripts/generate_research_index.py",
    "inferred": true,
    "rel": "writes",
@@ -1196,6 +1224,20 @@
    "inferred": true,
    "rel": "reads",
    "to": "/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/films/same-scores-different-worlds/renders/same-scores-different-worlds__vertical.mp4"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/generate_try.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "/films/same-scores-different-worlds/renders/same-scores-different-worlds__vertical.poster.png"
   },
   {
    "basis": "STATIC_REF",
@@ -2154,6 +2196,13 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "scripts/generate_public_state.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "scripts/generate_research_index.py"
   },
   {
@@ -2483,6 +2532,13 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "tests/test_film_capture.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "tests/test_history_merges.py"
   },
   {
@@ -2491,6 +2547,20 @@
    "inferred": true,
    "rel": "reads",
    "to": "tests/test_public_discovery.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "tests/test_public_state.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
+   "to": "tests/test_publication_gate.py"
   },
   {
    "basis": "STATIC_REF",
@@ -4350,6 +4420,15 @@
    "to": "scripts/films/verify_films.py"
   },
   {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "film capture and phone text refusal paths",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_film_capture.py"
+  },
+  {
    "args": [
     "--check"
    ],
@@ -4523,6 +4602,35 @@
    "inferred": false,
    "rel": "runs",
    "to": "tests/test_public_discovery.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "public status failure states and deadline boundaries",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_public_state.py"
+  },
+  {
+   "args": [
+    "--check"
+   ],
+   "basis": "MANIFEST",
+   "check": "public status and draft board drift",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "scripts/generate_public_state.py"
+  },
+  {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "publication hold refusal paths (synthetic fixtures, not reader evidence)",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_publication_gate.py"
   },
   {
    "args": [],
@@ -5221,6 +5329,22 @@
  },
  "findings": [
   {
+   "detector": "D2",
+   "generator": "scripts/films/build_flagship.py",
+   "severity": "FIX",
+   "tail": [
+    "AssertionError: source-map.json stale: rebuild flagship"
+   ]
+  },
+  {
+   "detector": "D2",
+   "generator": "scripts/generate_conformance_record.py",
+   "severity": "FIX",
+   "tail": [
+    "Run: python3 scripts/generate_conformance_record.py"
+   ]
+  },
+  {
    "claim": "MC-002",
    "days_left": 10,
    "detector": "D3",
@@ -5274,273 +5398,287 @@
   },
   {
    "ahead": 1,
-   "behind": 49,
+   "behind": 55,
    "branch": "backup/2026-10-17/agent-state",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 49,
+   "behind": 55,
    "branch": "backup/2026-10-17/cadence-publication",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 49,
+   "behind": 55,
    "branch": "backup/2026-10-17/discovery-only",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 49,
+   "behind": 55,
    "branch": "backup/2026-10-17/film-capture",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 7,
-   "behind": 49,
+   "behind": 55,
    "branch": "backup/2026-10-17/main-checkout",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
+   "ahead": 3,
+   "behind": 34,
+   "branch": "backup/2026-10-17/site-repair-candidate",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
    "ahead": 1,
-   "behind": 30,
+   "behind": 36,
    "branch": "census/candidates-2026-10",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 49,
+   "behind": 55,
    "branch": "claude/claim-succession-minimal",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 4,
-   "behind": 0,
-   "branch": "claude/k-infra-calendar-weeks",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 49,
-   "branch": "claude/k1-hold",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 4,
-   "behind": 49,
-   "branch": "claude/phone-width-a11y",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 30,
-   "branch": "origin/census/candidates-2026-10",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 4,
-   "behind": 49,
-   "branch": "origin/claude/claim-succession-minimal",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 13,
-   "behind": 49,
-   "branch": "origin/claude/e9-result",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 2,
-   "behind": 49,
-   "branch": "origin/claude/eloquent-shannon-dlvcz3",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 3,
-   "behind": 49,
-   "branch": "origin/claude/falsifier-assessment-kernel",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 3,
-   "behind": 49,
-   "branch": "origin/claude/glassroot-handoff",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 2,
-   "behind": 49,
-   "branch": "origin/claude/homepage-epistemic-motion",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 3,
-   "behind": 6,
-   "branch": "origin/claude/k-infra-calendar-weeks",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 49,
-   "branch": "origin/claude/k1-hold",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 3,
-   "behind": 49,
-   "branch": "origin/claude/lucid-franklin-jloow0",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 4,
-   "behind": 49,
-   "branch": "origin/claude/phone-width-a11y",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 4,
-   "behind": 49,
-   "branch": "origin/claude/temple-researcher-outreach-on2v73",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 49,
-   "branch": "origin/claude/verify-claims-refusal-unknown",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 2,
-   "behind": 49,
-   "branch": "origin/claude/x-gate",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 86,
-   "branch": "origin/icloud-snapshot/2026-09-19",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 49,
-   "branch": "origin/icloud-snapshot/2026-09-19-site",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
    "behind": 55,
+   "branch": "claude/k1-hold",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 4,
+   "behind": 55,
+   "branch": "claude/phone-width-a11y",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 5,
+   "behind": 0,
+   "branch": "e9-001/register",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 5,
+   "behind": 0,
+   "branch": "site/empirical-repair",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 36,
+   "branch": "origin/census/candidates-2026-10",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 4,
+   "behind": 55,
+   "branch": "origin/claude/claim-succession-minimal",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 13,
+   "behind": 55,
+   "branch": "origin/claude/e9-result",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 2,
+   "behind": 55,
+   "branch": "origin/claude/eloquent-shannon-dlvcz3",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 3,
+   "behind": 55,
+   "branch": "origin/claude/falsifier-assessment-kernel",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 3,
+   "behind": 55,
+   "branch": "origin/claude/glassroot-handoff",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 2,
+   "behind": 55,
+   "branch": "origin/claude/homepage-epistemic-motion",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 55,
+   "branch": "origin/claude/k1-hold",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 3,
+   "behind": 55,
+   "branch": "origin/claude/lucid-franklin-jloow0",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 4,
+   "behind": 55,
+   "branch": "origin/claude/phone-width-a11y",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 4,
+   "behind": 55,
+   "branch": "origin/claude/temple-researcher-outreach-on2v73",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 55,
+   "branch": "origin/claude/verify-claims-refusal-unknown",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 2,
+   "behind": 55,
+   "branch": "origin/claude/x-gate",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 5,
+   "behind": 0,
+   "branch": "origin/e9-001/register",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 92,
+   "branch": "origin/icloud-snapshot/2026-09-19",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 55,
+   "branch": "origin/icloud-snapshot/2026-09-19-site",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 61,
    "branch": "origin/rescue/commit-01fea45b4e98",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 245,
+   "behind": 251,
    "branch": "origin/rescue/commit-119f257b763c",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 64,
+   "behind": 70,
    "branch": "origin/rescue/commit-2139046f7192",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 138,
+   "behind": 144,
    "branch": "origin/rescue/commit-22fa9f9a8456",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 130,
+   "behind": 136,
    "branch": "origin/rescue/commit-4a362b5d714f",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 150,
+   "behind": 156,
    "branch": "origin/rescue/commit-5e70a9df4626",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 275,
+   "behind": 281,
    "branch": "origin/rescue/commit-80250a3e7fc4",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 245,
+   "behind": 251,
    "branch": "origin/rescue/commit-93200984af16",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 142,
+   "behind": 148,
    "branch": "origin/rescue/commit-bd0c87d0f1ea",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 64,
+   "behind": 70,
    "branch": "origin/rescue/commit-c74849b7a928",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 130,
+   "behind": 136,
    "branch": "origin/rescue/commit-cec26e585b5a",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 137,
+   "behind": 143,
    "branch": "origin/rescue/commit-ea88d6552c2f",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 206,
+   "behind": 212,
    "branch": "origin/rescue/commit-f8e555738fc2",
    "detector": "D4",
    "severity": "TOPOLOGY"
@@ -5555,7 +5693,7 @@
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
-   "test": "tests/test_film_capture.py"
+   "test": "tests/check-status.test.cjs"
   },
   {
    "detector": "D8",
@@ -5565,8 +5703,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/k-infra-calendar-weeks",
-  "head": "261146b"
+  "branch": "site/empirical-repair",
+  "head": "d6d8f36"
  },
  "nodes": [
   {
@@ -5803,6 +5941,13 @@
   {
    "has_check_mode": true,
    "has_test_mode": false,
+   "id": "scripts/generate_public_state.py",
+   "kind": "generator",
+   "type": "script"
+  },
+  {
+   "has_check_mode": true,
+   "has_test_mode": false,
    "id": "scripts/generate_research_index.py",
    "kind": "generator",
    "type": "script"
@@ -5881,6 +6026,13 @@
    "has_check_mode": false,
    "has_test_mode": false,
    "id": "scripts/outcomes.py",
+   "kind": "instrument",
+   "type": "script"
+  },
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/publication_gate.py",
    "kind": "instrument",
    "type": "script"
   },
@@ -6172,7 +6324,7 @@
    "type": "script"
   },
   {
-   "checks": 86,
+   "checks": 90,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
@@ -6465,7 +6617,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 18,
+   "behind_origin_main": 24,
    "head": "2d462f9",
    "id": "agent-state/capsule",
    "last_commit": "2026-10-17",
@@ -6474,7 +6626,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "4612b11",
    "id": "backup/2026-10-17/agent-state",
    "last_commit": "2026-10-17",
@@ -6483,7 +6635,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "dcc9426",
    "id": "backup/2026-10-17/cadence-publication",
    "last_commit": "2026-10-17",
@@ -6492,7 +6644,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "840f597",
    "id": "backup/2026-10-17/discovery-only",
    "last_commit": "2026-10-17",
@@ -6501,7 +6653,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "3dfd171",
    "id": "backup/2026-10-17/film-capture",
    "last_commit": "2026-10-17",
@@ -6510,7 +6662,7 @@
   },
   {
    "ahead_of_origin_main": 7,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "62c0c0b",
    "id": "backup/2026-10-17/main-checkout",
    "last_commit": "2026-10-17",
@@ -6518,8 +6670,17 @@
    "type": "branch"
   },
   {
+   "ahead_of_origin_main": 3,
+   "behind_origin_main": 34,
+   "head": "ea84f0c",
+   "id": "backup/2026-10-17/site-repair-candidate",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 30,
+   "behind_origin_main": 36,
    "head": "6a91961",
    "id": "census/candidates-2026-10",
    "last_commit": "2026-10-17",
@@ -6528,7 +6689,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "d1a09c5",
    "id": "claude/claim-succession-minimal",
    "last_commit": "2026-09-25",
@@ -6537,7 +6698,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 23,
+   "behind_origin_main": 29,
    "head": "a13b86d",
    "id": "claude/film-receipt-facts-subset",
    "last_commit": "2026-10-17",
@@ -6546,7 +6707,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 7,
+   "behind_origin_main": 13,
    "head": "e62476e",
    "id": "claude/friendly-babbage-5hro0x",
    "last_commit": "2026-10-17",
@@ -6554,17 +6715,17 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 4,
-   "behind_origin_main": 0,
-   "head": "261146b",
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 1,
+   "head": "bc5bda8",
    "id": "claude/k-infra-calendar-weeks",
    "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "1d44a13",
    "id": "claude/k1-hold",
    "last_commit": "2026-09-22",
@@ -6572,8 +6733,17 @@
    "type": "branch"
   },
   {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 6,
+   "head": "842e06d",
+   "id": "claude/modest-poincare-28a127",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "057c7b1",
    "id": "claude/phone-width-a11y",
    "last_commit": "2026-09-21",
@@ -6581,8 +6751,17 @@
    "type": "branch"
   },
   {
+   "ahead_of_origin_main": 5,
+   "behind_origin_main": 0,
+   "head": "a8bfe8c",
+   "id": "e9-001/register",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 1,
+   "behind_origin_main": 7,
    "head": "ee9617c",
    "id": "gv001/title-clarify",
    "last_commit": "2026-10-17",
@@ -6591,7 +6770,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 6,
+   "behind_origin_main": 12,
    "head": "81b9cc1",
    "id": "main",
    "last_commit": "2026-10-17",
@@ -6599,9 +6778,18 @@
    "type": "branch"
   },
   {
+   "ahead_of_origin_main": 5,
+   "behind_origin_main": 0,
+   "head": "d6d8f36",
+   "id": "site/empirical-repair",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "842e06d",
+   "head": "50b2898",
    "id": "origin",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": true,
@@ -6609,7 +6797,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 30,
+   "behind_origin_main": 36,
    "head": "6a91961",
    "id": "origin/census/candidates-2026-10",
    "last_commit": "2026-10-17",
@@ -6618,7 +6806,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "d1a09c5",
    "id": "origin/claude/claim-succession-minimal",
    "last_commit": "2026-09-25",
@@ -6627,7 +6815,7 @@
   },
   {
    "ahead_of_origin_main": 13,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "b50a9c6",
    "id": "origin/claude/e9-result",
    "last_commit": "2026-09-25",
@@ -6636,7 +6824,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "56a0cfc",
    "id": "origin/claude/eloquent-shannon-dlvcz3",
    "last_commit": "2026-09-22",
@@ -6645,7 +6833,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "c1b71f9",
    "id": "origin/claude/falsifier-assessment-kernel",
    "last_commit": "2026-09-27",
@@ -6654,7 +6842,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "2e9eeab",
    "id": "origin/claude/glassroot-handoff",
    "last_commit": "2026-09-27",
@@ -6663,7 +6851,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "91e31c5",
    "id": "origin/claude/homepage-epistemic-motion",
    "last_commit": "2026-09-25",
@@ -6671,17 +6859,8 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 3,
-   "behind_origin_main": 6,
-   "head": "f271065",
-   "id": "origin/claude/k-infra-calendar-weeks",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "1d44a13",
    "id": "origin/claude/k1-hold",
    "last_commit": "2026-09-22",
@@ -6690,7 +6869,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "d49480e",
    "id": "origin/claude/lucid-franklin-jloow0",
    "last_commit": "2026-09-26",
@@ -6699,7 +6878,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "057c7b1",
    "id": "origin/claude/phone-width-a11y",
    "last_commit": "2026-09-21",
@@ -6708,7 +6887,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "e40fd8c",
    "id": "origin/claude/temple-researcher-outreach-on2v73",
    "last_commit": "2026-09-19",
@@ -6717,7 +6896,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "3d5f743",
    "id": "origin/claude/verify-claims-refusal-unknown",
    "last_commit": "2026-09-27",
@@ -6726,7 +6905,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "1d59af6",
    "id": "origin/claude/x-gate",
    "last_commit": "2026-09-27",
@@ -6734,8 +6913,17 @@
    "type": "branch"
   },
   {
+   "ahead_of_origin_main": 5,
+   "behind_origin_main": 0,
+   "head": "a8bfe8c",
+   "id": "origin/e9-001/register",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 1,
+   "behind_origin_main": 7,
    "head": "ee9617c",
    "id": "origin/gv001/title-clarify",
    "last_commit": "2026-10-17",
@@ -6744,7 +6932,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 86,
+   "behind_origin_main": 92,
    "head": "b9b7b1b",
    "id": "origin/icloud-snapshot/2026-09-19",
    "last_commit": "2026-09-19",
@@ -6753,7 +6941,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 49,
+   "behind_origin_main": 55,
    "head": "d0ac440",
    "id": "origin/icloud-snapshot/2026-09-19-site",
    "last_commit": "2026-09-19",
@@ -6763,7 +6951,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "842e06d",
+   "head": "50b2898",
    "id": "origin/main",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": true,
@@ -6771,7 +6959,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 55,
+   "behind_origin_main": 61,
    "head": "79148e6",
    "id": "origin/rescue/commit-01fea45b4e98",
    "last_commit": "2026-09-17",
@@ -6780,7 +6968,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 245,
+   "behind_origin_main": 251,
    "head": "119f257",
    "id": "origin/rescue/commit-119f257b763c",
    "last_commit": "2026-08-29",
@@ -6789,7 +6977,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 64,
+   "behind_origin_main": 70,
    "head": "73e6691",
    "id": "origin/rescue/commit-2139046f7192",
    "last_commit": "2026-09-17",
@@ -6798,7 +6986,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 138,
+   "behind_origin_main": 144,
    "head": "22fa9f9",
    "id": "origin/rescue/commit-22fa9f9a8456",
    "last_commit": "2026-09-05",
@@ -6807,7 +6995,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 130,
+   "behind_origin_main": 136,
    "head": "4a362b5",
    "id": "origin/rescue/commit-4a362b5d714f",
    "last_commit": "2026-09-05",
@@ -6816,7 +7004,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 150,
+   "behind_origin_main": 156,
    "head": "38e1a09",
    "id": "origin/rescue/commit-5e70a9df4626",
    "last_commit": "2026-09-02",
@@ -6825,7 +7013,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 275,
+   "behind_origin_main": 281,
    "head": "1a17fe1",
    "id": "origin/rescue/commit-80250a3e7fc4",
    "last_commit": "2026-08-23",
@@ -6834,7 +7022,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 245,
+   "behind_origin_main": 251,
    "head": "9320098",
    "id": "origin/rescue/commit-93200984af16",
    "last_commit": "2026-08-29",
@@ -6843,7 +7031,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 142,
+   "behind_origin_main": 148,
    "head": "bd0c87d",
    "id": "origin/rescue/commit-bd0c87d0f1ea",
    "last_commit": "2026-09-05",
@@ -6852,7 +7040,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 64,
+   "behind_origin_main": 70,
    "head": "089f9b9",
    "id": "origin/rescue/commit-c74849b7a928",
    "last_commit": "2026-09-17",
@@ -6861,7 +7049,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 130,
+   "behind_origin_main": 136,
    "head": "cec26e5",
    "id": "origin/rescue/commit-cec26e585b5a",
    "last_commit": "2026-09-05",
@@ -6870,7 +7058,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 137,
+   "behind_origin_main": 143,
    "head": "ea88d65",
    "id": "origin/rescue/commit-ea88d6552c2f",
    "last_commit": "2026-09-05",
@@ -6879,7 +7067,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 206,
+   "behind_origin_main": 212,
    "head": "f8e5557",
    "id": "origin/rescue/commit-f8e555738fc2",
    "last_commit": "2026-08-31",
@@ -6896,5 +7084,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "884bb6ad226f274c441d6981e854ad4fe2cb40c27929917565ad2081d4d9f949"
+ "stable_digest": "a06bdd37aaf6e3be5661f801c901b04bf8b4a0e300cca2f4078d58a11138a851"
 }
