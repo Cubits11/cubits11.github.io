@@ -21,9 +21,13 @@ from urllib.parse import unquote, urlsplit
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'scripts' / 'films'))
+import facts_digest  # noqa: E402
+
 TITLE = 'What AI Guardrail Scores Cannot Tell You'
 FILM = 'the-missing-column-census'
-REQUIRED_INPUTS = ('film.html','films/lib/film.js','films/lib/tokens.css','films/data/facts.json')
+# Files a receipt binds whole; the facts it read are bound by facts_subset (facts_digest.py).
+REQUIRED_INPUTS = ('film.html','films/lib/film.js','films/lib/tokens.css')
 HUMAN_LIMIT = 'Human identity, unfamiliarity, distinctness and raw-answer fidelity are facilitator attestations, not independently verified by automation.'
 
 
@@ -110,6 +114,7 @@ def phone_receipts(root):
     curation=read(root/'films/curation.json')['films']
     slugs={p.parent.name for p in (root/'films').glob('*/manifest.yaml')}
     need(len(curation)==12 and set(curation)==slugs, 'all twelve film compositions must be accounted for')
+    facts=read(root/facts_digest.FILE)['facts']
     receipts={}
     for slug,entry in curation.items():
         need(entry.get('phone_composition') is True, f'{slug}: phone composition is unfinished')
@@ -136,6 +141,8 @@ def phone_receipts(root):
         for name,value in receipt['inputs'].items():
             actual=confined(folder,name) if name=='film.html' else confined(root,name)
             need(sha(actual)==value, f'{slug}: stale phone receipt input {name}')
+        why=facts_digest.stale(receipt,facts)
+        need(why is None, f'{slug}: phone receipt facts binding: {why}')
         video=confined(folder,receipt['outputs']['master'])
         need(sha(video)==receipt['outputs']['master_sha256'], f'{slug}: phone video bytes differ from receipt')
         receipts[slug]=(path,receipt)

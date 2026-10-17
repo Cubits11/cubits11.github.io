@@ -10,7 +10,9 @@ H.264 master, keeps a poster, five review stills (0/25/50/75/100 %), a contact
 sheet, and one still per declared claim frame — then deletes the frames.
 
 A render receipt records what was rendered from what: the git HEAD, sha256 of
-the film source, the runtime, and the facts file; the frame count, duration,
+the film source, the runtime and the tokens CSS; the facts the film read
+through its fact accessor (facts_used) and one digest over exactly those facts'
+values (facts_subset, see facts_digest.py); the frame count, duration,
 resolution; a digest over every frame's sha256; text overflows reported by the
 runtime; and a determinism check (five sampled frames re-captured after the
 pass and compared byte-for-byte).
@@ -40,6 +42,8 @@ import threading
 import time
 from datetime import date
 from pathlib import Path
+
+import facts_digest
 
 ROOT = Path(__file__).resolve().parents[2]
 FILMS = ROOT / "films"
@@ -232,6 +236,9 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
     renders.mkdir(parents=True, exist_ok=True)
     stills_dir.mkdir(parents=True, exist_ok=True)
     url = f"http://127.0.0.1:{port}/films/{slug}/film.html?capture=1&format={fmt}"
+    facts_bytes = (FILMS / "data" / "facts.json").read_bytes()  # the page fetches this file; it must not move under the render
+    if sha256_bytes(facts_bytes) != initial_inputs[facts_digest.FILE]:
+        raise SystemExit(f"{facts_digest.FILE} changed while the render of {slug} started; render again")
     tmp = Path(tempfile.mkdtemp(prefix=f"film-{slug}-{fmt}-"))
     frames = tmp / "frames"
     frames.mkdir()
@@ -328,6 +335,7 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
         if errors:
             raise SystemExit(f"page errors during render of {slug}: {errors[:3]}")
         require_unchanged_inputs(input_paths, initial_inputs)
+        facts_bound = facts_digest.binding(json.loads(facts_bytes)["facts"], facts_used)
 
         stem = f"{slug}__{fmt}"
         mp4 = renders / f"{stem}.mp4"
@@ -366,7 +374,9 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
         receipt = {
             "film": slug, "format": fmt, "title": meta["title"],
             "rendered_from_head": git_head(), "rendered_on": date.today().isoformat(),
-            "inputs": initial_inputs,
+            # facts.json is snapshotted for the change check but bound by facts_subset, not whole
+            "inputs": {name: value for name, value in initial_inputs.items() if name != facts_digest.FILE},
+            "facts_subset": facts_bound,
             "capture": {"method": method, "pixel_equivalence_samples": equivalence_samples, "pixel_equivalent": pixel_equivalent},
             "runtime": {"chrome": chrome_version, "ffmpeg": Path(ff).name, "crf": args.crf},
             "fps": fps, "frames": total, "duration_s": round(meta["duration"], 3),

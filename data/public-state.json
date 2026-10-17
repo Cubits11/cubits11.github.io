@@ -178,14 +178,6 @@
       "evidential_status": "contradicted"
     },
     {
-      "id": "E9-001",
-      "title": "E9-001 evidence review",
-      "due": "2027-02-14",
-      "source": "/claims/e9-001/",
-      "kind": "claim-review",
-      "evidential_status": "partially_supported"
-    },
-    {
       "id": "GV-001",
       "title": "GV-001 evidence review",
       "due": "2027-02-14",
@@ -205,10 +197,9 @@
   "drafts": [
     {
       "id": "E9",
-      "status": "Published result \u2014 post-result claim registration",
+      "status": "Published result \u2014 claim registration pending",
       "title": "E9 \u2014 1,000-item scoped result",
-      "summary": "E9\u2019s 1,000-item result merged in PR 26. E9-001 was registered after the result on October 17, with partial support and an explicit falsifier. It is not a completion of E2 and does not establish deployment safety.",
-      "claim_url": "/claims/e9-001/",
+      "summary": "E9\u2019s 1,000-item result merged in PR 26. A post-result claim registration, E9-001, is proposed in draft PR 31 and is not in the registry. The result is not a completion of E2 and does not establish deployment safety.",
       "revision": "592ed515dc78acd4034a055024a64003e93d4172",
       "result_url": "https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/RESULT.md",
       "branch_url": "https://github.com/Cubits11/cubits11.github.io/pull/26",

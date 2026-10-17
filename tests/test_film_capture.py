@@ -6,9 +6,11 @@ import tempfile
 from unittest.mock import patch
 from pathlib import Path
 import struct
+import sys
 import unittest
 
 path = Path(__file__).resolve().parents[1] / 'scripts/films/render_film.py'
+sys.path.insert(0, str(path.parent))  # render_film imports its sibling facts_digest
 spec = importlib.util.spec_from_file_location('render_film', path)
 render = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(render)

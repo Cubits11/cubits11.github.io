@@ -21,6 +21,7 @@ import argparse
 import json
 import pathlib
 import sys
+from datetime import date, timedelta
 
 import yaml
 
@@ -90,27 +91,68 @@ def actionable(d: dict) -> list[dict]:
 
 
 def k_infra(weeks: int = 2) -> dict:
-    """K-INFRA, computed from the series rather than asserted in prose."""
+    """K-INFRA over calendar weeks, not row counts.
+
+    A week is seven elapsed days. Each boundary is the latest snapshot on or
+    before its target date, so a missed day shifts a window back rather than
+    shortening it — the series has real gaps and a kill condition that silently
+    stops being computable is worse than one that waits. A window shorter than
+    seven days, or a pair spanning less than 7 * weeks, cannot fire: that is the
+    defect this replaced, where seven *rows* back could be seven days of daily
+    snapshots or one day of backfill.
+    """
+    if weeks < 1:
+        raise ValueError("weeks must be positive")
     if not SERIES.exists():
         return {"computable": False, "why": "no cadence series"}
     rows = [json.loads(x) for x in SERIES.read_text().splitlines() if x.strip()]
-    if len(rows) < 3:
-        return {"computable": False, "why": f"{len(rows)} rows; need a window"}
-    spans, i = [], len(rows) - 1
+    if not rows:
+        return {"computable": False, "why": "empty cadence series"}
+    try:
+        dated = [(date.fromisoformat(r["date"]), r) for r in rows]
+    except (KeyError, TypeError, ValueError):
+        return {"computable": False, "why": "invalid snapshot date"}
+    if any(a >= b for (a, _), (b, _) in zip(dated, dated[1:])):
+        return {"computable": False, "why": "snapshot dates must strictly increase"}
+
+    last = dated[-1][0]
+    if (last - dated[0][0]).days < 7 * weeks:
+        return {"computable": False,
+                "why": f"series spans {(last - dated[0][0]).days} days; need {7 * weeks}"}
+
+    def on_or_before(target):  # latest snapshot not after target
+        found = None
+        for d, r in dated:
+            if d <= target:
+                found = (d, r)
+            else:
+                break
+        return found
+
+    # Walk back one week at a time from the newest snapshot. Each boundary is
+    # measured from the boundary before it, not from `last`, so a gap pushes the
+    # whole chain back and every window stays at least seven days wide.
+    marks = [dated[-1]]
     for _ in range(weeks):
-        j = max(0, i - 7)
-        if j == i:
-            break
-        spans.append((rows[j], rows[i]))
-        i = j
+        prev = on_or_before(marks[-1][0] - timedelta(days=7))
+        if prev is None:
+            return {"computable": False,
+                    "why": f"no snapshot on or before {(marks[-1][0] - timedelta(days=7)).isoformat()}"}
+        marks.append(prev)
+    required = EVIDENCE + SCAFFOLD
+    if any(f not in r for _, r in marks for f in required):
+        return {"computable": False, "why": "week boundary snapshot lacks required counters"}
+
+    spans = [(marks[i + 1], marks[i]) for i in range(weeks)]
+
     fired = []
-    for base, now in spans:
-        ev = any(now[f] != base[f] for f in EVIDENCE if f in now and f in base)
-        sc = any(now[f] != base[f] for f in SCAFFOLD if f in now and f in base)
+    for (_, base), (_, now) in spans:
+        ev = any(now[f] != base[f] for f in EVIDENCE)
+        sc = any(now[f] != base[f] for f in SCAFFOLD)
         fired.append(sc and not ev)
     return {"computable": True, "windows": len(spans), "scaffold_only": fired,
-            "fired": len(fired) == weeks and all(fired),
-            "span": f"{spans[-1][0]['date']} to {spans[0][1]['date']}" if spans else None}
+            "fired": all(fired),
+            "span": f"{marks[-1][0].isoformat()} to {marks[0][0].isoformat()}"}
 
 
 def report(d: dict) -> int:

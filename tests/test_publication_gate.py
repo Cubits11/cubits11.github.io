@@ -41,7 +41,7 @@ class PublicationGate(unittest.TestCase):
             'index.html':'<link rel="stylesheet" href="/assets/site.css"><script src="/assets/site.js"></script><p>Synthetic homepage fixture</p>',
             'try/index.html':'<link rel="stylesheet" href="/assets/site.css"><p>Synthetic proof fixture</p>',
             'films/lib/film.js':'/* synthetic runtime */','films/lib/tokens.css':'/* synthetic tokens */',
-            'films/data/facts.json':'{"synthetic":true}',
+            'films/data/facts.json':json.dumps({'facts':{'SYNTHETIC.read':{'value':[14,20]},'SYNTHETIC.unread':{'value':5}}}),
         }.items():
             path=self.root/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(content)
         slugs=list(gate.read(ROOT/'films/curation.json')['films'])
@@ -59,6 +59,8 @@ class PublicationGate(unittest.TestCase):
                 'determinism':{'identical':True},'text_overflows':[],
                 'capture':{'pixel_equivalent':True,'pixel_equivalence_samples':5},
                 'inputs':{name:gate.sha(folder/name if name=='film.html' else self.root/name) for name in gate.REQUIRED_INPUTS},
+                'facts_used':['SYNTHETIC.read'],
+                'facts_subset':gate.facts_digest.binding(gate.read(self.root/'films/data/facts.json')['facts'],['SYNTHETIC.read']),
                 'outputs':{'master':str(video.relative_to(folder)),'master_sha256':gate.sha(video)}}
             write(folder/'renders'/f'{slug}__vertical.receipt.json',receipt)
         self.save_ready()
@@ -226,6 +228,20 @@ class PublicationGate(unittest.TestCase):
 
     def test_phone_source_drift_is_rejected(self):
         (self.root/'films'/gate.FILM/'film.html').write_text('changed source');self.blocked('stale phone receipt input')
+
+    def set_fact(self,fid,value):
+        path=self.root/'films/data/facts.json';doc=gate.read(path);doc['facts'][fid]['value']=value;write(path,doc)
+
+    def test_a_fact_the_phone_cut_read_cannot_change(self):
+        self.set_fact('SYNTHETIC.read',[13,20]);self.blocked('phone receipt facts binding')
+
+    def test_a_fact_the_phone_cut_never_read_does_not_stale_it(self):
+        self.set_fact('SYNTHETIC.unread',6);self.assertEqual(self.check()['status'],'READY')
+
+    def test_whole_file_facts_receipt_is_refused(self):
+        path=self.root/'films'/gate.FILM/'renders'/f'{gate.FILM}__vertical.receipt.json';data=gate.read(path)
+        data.pop('facts_subset');data['inputs']['films/data/facts.json']=gate.sha(self.root/'films/data/facts.json');write(path,data)
+        self.blocked('input bindings are incomplete')
 
     def test_phone_video_drift_is_rejected(self):
         (self.root/'films'/gate.FILM/'renders'/f'{gate.FILM}__vertical.mp4').write_bytes(b'changed');self.blocked('video bytes differ')

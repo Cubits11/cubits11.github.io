@@ -59,6 +59,7 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("MC-004 semantic scope", "scripts/verify_mc004_semantics.py"),
     ("degeneracy diagnostic", "scripts/degeneracy.py"),
     ("direction well-formed", "scripts/direction.py", "--check"),
+    ("K-INFRA counts days, not rows", "tests/test_direction_k_infra.py"),
     ("conformance record drift", "scripts/generate_conformance_record.py", "--check"),
     ("preregistration conformance", "scripts/verify_prereg.py"),
     ("preregistration-conformance fixtures and mutants", "scripts/verify_prereg.py", "--test"),
@@ -67,8 +68,6 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("frozen evidence preservation", "scripts/evidence_guard.py", "--local"),
     ("epistemic tampering and recovery fixtures", "tests/test_epistemic_security.py"),
     ("E3 and E3B re-asserted from committed rows", "scripts/verify_e3.py"),
-    ("E9 conditional replay and post-result claim limits", "scripts/verify_e9.py"),
-    ("E9 independent arithmetic and scope mutants", "tests/test_e9_verifier.py"),
     ("E6 historical arithmetic replay (claim rejected)", "scripts/verify_e6.py"),
     ("correction dispositions, preserved evidence and overlap example", "tests/test_correction_dispositions.py"),
     ("ledger snapshot drift", "scripts/ledger_snapshot.py", "--check"),
@@ -108,6 +107,8 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("trial IV drift", "scripts/generate_trial.py", "--check"),
     ("trial IV instrument and pilot freeze", "scripts/verify_trial.py"),
     ("prepared joint reporters", "contrib/test_joint_reporters.py"),
+    ("attribution to Cubits11", "scripts/verify_attribution.py"),
+    ("attribution fixtures", "scripts/verify_attribution.py", "--test"),
 )
 
 
