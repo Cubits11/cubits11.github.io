@@ -5115,6 +5115,18 @@
    "severity": "RECORD"
   },
   {
+   "detector": "D5",
+   "edits_after_results": [
+    {
+     "commit": "b405742",
+     "file": "experiments/e9/freeze/protocol.json",
+     "subject": "e9: admission, one pass"
+    }
+   ],
+   "experiment": "experiments/e9",
+   "severity": "STOP"
+  },
+  {
    "bytes": 11108548,
    "detector": "D7",
    "note": "each freeze is self-contained by design; the duplication is the price of that and is recorded, not removed",
@@ -5182,8 +5194,15 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 5,
-   "behind": 21,
+   "ahead": 1,
+   "behind": 2,
+   "branch": "claude/film-receipt-facts-subset",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 6,
+   "behind": 0,
    "branch": "claude/friendly-babbage-5hro0x",
    "detector": "D4",
    "severity": "TOPOLOGY"
@@ -5434,7 +5453,7 @@
  ],
  "generated_from": {
   "branch": "claude/friendly-babbage-5hro0x",
-  "head": "8732e64"
+  "head": "4dfd2dd"
  },
  "nodes": [
   {
@@ -6297,7 +6316,7 @@
     "RESULT.md": true,
     "freeze/FREEZE.md": false
    },
-   "first_result_commit_epoch": null,
+   "first_result_commit_epoch": 1790349530,
    "id": "experiments/e9",
    "observation_rows": 1000,
    "stops": [],
@@ -6376,11 +6395,20 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 5,
-   "behind_origin_main": 21,
-   "head": "8732e64",
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 2,
+   "head": "2ba329a",
+   "id": "claude/film-receipt-facts-subset",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 6,
+   "behind_origin_main": 0,
+   "head": "4dfd2dd",
    "id": "claude/friendly-babbage-5hro0x",
-   "last_commit": "2026-09-22",
+   "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
@@ -6400,15 +6428,6 @@
    "id": "claude/phone-width-a11y",
    "last_commit": "2026-09-21",
    "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 2,
-   "head": "592ed51",
-   "id": "claude/sleepy-hermann-d054fe",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
@@ -6727,5 +6746,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "74aea541161c5c82ab19be92fe4a82dca4f24a6198674165fc8c7fa680694409"
+ "stable_digest": "bd5d36c9e0b874b9b796bd63510101ff7e9256b0074aa070649bbff2c424861b"
 }
