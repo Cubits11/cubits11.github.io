@@ -11,10 +11,14 @@ For each films/<slug>/manifest.yaml:
   * every object on screen is labelled with one of OBSERVED / DERIVED / PROVED
     / CONSTRUCTED / ILLUSTRATIVE / UNKNOWN / REGISTRY / DOCUMENT
   * the primary render (render.primary — master by default, square for a feed
-    cut) exists with a receipt: duration within one frame of the manifest,
-    the format's resolution, zero text overflows, determinism check
-    passed, and the receipt's input hashes match the current film source and
-    facts file (a stale render fails)
+    cut) exists with a receipt, and every other cut's receipt on disk passes
+    the same receipt checks: duration within one frame of the manifest, the
+    format's resolution, zero text overflows, determinism check passed, the
+    receipt's file hashes match the current film source, runtime and tokens
+    CSS, and its facts_subset digest matches the current values of exactly the
+    facts it read (facts_digest.py). A stale render fails; a change to a fact
+    the film never read does not make it stale.
+  * every fact a render read is declared in the manifest's evidence
   * every declared claim frame has its still on disk
   * duration inside the 8–90 s law
 
@@ -30,11 +34,16 @@ from pathlib import Path
 
 import yaml
 
+import facts_digest
+
 ROOT = Path(__file__).resolve().parents[2]
 FILMS = ROOT / "films"
 KINDS = {"OBSERVED", "DERIVED", "PROVED", "CONSTRUCTED", "ILLUSTRATIVE", "UNKNOWN", "REGISTRY", "DOCUMENT"}
 REQUIRED = ["id", "title", "thesis", "epistemic_operation", "claim", "scope", "status", "duration_s",
             "evidence", "objects", "falsifier", "non_claims", "evidence_commits", "claim_frames"]
+DIMS = {"master": (1920, 1080), "vertical": (1080, 1920), "square": (1080, 1080)}
+# every receipt binds these files whole; facts are bound separately by facts_subset
+FILE_INPUTS = {"film.html", "films/lib/film.js", "films/lib/tokens.css"}
 
 failures: list[str] = []
 
@@ -85,16 +94,12 @@ def check_film(d: Path, facts: dict) -> None:
 
     render_spec = m.get("render") or {}
     primary = render_spec.get("primary", "master")
-    dims = {"master": (1920, 1080), "vertical": (1080, 1920), "square": (1080, 1080)}[primary]
     receipt_path = d / "renders" / f"{slug}__{primary}.receipt.json"
     if not receipt_path.exists():
         fail(f"{slug}: no {primary} render receipt ({receipt_path.relative_to(ROOT)})")
         return
     r = json.loads(receipt_path.read_text())
-    if abs(r["duration_s"] - dur) > 1.0 / r["fps"] + 1e-9:
-        fail(f"{slug}: rendered duration {r['duration_s']}s != manifest {dur}s")
-    if (r["width"], r["height"]) != dims:
-        fail(f"{slug}: {primary} resolution {r['width']}x{r['height']} is not {dims[0]}x{dims[1]}")
+    check_receipt(d, m, primary, r, facts, slug)
     if render_spec.get("kind") == "social":
         # a feed cut: 8–12 s, phone previews on disk, a real route, registered campaign and experiment
         if not 8 <= dur <= 12:
@@ -118,45 +123,75 @@ def check_film(d: Path, facts: dict) -> None:
             fail(f"{slug}: derived_from {m['derived_from']} has no manifest")
         if not m.get("text_budget", {}).get("essential"):
             fail(f"{slug}: a social cut must declare its essential text budget")
+    # every other cut on disk carries the same receipt obligations as the primary
+    secondaries = []
+    for other in sorted((d / "renders").glob(f"{slug}__*.receipt.json")):
+        fmt = other.name[len(slug) + 2:-len(".receipt.json")]
+        if fmt == primary:
+            continue
+        if fmt not in DIMS:
+            fail(f"{slug}: receipt {other.name} names no known format")
+            continue
+        check_receipt(d, m, fmt, json.loads(other.read_text()), facts, f"{slug} ({fmt})")
+        secondaries.append(fmt)
+    for c in m["evidence_commits"]:
+        if not (isinstance(c.get("commit"), str) and len(c["commit"]) == 40):
+            fail(f"{slug}: evidence commit {c!r} is not a 40-hex revision")
+    if not any(s.startswith((slug + ":", slug + " (")) for s in failures):
+        also = f"; {', '.join(secondaries)} receipt{'s' if len(secondaries) > 1 else ''} fresh" if secondaries else ""
+        ok(f"{slug}: manifest bound ({len(m['evidence'])} facts), receipt fresh, {r['frames']} frames @ {r['fps']}fps, "
+           f"{r['duration_s']}s, determinism ok, 0 overflows, {len(r['outputs']['claim_frames'])} claim frames{also}")
+
+
+def check_receipt(d: Path, m: dict, fmt: str, r: dict, facts: dict, tag: str) -> None:
+    """Obligations every render receipt carries, whichever cut it is."""
+    dur = float(m["duration_s"])
+    dims = DIMS[fmt]
+    if r.get("film") != m["id"] or r.get("format") != fmt:
+        fail(f"{tag}: receipt names {r.get('film')!r} [{r.get('format')!r}], not {m['id']!r} [{fmt!r}]")
+    if abs(r["duration_s"] - dur) > 1.0 / r["fps"] + 1e-9:
+        fail(f"{tag}: rendered duration {r['duration_s']}s != manifest {dur}s")
+    if (r["width"], r["height"]) != dims:
+        fail(f"{tag}: {fmt} resolution {r['width']}x{r['height']} is not {dims[0]}x{dims[1]}")
     if r["text_overflows"]:
-        fail(f"{slug}: {len(r['text_overflows'])} text overflow(s) in render: {r['text_overflows'][:2]}")
+        fail(f"{tag}: {len(r['text_overflows'])} text overflow(s) in render: {r['text_overflows'][:2]}")
     if not r["determinism"]["identical"]:
-        fail(f"{slug}: determinism check failed (re-captured frames differ)")
+        fail(f"{tag}: determinism check failed (re-captured frames differ)")
+    absent = sorted(FILE_INPUTS - set(r["inputs"]))
+    if absent:
+        fail(f"{tag}: receipt does not bind {absent}")
     for rel, digest in r["inputs"].items():
         p = d / rel if rel == "film.html" else ROOT / rel
         if not p.exists():
-            fail(f"{slug}: receipt input {rel} missing")
+            fail(f"{tag}: receipt input {rel} missing")
         elif sha256_file(p) != digest:
-            fail(f"{slug}: render is stale — {rel} changed since the receipt (re-render and re-inspect)")
+            fail(f"{tag}: render is stale — {rel} changed since the receipt (re-render and re-inspect)")
+    why = facts_digest.stale(r, facts)
+    if why:
+        fail(f"{tag}: render is stale — {why} (re-render and re-inspect)")
     for out in ("master", "poster"):
         p = d / r["outputs"][out]
         if not p.exists():
-            fail(f"{slug}: output {out} missing at {p.relative_to(ROOT)}")
+            fail(f"{tag}: output {out} missing at {p.relative_to(ROOT)}")
     mp4 = d / r["outputs"]["master"]
     if mp4.exists() and sha256_file(mp4) != r["outputs"]["master_sha256"]:
-        fail(f"{slug}: master mp4 bytes differ from the receipt")
+        fail(f"{tag}: {fmt} mp4 bytes differ from the receipt")
     probe = r["outputs"].get("master_duration_probe_s")
     if probe is not None and abs(probe - dur) > 0.2:
-        fail(f"{slug}: encoded duration {probe}s differs from manifest {dur}s")
+        fail(f"{tag}: encoded duration {probe}s differs from manifest {dur}s")
     for s in r["outputs"]["stills"]:
         if not (d / s).exists():
-            fail(f"{slug}: still missing {s}")
+            fail(f"{tag}: still missing {s}")
     if len(r["outputs"]["claim_frames"]) != len(m["claim_frames"]):
-        fail(f"{slug}: manifest declares {len(m['claim_frames'])} claim frames, render exported {len(r['outputs']['claim_frames'])}")
+        fail(f"{tag}: manifest declares {len(m['claim_frames'])} claim frames, render exported {len(r['outputs']['claim_frames'])}")
     for cf in r["outputs"]["claim_frames"]:
         if not (d / cf["still"]).exists():
-            fail(f"{slug}: claim-frame still missing {cf['still']}")
+            fail(f"{tag}: claim-frame still missing {cf['still']}")
     # every fact the film read at render time must be declared in the manifest
     declared = {e["fact"] for e in m["evidence"]}
     undeclared = [f for f in r.get("facts_used", []) if f not in declared]
     if undeclared:
-        fail(f"{slug}: film reads facts not declared in its manifest: {undeclared}")
-    for c in m["evidence_commits"]:
-        if not (isinstance(c.get("commit"), str) and len(c["commit"]) == 40):
-            fail(f"{slug}: evidence commit {c!r} is not a 40-hex revision")
-    if not any(s.startswith(slug + ":") for s in failures):
-        ok(f"{slug}: manifest bound ({len(m['evidence'])} facts), receipt fresh, {r['frames']} frames @ {r['fps']}fps, "
-           f"{r['duration_s']}s, determinism ok, 0 overflows, {len(r['outputs']['claim_frames'])} claim frames")
+        fail(f"{tag}: film reads facts not declared in its manifest: {undeclared}")
 
 
 def main() -> int:
