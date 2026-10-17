@@ -1,6 +1,11 @@
 {
-  "commit": "f2249c113335feb8b2a3ccb9e4cd9951e002592a",
-  "recorded": "2026-09-22",
+  "commit": "f5c63d2455aeab475f73854ec22bc28ff07b1804",
+  "recorded": "2026-10-17",
   "rule": "From this commit forward, every commit on this repository carries a Cubits11 author and committer and no machine-attribution trailer. Enforced by scripts/verify_attribution.py; prevented by .githooks/commit-msg. Commits before this point are not rewritten: their SHAs are pinned by published permalinks that a rewrite would break.",
-  "decided_by": "owner, 2026-09-22"
+  "decided_by": "owner, 2026-10-17",
+  "moved_from": {
+    "commit": "f2249c113335feb8b2a3ccb9e4cd9951e002592a",
+    "recorded": "2026-09-22",
+    "reason": "Five owner commits made in the GitHub web editor on 2026-10-17 (8f199a0, c183a1b, 5f318fc, accd46f, fa7aee8) carry author Cubits11 and committer GitHub; they are on main and cannot be rewritten. The owner moved the start point to the main tip that contains them rather than widen the rule."
+  }
 }
