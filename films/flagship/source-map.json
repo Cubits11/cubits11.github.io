@@ -12,13 +12,13 @@
     "missing-column/index.html": "d98a901bcc0d81c717cf41f7b766b4cf612c98aad245c150dccb853d0dacc16b",
     "scripts/identification.py": "4baba5ef00e5d8db19910abf1560b15cb7c68552690fb5c68c2dadabf8d563d8",
     "scripts/verify_census.py": "1073bee1e2ffada679e2ecdddec43f7e5f57ed977daa484c1398504620b39737",
-    "films/the-missing-column-census/manifest.yaml": "a8c084a4ec0ee4b2e708488e9d99a0ff8f9b1bdd7a95190aed35202fb843a92f",
+    "films/the-missing-column-census/manifest.yaml": "5abaf8574cb481bf2f29701853db1242d300b955ca77410e0f6e3e17f22f2760",
     "corrections/index.html": "921d8ed980e56f96d9c352cf8a06efb775b5f1720fdff2b0297c3e58567f6335",
-    "films/the-falsifier-that-fired/manifest.yaml": "89814cb92b88aa87ab546798f737a9d8ff3a4a80548d8375cd67d2b3d3148acd",
+    "films/the-falsifier-that-fired/manifest.yaml": "2c664c95452e28363037de73f4b0338664794059e918d161a2fef7ca84c892e1",
     "scripts/reanalyze_bells_subset.py": "c39643ca63146931aaaa8614477453adcd5d411501d251d33d12bdb811759a88",
-    "films/thirteen-worlds/manifest.yaml": "351adf9ccbd42f54c53645251378aaeb0255e5507874cfe78d59009476d79828",
+    "films/thirteen-worlds/manifest.yaml": "06b98c7ba3f8fb2e99648baead4fbbae555a91e709e925c3ddbfa2bfe13c8cf6",
     "missing-column/reproduce/index.html": "1dcdcb4f7c87b1e9968a2435036a3c49a253baef911eecfe050832279e49ca92",
-    "films/the-correction-invitation/manifest.yaml": "9b87c56e01095ea1db9152d67c12f193afc670a0ed44a54bc664652b5680602d"
+    "films/the-correction-invitation/manifest.yaml": "ceab3faa1611eaa75457a06eead06754709066a102e5c222a29d9deb547989f5"
   },
   "sections": [
     {
