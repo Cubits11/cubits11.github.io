@@ -2,13 +2,18 @@
  "film": "same-scores__social-square",
  "format": "square",
  "title": "Same Scores \u2014 social square",
- "rendered_from_head": "b20ea7daa93db5a93b158a4275aa160d6d39219c",
+ "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
  "rendered_on": "2026-10-17",
  "inputs": {
   "film.html": "556858d2dfed622d48f842287c3d2717471d14f7e28c22178323d15ccd8aa70e",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
-  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
+ },
+ "facts_subset": {
+  "file": "films/data/facts.json",
+  "over": "facts_used",
+  "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
+  "sha256": "3a9edd335b527b30cac3e72ed14ca31b9673a4f05e309bfaff25a0b87e48496a"
  },
  "runtime": {
   "chrome": "155.0.8059.82",
@@ -99,5 +104,5 @@
    "renders/stills/phone-square-claim-06.jpg"
   ]
  },
- "render_seconds": 38.9
+ "render_seconds": 43.4
 }

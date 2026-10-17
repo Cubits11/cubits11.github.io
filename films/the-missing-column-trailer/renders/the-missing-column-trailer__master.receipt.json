@@ -2,13 +2,18 @@
  "film": "the-missing-column-trailer",
  "format": "master",
  "title": "The Missing Column \u2014 trailer",
- "rendered_from_head": "8be4b9dac920e1521a262981393d65c4024ebbb7",
+ "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
  "rendered_on": "2026-10-17",
  "inputs": {
   "film.html": "c5e87ec0891a9ab3339b9904d8d6c56029975a7ec9a79f53831631917f0f51e8",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
-  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
+ },
+ "facts_subset": {
+  "file": "films/data/facts.json",
+  "over": "facts_used",
+  "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
+  "sha256": "a553c72312048ced53f1a64ed95966a6cf5cf6ef2bd309b91a68c002d6f345c6"
  },
  "runtime": {
   "chrome": "155.0.8059.82",
@@ -104,5 +109,5 @@
   ],
   "phone_previews": []
  },
- "render_seconds": 57.9
+ "render_seconds": 275.7
 }
