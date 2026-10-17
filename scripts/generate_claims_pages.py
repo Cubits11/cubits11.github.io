@@ -118,6 +118,7 @@ TITLES: dict[str, str] = {
     "E3B-001":   "The same classifiers on the attack family they were built for",
     "E6-001":    "Rejected: the permutation routine moves unequal-mass atoms",
     "E7B-001":   "Rejected: calibration uses the shared pool for every judge",
+    "E9-001":    "E9: both-miss measurement on 1,000 items",
 }
 
 REJECTED_PREFIX = re.compile(r"^\s*REJECTED AS STATED on (\d{4}-\d{2}-\d{2})\.\s*")
