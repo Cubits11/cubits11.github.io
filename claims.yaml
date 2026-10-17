@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-09-14"
+last_owner_review: "2026-10-17"
 
 claims:
   - id: CC-001
