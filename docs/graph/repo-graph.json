@@ -5046,14 +5046,6 @@
  "findings": [
   {
    "detector": "D2",
-   "generator": "scripts/generate_film_pages.py",
-   "severity": "FIX",
-   "tail": [
-    "FAIL  leave-one-out: render input is stale: films/data/facts.json"
-   ]
-  },
-  {
-   "detector": "D2",
    "generator": "scripts/generate_sitemap.py",
    "severity": "FIX",
    "tail": [
@@ -5183,7 +5175,7 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 12,
+   "ahead": 16,
    "behind": 0,
    "branch": "e9/result-scoped",
    "detector": "D4",
@@ -5302,7 +5294,7 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 12,
+   "ahead": 14,
    "behind": 0,
    "branch": "origin/e9/result-scoped",
    "detector": "D4",
@@ -5424,12 +5416,18 @@
    "detector": "D8",
    "note": "runs only when someone runs it",
    "severity": "RECORD",
+   "test": "tests/test_film_capture.py"
+  },
+  {
+   "detector": "D8",
+   "note": "runs only when someone runs it",
+   "severity": "RECORD",
    "test": "tests/world.test.cjs"
   }
  ],
  "generated_from": {
   "branch": "e9/result-scoped",
-  "head": "fa7aee8"
+  "head": "db8d487"
  },
  "nodes": [
   {
@@ -6436,9 +6434,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 12,
+   "ahead_of_origin_main": 16,
    "behind_origin_main": 0,
-   "head": "fa7aee8",
+   "head": "db8d487",
    "id": "e9/result-scoped",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
@@ -6616,9 +6614,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 12,
+   "ahead_of_origin_main": 14,
    "behind_origin_main": 0,
-   "head": "fa7aee8",
+   "head": "8be4b9d",
    "id": "origin/e9/result-scoped",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
@@ -6787,5 +6785,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "d8624a63d9f874fc0f10a937e6cb0deeeea613c32073154eaa4e67bed71c798a"
+ "stable_digest": "36ec53d3ec81c7fba8ef3373cfde8c16712af16f846d415b49fa7688737cee92"
 }
