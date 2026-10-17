@@ -30,6 +30,7 @@ import json
 import os
 import shutil
 import socketserver
+import struct
 import subprocess
 import sys
 import tempfile
@@ -50,6 +51,15 @@ def sha256_bytes(b: bytes) -> str:
 
 def sha256_file(p: Path) -> str:
     return sha256_bytes(p.read_bytes())
+
+
+def validate_frame_size(data: bytes, width: int, height: int) -> None:
+    """Refuse a clipped browser capture before encoding or issuing a receipt."""
+    if len(data) < 24 or data[:8] != b"\x89PNG\r\n\x1a\n" or data[12:16] != b"IHDR":
+        raise ValueError("capture is not a PNG with an IHDR header")
+    actual = struct.unpack(">II", data[16:24])
+    if actual != (width, height):
+        raise ValueError(f"capture dimensions {actual} differ from declared {(width, height)}")
 
 
 def git_head() -> str:
@@ -152,15 +162,30 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
             meta = page.evaluate("window.__film.meta")
             W, H = meta["width"], meta["height"]
             page.set_viewport_size({"width": W, "height": H})
+            page.wait_for_function("([w,h]) => innerWidth === w && innerHeight === h", arg=[W, H])
+            page.evaluate("() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))")
             fps = args.fps or meta["fps"]
             total = round(meta["duration"] * fps) + 1  # inclusive of the final frame
             cdp = page.context.new_cdp_session(page)
+            # Chrome may capture a shorter surface than the emulated viewport.
+            # Bound capture explicitly, and let canvas updates reach the compositor.
+            capture_options = {
+                "format": "png", "optimizeForSpeed": True,
+                "fromSurface": True, "captureBeyondViewport": True,
+                "clip": {"x": 0, "y": 0, "width": W, "height": H, "scale": 1},
+            }
+            seek_and_settle = """t => {
+                window.__film.seek(t);
+                return new Promise(resolve => requestAnimationFrame(
+                    () => requestAnimationFrame(resolve)));
+            }"""
             page.evaluate("window.__film.resetOverflows()")
             hashes: list[str] = []
             print(f"  {slug} [{fmt}] {W}x{H} @ {fps}fps — {total} frames", flush=True)
             for i in range(total):
-                page.evaluate("t => window.__film.seek(t)", i / fps)
-                data = base64.b64decode(cdp.send("Page.captureScreenshot", {"format": "png", "optimizeForSpeed": True})["data"])
+                page.evaluate(seek_and_settle, i / fps)
+                data = base64.b64decode(cdp.send("Page.captureScreenshot", capture_options)["data"])
+                validate_frame_size(data, W, H)
                 (frames / f"f{i:05d}.png").write_bytes(data)
                 hashes.append(sha256_bytes(data))
                 if i % (fps * 5) == 0 and i:
@@ -171,8 +196,9 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
             sample = sorted({0, total // 4, total // 2, 3 * total // 4, total - 1})
             identical = True
             for i in sample:
-                page.evaluate("t => window.__film.seek(t)", i / fps)
-                data = base64.b64decode(cdp.send("Page.captureScreenshot", {"format": "png", "optimizeForSpeed": True})["data"])
+                page.evaluate(seek_and_settle, i / fps)
+                data = base64.b64decode(cdp.send("Page.captureScreenshot", capture_options)["data"])
+                validate_frame_size(data, W, H)
                 if sha256_bytes(data) != hashes[i]:
                     identical = False
             chrome_version = browser.version

@@ -68,9 +68,19 @@ The renderer serves the repository root over localhost, opens the film with
 calls `window.__film.seek(t)` for every frame, captures over the DevTools
 protocol (about 50 ms a frame), encodes with the bundled ffmpeg, keeps a
 poster, five review stills, one still per declared claim frame and a contact
-sheet, re-captures five sampled frames to prove determinism, and writes a
-receipt naming the git HEAD, the sha256 of every input, and a digest over
-every frame.
+sheet, re-captures five sampled frames to check repeatability, and writes a
+receipt naming the git HEAD, the hashes of the film HTML, shared JavaScript,
+tokens CSS and facts registry, and a digest over every frame. Captures use
+explicit dimensions and wait for canvas updates to reach the browser's
+compositor; a PNG of the wrong dimensions is refused before encoding.
+
+Receipt freshness binds the **whole facts registry version**, not a minimal
+semantic dependency set. An unused fact can change that hash without changing
+the film's pixels. `facts_used` records runtime usage through the fact accessor;
+it does not prove complete dependency closure. The receipt also records the
+render date and elapsed seconds, so repeating a render can change receipt bytes
+even when every frame and the encoded video are identical. A passing freshness
+check must not be described as proof of a zero-diff regeneration fixed point.
 
 Preview any film by opening `films/<slug>/film.html` over a local server
 (`python3 -m http.server 4173`), optionally with `?t=12.5` or `?guides=1`.
