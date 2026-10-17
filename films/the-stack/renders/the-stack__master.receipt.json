@@ -2,10 +2,10 @@
  "film": "the-stack",
  "format": "master",
  "title": "The Stack",
- "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "997e4bc0faf820d77cc7480a47bb862c9f47222f577f3047da186404042925d7",
+  "film.html": "1d063264d012abb46cd22779ec3a2bcbe8002c5557d3034110772c6e0d5b1be0",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
  },
@@ -15,6 +15,11 @@
   "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
   "sha256": "3a9edd335b527b30cac3e72ed14ca31b9673a4f05e309bfaff25a0b87e48496a"
  },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
  "runtime": {
   "chrome": "155.0.8059.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
@@ -23,9 +28,10 @@
  "fps": 30,
  "frames": 1351,
  "duration_s": 45,
+ "phone_text": null,
  "width": 1920,
  "height": 1080,
- "frames_digest": "3b3b8ca7bc49f74caf885f5aa627278db0ff62eead2e10cf8d51f7ee671b26ad",
+ "frames_digest": "37e553c5712b0bd3ac81c91c68043c25e8dae976ec6b01795aaa48be54683af1",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -40,8 +46,8 @@
  ],
  "outputs": {
   "master": "renders/the-stack__master.mp4",
-  "master_sha256": "57723a718de3a86e5b8515e0eb1ce4870e78eb65a12ae8923aa7615f764e3580",
-  "master_bytes": 885767,
+  "master_sha256": "f439219de99b625265acb23d0e9c5c439fbc149a52d814b808ddef4f5ef95cf2",
+  "master_bytes": 764420,
   "master_duration_probe_s": 45.03,
   "poster": "renders/the-stack__master.poster.png",
   "poster_t": 29,
@@ -56,47 +62,47 @@
    {
     "n": 1,
     "t": 0.5,
-    "label": "opening: 100 items above two plates; both counters pinned at 10/100",
+    "label": "parallel branches each receive all 100 items; both miss counts are fixed at 10/100",
     "still": "renders/stills/master-claim-01.jpg"
    },
    {
     "n": 2,
     "t": 8,
-    "label": "plate A: ten items fall through, ninety stop",
+    "label": "Guard A misses ten of its full 100-item exposure",
     "still": "renders/stills/master-claim-02.jpg"
    },
    {
     "n": 3,
     "t": 14,
-    "label": "plate B catches all ten; the pile is 0 \u2014 the disjoint world",
+    "label": "Guard B also sees all 100 items; its ten misses are disjoint from A, shared count zero",
     "still": "renders/stills/master-claim-03.jpg"
    },
    {
     "n": 4,
     "t": 22,
-    "label": "mid-transition: rings migrate, the pile is filling, the counters unchanged",
+    "label": "B miss identities migrate; shared misses increase while both denominators stay 100",
     "still": "renders/stills/master-claim-04.jpg"
    },
    {
     "n": 5,
     "t": 27.5,
-    "label": "the nested world: pile 10/100, counters still 10/100",
+    "label": "both guards miss the same ten items, shared count 10/100",
     "still": "renders/stills/master-claim-05.jpg"
    },
    {
     "n": 6,
     "t": 33,
-    "label": "the interval 0\u201310% over the dimmed stack, the amber 1% labelled as what independence picks",
+    "label": "permitted range 0\u201310%, with independence explicitly selecting 1%",
     "still": "renders/stills/master-claim-06.jpg"
    },
    {
     "n": 7,
     "t": 43,
-    "label": "the sentence and the locator",
+    "label": "fixed full-exposure denominators and shared-miss range remain visible",
     "still": "renders/stills/master-claim-07.jpg"
    }
   ],
   "phone_previews": []
  },
- "render_seconds": 237.1
+ "render_seconds": 70.0
 }

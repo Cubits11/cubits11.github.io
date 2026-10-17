@@ -29,6 +29,8 @@ import base64
 import hashlib
 import http.server
 import json
+import io
+import math
 import os
 import shutil
 import socketserver
@@ -49,12 +51,64 @@ CHROME_ARGS = ["--force-color-profile=srgb", "--font-render-hinting=none", "--di
                "--hide-scrollbars", "--disable-lcd-text"]
 
 
+PHONE_TEXT_AUDIT = r"""(() => {
+  const original = CanvasRenderingContext2D.prototype.fillText;
+  const fresh = () => ({minimum_canvas_px:null, audited_draws:0, minimum_examples:[]});
+  window.__phoneTextAudit = fresh();
+  window.__resetPhoneTextAudit = () => { window.__phoneTextAudit = fresh(); };
+  CanvasRenderingContext2D.prototype.fillText = function(value,x,y,maxWidth) {
+    if (this.canvas.width === 1080 && [1080,1920].includes(this.canvas.height) && this.globalAlpha >= .05) {
+      const match = this.font.match(/([\d.]+)px/);
+      if (match && String(value).trim()) {
+        const matrix = this.getTransform();
+        const naturalWidth = this.measureText(String(value)).width;
+        const fit = Number.isFinite(maxWidth) && maxWidth > 0 && naturalWidth > 0 ? Math.min(1,maxWidth/naturalWidth) : 1;
+        const px = Number(match[1]) * Math.hypot(matrix.c,matrix.d) * fit;
+        const audit = window.__phoneTextAudit;
+        audit.audited_draws++;
+        if (audit.minimum_canvas_px === null || px < audit.minimum_canvas_px - .001) {
+          audit.minimum_canvas_px = px; audit.minimum_examples = [String(value)];
+        } else if (Math.abs(px-audit.minimum_canvas_px)<.001 && audit.minimum_examples.length<5 && !audit.minimum_examples.includes(String(value))) {
+          audit.minimum_examples.push(String(value));
+        }
+      }
+    }
+    return original.apply(this,arguments);
+  };
+})();"""
+
+
+def phone_text_result(audit: dict, width: int) -> dict:
+    minimum = audit.get('minimum_canvas_px')
+    if (type(minimum) not in (int, float) or not math.isfinite(minimum) or minimum <= 0
+            or type(audit.get('audited_draws')) is not int or audit['audited_draws'] <= 0
+            or type(width) not in (int, float) or not math.isfinite(width) or width <= 0):
+        raise ValueError('phone text audit captured no visible text')
+    css_px = minimum * 280 / width
+    if css_px < 14 - 1e-6:
+        raise ValueError(f'phone text is {css_px:.2f}px at 280px media width; minimum is 14px: {audit.get("minimum_examples")}')
+    return dict(audit, media_width_css_px=280, minimum_css_px=css_px,
+                limit='Font geometry only; legibility and comprehension require reader evidence.')
+
+
 def sha256_bytes(b: bytes) -> str:
     return hashlib.sha256(b).hexdigest()
 
 
 def sha256_file(p: Path) -> str:
     return sha256_bytes(p.read_bytes())
+
+
+def snapshot_inputs(paths: dict[str, Path]) -> dict[str, str]:
+    """Bind the bytes before browser navigation, not after a long render."""
+    return {name: sha256_file(path) for name, path in paths.items()}
+
+
+def require_unchanged_inputs(paths: dict[str, Path], initial: dict[str, str]) -> None:
+    current = snapshot_inputs(paths)
+    changed = sorted(name for name in set(initial) | set(current) if initial.get(name) != current.get(name))
+    if changed:
+        raise ValueError("render inputs changed during capture/encoding; refusing new output: " + ", ".join(changed))
 
 
 def validate_frame_size(data: bytes, width: int, height: int) -> None:
@@ -64,6 +118,25 @@ def validate_frame_size(data: bytes, width: int, height: int) -> None:
     actual = struct.unpack(">II", data[16:24])
     if actual != (width, height):
         raise ValueError(f"capture dimensions {actual} differ from declared {(width, height)}")
+
+
+def capture_canvas_batch(page, start: int, end: int, fps: int, width: int, height: int) -> list[bytes]:
+    """Export successive pure Canvas frames in one bounded browser call."""
+    encoded = page.evaluate("""spec => {
+        const canvas = document.querySelector('canvas');
+        const frames = [];
+        for (let i = spec.start; i < spec.end; i++) {
+            window.__film.seek(i / spec.fps);
+            frames.push(canvas.toDataURL('image/png').split(',')[1]);
+        }
+        return frames;
+    }""", {"start": start, "end": end, "fps": fps})
+    if len(encoded) != end - start:
+        raise ValueError("Canvas export returned the wrong frame count")
+    result = [base64.b64decode(frame) for frame in encoded]
+    for data in result:
+        validate_frame_size(data, width, height)
+    return result
 
 
 def git_head() -> str:
@@ -92,10 +165,18 @@ def ffmpeg_exe() -> str:
     return imageio_ffmpeg.get_ffmpeg_exe()
 
 
-def encode(ff: str, frames: Path, fps: int, out: Path, crf: int) -> None:
-    subprocess.run([ff, "-y", "-hide_banner", "-loglevel", "error", "-framerate", str(fps), "-i", str(frames / "f%05d.png"),
-                    "-c:v", "libx264", "-preset", "medium", "-crf", str(crf), "-pix_fmt", "yuv420p",
-                    "-movflags", "+faststart", str(out)], check=True)
+def encode(ff: str, frames: Path, fps: int, out: Path, crf: int, before_promote=None) -> None:
+    # A failed encoder must leave the previously published film intact.
+    pending = out.with_name(f".{out.stem}.rendering.mp4")
+    try:
+        subprocess.run([ff, "-y", "-hide_banner", "-loglevel", "error", "-framerate", str(fps), "-i", str(frames / "f%05d.png"),
+                        "-c:v", "libx264", "-preset", "medium", "-crf", str(crf), "-pix_fmt", "yuv420p",
+                        "-movflags", "+faststart", str(pending)], check=True)
+        if before_promote is not None:
+            before_promote()
+        os.replace(pending, out)
+    finally:
+        pending.unlink(missing_ok=True)
 
 
 def probe_duration(ff: str, mp4: Path) -> float | None:
@@ -143,13 +224,21 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
     film_html = film_dir / "film.html"
     if not film_html.exists():
         raise SystemExit(f"no film at {film_html.relative_to(ROOT)}")
+    input_paths = {
+        "film.html": film_html,
+        "films/lib/film.js": FILMS / "lib" / "film.js",
+        "films/lib/tokens.css": FILMS / "lib" / "tokens.css",
+        "films/data/facts.json": FILMS / "data" / "facts.json",
+    }
+    initial_inputs = snapshot_inputs(input_paths)
     renders = film_dir / "renders"
     stills_dir = renders / "stills"
     renders.mkdir(parents=True, exist_ok=True)
     stills_dir.mkdir(parents=True, exist_ok=True)
     url = f"http://127.0.0.1:{port}/films/{slug}/film.html?capture=1&format={fmt}"
-    facts_path = FILMS / "data" / "facts.json"
-    facts_bytes = facts_path.read_bytes()  # the page fetches this file; it must not move under the render
+    facts_bytes = (FILMS / "data" / "facts.json").read_bytes()  # the page fetches this file; it must not move under the render
+    if sha256_bytes(facts_bytes) != initial_inputs[facts_digest.FILE]:
+        raise SystemExit(f"{facts_digest.FILE} changed while the render of {slug} started; render again")
     tmp = Path(tempfile.mkdtemp(prefix=f"film-{slug}-{fmt}-"))
     frames = tmp / "frames"
     frames.mkdir()
@@ -158,6 +247,7 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(channel="chrome", args=CHROME_ARGS)
             page = browser.new_page(viewport={"width": 1920, "height": 1080}, device_scale_factor=1)
+            page.add_init_script(PHONE_TEXT_AUDIT)
             errors: list[str] = []
             page.on("pageerror", lambda e: errors.append(str(e)))
             # resource 404s are reported by URL below (favicon excluded); other console errors are real
@@ -185,39 +275,72 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
                 return new Promise(resolve => requestAnimationFrame(
                     () => requestAnimationFrame(resolve)));
             }"""
-            page.evaluate("window.__film.resetOverflows()")
-            hashes: list[str] = []
-            print(f"  {slug} [{fmt}] {W}x{H} @ {fps}fps — {total} frames", flush=True)
-            for i in range(total):
-                page.evaluate(seek_and_settle, i / fps)
+            sample = sorted({0, total // 4, total // 2, 3 * total // 4, total - 1})
+            def canvas_png():
+                encoded = page.evaluate("document.querySelector('canvas').toDataURL('image/png')")
+                data = base64.b64decode(encoded.split(',', 1)[1])
+                validate_frame_size(data, W, H)
+                return data
+            def screenshot_png():
                 data = base64.b64decode(cdp.send("Page.captureScreenshot", capture_options)["data"])
                 validate_frame_size(data, W, H)
+                return data
+            # A procedural Canvas can export its exact pixels without waiting
+            # on the compositor for every frame. Prove equivalence at the five
+            # review times first; retain screenshots if even one pixel differs.
+            from PIL import Image
+            pixel_equivalent = True
+            equivalence_samples = 0
+            for i in sample:
+                page.evaluate(seek_and_settle, i / fps)
+                direct, screen = canvas_png(), screenshot_png()
+                equivalence_samples += 1
+                with Image.open(io.BytesIO(direct)) as a, Image.open(io.BytesIO(screen)) as b:
+                    if a.convert("RGBA").tobytes() != b.convert("RGBA").tobytes():
+                        pixel_equivalent = False
+                        break
+            method = "canvas-png" if pixel_equivalent else "browser-screenshot"
+            print(f"  capture {method}; pixel-equivalence samples {equivalence_samples}: {pixel_equivalent}", flush=True)
+            capture = canvas_png if pixel_equivalent else screenshot_png
+            seek = "t => window.__film.seek(t)" if pixel_equivalent else seek_and_settle
+            page.evaluate("window.__film.resetOverflows()")
+            page.evaluate("window.__resetPhoneTextAudit()")
+            hashes: list[str] = []
+            print(f"  {slug} [{fmt}] {W}x{H} @ {fps}fps — {total} frames", flush=True)
+            def record_frame(i, data):
                 (frames / f"f{i:05d}.png").write_bytes(data)
                 hashes.append(sha256_bytes(data))
                 if i % (fps * 5) == 0 and i:
                     print(f"    frame {i}/{total}", flush=True)
+            if pixel_equivalent:
+                for start in range(0, total, 12):
+                    batch = capture_canvas_batch(page, start, min(total, start + 12), fps, W, H)
+                    for offset, data in enumerate(batch):
+                        record_frame(start + offset, data)
+            else:
+                for i in range(total):
+                    page.evaluate(seek, i / fps)
+                    record_frame(i, capture())
             overflows = page.evaluate("window.__film.overflows()")
             facts_used = page.evaluate("window.__film.factsUsed()")
-            # determinism: re-capture five sampled frames and compare bytes
-            sample = sorted({0, total // 4, total // 2, 3 * total // 4, total - 1})
+            phone_text = phone_text_result(page.evaluate("window.__phoneTextAudit"), W) if fmt in ('square','vertical') else None
             identical = True
             for i in sample:
-                page.evaluate(seek_and_settle, i / fps)
-                data = base64.b64decode(cdp.send("Page.captureScreenshot", capture_options)["data"])
-                validate_frame_size(data, W, H)
+                page.evaluate(seek, i / fps)
+                data = capture()
                 if sha256_bytes(data) != hashes[i]:
                     identical = False
             chrome_version = browser.version
             browser.close()
         if errors:
             raise SystemExit(f"page errors during render of {slug}: {errors[:3]}")
-        if facts_path.read_bytes() != facts_bytes:
-            raise SystemExit(f"{facts_path.relative_to(ROOT)} changed during the render of {slug}; render again")
+        require_unchanged_inputs(input_paths, initial_inputs)
         facts_bound = facts_digest.binding(json.loads(facts_bytes)["facts"], facts_used)
 
         stem = f"{slug}__{fmt}"
         mp4 = renders / f"{stem}.mp4"
-        encode(ff, frames, fps, mp4, args.crf)
+        encode(ff, frames, fps, mp4, args.crf,
+               before_promote=lambda: require_unchanged_inputs(input_paths, initial_inputs))
         # stills: 0/25/50/75/100 %, poster, claim frames
         marks = [("open", 0), ("q1", total // 4), ("mid", total // 2), ("q3", 3 * total // 4), ("end", total - 1)]
         still_paths, labels = [], []
@@ -235,30 +358,29 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
             save_still(frames / f"f{i:05d}.png", p)
             claim_stills.append({"n": n, "t": cf["t"], "label": cf.get("label", ""), "still": str(p.relative_to(film_dir))})
         contact_sheet(still_paths, renders / f"{stem}.sheet.jpg", labels)
-        # phone previews: the feed shows a square at roughly 390 CSS px; the acceptance
+        # Phone previews use 280 CSS px of media width; the acceptance
         # test for essential text is practical legibility on THESE files, not on the master
         phone = []
-        if fmt == "square":
+        if fmt in ("square", "vertical"):
             from PIL import Image
             phone_dir = stills_dir
             for p_src in still_paths + [stills_dir / c["still"].split("/")[-1] for c in claim_stills]:
                 out_p = phone_dir / f"phone-{p_src.name}"
-                Image.open(p_src).convert("RGB").resize((390, 390), Image.LANCZOS).save(out_p, "JPEG", quality=92)
+                Image.open(p_src).convert("RGB").resize((280, round(280 * H / W)), Image.LANCZOS).save(out_p, "JPEG", quality=92)
                 phone.append(str(out_p.relative_to(film_dir)))
             sheet_in = [film_dir / c["still"] for c in claim_stills]
-            contact_sheet(sheet_in, renders / f"{stem}.phone-sheet.jpg", [c["label"][:60] for c in claim_stills], thumb=390)
+            contact_sheet(sheet_in, renders / f"{stem}.phone-sheet.jpg", [c["label"][:60] for c in claim_stills], thumb=280)
 
         receipt = {
             "film": slug, "format": fmt, "title": meta["title"],
             "rendered_from_head": git_head(), "rendered_on": date.today().isoformat(),
-            "inputs": {
-                "film.html": sha256_file(film_html),
-                "films/lib/film.js": sha256_file(FILMS / "lib" / "film.js"),
-                "films/lib/tokens.css": sha256_file(FILMS / "lib" / "tokens.css"),
-            },
+            # facts.json is snapshotted for the change check but bound by facts_subset, not whole
+            "inputs": {name: value for name, value in initial_inputs.items() if name != facts_digest.FILE},
             "facts_subset": facts_bound,
+            "capture": {"method": method, "pixel_equivalence_samples": equivalence_samples, "pixel_equivalent": pixel_equivalent},
             "runtime": {"chrome": chrome_version, "ffmpeg": Path(ff).name, "crf": args.crf},
             "fps": fps, "frames": total, "duration_s": round(meta["duration"], 3),
+            "phone_text": phone_text,
             "width": W, "height": H,
             "frames_digest": sha256_bytes("".join(hashes).encode()),
             "determinism": {"sampled_frames": len(sample), "identical": identical},
@@ -274,6 +396,7 @@ def render_one(slug: str, fmt: str, port: int, args, ff: str) -> dict:
             },
             "render_seconds": round(time.time() - t_start, 1),
         }
+        require_unchanged_inputs(input_paths, initial_inputs)
         (renders / f"{stem}.receipt.json").write_text(json.dumps(receipt, indent=1) + "\n")
         print(f"  wrote {mp4.relative_to(ROOT)} ({mp4.stat().st_size / 1e6:.2f} MB) · determinism {'ok' if identical else 'FAILED'} · overflows {len(overflows)} · {receipt['render_seconds']}s")
         return receipt

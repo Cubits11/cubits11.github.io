@@ -2,10 +2,10 @@
  "film": "the-missing-column-census",
  "format": "vertical",
  "title": "The Missing Column, Counted",
- "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "2f8a89eeafc964d7608e5a2f0aad5e43ee628982346ff1adadb34f5f3727c1cb",
+  "film.html": "556d2d45959e360ad9066ddb4f45d5fa97df4a701577f39a0a61dba2011f1db9",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
  },
@@ -15,6 +15,11 @@
   "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
   "sha256": "287a6bdb77d9ac3cee2c3af732d75b49a2ca367788590acab73296fbed130b26"
  },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
  "runtime": {
   "chrome": "155.0.8059.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
@@ -23,9 +28,23 @@
  "fps": 30,
  "frames": 1201,
  "duration_s": 40,
+ "phone_text": {
+  "minimum_canvas_px": 54,
+  "audited_draws": 17202,
+  "minimum_examples": [
+   "Counts from the reporting census",
+   "One reviewer \u00b7 bounded search",
+   "public evaluations examined",
+   "provide joint evidence",
+   "report no joint evidence"
+  ],
+  "media_width_css_px": 280,
+  "minimum_css_px": 14.0,
+  "limit": "Font geometry only; legibility and comprehension require reader evidence."
+ },
  "width": 1080,
  "height": 1920,
- "frames_digest": "bd19b33fece6f99533ebb6c7c28db92676d5025f0966f65788215a768d2d6fcf",
+ "frames_digest": "0802bccda9af7767381c3fd7fe70169a5bf371f231c6f2be011c5759ed1a2c2f",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -53,8 +72,8 @@
  ],
  "outputs": {
   "master": "renders/the-missing-column-census__vertical.mp4",
-  "master_sha256": "2a09224644d0061428c74415ee7cb6fdc6313531a4f3c517a3abb56860c62e4c",
-  "master_bytes": 1369160,
+  "master_sha256": "ab5af813baa9e7d4d9074363812b7bbbcf8875cb0c772dc999665e7a877797c8",
+  "master_bytes": 717591,
   "master_duration_probe_s": 40.03,
   "poster": "renders/the-missing-column-census__vertical.poster.png",
   "poster_t": 23.5,
@@ -81,11 +100,20 @@
    {
     "n": 3,
     "t": 34,
-    "label": "the edge of the search: undefined examined, undefined excluded, undefined unexamined",
+    "label": "the edge of the bounded search: examined, excluded and unexamined candidate counts",
     "still": "renders/stills/vertical-claim-03.jpg"
    }
   ],
-  "phone_previews": []
+  "phone_previews": [
+   "renders/stills/phone-vertical-open.jpg",
+   "renders/stills/phone-vertical-q1.jpg",
+   "renders/stills/phone-vertical-mid.jpg",
+   "renders/stills/phone-vertical-q3.jpg",
+   "renders/stills/phone-vertical-end.jpg",
+   "renders/stills/phone-vertical-claim-01.jpg",
+   "renders/stills/phone-vertical-claim-02.jpg",
+   "renders/stills/phone-vertical-claim-03.jpg"
+  ]
  },
- "render_seconds": 174.8
+ "render_seconds": 55.6
 }

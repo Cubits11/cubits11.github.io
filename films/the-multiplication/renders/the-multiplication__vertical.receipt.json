@@ -1,0 +1,103 @@
+{
+ "film": "the-multiplication",
+ "format": "vertical",
+ "title": "The multiplication",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
+ "rendered_on": "2026-10-17",
+ "inputs": {
+  "film.html": "57fda06552bc5dad9d39431f466cf9c1420c3f8cafcf5cfe53fa18dbf1f1c733",
+  "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
+  "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
+ },
+ "facts_subset": {
+  "file": "films/data/facts.json",
+  "over": "facts_used",
+  "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
+  "sha256": "c06b0653020929dd3161b26a21c863c3ee03de1d71851640d15324e5a42f73ee"
+ },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
+ "runtime": {
+  "chrome": "155.0.8059.82",
+  "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
+  "crf": 20
+ },
+ "fps": 30,
+ "frames": 421,
+ "duration_s": 14,
+ "phone_text": {
+  "minimum_canvas_px": 54,
+  "audited_draws": 5008,
+  "minimum_examples": [
+   "Illustration \u2014 no measured system",
+   "Both guards see the same items.",
+   "Guard A misses",
+   "Guard B misses",
+   "Assuming independent failures"
+  ],
+  "media_width_css_px": 280,
+  "minimum_css_px": 14.0,
+  "limit": "Font geometry only; legibility and comprehension require reader evidence."
+ },
+ "width": 1080,
+ "height": 1920,
+ "frames_digest": "216ef4da435e11bb1f49db1b861edd016a9aab165b25ae9169aedb4612718257",
+ "determinism": {
+  "sampled_frames": 5,
+  "identical": true
+ },
+ "text_overflows": [],
+ "facts_used": [
+  "CC-001.independence_and",
+  "CC-001.marginals"
+ ],
+ "outputs": {
+  "master": "renders/the-multiplication__vertical.mp4",
+  "master_sha256": "8196824eeaebbc3b550ab5b96cb3a4617c0dba561c6fbd4bd11071d5bb37dab5",
+  "master_bytes": 250088,
+  "master_duration_probe_s": 14.03,
+  "poster": "renders/the-multiplication__vertical.poster.png",
+  "poster_t": 8,
+  "stills": [
+   "renders/stills/vertical-open.jpg",
+   "renders/stills/vertical-q1.jpg",
+   "renders/stills/vertical-mid.jpg",
+   "renders/stills/vertical-q3.jpg",
+   "renders/stills/vertical-end.jpg"
+  ],
+  "claim_frames": [
+   {
+    "n": 1,
+    "t": 0.5,
+    "label": "rates and assumption before product",
+    "still": "renders/stills/vertical-claim-01.jpg"
+   },
+   {
+    "n": 2,
+    "t": 4.5,
+    "label": "derived product under explicit independence",
+    "still": "renders/stills/vertical-claim-02.jpg"
+   },
+   {
+    "n": 3,
+    "t": 10,
+    "label": "the assumption remains visible",
+    "still": "renders/stills/vertical-claim-03.jpg"
+   }
+  ],
+  "phone_previews": [
+   "renders/stills/phone-vertical-open.jpg",
+   "renders/stills/phone-vertical-q1.jpg",
+   "renders/stills/phone-vertical-mid.jpg",
+   "renders/stills/phone-vertical-q3.jpg",
+   "renders/stills/phone-vertical-end.jpg",
+   "renders/stills/phone-vertical-claim-01.jpg",
+   "renders/stills/phone-vertical-claim-02.jpg",
+   "renders/stills/phone-vertical-claim-03.jpg"
+  ]
+ },
+ "render_seconds": 30.5
+}

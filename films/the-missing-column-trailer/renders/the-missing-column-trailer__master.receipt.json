@@ -2,10 +2,10 @@
  "film": "the-missing-column-trailer",
  "format": "master",
  "title": "The Missing Column \u2014 trailer",
- "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "c5e87ec0891a9ab3339b9904d8d6c56029975a7ec9a79f53831631917f0f51e8",
+  "film.html": "d3273ae02e6d197bb250f321a2730d6f4f53b2ec3ac1763b926b110bb3fe9a46",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
  },
@@ -15,6 +15,11 @@
   "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
   "sha256": "a553c72312048ced53f1a64ed95966a6cf5cf6ef2bd309b91a68c002d6f345c6"
  },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
  "runtime": {
   "chrome": "155.0.8059.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
@@ -23,9 +28,10 @@
  "fps": 30,
  "frames": 1021,
  "duration_s": 34,
+ "phone_text": null,
  "width": 1920,
  "height": 1080,
- "frames_digest": "bfb2ac3218c6e9260c4fc61529f8a2a041620b2bea5fd88ec10a8530b3479054",
+ "frames_digest": "3438b52cefe4b24c625f34f99df281af85309930b54318c9000382f47de866a9",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -51,8 +57,8 @@
  ],
  "outputs": {
   "master": "renders/the-missing-column-trailer__master.mp4",
-  "master_sha256": "9468a318d0236839b261774a637e9f541a3c05d5d71d37e0164fb7f8e4c7eb0d",
-  "master_bytes": 1046640,
+  "master_sha256": "2996439527120f646ff1d6e4336f9a3d467caf1182c1bdc93abf2f9afe6105f8",
+  "master_bytes": 1213681,
   "master_duration_probe_s": 34.03,
   "poster": "renders/the-missing-column-trailer__master.poster.png",
   "poster_t": 32.4,
@@ -109,5 +115,5 @@
   ],
   "phone_previews": []
  },
- "render_seconds": 275.7
+ "render_seconds": 48.0
 }

@@ -2,10 +2,10 @@
  "film": "thirteen-worlds",
  "format": "vertical",
  "title": "Thirteen Worlds, One File",
- "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "4e425d521078bd01593b43548c8523c4d244737d51441b437d0a3008ae32e962",
+  "film.html": "4cc2144e4c2f4b0822dd07fa8ae7712dd0d8c0192b8e39f37d752560ca4c81a6",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
  },
@@ -15,6 +15,11 @@
   "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
   "sha256": "57a870b1a16c1e819e069d3213dacd86e759172dc0db4f824af513ab13062c5a"
  },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
  "runtime": {
   "chrome": "155.0.8059.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
@@ -23,9 +28,23 @@
  "fps": 30,
  "frames": 1081,
  "duration_s": 36,
+ "phone_text": {
+  "minimum_canvas_px": 54,
+  "audited_draws": 17176,
+  "minimum_examples": [
+   "Released counts",
+   "Constructed bead positions",
+   "Five miss counts stay fixed.",
+   "Only which prompts changes.",
+   "NeMo Guardrails: 12/82 missed"
+  ],
+  "media_width_css_px": 280,
+  "minimum_css_px": 14.0,
+  "limit": "Font geometry only; legibility and comprehension require reader evidence."
+ },
  "width": 1080,
  "height": 1920,
- "frames_digest": "471588fd18f9508ff6bcb057680a45c8a9f5759f5c2c975df18854426f122a87",
+ "frames_digest": "db4c756accfa2b06711ccb773dde1f968cf38c6705e9687384e470ca5190dbc1",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -52,8 +71,8 @@
  ],
  "outputs": {
   "master": "renders/thirteen-worlds__vertical.mp4",
-  "master_sha256": "ac58c3580219bacbdcb755fdfdded4fa6df1559adb98cb6483ea37c3a2cfcb06",
-  "master_bytes": 967795,
+  "master_sha256": "38471a36fee581b59027c0e75a9a0ecd628d985341ee64f9855148bfbd5af4e1",
+  "master_bytes": 1045940,
   "master_duration_probe_s": 36.03,
   "poster": "renders/thirteen-worlds__vertical.poster.png",
   "poster_t": 27,
@@ -68,17 +87,25 @@
    {
     "n": 1,
     "t": 16.5,
-    "label": "the sliding rod nested: all-miss reads 12/82, the upper endpoint min p, with the finite identified set {0\u202612} on the axis",
+    "label": "the sliding rod nested: all-miss reads 12/82; the five fixed rates permit the finite set {0\u202612}",
     "still": "renders/stills/vertical-claim-01.jpg"
    },
    {
     "n": 2,
     "t": 27,
-    "label": "the union (73/82) pins the all-miss count at 9/82 while the independence plug-in (2.87 prompts) sits off-grid",
+    "label": "the released union (73/82) pins the all-miss count at 9/82; the five rates alone still permit {0\u202612}",
     "still": "renders/stills/vertical-claim-02.jpg"
    }
   ],
-  "phone_previews": []
+  "phone_previews": [
+   "renders/stills/phone-vertical-open.jpg",
+   "renders/stills/phone-vertical-q1.jpg",
+   "renders/stills/phone-vertical-mid.jpg",
+   "renders/stills/phone-vertical-q3.jpg",
+   "renders/stills/phone-vertical-end.jpg",
+   "renders/stills/phone-vertical-claim-01.jpg",
+   "renders/stills/phone-vertical-claim-02.jpg"
+  ]
  },
- "render_seconds": 158.7
+ "render_seconds": 61.6
 }

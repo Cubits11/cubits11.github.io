@@ -175,7 +175,78 @@ function close(t, g, L) {
   g.restore();
 }
 
+
+/* Dedicated 9:16 edit. Minimum essential type is 54 source pixels, which
+   is 14 CSS px at a 280px-wide player. Provenance stays visible every frame. */
+function renderPhone(t, g, L) {
+  const label = (s, y, o = {}) => H.paragraph(g, s, 80, y, { font: 'sans', size: 54, lineHeight: 66, color: TOK.ink, maxW: 920, ...o });
+  const title = s => label(s, 286, { font: 'serif', size: 76, lineHeight: 88 });
+  if (t < T_ACT3) {
+    label('Illustration', 88, { color: TOK.review });
+    label('No measured system', 156, { color: TOK.review });
+    title('Same scores. Different shared failures.');
+    label(`Guard A misses ${Math.round(P1*N)}/${N}.`, 520);
+    label(`Guard B misses ${Math.round(P2*N)}/${N}.`, 590);
+    if (t < T_AXIS) {
+      const gx = 210, gy = 740, c = 66, w = SIDE*c;
+      g.fillStyle = TOK.paper; g.fillRect(gx-12, gy-12, w+24, w+24);
+      for (let i = 0; i <= SIDE; i++) {
+        line(g, gx+i*c, gy, gx+i*c, gy+w, TOK.paperLine, 1);
+        line(g, gx, gy+i*c, gx+w, gy+i*c, TOK.paperLine, 1);
+      }
+      A_CELLS.forEach(cell => { const [x,y] = cellXY(cell,gx,gy,c); disc(g,x,y,16,TOK.paperInk); });
+      B_HOME.forEach((home,i) => {
+        const u = hopU(t,i), [hx,hy] = cellXY(home,gx,gy,c), [ax,ay] = cellXY(A_CELLS[i],gx,gy,c);
+        ring(g,lerp(hx,ax,u),lerp(hy,ay,u)-Math.sin(u*Math.PI)*c*0.5,24,TOK.paperInk,4);
+      });
+      label(`Shared misses: ${landed(t)}/${N}`, 1570, { size: 76, lineHeight: 88, color: TOK.evidence });
+      label('A shared miss is one item both guards miss.', 1710);
+    } else {
+      label(`Allowed shared-miss range:`, 820, { color: TOK.evidence });
+      label(`${H.pct(LO)}–${H.pct(HI)}`, 1020, { font: 'serif', size: 150, lineHeight: 170, color: TOK.evidence });
+      label(`Independence picks ${H.pct(IND)}.`, 1250, { color: TOK.review });
+      label('One assumption selects one point.', 1390, { color: TOK.review });
+      label('The two scores cannot tell you which world you are in.', 1630);
+    }
+  } else if (t < T_ACT4) {
+    label('Reporting census', 88, { color: TOK.review });
+    label('Bounded search · one reviewer', 156, { color: TOK.review });
+    title('Who publishes the joint outcome?');
+    const rows = [[CN,'public evaluations examined'],[CM,'share items and a common event'],[CM3,'document matched thresholds with full exposure'],[CK,`provide joint evidence; ${CK_REL} via per-item release`]];
+    rows.forEach(([n,s],i) => {
+      text(g,String(n),80,590+i*280,{font:'serif',size:100,color:i===2?TOK.review:TOK.ink});
+      label(s,660+i*280,{color:i===2?TOK.review:TOK.muted});
+    });
+    label(`Frozen ${FROZEN}. Reporting, not performance.`, 1810, { color: TOK.muted });
+  } else if (t < T_CLOSE) {
+    label('Released counts', 88, { color: TOK.review });
+    label('Not a measured deployed stack', 156, { color: TOK.review });
+    title('One released file. Five guards.');
+    label(`Five miss rates allow ${S_LO}–${S_HI} shared misses among ${B_N} harmful prompts.`, 540);
+    const x0 = 110, x1 = 970, y = 1000, px = v => lerp(x0,x1,(v-S_LO)/(S_HI-S_LO));
+    line(g,x0,y,x1,y,TOK.evidence,6);
+    for (let v = S_LO; v <= S_HI; v++) disc(g,px(v),y,12,TOK.evidence);
+    text(g,String(S_LO),x0,y+100,{font:'sans',size:54,align:'center',color:TOK.evidence});
+    text(g,String(S_HI),x1,y+100,{font:'sans',size:54,align:'center',color:TOK.evidence});
+    label(`The released rows give ${B_ALL}.`, 1300, { size: 76, lineHeight: 88 });
+    label(`Independence expects ${B_PLUG.toFixed(2)}.`, 1470, { color: TOK.review });
+    label('An expectation, not a count.', 1540, { color: TOK.review });
+    label('Author-selected file. No population estimate.', 1730, { color: TOK.muted });
+  } else {
+    label('Evidence and constructed examples', 88, { color: TOK.review });
+    label('No measured deployed stack', 156, { color: TOK.review });
+    title('The Missing Column');
+    label('What guardrails miss together, and who publishes it.', 560, { size: 68, lineHeight: 82 });
+    label('Bring a counterexample.', 1000, { font: 'serif', size: 76, lineHeight: 88, color: TOK.gold });
+    label('Read the claim and its falsifier.', 1270);
+    label('Try the interactive proof below this player.', 1510, { color: TOK.evidence });
+    label('cubits11.github.io/missing-column', 1790, { color: TOK.gold });
+  }
+}
+
 function render(t, g, L) {
+  if (L.vertical) return renderPhone(t, g, L);
+  text(g, 'Scene provenance shown in the evidence tags · no measured deployed stack', 65, 35, { font: 'sans', size: 26, color: TOK.review, maxW: L.W - 130 });
   actOne(t, g, L);
   actThree(t, g, L);
   actFour(t, g, L);

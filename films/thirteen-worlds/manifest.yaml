@@ -128,10 +128,17 @@ non_claims:
   - "not an observed deployed five-guard stack; interpreting this static OR aggregation as a stack requires the separate full-exposure, parallel, fixed-operating-point assumptions"
 claim_frames:
   - t: 16.5
-    shows: the sliding rod nested — all-miss reads 12/82 (the upper endpoint, min p) with the finite identified set {0…12} drawn on the axis
+    shows: the sliding rod nested — all-miss reads 12/82; the five fixed rates permit the finite set {0…12}
   - t: 27.0
-    shows: the union bar 73/82 pins the all-miss count at 9/82; the independence marker at 2.87 prompts sits between integers
+    shows: the released union 73/82 pins the all-miss count at 9/82; the five rates alone still permit {0…12}
 render:
   fps: 30
   formats: [master, vertical]
   poster_t: 27.0
+
+phone_layout:
+  canvas: [1080, 1920]
+  minimum_essential_text_px: 54
+  minimum_display_width_css_px: 280
+  composition: dedicated vertical edit; evidence numbers and scientific scope unchanged
+  provenance: persistent scene-specific distinction between counts, constructions, and deployed systems

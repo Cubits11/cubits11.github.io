@@ -7,6 +7,25 @@ const {H,TOK}=Film;
 const {text,line,ledgerTag,locator}=H;
 function setup() {}
 function render(t,g,L) {
+  if (L.vertical) {
+    // Minimum label 54px -> 14 CSSpx at 280px displayed width.
+    const label=(s,y,o={})=>text(g,s,80,y,{font:'sans',size:56,color:TOK.ink,maxW:920,...o});
+    label('Invitation — no completed review',84,{size:54,color:TOK.review});
+    label('A claim you',300,{font:'serif',size:96});
+    label('can check.',420,{font:'serif',size:96});
+    label('A record that',620,{font:'serif',size:96});
+    label('can change.',740,{font:'serif',size:96});
+    line(g,80,845,1000,845,TOK.lineStrong,4);
+    label('Found a qualifying source?',980,{size:62});
+    label('A failed calculation?',1070,{size:62});
+    label('cubits11.github.io',1240,{font:'mono',size:62,color:TOK.gold});
+    label('/corrections/',1340,{font:'mono',size:82,color:TOK.gold});
+    label('Send the source,',1530,{size:64});
+    label('or the input and result.',1620,{size:64});
+    label('Use the correction link below.',1800,{size:54,color:TOK.muted});
+    label('Public policy · open to correction',1870,{size:54,color:TOK.muted});
+    return;
+  }
   text(g,'A claim you can check.',120,275,{font:'serif',size:100,color:TOK.ink,maxW:1680});
   text(g,'A record that can change.',120,405,{font:'serif',size:100,color:TOK.ink,maxW:1680});
   line(g,120,492,1800,492,TOK.lineStrong,2);

@@ -2,10 +2,10 @@
  "film": "same-scores__social-square",
  "format": "master",
  "title": "Same Scores \u2014 social square",
- "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
+ "rendered_from_head": "c7d20ddcfb81e6cb0cb5e708ac6cb0b60d19a61c",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "556858d2dfed622d48f842287c3d2717471d14f7e28c22178323d15ccd8aa70e",
+  "film.html": "cda2bb93faef407208e8d2f4b710fbad1b69542f5e2726446435bcf1b80a4fbe",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
  },
@@ -15,6 +15,11 @@
   "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
   "sha256": "3a9edd335b527b30cac3e72ed14ca31b9673a4f05e309bfaff25a0b87e48496a"
  },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
  "runtime": {
   "chrome": "155.0.8059.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
@@ -23,9 +28,10 @@
  "fps": 30,
  "frames": 331,
  "duration_s": 11,
+ "phone_text": null,
  "width": 1920,
  "height": 1080,
- "frames_digest": "45c0e70d32d9c2b1681252aacf6961a4063bac35357225a173b5bdc36bbabfe5",
+ "frames_digest": "9e811d8d3d28776d5abbcb74dbee829de3c42a5404be6628d187a861ae5d8b57",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -40,8 +46,8 @@
  ],
  "outputs": {
   "master": "renders/same-scores__social-square__master.mp4",
-  "master_sha256": "bf0a7d1064e8f570ca56210e0d57899ed96c90852efe6541d4f7ac5aa2c80ea5",
-  "master_bytes": 326078,
+  "master_sha256": "4457c3c666dcb7e7520a54d077c39f3aa3d2c37defc9f32d57aeababf727270d",
+  "master_bytes": 282607,
   "master_duration_probe_s": 11.03,
   "poster": "renders/same-scores__social-square__master.poster.png",
   "poster_t": 10.8,
@@ -92,5 +98,5 @@
   ],
   "phone_previews": []
  },
- "render_seconds": 102.1
+ "render_seconds": 17.6
 }

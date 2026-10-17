@@ -457,13 +457,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "7e2d93b184e5a6fb",
+    "id": "972e86d5defa6b73",
     "kind": "film",
     "source": {
       "path": "films/leave-one-out/manifest.yaml",
-      "sha256": "90198c982efe8969ea972b9eda5627e2735950ae118cb0715804e63c865930fb",
-      "commit": "2174358b3a42385c06c6412fb66031c21cee51e4",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2174358b3a42385c06c6412fb66031c21cee51e4/films/leave-one-out/manifest.yaml",
+      "sha256": "9ad8247f8f26254fe560d420e80b08f09513fe50056cbb4ef433da227eebccf8",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/leave-one-out/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [],
@@ -472,13 +472,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "62a4bbc26aff4e8a",
+    "id": "f7fbbfd7fb0dd029",
     "kind": "film",
     "source": {
       "path": "films/parity-cube/manifest.yaml",
-      "sha256": "b9d3f4527ac8f6c4c623e2b31edaa69940cae236ad95d4768bfc30a637ab4f05",
-      "commit": "36062638879e70107779cf1c4edb284ba49fd3d5",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/36062638879e70107779cf1c4edb284ba49fd3d5/films/parity-cube/manifest.yaml",
+      "sha256": "bbf33a6a013d13de0dc35535cd0c9c2a111383f6010de6f66f08c994ff884a12",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/parity-cube/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [],
@@ -487,13 +487,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "ac1e86b4ad47fec0",
+    "id": "df990db094b29722",
     "kind": "film",
     "source": {
       "path": "films/same-scores-different-worlds/manifest.yaml",
-      "sha256": "aadbe2772335d0500314c790fcf3c6c3476e92ad1dd6275693036f0d6daf90ad",
-      "commit": "3c4ce5bf54ed195ca674cea319d95f4463ec4d4e",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3c4ce5bf54ed195ca674cea319d95f4463ec4d4e/films/same-scores-different-worlds/manifest.yaml",
+      "sha256": "a289640c746bd81fa535af6dcea678ef26cdca3162fd9564b257724f2f7ede9c",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/same-scores-different-worlds/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [
@@ -504,13 +504,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "57e77ab060309a36",
+    "id": "5ff22781da6691b5",
     "kind": "film",
     "source": {
       "path": "films/same-scores__social-square/manifest.yaml",
-      "sha256": "ca4b2541b59d731692cd7e86112a23c8d4ade7af22512cc381dacb6b8d38524b",
-      "commit": "3c4ce5bf54ed195ca674cea319d95f4463ec4d4e",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3c4ce5bf54ed195ca674cea319d95f4463ec4d4e/films/same-scores__social-square/manifest.yaml",
+      "sha256": "b28287943366ac12b381e230044fbd02219884270a4b91199f2604fc4f0d8039",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/same-scores__social-square/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [],
@@ -519,13 +519,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "e1b1f2a0ec114aeb",
+    "id": "77cc520b6357dc04",
     "kind": "film",
     "source": {
       "path": "films/the-correction-invitation/manifest.yaml",
-      "sha256": "9b87c56e01095ea1db9152d67c12f193afc670a0ed44a54bc664652b5680602d",
-      "commit": "14ca60826fa284317d5c20dece19e7422d1161b6",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/14ca60826fa284317d5c20dece19e7422d1161b6/films/the-correction-invitation/manifest.yaml",
+      "sha256": "ceab3faa1611eaa75457a06eead06754709066a102e5c222a29d9deb547989f5",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/the-correction-invitation/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [],
@@ -534,13 +534,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "882ee7b61019a6d7",
+    "id": "529ef45f7329d9d1",
     "kind": "film",
     "source": {
       "path": "films/the-falsifier-that-fired/manifest.yaml",
-      "sha256": "89814cb92b88aa87ab546798f737a9d8ff3a4a80548d8375cd67d2b3d3148acd",
-      "commit": "24a53655629fedfc36ca4025ed9923359219b370",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/24a53655629fedfc36ca4025ed9923359219b370/films/the-falsifier-that-fired/manifest.yaml",
+      "sha256": "2c664c95452e28363037de73f4b0338664794059e918d161a2fef7ca84c892e1",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/the-falsifier-that-fired/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [],
@@ -549,13 +549,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "955c4f64a582555b",
+    "id": "a72204b132cf2d41",
     "kind": "film",
     "source": {
       "path": "films/the-missing-column-census/manifest.yaml",
-      "sha256": "a8c084a4ec0ee4b2e708488e9d99a0ff8f9b1bdd7a95190aed35202fb843a92f",
-      "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/films/the-missing-column-census/manifest.yaml",
+      "sha256": "5abaf8574cb481bf2f29701853db1242d300b955ca77410e0f6e3e17f22f2760",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/the-missing-column-census/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [
@@ -566,13 +566,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "aae1d5360ea1b226",
+    "id": "28746d5a6456e224",
     "kind": "film",
     "source": {
       "path": "films/the-missing-column-trailer/manifest.yaml",
-      "sha256": "8e931ff16740f738da2b0a3c8bed4fbd3235a1e4a244632d56e4aaafe49b7c61",
-      "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/films/the-missing-column-trailer/manifest.yaml",
+      "sha256": "c8d3abe3008d6edd5a0773c488b1db4d5763d71e04af8cc034d9dbd3bfb37d56",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/the-missing-column-trailer/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [],
@@ -581,13 +581,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "8bbbfb385ec36baa",
+    "id": "ce963e4a23435ddc",
     "kind": "film",
     "source": {
       "path": "films/the-multiplication/manifest.yaml",
-      "sha256": "44182359d2bce6942fbcba46eaca44a495722b9521ac7d8a8c6e31cb1d1be902",
-      "commit": "14ca60826fa284317d5c20dece19e7422d1161b6",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/14ca60826fa284317d5c20dece19e7422d1161b6/films/the-multiplication/manifest.yaml",
+      "sha256": "fd6aeee56e9335eb6658e4e520142eaacfc85049ad178d44f32128cf70b3ba77",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/the-multiplication/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [],
@@ -596,13 +596,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "3f4ee84456f427b7",
+    "id": "f42bea43890b8a24",
     "kind": "film",
     "source": {
       "path": "films/the-stack/manifest.yaml",
-      "sha256": "1b8acaac37e0b2ec95e59572a0b583d59fb0d37cf506806320236568f60d915f",
-      "commit": "3b9721dd944e66fa404eef62d964c394d0e73060",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3b9721dd944e66fa404eef62d964c394d0e73060/films/the-stack/manifest.yaml",
+      "sha256": "f81ae5c045665327da9e9bf8469e56d9f808820f81f422ccab731e87311bebe0",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/the-stack/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [],
@@ -611,13 +611,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "c67717924fda8738",
+    "id": "3e25b662dbfb3116",
     "kind": "film",
     "source": {
       "path": "films/thirteen-worlds/manifest.yaml",
-      "sha256": "351adf9ccbd42f54c53645251378aaeb0255e5507874cfe78d59009476d79828",
-      "commit": "2174358b3a42385c06c6412fb66031c21cee51e4",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2174358b3a42385c06c6412fb66031c21cee51e4/films/thirteen-worlds/manifest.yaml",
+      "sha256": "06b98c7ba3f8fb2e99648baead4fbbae555a91e709e925c3ddbfa2bfe13c8cf6",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/thirteen-worlds/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [
@@ -628,13 +628,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "258f7df69e25f9c4",
+    "id": "f7ab256865c4ffda",
     "kind": "film",
     "source": {
       "path": "films/what-the-seal-proves/manifest.yaml",
-      "sha256": "dc0621613a9026506695ec55f0acefe7adf6dfa8b21ff91a5a421d864c0fdcfe",
-      "commit": "3c4ce5bf54ed195ca674cea319d95f4463ec4d4e",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3c4ce5bf54ed195ca674cea319d95f4463ec4d4e/films/what-the-seal-proves/manifest.yaml",
+      "sha256": "3b8546251e488d13bcc63623a51c4e8da82dac7a19c0fc4204a733d1d00cb056",
+      "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/what-the-seal-proves/manifest.yaml",
       "binding": "committed"
     },
     "draft_ids": [],

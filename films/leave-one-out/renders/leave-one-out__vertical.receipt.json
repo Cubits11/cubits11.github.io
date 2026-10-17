@@ -2,10 +2,10 @@
  "film": "leave-one-out",
  "format": "vertical",
  "title": "Leave One Out",
- "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "f73a1cae0e90b037d00986d34967e8f75de205e489a03f7d53c2744b585c597e",
+  "film.html": "abe67d7d1dea90ff35a22299487f3b39dab258ff2746b403acb50bec781e7b0f",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
  },
@@ -15,6 +15,11 @@
   "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
   "sha256": "a9b325692fcc1e53878a11be41d4039c8d5615cf7b74683e9706e5bcf67d6d8e"
  },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
  "runtime": {
   "chrome": "155.0.8059.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
@@ -23,9 +28,23 @@
  "fps": 30,
  "frames": 1021,
  "duration_s": 34,
+ "phone_text": {
+  "minimum_canvas_px": 54,
+  "audited_draws": 14159,
+  "minimum_examples": [
+   "Released counts",
+   "Constructed window positions",
+   "A lit window means at least one",
+   "guard flags that prompt.",
+   "9/82 are missed by all five."
+  ],
+  "media_width_css_px": 280,
+  "minimum_css_px": 14.0,
+  "limit": "Font geometry only; legibility and comprehension require reader evidence."
+ },
  "width": 1080,
  "height": 1920,
- "frames_digest": "726f5d9eb61b56443b6f9f5cd45dddc029f66753adea359aadacfff6e1e51908",
+ "frames_digest": "a1f1f17213b2a0c94f5e1c4a51c0cc4b052ec7ed4d555882961c1eb1fa5db576",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -47,8 +66,8 @@
  ],
  "outputs": {
   "master": "renders/leave-one-out__vertical.mp4",
-  "master_sha256": "65761fb3c72217aad597610b61909e5708a89b7468bfe715d2e4cc269d6a5df9",
-  "master_bytes": 903595,
+  "master_sha256": "dbe2f9ba278645bd8ea511ed6ea95767baa0b0529d6adda51a09e553646ea53c",
+  "master_bytes": 1030805,
   "master_duration_probe_s": 34.03,
   "poster": "renders/leave-one-out__vertical.poster.png",
   "poster_t": 16.3,
@@ -63,7 +82,7 @@
    {
     "n": 1,
     "t": 12,
-    "label": "all five lamps on: 73/82 lit, 9 dark; aggregate-only bounds on exclusive coverage beside each lamp",
+    "label": "all five together: 73/82 flagged, 9 missed; aggregate-only bounds on each guard\u2019s exclusive coverage",
     "still": "renders/stills/vertical-claim-01.jpg"
    },
    {
@@ -75,11 +94,20 @@
    {
     "n": 3,
     "t": 29,
-    "label": "summary: 3 of 5 lamps have zero exclusive coverage on this stratum; identified values beside each lamp",
+    "label": "summary: 3 of 5 guards have zero exclusive coverage on this stratum; all five identified values shown",
     "still": "renders/stills/vertical-claim-03.jpg"
    }
   ],
-  "phone_previews": []
+  "phone_previews": [
+   "renders/stills/phone-vertical-open.jpg",
+   "renders/stills/phone-vertical-q1.jpg",
+   "renders/stills/phone-vertical-mid.jpg",
+   "renders/stills/phone-vertical-q3.jpg",
+   "renders/stills/phone-vertical-end.jpg",
+   "renders/stills/phone-vertical-claim-01.jpg",
+   "renders/stills/phone-vertical-claim-02.jpg",
+   "renders/stills/phone-vertical-claim-03.jpg"
+  ]
  },
- "render_seconds": 133.5
+ "render_seconds": 51.3
 }

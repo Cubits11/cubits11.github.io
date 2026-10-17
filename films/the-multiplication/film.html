@@ -9,6 +9,26 @@ let rates, product;
 function setup({fact}) { rates=fact('CC-001.marginals'); product=fact('CC-001.independence_and'); }
 const pct=x=>`${Math.round(x*100)}%`;
 function render(t,g,L) {
+  if (L.vertical) {
+    // Minimum phone label: 54 / 1080 * 280 = 14 CSSpx at a 320px viewport.
+    const label=(s,x,y,o={})=>text(g,s,x,y,{font:'sans',size:54,color:TOK.ink,maxW:920,...o});
+    label('Illustration — no measured system',80,88,{color:TOK.review});
+    text(g,'How much safer?',80,250,{font:'serif',size:86,maxW:920});
+    label('Both guards see the same items.',80,355,{color:TOK.muted});
+    label('Guard A misses',80,500);
+    text(g,pct(rates[0]),80,680,{font:'serif',size:176});
+    text(g,'×',540,800,{font:'serif',size:130,align:'center',color:TOK.muted});
+    label('Guard B misses',80,935);
+    text(g,pct(rates[1]),80,1115,{font:'serif',size:176});
+    label('Assuming independent failures',80,1260,{color:TOK.review,size:54});
+    line(g,80,1300,1000,1300,TOK.review,4);
+    const a=sm(t,3,3.7);
+    text(g,`= ${pct(product)}`,80,1490,{font:'serif',size:154,color:TOK.review,alpha:a});
+    label('A correct product.',80,1640,{size:56,alpha:sm(t,6,6.7)});
+    label('An extra assumption.',80,1730,{size:56,alpha:sm(t,6,6.7)});
+    label('CC-001 · cubits11.github.io/try',80,1870,{color:TOK.gold});
+    return;
+  }
   text(g,'HOW MUCH SAFER?',120,170,{font:'mono',size:32,color:TOK.muted,track:.07});
   text(g,'GUARD A MISSES',120,330,{font:'mono',size:28,color:TOK.muted});
   text(g,'GUARD B MISSES',760,330,{font:'mono',size:28,color:TOK.muted});
@@ -22,7 +42,7 @@ function render(t,g,L) {
   text(g,'=',1200,500,{font:'serif',size:100,color:TOK.review,alpha:a});
   text(g,pct(product),1390,500,{font:'serif',size:158,color:TOK.review,alpha:a});
   paragraph(g,'A correct product. An extra assumption.',120,812,{font:'serif',size:54,color:TOK.ink,maxW:1680,lineHeight:68,alpha:sm(t,6,6.7)});
-  text(g,'ILLUSTRATIVE EXAMPLE · SAME INPUTS FOR BOTH GUARDS',120,930,{font:'mono',size:25,color:TOK.muted,maxW:1680});
+  text(g,'Illustration — no measured system · same inputs for both guards',120,930,{font:'sans',size:30,color:TOK.muted,maxW:1680});
   ledgerTag(g,L,'REGISTRY / DERIVED','CC-001 input / product under independence',1,'right');
   locator(g,L,['CC-001 · illustrative inputs, not measured guardrails','cubits11.github.io/try/'],1);
 }

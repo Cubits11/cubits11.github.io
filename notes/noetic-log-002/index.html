@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Noetic Log 002 — Pranav Bhave</title>
-<meta name="description" content="The v0.4 observatory shipping record, rated without anesthesia — and a lookback contract due 2026-09-23 with its conclusions pre-registered, including the unflattering one.">
+<meta name="description" content="The August 23 shipping record and its six-question lookback, published October 17, 24 days late. Dated checks, failures, and remaining unknowns replace self-grades.">
 <link rel="canonical" href="https://cubits11.github.io/notes/noetic-log-002/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Noetic Log 002 — The Observatory Ships, and Gets Graded">
-<meta property="og:description" content="Owner-rated across eight dimensions, adversarially informed, no anesthesia: instrument-grade scaffolding around a research program that has not yet produced its first empirical result. Lookback due 2026-09-23.">
+<meta property="og:title" content="Noetic Log 002 — Checks and an overdue lookback">
+<meta property="og:description" content="A six-question review published October 17, 24 days late: failed full checks, a now-published scoped E9 result, a renewed review window, and outstanding reader and accessibility work.">
 <meta property="og:url" content="https://cubits11.github.io/notes/noetic-log-002/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
 <meta property="og:image:alt" content="Pranav Bhave, AI Assurance · Security Engineering · Evidence Systems — measuring what guardrail stacks miss together">
@@ -33,17 +33,18 @@ h1{font-family:var(--serif);font-weight:520;font-size:clamp(2.3rem,6vw,3.7rem);l
 h2{font-family:var(--serif);font-weight:520;font-size:1.5rem;line-height:1.2;margin:2.6rem 0 .9rem;letter-spacing:-.01em}
 p{margin:0 0 1.1em}
 em{font-family:var(--serif);font-style:italic}
-.rating{border:1px solid var(--line-strong);background:var(--surface);margin:1.6rem 0;overflow-x:auto}
-.rating table{border-collapse:collapse;width:100%;min-width:560px;font-size:.92rem}
-.rating th{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);text-align:left;padding:.9rem 1.1rem .5rem;border-bottom:1px solid var(--line)}
-.rating td{padding:.65rem 1.1rem;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
-.rating tr:last-child td{border-bottom:none}
-.rating td.dim{color:var(--ink);white-space:nowrap}
-.rating td.score{font-family:var(--mono);font-size:.8rem;color:var(--ink);white-space:nowrap}
+.evidence-matrix{border:1px solid var(--line-strong);background:var(--surface);margin:1.6rem 0;overflow-x:auto}
+.evidence-matrix table{border-collapse:collapse;width:100%;min-width:560px;font-size:.92rem}
+.evidence-matrix th{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);text-align:left;padding:.9rem 1.1rem .5rem;border-bottom:1px solid var(--line)}
+.evidence-matrix td{padding:.65rem 1.1rem;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+.evidence-matrix tr:last-child td{border-bottom:none}
+.evidence-matrix td.dim{color:var(--ink);white-space:nowrap}
+.evidence-matrix th[scope="row"]{font-family:var(--sans);font-size:.9rem;letter-spacing:0;text-transform:none;color:var(--ink)}
 .verdict{border-left:2px solid var(--invalid);padding:1rem 1.2rem;background:color-mix(in srgb,var(--invalid) 6%,transparent);margin:1.8rem 0}
 .verdict .mono{color:var(--invalid);display:block;margin-bottom:.4rem}
 .verdict p{margin:0;font-size:1rem;color:var(--ink)}
 .contract{border:1px dashed var(--line-strong);background:var(--surface);padding:1.5rem;margin:2.2rem 0}
+.contract summary{cursor:pointer;min-height:44px;line-height:1.6}
 .contract .mono{color:var(--review);display:block;margin-bottom:.8rem}
 ol{padding-left:1.2rem;color:var(--muted)}
 ol li{margin:.55rem 0}
@@ -75,18 +76,17 @@ footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;colo
 </header>
 <header class="page">
   <div class="container">
-    <p class="eyebrow mono">Noetic log 002 · shipping record + rating · 2026-08-23 · lookback due 2026-09-23</p>
-    <h1>The observatory ships, and gets graded</h1>
-    <p class="standfirst">Version 0.4 went live today. This entry records what shipped, rates it
-      without anesthesia, and signs a lookback contract: on 2026-09-23 this page's questions get
-      answered against evidence, and the most unflattering possible conclusion is pre-registered
-      below so it cannot be dodged later.</p>
+    <p class="eyebrow mono">Noetic log 002 · published 2026-08-23 · review published 2026-10-17 · 24 days late</p>
+    <h1>The observatory ships: checks and an overdue lookback</h1>
+    <p class="standfirst">The September 23 lookback was missed. This October 17 update answers all six promised questions, preserves the original contract, and replaces owner grades with dated outcomes and remaining unknowns.</p>
   </div>
 </header>
 
 <main class="container" id="main">
 
-  <h2>What shipped</h2>
+  <p><strong>Editorial revision — 2026-10-17.</strong> The original deadline was 2026-09-23. The review below is published 24 days late; it does not reset any claim’s review window. <a href="#lookback-2026-10-17">Read the six answers</a> · <a href="#lookback-contract">Original promise</a> · <a href="/status/">Current checks and review dates</a>.</p>
+
+  <h2>What shipped — 2026-08-23</h2>
   <p>The record became an observatory: a thirteen-claim registry (schema v0.3) rendered three
     ways (<a class="u" href="/ledger/">ledger</a>, <a class="u" href="/observatory/">capsule
     field</a>, <a class="u" href="/modules/">six modules</a> under one grammar), an interactive
@@ -99,65 +99,26 @@ footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;colo
     lectures about expiry. <a class="u" href="/notes/noetic-log-001/">Log 001</a> carries the
     lineage of this failure class.</p>
 
-  <h2>The rating — owner-judged, adversarially informed, no anesthesia</h2>
-  <p>Scores are the owner's judgments after the hostile review, not measurements. Each row
-    names why the score is not higher, which is the only interesting column.</p>
+  <h2>What passed, what failed, and what remains untested — 2026-10-17</h2>
+  <p>This replaces the owner’s eight numerical grades. The <a href="https://github.com/Cubits11/cubits11.github.io/blob/f2249c113335feb8b2a3ccb9e4cd9951e002592a/notes/noetic-log-002/index.html">original August 23 entry</a> remains in repository history. Passing one check establishes its declared condition, rather than a grade for the whole project.</p>
 
-  <div class="rating">
+  <div class="evidence-matrix" tabindex="0" role="region" aria-label="Dated evidence outcomes, scrollable">
     <table>
-      <thead><tr><th>Dimension</th><th>Score</th><th>Why not higher</th></tr></thead>
+      <caption class="sr-only">Recorded outcomes and their limits as of October 17, 2026</caption>
+      <thead><tr><th scope="col">Area</th><th scope="col">Outcome and date</th><th scope="col">Evidence and remaining limit</th></tr></thead>
       <tbody>
-        <tr><td class="dim">Mathematical faithfulness</td><td class="score">9.5 / 10</td>
-          <td>Every displayed number is machine-checked or commit-bound. Docked: the only
-            arithmetic on the site is a two-guardrail toy — flawless, and small.</td></tr>
-        <tr><td class="dim">Evidence realism</td><td class="score">9 / 10</td>
-          <td>Bindings, reproduction, reachability, freshness are all real and enforced.
-            Docked: the strongest empirical fact on display is an absence — E2 is frozen and
-            untested. The governance outruns the science it governs.</td></tr>
-        <tr><td class="dim">Epistemic severity</td><td class="score">9 / 10</td>
-          <td>Thirteen envelopes, non-claims walls, planned pages that claim nothing. Docked:
-            severity held for numbers and slipped in narration — the P0 finding was prose
-            inflating the machinery's own track record, caught by a hired adversary, not by
-            the machinery.</td></tr>
-        <tr><td class="dim">Semantic visual language</td><td class="score">8.5 / 10</td>
-          <td>Cyan/amber/red now mean one thing each, and green means nothing. Docked: the
-            color law shipped violated in three places and needed the hostile review to become
-            coherent; light-mode amber and gold remain confusable, mitigated only by the
-            never-color-alone rule.</td></tr>
-        <tr><td class="dim">Visual hierarchy &amp; elegance</td><td class="score">8 / 10</td>
-          <td>The type system carries real authority. Docked: the front page was restructured
-            more than shortened; six nav routes, three doors, and two strips compete for the
-            same first click; the six module pages are template-uniform to the edge of
-            monotony.</td></tr>
-        <tr><td class="dim">Accessibility</td><td class="score">7 / 10 (provisional)</td>
-          <td>Structure is right — skip links, SVG descriptions that carry the argument,
-            reduced-motion neutrality, no hover-only information, computed AA contrast. Docked
-            hard: no keyboard-only traversal and no screen-reader pass has been run. Computed
-            accessibility is a hypothesis about lived accessibility.</td></tr>
-        <tr><td class="dim">Cold-viewer comprehension</td><td class="score">6.5 / 10</td>
-          <td>The instrument teaches by dragging, which is the site's best pedagogy. Docked:
-            the vocabulary wall is real — "partial identification," "witnesses," "envelopes"
-            above the fold — and the central hypothesis that any of this grammar helps a
-            reader is untested with the null alive. A 90-second visitor may leave impressed
-            and uninformed, which is this site's named failure mode.</td></tr>
-        <tr><td class="dim">Research threat surface</td><td class="score">5 / 10</td>
-          <td>The brutal row. What the site proves today: discipline about a toy example, one
-            synthetic study, and its own governance. Zero real guardrails measured. A hostile
-            reader's fair summary — "an exoskeleton that has not yet lifted anything real" —
-            currently stands, and nothing on this page rebuts it. Only E2 data can.</td></tr>
+        <tr><th scope="row">Bound-kernel reproduction</th><td>PASSED · 2026-10-12</td><td>The reproduction step passed in the <a href="https://github.com/Cubits11/cubits11.github.io/actions/runs/38311805955">October 12 run</a>. It does not establish scientific execution or inferential validity outside its checks; see <a href="/records/conformance/">check coverage</a>.</td></tr>
+        <tr><th scope="row">Full weekly checks</th><td>FAILED · 2026-10-12</td><td>The October 12 full weekly run failed. The last successful weekly run before it was September 21. Full failure logs were unavailable during review; the cause remains unknown. <a href="/status/">Inspect run links and current status</a>.</td></tr>
+        <tr><th scope="row">E2 measurement</th><td>INCOMPLETE · observed 2026-10-17</td><td>No conforming completed E2 result was found in the public record. The published E9 result uses different guards, pools, and operating points; it does not complete E2. <a href="/now/">Inspect current work and blockers</a>.</td></tr>
+        <tr><th scope="row">Research claims corrected</th><td>REJECTED · 2026-09-10</td><td>E6’s fixed-marginal range and E7B’s preregistration-conforming claim were rejected. Reproduction alone did not catch every execution or inference error. <a href="/corrections/#research-dispositions">Read the dispositions</a>.</td></tr>
+        <tr><th scope="row">Accessibility</th><td>PARTIAL · observed 2026-10-17</td><td>The prior live homepage’s menu opened, Escape closed it, and focus returned. That sampled interaction is not a full keyboard-only traversal. A complete screen-reader pass has not been run.</td></tr>
+        <tr><th scope="row">Unfamiliar-reader effects</th><td>UNTESTED · observed 2026-10-17</td><td>No completed comparison establishes improved comprehension, calibration, or evidence checking. <a href="/claims/rel-001/">REL-001’s review window</a> first expired September 23 and was renewed by the owner on October 17. A renewed window is not a completed reader study.</td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="verdict">
-    <span class="mono">The brutal line</span>
-    <p>Instrument-grade scaffolding around a research program that has not yet produced its
-      first empirical result. The scaffolding is genuinely rare. It is still scaffolding, and
-      thirty days from now the only question that matters is whether something real got
-      lifted.</p>
-  </div>
-
-  <h2>What would make this instrument dangerous</h2>
+  <h2>Original research direction — 2026-08-23</h2>
+  <p style="color:var(--muted)">The following paragraph records the direction stated at publication. The dated lookback below describes what subsequently changed.</p>
   <p>Dangerous in the only sense this record endorses: menace pointed at claims, never at
     people. The site's machinery — envelopes, bounds, witnesses, expiry — currently prosecutes
     only its own claims. The move that turns it from a portfolio into a threat to overclaiming
@@ -168,8 +129,9 @@ footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;colo
     visible, applied where it stings. That requires E2 to exist first, which is why the
     lookback below has teeth.</p>
 
-  <div class="contract">
-    <span class="mono">The lookback contract — due 2026-09-23</span>
+  <details class="contract" id="lookback-contract">
+    <summary><strong>Original lookback contract — due 2026-09-23</strong></summary>
+    <p style="color:var(--muted)">Historical wording from 2026-08-23 is retained below. References to scores refer to the numerical self-grades removed in the October 17 editorial revision. The December clock forecast was wrong; see answer 5 below.</p>
     <p style="color:var(--muted)">On or after that date, answer each question against evidence
       that exists outside this page. Anyone can run this checklist; none of it requires
       trusting the owner.</p>
@@ -194,12 +156,23 @@ footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;colo
       stasis beautifully — an instrument without an experiment — and the research-threat score
       falls from 5 to 3. That sentence is written now, while it can still be falsified by
       work.</p>
-  </div>
+  </details>
 
-  <div class="nonclaim nc-line"><span class="mono">Non-claims</span> — the scores above are
-    owner-attested judgments, not measurements; no reader study exists and none is implied.
-    This entry is hand-written and carries no evidence markers; the linked gates and Actions
-    history are the checkable parts.</div>
+  <section id="lookback-2026-10-17" aria-labelledby="lookback-title" style="padding:0">
+    <h2 id="lookback-title">Lookback disposition — 2026-10-17, published 24 days late</h2>
+    <p>The original promise is retained above. These answers describe the public artifacts inspected on October 17; unknowns remain explicit.</p>
+    <ol>
+      <li><strong>Did the standing gate stand? Three scheduled checks failed.</strong> The full weekly runs on <a href="https://github.com/Cubits11/cubits11.github.io/actions/runs/36476320870">September 28</a>, <a href="https://github.com/Cubits11/cubits11.github.io/actions/runs/37373178998">October 5</a>, and <a href="https://github.com/Cubits11/cubits11.github.io/actions/runs/38311805955">October 12</a> failed. The last successful weekly run before those failures was September 21. October 12’s bound-kernel reproduction step passed; the whole workflow did not. Full failure logs returned an access error during inspection, so this review does not assign a cause. <a href="/status/">The status page</a> links the verified run records and updates separately from this dated snapshot.</li>
+      <li><strong>Did E2 move? It remains incomplete; E9 is a separate published result.</strong> No conforming completed E2 result was found. Its owner-authorized collection and freeze requirements remain unresolved in <a href="https://github.com/Cubits11/cubits11.github.io/tree/main/experiments/e2">the E2 record</a>. The <a href="https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/RESULT.md">1,000-item E9 result</a> merged in <a href="https://github.com/Cubits11/cubits11.github.io/pull/26">PR 26</a>, with different guards, pools, and operating points. Its scoped publication does not fulfill E2’s frozen contract. <a href="/now/">The research board</a> makes that distinction visible.</li>
+      <li><strong>Were the open QA items closed? Partly; the full promise remains open.</strong> The prior live homepage’s mobile menu opened, Escape closed it, and focus returned to the button. This is one sampled keyboard interaction, not a complete keyboard-only traversal. A complete screen-reader pass has not been run. A sampled browser inspection of the revised homepage at 390 × 844 confirmed that the subject, email link, correction, and fetched FAILED status were visible. This is a viewport check, not a complete keyboard traversal. No unfamiliar-reader comprehension study has been completed.</li>
+      <li><strong>Did any external falsifier arrive? Public corrections exist; the full arrival history is unverified here.</strong> The <a href="/corrections/">correction record</a> records the missed census artifact and subsequent claim dispositions, including E6 and E7B’s September 10 rejections. Those are observable changes to the public record. This review has not independently established which arose from an external submission, and it has not inspected private mail. It therefore cannot claim either that no external falsifier arrived or that every arrival was handled. Public issue and correspondence intake remain an open audit item.</li>
+      <li><strong>What happened to the review clocks? The elapsed window was renewed.</strong> The August forecast “None should before December” was wrong: <a href="/claims/rel-001/">REL-001</a> initially reached its September 23 review deadline. The owner renewed its last review to October 17 in the current registry; the next review is November 16. No completed reader study is thereby established. Expiry changes review status, not the hypothesis’s truth value. The <a href="/status/">deadline queue</a> is derived from registry dates and keeps elapsed deadlines visible until a disposition is recorded.</li>
+      <li><strong>Did the claim count move for the right reason? The increase alone cannot answer that.</strong> The August 23 entry recorded thirteen claims; the current <a href="/ledger/">registry</a> contains <span data-claim-count-state="current">21 claims</span>. That difference does not establish eight new validated findings. A post-result registration of the E9 result, E9-001, is proposed in draft PR 31 and is not counted here. Each claim must be assessed through its evidence, status, <a href="https://github.com/Cubits11/cubits11.github.io/blob/main/claims_history.yaml">history</a>, and limits. The rejected claims, incomplete E2 study, and scoped E9 result remain visible rather than being counted as completed evidence.</li>
+    </ol>
+    <p><strong>Disposition:</strong> this review missed its deadline. The public record contains later work and corrections, so the original “nothing moved” condition is not established. It also contains failed full checks, an incomplete E2 study, outstanding accessibility work, and no completed reader comparison. Those unresolved items remain in the current status and research views; this entry does not award a replacement grade.</p>
+  </section>
+
+  <div class="nonclaim nc-line"><span class="mono">Limits of this review</span> — this is a dated editorial review of linked public records. It does not independently validate every claim, verify private correspondence, or establish reader effects. Check outcomes and claim review dates remain distinct.</div>
 
 </main>
 

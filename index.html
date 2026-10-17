@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pranav Bhave — what AI guardrail stacks miss together</title>
-<meta name="description" content="Guardrail evaluations score each detector and omit what the stack misses together. A bounded census of 20 public evaluations, and the one table row that fixes it.">
+<meta name="description" content="A bounded review of 20 public guardrail evaluations: five retain some joint evidence; none document matched thresholds with full exposure. Evaluation design and claim audits by Pranav Bhave.">
 <link rel="canonical" href="https://cubits11.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Pranav Bhave — what AI guardrail stacks miss together">
-<meta property="og:description" content="Four guardrails. Four scores. One missing column — the joint outcome no per-detector score determines. A source-bound census, an identification result, and the row that fixes it.">
+<meta property="og:description" content="Two AI guards can fail on the same attack. Their individual scores do not identify shared misses. Explore a constructed example and a bounded review of 20 public evaluations.">
 <meta property="og:url" content="https://cubits11.github.io/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og-missing-column.png">
 <meta property="og:image:width" content="1200">
@@ -38,148 +38,14 @@
 <link rel="preload" href="/assets/fonts/fraunces-roman.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans-roman.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/fragment-mono.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="/assets/img/portrait-960.jpg"
-      imagesrcset="/assets/img/portrait-480.webp 480w, /assets/img/portrait-720.webp 720w, /assets/img/portrait-960.webp 960w"
-      imagesizes="(min-width: 900px) 36vw, 82vw">
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="stylesheet" href="/assets/world.css">
+<link rel="stylesheet" href="/assets/status.css">
 <script defer src="/assets/site.js"></script>
-<style>
-/* ---------- page-specific: the record's front page ---------- */
-body::after{ /* grain */
-  content:"";position:fixed;inset:0;z-index:9;pointer-events:none;opacity:var(--noise-opacity);
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-@media print{body::after{display:none}}
-
-/* hero */
-.hero{padding-top:clamp(4rem,9vh,7rem);padding-bottom:clamp(3rem,6vh,5rem)}
-.hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(2.5rem,6vw,5rem);align-items:center}
-/* A grid item's automatic minimum is its min-content width, and the motif
-   table declares a 38rem minimum so it can scroll inside .fig-scroll. Without
-   this, the single-column mobile layout inherits that 608px floor and the
-   whole page scrolls sideways. */
-.hero-grid > *{min-width:0}
-.kicker{color:var(--gold);display:flex;align-items:center;gap:.9rem;margin-bottom:1.5rem}
-.kicker::before{content:"";width:2.2rem;height:1px;background:var(--gold);flex:none}
-.name{display:flex;flex-direction:column;text-transform:uppercase;
-  font-size:clamp(3.2rem,10.5vw,8.2rem);font-weight:560;line-height:.95;letter-spacing:-.018em}
-.prop{font-size:clamp(1.12rem,1.75vw,1.34rem);line-height:1.6;color:var(--ink);max-width:31em;margin-top:1.8rem;font-weight:500}
-.onramp{max-width:52ch;margin:1.05rem 0 0;font:400 clamp(1rem,1.6vw,1.12rem)/1.62 var(--sans);
-  color:var(--ink);border-left:2px solid var(--gold);padding-left:1rem}
-.onramp strong{font-weight:600}
-
-/* the missing column — campaign strip */
-.mc-strip{border:1px solid var(--line-strong);border-left:2px solid var(--review);background:var(--surface);padding:clamp(1.3rem,3vw,1.9rem);margin:0 0 3.2rem}
-.mc-title{font-weight:520;font-size:clamp(1.35rem,2.6vw,1.8rem);line-height:1.25;letter-spacing:-.01em;margin:.2rem 0 1.1rem;max-width:30em}
-.mc-motif{border-collapse:collapse;width:100%;background:var(--bg)}
-.mc-motif th,.mc-motif td{border:1px solid var(--line);padding:.55rem .8rem;text-align:center;font-variant-numeric:tabular-nums}
-.mc-motif th{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400}
-.mc-motif td{font-family:var(--serif);font-size:1.2rem}
-.mc-motif th.mc-stack{color:var(--gold)}
-.mc-motif td.mc-missing{border:1px dashed var(--review)}
-.mc-motif td.mc-missing .mono{color:var(--review);font-size:.64rem;letter-spacing:.06em}
-.mc-line{color:var(--muted);font-size:.95rem;max-width:52em;margin:1rem 0 0}
-.mc-strip .cta-row{margin-top:1.2rem}
-@media (max-width:560px){.mc-motif{min-width:38rem}.mc-motif th,.mc-motif td{padding:.55rem .7rem}.mc-motif td{font-size:1rem}.mc-motif th{font-size:.7rem;letter-spacing:.06em}.mc-motif td.mc-missing .mono{font-size:.65rem;letter-spacing:.05em}}
-.lede{font-size:clamp(.98rem,1.35vw,1.08rem);line-height:1.72;color:var(--muted);max-width:36em;margin-top:.9rem}
-.lede em{font-family:var(--serif);font-style:italic;font-size:1.06em;color:var(--ink);font-weight:480}
-.fang{margin-top:1.5rem;color:var(--gold)}
-.fang a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
-.fact-row{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.15rem}
-.fact{border:1px solid var(--line-strong);border-radius:999px;padding:.42rem .85rem;color:var(--muted);white-space:nowrap}
-.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.35rem}
-.hero-h1{font-weight:520;font-size:clamp(2.1rem,4.6vw,3.35rem);line-height:1.06;letter-spacing:-.02em;margin:0}
-.hero-sub{margin-top:1.1rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:.5rem}
-.hero-sub a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
-.hero-sub a:hover{color:var(--ink)}
-.fact-row .fact b{color:var(--ink);font-weight:520}
-
-/* photo as dossier object */
-.fig{border:1px solid var(--line-strong);outline:1px solid color-mix(in srgb, var(--gold) 45%, transparent);outline-offset:6px;
-  background:var(--surface);padding:.85rem;max-width:26rem;justify-self:end;width:100%}
-.fig img{width:100%;aspect-ratio:4/5;object-fit:cover;background:#4b5b21 center/cover no-repeat}
-.fig-caption{display:flex;flex-direction:column;gap:.35rem;padding:.8rem .15rem .1rem;color:var(--muted)}
-.fig-caption-row{display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.swatches{display:flex;gap:.4rem}
-.swatches span{width:.85rem;height:.85rem;border-radius:50%;border:1px solid rgba(0,0,0,.25);display:block}
-.swatch-hexes{font-size:.6rem;letter-spacing:.06em}
-
-/* the feasible-worlds instrument (CC-VIS-001) */
-.bounds-fig{margin:0 0 clamp(2rem,5vw,3.5rem);padding:clamp(1.1rem,3vw,1.9rem);
-  border:1px solid var(--line);border-radius:4px;background:var(--surface)}
-.bounds-fig svg{width:100%;height:auto;display:block}
-.bounds-fig .hsA{fill:var(--sage);opacity:.6}
-.bounds-fig .hsB{fill:var(--gold);opacity:.6}
-.bounds-fig .hsX{fill:var(--ink);opacity:.88}
-.bounds-fig .hunit{fill:var(--bg);stroke:var(--line-strong);stroke-width:1.25}
-.bounds-fig .hband{fill:var(--evidence);opacity:.3}
-.bounds-fig .haxis{stroke:var(--evidence);stroke-width:1.5}
-.bounds-fig .hdot{fill:var(--evidence)}
-.bounds-fig .hindep{stroke:var(--review);stroke-width:1.5;stroke-dasharray:3 3}
-.bounds-fig .hmono{font:12px var(--mono);fill:var(--muted)}
-.bounds-fig .hink{font:12px var(--mono);fill:var(--ink)}
-.bounds-fig .hlbl{font:11px var(--mono);fill:var(--muted);letter-spacing:.07em;text-transform:uppercase}
-.bounds-fig .hf{opacity:0}
-.bounds-fig .hf.on{opacity:1}
-html:not(.js) .bounds-fig .hf0{opacity:1} /* no-JS world: the lower endpoint witness, interval always on the axis */
-.bounds-ctl{margin-top:1rem;display:flex;flex-direction:column;gap:.5rem}
-html:not(.js) .bounds-ctl{display:none}
-.bounds-ctl label{color:var(--muted)}
-.bounds-ctl-row{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-.bounds-ctl input[type=range]{flex:1;min-width:200px;accent-color:var(--evidence)}
-.bounds-ctl output{color:var(--ink)}
-.bounds-caption{margin:.9rem 0 0;font:400 .85rem/1.6 var(--sans);color:var(--muted);max-width:62ch}
-.bounds-caption strong{color:var(--ink);font-weight:600}
-
-/* five-card protocol */
-.protocol{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem;margin-bottom:2.4rem}
-.pcard{border:1px solid var(--line-strong);background:var(--surface);padding:1.1rem 1rem 1.25rem;min-height:9.5rem;display:flex;flex-direction:column;gap:.6rem}
-.pcard .mono{color:var(--gold)}
-.pcard p{color:var(--muted);font-size:.88rem;line-height:1.55;margin:0}
-.method-note{color:var(--muted);max-width:50em}
-.method-note em{font-family:var(--serif);font-style:italic;color:var(--ink)}
-
-/* flagship split */
-.flagship{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:clamp(1.8rem,4vw,3.2rem)}
-
-/* research & training */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem)}
-.entry{padding:1.4rem 0;border-top:1px solid var(--line)}
-.entry:last-child{border-bottom:1px solid var(--line)}
-.entry .when{color:var(--muted);display:block;margin-bottom:.45rem}
-.entry h3{font-size:1.22rem;margin-bottom:.5rem}
-.entry p{color:var(--muted);font-size:.97rem;margin:0}
-.cred-note{color:var(--muted);font-size:.85rem;margin-top:1.2rem;max-width:36em}
-
-/* current question strip */
-.question-strip{border-block:1px solid var(--line);background:var(--surface);padding-block:clamp(2.6rem,6vh,4rem)}
-.question-strip .mono{color:var(--gold)}
-.bigq{font-family:var(--serif);font-size:clamp(1.5rem,3.2vw,2.3rem);font-weight:500;line-height:1.25;max-width:24em;margin:.8rem 0 1rem;letter-spacing:-.01em}
-.question-strip p{color:var(--muted);max-width:52em}
-
-/* contact */
-.contact-line{font-family:var(--serif);font-size:clamp(2rem,4.6vw,3.4rem);font-weight:500;line-height:1.18;max-width:18em}
-.contact-line em{font-style:italic;color:var(--gold)}
-.contact-prop{color:var(--muted);max-width:42em;margin-top:1.4rem;font-size:1.05rem}
-.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
-
-@media (max-width: 900px){
-  .hero-grid{grid-template-columns:1fr}
-  .fig{justify-self:start;max-width:24rem}
-  .flagship{grid-template-columns:1fr}
-  .protocol{grid-template-columns:repeat(2,1fr)}
-  .pcard{min-height:8rem}
-  .split{grid-template-columns:1fr}
-}
-@media (max-width: 560px){
-  .protocol{grid-template-columns:1fr 1fr}
-}
-</style>
+<script defer src="/assets/check-status.js"></script>
 </head>
-<body>
+<body class="home">
 <a class="skip" href="#main">Skip to content</a>
-
 <header class="site-head">
   <div class="container">
     <a class="wordmark" href="/">Pranav Bhave</a>
@@ -199,154 +65,39 @@ html:not(.js) .bounds-ctl{display:none}
   </div>
 </header>
 
-<div class="class-bar mono">
-  <div class="container">
-    <span><b>Public record</b> — every marked claim bound in the <a class="u" href="/ledger/">ledger</a></span>
-    <span data-claim-count-state="current">Registry <b>v0.4</b> · 21 claims</span>
-    <span>CI prosecution: <b>weekly</b> + every push</span>
-  </div>
-</div>
-
-<main id="main">
-<div class="container"><aside class="snapshot-note" aria-label="Current correction status"><strong>Correction status · 2026-09-10:</strong> E6’s fixed-marginal range and E7B’s preregistration-conforming claim are rejected. <a href="/corrections/#research-dispositions">Read the dispositions</a> or <a href="/overlap/">start with a constructed example</a>.</aside></div>
-
-  <section class="world-entrance" id="top" aria-labelledby="entrance-title">
-    <div class="container">
-      <p class="world-eyebrow mono">Cubits11 / the research world of Pranav Bhave</p>
-      <div class="world-intro">
-        <div>
-          <h1 class="world-title" id="entrance-title">Keep the wonder.<br><em>Check the claim.</em></h1>
-          <p class="world-lede">The interesting part is what the numbers leave out.<br>I build ways to see it, question it, and check it.</p>
-          <div class="world-actions"><a class="btn btn-solid" href="/explore/#instrument">Enter the experiment <span aria-hidden="true">↗</span></a><a class="world-link" href="#record">Inspect the research ↓</a></div>
-        </div>
-        <div class="world-plate">
-          <div class="world-plate-top mono"><span>Same scores. Different worlds.</span><span>Construction / 01</span></div>
-          <div class="world-pair">
-            <figure><svg viewBox="0 0 222 222" role="img" aria-labelledby="entrance-lower-title"><title id="entrance-lower-title">Constructed 100-item world: A misses ten, B misses ten, both miss 0.</title><circle cx="12" cy="12" r="3" fill="var(--line-strong)"/><circle cx="34" cy="12" r="3" fill="var(--line-strong)"/><circle cx="56" cy="12" r="3" fill="var(--line-strong)"/><circle cx="78" cy="12" r="3" fill="var(--line-strong)"/><circle cx="100" cy="12" r="3" fill="var(--line-strong)"/><circle cx="122" cy="12" r="3" fill="var(--line-strong)"/><circle cx="144" cy="12" r="3" fill="var(--line-strong)"/><circle cx="166" cy="12" r="3" fill="var(--line-strong)"/><circle cx="188" cy="12" r="3" fill="var(--line-strong)"/><circle cx="210" cy="12" r="3" fill="var(--line-strong)"/><circle cx="12" cy="34" r="3" fill="var(--line-strong)"/><circle cx="34" cy="34" r="3" fill="var(--line-strong)"/><circle cx="56" cy="34" r="3" fill="var(--line-strong)"/><circle cx="78" cy="34" r="3" fill="var(--line-strong)"/><circle cx="100" cy="34" r="3" fill="var(--line-strong)"/><circle cx="122" cy="34" r="3" fill="var(--line-strong)"/><circle cx="144" cy="34" r="3" fill="var(--line-strong)"/><circle cx="166" cy="34" r="3" fill="var(--line-strong)"/><circle cx="188" cy="34" r="3" fill="var(--line-strong)"/><circle cx="210" cy="34" r="3" fill="var(--line-strong)"/><circle cx="12" cy="56" r="3" fill="var(--line-strong)"/><circle cx="34" cy="56" r="3" fill="var(--line-strong)"/><circle cx="56" cy="56" r="3" fill="var(--line-strong)"/><circle cx="78" cy="56" r="3" fill="var(--line-strong)"/><circle cx="100" cy="56" r="3" fill="var(--line-strong)"/><circle cx="122" cy="56" r="3" fill="var(--line-strong)"/><circle cx="144" cy="56" r="3" fill="var(--line-strong)"/><circle cx="166" cy="56" r="3" fill="var(--line-strong)"/><circle cx="188" cy="56" r="3" fill="var(--line-strong)"/><circle cx="210" cy="56" r="3" fill="var(--line-strong)"/><circle cx="12" cy="78" r="3" fill="var(--line-strong)"/><circle cx="34" cy="78" r="3" fill="var(--line-strong)"/><circle cx="56" cy="78" r="3" fill="var(--line-strong)"/><circle cx="78" cy="78" r="3" fill="var(--line-strong)"/><circle cx="100" cy="78" r="3" fill="var(--line-strong)"/><circle cx="122" cy="78" r="3" fill="var(--line-strong)"/><circle cx="144" cy="78" r="3" fill="var(--line-strong)"/><circle cx="166" cy="78" r="3" fill="var(--line-strong)"/><circle cx="188" cy="78" r="3" fill="var(--line-strong)"/><circle cx="210" cy="78" r="3" fill="var(--line-strong)"/><circle cx="12" cy="100" r="3" fill="var(--line-strong)"/><circle cx="34" cy="100" r="3" fill="var(--line-strong)"/><circle cx="56" cy="100" r="3" fill="var(--line-strong)"/><circle cx="78" cy="100" r="3" fill="var(--line-strong)"/><circle cx="100" cy="100" r="3" fill="var(--line-strong)"/><circle cx="122" cy="100" r="3" fill="var(--line-strong)"/><circle cx="144" cy="100" r="3" fill="var(--line-strong)"/><circle cx="166" cy="100" r="3" fill="var(--line-strong)"/><circle cx="188" cy="100" r="3" fill="var(--line-strong)"/><circle cx="210" cy="100" r="3" fill="var(--line-strong)"/><circle cx="12" cy="122" r="3" fill="var(--line-strong)"/><circle cx="34" cy="122" r="3" fill="var(--line-strong)"/><circle cx="56" cy="122" r="3" fill="var(--line-strong)"/><circle cx="78" cy="122" r="3" fill="var(--line-strong)"/><circle cx="100" cy="122" r="3" fill="var(--line-strong)"/><circle cx="122" cy="122" r="3" fill="var(--line-strong)"/><circle cx="144" cy="122" r="3" fill="var(--line-strong)"/><circle cx="166" cy="122" r="3" fill="var(--line-strong)"/><circle cx="188" cy="122" r="3" fill="var(--line-strong)"/><circle cx="210" cy="122" r="3" fill="var(--line-strong)"/><circle cx="12" cy="144" r="3" fill="var(--line-strong)"/><circle cx="34" cy="144" r="3" fill="var(--line-strong)"/><circle cx="56" cy="144" r="3" fill="var(--line-strong)"/><circle cx="78" cy="144" r="3" fill="var(--line-strong)"/><circle cx="100" cy="144" r="3" fill="var(--line-strong)"/><circle cx="122" cy="144" r="3" fill="var(--line-strong)"/><circle cx="144" cy="144" r="3" fill="var(--line-strong)"/><circle cx="166" cy="144" r="3" fill="var(--line-strong)"/><circle cx="188" cy="144" r="3" fill="var(--line-strong)"/><circle cx="210" cy="144" r="3" fill="var(--line-strong)"/><circle cx="12" cy="166" r="3" fill="var(--line-strong)"/><circle cx="34" cy="166" r="3" fill="var(--line-strong)"/><circle cx="56" cy="166" r="3" fill="var(--line-strong)"/><circle cx="78" cy="166" r="3" fill="var(--line-strong)"/><circle cx="100" cy="166" r="3" fill="var(--line-strong)"/><circle cx="122" cy="166" r="3" fill="var(--line-strong)"/><circle cx="144" cy="166" r="3" fill="var(--line-strong)"/><circle cx="166" cy="166" r="3" fill="var(--line-strong)"/><circle cx="188" cy="166" r="3" fill="var(--line-strong)"/><circle cx="210" cy="166" r="3" fill="var(--line-strong)"/><circle cx="12" cy="188" r="3" fill="var(--line-strong)"/><circle cx="34" cy="188" r="3" fill="var(--line-strong)"/><circle cx="56" cy="188" r="3" fill="var(--line-strong)"/><circle cx="78" cy="188" r="3" fill="var(--line-strong)"/><circle cx="100" cy="188" r="3" fill="var(--line-strong)"/><circle cx="122" cy="188" r="3" fill="var(--line-strong)"/><circle cx="144" cy="188" r="3" fill="var(--line-strong)"/><circle cx="166" cy="188" r="3" fill="var(--line-strong)"/><circle cx="188" cy="188" r="3" fill="var(--line-strong)"/><circle cx="210" cy="188" r="3" fill="var(--line-strong)"/><circle cx="12" cy="210" r="3" fill="var(--line-strong)"/><circle cx="34" cy="210" r="3" fill="var(--line-strong)"/><circle cx="56" cy="210" r="3" fill="var(--line-strong)"/><circle cx="78" cy="210" r="3" fill="var(--line-strong)"/><circle cx="100" cy="210" r="3" fill="var(--line-strong)"/><circle cx="122" cy="210" r="3" fill="var(--line-strong)"/><circle cx="144" cy="210" r="3" fill="var(--line-strong)"/><circle cx="166" cy="210" r="3" fill="var(--line-strong)"/><circle cx="188" cy="210" r="3" fill="var(--line-strong)"/><circle cx="210" cy="210" r="3" fill="var(--line-strong)"/><circle cx="12" cy="12" r="5" fill="var(--evidence)"/><circle cx="34" cy="12" r="5" fill="var(--evidence)"/><circle cx="56" cy="12" r="5" fill="var(--evidence)"/><circle cx="78" cy="12" r="5" fill="var(--evidence)"/><circle cx="100" cy="12" r="5" fill="var(--evidence)"/><circle cx="122" cy="12" r="5" fill="var(--evidence)"/><circle cx="144" cy="12" r="5" fill="var(--evidence)"/><circle cx="166" cy="12" r="5" fill="var(--evidence)"/><circle cx="188" cy="12" r="5" fill="var(--evidence)"/><circle cx="210" cy="12" r="5" fill="var(--evidence)"/><circle cx="12" cy="34" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="34" cy="34" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="56" cy="34" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="78" cy="34" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="100" cy="34" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="122" cy="34" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="144" cy="34" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="166" cy="34" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="188" cy="34" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="210" cy="34" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/></svg><figcaption><strong>0 together</strong>A misses 10. B misses 10.</figcaption></figure>
-            <figure><svg viewBox="0 0 222 222" role="img" aria-labelledby="entrance-upper-title"><title id="entrance-upper-title">Constructed 100-item world: A misses ten, B misses ten, both miss 10.</title><circle cx="12" cy="12" r="3" fill="var(--line-strong)"/><circle cx="34" cy="12" r="3" fill="var(--line-strong)"/><circle cx="56" cy="12" r="3" fill="var(--line-strong)"/><circle cx="78" cy="12" r="3" fill="var(--line-strong)"/><circle cx="100" cy="12" r="3" fill="var(--line-strong)"/><circle cx="122" cy="12" r="3" fill="var(--line-strong)"/><circle cx="144" cy="12" r="3" fill="var(--line-strong)"/><circle cx="166" cy="12" r="3" fill="var(--line-strong)"/><circle cx="188" cy="12" r="3" fill="var(--line-strong)"/><circle cx="210" cy="12" r="3" fill="var(--line-strong)"/><circle cx="12" cy="34" r="3" fill="var(--line-strong)"/><circle cx="34" cy="34" r="3" fill="var(--line-strong)"/><circle cx="56" cy="34" r="3" fill="var(--line-strong)"/><circle cx="78" cy="34" r="3" fill="var(--line-strong)"/><circle cx="100" cy="34" r="3" fill="var(--line-strong)"/><circle cx="122" cy="34" r="3" fill="var(--line-strong)"/><circle cx="144" cy="34" r="3" fill="var(--line-strong)"/><circle cx="166" cy="34" r="3" fill="var(--line-strong)"/><circle cx="188" cy="34" r="3" fill="var(--line-strong)"/><circle cx="210" cy="34" r="3" fill="var(--line-strong)"/><circle cx="12" cy="56" r="3" fill="var(--line-strong)"/><circle cx="34" cy="56" r="3" fill="var(--line-strong)"/><circle cx="56" cy="56" r="3" fill="var(--line-strong)"/><circle cx="78" cy="56" r="3" fill="var(--line-strong)"/><circle cx="100" cy="56" r="3" fill="var(--line-strong)"/><circle cx="122" cy="56" r="3" fill="var(--line-strong)"/><circle cx="144" cy="56" r="3" fill="var(--line-strong)"/><circle cx="166" cy="56" r="3" fill="var(--line-strong)"/><circle cx="188" cy="56" r="3" fill="var(--line-strong)"/><circle cx="210" cy="56" r="3" fill="var(--line-strong)"/><circle cx="12" cy="78" r="3" fill="var(--line-strong)"/><circle cx="34" cy="78" r="3" fill="var(--line-strong)"/><circle cx="56" cy="78" r="3" fill="var(--line-strong)"/><circle cx="78" cy="78" r="3" fill="var(--line-strong)"/><circle cx="100" cy="78" r="3" fill="var(--line-strong)"/><circle cx="122" cy="78" r="3" fill="var(--line-strong)"/><circle cx="144" cy="78" r="3" fill="var(--line-strong)"/><circle cx="166" cy="78" r="3" fill="var(--line-strong)"/><circle cx="188" cy="78" r="3" fill="var(--line-strong)"/><circle cx="210" cy="78" r="3" fill="var(--line-strong)"/><circle cx="12" cy="100" r="3" fill="var(--line-strong)"/><circle cx="34" cy="100" r="3" fill="var(--line-strong)"/><circle cx="56" cy="100" r="3" fill="var(--line-strong)"/><circle cx="78" cy="100" r="3" fill="var(--line-strong)"/><circle cx="100" cy="100" r="3" fill="var(--line-strong)"/><circle cx="122" cy="100" r="3" fill="var(--line-strong)"/><circle cx="144" cy="100" r="3" fill="var(--line-strong)"/><circle cx="166" cy="100" r="3" fill="var(--line-strong)"/><circle cx="188" cy="100" r="3" fill="var(--line-strong)"/><circle cx="210" cy="100" r="3" fill="var(--line-strong)"/><circle cx="12" cy="122" r="3" fill="var(--line-strong)"/><circle cx="34" cy="122" r="3" fill="var(--line-strong)"/><circle cx="56" cy="122" r="3" fill="var(--line-strong)"/><circle cx="78" cy="122" r="3" fill="var(--line-strong)"/><circle cx="100" cy="122" r="3" fill="var(--line-strong)"/><circle cx="122" cy="122" r="3" fill="var(--line-strong)"/><circle cx="144" cy="122" r="3" fill="var(--line-strong)"/><circle cx="166" cy="122" r="3" fill="var(--line-strong)"/><circle cx="188" cy="122" r="3" fill="var(--line-strong)"/><circle cx="210" cy="122" r="3" fill="var(--line-strong)"/><circle cx="12" cy="144" r="3" fill="var(--line-strong)"/><circle cx="34" cy="144" r="3" fill="var(--line-strong)"/><circle cx="56" cy="144" r="3" fill="var(--line-strong)"/><circle cx="78" cy="144" r="3" fill="var(--line-strong)"/><circle cx="100" cy="144" r="3" fill="var(--line-strong)"/><circle cx="122" cy="144" r="3" fill="var(--line-strong)"/><circle cx="144" cy="144" r="3" fill="var(--line-strong)"/><circle cx="166" cy="144" r="3" fill="var(--line-strong)"/><circle cx="188" cy="144" r="3" fill="var(--line-strong)"/><circle cx="210" cy="144" r="3" fill="var(--line-strong)"/><circle cx="12" cy="166" r="3" fill="var(--line-strong)"/><circle cx="34" cy="166" r="3" fill="var(--line-strong)"/><circle cx="56" cy="166" r="3" fill="var(--line-strong)"/><circle cx="78" cy="166" r="3" fill="var(--line-strong)"/><circle cx="100" cy="166" r="3" fill="var(--line-strong)"/><circle cx="122" cy="166" r="3" fill="var(--line-strong)"/><circle cx="144" cy="166" r="3" fill="var(--line-strong)"/><circle cx="166" cy="166" r="3" fill="var(--line-strong)"/><circle cx="188" cy="166" r="3" fill="var(--line-strong)"/><circle cx="210" cy="166" r="3" fill="var(--line-strong)"/><circle cx="12" cy="188" r="3" fill="var(--line-strong)"/><circle cx="34" cy="188" r="3" fill="var(--line-strong)"/><circle cx="56" cy="188" r="3" fill="var(--line-strong)"/><circle cx="78" cy="188" r="3" fill="var(--line-strong)"/><circle cx="100" cy="188" r="3" fill="var(--line-strong)"/><circle cx="122" cy="188" r="3" fill="var(--line-strong)"/><circle cx="144" cy="188" r="3" fill="var(--line-strong)"/><circle cx="166" cy="188" r="3" fill="var(--line-strong)"/><circle cx="188" cy="188" r="3" fill="var(--line-strong)"/><circle cx="210" cy="188" r="3" fill="var(--line-strong)"/><circle cx="12" cy="210" r="3" fill="var(--line-strong)"/><circle cx="34" cy="210" r="3" fill="var(--line-strong)"/><circle cx="56" cy="210" r="3" fill="var(--line-strong)"/><circle cx="78" cy="210" r="3" fill="var(--line-strong)"/><circle cx="100" cy="210" r="3" fill="var(--line-strong)"/><circle cx="122" cy="210" r="3" fill="var(--line-strong)"/><circle cx="144" cy="210" r="3" fill="var(--line-strong)"/><circle cx="166" cy="210" r="3" fill="var(--line-strong)"/><circle cx="188" cy="210" r="3" fill="var(--line-strong)"/><circle cx="210" cy="210" r="3" fill="var(--line-strong)"/><circle cx="12" cy="12" r="5" fill="var(--evidence)"/><circle cx="34" cy="12" r="5" fill="var(--evidence)"/><circle cx="56" cy="12" r="5" fill="var(--evidence)"/><circle cx="78" cy="12" r="5" fill="var(--evidence)"/><circle cx="100" cy="12" r="5" fill="var(--evidence)"/><circle cx="122" cy="12" r="5" fill="var(--evidence)"/><circle cx="144" cy="12" r="5" fill="var(--evidence)"/><circle cx="166" cy="12" r="5" fill="var(--evidence)"/><circle cx="188" cy="12" r="5" fill="var(--evidence)"/><circle cx="210" cy="12" r="5" fill="var(--evidence)"/><circle cx="12" cy="12" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="34" cy="12" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="56" cy="12" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="78" cy="12" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="100" cy="12" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="122" cy="12" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="144" cy="12" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="166" cy="12" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="188" cy="12" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="210" cy="12" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5"/></svg><figcaption><strong>10 together</strong>A misses 10. B misses 10.</figcaption></figure>
-          </div>
-          <div class="world-legend"><span><i class="world-key a" aria-hidden="true"></i>A misses</span><span><i class="world-key" aria-hidden="true"></i>B misses</span><span>100 items in each world</span></div>
-          <p class="world-footnote">Both worlds fit the scores. The overlap changes everything.<br>Illustrative construction · <a href="/ledger/#CC-001">bound and scope</a></p>
-        </div>
+<main id="main" class="home-main">
+  <section id="top" class="home-problem" aria-labelledby="entrance-title">
+    <div class="container home-width">
+      <p class="home-eyebrow mono">AI guardrail evaluation · Pranav Bhave</p>
+      <h1 id="entrance-title">Two AI guards can fail on the same attack.</h1>
+      <p class="home-lede">Their individual scores do not tell you how often that happens.</p>
+      <div class="home-actions">
+        <a class="btn btn-solid" href="/try/">Try the 60-second proof <span aria-hidden="true">→</span></a>
+        <a class="home-email" href="mailto:bhavepranavwork@gmail.com">Email me <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="world-threshold">
-        <a href="/explore/#instrument"><span class="mono">01 / Touch the idea</span><strong>Move an assumption.</strong><p>Watch the compatible worlds change.</p></a>
-        <a href="/explore/#screening-room"><span class="mono">02 / See the structure</span><strong>A small cinema of evidence.</strong><p>Three ways into the existing film collection.</p></a>
-        <a href="/now/"><span class="mono">03 / Follow the work</span><strong>What is still unresolved?</strong><p>Current questions, frozen work, and the next evidence.</p></a>
-      </div>
+      <p class="home-correction"><strong>Correction:</strong> E6’s fixed-marginal range and E7B’s preregistration-conforming claim are rejected. <a href="/corrections/#research-dispositions">Read the dispositions</a>.</p>
+      <div id="public-check-status" class="check-status" role="status" aria-live="polite">Latest full check: UNKNOWN — checking GitHub.</div>
+      <p class="home-record-link"><a href="/status/">Checks and review dates</a></p>
     </div>
   </section>
 
-
-  <!-- ======================= HERO ======================= -->
-  <section class="hero" id="record" style="scroll-margin-top:5rem">
-    <div class="container hero-grid">
-      <div>
-        <p class="kicker mono reveal">Pranav Bhave — AI Assurance · Security Engineering · Evidence Systems</p>
-        <h2 class="hero-h1 reveal" style="--d:.06s">Four guardrails. Four scores.<br>One missing column.</h2>
-        <p class="prop reveal" style="--d:.1s">Guardrail evaluations score each detector and
-          usually omit what the declared stack misses together — the one number a deployment
-          decision actually rests on.</p>
-        <div class="fig-scroll reveal" style="--d:.14s;margin-top:1.7rem" tabindex="0" role="region" aria-label="Illustrative guardrail results table, scrollable">
-          <table class="mc-motif">
-            <caption class="sr-only">Illustrative: four guardrails with individual catch
-              rates, and an unreported final column for a declared static composition.</caption>
-            <thead><tr><th scope="col">Guard A</th><th scope="col">Guard B</th><th scope="col">Guard C</th><th scope="col">Guard D</th><th scope="col" class="mc-stack">THE STACK</th></tr></thead>
-            <tbody><tr><td>91%</td><td>88%</td><td>94%</td><td>86%</td><td class="mc-missing"><span class="mono">not reported</span></td></tr></tbody>
-          </table>
-        </div>
-        <p class="lede reveal" style="--d:.16s">Illustrative numbers; the gap is the point —
-          no arithmetic on the four printed columns recovers the fifth. I measure what AI
-          guardrail stacks miss together, and build evidence systems that show exactly what
-          data can and cannot establish.</p>
-        <p class="lede reveal" style="--d:.18s">A benchmark can score each supervisor jointly
-          across detection, false positives, latency, and cost; a deployed stack still needs
-          union and all-miss rates on the same items.</p>
-        <div class="fact-row mono reveal" style="--d:.22s">
-          <span class="fact"><b><span data-fact="MC-001.N" data-fact-state="current">20</span></b> evaluations examined</span>
-          <span class="fact"><b><span data-fact="MC-001.K" data-fact-state="current">5</span></b> preserve joint evidence</span>
-          <span class="fact"><b><span data-fact="MC-001.M3" data-fact-state="current">0</span></b> at matched thresholds</span>
-        </div>
-        <p class="hero-sub mono">MC-001: the <span data-fact="MC-001.M1" data-fact-state="current">14</span> shared-item rows and the <span data-fact="MC-001.ABSENT" data-fact-state="current">14</span> no-joint-artifact rows are different sets; <span data-fact="MC-001.M3" data-fact-state="current">0</span> document matched thresholds with full exposure — <a href="/missing-column/#sensitivity">2026-09-01 sensitivity</a>.</p>
-        <div class="hero-cta reveal" style="--d:.26s">
-          <a class="btn btn-solid" href="/missing-column/">Inspect the census</a>
-          <a class="btn" href="/essays/when-marginals-are-not-enough/">Read the five-minute proof</a>
-        </div>
-        <p class="hero-sub mono reveal" style="--d:.3s">
-          <a href="/try/">Reproduce it in 60 seconds</a> ·
-          <a href="/missing-column/disclosure/">Publish the missing row</a> ·
-          <a href="/work/">Work with me</a> ·
-          <a href="/resume/">Résumé</a>
-        </p>
-      </div>
-      <figure class="fig reveal" style="--d:.15s;margin:0">
-        <picture>
-          <source type="image/webp" srcset="/assets/img/portrait-480.webp 480w, /assets/img/portrait-720.webp 720w, /assets/img/portrait-960.webp 960w" sizes="(min-width: 900px) 36vw, 82vw">
-          <img src="/assets/img/portrait-960.jpg" width="960" height="1200"
-               alt="Pranav Bhave on a sunlit lawn in a navy polo and sunglasses, smiling, chin resting on his hand"
-               loading="lazy" decoding="async"
-               style="background-image:url('data:image/webp;base64,UklGRt4AAABXRUJQVlA4INIAAACwBQCdASoYAB4APt1YpU2opSOiN/qoARAbiWgAAFu0zrl2VsYxHqP8/9C+XHFScnYx14jHZbAA/ujOj3ubg9zrxCaT1x0J0iVOFxRmMPitCs+DohUj6KTatohSHQ928D0LsNfEtPBPhP2+gw3Qe28ss9rqCXgiy5+LTKM8ojzUR8gS+XA08ssH2GemE7LsiCjyYZEHb51UwdkZSRI31Sw3CKPMajkv3oz8IXzTGG3c6R970Hwa8DMUIJJiCkLhg0KIeCggKyvc6CQjhQB6CYuAAAA=');background-size:cover">
-        </picture>
-        <figcaption class="fig-caption mono">
-          <div class="fig-caption-row">
-            <span>Pranav Bhave · Penn State B.S. CS ’26 · Philadelphia</span>
-          </div>
-        </figcaption>
-      </figure>
+  <section id="missing-column" class="home-block" aria-labelledby="census-title">
+    <div class="container home-width">
+      <p class="home-eyebrow mono">01 / Bounded result</p>
+      <h2 id="census-title">I reviewed <span data-fact="MC-001.N" data-fact-state="current">20</span> public guardrail evaluations within a fixed search scope.</h2>
+      <p class="home-lede"><span data-fact="MC-001.K" data-fact-state="current">Five</span> preserve some joint evidence; <span data-fact="MC-001.M3" data-fact-state="current">zero</span> document matched thresholds with full exposure.</p>
+      <nav class="home-links" aria-label="Bounded census evidence"><a href="/missing-column/">Single-reviewer scope, sources and classifications</a><a href="/ledger/#MC-001">Claim and rejection conditions</a></nav>
     </div>
   </section>
 
-  <!-- ======================= START HERE ======================= -->
-  <section class="container" aria-labelledby="start-h" style="padding-block:0 3.5rem">
-    <p class="kicker mono reveal">Start with your question</p>
-    <h2 id="start-h" class="mc-title reveal" style="max-width:22em">A research front door before the dossier.</h2>
-    <nav class="doors reveal" aria-label="Start here">
-      <a class="door" href="/missing-column/">
-        <span class="mono">01 · The evidence</span>
-        <strong>Inspect the census</strong>
-        <span class="desc">Twenty public guardrail evaluations, examined against primary sources, with a live correction route.</span>
-      </a>
-      <a class="door" href="/answers/why-guardrail-miss-rates-do-not-multiply/">
-        <span class="mono">02 · The arithmetic</span>
-        <strong>Why miss rates do not multiply</strong>
-        <span class="desc">Two 10% detectors miss together anywhere from 0% to 10%. Independence picks one point; the data does not.</span>
-      </a>
-      <a class="door" href="/work/">
-        <span class="mono">03 · Work together</span>
-        <strong>Evaluation design and evidence audits</strong>
-        <span class="desc">Three concrete engagements, each with a stated artifact and a stated boundary.</span>
-      </a>
-    </nav>
-  </section>
-
-  <!-- ================= THE MISSING COLUMN — what it is ================= -->
-  <section class="container" id="missing-column" aria-labelledby="mc-h" style="padding-block:0">
-    <div class="mc-strip reveal">
-      <p class="kicker mono">The Missing Column — a source-bound census</p>
-      <h2 id="mc-h" class="mc-title">Which public evaluations preserve the joint evidence,
-        and which leave it unmeasured?</h2>
-      <p class="mc-line">A bounded, single-reviewer inventory of public guardrail
-        evaluations, examined against primary sources. Every row binds to its source with
-        quoted passages, a fixed classification, and its own correction history. The
-        inclusion wording is locked in repository history before any row was classified,
-        the headline is regenerated from a file anyone can mechanically make false, and a
-        qualifying artifact the search missed rejects the current counts rather than being
-        absorbed quietly.</p>
-      <div class="cta-row">
-        <a class="btn btn-solid" href="/missing-column/">Inspect the census</a>
-        <a class="btn" href="/missing-column/disclosure/">Publish the missing row</a>
-        <a class="btn" href="/stack-study/">Open the study preflight</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ THE FEASIBLE-WORLDS INSTRUMENT (CC-VIS-001) ============ -->
-  <section class="container" aria-label="The feasible-worlds instrument" style="padding-block:0">
-    <p class="onramp reveal" style="margin-bottom:1.4rem">Two guardrails each fail 10% of the time. How
-      often do they fail together? The common answer is 1%. The evidence permits
-      <strong>anywhere from 0% to 10%</strong> — multiplying the two rates quietly chose one
-      world out of many, and never said so. Choose for yourself:</p>
-<figure class="bounds-fig reveal" style="--d:.1s" id="worlds">
+  <section id="demonstration" class="home-block" aria-labelledby="demonstration-title">
+    <div class="container home-width">
+      <p class="home-eyebrow mono">02 / Demonstration</p>
+      <h2 id="demonstration-title"><a href="/explore/#instrument">Move the misses yourself</a>, then inspect the sources.</h2>
+      <p class="home-lede">This is a constructed example, not a measurement of a deployed system.</p>
+      <details class="home-figure-detail">
+        <summary>Inspect the checked 10%-and-10% construction here</summary>
+<figure class="bounds-fig" id="worlds">
 <div class="fig-scroll" tabindex="0" role="region" aria-label="Joint failure bounds figure, scrollable">
 <svg viewBox="0 0 900 268" role="img" aria-labelledby="bft bfd">
 <title id="bft">Two 10 percent failure rates permit anywhere from 0 to 10 percent joint failure</title>
@@ -375,370 +126,49 @@ html:not(.js) .bounds-ctl{display:none}
 </svg>
 </div>
 <div class="bounds-ctl">
-  <label class="mono" for="qslider">Drag the shared-miss overlap — both marginals stay pinned at 10%</label>
+  <label for="qslider">Change the shared misses; each guard still misses 10%</label>
   <div class="bounds-ctl-row">
     <input type="range" id="qslider" min="0" max="10" step="1" value="0" aria-describedby="qslider-help">
-    <output class="mono" id="qout" for="qslider">q = 0% — the lower endpoint witness</output>
+    <output id="qout" for="qslider">q = 0% — the lower endpoint witness</output>
     <span id="qslider-help" class="sr-only">Dragging changes only the overlap of the two failures. Each guard's marginal failure rate remains ten percent.</span>
   </div>
 </div>
-<figcaption class="bounds-caption"><strong>Fig. 02 — the same two scores, every world they permit.</strong>
-Both guardrails fail 10% of the time in every position. Only the overlap moves. The cyan scale is
-the full supported interval; independence is the amber tick — one named assumption-world, not the
-answer. The endpoint worlds are witnessed, and the geometry of every frame is asserted in CI.
-<a href="/essays/when-marginals-are-not-enough/">The full argument →</a></figcaption>
+<figcaption class="bounds-caption"><strong>Illustration — no measured system.</strong> Each guard misses 10% of the same population. Shared misses range from 0% to 10%; independence selects 1%. The endpoints and each frame’s geometry are checked by <a href="https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/verify_figures.py">the figure verifier</a>. <a href="/essays/when-marginals-are-not-enough/">Read the argument and assumptions</a>.</figcaption>
 </figure>
-
-    <nav class="doors reveal" aria-label="Three doors">
-      <a class="door" href="/modules/">
-        <span class="mono">Door 01 — Modules</span>
-        <strong>Six questions, one grammar</strong>
-        <span class="desc">Each module takes one question to its current evidence boundary:
-          claim, worlds, witnesses, non-claims, next unknown.</span>
-      </a>
-      <a class="door" href="/ledger/">
-        <span class="mono">Door 02 — Ledger</span>
-        <strong>Every claim, in envelope form</strong>
-        <span class="desc">Generated from the registry, bound to commits, drift-checked and
-          prosecuted by CI — weekly and on every push.</span>
-      </a>
-      <a class="door" href="/essays/when-marginals-are-not-enough/">
-        <span class="mono">Door 03 — Flagship case</span>
-        <strong>When marginals are not enough</strong>
-        <span class="desc">The 10%-and-10% argument in full, with the kernel’s recorded output
-          and both endpoint witnesses.</span>
-      </a>
-    </nav>
-  </section>
-
-  <!-- ======================= CURRENT PROGRAMS ======================= -->
-  <section id="work">
-    <div class="container">
-      <header class="sec-head reveal">
-        <span class="sec-no" aria-hidden="true">01</span>
-        <h2>Current programs</h2>
-        <span class="sec-rule"></span>
-      </header>
-      <p class="sec-intro reveal">Three programs, and no more. Evidence markers apply to the
-        technical project claims below; biographical facts are owner-attested unless linked.
-        Chips with a solid dot open public evidence.
-        <span class="mono" style="font-size:.68rem">Attested</span> means stated on my
-        responsibility, dated, with no public artifact yet — provenance, not proof. Exact
-        bindings — commit SHAs, executable review triggers, falsifiers, forbidden rescues,
-        non-claims — live in the
-        <a class="u" href="/ledger/">evidence ledger</a>, and each claim also has
-        <a class="u" href="/claims/">its own page</a> carrying the falsifier next to the
-        proposition. Everything older or superseded is in
-        the <a class="u" href="/archive/">archive</a>, with its succession recorded.</p>
-
-      <article class="card flagship reveal">
-        <div>
-          <p class="card-tag mono">Research framework · Python · MIT · 2025 — present</p>
-          <h3>CC-Framework</h3>
-          <p>Treats composed-guardrail failure as a partial-identification problem: individual
-            rail failure rates are known, their joint dependence is not. Given marginal evidence
-            and declared dependence assumptions, it computes sharp Fréchet–Hoeffding bounds on
-            stacked-system failure with endpoint witnesses, and records the boundary of the
-            resulting claim — claim envelopes, evidence roles, receipts, decay semantics. Its
-            flagship computation and witnesses are re-reproduced from a clean clone by this
-            site's CI, weekly.</p>
-          <div class="chips">
-            <a class="chip" href="https://github.com/Cubits11/cc-framework">Inspect CC-Framework source ↗</a>
-            <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/3e22c39df70d419e840529d87311974e9e544f54/docs/claims/CLAIM_BOUNDARY_MANIFEST.md">Claim-boundary manifest ↗</a>
-            <a class="chip chip-internal" href="/essays/when-marginals-are-not-enough/">Case study →</a>
-            <a class="chip" href="https://github.com/Cubits11/cc-framework/tree/549295b2e7521fe1e49153105dfe6563ad4f4903/visual_identity/before_you_see_it">“Before You See It” — 15s film ↗</a>
-          </div>
-        </div>
-        <aside class="nonclaim">
-          <span class="mono">Non-claim</span>
-          <p>It is a research prototype, not a safety certificate or deployment-assurance
-            platform. It computes what the available evidence supports under stated dependence
-            assumptions, and is built to make accidental overstatement harder — not impossible.</p>
-        </aside>
-      </article>
-
-      <div class="card-row">
-        <article class="card reveal">
-          <p class="card-tag mono">S2 Lab, Penn State · verification research · in development</p>
-          <h3>Ghost-Ark</h3>
-          <p>A verifier and measurement harness for the provenance limits of AI-governance
-            receipts. Its research claim: receipt soundness is a ternary relation —
-            <em>Sound(C,&nbsp;Σ,&nbsp;P)</em> — and a receipt identifies an execution only up to
-            the kernel of its whole parse&nbsp;→&nbsp;canonicalize&nbsp;→&nbsp;digest pipeline,
-            so soundness does not persist by default as pathologies and consumers grow. Collisions
-            are demonstrated as possible, not measured as prevalent — and the repo says so.</p>
-          <p class="nc-line"><span class="mono">Non-claim</span> — a verifying receipt does not
-            establish that the governed action was safe, authorized, or semantically correct.</p>
-          <div class="chips">
-            <a class="chip" href="https://github.com/PSUCyberSecurityLab/ghost-ark">Inspect Ghost-Ark source ↗</a>
-            <a class="chip" href="https://github.com/PSUCyberSecurityLab/ghost-ark/blob/98c90d8296580f08dd8b6e38fdd2abd7039ec651/docs/research/00_THESIS.md">Thesis &amp; falsifiers ↗</a>
-          </div>
-        </article>
-        <article class="card reveal" style="--d:.08s">
-          <p class="card-tag mono">Field artifact P₀ · evidence-bound interfaces · experimental</p>
-          <h3>The record itself</h3>
-          <p>This site is the third program: a claim registry rendered into a generated ledger,
-            bound to immutable commits, watched by executable review triggers, re-reproduced from
-            clean clones in CI. The claim observatory renders the registry as one field of
-            capsules, bindings, and decay clocks. The central hypothesis — that claim-bound
-            interfaces improve a reader's comprehension or calibration — is untested; the control
-            study is designed, not run.</p>
-          <p class="nc-line"><span class="mono">Non-claim</span> — aesthetic coherence is not
-            epistemic reliability; what this interface does to readers is an open question.</p>
-          <div class="chips">
-            <a class="chip chip-internal" href="/observatory/">Claim observatory →</a>
-            <a class="chip" href="https://github.com/Cubits11/cubits11.github.io/blob/main/claims.yaml">Inspect the registry ↗</a>
-            <a class="chip chip-internal" href="/notes/noetic-log-001/">The self-audit →</a>
-          </div>
-        </article>
-      </div>
-
-      <div class="index-list reveal">
-        <div class="index-item">
-          <div><span class="name-sm">Ghost Visualizer</span>
-            <span class="desc">A seven-scene visual essay, “Why AI Safety Scores Lie”: identical
-              marginal guardrail scores hiding shared misses, with computed bounds, endpoint
-              witnesses, and an inspectable receipt object. Runs locally; no hosted deployment
-              yet — and its own readiness review scopes it to private demos, so this stays a
-              source link.</span></div>
-          <a class="chip" href="https://github.com/Cubits11/ghost-visualizer">Inspect source ↗</a>
-        </div>
-        <div class="index-item">
-          <div><span class="name-sm">Assay</span>
-            <span class="desc">Early-stage, private: enclave-attested media processing on AWS
-              Nitro Enclaves — which provenance claims can a verifier actually derive from
-              attestation, and which can it not. Attestation cannot establish a file's history
-              prior to the first attested operation; the boundary is the project.</span></div>
-          <span class="chip chip-attested">Attested · 2026-08
-            <span class="sr-only">— stated on my responsibility; no public artifact linked yet</span></span>
-        </div>
-        <div class="index-item">
-          <div><span class="name-sm">Earlier work</span>
-            <span class="desc">GCE and the superseded guardrail-composition line are preserved in
-              the archive as intellectual lineage, each with what it explored, what was wrong,
-              and what replaced it.</span></div>
-          <a class="chip chip-internal" href="/archive/">Enter the archive →</a>
-        </div>
-      </div>
+      </details>
     </div>
   </section>
 
-  <!-- ======================= METHOD ======================= -->
-  <section id="method">
-    <div class="container">
-      <header class="sec-head reveal">
-        <span class="sec-no" aria-hidden="true">02</span>
-        <h2>The five-card discipline</h2>
-        <span class="sec-rule"></span>
-      </header>
-      <p class="sec-intro reveal">One experimental protocol — E₁ — not a universal grammar. It
-        fits controlled tests; theorems, historical claims, and calibration problems need other
-        test designs. The general form is the claim envelope, below.</p>
-      <div class="protocol">
-        <div class="pcard reveal"><span class="mono">Claim</span><p>What I say the system does. Named first, in writing.</p></div>
-        <div class="pcard reveal" style="--d:.05s"><span class="mono">Falsifier</span><p>The observation that would end the claim. If none exists, neither does the claim.</p></div>
-        <div class="pcard reveal" style="--d:.1s"><span class="mono">Control</span><p>The comparison that could embarrass it — run on purpose.</p></div>
-        <div class="pcard reveal" style="--d:.15s"><span class="mono">Non-claim</span><p>What this evidence will never support, stated before anyone asks.</p></div>
-        <div class="pcard reveal" style="--d:.2s"><span class="mono">Result</span><p>Two distributions sharing <em>every</em> singleton and pairwise moment; three-way failure of 0% in one and 25% in the other. Measuring every pair does not identify the triple.</p><span class="stamp">Supported within scope — controlled synthetic · decision: Narrow</span></div>
-      </div>
-      <p class="method-note reveal">Lock the first four <em>before</em> the result slot fills, then let the result disagree. The result above is E₁'s: it survived, and it narrowed the claim rather than widening it — claim
-        <a class="u" href="/ledger/#CC-003"><code style="font-family:var(--mono);font-size:.85em">CC-003</code></a> binds it.
-        <em>A story can start a question. It cannot finish an answer.</em> Untested is not
-        inconclusive: inconclusive means evidence arrived and failed to discriminate; untested
-        means the world has not answered yet. This page keeps the two apart — and keeps its own
-        rules scoped, as declared above.</p>
-
-      <div class="envelope reveal">
-        <div class="envelope-head">
-          <span class="mono">Candidate C₁</span>
-          <h3>The claim envelope</h3>
-        </div>
-        <div class="env-grid">
-          <div class="env-item"><span class="mono">1 · Proposition</span><p>What exactly is asserted.</p></div>
-          <div class="env-item"><span class="mono">2 · Scope</span><p>Where it holds, and under which assumptions.</p></div>
-          <div class="env-item"><span class="mono">3 · Support</span><p>The evidence that bears on it, bound to immutable artifacts.</p></div>
-          <div class="env-item"><span class="mono">4 · Falsifier</span><p>The condition that defeats the proposition, with its fixed consequence.</p></div>
-          <div class="env-item"><span class="mono">5 · Test design</span><p>Control, comparator, calibration, proof, benchmark, or adversary.</p></div>
-          <div class="env-item"><span class="mono">6 · Status</span><p>Untested · supported within scope · partial · inconclusive · contradicted.</p></div>
-          <div class="env-item"><span class="mono">7 · Boundaries</span><p>What remains unestablished — and the post-falsification rescues the claim cannot use.</p></div>
-          <div class="env-item"><span class="mono">8 · Freshness</span><p>When, and on what trigger, it must be re-examined.</p></div>
-        </div>
-        <p class="method-note" style="margin-top:1.6rem">The <a class="u" href="/ledger/">evidence
-          ledger</a> is generated from a registry that implements these fields — propositions,
-          separated provenance and status dimensions, immutable bindings, falsifier conditions
-          with fixed consequences, forbidden rescues, executable review triggers that watch the
-          bound evidence upstream, freshness windows, non-claims. Where a
-          trigger can't be executed by CI, the ledger says <em>manual</em>, plainly.</p>
-      </div>
+  <section id="work" class="home-block" aria-labelledby="work-title">
+    <div class="container home-width">
+      <p class="home-eyebrow mono">03 / Relevant work</p>
+      <h2 id="work-title">I’m Pranav Bhave, a security engineer and Penn State CS graduate.</h2>
+      <p class="home-lede">I measure what AI guardrail stacks miss together, and build evidence systems that show exactly what data can and cannot establish.</p>
+      <nav class="home-links" aria-label="Relevant work">
+        <a href="/work/">Evaluation design and claim audits <span aria-hidden="true">↗</span></a>
+        <a href="/resume/">Background and résumé <span aria-hidden="true">↗</span></a>
+        <a href="/now/">Current work and drafts <span aria-hidden="true">↗</span></a>
+      </nav>
     </div>
   </section>
 
-  <!-- ======================= RESEARCH ======================= -->
-  <section id="research">
-    <div class="container">
-      <header class="sec-head reveal">
-        <span class="sec-no" aria-hidden="true">03</span>
-        <h2>Research &amp; training</h2>
-        <span class="sec-rule"></span>
-      </header>
-      <div class="split">
-        <div class="reveal">
-          <div class="entry">
-            <span class="when mono">Aug — Dec 2025 · Penn State</span>
-            <h3>Independent research — LLM safety guardrail composition</h3>
-            <p>Reinforcement, interference, and dependence-driven failure in composed LLM safety
-              systems, via probabilistic bounds and copula-family reasoning. Supervised by
-              Dr.&nbsp;Peng Liu (IST 496). CC-Framework is the primary deliverable.</p>
-          </div>
-          <div class="entry">
-            <span class="when mono">Jan — May 2025 · Penn State</span>
-            <h3>Research assistant — logic &amp; verification tooling</h3>
-            <p>Python CNF-conversion tooling for SAT-solving workflows, and evaluation of
-              LLM-assisted formalization of natural-language logic: translation reliability,
-              ambiguity handling, verification-readiness.</p>
-          </div>
-        </div>
-        <div class="reveal" style="--d:.08s">
-          <div class="entry">
-            <span class="when mono">May 2026</span>
-            <h3>Pennsylvania State University</h3>
-            <p>B.S. Computer Science, minor in Cybersecurity. Coursework: computer security,
-              operating systems, algorithms, statistical inference, theory of computation.</p>
-          </div>
-          <div class="entry">
-            <span class="when mono">Certified</span>
-            <h3>AWS — Cloud Practitioner · AI Practitioner</h3>
-            <p>Solutions Architect Associate (SAA-C03) and Security — Specialty in progress.</p>
-            <p class="cred-note">Certifications are owner-attested here: verification IDs are
-              available on request rather than published.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================= CURRENT QUESTION ======================= -->
-  <div class="question-strip">
-    <div class="container reveal">
-      <span class="mono">The current question · frozen before any dataset was inspected</span>
-      <p class="bigq">Can dependence evidence be measured at feasible cost — before it has to be
-        assumed?</p>
-      <p>E2, the first empirical rung of the evidence ladder, is a shared-item measurement
-        contract frozen in advance; no conforming dataset has been collected, so it is untested —
-        and says so. The next artifact is a conforming observation set, or a documented failure
-        to obtain one. <a class="u" href="/now/">What is moving right now →</a></p>
-      <div class="chips" style="margin-top:1.1rem">
-        <a class="chip" href="https://github.com/Cubits11/cc-framework/blob/0b9450251b6988fa23d8e6e4fb556a08b05e652e/docs/research/E2_MEASUREMENT_CONTRACT.md">The frozen contract ↗</a>
-        <a class="chip chip-internal" href="/ledger/#CC-005">Claim CC-005 →</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ======================= WRITING ======================= -->
-  <section id="writing">
-    <div class="container">
-      <header class="sec-head reveal">
-        <span class="sec-no" aria-hidden="true">04</span>
-        <h2>Writing</h2>
-        <span class="sec-rule"></span>
-      </header>
-      <div class="index-list reveal">
-        <div class="index-item">
-          <div><span class="name-sm">When marginals are not enough</span>
-            <span class="desc">The flagship case: two 10% guardrails, the interval the evidence
-              actually supports, and the witnesses at both ends — with the kernel's recorded
-              output at a bound commit.</span></div>
-          <a class="chip chip-internal" href="/essays/when-marginals-are-not-enough/">Read the flagship case →</a>
-        </div>
-        <div class="index-item">
-          <div><span class="name-sm">Noetic log 002 — the observatory ships, and gets graded</span>
-            <span class="desc">The v0.4 shipping record rated without anesthesia, with a
-              one-month lookback contract whose unflattering conclusion is pre-registered.</span></div>
-          <a class="chip chip-internal" href="/notes/noetic-log-002/">Read Noetic log 002 →</a>
-        </div>
-        <div class="index-item">
-          <div><span class="name-sm">All writing</span>
-            <span class="desc">Essays, field notes, and audit logs, with each piece's claim
-              envelope where one applies.</span></div>
-          <a class="chip chip-internal" href="/writing/">Browse all writing →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================= CONTACT ======================= -->
-  <section id="contact">
-    <div class="container">
-      <header class="sec-head reveal">
-        <span class="sec-no" aria-hidden="true">05</span>
-        <h2>Contact</h2>
-        <span class="sec-rule"></span>
-      </header>
-      <p class="contact-line reveal">Have a claim worth checking?<br>Bring it — <em>I’ll bring the falsifier.</em></p>
-      <p class="contact-prop reveal" style="--d:.05s">I’m looking for research, engineering, and
-        independent consulting work where statistical assurance, provenance, and claim governance
-        matter.</p>
-      <div class="cta-row reveal" style="--d:.1s">
-        <a class="btn btn-solid" href="mailto:bhavepranavwork@gmail.com">Email me</a>
-        <button class="btn" id="copyEmail" type="button" data-email="bhavepranavwork@gmail.com">Copy address</button>
-        <a class="btn" href="/resume/">Résumé</a>
-        <a class="btn" href="https://github.com/Cubits11">GitHub ↗</a>
-        <a class="btn" href="https://www.linkedin.com/in/pranav-bhave-2a328721a/">LinkedIn ↗</a>
-      </div>
-      <span id="copyStatus" class="sr-only" role="status" aria-live="polite"></span>
+  <section id="contact" class="home-block home-contact" aria-labelledby="contact-title">
+    <div class="container home-width">
+      <p class="home-eyebrow mono">04 / Contact</p>
+      <h2 id="contact-title">Bring one results table, claim, or receipt: <a href="mailto:bhavepranavwork@gmail.com">email me</a>.</h2>
+      <a class="home-address" href="mailto:bhavepranavwork@gmail.com">bhavepranavwork@gmail.com</a>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="status-strip mono">
-    <div class="container">
-      <span>Ledger <b>v0.4</b> — generated from claims.yaml, drift-checked</span>
-      <span>Triggers: <b>executable</b> where CI can watch, <b>manual</b> declared where it can't</span>
-      <span>Last owner review <b>2026-10-17</b></span>
-    </div>
-  </div>
-  <div class="container">
-    <div class="colophon">
-      <div>
-        <span class="mono">Colophon</span>
-        Hand-built static HTML and CSS on a shared design-system stylesheet, with about four
-        kilobytes of JavaScript. No framework, no client-side analytics, no cookies. Set in
-        Fraunces, Instrument Sans, and Fragment Mono, self-hosted. Field and ink sampled from
-        Fig.&nbsp;01; the state colors — evidence cyan, review amber, invalidation red — are
-        ported from CC-Framework's claim-observatory color law. Hosted on GitHub Pages; CI
-        verifies the claim registry, executes its review triggers, asserts Fig.&nbsp;02's
-        geometry, and re-reproduces CC-001 and CC-004 from a clean clone on every push and
-        weekly.
-      </div>
-      <div class="legend">
-        <span class="mono" style="margin-bottom:0">Evidence legend</span>
-        <span><span class="dot"></span> solid cyan dot — opens public evidence</span>
-        <span><span class="dot dot-hollow"></span> hollow dot — attested, on my responsibility</span>
-        <span><span class="dot dot-gold"></span> gold square — internal record</span>
-        <span style="color:var(--muted)">Markers cover technical project claims; biography is owner-attested unless linked. Amber marks review due or a named assumption at work; red marks contradiction or expiry — neither appears decoratively.</span>
-      </div>
-    </div>
-    <div class="foot-links mono">
-      <a class="u" href="/missing-column/">The Missing Column</a>
-      <a class="u" href="/missing-column/disclosure/">Minimum disclosure</a>
-      <a class="u" href="/answers/why-guardrail-miss-rates-do-not-multiply/">Why miss rates do not multiply</a>
-      <a class="u" href="/answers/how-to-evaluate-guardrails-you-plan-to-stack/">Evaluating stacked guardrails</a>
-      <a class="u" href="/answers/what-does-the-second-guardrail-add/">What the second guard adds</a>
-      <a class="u" href="/work/">Work with me</a>
-      <a class="u" href="/observatory/">Claim observatory</a>
-      <a class="u" href="/ledger/">Evidence ledger</a>
-      <a class="u" href="/claims/">Claims</a>
-      <a class="u" href="/writing/">Writing</a>
-      <a class="u" href="/modules/">Modules</a>
-      <a class="u" href="/archive/">Archive</a>
-      <a class="u" href="/now/">Now</a>
-      <a class="u" href="https://github.com/Cubits11/cubits11.github.io/blob/main/DESIGN.md">Design ledger ↗</a>
-    </div>
-    <div class="foot-base mono">
-      <span>© <span id="yr">2026</span> Pranav Bhave</span>
-      <a class="u" href="https://github.com/Cubits11/cubits11.github.io">View source ↗</a>
-    </div>
+<footer class="world-footer">
+  <div class="container home-width">
+    <span>© <span id="yr">2026</span> Pranav Bhave</span>
+    <nav class="home-links" aria-label="Public record">
+      <a href="/ledger/">Evidence ledger</a> · <span data-claim-count-state="current">21 claims</span>
+      <a href="/corrections/">Corrections</a>
+      <a href="https://github.com/Cubits11/cubits11.github.io">Source <span aria-hidden="true">↗</span></a>
+    </nav>
   </div>
 </footer>
 
@@ -797,50 +227,9 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
     showWorld(Number(slider.value));
   }
 
-  /* ---- reveals: enhancement only, never a dependency ---- */
-  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var els = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
-  if (!reduced && 'IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
-    var entrance = [];
-    els.forEach(function (el) {
-      el.classList.add('pre');
-      if (el.getBoundingClientRect().top < innerHeight * 0.96) { entrance.push(el); }
-      else { io.observe(el); }
-    });
-    requestAnimationFrame(function () { requestAnimationFrame(function () {
-      entrance.forEach(function (el) { el.classList.add('in'); });
-    }); });
-    setTimeout(function () {
-      els.forEach(function (el) { el.classList.add('in'); });
-    }, 4000);
-  }
-
-  /* ---- copy email: announced, with failure path ---- */
-  var btn = document.getElementById('copyEmail');
-  var status = document.getElementById('copyStatus');
-  btn.addEventListener('click', function () {
-    var done = function (ok) {
-      var old = 'Copy address';
-      btn.textContent = ok ? 'Copied ✓' : 'Copy failed — use the email link';
-      status.textContent = ok ? 'Email address copied to clipboard.'
-                              : 'Copying failed. Use the Email me link instead.';
-      setTimeout(function () { btn.textContent = old; }, ok ? 1600 : 3200);
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(btn.dataset.email).then(function () { done(true); },
-                                                           function () { done(false); });
-    } else { done(false); }
-  });
-
   document.getElementById('yr').textContent = new Date().getFullYear();
 })();
 </script>
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -861,7 +250,7 @@ answer. The endpoint worlds are witnessed, and the geometry of every frame is as
   "@type": "ProfilePage",
   "@id": "https://cubits11.github.io/#profilepage",
   "isPartOf": { "@id": "https://cubits11.github.io/#website" },
-  "dateModified": "2026-09-07",
+  "dateModified": "2026-10-17",
   "mainEntity": {
     "@type": "Person",
     "@id": "https://cubits11.github.io/#person",

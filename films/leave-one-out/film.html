@@ -54,7 +54,68 @@ function lampOn(gi, t) {
   return on && !(s >= 0 && ORDER[s] === GUARDS[gi]);
 }
 
+
+/* Dedicated phone composition: minimum essential type is 54px/1080px,
+   or 14 CSS px at a 280px-wide player. Window positions remain constructed. */
+function renderPhone(t, g, L) {
+  const label = (s, y, o = {}) => H.paragraph(g, s, 80, y, { font: 'sans', size: 54, lineHeight: 66, color: TOK.ink, maxW: 920, ...o });
+  label('Released counts', 88, { color: TOK.review });
+  label('Constructed window positions', 156, { color: TOK.review });
+  label('What changes when one guard is removed?', 286, { font: 'serif', size: 72, lineHeight: 84 });
+  const s = shuttered(t), removed = s >= 0 ? ORDER[s] : null;
+  if (t >= T_SUM) {
+    label('Caught only by this guard:', 550, { color: TOK.evidence });
+    ORDER.forEach((name, i) => {
+      label(LABELS[name], 690 + i * 150);
+      text(g, String(EXCL[name]), 1000, 690 + i * 150, { font: 'serif', size: 76, color: EXCL[name] ? TOK.evidence : TOK.muted, align: 'right' });
+      line(g, 80, 725 + i * 150, 1000, 725 + i * 150, TOK.lineStrong, 2);
+    });
+    label(`${ZERO} of 5 add no exclusive coverage on this file.`, 1510, { size: 64, lineHeight: 76 });
+    label('Removal-relative counts, not causal importance.', 1690, { color: TOK.muted });
+  } else if (t >= T_BOUNDS && t < T_SHUT0) {
+    label('Possible exclusive catches:', 550, { color: TOK.evidence });
+    ORDER.forEach((name, i) => {
+      label(LABELS[name], 690 + i * 150);
+      text(g, BOUNDS[name].join('–'), 1000, 690 + i * 150, { font: 'serif', size: 76, color: TOK.muted, align: 'right' });
+      line(g, 80, 725 + i * 150, 1000, 725 + i * 150, TOK.lineStrong, 2);
+    });
+    label('Bounds do not identify a count.', 1510);
+    label(`All five: ${UNION}/${N} flagged; ${ALLMISS} missed.`, 1680, { color: TOK.muted });
+  } else {
+    if (removed) label(`Remove ${LABELS[removed]}.`, 530, { color: TOK.review });
+    else if (t >= T_BOUNDS) label('Totals alone only bound each guard’s exclusive catches.', 530, { color: TOK.muted });
+    else label('A lit window means at least one guard flags that prompt.', 530, { color: TOK.muted });
+    // The phone edit starts with all five on. Avoid showing intermediate
+    // subset unions, whose values would be properties of this construction.
+    let lit = 0, darkened = 0;
+    for (let i = 0; i < N; i++) {
+      const m = POS[i]; let any = false, full = false;
+      for (let gi = 0; gi < GUARDS.length; gi++) {
+        if (!bit(m, gi)) continue;
+        full = true;
+        if (!removed || GUARDS[gi] !== removed) any = true;
+      }
+      if (any) lit++; if (full && !any) darkened++;
+      const x = 90 + (i % COLS) * 75, y = 780 + Math.floor(i / COLS) * 75;
+      g.fillStyle = any ? TOK.evidence : full ? hexA(TOK.review, 0.35) : TOK.surface;
+      g.fillRect(x, y, 52, 48); g.strokeStyle = full && !any ? TOK.review : TOK.lineStrong;
+      g.lineWidth = 2; g.strokeRect(x, y, 52, 48);
+    }
+    label(`${lit}/${N} flagged`, 1420, { font: 'serif', size: 100, lineHeight: 112, color: TOK.evidence });
+    if (removed) {
+      label(`${darkened} go dark when that guard is removed.`, 1550, { color: TOK.review });
+      label(`${LOO[removed]}/${N} remain flagged by the other four.`, 1690, { color: TOK.muted });
+    } else {
+      label(`${ALLMISS}/${N} are missed by all five.`, 1570);
+      label('Positions illustrate the registered counts.', 1690, { color: TOK.muted });
+    }
+  }
+  label('Author-selected file; not a ranking.', 1840, { color: TOK.muted });
+}
+
 function render(t, g, L, { fact }) {
+  if (L.vertical) return renderPhone(t, g, L);
+  text(g, 'Released counts · constructed positions · no measured deployed stack', 65, 35, { font: 'sans', size: 26, color: TOK.review, maxW: L.W - 130 });
   const u = L.u;
   // wall geometry
   const cellW = L.vertical ? 76 * u : 86 * u, cellH = L.vertical ? 76 * u : 66 * u;
@@ -160,9 +221,9 @@ Film.define({
   id: 'leave-one-out', title: 'Leave One Out',
   duration: DUR, fps: 30, poster_t: 16.3,
   claimFrames: [
-    { t: 12.0, label: 'all five lamps on: 73/82 lit, 9 dark; aggregate-only bounds on exclusive coverage beside each lamp' },
+    { t: 12.0, label: 'all five together: 73/82 flagged, 9 missed; aggregate-only bounds on each guard’s exclusive coverage' },
     { t: 16.3, label: 'NeMo shuttered: 18 windows go dark, 55/82 still lit by the other four' },
-    { t: 29.0, label: 'summary: 3 of 5 lamps have zero exclusive coverage on this stratum; identified values beside each lamp' }
+    { t: 29.0, label: 'summary: 3 of 5 guards have zero exclusive coverage on this stratum; all five identified values shown' }
   ],
   setup, render
 });

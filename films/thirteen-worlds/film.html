@@ -58,7 +58,52 @@ function rodStart(i, t) {
 function beadAt(i, col, t) { const s = rodStart(i, t); return col >= s && col < s + RODS[i].misses; }
 function allMissCount(t) { let n = 0; for (let c = 0; c < N; c++) if (RODS.every((_, i) => beadAt(i, c, t))) n++; return n; }
 
+
+/* Dedicated phone composition. At 280 CSS px of media width, 54 source
+   pixels on a 1080px canvas are 14 CSS px. No essential phone text is smaller. */
+function renderPhone(t, g, L) {
+  const left = 80, width = 920;
+  const label = (s, y, o = {}) => H.paragraph(g, s, left, y, { font: 'sans', size: 54, lineHeight: 66, color: TOK.ink, maxW: width, ...o });
+  label('Released counts', 88, { color: TOK.review });
+  label('Constructed bead positions', 156, { color: TOK.review });
+  label('Thirteen possible worlds.', 286, { font: 'serif', size: 72, lineHeight: 84 });
+  if (t < T_UNION) {
+    label('Five miss counts stay fixed.', 414);
+    label('Only which prompts changes.', 484, { color: TOK.muted });
+  } else {
+    label(`The released union flags ${UNION}/${N}.`, 414);
+    label(`So all five miss ${N} − ${UNION} = ${ALLMISS}.`, 484, { color: TOK.evidence });
+  }
+  const x0 = 80, x1 = 1000, cw = (x1 - x0) / N;
+  const rowY = i => 700 + i * 150;
+  const isAll = c => RODS.every((_, i) => beadAt(i, c, t));
+  for (let c = 0; c < N; c++) if (isAll(c)) {
+    g.fillStyle = hexA(TOK.review, 0.3); g.fillRect(x0 + c * cw, rowY(0) - 24, cw, rowY(4) - rowY(0) + 48);
+  }
+  RODS.forEach((r, i) => {
+    const y = rowY(i);
+    label(`${r.label}: ${r.misses}/${N} missed`, y - 42);
+    line(g, x0, y, x1, y, TOK.lineStrong, 3);
+    for (let c = 0; c < N; c++) {
+      const x = x0 + (c + 0.5) * cw;
+      if (beadAt(i, c, t)) disc(g, x, y, cw * 0.43, TOK.ink);
+      else ring(g, x, y, cw * 0.29, TOK.lineStrong, 1.5);
+    }
+  });
+  label(`Shared misses: ${allMissCount(t)}/${N}`, 1450, { size: 76, lineHeight: 88, color: TOK.evidence });
+  if (t >= 18 && t < T_UNION) {
+    label(`Independence expects ${IND_PROMPTS.toFixed(2)}.`, 1580, { color: TOK.review });
+    label('A model’s point, not a count.', 1730, { color: TOK.review });
+  } else {
+    label(`The five rates allow ${LO}–${HI} shared misses.`, 1570);
+    label('The rates alone cannot choose.', 1730, { color: TOK.muted });
+  }
+  label('Author-selected file; not a population estimate.', 1830, { color: TOK.muted });
+}
+
 function render(t, g, L, { fact }) {
+  if (L.vertical) return renderPhone(t, g, L);
+  text(g, 'Released counts · constructed positions · no measured deployed stack', 65, 35, { font: 'sans', size: 26, color: TOK.review, maxW: L.W - 130 });
   const u = L.u;
   const x0 = L.vertical ? 80 * u : 230 * u, x1 = L.vertical ? L.W - 80 * u : L.W - 200 * u;
   const cw = (x1 - x0) / N;                                     // column width
@@ -151,8 +196,8 @@ Film.define({
   id: 'thirteen-worlds', title: 'Thirteen Worlds, One File',
   duration: DUR, fps: 30, poster_t: 27.0,
   claimFrames: [
-    { t: 16.5, label: 'the sliding rod nested: all-miss reads 12/82, the upper endpoint min p, with the finite identified set {0…12} on the axis' },
-    { t: 27.0, label: 'the union (73/82) pins the all-miss count at 9/82 while the independence plug-in (2.87 prompts) sits off-grid' }
+    { t: 16.5, label: 'the sliding rod nested: all-miss reads 12/82; the five fixed rates permit the finite set {0…12}' },
+    { t: 27.0, label: 'the released union (73/82) pins the all-miss count at 9/82; the five rates alone still permit {0…12}' }
   ],
   setup, render
 });

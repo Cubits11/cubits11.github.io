@@ -2,10 +2,10 @@
  "film": "the-falsifier-that-fired",
  "format": "master",
  "title": "The Falsifier That Fired",
- "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "739b763081c023f3f35be18c1cf66738f31df9e72442d54f57ed4923f0565562",
+  "film.html": "7c1337441728e5e84e8719bee99ea5bd3f2daa732570248159f0dd399bf4e49a",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
  },
@@ -15,6 +15,11 @@
   "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
   "sha256": "781d541655de88307d5a786f9c5e342ee2709f691d330640a0604219db5ce0a0"
  },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
  "runtime": {
   "chrome": "155.0.8059.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
@@ -23,9 +28,10 @@
  "fps": 30,
  "frames": 1051,
  "duration_s": 35,
+ "phone_text": null,
  "width": 1920,
  "height": 1080,
- "frames_digest": "d53c99693df86ea573d215a54a6703edc3e7fb820bc9e9003a4fcc52593d1494",
+ "frames_digest": "3a027258571816412ec8b63944e8b93b3f73e8abcc9e254b7438a0269c64761a",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -41,8 +47,8 @@
  ],
  "outputs": {
   "master": "renders/the-falsifier-that-fired__master.mp4",
-  "master_sha256": "78acff299724a7c6f4adeeaf2b2b6d3c8cdbe2551fafafa3694e1ca967bed29c",
-  "master_bytes": 879801,
+  "master_sha256": "c22adb1896963034dd998a960fcb54dcbdd713b130a162e98161bba0443c2a78",
+  "master_bytes": 914006,
   "master_duration_probe_s": 35.03,
   "poster": "renders/the-falsifier-that-fired__master.poster.png",
   "poster_t": 27,
@@ -75,7 +81,7 @@
    {
     "n": 4,
     "t": 20,
-    "label": "the superseding envelope 20 / 14 / 5 beside the struck one",
+    "label": "the superseding envelope 20 / 14 / 5 with the struck old one retained",
     "still": "renders/stills/master-claim-04.jpg"
    },
    {
@@ -93,5 +99,5 @@
   ],
   "phone_previews": []
  },
- "render_seconds": 355.2
+ "render_seconds": 50.8
 }

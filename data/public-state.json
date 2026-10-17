@@ -1,0 +1,209 @@
+{
+  "observed_on": "2026-10-17",
+  "deadlines": [
+    {
+      "id": "REL-001@f2249c1",
+      "title": "REL-001 previous evidence review",
+      "due": "2026-09-23",
+      "source": "https://github.com/Cubits11/cubits11.github.io/blob/f2249c113335feb8b2a3ccb9e4cd9951e002592a/claims.yaml",
+      "kind": "claim-review",
+      "disposition": {
+        "date": "2026-10-17",
+        "url": "/claims/rel-001/",
+        "summary": "The owner renewed the elapsed review window on October 17. The earlier September 23 deadline remains visible. Renewal does not establish a completed reader study or change the hypothesis into a validated result. Registry transition: 592ed51."
+      }
+    },
+    {
+      "id": "noetic-log-002-lookback",
+      "title": "Noetic Log 002 lookback",
+      "due": "2026-09-23",
+      "source": "/notes/noetic-log-002/#lookback-contract",
+      "disposition": {
+        "date": "2026-10-17",
+        "url": "/notes/noetic-log-002/#lookback-2026-10-17",
+        "summary": "Review recorded 24 days late. Failed historical checks, the now-published E9 result, the renewed REL-001 window and outstanding reader/accessibility work are distinguished."
+      },
+      "kind": "publication-promise"
+    },
+    {
+      "id": "MC-002",
+      "title": "MC-002 evidence review",
+      "due": "2026-10-27",
+      "source": "/claims/mc-002/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "MC-003",
+      "title": "MC-003 evidence review",
+      "due": "2026-10-29",
+      "source": "/claims/mc-003/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "MC-004",
+      "title": "MC-004 evidence review",
+      "due": "2026-10-30",
+      "source": "/claims/mc-004/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "MC-001",
+      "title": "MC-001 evidence review",
+      "due": "2026-11-13",
+      "source": "/claims/mc-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "REL-001",
+      "title": "REL-001 evidence review",
+      "due": "2026-11-16",
+      "source": "/claims/rel-001/",
+      "kind": "claim-review",
+      "evidential_status": "untested"
+    },
+    {
+      "id": "AF-001",
+      "title": "AF-001 evidence review",
+      "due": "2026-11-26",
+      "source": "/claims/af-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "CC-001",
+      "title": "CC-001 evidence review",
+      "due": "2026-12-22",
+      "source": "/claims/cc-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "CC-002",
+      "title": "CC-002 evidence review",
+      "due": "2026-12-22",
+      "source": "/claims/cc-002/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "CC-003",
+      "title": "CC-003 evidence review",
+      "due": "2026-12-22",
+      "source": "/claims/cc-003/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "CC-004",
+      "title": "CC-004 evidence review",
+      "due": "2026-12-22",
+      "source": "/claims/cc-004/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "CC-005",
+      "title": "CC-005 evidence review",
+      "due": "2026-12-22",
+      "source": "/claims/cc-005/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "GA-001",
+      "title": "GA-001 evidence review",
+      "due": "2026-12-22",
+      "source": "/claims/ga-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "SITE-002",
+      "title": "SITE-002 evidence review",
+      "due": "2026-12-28",
+      "source": "/claims/site-002/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "SITE-001",
+      "title": "SITE-001 evidence review",
+      "due": "2026-12-29",
+      "source": "/claims/site-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "CC-006",
+      "title": "CC-006 evidence review",
+      "due": "2027-01-05",
+      "source": "/claims/cc-006/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "E3-001",
+      "title": "E3-001 evidence review",
+      "due": "2027-01-06",
+      "source": "/claims/e3-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "E3B-001",
+      "title": "E3B-001 evidence review",
+      "due": "2027-01-06",
+      "source": "/claims/e3b-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "E6-001",
+      "title": "E6-001 evidence review",
+      "due": "2027-01-08",
+      "source": "/claims/e6-001/",
+      "kind": "claim-review",
+      "evidential_status": "contradicted"
+    },
+    {
+      "id": "E7B-001",
+      "title": "E7B-001 evidence review",
+      "due": "2027-01-08",
+      "source": "/claims/e7b-001/",
+      "kind": "claim-review",
+      "evidential_status": "contradicted"
+    },
+    {
+      "id": "GV-001",
+      "title": "GV-001 evidence review",
+      "due": "2027-02-14",
+      "source": "/claims/gv-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "GCE-001",
+      "title": "GCE-001 evidence review",
+      "due": "2027-08-24",
+      "source": "/claims/gce-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    }
+  ],
+  "drafts": [
+    {
+      "id": "E9",
+      "status": "Published result \u2014 claim registration pending",
+      "title": "E9 \u2014 1,000-item scoped result",
+      "summary": "E9\u2019s 1,000-item result merged in PR 26. A post-result claim registration, E9-001, is proposed in draft PR 31 and is not in the registry. The result is not a completion of E2 and does not establish deployment safety.",
+      "revision": "592ed515dc78acd4034a055024a64003e93d4172",
+      "result_url": "https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/RESULT.md",
+      "branch_url": "https://github.com/Cubits11/cubits11.github.io/pull/26",
+      "limitations": "The result discloses a verdict rule outside readable preregistration prose, selected pools, omitted calibration uncertainty and no independent replication. Its interval excludes zero but does not lie wholly beyond the 0.05 effect-size threshold."
+    }
+  ]
+}

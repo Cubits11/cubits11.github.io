@@ -105,7 +105,7 @@ claim_frames:
 - t: 13.5
   shows: REJECT by its own rule; the old envelope struck through, not erased
 - t: 20.0
-  shows: the superseding envelope 20 / 14 / 5 beside the struck one
+  shows: the superseding envelope 20 / 14 / 5 with the struck old one retained
 - t: 27.0
   shows: the declared sensitivities 19/13/5 and 19/13/4 under their own labels
 - t: 33.0
@@ -115,5 +115,8 @@ render:
   fps: 30
   formats:
   - master
+  - vertical
   poster_t: 27.0
 cta_route: /corrections/
+phone_layout: >-
+  Dedicated 1080×1920 phone composition showing the dated registry correction, retained rejected counts and separately labelled sensitivities. Every phone text label is at least 54px. A persistent registry-record/bounded-search label distinguishes these recorded census counts from measured guardrail performance.

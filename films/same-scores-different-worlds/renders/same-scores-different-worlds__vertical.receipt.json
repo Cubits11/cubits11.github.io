@@ -2,10 +2,10 @@
  "film": "same-scores-different-worlds",
  "format": "vertical",
  "title": "Same Scores, Different Worlds",
- "rendered_from_head": "2ba329a6d54cfb696b41e232f188c24ef6918414",
+ "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "ba73ef33ca72bbeead8283494bbaaae3dfe5a2dadee6b8cdaa012e01ae1fc200",
+  "film.html": "3a30873740f0bf17007e5a767f9fd470738ac65f2a0eb95ab2da47aaec2d8413",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7"
  },
@@ -15,6 +15,11 @@
   "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
   "sha256": "0a83af15fb66b1f87514e082c12c01e8c34828336f212524ab33581346eb1703"
  },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
+ },
  "runtime": {
   "chrome": "155.0.8059.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
@@ -23,9 +28,23 @@
  "fps": 30,
  "frames": 901,
  "duration_s": 30,
+ "phone_text": {
+  "minimum_canvas_px": 54,
+  "audited_draws": 15771,
+  "minimum_examples": [
+   "Illustration \u2014 no measured system",
+   "Both guards see all 100 items.",
+   "A misses",
+   "B misses",
+   "Scores stay fixed."
+  ],
+  "media_width_css_px": 280,
+  "minimum_css_px": 14.0,
+  "limit": "Font geometry only; legibility and comprehension require reader evidence."
+ },
  "width": 1080,
  "height": 1920,
- "frames_digest": "fd72ad0ea6ad47d179342f7b203c27397182f6cb148703b2e72bbcf5b9e72fc6",
+ "frames_digest": "d1fa6ce2d8a550de4bd2d855d1930f4f37f61a0ed79fe7cf6a1752e65f5597b0",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -42,8 +61,8 @@
  ],
  "outputs": {
   "master": "renders/same-scores-different-worlds__vertical.mp4",
-  "master_sha256": "e29cc9df221ec639c59050b8736986c39ebcdfba13db0de5c7c61ca09d8e5305",
-  "master_bytes": 670706,
+  "master_sha256": "4ab8d50a81597be56c7bca18af1c862cd60d8c3040c3a1f5b642c92b45600806",
+  "master_bytes": 720809,
   "master_duration_probe_s": 30.03,
   "poster": "renders/same-scores-different-worlds__vertical.poster.png",
   "poster_t": 20,
@@ -68,7 +87,15 @@
     "still": "renders/stills/vertical-claim-02.jpg"
    }
   ],
-  "phone_previews": []
+  "phone_previews": [
+   "renders/stills/phone-vertical-open.jpg",
+   "renders/stills/phone-vertical-q1.jpg",
+   "renders/stills/phone-vertical-mid.jpg",
+   "renders/stills/phone-vertical-q3.jpg",
+   "renders/stills/phone-vertical-end.jpg",
+   "renders/stills/phone-vertical-claim-01.jpg",
+   "renders/stills/phone-vertical-claim-02.jpg"
+  ]
  },
- "render_seconds": 126.8
+ "render_seconds": 46.7
 }
