@@ -2,16 +2,16 @@
  "film": "same-scores__social-square",
  "format": "master",
  "title": "Same Scores \u2014 social square",
- "rendered_from_head": "e7c6b9d2677b79ed7448710c95a6a65ade0fc48a",
- "rendered_on": "2026-09-15",
+ "rendered_from_head": "8be4b9dac920e1521a262981393d65c4024ebbb7",
+ "rendered_on": "2026-10-17",
  "inputs": {
   "film.html": "556858d2dfed622d48f842287c3d2717471d14f7e28c22178323d15ccd8aa70e",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "9d0d11e351d5b5d5fe93cf2332489a2943f7f480deec730924b5912262a6e847"
+  "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
  },
  "runtime": {
-  "chrome": "153.0.8010.36",
+  "chrome": "155.0.8059.82",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
   "crf": 20
  },
@@ -87,5 +87,5 @@
   ],
   "phone_previews": []
  },
- "render_seconds": 25.2
+ "render_seconds": 22.4
 }
