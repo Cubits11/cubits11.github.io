@@ -178,6 +178,14 @@
       "evidential_status": "contradicted"
     },
     {
+      "id": "E9-001",
+      "title": "E9-001 evidence review",
+      "due": "2027-02-14",
+      "source": "/claims/e9-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
       "id": "GV-001",
       "title": "GV-001 evidence review",
       "due": "2027-02-14",

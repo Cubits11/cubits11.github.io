@@ -1965,3 +1965,165 @@ claims:
       - "five predictions holding is not a general law: it is one preregistered result on
         one pool, and the interpretation it supports is that independence understated the
         joint here, not that it always will"
+
+  - id: E9-001
+    proposition: >
+      On the 1,000 measurement items of its admitted pool, the test split of
+      Lakera/mosscap_prompt_injection at b7e495ff63373ff7f7dabc1e9390cf62b5838570, two open
+      prompt-injection classifiers both miss 32.20% of items, where the independence plug-in from
+      their own miss rates predicts 26.52%. G1 is protectai/deberta-v3-base-prompt-injection-v2 at
+      revision 90c9989b1a342275dd0d1a95aad283c04e075671 and G2 is dcarpintero/pangolin-guard-base at
+      revision eb220d9f8d75cfbc82cc9d430fa19f85d9764cef, each held at the frozen operating point:
+      the lowest threshold whose false-positive rate is at most 0.05 on 800 first user turns from
+      allenai/WildChat-1M at 7d6490e462285cf85d91eabea0f9a954fbddcd1f (G1 0.005912, G2 0.716629).
+      Their miss rates are 0.337 and 0.787. The discrepancy is +0.0568 (exactly 56781/1000000;
+      preregistered 95% item-bootstrap interval [+0.0472, +0.0669], B = 2000). The two miss rates
+      alone leave the both-miss rate anywhere in [0.124, 0.337]. The preregistered verdict is
+      DISCREPANT: the interval excludes zero and the point discrepancy reaches the 0.05 SESOI. The
+      interval does not establish a discrepancy greater than 0.05.
+    scope: >
+      Exactly the 1,000 rows committed at experiments/e9/results/observations.jsonl, set-equal to
+      the frozen list freeze/items_measurement_mosscap-test.csv, under contract E9-2026-09-18 (frozen,
+      sha256 43811798…). The freeze commit 6ac65de (2026-09-18) precedes the first E9 score commit.
+      The verdict-rule limitation: the SESOI (0.05) and the equivalence margin are in the frozen
+      contract, but the rule that combines them into DISCREPANT lives in run/analyze.py. That file was
+      committed in the freeze commit and is byte-identical since, but the rule is neither declared in
+      contract.json nor rendered into PREREG.md's prose. Correction C1 asks for claim-critical choices
+      to live in the contract; this one does not, and the verdict stands on the committed code, not on
+      the contract alone.
+      Further limits, as RESULT.md states them:
+      the pool was selected, as the widest scouting width among complete candidates, for intermediate
+      marginals; scouting items are disjoint from measurement items, but the result describes a
+      selected pool, not pools in general;
+      the interval resamples measurement items with thresholds held fixed, and omits calibration
+      uncertainty;
+      the operating point is declared, not deployed: on 400 seemingly-toxic benign prompts G2's
+      false-positive rate is 0.2675, reported and never deciding;
+      G2's fine-tuning corpus could not be verified, and G2 has no licence file at the pinned
+      revision (apache-2.0 is declared in card metadata only);
+      run/admit.py appended a results block to freeze/protocol.json, so the file is not
+      byte-immutable after freeze; the declared part still hashes to the frozen digest, and the
+      repository graph records the append as a D5 STOP finding;
+      one analyst ran every step, and re-running the committed scripts is replay, not reproduction.
+      Both guards are under 1B, ungated and pinned, loaded under the 2026-09-06 host exemption. E2's
+      guards were not loaded. This is not an E2 result and does not change CC-005.
+    dimensions:
+      visibility: public
+      provenance: machine_generated_owner_executed
+      support_role: executed_output
+      evidential_status: supported_within_scope
+      maturity: experimental
+    support:
+      url: "https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/results/observations.jsonl"
+      commit: "592ed515dc78acd4034a055024a64003e93d4172"
+      note: >
+        The support is the measurement: 1,000 committed per-item rows, merged to main as 592ed51
+        (PR #26). run/analyze.py re-run from a clean archive rewrites results/analysis.json
+        byte-identically (sha256 4ea9d46e…), and an independent exact-fraction recount of the rows
+        gives cells 322/15/465/198. The commit order is load-bearing: 6ac65de (freeze, 2026-09-18)
+        precedes every score commit.
+    expected:
+      contract_id: "E9-2026-09-18"
+      freeze_commit: "6ac65de910b264464c4c9fdcf9f8d5e3e217eeda"
+      n: 1000
+      thresholds:
+        G1: 0.005911730695515871
+        G2: 0.7166294455528259
+      cells:
+        both_miss: 322
+        g1_only_miss: 15
+        g2_only_miss: 465
+        both_catch: 198
+      miss_rates:
+        G1: 0.337
+        G2: 0.787
+      q_obs: 0.322
+      q_ind: 0.265219
+      delta_exact: "56781/1000000"
+      delta_ci95: [0.047169, 0.066904]
+      bootstrap_B: 2000
+      frechet: [0.124, 0.337]
+      marginal_only_width: 0.213
+      sesoi: 0.05
+      verdict: DISCREPANT
+    last_reviewed: "2026-10-17"
+    review_window_days: 120
+    review_triggers:
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e9/results/observations.jsonl
+        sha256: "2262983c6765a7f8fb6719c594852d82cab9efb5b40cf6ee4719a331e8c8226b"
+        note: fires when a committed measurement row changes without a registry re-review
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e9/results/analysis.json
+        sha256: "4ea9d46e68ac655f23add5b6ca0b257edefd98c6f79979b0d37bf05543fd07cb"
+        note: fires when the recorded analysis, interval or verdict changes
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e9/results/result.json
+        sha256: "6513df2ab4470aebca36169b5362bb4ccbc14665be1a281d5fae1d57278f729a"
+        note: fires when the run result changes
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e9/RESULT.md
+        sha256: "e7ff687745a10f905c84fad1afacb545ba6f0fab501b20595be38d275add9789"
+        note: fires when the run report changes, including any stated limit or non-claim
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e9/PREREG.md
+        sha256: "171f9ebfff2cd195c6b1e3907f12993be2f02154a541d0e2318bd9c19e975f10"
+        note: fires on any edit to the preregistration, which must not move after the measurement was read
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e9/contract.json
+        sha256: "43811798ae46e92eb14f933c96e855b625c3507230aac709ba510da4af69835b"
+        note: fires when the frozen contract changes
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e9/freeze/freeze.json
+        sha256: "7823904703a406840c9cba37dba40942bc065a9c4d1c06b89a6e70c12ce416a5"
+        note: fires when the freeze record changes
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e9/freeze/protocol.json
+        sha256: "ae51fb1df5a45e6414a53fe61663c25140ef56e2c5c4e082b0d3f67bc432d703"
+        note: fires when the declaration or its appended admission record changes
+      - type: local_content_change
+        enforcement: executable
+        path: experiments/e9/run/analyze.py
+        sha256: "bebd9f042edf2e41f1820ac3f2aa2ba4551bf2d2dbb615311f6ad9e887261375"
+        note: >
+          fires when the file that carries the verdict rule changes; the rule is not in the contract,
+          so this pin is what holds it fixed
+      - type: manual
+        enforcement: manual
+        event: >
+          a frozen multi-pool or new-guard contract (E10) is executed, either pinned revision is
+          withdrawn, or G2's training data is disclosed
+    falsifier:
+      condition: >
+        Any of the following is shown: recomputing from the committed rows yields any registered
+        quantity different beyond 1e-9; the thresholds recomputed from the committed calibration
+        scores by the contract rule differ from those recorded; the freeze commit 6ac65de does not
+        precede the first E9 score commit; any measurement item overlaps a calibration, stress or
+        scouting partition; the declared part of freeze/protocol.json no longer hashes to the digest
+        freeze.json records; or the verdict run/analyze.py applied differs from the rule committed at
+        6ac65de.
+      consequence: REJECT
+    forbidden_rescues:
+      - do not re-threshold, re-calibrate, change the 0.05 budget or the comparator and direction, and
+        report the new numbers as this result
+      - do not state that a discrepancy greater than 0.05 is established; the interval's lower end is 0.0472
+      - do not merge exploratory intervals (nested recalibration, level-cluster or operating-point
+        sweeps) with the preregistered item-bootstrap interval, or substitute one for it
+      - do not change the SESOI, the margin or the verdict rule in run/analyze.py and re-derive the verdict
+      - do not add, swap or re-admit a pool after outcomes are known and report it as E9
+      - do not carry these numbers to E2's guards, to a deployed stack, to either vendor, or to pools in general
+    non_claims:
+      - that guard pairs in general depart from independence, or in which direction
+      - anything about a deployed stack, a routing policy, or either guard's vendor
+      - that either guard, or the pair, is safe or unsafe
+      - the size of the discrepancy on other pools, other thresholds or other benign populations
+      - a discrepancy greater than the 0.05 SESOI; only one different from zero is established
+      - an E2 result; CC-005's E2 remains untested
