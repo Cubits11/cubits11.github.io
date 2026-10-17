@@ -2,13 +2,18 @@
  "film": "parity-cube",
  "format": "master",
  "title": "The Parity Cube",
- "rendered_from_head": "8be4b9dac920e1521a262981393d65c4024ebbb7",
+ "rendered_from_head": "f5c63d2455aeab475f73854ec22bc28ff07b1804",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "75e9c11c0774a29b0f6144ab0bc765f461644d5c7ae78426f3ae58e34b435f5c",
+  "film.html": "cb47755a548e538490732ea04d8e0c0282f40882ec480af4b7a36e8cbfdae594",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
+  "films/data/facts.json": "18dd628ed1521b5ad577c27da865ddbdadc2799e53f9d8cf1230fe7038b723a2"
+ },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
  },
  "runtime": {
   "chrome": "155.0.8059.82",
@@ -18,9 +23,10 @@
  "fps": 30,
  "frames": 961,
  "duration_s": 32,
+ "phone_text": null,
  "width": 1920,
  "height": 1080,
- "frames_digest": "05c629dc65683a81c43cd33897922e27c0cc6b3fef5bb880efd4218bb18224a1",
+ "frames_digest": "398cd598044617b45d347d7c889f54918aed0ea9f786da66ecb3433e80be6014",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -37,8 +43,8 @@
  ],
  "outputs": {
   "master": "renders/parity-cube__master.mp4",
-  "master_sha256": "3861d4f96678cac2fba066af4d2b63ea691123c53c105879c7f27ca65e779811",
-  "master_bytes": 1358719,
+  "master_sha256": "a74ced50b1f00061226d3448be7d1a8c50bb751a658c4e8200692592fb267e31",
+  "master_bytes": 1387902,
   "master_duration_probe_s": 32.03,
   "poster": "renders/parity-cube__master.poster.png",
   "poster_t": 20.5,
@@ -53,17 +59,17 @@
    {
     "n": 1,
     "t": 14,
-    "label": "two cubes, identical singles (0.50) and identical pairwise both-fail (0.25) under each",
+    "label": "two cubes share identical singles (0.50) and identical pairwise both-fail (0.25)",
     "still": "renders/stills/master-claim-01.jpg"
    },
    {
     "n": 2,
     "t": 20.5,
-    "label": "the all-three-fail corner labelled 0 in world E and 0.25 in world O",
+    "label": "all-three-fail values 0 in world E and 0.25 in world O; the master labels the corner, the phone labels each cube",
     "still": "renders/stills/master-claim-02.jpg"
    }
   ],
   "phone_previews": []
  },
- "render_seconds": 57.0
+ "render_seconds": 118.3
 }

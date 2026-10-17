@@ -487,14 +487,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "ac1e86b4ad47fec0",
+    "id": "194f63619827120d",
     "kind": "film",
     "source": {
       "path": "films/same-scores-different-worlds/manifest.yaml",
-      "sha256": "aadbe2772335d0500314c790fcf3c6c3476e92ad1dd6275693036f0d6daf90ad",
-      "commit": "3c4ce5bf54ed195ca674cea319d95f4463ec4d4e",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3c4ce5bf54ed195ca674cea319d95f4463ec4d4e/films/same-scores-different-worlds/manifest.yaml",
-      "binding": "committed"
+      "sha256": "a289640c746bd81fa535af6dcea678ef26cdca3162fd9564b257724f2f7ede9c",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
     },
     "draft_ids": [
       "try-a"
@@ -504,14 +504,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "57e77ab060309a36",
+    "id": "61a6144e66b14314",
     "kind": "film",
     "source": {
       "path": "films/same-scores__social-square/manifest.yaml",
-      "sha256": "ca4b2541b59d731692cd7e86112a23c8d4ade7af22512cc381dacb6b8d38524b",
-      "commit": "3c4ce5bf54ed195ca674cea319d95f4463ec4d4e",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3c4ce5bf54ed195ca674cea319d95f4463ec4d4e/films/same-scores__social-square/manifest.yaml",
-      "binding": "committed"
+      "sha256": "b28287943366ac12b381e230044fbd02219884270a4b91199f2604fc4f0d8039",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
@@ -581,14 +581,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "8bbbfb385ec36baa",
+    "id": "edb9e1dd8a7971d6",
     "kind": "film",
     "source": {
       "path": "films/the-multiplication/manifest.yaml",
-      "sha256": "44182359d2bce6942fbcba46eaca44a495722b9521ac7d8a8c6e31cb1d1be902",
-      "commit": "14ca60826fa284317d5c20dece19e7422d1161b6",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/14ca60826fa284317d5c20dece19e7422d1161b6/films/the-multiplication/manifest.yaml",
-      "binding": "committed"
+      "sha256": "fd6aeee56e9335eb6658e4e520142eaacfc85049ad178d44f32128cf70b3ba77",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",
@@ -596,14 +596,14 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "3f4ee84456f427b7",
+    "id": "218fb0fb1f8102c1",
     "kind": "film",
     "source": {
       "path": "films/the-stack/manifest.yaml",
-      "sha256": "1b8acaac37e0b2ec95e59572a0b583d59fb0d37cf506806320236568f60d915f",
-      "commit": "3b9721dd944e66fa404eef62d964c394d0e73060",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/3b9721dd944e66fa404eef62d964c394d0e73060/films/the-stack/manifest.yaml",
-      "binding": "committed"
+      "sha256": "f81ae5c045665327da9e9bf8469e56d9f808820f81f422ccab731e87311bebe0",
+      "commit": null,
+      "url": null,
+      "binding": "pending_commit"
     },
     "draft_ids": [],
     "state": "candidate_requires_claim_audit",

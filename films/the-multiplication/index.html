@@ -135,6 +135,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
 <style>
 .container{width:min(1080px,100% - 2*clamp(1.25rem,5vw,3rem))}
 header.page{padding:6.8rem 0 1.2rem}h1.q{max-width:24ch;margin-bottom:.65rem}
+.film-phone-note{display:none}
 .film-note{max-width:65ch;color:var(--muted);margin:.45rem 0 1rem}
 .watch{width:100%;height:auto;display:block;max-height:72vh;aspect-ratio:var(--ratio);background:#0B0F0A;border:1px solid var(--line-strong)}
 .watch:focus-visible{outline:3px solid var(--evidence);outline-offset:4px}
@@ -145,12 +146,17 @@ header.page{padding:6.8rem 0 1.2rem}h1.q{max-width:24ch;margin-bottom:.65rem}
 .film-body details{border-top:1px solid var(--line);margin-top:1.5rem;padding-top:1rem}
 .film-body summary{cursor:pointer;color:var(--ink);font-family:var(--mono);font-size:.8rem}
 .film-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 1.4rem;list-style:none;padding:0;margin:1rem 0 3rem}
-.film-card{display:block;text-decoration:none;border:1px solid var(--line);background:var(--surface);height:100%;transition:border-color .15s}
+.film-grid>li{display:flex;flex-direction:column}.film-card{display:block;flex:1;text-decoration:none;border:1px solid var(--line);background:var(--surface);transition:border-color .15s}
 .film-card:hover,.film-card:focus-visible{border-color:var(--evidence)}
 .film-card img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#0B0F0A}
 .film-card div{padding:1rem 1.1rem}.film-card h2{font-family:var(--serif);font-size:1.45rem;font-weight:500;line-height:1.2;margin:0 0 .65rem;color:var(--ink)}
 .film-card p{font-size:.84rem;color:var(--muted);margin:0}
-@media(max-width:600px){.film-grid{grid-template-columns:1fr;gap:1.1rem}header.page{padding-top:6.2rem}.watch{max-height:65vh}.film-meta{gap:.5rem 1rem}}
+.film-alternates{font-size:.84rem;padding:.7rem 1.1rem;margin:0;border:1px solid var(--line);border-top:0}
+.film-alternates a{display:inline-block;min-height:44px;padding:.65rem 0}
+.film-next{display:flex;flex-wrap:wrap;gap:.7rem 1.4rem;margin:1rem 0}
+.film-next a{display:inline-flex;align-items:center;min-height:44px}
+.film-grid>li:first-child{grid-column:1/-1}.film-grid>li:first-child .film-card{display:grid;grid-template-columns:1fr 1fr;align-items:center}
+@media(max-width:600px){.film-phone-note{display:block}.film-grid{grid-template-columns:1fr;gap:1.1rem}.film-grid>li:first-child .film-card{display:block}header.page{padding-top:6.2rem}.watch{max-height:none;aspect-ratio:var(--phone-ratio,var(--ratio))}.film-meta{gap:.5rem 1rem}}
 </style></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -177,24 +183,31 @@ header.page{padding:6.8rem 0 1.2rem}h1.q{max-width:24ch;margin-bottom:.65rem}
 <p class="film-note">Separate scores need an independence assumption to license their product as a joint miss rate.</p>
 </div></header>
 <main id="main" class="container">
-<video class="watch" id="film" controls playsinline preload="metadata" poster="/films/the-multiplication/renders/the-multiplication__master.poster.png" width="1920" height="1080" style="--ratio:1920/1080" aria-label="The multiplication" aria-describedby="text-alternative">
+
+<video class="watch" id="film" controls playsinline preload="metadata" poster="/films/the-multiplication/renders/the-multiplication__master.poster.png" data-phone-poster="/films/the-multiplication/renders/the-multiplication__vertical.poster.png" width="1920" height="1080" style="--ratio:1920/1080;--phone-ratio:1080/1920" aria-label="The multiplication" aria-describedby="text-alternative">
+<source media="(max-width:600px)" src="/films/the-multiplication/renders/the-multiplication__vertical.mp4" type="video/mp4">
 <source src="/films/the-multiplication/renders/the-multiplication__master.mp4" type="video/mp4">
 Your browser cannot play this video. <a href="/films/the-multiplication/renders/the-multiplication__master.mp4">Download the film</a> or read the text below.
 </video>
+<script>if(window.matchMedia('(max-width:600px)').matches){const film=document.getElementById('film');film.poster=film.dataset.phonePoster;}</script>
+<nav class="film-next" aria-label="Try or inspect this argument"><a class="btn primary" href="/try/">Try the 60-second proof <span aria-hidden="true">→</span></a></nav>
 <div class="film-meta"><a class="u" href="#text-alternative">Read the argument</a><a class="u" href="/films/the-multiplication/renders/the-multiplication__master.mp4" download>Download MP4</a><span>First published here 2026-09-06</span></div>
 <div class="film-body">
 <section class="gsec" id="text-alternative" aria-labelledby="argument-title"><h2 id="argument-title">The argument in text</h2>
 <p>The product of the CC-001 illustrative marginals is the independence-world value, not a measured stack result.</p><p>Camera insert for the flagship; same-input illustrative evaluation, not sequentially filtered evaluation.</p></section>
-<section class="gsec"><h2>What this does not establish</h2><ul><li>No measured system, deployment risk estimate, or independence test is shown.</li></ul></section>
+<section class="gsec" id="film-limits"><h2>What this does not establish</h2><ul><li>This illustration shows no measured system, deployment risk estimate, or test of independence.</li></ul>
+<p><a class="u" href="/limits/">What checks and receipts establish</a> · <a class="u" href="#full-manifest-limits">Full technical limits</a></p></section>
 <section class="gsec"><h2>What would require a correction</h2><p>Any product differs from the bound independence value, or a product frame omits the assumption label.</p>
 <p>Read the supporting record: <a class="u" href="/claims/cc-001/">CC-001</a>.</p></section>
+<details id="full-manifest-limits"><summary>Full technical limits from the film manifest</summary>
+<p>The summary above groups these limits for reading. The original technical wording is retained here; exact duplicate lines appear once. <a class="u" href="/films/the-multiplication/manifest.yaml">Inspect the complete manifest</a>.</p><ul><li>No measured system, deployment risk estimate, or independence test is shown.</li></ul></details>
 <details><summary>Sources and render record</summary>
-<p><a class="u" href="/films/the-multiplication/manifest.yaml">Film manifest</a> · <a class="u" href="/films/the-multiplication/renders/the-multiplication__master.receipt.json">Render receipt</a> · <a class="u" href="https://api.github.com/repos/Cubits11/cubits11.github.io/deployments/6289277346/statuses">First site deployment record</a></p>
+<p><a class="u" href="/films/the-multiplication/manifest.yaml">Film manifest</a> · <a class="u" href="/films/the-multiplication/renders/the-multiplication__master.receipt.json">Render receipt</a> · <a class="u" href="/films/the-multiplication/renders/the-multiplication__vertical.receipt.json">Phone render receipt</a> · <a class="u" href="https://api.github.com/repos/Cubits11/cubits11.github.io/deployments/6289277346/statuses">First site deployment record</a></p>
 <p>Current render: 2026-10-17. The receipt records the rendered inputs and output hash. It checks provenance, not scientific validity.</p></details>
 </div></main>
 <footer>
   <div class="container">
-    <div class="foot-links mono"><a class="u" href="/films/">All films</a><a class="u" href="/claims/">Claim registry</a><a class="u" href="/missing-column/">The Missing Column</a><a class="u" href="/corrections/">Corrections</a></div>
+    <div class="foot-links mono"><a class="u" href="/films/">All films</a><a class="u" href="/limits/">What checks establish</a><a class="u" href="/claims/">Claim registry</a><a class="u" href="/corrections/">Corrections</a></div>
     
   </div>
 </footer>

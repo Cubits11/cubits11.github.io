@@ -96,7 +96,33 @@ function drawShadows(g, world, cx, y, S, alpha, L) {
   g.restore();
 }
 
+// Dedicated phone composition: every text label is >=54 canvas px.
+// 54 / 1080 * 280 = 14 CSSpx at a 320px viewport with 40px page gutters.
+function renderPhone(t, g, L) {
+  const label = (s, y, o = {}) => text(g, s, 80, y, { font: 'sans', size: 56, color: TOK.ink, maxW: 920, ...o });
+  label('Illustration — no measured system', 84, { size: 54, color: TOK.review });
+  label('Same pairs.', 220, { font: 'serif', size: 90 });
+  label('Different triple failures.', 315, { font: 'serif', size: 76 });
+  const yaw = 0.55 + 0.10 * t;
+  const world = (atoms, name, cy, triple, alpha) => {
+    g.save(); g.globalAlpha *= alpha;
+    text(g, name, 540, cy - 210, { font: 'sans', size: 58, color: TOK.muted, align: 'center', maxW: 920 });
+    drawCube(g, atoms, 540, cy, 100, yaw, 0.45, 1, { ...L, u: 2 }, { grow: () => 1, labels: 0, hilite: 0 });
+    text(g, `All three fail: ${Math.round(triple * 100)}%`, 540, cy + 220, { font: 'sans', size: 62, color: TOK.review, align: 'center', maxW: 920 });
+    g.restore();
+  };
+  world(EVEN, `World E · ${Math.round(Object.values(EVEN)[0] * 100)}% per filled corner`, 630, T_EVEN, 1);
+  world(ODD, `World O · ${Math.round(Object.values(ODD)[0] * 100)}% per filled corner`, 1160, T_ODD, sm(t, 7, 8));
+  label(`Each guard fails: ${Math.round(SINGLE * 100)}%`, 1490, { color: TOK.evidence, alpha: sm(t, 3, 4) });
+  label(`Each pair both fail: ${Math.round(PAIR * 100)}%`, 1575, { color: TOK.evidence, alpha: sm(t, 9.5, 10.7) });
+  label('Pairs cannot identify', 1710, { size: 64, alpha: sm(t, 20.2, 21) });
+  label('the three-way failure.', 1790, { size: 64, alpha: sm(t, 20.2, 21) });
+  label('CC-003 · constructed proof', 1870, { size: 54, color: TOK.muted });
+}
+
 function render(t, g, L, { fact }) {
+  if (L.vertical) { renderPhone(t, g, L); return; }
+  text(g, 'Illustration — no measured system', 120, 65, { font: 'sans', size: 30, color: TOK.review, maxW: 1400 });
   const u = L.u;
   const R = L.vertical ? 150 * u : 175 * u;
   const yaw0 = 0.55, yaw = yaw0 + 0.16 * t;
@@ -145,8 +171,8 @@ Film.define({
   id: 'parity-cube', title: 'The Parity Cube',
   duration: DUR, fps: 30, poster_t: 20.5,
   claimFrames: [
-    { t: 14.0, label: 'two cubes, identical singles (0.50) and identical pairwise both-fail (0.25) under each' },
-    { t: 20.5, label: 'the all-three-fail corner labelled 0 in world E and 0.25 in world O' }
+    { t: 14.0, label: 'two cubes share identical singles (0.50) and identical pairwise both-fail (0.25)' },
+    { t: 20.5, label: 'all-three-fail values 0 in world E and 0.25 in world O; the master labels the corner, the phone labels each cube' }
   ],
   setup, render
 });

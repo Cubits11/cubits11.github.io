@@ -1593,7 +1593,7 @@
       "identifier": "GV-001",
       "name": "Ghost Visualizer, a visual essay that computes safety scores",
       "description": "GV-001: Ghost Visualizer, a visual essay that computes safety scores. NARROW if a local run from the bound revision lacks the stated seven scenes…",
-      "text": "Ghost Visualizer is a seven-scene React/Vite visual essay (\"Why AI Safety Scores Lie\") that computes marginals, OR composition, Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from deterministic sample rows, with an Evidence Mode for inspection.",
+      "text": "Ghost Visualizer is a seven-scene React/Vite visual essay about what individual AI guardrail scores cannot determine. It computes marginals, OR composition, Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from deterministic sample rows, with an Evidence Mode for inspection.",
       "url": "https://cubits11.github.io/claims/gv-001/",
       "author": {
         "@type": "Person",
@@ -1612,7 +1612,7 @@
         "name": "Cubits11 claim registry",
         "url": "https://cubits11.github.io/ledger/"
       },
-      "dateModified": "2026-08-24",
+      "dateModified": "2026-10-17",
       "fw:scopeStatement": "The repository at the bound commit. Runs locally; there is no hosted deployment, so the site links source, not a live demo.",
       "fw:falsifier": "A local run from the bound revision lacks the stated seven scenes, deterministic sample-row computations, or Evidence Mode for inspection.",
       "fw:consequence": "NARROW",
@@ -1621,12 +1621,13 @@
         "do not recast a local-only source project as a hosted interactive demo"
       ],
       "fw:nonClaim": [
+        "underdetermination of shared failures is not evidence of deception or dishonest reporting",
         "not an AI-safety certificate; no deployment-readiness claim",
         "its own public-readiness review scores it for private serious-contact demo use; the site therefore links source rather than exhibiting its media as a flagship"
       ],
-      "fw:lastReviewed": "2026-08-24",
+      "fw:lastReviewed": "2026-10-17",
       "fw:reviewWindow": "P120D",
-      "fw:warrantExpires": "2026-12-22",
+      "fw:warrantExpires": "2027-02-14",
       "fw:evidentialStatus": "supported_within_scope",
       "fw:supportUrl": {
         "@id": "https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7"
@@ -2418,6 +2419,123 @@
       },
       "fw:verdict": "REJECTED AS STATED",
       "fw:verdictDate": "2026-09-10"
+    },
+    {
+      "@context": [
+        "https://schema.org",
+        {
+          "@version": 1.1,
+          "fw": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#",
+            "@prefix": true
+          },
+          "xsd": "http://www.w3.org/2001/XMLSchema#",
+          "fw:falsifier": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#falsifier"
+          },
+          "fw:consequence": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#consequence"
+          },
+          "fw:forbiddenRescue": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#forbiddenRescue",
+            "@container": "@list"
+          },
+          "fw:nonClaim": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#nonClaim",
+            "@container": "@list"
+          },
+          "fw:scopeStatement": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#scopeStatement"
+          },
+          "fw:evidentialStatus": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#evidentialStatus"
+          },
+          "fw:lastReviewed": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#lastReviewed",
+            "@type": "xsd:date"
+          },
+          "fw:reviewWindow": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#reviewWindow",
+            "@type": "xsd:duration"
+          },
+          "fw:warrantExpires": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#warrantExpires",
+            "@type": "xsd:date"
+          },
+          "fw:supportUrl": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#supportUrl",
+            "@type": "@id"
+          },
+          "fw:supportBinding": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#supportBinding",
+            "@type": "@id"
+          },
+          "fw:boundRevision": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#boundRevision"
+          },
+          "fw:verdict": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#verdict"
+          },
+          "fw:verdictDate": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#verdictDate",
+            "@type": "xsd:date"
+          }
+        }
+      ],
+      "@type": "Claim",
+      "@id": "https://cubits11.github.io/claims/e9-001/#claim",
+      "identifier": "E9-001",
+      "name": "E9: both-miss measurement on 1,000 items",
+      "description": "E9-001: E9: both-miss measurement on 1,000 items. REJECT if independent counts from the pinned observation rows or replay of the frozen analyzer disagree…",
+      "text": "E9's committed 1,000-item mosscap-test measurement records a both-miss rate of 0.3220, against an independence plug-in of 0.265219: discrepancy +0.056781, with a fixed-threshold 95% bootstrap interval [0.047169, 0.066904]. The interval excludes zero but does not lie wholly beyond the 0.05 effect-size threshold. The recorded DISCREPANT verdict uses a rule frozen in analyze.py but omitted from the readable preregistration and executable contract; this registration does not certify complete preregistration conformance.",
+      "url": "https://cubits11.github.io/claims/e9-001/",
+      "author": {
+        "@type": "Person",
+        "@id": "https://cubits11.github.io/#person",
+        "name": "Pranav Bhave",
+        "url": "https://cubits11.github.io/",
+        "sameAs": [
+          "https://github.com/Cubits11",
+          "https://www.linkedin.com/in/pranav-bhave-2a328721a/",
+          "https://x.com/PranavBhave_"
+        ]
+      },
+      "isPartOf": {
+        "@type": "Dataset",
+        "@id": "https://cubits11.github.io/ledger/#dataset",
+        "name": "Cubits11 claim registry",
+        "url": "https://cubits11.github.io/ledger/"
+      },
+      "dateModified": "2026-10-17",
+      "fw:scopeStatement": "Post-result registration on 2026-10-17 of the E9 rows already published in PR 26 at revision 592ed515dc78acd4034a055024a64003e93d4172. Exactly G1 and G2 on the selected mosscap-test pool, at the frozen operating point. Scouting selected a pool with informative marginals among those with complete measurement slices. The bootstrap resamples measurement items with calibration thresholds held fixed. Replay of owner-produced artifacts is the support; independent reproduction and validity on other pools are not established.",
+      "fw:falsifier": "Independent counts from the pinned observation rows or replay of the frozen analyzer disagree with any expected numerical value beyond 1e-12; a row lacks the declared guards, duplicates a measurement item, or its flag/miss values do not follow the frozen thresholds; or the replay does not preserve the admission thresholds. Any such failure rejects this registered numerical result until a dated correction is recorded. A later claim that the entire interval exceeds 0.05 or that the verdict rule was stated in readable preregistration is outside this envelope.",
+      "fw:consequence": "REJECT",
+      "fw:forbiddenRescue": [
+        "Do not edit the frozen contract, preregistration, analyzer, thresholds, pool admission or bootstrap seed to make this result conform retrospectively.",
+        "Do not change the 0.05 threshold or select another interval after seeing the result.",
+        "Do not call replay independent replication or treat this registration as evidence that the original verdict rule was rendered into preregistration prose.",
+        "Do not carry this result to E2, other pools, vendors or deployed stacks."
+      ],
+      "fw:nonClaim": [
+        "The verdict rule was frozen in analyze.py but omitted from readable PREREG.md and contract.json; C1 conformance is not established.",
+        "The interval excludes zero; its lower endpoint is below 0.05, so an effect wholly beyond the SESOI is not established.",
+        "Pool admission selected intermediate marginals from complete candidate slices; no population-level generalization is claimed.",
+        "Calibration uncertainty is omitted by the fixed-threshold bootstrap.",
+        "One analyst and no independent replication; training contamination for the second guard was not verified.",
+        "Not evidence of deployment safety, vendor performance, E2 completion or a general law of guardrail dependence.",
+        "Registration occurred after the outcomes were known and is not preregistration."
+      ],
+      "fw:lastReviewed": "2026-10-17",
+      "fw:reviewWindow": "P120D",
+      "fw:warrantExpires": "2027-02-14",
+      "fw:evidentialStatus": "partially_supported",
+      "fw:supportUrl": {
+        "@id": "https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/results/observations.jsonl"
+      },
+      "fw:supportBinding": {
+        "@id": "https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/results/observations.jsonl"
+      },
+      "fw:boundRevision": "592ed515dc78acd4034a055024a64003e93d4172"
     }
   ]
 }

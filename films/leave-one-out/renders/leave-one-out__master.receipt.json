@@ -2,13 +2,18 @@
  "film": "leave-one-out",
  "format": "master",
  "title": "Leave One Out",
- "rendered_from_head": "8be4b9dac920e1521a262981393d65c4024ebbb7",
+ "rendered_from_head": "f5c63d2455aeab475f73854ec22bc28ff07b1804",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "f73a1cae0e90b037d00986d34967e8f75de205e489a03f7d53c2744b585c597e",
+  "film.html": "abe67d7d1dea90ff35a22299487f3b39dab258ff2746b403acb50bec781e7b0f",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
+  "films/data/facts.json": "18dd628ed1521b5ad577c27da865ddbdadc2799e53f9d8cf1230fe7038b723a2"
+ },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
  },
  "runtime": {
   "chrome": "155.0.8059.82",
@@ -18,9 +23,10 @@
  "fps": 30,
  "frames": 1021,
  "duration_s": 34,
+ "phone_text": null,
  "width": 1920,
  "height": 1080,
- "frames_digest": "1e34a0ee2aad1dd498014e7680f5da5a2852c9fd1301031eaab91f0b6675ae26",
+ "frames_digest": "ce66f5c7316c008b9e406bb6343cfd953e43d223fcc286e44e7196adb4df2c0e",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -42,8 +48,8 @@
  ],
  "outputs": {
   "master": "renders/leave-one-out__master.mp4",
-  "master_sha256": "08128e79c666b17fd5cf533713384395e37f97c9dafc0f2908a78e24fe19760c",
-  "master_bytes": 976464,
+  "master_sha256": "44779e332dcc128b8a1f269540c1d53455c63569080bf2e84b2a5e9473d0b761",
+  "master_bytes": 1039486,
   "master_duration_probe_s": 34.03,
   "poster": "renders/leave-one-out__master.poster.png",
   "poster_t": 16.3,
@@ -58,7 +64,7 @@
    {
     "n": 1,
     "t": 12,
-    "label": "all five lamps on: 73/82 lit, 9 dark; aggregate-only bounds on exclusive coverage beside each lamp",
+    "label": "all five together: 73/82 flagged, 9 missed; aggregate-only bounds on each guard\u2019s exclusive coverage",
     "still": "renders/stills/master-claim-01.jpg"
    },
    {
@@ -70,11 +76,11 @@
    {
     "n": 3,
     "t": 29,
-    "label": "summary: 3 of 5 lamps have zero exclusive coverage on this stratum; identified values beside each lamp",
+    "label": "summary: 3 of 5 guards have zero exclusive coverage on this stratum; all five identified values shown",
     "still": "renders/stills/master-claim-03.jpg"
    }
   ],
   "phone_previews": []
  },
- "render_seconds": 84.4
+ "render_seconds": 225.6
 }

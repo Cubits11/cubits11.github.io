@@ -2,13 +2,18 @@
  "film": "what-the-seal-proves",
  "format": "master",
  "title": "What the Seal Proves",
- "rendered_from_head": "8be4b9dac920e1521a262981393d65c4024ebbb7",
+ "rendered_from_head": "f5c63d2455aeab475f73854ec22bc28ff07b1804",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "e7599ef2f16c14889be20b75c5df524774fd117a6497bb878d37eb64750ff19b",
+  "film.html": "4f3428be4deaabe00c219ad7150cdd89be82126c7621419a5235e338cb535dc1",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
+  "films/data/facts.json": "18dd628ed1521b5ad577c27da865ddbdadc2799e53f9d8cf1230fe7038b723a2"
+ },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
  },
  "runtime": {
   "chrome": "155.0.8059.82",
@@ -18,9 +23,10 @@
  "fps": 30,
  "frames": 1021,
  "duration_s": 34,
+ "phone_text": null,
  "width": 1920,
  "height": 1080,
- "frames_digest": "929a8b2bed6c335e64c79ab0e6364978c1400ce898c592457d777262c22c77e0",
+ "frames_digest": "9aa6d1299f3d0467561fe2f6e3981b5864769814e359c1b666600958e286ba5c",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -38,8 +44,8 @@
  ],
  "outputs": {
   "master": "renders/what-the-seal-proves__master.mp4",
-  "master_sha256": "b6847246e895f1e7316f63cb3193877b14bf040cfa70af27511c14944a19ddd7",
-  "master_bytes": 968542,
+  "master_sha256": "6a79e4b85d18389f812d8c131f7011a9cf5623f2ecb2e6aa1ddfcd2192a0a328",
+  "master_bytes": 1091518,
   "master_duration_probe_s": 34.03,
   "poster": "renders/what-the-seal-proves__master.poster.png",
   "poster_t": 24,
@@ -54,17 +60,17 @@
    {
     "n": 1,
     "t": 16.8,
-    "label": "two receipts with different raw digests now share one canonical digest under the seal",
+    "label": "two receipts with different raw digests share one canonical digest; the master shows its seal and the phone shows its pipeline",
     "still": "renders/stills/master-claim-01.jpg"
    },
    {
     "n": 2,
     "t": 24,
-    "label": "the verified seal, the boundary line, and the three dark doors: SAFE? AUTHORIZED? CORRECT? \u2014 not established by the receipt",
+    "label": "the matching canonical digest, boundary line and safety/authorization/correctness limits; master uses three dark doors",
     "still": "renders/stills/master-claim-02.jpg"
    }
   ],
   "phone_previews": []
  },
- "render_seconds": 71.7
+ "render_seconds": 264.7
 }

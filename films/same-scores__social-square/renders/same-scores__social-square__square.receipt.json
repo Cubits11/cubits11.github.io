@@ -2,10 +2,10 @@
  "film": "same-scores__social-square",
  "format": "square",
  "title": "Same Scores \u2014 social square",
- "rendered_from_head": "b20ea7daa93db5a93b158a4275aa160d6d39219c",
+ "rendered_from_head": "592ed515dc78acd4034a055024a64003e93d4172",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "556858d2dfed622d48f842287c3d2717471d14f7e28c22178323d15ccd8aa70e",
+  "film.html": "fb702e09a828224a44c2d46060a83f741a361039e07d79c636440ea508b97987",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
   "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
@@ -20,7 +20,7 @@
  "duration_s": 11,
  "width": 1080,
  "height": 1080,
- "frames_digest": "1e4b591b1e121c38770f4e0381738975d451fade0b661884973802e9233b7006",
+ "frames_digest": "cfa14e484755f903af715837453397799995bdb523082015e60d08593088b4f7",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -35,8 +35,8 @@
  ],
  "outputs": {
   "master": "renders/same-scores__social-square__square.mp4",
-  "master_sha256": "7879d9532276b54a5c57eeabde73323a107efeae406ff00f9f2f9cda0e35f076",
-  "master_bytes": 334254,
+  "master_sha256": "3d2d865ac32f18a638212dc2d4155347bbf0248f92035bee16f470ef43fcac51",
+  "master_bytes": 255556,
   "master_duration_probe_s": 11.03,
   "poster": "renders/same-scores__social-square__square.poster.png",
   "poster_t": 10.8,
@@ -99,5 +99,5 @@
    "renders/stills/phone-square-claim-06.jpg"
   ]
  },
- "render_seconds": 38.9
+ "render_seconds": 314.8
 }

@@ -2,13 +2,18 @@
  "film": "parity-cube",
  "format": "vertical",
  "title": "The Parity Cube",
- "rendered_from_head": "b20ea7daa93db5a93b158a4275aa160d6d39219c",
+ "rendered_from_head": "f5c63d2455aeab475f73854ec22bc28ff07b1804",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "75e9c11c0774a29b0f6144ab0bc765f461644d5c7ae78426f3ae58e34b435f5c",
+  "film.html": "cb47755a548e538490732ea04d8e0c0282f40882ec480af4b7a36e8cbfdae594",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
+  "films/data/facts.json": "18dd628ed1521b5ad577c27da865ddbdadc2799e53f9d8cf1230fe7038b723a2"
+ },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
  },
  "runtime": {
   "chrome": "155.0.8059.82",
@@ -18,9 +23,20 @@
  "fps": 30,
  "frames": 961,
  "duration_s": 32,
+ "phone_text": {
+  "minimum_canvas_px": 54,
+  "audited_draws": 9483,
+  "minimum_examples": [
+   "Illustration \u2014 no measured system",
+   "CC-003 \u00b7 constructed proof"
+  ],
+  "media_width_css_px": 280,
+  "minimum_css_px": 14.0,
+  "limit": "Font geometry only; legibility and comprehension require reader evidence."
+ },
  "width": 1080,
  "height": 1920,
- "frames_digest": "c95a946eb342231baa77ad6c7d220a8710a67507728163739c6aeafc9c0dfc97",
+ "frames_digest": "196c78ac5d5b0b5fddee17cbc63276c1ac062d62772249b45099e73f1349571e",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -37,8 +53,8 @@
  ],
  "outputs": {
   "master": "renders/parity-cube__vertical.mp4",
-  "master_sha256": "5ded588b19cb5d16dbe3f5c49f47dadd7d62390a2f887e9631ebd1af738aa591",
-  "master_bytes": 1203244,
+  "master_sha256": "a6e6a86554899986772acf929477e22542007165c4fbc8c81c5ddb3483e34578",
+  "master_bytes": 1241114,
   "master_duration_probe_s": 32.03,
   "poster": "renders/parity-cube__vertical.poster.png",
   "poster_t": 20.5,
@@ -53,17 +69,25 @@
    {
     "n": 1,
     "t": 14,
-    "label": "two cubes, identical singles (0.50) and identical pairwise both-fail (0.25) under each",
+    "label": "two cubes share identical singles (0.50) and identical pairwise both-fail (0.25)",
     "still": "renders/stills/vertical-claim-01.jpg"
    },
    {
     "n": 2,
     "t": 20.5,
-    "label": "the all-three-fail corner labelled 0 in world E and 0.25 in world O",
+    "label": "all-three-fail values 0 in world E and 0.25 in world O; the master labels the corner, the phone labels each cube",
     "still": "renders/stills/vertical-claim-02.jpg"
    }
   ],
-  "phone_previews": []
+  "phone_previews": [
+   "renders/stills/phone-vertical-open.jpg",
+   "renders/stills/phone-vertical-q1.jpg",
+   "renders/stills/phone-vertical-mid.jpg",
+   "renders/stills/phone-vertical-q3.jpg",
+   "renders/stills/phone-vertical-end.jpg",
+   "renders/stills/phone-vertical-claim-01.jpg",
+   "renders/stills/phone-vertical-claim-02.jpg"
+  ]
  },
- "render_seconds": 94.8
+ "render_seconds": 102.5
 }

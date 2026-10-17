@@ -179,14 +179,10 @@ renderings:
       - says: "{denominator} − registered catches"
       - says: "satisfies the {MC-002.k_guards} counts"
       - says: "all-miss reads {identified_set_upper}/{denominator}"
-      - says: "identified set {{{identified_set_lower}…{identified_set_upper}}} drawn on the axis"
-      - says: "identified set {{{identified_set_lower}…{identified_set_upper}}} on the axis"
-      - says: "union bar {MC-002.union_detection}/{denominator} pins the all-miss count at {MC-002.all_miss}/{denominator}"
-      - says: "marker at {MC-002.independence_prompts_2dp} prompts"
+      - says: "the {MC-002.k_guards} fixed rates permit the finite set {{{identified_set_lower}…{identified_set_upper}}}"
+      - says: "the released union {MC-002.union_detection}/{denominator} pins the all-miss count at {MC-002.all_miss}/{denominator}; the {MC-002.k_guards} rates alone still permit {{{identified_set_lower}…{identified_set_upper}}}"
       # film.html only
       - says: "where these {identified_set_upper} sit is not in the published rates"
-      - says: "the union ({MC-002.union_detection}/{denominator}) pins the all-miss count at {MC-002.all_miss}/{denominator}"
-      - says: "plug-in ({MC-002.independence_prompts_2dp} prompts)"
       - says: "[0, 4, 8, {identified_set_upper}].forEach"
     strongest: "The five published miss rates of the BELLS supervisors pin the all-miss count only to {0 … 12} of 82 — thirteen worlds"
 
@@ -244,9 +240,10 @@ renderings:
     sources:
       - kind: html
         path: explore/index.html
-        # the screening-room card; the region stops where the card's
-        # non-claims begin, which S3 reads from the whole page
-        region_start: '<article class="world-shelf"><video controls playsinline preload="none" poster="/films/thirteen-worlds/'
+        # The film's title/caption; the preceding navigation points to the
+        # separate 60-second construction, not an assertion about MC-003.
+        # S3 still reads the film's non-claims from the whole page.
+        region_start: '<span class="mono" id="thirteen-worlds-caption">'
         region_end: '<details'
         sweep: true
     speaks:
@@ -297,9 +294,9 @@ renderings:
       - says: "NeMo {MC-003.aggregate_unique_contribution_bounds.nemo.0}–{MC-003.aggregate_unique_contribution_bounds.nemo.1}, Lakera {MC-003.aggregate_unique_contribution_bounds.lakera_guard.0}–{MC-003.aggregate_unique_contribution_bounds.lakera_guard.1}, LangKit {MC-003.aggregate_unique_contribution_bounds.langkit.0}–{MC-003.aggregate_unique_contribution_bounds.langkit.1}, Prompt Guard {MC-003.aggregate_unique_contribution_bounds.prompt_guard.0}–{MC-003.aggregate_unique_contribution_bounds.prompt_guard.1}, LLM Guard {MC-003.aggregate_unique_contribution_bounds.llm_guard.1}"
       - says: "{n_harmful} {MC-002.k_guards}-bit masks"
       - says: "all {MC-002.k_guards} leave-one-out unions"
-      - says: "all {MC-002.k_guards} lamps on — {union_detection}/{n_harmful} lit, {all_miss} dark"
+      - says: "all {MC-002.k_guards} together — {union_detection}/{n_harmful} flagged, {all_miss} missed"
       - says: "{MC-002.exclusive.nemo} windows go dark, {leave_one_out_union.nemo}/{n_harmful} still lit by the other {MC-002.k_guards_minus_one}"
-      - says: "{MC-003.members_zero_exclusive_full_stack_coverage} of {MC-002.k_guards} lamps light nothing"
+      - says: "{MC-003.members_zero_exclusive_full_stack_coverage} of {MC-002.k_guards} guards have {MC-002.exclusive.langkit} exclusive coverage on this stratum; all {MC-002.k_guards} identified values shown"
     strongest: "the released leave-one-out unions identify it — 18, 3, 0, 0, 0 — so three of five supervisors add no exclusive coverage on this stratum"
 
   - id: the-missing-column-trailer

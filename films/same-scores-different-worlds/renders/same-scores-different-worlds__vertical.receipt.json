@@ -2,13 +2,18 @@
  "film": "same-scores-different-worlds",
  "format": "vertical",
  "title": "Same Scores, Different Worlds",
- "rendered_from_head": "b20ea7daa93db5a93b158a4275aa160d6d39219c",
+ "rendered_from_head": "592ed515dc78acd4034a055024a64003e93d4172",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "ba73ef33ca72bbeead8283494bbaaae3dfe5a2dadee6b8cdaa012e01ae1fc200",
+  "film.html": "7dc96af7fc174dcf1066feffa8120f96343fe604d3959012dfb9e4f9f02a13c7",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
   "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
+ },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
  },
  "runtime": {
   "chrome": "155.0.8059.82",
@@ -20,7 +25,7 @@
  "duration_s": 30,
  "width": 1080,
  "height": 1920,
- "frames_digest": "fd72ad0ea6ad47d179342f7b203c27397182f6cb148703b2e72bbcf5b9e72fc6",
+ "frames_digest": "e139e16b6f12a1046092ebd7068b3f3c5db3311c269fe8e417517aff307f30b5",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -37,8 +42,8 @@
  ],
  "outputs": {
   "master": "renders/same-scores-different-worlds__vertical.mp4",
-  "master_sha256": "e29cc9df221ec639c59050b8736986c39ebcdfba13db0de5c7c61ca09d8e5305",
-  "master_bytes": 670706,
+  "master_sha256": "74e604e1b5b511813929759c2c5745053232c6dff2e7b6d7dba9bd620cedc4cf",
+  "master_bytes": 657173,
   "master_duration_probe_s": 30.03,
   "poster": "renders/same-scores-different-worlds__vertical.poster.png",
   "poster_t": 20,
@@ -63,7 +68,15 @@
     "still": "renders/stills/vertical-claim-02.jpg"
    }
   ],
-  "phone_previews": []
+  "phone_previews": [
+   "renders/stills/phone-vertical-open.jpg",
+   "renders/stills/phone-vertical-q1.jpg",
+   "renders/stills/phone-vertical-mid.jpg",
+   "renders/stills/phone-vertical-q3.jpg",
+   "renders/stills/phone-vertical-end.jpg",
+   "renders/stills/phone-vertical-claim-01.jpg",
+   "renders/stills/phone-vertical-claim-02.jpg"
+  ]
  },
- "render_seconds": 87.9
+ "render_seconds": 457.5
 }

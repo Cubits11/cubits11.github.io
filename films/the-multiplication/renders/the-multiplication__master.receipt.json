@@ -2,13 +2,18 @@
  "film": "the-multiplication",
  "format": "master",
  "title": "The multiplication",
- "rendered_from_head": "8be4b9dac920e1521a262981393d65c4024ebbb7",
+ "rendered_from_head": "592ed515dc78acd4034a055024a64003e93d4172",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "5d7d563cc0867712cf4718cd360d889bdf28579374705d5c03eff806417c00ab",
+  "film.html": "f9584db1f9b09e25a9f25c397d198213e748b0cef1b8c63f79dbf6495aead72e",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
   "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
+ },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
  },
  "runtime": {
   "chrome": "155.0.8059.82",
@@ -20,7 +25,7 @@
  "duration_s": 14,
  "width": 1920,
  "height": 1080,
- "frames_digest": "58d98ae7c6d25929845958e3569238b5bdaa2ad8b0749c974c611d72d083c965",
+ "frames_digest": "65b38949f1fb50aba64c9730c22d78ca9e8a6159fc7d300f8ecf8ea8fd00df5b",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -32,8 +37,8 @@
  ],
  "outputs": {
   "master": "renders/the-multiplication__master.mp4",
-  "master_sha256": "7e5c0b316b694311f5fc8a35573ca7ea6cc56a8a97d7a561705f0455d843d3c0",
-  "master_bytes": 191028,
+  "master_sha256": "fdc0f25fc72072c72f424070c27e85973cd3f298db92b83f436dfe6a7c0cab42",
+  "master_bytes": 197153,
   "master_duration_probe_s": 14.03,
   "poster": "renders/the-multiplication__master.poster.png",
   "poster_t": 8,
@@ -66,5 +71,5 @@
   ],
   "phone_previews": []
  },
- "render_seconds": 25.4
+ "render_seconds": 204.4
 }

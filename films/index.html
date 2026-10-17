@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Films — safety scores, hidden overlap and checkable claims</title>
-<meta name="description" content="12 short, silent films about guardrail composition and evidence. Watch each argument with its source claims, scope, falsifier and limits alongside it.">
+<meta name="description" content="Six questions about guardrail composition and evidence, with alternate cuts grouped beneath their primary argument. Start with identical scores and different shared failures.">
 <link rel="canonical" href="https://cubits11.github.io/films/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Films — safety scores, hidden overlap and checkable claims">
-<meta property="og:description" content="12 short, silent films about guardrail composition and evidence. Watch each argument with its source claims, scope, falsifier and limits alongside it.">
+<meta property="og:description" content="Six questions about guardrail composition and evidence, with alternate cuts grouped beneath their primary argument. Start with identical scores and different shared failures.">
 <meta property="og:url" content="https://cubits11.github.io/films/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
 <meta property="og:image:alt" content="Pranav Bhave, AI Assurance · Security Engineering · Evidence Systems — measuring what guardrail stacks miss together">
@@ -28,81 +28,45 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Films — safety scores, hidden overlap and checkable claims",
-  "description": "12 short, silent films about guardrail composition and evidence. Watch each argument with its source claims, scope, falsifier and limits alongside it.",
+  "description": "Six questions about guardrail composition and evidence, with alternate cuts grouped beneath their primary argument. Start with identical scores and different shared failures.",
   "url": "https://cubits11.github.io/films/",
   "mainEntity": {
     "@type": "ItemList",
-    "numberOfItems": 12,
+    "numberOfItems": 6,
     "itemListElement": [
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "Leave One Out",
-        "url": "https://cubits11.github.io/films/leave-one-out/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "The Parity Cube",
-        "url": "https://cubits11.github.io/films/parity-cube/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
         "name": "Same Scores, Different Worlds",
         "url": "https://cubits11.github.io/films/same-scores-different-worlds/"
       },
       {
         "@type": "ListItem",
-        "position": 4,
-        "name": "Same Scores — social square",
-        "url": "https://cubits11.github.io/films/same-scores__social-square/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 5,
-        "name": "A record that can change",
-        "url": "https://cubits11.github.io/films/the-correction-invitation/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 6,
-        "name": "The Falsifier That Fired",
-        "url": "https://cubits11.github.io/films/the-falsifier-that-fired/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 7,
-        "name": "The Missing Column, Counted",
-        "url": "https://cubits11.github.io/films/the-missing-column-census/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 8,
-        "name": "The Missing Column — trailer",
-        "url": "https://cubits11.github.io/films/the-missing-column-trailer/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 9,
-        "name": "The multiplication",
-        "url": "https://cubits11.github.io/films/the-multiplication/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 10,
-        "name": "The Stack",
-        "url": "https://cubits11.github.io/films/the-stack/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 11,
+        "position": 2,
         "name": "Thirteen Worlds, One File",
         "url": "https://cubits11.github.io/films/thirteen-worlds/"
       },
       {
         "@type": "ListItem",
-        "position": 12,
+        "position": 3,
+        "name": "Leave One Out",
+        "url": "https://cubits11.github.io/films/leave-one-out/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "The Parity Cube",
+        "url": "https://cubits11.github.io/films/parity-cube/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "The Missing Column, Counted",
+        "url": "https://cubits11.github.io/films/the-missing-column-census/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
         "name": "What the Seal Proves",
         "url": "https://cubits11.github.io/films/what-the-seal-proves/"
       }
@@ -168,6 +132,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
 <style>
 .container{width:min(1080px,100% - 2*clamp(1.25rem,5vw,3rem))}
 header.page{padding:6.8rem 0 1.2rem}h1.q{max-width:24ch;margin-bottom:.65rem}
+.film-phone-note{display:none}
 .film-note{max-width:65ch;color:var(--muted);margin:.45rem 0 1rem}
 .watch{width:100%;height:auto;display:block;max-height:72vh;aspect-ratio:var(--ratio);background:#0B0F0A;border:1px solid var(--line-strong)}
 .watch:focus-visible{outline:3px solid var(--evidence);outline-offset:4px}
@@ -178,12 +143,17 @@ header.page{padding:6.8rem 0 1.2rem}h1.q{max-width:24ch;margin-bottom:.65rem}
 .film-body details{border-top:1px solid var(--line);margin-top:1.5rem;padding-top:1rem}
 .film-body summary{cursor:pointer;color:var(--ink);font-family:var(--mono);font-size:.8rem}
 .film-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 1.4rem;list-style:none;padding:0;margin:1rem 0 3rem}
-.film-card{display:block;text-decoration:none;border:1px solid var(--line);background:var(--surface);height:100%;transition:border-color .15s}
+.film-grid>li{display:flex;flex-direction:column}.film-card{display:block;flex:1;text-decoration:none;border:1px solid var(--line);background:var(--surface);transition:border-color .15s}
 .film-card:hover,.film-card:focus-visible{border-color:var(--evidence)}
 .film-card img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#0B0F0A}
 .film-card div{padding:1rem 1.1rem}.film-card h2{font-family:var(--serif);font-size:1.45rem;font-weight:500;line-height:1.2;margin:0 0 .65rem;color:var(--ink)}
 .film-card p{font-size:.84rem;color:var(--muted);margin:0}
-@media(max-width:600px){.film-grid{grid-template-columns:1fr;gap:1.1rem}header.page{padding-top:6.2rem}.watch{max-height:65vh}.film-meta{gap:.5rem 1rem}}
+.film-alternates{font-size:.84rem;padding:.7rem 1.1rem;margin:0;border:1px solid var(--line);border-top:0}
+.film-alternates a{display:inline-block;min-height:44px;padding:.65rem 0}
+.film-next{display:flex;flex-wrap:wrap;gap:.7rem 1.4rem;margin:1rem 0}
+.film-next a{display:inline-flex;align-items:center;min-height:44px}
+.film-grid>li:first-child{grid-column:1/-1}.film-grid>li:first-child .film-card{display:grid;grid-template-columns:1fr 1fr;align-items:center}
+@media(max-width:600px){.film-phone-note{display:block}.film-grid{grid-template-columns:1fr;gap:1.1rem}.film-grid>li:first-child .film-card{display:block}header.page{padding-top:6.2rem}.watch{max-height:none;aspect-ratio:var(--phone-ratio,var(--ratio))}.film-meta{gap:.5rem 1rem}}
 </style></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -205,35 +175,23 @@ header.page{padding:6.8rem 0 1.2rem}h1.q{max-width:24ch;margin-bottom:.65rem}
   </div>
 </header>
 <header class="page"><div class="container"><p class="eyebrow mono">Watch · inspect · challenge</p>
-<h1 class="q">What the scores leave out</h1><p class="standfirst">12 short visual arguments about guardrail composition, uncertainty and evidence. Every film has a text alternative and a route back to its claims.</p></div></header>
-<main class="container" id="main"><ul class="film-grid"><li><a class="film-card" href="/films/leave-one-out/">
-<img src="/films/leave-one-out/renders/leave-one-out__master.poster.png" width="1920" height="1080" loading="lazy" alt="Still from Leave One Out">
-<div><h2>Leave One Out</h2><p>34 seconds · silent · argument and sources in text</p></div></a></li><li><a class="film-card" href="/films/parity-cube/">
-<img src="/films/parity-cube/renders/parity-cube__master.poster.png" width="1920" height="1080" loading="lazy" alt="Still from The Parity Cube">
-<div><h2>The Parity Cube</h2><p>32 seconds · silent · argument and sources in text</p></div></a></li><li><a class="film-card" href="/films/same-scores-different-worlds/">
-<img src="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png" width="1920" height="1080" loading="lazy" alt="Still from Same Scores, Different Worlds">
-<div><h2>Same Scores, Different Worlds</h2><p>30 seconds · silent · argument and sources in text</p></div></a></li><li><a class="film-card" href="/films/same-scores__social-square/">
-<img src="/films/same-scores__social-square/renders/same-scores__social-square__square.poster.png" width="1080" height="1080" loading="lazy" alt="Still from Same Scores — social square">
-<div><h2>Same Scores — social square</h2><p>11 seconds · silent · argument and sources in text</p></div></a></li><li><a class="film-card" href="/films/the-correction-invitation/">
-<img src="/films/the-correction-invitation/renders/the-correction-invitation__master.poster.png" width="1920" height="1080" loading="lazy" alt="Still from A record that can change">
-<div><h2>A record that can change</h2><p>10 seconds · silent · argument and sources in text</p></div></a></li><li><a class="film-card" href="/films/the-falsifier-that-fired/">
-<img src="/films/the-falsifier-that-fired/renders/the-falsifier-that-fired__master.poster.png" width="1920" height="1080" loading="lazy" alt="Still from The Falsifier That Fired">
-<div><h2>The Falsifier That Fired</h2><p>35 seconds · silent · argument and sources in text</p></div></a></li><li><a class="film-card" href="/films/the-missing-column-census/">
-<img src="/films/the-missing-column-census/renders/the-missing-column-census__master.poster.png" width="1920" height="1080" loading="lazy" alt="Still from The Missing Column, Counted">
-<div><h2>The Missing Column, Counted</h2><p>40 seconds · silent · argument and sources in text</p></div></a></li><li><a class="film-card" href="/films/the-missing-column-trailer/">
-<img src="/films/the-missing-column-trailer/renders/the-missing-column-trailer__master.poster.png" width="1920" height="1080" loading="lazy" alt="Still from The Missing Column — trailer">
-<div><h2>The Missing Column — trailer</h2><p>34 seconds · silent · argument and sources in text</p></div></a></li><li><a class="film-card" href="/films/the-multiplication/">
-<img src="/films/the-multiplication/renders/the-multiplication__master.poster.png" width="1920" height="1080" loading="lazy" alt="Still from The multiplication">
-<div><h2>The multiplication</h2><p>14 seconds · silent · argument and sources in text</p></div></a></li><li><a class="film-card" href="/films/the-stack/">
-<img src="/films/the-stack/renders/the-stack__master.poster.png" width="1920" height="1080" loading="lazy" alt="Still from The Stack">
-<div><h2>The Stack</h2><p>45 seconds · silent · argument and sources in text</p></div></a></li><li><a class="film-card" href="/films/thirteen-worlds/">
-<img src="/films/thirteen-worlds/renders/thirteen-worlds__master.poster.png" width="1920" height="1080" loading="lazy" alt="Still from Thirteen Worlds, One File">
-<div><h2>Thirteen Worlds, One File</h2><p>36 seconds · silent · argument and sources in text</p></div></a></li><li><a class="film-card" href="/films/what-the-seal-proves/">
-<img src="/films/what-the-seal-proves/renders/what-the-seal-proves__master.poster.png" width="1920" height="1080" loading="lazy" alt="Still from What the Seal Proves">
-<div><h2>What the Seal Proves</h2><p>34 seconds · silent · argument and sources in text</p></div></a></li></ul></main>
+<h1 class="q">What the scores leave out</h1><p class="standfirst">Start with the constructed example, then inspect released data, higher-order overlap, public reporting, and receipt limits. Six distinct questions; alternate cuts and correction history stay with their primary argument.</p></div></header>
+<main class="container" id="main"><ul class="film-grid"><li><a class="film-card" href="/films/same-scores-different-worlds/">
+<img src="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png" width="1920" height="1080" loading="lazy" alt="">
+<div><h2>Start here: identical scores, different shared failures</h2><p>Move the missed items while both individual scores stay fixed. See why shared misses can range from zero to ten.</p><p>30 seconds · silent · text argument and sources</p></div></a><p class="film-alternates">Other cuts of this construction:<br><a class="u" href="/films/same-scores__social-square/">Same Scores — social square</a> · <a class="u" href="/films/the-multiplication/">The multiplication</a> · <a class="u" href="/films/the-stack/">The Stack</a></p></li><li><a class="film-card" href="/films/thirteen-worlds/">
+<img src="/films/thirteen-worlds/renders/thirteen-worlds__master.poster.png" width="1920" height="1080" loading="lazy" alt="">
+<div><h2>What changes when joint rows are released?</h2><p>One released file allows thirteen counts from separate scores. Its joint rows identify one: nine shared misses among 82 selected items.</p><p>36 seconds · silent · text argument and sources</p></div></a></li><li><a class="film-card" href="/films/leave-one-out/">
+<img src="/films/leave-one-out/renders/leave-one-out__master.poster.png" width="1920" height="1080" loading="lazy" alt="">
+<div><h2>Which items does only one guard catch?</h2><p>Which guard catches an item that every other guard misses? Released leave-one-out unions identify exclusive counts of 18, 3, 0, 0, and 0.</p><p>34 seconds · silent · text argument and sources</p></div></a></li><li><a class="film-card" href="/films/parity-cube/">
+<img src="/films/parity-cube/renders/parity-cube__master.poster.png" width="1920" height="1080" loading="lazy" alt="">
+<div><h2>Can every pair agree while all three differ?</h2><p>Even every pair can agree while the all-three failure rate changes. A synthetic construction exposes what pairwise measurements leave open.</p><p>32 seconds · silent · text argument and sources</p></div></a></li><li><a class="film-card" href="/films/the-missing-column-census/">
+<img src="/films/the-missing-column-census/renders/the-missing-column-census__master.poster.png" width="1920" height="1080" loading="lazy" alt="">
+<div><h2>Which evaluations preserve joint evidence?</h2><p>Inspect a bounded review of 20 public evaluations: five retain some joint evidence; zero document matched thresholds with full exposure.</p><p>40 seconds · silent · text argument and sources</p></div></a><p class="film-alternates">Trailer and correction record:<br><a class="u" href="/films/the-missing-column-trailer/">The Missing Column — trailer</a> · <a class="u" href="/films/the-falsifier-that-fired/">The Falsifier That Fired</a> · <a class="u" href="/films/the-correction-invitation/">A record that can change</a></p></li><li><a class="film-card" href="/films/what-the-seal-proves/">
+<img src="/films/what-the-seal-proves/renders/what-the-seal-proves__master.poster.png" width="1920" height="1080" loading="lazy" alt="">
+<div><h2>What does a receipt actually prove?</h2><p>Two byte-different receipts can share a canonical digest. Inspect what a verifying seal binds, and why it cannot establish safety or authorization.</p><p>34 seconds · silent · text argument and sources</p></div></a></li></ul></main>
 <footer>
   <div class="container">
-    <div class="foot-links mono"><a class="u" href="/claims/">Claim registry</a><a class="u" href="/missing-column/">The Missing Column</a><a class="u" href="/corrections/">Corrections</a></div>
+    <div class="foot-links mono"><a class="u" href="/limits/">What checks establish</a><a class="u" href="/claims/">Claim registry</a><a class="u" href="/missing-column/">The Missing Column</a><a class="u" href="/corrections/">Corrections</a></div>
     
   </div>
 </footer>

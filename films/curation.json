@@ -1,0 +1,132 @@
+{
+  "primary": [
+    "same-scores-different-worlds",
+    "thirteen-worlds",
+    "leave-one-out",
+    "parity-cube",
+    "the-missing-column-census",
+    "what-the-seal-proves"
+  ],
+  "alternates": {
+    "same-scores-different-worlds": [
+      "same-scores__social-square",
+      "the-multiplication",
+      "the-stack"
+    ],
+    "the-missing-column-census": [
+      "the-missing-column-trailer",
+      "the-falsifier-that-fired",
+      "the-correction-invitation"
+    ]
+  },
+  "films": {
+    "same-scores-different-worlds": {
+      "heading": "Start here: identical scores, different shared failures",
+      "synopsis": "Move the missed items while both individual scores stay fixed. See why shared misses can range from zero to ten.",
+      "limits": [
+        "The 100 items and their arrangements are constructions, not measurements of a system.",
+        "The bounds describe possible shared miss rates; they do not recover the true relationship between real guards.",
+        "The independence point is one assumption's answer; the film does not select a point inside the interval or certify safety."
+      ],
+      "phone_composition": true
+    },
+    "thirteen-worlds": {
+      "heading": "What changes when joint rows are released?",
+      "synopsis": "One released file allows thirteen counts from separate scores. Its joint rows identify one: nine shared misses among 82 selected items.",
+      "limits": [
+        "These counts describe one selected released subset, not a population rate or a prediction.",
+        "Vendor settings are unstated. This does not rank products or cover unreleased adversarial prompts.",
+        "Item positions are constructed. Only the displayed aggregate counts come from the release.",
+        "The joint rows identify shared misses in this file, not general dependence, causal contribution, or every overlap."
+      ]
+    },
+    "leave-one-out": {
+      "heading": "Which items does only one guard catch?",
+      "synopsis": "Which guard catches an item that every other guard misses? Released leave-one-out unions identify exclusive counts of 18, 3, 0, 0, and 0.",
+      "limits": [
+        "These counts describe one selected released subset, not deployed systems or a wider population.",
+        "Vendor settings are unstated. This does not rank products or cover unreleased adversarial prompts.",
+        "Only aggregate counts come from the release; the positions of items are constructed.",
+        "Exclusive coverage is not causal contribution, a Shapley value, or a map of all overlaps."
+      ]
+    },
+    "parity-cube": {
+      "heading": "Can every pair agree while all three differ?",
+      "synopsis": "Even every pair can agree while the all-three failure rate changes. A synthetic construction exposes what pairwise measurements leave open.",
+      "limits": [
+        "This synthetic E1 construction shows possibility, not the frequency of this pattern in real guardrail stacks.",
+        "No real guardrail, vendor, or deployment is measured, and no practical or deployed value of the framework is validated."
+      ]
+    },
+    "the-missing-column-census": {
+      "heading": "Which evaluations preserve joint evidence?",
+      "synopsis": "Inspect a bounded review of 20 public evaluations: five retain some joint evidence; zero document matched thresholds with full exposure.",
+      "limits": [
+        "An unfilled reporting column does not show poor guardrail performance or establish that the unknown joint statistics would reveal dependence.",
+        "The census records reporting fields, not the quality or scores of each per-system evaluation.",
+        "Coverage is limited to the examined set; 25 unexamined candidates remain unknown, not absent.",
+        "Declared sensitivity counts remain labeled alternatives to the corrected 20/14/5 counts."
+      ]
+    },
+    "what-the-seal-proves": {
+      "heading": "What does a receipt actually prove?",
+      "synopsis": "Two byte-different receipts can share a canonical digest. Inspect what a verifying seal binds, and why it cannot establish safety or authorization.",
+      "limits": [
+        "This toy example measures no deployed receipt system or Ghost-Ark canonicalizer or corpus.",
+        "The film uses its own canonicalizer; it does not build on the lab repository, whose reuse licence is unstated.",
+        "Canonicalizer collisions are shown as possible, not prevalent.",
+        "Verifier acceptance establishes no semantic safety, authorization, or correctness."
+      ]
+    },
+    "same-scores__social-square": {
+      "synopsis": "A square cut of the same constructed shared-miss example.",
+      "limits": [
+        "The 100 items and their arrangements are constructions, not measurements of a system.",
+        "The interval does not recover the true relationship between real guards or certify a stack as safe.",
+        "The independence point is one assumption's selection, not an identified answer inside the interval."
+      ],
+      "phone_composition": true
+    },
+    "the-multiplication": {
+      "synopsis": "A short insert isolating the independence assumption behind multiplying individual miss rates.",
+      "limits": [
+        "This illustration shows no measured system, deployment risk estimate, or test of independence."
+      ],
+      "phone_composition": true
+    },
+    "the-stack": {
+      "synopsis": "A second visual construction of fixed individual misses and changing overlap, with both guards evaluated on all items.",
+      "limits": [
+        "The items and arrangements are constructions, not measurements of a system.",
+        "Both guards must be evaluated on the same full set. Sequential routing, where a guard never sees blocked items, is a different quantity.",
+        "The bounds do not recover the true relationship between real guards or certify a stack as safe.",
+        "The independence point selects one possible outcome under an assumption; the film does not identify an answer inside the interval."
+      ],
+      "phone_composition": true
+    },
+    "the-missing-column-trailer": {
+      "synopsis": "A combined preview of the constructed example, bounded census, and selected released-file arithmetic.",
+      "limits": [
+        "The constructed example shows possible shared misses; it measures no deployed system and does not certify safety.",
+        "The census covers its examined set. A missing reporting field proves neither poor performance nor universal absence.",
+        "The released-file counts describe one selected subset under unstated vendor settings, not a population rate or product ranking.",
+        "A stack interpretation requires common full exposure and fixed thresholds. Exclusive coverage does not establish causal contribution or all overlaps."
+      ]
+    },
+    "the-falsifier-that-fired": {
+      "synopsis": "A missed qualifying source changed the census. Follow the rejected count, preserved history, and corrected result.",
+      "limits": [
+        "The corrected bounded census does not establish exhaustive coverage or universal absence.",
+        "A missing reporting field does not show poor guardrail or stack performance.",
+        "Sensitivity counts remain declared alternatives, never replacements for the corrected 20/14/5 counts.",
+        "The correction process is not claimed to be novel or a standard."
+      ]
+    },
+    "the-correction-invitation": {
+      "synopsis": "The route for challenging the record with a checkable source.",
+      "limits": [
+        "This invitation records no submitted correction and does not guarantee that every challenge is valid."
+      ]
+    }
+  }
+}

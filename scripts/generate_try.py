@@ -55,6 +55,7 @@ CSS = """
 .routes a span{display:block;color:var(--muted);font-size:.78rem;margin-top:.25rem}
 .film{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:1.6rem;align-items:start;margin-top:1.2rem}
 .film video{width:100%;height:auto;display:block;border:1px solid var(--line-strong);background:#0B0F0A}
+.film-proof{margin:.65rem 0 0}.film-proof a{display:inline-flex;align-items:center;min-height:44px}
 .ladder{margin:1rem 0 0;padding-left:1.1rem;color:var(--muted);font-size:.94rem}
 .ladder li{margin:.3rem 0}
 @media (max-width:720px){.exp dl{grid-template-columns:minmax(0,1fr)}.exp dt{padding-top:.6rem}.film{grid-template-columns:1fr}}
@@ -152,9 +153,14 @@ def render(data: dict, ledger: dict, facts: dict, counts: dict) -> str:
   <section class="zone" id="film" aria-labelledby="film-h" style="margin-top:0;border-top:none;padding-top:0">
     <h2 id="film-h">Thirty seconds, sound off</h2>
     <div class="film">
-      <video controls preload="none" playsinline poster="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png" aria-label="Same Scores, Different Worlds — a 30-second film">
+      <div>
+      <video id="intro-film" controls preload="none" playsinline poster="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png" data-phone-poster="/films/same-scores-different-worlds/renders/same-scores-different-worlds__vertical.poster.png" aria-label="Same Scores, Different Worlds — a 30-second film">
+        <source media="(max-width:600px)" src="/films/same-scores-different-worlds/renders/same-scores-different-worlds__vertical.mp4" type="video/mp4">
         <source src="/films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4" type="video/mp4">
       </video>
+      <p class="film-proof"><a class="u" href="/try/#try-a">Try the 60-second proof <span aria-hidden="true">→</span></a></p>
+      <script>if(window.matchMedia('(max-width:600px)').matches){{const film=document.getElementById('intro-film');film.poster=film.dataset.phonePoster;}}</script>
+      </div>
       <div>
         <p><strong>{esc(same.get("title", "Same Scores, Different Worlds"))}.</strong> {esc(same.get("thesis", "").strip())}</p>
         <p class="mono" style="color:var(--muted);font-size:.8rem">Every number in the film is read from the claim registry; the film's manifest and render receipt are in <a class="u" href="https://github.com/Cubits11/cubits11.github.io/tree/main/films/same-scores-different-worlds">films/same-scores-different-worlds/</a>. Don't trust the animation. Run it: experiment A is the same construction as a script.</p>

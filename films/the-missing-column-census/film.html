@@ -36,7 +36,55 @@ const T_JOINT0 = 4.0, T_JOINT_STEP = 0.32;      // joint column fills row by row
 const T_LADDER = [14.5, 17.5, 20.5];             // three rungs
 const T_CORR = 25.0, T_SEARCH = 31.0, T_LOC = 36.5;
 
+
+/* Phone edit: show one readable question at a time rather than shrinking
+   the twenty-row desktop table. Every displayed total is still bound data. */
+function renderPhone(t, g, L) {
+  const label = (s, y, o = {}) => H.paragraph(g, s, 80, y, { font: 'sans', size: 54, lineHeight: 66, color: TOK.ink, maxW: 920, ...o });
+  const tally = (n, s, y, color = TOK.ink) => {
+    text(g, String(n), 80, y, { font: 'serif', size: 110, color });
+    label(s, y + 80, { color });
+  };
+  label('Counts from the reporting census', 88, { color: TOK.review });
+  label('One reviewer · bounded search', 156, { color: TOK.review });
+  if (t < T_LADDER[0]) {
+    label('Who publishes joint evidence?', 286, { font: 'serif', size: 76, lineHeight: 88 });
+    tally(N, 'public evaluations examined', 580);
+    tally(K, 'provide joint evidence', 850, TOK.evidence);
+    tally(ABSENT, 'report no joint evidence', 1120, TOK.review);
+    tally(NC, 'is not comparable', 1390, TOK.muted);
+    label(`Of the ${K}: ${KP} print a result; ${KR} release per-item outcomes; ${KB} does both.`, 1610, { color: TOK.muted });
+  } else if (t < T_CORR) {
+    label('A ladder of evidence.', 286, { font: 'serif', size: 76, lineHeight: 88 });
+    tally(M1, 'share items and a common event', 580);
+    tally(M2, 'state no threshold mismatch', 880);
+    tally(M3, 'document matched thresholds with full exposure', 1180, TOK.review);
+    label(`Those are reporting counts among ${N} evaluations.`, 1540, { color: TOK.muted });
+    label('They do not measure guardrail performance.', 1690, { color: TOK.muted });
+  } else if (t < T_SEARCH) {
+    label('A falsifier fired.', 286, { font: 'serif', size: 76, lineHeight: 88 });
+    label(`Correction: ${CORR.date}`, 500, { color: TOK.invalid });
+    label('A qualifying row was missed by the documented search.', 640);
+    label(CORR.from.join(' / '), 900, { font: 'serif', size: 100, lineHeight: 112, color: TOK.invalid });
+    label('became', 1020, { color: TOK.muted });
+    label(CORR.to.join(' / '), 1150, { font: 'serif', size: 100, lineHeight: 112, color: TOK.evidence });
+    label('Counts above: examined / shared basis / joint evidence.', 1330, { color: TOK.muted });
+    const sensitivity = SENS.find(s => s.id === 'pre-freeze-visibility-evidenced');
+    if (sensitivity) label(`Declared visibility sensitivity: ${sensitivity.envelope.join(' / ')}.`, 1550, { color: TOK.muted });
+    label('Old count retained in history.', 1730);
+  } else {
+    label('The edge of the search.', 286, { font: 'serif', size: 76, lineHeight: 88 });
+    tally(N, 'examined', 620);
+    tally(EXCL, 'excluded by the frozen rules', 940);
+    tally(UNEX, 'candidates not examined: unknown', 1260, TOK.muted);
+    label('An absence inside this search is not universal absence.', 1590, { color: TOK.evidence });
+  }
+  label(`Criteria v${CRIT} · frozen ${FROZEN}`, 1840, { color: TOK.muted });
+}
+
 function render(t, g, L, { fact }) {
+  if (L.vertical) return renderPhone(t, g, L);
+  text(g, 'Reporting census · bounded search · one reviewer', 65, 35, { font: 'sans', size: 26, color: TOK.review, maxW: L.W - 130 });
   const u = L.u;
   const rowH = L.vertical ? 48 * u : 30 * u;
   const tableX = L.vertical ? L.m : 120 * u;
@@ -175,7 +223,7 @@ Film.define({
   claimFrames: [
     { t: 11.5, label: 'the joint-evidence column complete: 14 not reported, 5 present, 1 not comparable, of 20' },
     { t: 23.5, label: 'the ladder tallied 14 / 12 / 0 with the sentence “0 of 20 document matched operating thresholds with full exposure”' },
-    { t: 34.0, label: 'the edge of the search: ' + N + ' examined, ' + EXCL + ' excluded, ' + UNEX + ' unexamined' }
+    { t: 34.0, label: 'the edge of the bounded search: examined, excluded and unexamined candidate counts' }
   ],
   setup, render
 });

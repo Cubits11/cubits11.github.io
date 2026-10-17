@@ -58,6 +58,6 @@
   });
 
   window.addEventListener('resize', function () {
-    if (window.matchMedia('(min-width: 701px)').matches) closeMenu(false);
+    if (window.matchMedia('(min-width: 1101px)').matches) closeMenu(false);
   });
 }());

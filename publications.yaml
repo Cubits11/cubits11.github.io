@@ -1,0 +1,36 @@
+# Public presentation state, not an experimental contract or a change to scientific claims.
+version: 1
+observed_on: '2026-10-17'
+review_dispositions:
+- claim_id: REL-001
+  before_revision: f2249c113335feb8b2a3ccb9e4cd9951e002592a
+  after_revision: 592ed515dc78acd4034a055024a64003e93d4172
+  summary: The owner renewed the elapsed review window on October 17. The earlier
+    September 23 deadline remains visible. Renewal does not establish a completed
+    reader study or change the hypothesis into a validated result.
+deadlines:
+- id: noetic-log-002-lookback
+  title: Noetic Log 002 lookback
+  due: '2026-09-23'
+  source: /notes/noetic-log-002/#lookback-contract
+  disposition:
+    date: '2026-10-17'
+    url: /notes/noetic-log-002/#lookback-2026-10-17
+    summary: Review recorded 24 days late. Failed historical checks, the now-published
+      E9 result, the renewed REL-001 window and outstanding reader/accessibility work
+      are distinguished.
+drafts:
+- id: E9
+  status: Published result — post-result claim registration
+  title: E9 — 1,000-item scoped result
+  summary: E9’s 1,000-item result merged in PR 26. E9-001 was registered after the
+    result on October 17, with partial support and an explicit falsifier. It is
+    not a completion of E2 and does not establish deployment safety.
+  claim_url: /claims/e9-001/
+  revision: 592ed515dc78acd4034a055024a64003e93d4172
+  result_url: https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/RESULT.md
+  branch_url: https://github.com/Cubits11/cubits11.github.io/pull/26
+  limitations: The result discloses a verdict rule outside readable preregistration
+    prose, selected pools, omitted calibration uncertainty and no independent replication.
+    Its interval excludes zero but does not lie wholly beyond the 0.05 effect-size
+    threshold.

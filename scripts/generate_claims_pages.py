@@ -115,6 +115,7 @@ TITLES: dict[str, str] = {
     "SITE-001":  "The palette token pairs and their computed contrast",
     "SITE-002":  "The claim registry, enforced in CI",
     "E3-001":    "Two ungated classifiers scored on harmful and benign items",
+    "E9-001":    "E9: both-miss measurement on 1,000 items",
     "E3B-001":   "The same classifiers on the attack family they were built for",
     "E6-001":    "Rejected: the permutation routine moves unequal-mass atoms",
     "E7B-001":   "Rejected: calibration uses the shared pool for every judge",

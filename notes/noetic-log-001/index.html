@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://cubits11.github.io/notes/noetic-log-001/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Noetic Log 001 — What v0.2 Still Pretended to Implement">
-<meta property="og:description" content="A visually coherent evidence system can produce the impression of rigor even where the claim–support mapping is stale, mutable, or selectively applied. Five pretenses, named and closed.">
+<meta property="og:description" content="Two audits found unsupported claims behind a coherent interface. Five implementation gaps and the checks added after review; reader effects remain untested.">
 <meta property="og:url" content="https://cubits11.github.io/notes/noetic-log-001/">
 <meta property="og:image" content="https://cubits11.github.io/assets/img/og.jpg">
 <meta property="og:image:alt" content="Pranav Bhave, AI Assurance · Security Engineering · Evidence Systems — measuring what guardrail stacks miss together">
@@ -73,23 +73,22 @@ footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;colo
   <div class="container">
     <p class="eyebrow mono">Noetic log 001 · field artifact P₀ · 2026-08-20</p>
     <h1>What v0.2 still pretended to implement</h1>
-    <p class="standfirst">A visually coherent evidence system can produce the impression of
-      rigor even where the claim–support mapping is stale, mutable, underspecified, or
-      selectively applied. This site did exactly that — twice. This log names the pretenses
-      and what closed them.</p>
+    <p class="standfirst">Two audits found unsupported claims behind a coherent interface. This log records five implementation gaps and the checks added after review. We have not tested whether presentation discouraged checking.</p>
   </div>
 </header>
 
 <main class="container" id="main">
+
+  <p style="color:var(--muted)"><strong>Editorial revision — 2026-10-17:</strong> the original entry was published on 2026-08-20, with the addendum below on 2026-08-23. Its claim that visual coherence caused less checking has been withdrawn: the audits observed defects, not reader behavior. <a href="https://github.com/Cubits11/cubits11.github.io/blob/f2249c113335feb8b2a3ccb9e4cd9951e002592a/notes/noetic-log-001/index.html">Original wording</a>.</p>
 
   <h2>The finding class</h2>
   <p>This site presents itself as evidence-bound: claims carry markers, markers carry links,
     a ledger carries bindings. Two audits of the deployed site found the same defect class at
     two depths: <em>the interface ran ahead of the verification architecture</em>. Version 0.1
     had stale project descriptions behind confident chips. Version 0.2 fixed the copy and built
-    real machinery — and still asserted, in five places, mechanics it did not have. Interfaces
-    are cheap. Enforcement is not. The gap between them is exactly where overclaiming lives,
-    which is what makes it worth documenting on the site it happened to.</p>
+    real machinery — and still asserted, in five places, mechanics it did not have. These
+    observations establish a mismatch between the interface’s claims and its implementation;
+    they do not establish an effect on readers.</p>
 
   <div class="pretense">
     <span class="mono">Pretense 1 — "rendered from the registry"</span>
@@ -138,11 +137,7 @@ footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem;colo
 
   <div class="finding">
     <span class="mono">Primary finding of field artifact P₀</span>
-    <p>Aesthetic coherence is an epistemic hazard: the better the evidence system looks, the
-      less anyone checks whether it runs. The countermeasure that worked here was not more
-      honesty in prose — v0.2's prose was already honest in intent — but moving every promise
-      into a place where it can mechanically fail: a generator that drifts, a binding that
-      mismatches, a trigger that fires, a hash that changes, a kernel that stops reproducing.</p>
+    <p>Two audits found unsupported claims behind a coherent interface. We have not tested whether presentation discouraged checking. Following those audits, the site added generation, binding, trigger, hash, and kernel checks. Those checks cover named failure conditions; they do not measure reader comprehension or establish that every scientific inference is valid. <a href="/status/">Inspect current check outcomes and review dates</a>.</p>
   </div>
 
   <h2>What v0.3 still does not do</h2>

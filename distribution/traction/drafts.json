@@ -48,10 +48,10 @@
       },
       {
         "path": "films/same-scores-different-worlds/manifest.yaml",
-        "sha256": "aadbe2772335d0500314c790fcf3c6c3476e92ad1dd6275693036f0d6daf90ad",
-        "commit": "3c4ce5bf54ed195ca674cea319d95f4463ec4d4e",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/3c4ce5bf54ed195ca674cea319d95f4463ec4d4e/films/same-scores-different-worlds/manifest.yaml",
-        "binding": "committed"
+        "sha256": "a289640c746bd81fa535af6dcea678ef26cdca3162fd9564b257724f2f7ede9c",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
       }
     ],
     "posts": [
@@ -87,7 +87,7 @@
       "no automated replies"
     ],
     "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-    "revision": "5e1ecab2ab9559c8395c84e483c86824eba4ef36275d31c3f3741fa33aa519fe"
+    "revision": "5d47cc430eeb5f2c9fb19ea41ab802d18827922b408bd598df9f5880e66b08a9"
   },
   {
     "id": "try-b",

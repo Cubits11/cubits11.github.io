@@ -2730,5 +2730,95 @@
     "attribution_url": "https://cubits11.github.io/overlap/",
     "rank_basis": "constructed example; no disputed empirical headline",
     "revision": "1c9d5f6728d3b9728bc14e7231edd9de012a7485dac6b9494b51afec7b94f75f"
+  },
+  {
+    "id": "try-a",
+    "campaign": "x-film-same-scores",
+    "claims": [
+      "CC-001",
+      "CC-004"
+    ],
+    "confidence": {
+      "CC-001": "supported_within_scope",
+      "CC-004": "supported_within_scope"
+    },
+    "scope": {
+      "CC-001": "The kernel module at the bound commit. Reproduced from a clean clone (venv, pip install, execute, assert) most recently on 2026-08-23, and re-reproduced by CI on every push and weekly. No claim about any deployed system.\n",
+      "CC-004": "The kernel identification module at the bound commit, re-verified by CI on every push and weekly in the witness stage of scripts/reproduce_cc001.py. No claim about any deployed system.\n"
+    },
+    "evidence_urls": [
+      "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
+    ],
+    "sources": [
+      {
+        "path": "claims.yaml",
+        "sha256": "4ff88c5eddad5a422122ec38943790024ac955029718243afc8272fbaab6a88f",
+        "commit": "c183a1b3342f3bab654af8ade0cdbc18468e217a",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/c183a1b3342f3bab654af8ade0cdbc18468e217a/claims.yaml",
+        "binding": "committed"
+      },
+      {
+        "path": "distribution/experiments.yaml",
+        "sha256": "691aa3e679944eeded0464bbf41a2995b5491119ffcb14a3ec17ef2280acef70",
+        "commit": "e12ed3b133156798d73c7ed35c3133a689b20c73",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/e12ed3b133156798d73c7ed35c3133a689b20c73/distribution/experiments.yaml",
+        "binding": "committed"
+      },
+      {
+        "path": "distribution/launch-units.yaml",
+        "sha256": "decdfebbca6d0cebf285193e7da48a65a681235376c962eb8f0e7de504f14749",
+        "commit": "30cf825968ed33488e5121c21d4f2209374968fd",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/30cf825968ed33488e5121c21d4f2209374968fd/distribution/launch-units.yaml",
+        "binding": "committed"
+      },
+      {
+        "path": "campaigns.yaml",
+        "sha256": "6868db19a1184c391fec3b05215afac5e46d3b18808285347f77d8c6f1f87928",
+        "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/campaigns.yaml",
+        "binding": "committed"
+      },
+      {
+        "path": "films/same-scores-different-worlds/manifest.yaml",
+        "sha256": "a289640c746bd81fa535af6dcea678ef26cdca3162fd9564b257724f2f7ede9c",
+        "commit": null,
+        "url": null,
+        "binding": "pending_commit"
+      }
+    ],
+    "posts": [
+      "Do two published miss rates determine how often both guards miss the same item?",
+      "PROVED \u2014 Fr\u00e9chet\u2013Hoeffding bounds; both endpoint worlds are re-verified from a clean clone of the bound kernel in CI (CC-001, CC-004).",
+      "Nothing here measures a real guardrail; the population is a construction and no point inside the interval is selected. Independence is what one assumption chooses, not what the scores imply.",
+      "Reproduce: python3 scripts/try_same_scores.py",
+      "https://cubits11.github.io/try/?utm_source=x&utm_medium=social&utm_campaign=e3-films&utm_content=same-scores#try-a",
+      "https://github.com/Cubits11/cc-framework/commit/167aa1ee514ee3d797ed9be2c60120d0c1db71f6"
+    ],
+    "attribution_url": "https://cubits11.github.io/try/?utm_source=x&utm_medium=social&utm_campaign=e3-films&utm_content=same-scores#try-a",
+    "audience_hypothesis": "AI evaluation researchers and guardrail engineers on X",
+    "why": "run TRY-A and file the result, match or mismatch",
+    "success_signal": "one reproduction issue filed by someone who is not the author",
+    "post_type": "thread",
+    "topic": "same-scores",
+    "hook": "question",
+    "visual": "none",
+    "cta": "reproduce",
+    "thread_structure": "question-status-limits-command-evidence",
+    "visual_candidate": {
+      "path": "films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png",
+      "master": "films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4",
+      "state": "held_existing_cold_test_gate"
+    },
+    "scheduled_at": null,
+    "state": "held_owner_review",
+    "anti_hype": [
+      "no vendor ranking",
+      "no population or causal inference",
+      "no synthetic engagement",
+      "retain non-claims",
+      "no automated replies"
+    ],
+    "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
+    "revision": "5d47cc430eeb5f2c9fb19ea41ab802d18827922b408bd598df9f5880e66b08a9"
   }
 ]

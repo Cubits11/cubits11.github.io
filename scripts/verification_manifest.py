@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Run the deterministic release gates from one canonical manifest.
+"""Run deterministic claim and artifact checks from one canonical manifest.
 
 The deployed workflow and the clean-clone replay are two witnesses for the
 same candidate revision. They must execute the same commands in the same
 order, rather than carrying two hand-maintained lists that can quietly drift.
+The separate deployment gate also requires actual unfamiliar-reader evidence.
 """
 
 from __future__ import annotations
@@ -66,6 +67,8 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("frozen evidence preservation", "scripts/evidence_guard.py", "--local"),
     ("epistemic tampering and recovery fixtures", "tests/test_epistemic_security.py"),
     ("E3 and E3B re-asserted from committed rows", "scripts/verify_e3.py"),
+    ("E9 conditional replay and post-result claim limits", "scripts/verify_e9.py"),
+    ("E9 independent arithmetic and scope mutants", "tests/test_e9_verifier.py"),
     ("E6 historical arithmetic replay (claim rejected)", "scripts/verify_e6.py"),
     ("correction dispositions, preserved evidence and overlap example", "tests/test_correction_dispositions.py"),
     ("ledger snapshot drift", "scripts/ledger_snapshot.py", "--check"),
@@ -79,6 +82,7 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("resume PDF receipt", "scripts/verify_resume_receipt.py"),
     ("film facts current", "scripts/films/bind_facts.py", "--check"),
     ("film manifests and renders", "scripts/films/verify_films.py"),
+    ("film capture and phone text refusal paths", "tests/test_film_capture.py"),
     ("film watch page drift", "scripts/generate_film_pages.py", "--check"),
     ("film publication metadata", "scripts/generate_film_pages.py", "--test"),
     ("flagship recording source map", "scripts/films/build_flagship.py", "--check"),
@@ -96,6 +100,9 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("cadence publication isolation", "tests/test_cadence_cycle.py"),
     ("scheduled protected-branch publication", "tests/test_repository_update.py"),
     ("public discovery exclusions", "tests/test_public_discovery.py"),
+    ("public status failure states and deadline boundaries", "tests/test_public_state.py"),
+    ("public status and draft board drift", "scripts/generate_public_state.py", "--check"),
+    ("publication hold refusal paths (synthetic fixtures, not reader evidence)", "tests/test_publication_gate.py"),
     ("deployed release identity", "tests/test_deployed_release.py"),
     ("E2 instrument properties and planted violations", "experiments/e2/run/test_instrument.py"),
     ("trial IV drift", "scripts/generate_trial.py", "--check"),

@@ -21,8 +21,9 @@ scope: >
   the kernel's bounds and witnesses (CC-001, CC-004), reproduced from a clean
   clone in CI. The population and which items each guard misses are
   illustrative constructions (the master's seed); no measured system appears.
-  The cut removes the per-world atom vectors, the endpoint-witness stamps,
-  the ledger tags and the registry locator; each is one click away at /try/.
+  The cut omits the per-world atom vectors and technical endpoint-witness stamps.
+  A persistent label identifies the items as illustrative; the proof, exact
+  bounds and sources remain available through the linked /try/ page.
 status: supported_within_scope — bound to CC-001 and CC-004 at their registered commit
 evidence:
   - fact: CC-001.marginals

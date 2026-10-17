@@ -2,13 +2,18 @@
  "film": "the-correction-invitation",
  "format": "master",
  "title": "A record that can change",
- "rendered_from_head": "8be4b9dac920e1521a262981393d65c4024ebbb7",
+ "rendered_from_head": "f5c63d2455aeab475f73854ec22bc28ff07b1804",
  "rendered_on": "2026-10-17",
  "inputs": {
-  "film.html": "8f81e2c2045a30d62dcd581e883095709926ef84cd97d05f603c30b03f27452b",
+  "film.html": "18657cfce560342b9d091291f8423fbb0fc32318d6c4d70ba7374e1f3d609bf1",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
   "films/lib/tokens.css": "c5663d72be0bf7c0fcf3919a4df59a9a64c7e6193d9057e1f5759b17735118a7",
-  "films/data/facts.json": "76ddab1414ec2f730fd0a3c1dd63a6beef9b1a4c893d79c55fc2f83c8b546ea5"
+  "films/data/facts.json": "18dd628ed1521b5ad577c27da865ddbdadc2799e53f9d8cf1230fe7038b723a2"
+ },
+ "capture": {
+  "method": "canvas-png",
+  "pixel_equivalence_samples": 5,
+  "pixel_equivalent": true
  },
  "runtime": {
   "chrome": "155.0.8059.82",
@@ -18,9 +23,10 @@
  "fps": 30,
  "frames": 301,
  "duration_s": 10,
+ "phone_text": null,
  "width": 1920,
  "height": 1080,
- "frames_digest": "d4f276a2453c7e86162489a3899bcb735b93e613382076ea850f37c2d1da5190",
+ "frames_digest": "87054b88a5cc20e1ff3ad6faffd067ef9db7a2bfbd39149848ee181adcc5a5e7",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -57,5 +63,5 @@
   ],
   "phone_previews": []
  },
- "render_seconds": 24.3
+ "render_seconds": 26.7
 }
