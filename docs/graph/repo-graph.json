@@ -2455,13 +2455,6 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
-   "to": "tests/test_direction_k_infra.py"
-  },
-  {
-   "basis": "STATIC_REF",
-   "from": "scripts/verification_manifest.py",
-   "inferred": true,
-   "rel": "reads",
    "to": "tests/test_distribution.py"
   },
   {
@@ -4142,15 +4135,6 @@
    "to": "scripts/direction.py"
   },
   {
-   "args": [],
-   "basis": "MANIFEST",
-   "check": "K-INFRA counts days, not rows",
-   "from": "scripts/verification_manifest.py",
-   "inferred": false,
-   "rel": "runs",
-   "to": "tests/test_direction_k_infra.py"
-  },
-  {
    "args": [
     "--check"
    ],
@@ -5322,7 +5306,7 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 2,
+   "ahead": 3,
    "behind": 0,
    "branch": "claude/k-infra-calendar-weeks",
    "detector": "D4",
@@ -5339,6 +5323,13 @@
    "ahead": 4,
    "behind": 43,
    "branch": "claude/phone-width-a11y",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 4,
+   "behind": 0,
+   "branch": "gv001/title-clarify",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -5392,8 +5383,8 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 1,
-   "behind": 43,
+   "ahead": 3,
+   "behind": 0,
    "branch": "origin/claude/k-infra-calendar-weeks",
    "detector": "D4",
    "severity": "TOPOLOGY"
@@ -5437,6 +5428,13 @@
    "ahead": 2,
    "behind": 43,
    "branch": "origin/claude/x-gate",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 3,
+   "behind": 0,
+   "branch": "origin/gv001/title-clarify",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -5565,8 +5563,8 @@
   }
  ],
  "generated_from": {
-  "branch": "claude/k-infra-calendar-weeks",
-  "head": "c6fbf41"
+  "branch": "gv001/title-clarify",
+  "head": "4cfda6d"
  },
  "nodes": [
   {
@@ -6172,7 +6170,7 @@
    "type": "script"
   },
   {
-   "checks": 86,
+   "checks": 85,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
@@ -6295,11 +6293,11 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 66,
+   "days_left": 120,
    "id": "GV-001",
-   "last_reviewed": "2026-08-24",
-   "review_due": "2026-12-22",
-   "support_url": "https://github.com/Cubits11/ghost-visualizer/commit/3fbe3efc89b6328bac493e62a32571d8e380d4f7",
+   "last_reviewed": "2026-10-17",
+   "review_due": "2027-02-14",
+   "support_url": "https://github.com/Cubits11/ghost-visualizer/commit/bf8d87b2013c9827c4a37da920883e7e5d29af68",
    "type": "claim"
   },
   {
@@ -6554,9 +6552,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 2,
+   "ahead_of_origin_main": 3,
    "behind_origin_main": 0,
-   "head": "c6fbf41",
+   "head": "f271065",
    "id": "claude/k-infra-calendar-weeks",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
@@ -6581,9 +6579,18 @@
    "type": "branch"
   },
   {
+   "ahead_of_origin_main": 4,
+   "behind_origin_main": 0,
+   "head": "4cfda6d",
+   "id": "gv001/title-clarify",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 22,
-   "head": "f5c63d2",
+   "behind_origin_main": 0,
+   "head": "81b9cc1",
    "id": "main",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": true,
@@ -6662,11 +6669,11 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 43,
-   "head": "80ca38e",
+   "ahead_of_origin_main": 3,
+   "behind_origin_main": 0,
+   "head": "f271065",
    "id": "origin/claude/k-infra-calendar-weeks",
-   "last_commit": "2026-09-20",
+   "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
@@ -6721,6 +6728,15 @@
    "head": "1d59af6",
    "id": "origin/claude/x-gate",
    "last_commit": "2026-09-27",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 3,
+   "behind_origin_main": 0,
+   "head": "426fa77",
+   "id": "origin/gv001/title-clarify",
+   "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
@@ -6878,5 +6894,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "088daf6eb318bc2e2655aec272edc4864eb58dc1496b51a6ae49e5add4ff916a"
+ "stable_digest": "beabeb3480b7bf52ae21e057cd83acdedcb6e7178770121362db2db2e75afa98"
 }
