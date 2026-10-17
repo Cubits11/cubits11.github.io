@@ -2455,6 +2455,13 @@
    "from": "scripts/verification_manifest.py",
    "inferred": true,
    "rel": "reads",
+   "to": "tests/test_direction_k_infra.py"
+  },
+  {
+   "basis": "STATIC_REF",
+   "from": "scripts/verification_manifest.py",
+   "inferred": true,
+   "rel": "reads",
    "to": "tests/test_distribution.py"
   },
   {
@@ -4135,6 +4142,15 @@
    "to": "scripts/direction.py"
   },
   {
+   "args": [],
+   "basis": "MANIFEST",
+   "check": "K-INFRA counts days, not rows",
+   "from": "scripts/verification_manifest.py",
+   "inferred": false,
+   "rel": "runs",
+   "to": "tests/test_direction_k_infra.py"
+  },
+  {
    "args": [
     "--check"
    ],
@@ -4801,87 +4817,6 @@
    "to": "corrections/records/2026-09-10-preserved-inputs.json"
   },
   {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "2262983c6765a7f8fb6719c594852d82cab9efb5b40cf6ee4719a331e8c8226b",
-   "to": "experiments/e9/results/observations.jsonl"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "4ea9d46e68ac655f23add5b6ca0b257edefd98c6f79979b0d37bf05543fd07cb",
-   "to": "experiments/e9/results/analysis.json"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "6513df2ab4470aebca36169b5362bb4ccbc14665be1a281d5fae1d57278f729a",
-   "to": "experiments/e9/results/result.json"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "e7ff687745a10f905c84fad1afacb545ba6f0fab501b20595be38d275add9789",
-   "to": "experiments/e9/RESULT.md"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "171f9ebfff2cd195c6b1e3907f12993be2f02154a541d0e2318bd9c19e975f10",
-   "to": "experiments/e9/PREREG.md"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "43811798ae46e92eb14f933c96e855b625c3507230aac709ba510da4af69835b",
-   "to": "experiments/e9/contract.json"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "7823904703a406840c9cba37dba40942bc065a9c4d1c06b89a6e70c12ce416a5",
-   "to": "experiments/e9/freeze/freeze.json"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "ae51fb1df5a45e6414a53fe61663c25140ef56e2c5c4e082b0d3f67bc432d703",
-   "to": "experiments/e9/freeze/protocol.json"
-  },
-  {
-   "basis": "PIN",
-   "from": "E9-001",
-   "holds": true,
-   "inferred": false,
-   "rel": "pins",
-   "sha256": "bebd9f042edf2e41f1820ac3f2aa2ba4551bf2d2dbb615311f6ad9e887261375",
-   "to": "experiments/e9/run/analyze.py"
-  },
-  {
    "basis": "GIT",
    "from": "experiments/e2",
    "inferred": false,
@@ -5286,14 +5221,6 @@
  },
  "findings": [
   {
-   "detector": "D2",
-   "generator": "scripts/generate_sitemap.py",
-   "severity": "FIX",
-   "tail": [
-    "Run: python scripts/generate_sitemap.py"
-   ]
-  },
-  {
    "claim": "MC-002",
    "days_left": 10,
    "detector": "D3",
@@ -5382,13 +5309,6 @@
   },
   {
    "ahead": 1,
-   "behind": 28,
-   "branch": "backup/2026-10-17/site-repair-candidate",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
    "behind": 30,
    "branch": "census/candidates-2026-10",
    "detector": "D4",
@@ -5402,7 +5322,7 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 5,
+   "ahead": 4,
    "behind": 0,
    "branch": "claude/k-infra-calendar-weeks",
    "detector": "D4",
@@ -5419,13 +5339,6 @@
    "ahead": 4,
    "behind": 49,
    "branch": "claude/phone-width-a11y",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 0,
-   "branch": "e9-001/register",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -5479,8 +5392,8 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 5,
-   "behind": 0,
+   "ahead": 3,
+   "behind": 6,
    "branch": "origin/claude/k-infra-calendar-weeks",
    "detector": "D4",
    "severity": "TOPOLOGY"
@@ -5652,8 +5565,8 @@
   }
  ],
  "generated_from": {
-  "branch": "e9-001/register",
-  "head": "cfb9c4a"
+  "branch": "claude/k-infra-calendar-weeks",
+  "head": "261146b"
  },
  "nodes": [
   {
@@ -6259,7 +6172,7 @@
    "type": "script"
   },
   {
-   "checks": 85,
+   "checks": 86,
    "id": "scripts/verification_manifest.py",
    "type": "trunk"
   },
@@ -6453,15 +6366,6 @@
    "type": "claim"
   },
   {
-   "consequence": "REJECT",
-   "days_left": 120,
-   "id": "E9-001",
-   "last_reviewed": "2026-10-17",
-   "review_due": "2027-02-14",
-   "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/results/observations.jsonl",
-   "type": "claim"
-  },
-  {
    "docs": {
     "PREREG.md": false,
     "RESULT.md": false,
@@ -6615,15 +6519,6 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 28,
-   "head": "a055f88",
-   "id": "backup/2026-10-17/site-repair-candidate",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 1,
    "behind_origin_main": 30,
    "head": "6a91961",
    "id": "census/candidates-2026-10",
@@ -6659,9 +6554,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 5,
+   "ahead_of_origin_main": 4,
    "behind_origin_main": 0,
-   "head": "bc5bda8",
+   "head": "261146b",
    "id": "claude/k-infra-calendar-weeks",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
@@ -6682,15 +6577,6 @@
    "head": "057c7b1",
    "id": "claude/phone-width-a11y",
    "last_commit": "2026-09-21",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
-   "head": "cfb9c4a",
-   "id": "e9-001/register",
-   "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
@@ -6785,9 +6671,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 5,
-   "behind_origin_main": 0,
-   "head": "bc5bda8",
+   "ahead_of_origin_main": 3,
+   "behind_origin_main": 6,
+   "head": "f271065",
    "id": "origin/claude/k-infra-calendar-weeks",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
@@ -7010,5 +6896,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "7b7a05e0ae696c5aebcb31dcb1b26cbef7fb2fb55d9f497d153c4d3ad31c2ca2"
+ "stable_digest": "884bb6ad226f274c441d6981e854ad4fe2cb40c27929917565ad2081d4d9f949"
 }
