@@ -29,9 +29,9 @@
       "sources": [
         {
           "path": "claims.yaml",
-          "sha256": "75fa26c9b9f57e2021d67364c59bb238f031b5c0444667d961567cc425a37219",
-          "commit": "b33748e719b8722ad0566029c713d9b3bf07ad24",
-          "url": "https://github.com/Cubits11/cubits11.github.io/blob/b33748e719b8722ad0566029c713d9b3bf07ad24/claims.yaml",
+          "sha256": "555f176a6834e613f05f8ec0a608d6c49b5e9608ba01dd43ba864f27e4576942",
+          "commit": "cfb9c4afee3c2cc05b9a6c577912fda46cc011a5",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/cfb9c4afee3c2cc05b9a6c577912fda46cc011a5/claims.yaml",
           "binding": "committed"
         },
         {
@@ -96,7 +96,7 @@
         "no automated replies"
       ],
       "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-      "revision": "c1b6c7be9eedb2e739325368401d797dfa6f0bf7d05c41c1c139fe46df9ae6b9",
+      "revision": "1366e5b123ef1dbddf4a817258744d7b082c0e845bbdcbb2ec67cc6b1f9ea201",
       "approval": null
     },
     {
@@ -121,9 +121,9 @@
       "sources": [
         {
           "path": "claims.yaml",
-          "sha256": "75fa26c9b9f57e2021d67364c59bb238f031b5c0444667d961567cc425a37219",
-          "commit": "b33748e719b8722ad0566029c713d9b3bf07ad24",
-          "url": "https://github.com/Cubits11/cubits11.github.io/blob/b33748e719b8722ad0566029c713d9b3bf07ad24/claims.yaml",
+          "sha256": "555f176a6834e613f05f8ec0a608d6c49b5e9608ba01dd43ba864f27e4576942",
+          "commit": "cfb9c4afee3c2cc05b9a6c577912fda46cc011a5",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/cfb9c4afee3c2cc05b9a6c577912fda46cc011a5/claims.yaml",
           "binding": "committed"
         },
         {
@@ -196,7 +196,7 @@
         "no automated replies"
       ],
       "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-      "revision": "67f0be0a42988acd10bb9f681e4512c76a4274ffdce6efaa6dc05a2484c6463f",
+      "revision": "e098d201160f58d7f55da70b3ba5c80d32b5a0b3b682a8671c46744bae53c730",
       "approval": null
     },
     {
@@ -217,9 +217,9 @@
       "sources": [
         {
           "path": "claims.yaml",
-          "sha256": "75fa26c9b9f57e2021d67364c59bb238f031b5c0444667d961567cc425a37219",
-          "commit": "b33748e719b8722ad0566029c713d9b3bf07ad24",
-          "url": "https://github.com/Cubits11/cubits11.github.io/blob/b33748e719b8722ad0566029c713d9b3bf07ad24/claims.yaml",
+          "sha256": "555f176a6834e613f05f8ec0a608d6c49b5e9608ba01dd43ba864f27e4576942",
+          "commit": "cfb9c4afee3c2cc05b9a6c577912fda46cc011a5",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/cfb9c4afee3c2cc05b9a6c577912fda46cc011a5/claims.yaml",
           "binding": "committed"
         },
         {
@@ -291,7 +291,7 @@
         "no automated replies"
       ],
       "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-      "revision": "e6817b5147f8c6fdb109064de6c976701e79a60b2a3f091b034d56bf3e0fe97f",
+      "revision": "0e9b81b39d1ee2f16e589c234075f2de35ea8f7e46bdb552d9c3134326c0ebd2",
       "approval": null
     },
     {
@@ -331,9 +331,9 @@
       "sources": [
         {
           "path": "claims.yaml",
-          "sha256": "75fa26c9b9f57e2021d67364c59bb238f031b5c0444667d961567cc425a37219",
-          "commit": "b33748e719b8722ad0566029c713d9b3bf07ad24",
-          "url": "https://github.com/Cubits11/cubits11.github.io/blob/b33748e719b8722ad0566029c713d9b3bf07ad24/claims.yaml",
+          "sha256": "555f176a6834e613f05f8ec0a608d6c49b5e9608ba01dd43ba864f27e4576942",
+          "commit": "cfb9c4afee3c2cc05b9a6c577912fda46cc011a5",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/cfb9c4afee3c2cc05b9a6c577912fda46cc011a5/claims.yaml",
           "binding": "committed"
         },
         {
@@ -405,7 +405,7 @@
       "scheduled_at": null,
       "attribution_url": "https://cubits11.github.io/overlap/",
       "rank_basis": "constructed example; no disputed empirical headline",
-      "revision": "29e93445f6a3d54bb413efd18552470bd6e50e620c49c4cf5b5a02ec7ac45bb0",
+      "revision": "f84e0ea4f5915f97f5e25a62013d378fda7b6fac3a2e385114e0c46bc2059901",
       "approval": null
     }
   ]
