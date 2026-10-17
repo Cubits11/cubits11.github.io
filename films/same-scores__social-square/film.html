@@ -60,7 +60,6 @@ function render(t, g, L) {
     ring(g, lerp(hx, ax, u), lerp(hy, ay, u) - Math.sin(u * Math.PI) * c * 0.5, c * 0.34, TOK.paperInk, 3.5);
   });
   g.restore();
-  label('Fill: A miss · Ring: B miss', W / 2, 815, { align: 'center', color: TOK.muted });
   label('Both miss', 80, 890);
   text(g, `${landed(t)}/${N}`, 80, 1010, { font: 'serif', size: 112, weight: 500 });
   if (t >= T_NAME) {
@@ -83,6 +82,7 @@ function render(t, g, L) {
     label('Try the 60-second proof', W / 2, 575, { align: 'center', size: 62 });
     label('cubits11.github.io/try', W / 2, 690, { align: 'center', color: TOK.gold, size: 54 });
   }
+  label('Fill: A miss · Ring: B miss', W / 2, 830, { align: 'center', color: TOK.muted });
 }
 
 Film.define({

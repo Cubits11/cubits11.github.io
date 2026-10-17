@@ -16,7 +16,7 @@
       "docs/ghost-visualizer-repository-vision.md": "aaced0719a33d2320566cb36a95b320ec190b86f0f5903600eeae64e1058b015"
     },
     "public_application": {
-      "status": "public_not_updated",
+      "status": "owner_verified_published",
       "revision": "bf8d87b2013c9827c4a37da920883e7e5d29af68",
       "source_url": "https://github.com/Cubits11/ghost-visualizer/commit/bf8d87b2013c9827c4a37da920883e7e5d29af68",
       "verified_title": "What AI Guardrail Scores Cannot Tell You",
@@ -27,8 +27,8 @@
         "README.md": "2fcf8736dc3608eb65ccc99adae7de0769bd0d9a889fd462ab4d889fb45dc06c",
         "docs/ghost-visualizer-repository-vision.md": "aaced0719a33d2320566cb36a95b320ec190b86f0f5903600eeae64e1058b015"
       },
-      "verified_by": null,
-      "verified_on": null,
+      "verified_by": "Cubits11",
+      "verified_on": "2026-10-17",
       "limit": "Owner attestation of published source/title inspection; not verified by this offline gate.",
       "inspection_note": "Merged to Cubits11/ghost-visualizer main as bf8d87b (PR #1) on 2026-10-17. index.html <title> and CinematicShell.tsx <h1> were read at that revision through the GitHub contents API, and all four title source files hash identically to the prepared sources above. GV-001 was re-pinned to it in cubits11.github.io PR #30 (842e06d). Owner attestation still required: set status to owner_verified_published, with verified_by and verified_on."
     }
@@ -47,9 +47,9 @@
       "proof_activation"
     ],
     "rater_criteria": {
-      "subject": "the answer identifies AI guardrails and the question of their shared failures, combined misses, or what separate scores leave unknown. Equivalent plain language counts. A generic answer such as “an AI website” is insufficient.",
+      "subject": "the answer identifies AI guardrails and the question of their shared failures, combined misses, or what separate scores leave unknown. Equivalent plain language counts. A generic answer such as \u201can AI website\u201d is insufficient.",
       "contact": "the reader identifies the owner's working email link/address on the homepage. They need not send email. The homepage task passes only if both subject and contact succeed within the same 20-second window.",
-      "missing_column": "the sentence states both parts. (1) What is missing: the joint record, meaning what happened to both guards on the same item (equivalently, the joint column or joint evidence). (2) The scale: most evaluations lack it, or 14 of 20 lack it, or only 5 of 20 keep any. Exact numbers and specialist terms are unnecessary. Passing examples: “Most evaluations don't record what happened to both guards on the same item.” “14 out of 20 evaluations don't have the joint column.” “Only 5 of 20 keep any joint evidence, none at matched thresholds.” Failing examples: “Guards fail together sometimes.” (no joint record, no scale; could be said without watching). “Individual scores don't tell you how often guards fail together.” (true, but it is the shared-misses answer, not what this film counts). “The film was about AI safety.” (no content). An answer missing either part fails.",
+      "missing_column": "the sentence states both parts. (1) What is missing: the joint record, meaning what happened to both guards on the same item (equivalently, the joint column or joint evidence). (2) The scale: most evaluations lack it, or 14 of 20 lack it, or only 5 of 20 keep any. Exact numbers and specialist terms are unnecessary. Passing examples: \u201cMost evaluations don't record what happened to both guards on the same item.\u201d \u201c14 out of 20 evaluations don't have the joint column.\u201d \u201cOnly 5 of 20 keep any joint evidence, none at matched thresholds.\u201d Failing examples: \u201cGuards fail together sometimes.\u201d (no joint record, no scale; could be said without watching). \u201cIndividual scores don't tell you how often guards fail together.\u201d (true, but it is the shared-misses answer, not what this film counts). \u201cThe film was about AI safety.\u201d (no content). An answer missing either part fails.",
       "proof": "one actual activation of the real post-player proof link reaches `/try/`. An instruction, a visible URL, or a facilitator's click is not a completed task."
     },
     "limits": "Exactly five distinct unfamiliar humans. Human authenticity, unfamiliarity and raw-answer fidelity are facilitator attestations; automation cannot verify them. The film explanation and proof task have no time cutoff."
