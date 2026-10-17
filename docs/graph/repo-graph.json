@@ -5205,14 +5205,6 @@
  },
  "findings": [
   {
-   "detector": "D2",
-   "generator": "scripts/generate_sitemap.py",
-   "severity": "FIX",
-   "tail": [
-    "Run: python scripts/generate_sitemap.py"
-   ]
-  },
-  {
    "claim": "MC-002",
    "days_left": 10,
    "detector": "D3",
@@ -5335,7 +5327,7 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 1,
+   "ahead": 4,
    "behind": 0,
    "branch": "gv001/title-clarify",
    "detector": "D4",
@@ -5391,8 +5383,8 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 1,
-   "behind": 43,
+   "ahead": 3,
+   "behind": 0,
    "branch": "origin/claude/k-infra-calendar-weeks",
    "detector": "D4",
    "severity": "TOPOLOGY"
@@ -5436,6 +5428,13 @@
    "ahead": 2,
    "behind": 43,
    "branch": "origin/claude/x-gate",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 3,
+   "behind": 0,
+   "branch": "origin/gv001/title-clarify",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -5565,7 +5564,7 @@
  ],
  "generated_from": {
   "branch": "gv001/title-clarify",
-  "head": "b33748e"
+  "head": "4cfda6d"
  },
  "nodes": [
   {
@@ -6580,9 +6579,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 1,
+   "ahead_of_origin_main": 4,
    "behind_origin_main": 0,
-   "head": "b33748e",
+   "head": "4cfda6d",
    "id": "gv001/title-clarify",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
@@ -6670,11 +6669,11 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 43,
-   "head": "80ca38e",
+   "ahead_of_origin_main": 3,
+   "behind_origin_main": 0,
+   "head": "f271065",
    "id": "origin/claude/k-infra-calendar-weeks",
-   "last_commit": "2026-09-20",
+   "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
@@ -6729,6 +6728,15 @@
    "head": "1d59af6",
    "id": "origin/claude/x-gate",
    "last_commit": "2026-09-27",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 3,
+   "behind_origin_main": 0,
+   "head": "426fa77",
+   "id": "origin/gv001/title-clarify",
+   "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
