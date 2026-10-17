@@ -101,6 +101,8 @@ CHECKS: tuple[tuple[str, ...], ...] = (
     ("trial IV drift", "scripts/generate_trial.py", "--check"),
     ("trial IV instrument and pilot freeze", "scripts/verify_trial.py"),
     ("prepared joint reporters", "contrib/test_joint_reporters.py"),
+    ("attribution to Cubits11", "scripts/verify_attribution.py"),
+    ("attribution fixtures", "scripts/verify_attribution.py", "--test"),
 )
 
 
