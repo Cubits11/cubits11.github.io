@@ -5046,18 +5046,19 @@
  "findings": [
   {
    "detector": "D2",
-   "generator": "scripts/generate_conformance_record.py",
+   "generator": "scripts/generate_film_pages.py",
    "severity": "FIX",
    "tail": [
-    "Run: python3 scripts/generate_conformance_record.py"
+    "FAIL  leave-one-out: render input is stale: films/data/facts.json"
    ]
   },
   {
-   "claim": "REL-001",
-   "days_left": -24,
-   "detector": "D3",
-   "review_due": "2026-09-23",
-   "severity": "FAIL"
+   "detector": "D2",
+   "generator": "scripts/generate_sitemap.py",
+   "severity": "FIX",
+   "tail": [
+    "Run: python scripts/generate_sitemap.py"
+   ]
   },
   {
    "claim": "MC-002",
@@ -5112,6 +5113,41 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "backup/2026-10-17/agent-state",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "backup/2026-10-17/cadence-publication",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "backup/2026-10-17/discovery-only",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "backup/2026-10-17/film-capture",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 7,
+   "behind": 0,
+   "branch": "backup/2026-10-17/main-checkout",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
    "ahead": 4,
    "behind": 0,
    "branch": "claude/claim-succession-minimal",
@@ -5147,7 +5183,7 @@
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 5,
+   "ahead": 12,
    "behind": 0,
    "branch": "e9/result-scoped",
    "detector": "D4",
@@ -5262,6 +5298,13 @@
    "ahead": 2,
    "behind": 0,
    "branch": "origin/claude/x-gate",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 12,
+   "behind": 0,
+   "branch": "origin/e9/result-scoped",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -5386,7 +5429,7 @@
  ],
  "generated_from": {
   "branch": "e9/result-scoped",
-  "head": "0fb55c1"
+  "head": "fa7aee8"
  },
  "nodes": [
   {
@@ -6017,10 +6060,10 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": -24,
+   "days_left": 30,
    "id": "REL-001",
-   "last_reviewed": "2026-08-24",
-   "review_due": "2026-09-23",
+   "last_reviewed": "2026-10-17",
+   "review_due": "2026-11-16",
    "support_url": null,
    "type": "claim"
   },
@@ -6249,6 +6292,51 @@
    "type": "experiment"
   },
   {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 0,
+   "head": "4612b11",
+   "id": "backup/2026-10-17/agent-state",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 0,
+   "head": "dcc9426",
+   "id": "backup/2026-10-17/cadence-publication",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 0,
+   "head": "840f597",
+   "id": "backup/2026-10-17/discovery-only",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 0,
+   "head": "3dfd171",
+   "id": "backup/2026-10-17/film-capture",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 7,
+   "behind_origin_main": 0,
+   "head": "62c0c0b",
+   "id": "backup/2026-10-17/main-checkout",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 4,
    "behind_origin_main": 0,
    "head": "d1a09c5",
@@ -6348,11 +6436,11 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 5,
+   "ahead_of_origin_main": 12,
    "behind_origin_main": 0,
-   "head": "0fb55c1",
+   "head": "fa7aee8",
    "id": "e9/result-scoped",
-   "last_commit": "2026-09-25",
+   "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
@@ -6528,6 +6616,15 @@
    "type": "branch"
   },
   {
+   "ahead_of_origin_main": 12,
+   "behind_origin_main": 0,
+   "head": "fa7aee8",
+   "id": "origin/e9/result-scoped",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
    "ahead_of_origin_main": 1,
    "behind_origin_main": 37,
    "head": "b9b7b1b",
@@ -6690,5 +6787,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "445bf96f49468b75d241e816460029742fd44b17e95e6f9d4237c085c6105b61"
+ "stable_digest": "d8624a63d9f874fc0f10a937e6cb0deeeea613c32073154eaa4e67bed71c798a"
 }

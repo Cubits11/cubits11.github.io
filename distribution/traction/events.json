@@ -17,13 +17,13 @@
     "novelty": "snapshot; not asserted newly published"
   },
   {
-    "id": "9fc05a31b42b0e4c",
+    "id": "7ac9bdd070d91243",
     "kind": "claims",
     "source": {
       "path": "claims.yaml",
-      "sha256": "9964c0137292e4338246d423c7124a0109b28973f4ca00f94317e855cd4dcc94",
-      "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
-      "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/claims.yaml",
+      "sha256": "4ff88c5eddad5a422122ec38943790024ac955029718243afc8272fbaab6a88f",
+      "commit": "c183a1b3342f3bab654af8ade0cdbc18468e217a",
+      "url": "https://github.com/Cubits11/cubits11.github.io/blob/c183a1b3342f3bab654af8ade0cdbc18468e217a/claims.yaml",
       "binding": "committed"
     },
     "draft_ids": [
