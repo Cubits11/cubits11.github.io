@@ -394,7 +394,7 @@ claims:
         The protocol is operationalized and held for public binding with its
         research revision. No participant result or public study artifact is
         yet offered as support.
-    last_reviewed: "2026-08-24"
+    last_reviewed: "2026-10-17"
     review_window_days: 30
     review_triggers:
       - type: manual
