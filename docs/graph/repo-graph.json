@@ -5045,14 +5045,6 @@
  },
  "findings": [
   {
-   "detector": "D2",
-   "generator": "scripts/generate_sitemap.py",
-   "severity": "FIX",
-   "tail": [
-    "Run: python scripts/generate_sitemap.py"
-   ]
-  },
-  {
    "claim": "MC-002",
    "days_left": 10,
    "detector": "D3",
@@ -5107,310 +5099,316 @@
   {
    "ahead": 1,
    "behind": 0,
+   "branch": "agent-state/capsule",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 19,
    "branch": "backup/2026-10-17/agent-state",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 0,
+   "behind": 19,
    "branch": "backup/2026-10-17/cadence-publication",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 0,
+   "behind": 19,
    "branch": "backup/2026-10-17/discovery-only",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 0,
+   "behind": 19,
    "branch": "backup/2026-10-17/film-capture",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 7,
-   "behind": 0,
+   "behind": 19,
    "branch": "backup/2026-10-17/main-checkout",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 4,
+   "ahead": 1,
    "behind": 0,
+   "branch": "cadence/publication-isolation",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 4,
+   "behind": 19,
    "branch": "claude/claim-succession-minimal",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 0,
+   "behind": 19,
    "branch": "claude/consolidate-mobile-2026-10-14",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 0,
+   "behind": 19,
    "branch": "claude/k1-hold",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 0,
+   "behind": 19,
    "branch": "claude/phone-width-a11y",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 6,
-   "behind": 0,
+   "behind": 19,
    "branch": "claude/wonderful-volta-eohfbq",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 16,
-   "behind": 0,
-   "branch": "e9/result-scoped",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
    "ahead": 6,
-   "behind": 0,
+   "behind": 19,
    "branch": "recovery/website-2026-10-14-volta",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/claim-succession-minimal",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 13,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/e9-result",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 2,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/eloquent-shannon-dlvcz3",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/falsifier-assessment-kernel",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 5,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/friendly-babbage-5hro0x",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/glassroot-handoff",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 2,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/homepage-epistemic-motion",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/k-infra-calendar-weeks",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/k1-hold",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/lucid-franklin-jloow0",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/phone-width-a11y",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/temple-researcher-outreach-on2v73",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/verify-claims-refusal-unknown",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 8,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/wonderful-volta-eohfbq",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 2,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/claude/x-gate",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 14,
-   "behind": 0,
-   "branch": "origin/e9/result-scoped",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
    "ahead": 1,
-   "behind": 37,
+   "behind": 56,
    "branch": "origin/icloud-snapshot/2026-09-19",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 0,
+   "behind": 19,
    "branch": "origin/icloud-snapshot/2026-09-19-site",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 6,
+   "behind": 25,
    "branch": "origin/rescue/commit-01fea45b4e98",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 196,
+   "behind": 215,
    "branch": "origin/rescue/commit-119f257b763c",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 15,
+   "behind": 34,
    "branch": "origin/rescue/commit-2139046f7192",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 89,
+   "behind": 108,
    "branch": "origin/rescue/commit-22fa9f9a8456",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 2,
+   "behind": 21,
    "branch": "origin/rescue/commit-28e8ac07e6c0",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 81,
+   "behind": 100,
    "branch": "origin/rescue/commit-4a362b5d714f",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 101,
+   "behind": 120,
    "branch": "origin/rescue/commit-5e70a9df4626",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 226,
+   "behind": 245,
    "branch": "origin/rescue/commit-80250a3e7fc4",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 196,
+   "behind": 215,
    "branch": "origin/rescue/commit-93200984af16",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 93,
+   "behind": 112,
    "branch": "origin/rescue/commit-bd0c87d0f1ea",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 15,
+   "behind": 34,
    "branch": "origin/rescue/commit-c74849b7a928",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 81,
+   "behind": 100,
    "branch": "origin/rescue/commit-cec26e585b5a",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 88,
+   "behind": 107,
    "branch": "origin/rescue/commit-ea88d6552c2f",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 157,
+   "behind": 176,
    "branch": "origin/rescue/commit-f8e555738fc2",
    "detector": "D4",
    "severity": "TOPOLOGY"
+  },
+  {
+   "detector": "D8",
+   "note": "runs only when someone runs it",
+   "severity": "RECORD",
+   "test": "tests/test_agent_state.py"
   },
   {
    "detector": "D8",
@@ -5426,10 +5424,17 @@
   }
  ],
  "generated_from": {
-  "branch": "e9/result-scoped",
-  "head": "db8d487"
+  "branch": "agent-state/capsule",
+  "head": "5a9ab18"
  },
  "nodes": [
+  {
+   "has_check_mode": false,
+   "has_test_mode": false,
+   "id": "scripts/agent_state.py",
+   "kind": "instrument",
+   "type": "script"
+  },
   {
    "has_check_mode": false,
    "has_test_mode": false,
@@ -6292,6 +6297,15 @@
   {
    "ahead_of_origin_main": 1,
    "behind_origin_main": 0,
+   "head": "5a9ab18",
+   "id": "agent-state/capsule",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 19,
    "head": "4612b11",
    "id": "backup/2026-10-17/agent-state",
    "last_commit": "2026-10-17",
@@ -6300,7 +6314,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "dcc9426",
    "id": "backup/2026-10-17/cadence-publication",
    "last_commit": "2026-10-17",
@@ -6309,7 +6323,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "840f597",
    "id": "backup/2026-10-17/discovery-only",
    "last_commit": "2026-10-17",
@@ -6318,7 +6332,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "3dfd171",
    "id": "backup/2026-10-17/film-capture",
    "last_commit": "2026-10-17",
@@ -6327,7 +6341,7 @@
   },
   {
    "ahead_of_origin_main": 7,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "62c0c0b",
    "id": "backup/2026-10-17/main-checkout",
    "last_commit": "2026-10-17",
@@ -6335,8 +6349,17 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 4,
+   "ahead_of_origin_main": 1,
    "behind_origin_main": 0,
+   "head": "979c85f",
+   "id": "cadence/publication-isolation",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 4,
+   "behind_origin_main": 19,
    "head": "d1a09c5",
    "id": "claude/claim-succession-minimal",
    "last_commit": "2026-09-25",
@@ -6345,7 +6368,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "f2249c1",
    "id": "claude/consolidate-agent-state-2026-10-14",
    "last_commit": "2026-09-18",
@@ -6354,7 +6377,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "f2249c1",
    "id": "claude/consolidate-cadence-publication-2026-10-14",
    "last_commit": "2026-09-18",
@@ -6363,7 +6386,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "f2249c1",
    "id": "claude/consolidate-discovery-2026-10-14",
    "last_commit": "2026-09-18",
@@ -6372,7 +6395,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "f2249c1",
    "id": "claude/consolidate-film-capture-2026-10-14",
    "last_commit": "2026-09-18",
@@ -6381,7 +6404,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "21fe5bd",
    "id": "claude/consolidate-mobile-2026-10-14",
    "last_commit": "2026-09-21",
@@ -6390,7 +6413,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "f2249c1",
    "id": "claude/consolidation-2026-10-14",
    "last_commit": "2026-09-18",
@@ -6399,7 +6422,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "1d44a13",
    "id": "claude/k1-hold",
    "last_commit": "2026-09-22",
@@ -6408,7 +6431,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "057c7b1",
    "id": "claude/phone-width-a11y",
    "last_commit": "2026-09-21",
@@ -6417,7 +6440,7 @@
   },
   {
    "ahead_of_origin_main": 6,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "af3a7c9",
    "id": "claude/wonderful-volta-eohfbq",
    "last_commit": "2026-09-25",
@@ -6426,7 +6449,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "f2249c1",
    "id": "drive/consolidation-2026-10-11",
    "last_commit": "2026-09-18",
@@ -6434,17 +6457,17 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 16,
-   "behind_origin_main": 0,
-   "head": "db8d487",
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 1,
+   "head": "642d07f",
    "id": "e9/result-scoped",
    "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "f2249c1",
    "id": "recovery/website-2026-10-14-base",
    "last_commit": "2026-09-18",
@@ -6453,7 +6476,7 @@
   },
   {
    "ahead_of_origin_main": 6,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "af3a7c9",
    "id": "recovery/website-2026-10-14-volta",
    "last_commit": "2026-09-25",
@@ -6463,15 +6486,15 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "f2249c1",
+   "head": "592ed51",
    "id": "origin",
-   "last_commit": "2026-09-18",
+   "last_commit": "2026-10-17",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "d1a09c5",
    "id": "origin/claude/claim-succession-minimal",
    "last_commit": "2026-09-25",
@@ -6480,7 +6503,7 @@
   },
   {
    "ahead_of_origin_main": 13,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "b50a9c6",
    "id": "origin/claude/e9-result",
    "last_commit": "2026-09-25",
@@ -6489,7 +6512,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "56a0cfc",
    "id": "origin/claude/eloquent-shannon-dlvcz3",
    "last_commit": "2026-09-22",
@@ -6498,7 +6521,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "c1b71f9",
    "id": "origin/claude/falsifier-assessment-kernel",
    "last_commit": "2026-09-27",
@@ -6507,7 +6530,7 @@
   },
   {
    "ahead_of_origin_main": 5,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "8732e64",
    "id": "origin/claude/friendly-babbage-5hro0x",
    "last_commit": "2026-09-22",
@@ -6516,7 +6539,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "2e9eeab",
    "id": "origin/claude/glassroot-handoff",
    "last_commit": "2026-09-27",
@@ -6525,7 +6548,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "91e31c5",
    "id": "origin/claude/homepage-epistemic-motion",
    "last_commit": "2026-09-25",
@@ -6534,7 +6557,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "80ca38e",
    "id": "origin/claude/k-infra-calendar-weeks",
    "last_commit": "2026-09-20",
@@ -6543,7 +6566,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "1d44a13",
    "id": "origin/claude/k1-hold",
    "last_commit": "2026-09-22",
@@ -6552,7 +6575,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "d49480e",
    "id": "origin/claude/lucid-franklin-jloow0",
    "last_commit": "2026-09-26",
@@ -6561,7 +6584,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "057c7b1",
    "id": "origin/claude/phone-width-a11y",
    "last_commit": "2026-09-21",
@@ -6570,7 +6593,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "e40fd8c",
    "id": "origin/claude/temple-researcher-outreach-on2v73",
    "last_commit": "2026-09-19",
@@ -6579,7 +6602,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "3d5f743",
    "id": "origin/claude/verify-claims-refusal-unknown",
    "last_commit": "2026-09-27",
@@ -6588,7 +6611,7 @@
   },
   {
    "ahead_of_origin_main": 8,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "13caf15",
    "id": "origin/claude/wonderful-volta-eohfbq",
    "last_commit": "2026-09-25",
@@ -6597,7 +6620,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "1d59af6",
    "id": "origin/claude/x-gate",
    "last_commit": "2026-09-27",
@@ -6606,7 +6629,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "f2249c1",
    "id": "origin/drive/consolidation-2026-10-11",
    "last_commit": "2026-09-18",
@@ -6614,17 +6637,17 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 14,
-   "behind_origin_main": 0,
-   "head": "8be4b9d",
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 1,
+   "head": "642d07f",
    "id": "origin/e9/result-scoped",
    "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 37,
+   "behind_origin_main": 56,
    "head": "b9b7b1b",
    "id": "origin/icloud-snapshot/2026-09-19",
    "last_commit": "2026-09-19",
@@ -6633,7 +6656,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 0,
+   "behind_origin_main": 19,
    "head": "d0ac440",
    "id": "origin/icloud-snapshot/2026-09-19-site",
    "last_commit": "2026-09-19",
@@ -6643,15 +6666,15 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "f2249c1",
+   "head": "592ed51",
    "id": "origin/main",
-   "last_commit": "2026-09-18",
+   "last_commit": "2026-10-17",
    "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 6,
+   "behind_origin_main": 25,
    "head": "79148e6",
    "id": "origin/rescue/commit-01fea45b4e98",
    "last_commit": "2026-09-17",
@@ -6660,7 +6683,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 196,
+   "behind_origin_main": 215,
    "head": "119f257",
    "id": "origin/rescue/commit-119f257b763c",
    "last_commit": "2026-08-29",
@@ -6669,7 +6692,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 15,
+   "behind_origin_main": 34,
    "head": "73e6691",
    "id": "origin/rescue/commit-2139046f7192",
    "last_commit": "2026-09-17",
@@ -6678,7 +6701,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 89,
+   "behind_origin_main": 108,
    "head": "22fa9f9",
    "id": "origin/rescue/commit-22fa9f9a8456",
    "last_commit": "2026-09-05",
@@ -6687,7 +6710,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 2,
+   "behind_origin_main": 21,
    "head": "28e8ac0",
    "id": "origin/rescue/commit-28e8ac07e6c0",
    "last_commit": "2026-09-18",
@@ -6696,7 +6719,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 81,
+   "behind_origin_main": 100,
    "head": "4a362b5",
    "id": "origin/rescue/commit-4a362b5d714f",
    "last_commit": "2026-09-05",
@@ -6705,7 +6728,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 101,
+   "behind_origin_main": 120,
    "head": "38e1a09",
    "id": "origin/rescue/commit-5e70a9df4626",
    "last_commit": "2026-09-02",
@@ -6714,7 +6737,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 226,
+   "behind_origin_main": 245,
    "head": "1a17fe1",
    "id": "origin/rescue/commit-80250a3e7fc4",
    "last_commit": "2026-08-23",
@@ -6723,7 +6746,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 196,
+   "behind_origin_main": 215,
    "head": "9320098",
    "id": "origin/rescue/commit-93200984af16",
    "last_commit": "2026-08-29",
@@ -6732,7 +6755,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 93,
+   "behind_origin_main": 112,
    "head": "bd0c87d",
    "id": "origin/rescue/commit-bd0c87d0f1ea",
    "last_commit": "2026-09-05",
@@ -6741,7 +6764,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 15,
+   "behind_origin_main": 34,
    "head": "089f9b9",
    "id": "origin/rescue/commit-c74849b7a928",
    "last_commit": "2026-09-17",
@@ -6750,7 +6773,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 81,
+   "behind_origin_main": 100,
    "head": "cec26e5",
    "id": "origin/rescue/commit-cec26e585b5a",
    "last_commit": "2026-09-05",
@@ -6759,7 +6782,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 88,
+   "behind_origin_main": 107,
    "head": "ea88d65",
    "id": "origin/rescue/commit-ea88d6552c2f",
    "last_commit": "2026-09-05",
@@ -6768,7 +6791,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 157,
+   "behind_origin_main": 176,
    "head": "f8e5557",
    "id": "origin/rescue/commit-f8e555738fc2",
    "last_commit": "2026-08-31",
@@ -6785,5 +6808,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "36ec53d3ec81c7fba8ef3373cfde8c16712af16f846d415b49fa7688737cee92"
+ "stable_digest": "0ef2ae1554e1b3d3963ea9cf12db1a783f905635468802ffd849abb96e968d8d"
 }
