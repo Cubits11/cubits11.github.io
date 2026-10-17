@@ -68,9 +68,36 @@ The renderer serves the repository root over localhost, opens the film with
 calls `window.__film.seek(t)` for every frame, captures over the DevTools
 protocol (about 50 ms a frame), encodes with the bundled ffmpeg, keeps a
 poster, five review stills, one still per declared claim frame and a contact
-sheet, re-captures five sampled frames to prove determinism, and writes a
-receipt naming the git HEAD, the sha256 of every input, and a digest over
-every frame.
+sheet, re-captures five sampled frames to check repeatability, and writes a
+receipt naming the git HEAD, the hashes of the film HTML, shared JavaScript and
+tokens CSS, the facts the film read (`facts_used`) with one digest over their
+values, and a digest over every frame. Captures use explicit dimensions and
+wait for canvas updates to reach the browser's compositor; a PNG of the wrong
+dimensions is refused before encoding.
+
+Receipt freshness binds the **values of the facts the film read**, not the
+whole facts registry. `facts_subset.sha256` is sha256 over the canonical JSON of
+`{fact_id: value}` for exactly the ids in `facts_used`
+(`scripts/films/facts_digest.py`). A change to a fact the film never read, such
+as a review date in `claims.yaml`, leaves the receipt fresh; a change to any
+value it read makes it stale. Until 2026-10-17 the receipt bound the whole file,
+so every registry edit made every film stale; the 2026-10-17 re-render of all 19
+cuts after one such edit reproduced every frame digest.
+
+The rule is only as complete as `facts_used`, which records reads through the
+runtime's `fact()` accessor. `scripts/films/mutation_completeness.py` tests that
+by mutation: for every receipt on disk and every fact in `facts.json`, it
+mutates that one fact, replays the film, and fails if the output changes for a
+fact outside `facts_used`. It needs Chrome and runs outside the verification
+manifest. Its result is evidence about these films at the revision it ran on; a
+new film, an edited film, or a film that reaches facts by another path needs it
+run again. A fact's other fields (kind, claim, source) and the file's top-level
+keys are not bound. Neither are the fonts under `assets/fonts/`.
+
+The receipt also records the render date and elapsed seconds, so repeating a
+render can change receipt bytes even when every frame and the encoded video are
+identical. A passing freshness check must not be described as proof of a
+zero-diff regeneration fixed point.
 
 Preview any film by opening `films/<slug>/film.html` over a local server
 (`python3 -m http.server 4173`), optionally with `?t=12.5` or `?guides=1`.
@@ -79,7 +106,7 @@ Preview any film by opening `films/<slug>/film.html` over a local server
 
 ```bash
 python3 scripts/films/bind_facts.py --check   # facts current against the registries
-python3 scripts/films/verify_films.py         # manifests bound, receipts fresh, no overflow, determinism ok
+python3 scripts/films/verify_films.py         # manifests bound, every cut's receipt fresh, no overflow, determinism ok
 python3 scripts/films/slate.py --check        # slate gate and SLATE.md drift
 ```
 

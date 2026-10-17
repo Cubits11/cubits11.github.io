@@ -17,11 +17,16 @@ trap 'rmdir "$LOCK"' EXIT
 trap 'exit 1' HUP INT TERM
 
 PUBLISH=false
-if [ "$(git branch --show-current)" = main ] && [ -z "$(git status --porcelain)" ]; then
-  if git pull -q --ff-only origin main; then
+BASE="$(git rev-parse HEAD)"
+# Never pull owner history or queue local commits as a side effect of recording.
+# Fetch only refreshes our observation of origin/main; equality is mandatory.
+if [ "$(git branch --show-current)" = main ] && [ -z "$(git status --porcelain)" ] &&
+   [ "$(git rev-parse --abbrev-ref '@{upstream}' 2>/dev/null || true)" = origin/main ]; then
+  if git fetch -q origin refs/heads/main:refs/remotes/origin/main &&
+     [ "$BASE" = "$(git rev-parse refs/remotes/origin/main)" ]; then
     PUBLISH=true
   else
-    echo "pull declined; recording locally only"
+    echo "main is not synchronized with origin/main; recording locally only"
   fi
 fi
 "$PYTHON" scripts/cadence.py record
@@ -36,7 +41,10 @@ if ! "$PYTHON" scripts/verification_manifest.py >/dev/null; then
   exit 1
 fi
 # Recheck after verification so concurrent owner edits cannot enter the commit.
-if [ "$(git branch --show-current)" != main ] || [ -n "$(git status --porcelain -- . ':!metrics/repo_state.jsonl')" ]; then
+if [ "$(git branch --show-current)" != main ] ||
+   [ "$(git rev-parse HEAD)" != "$BASE" ] ||
+   [ "$(git rev-parse --abbrev-ref '@{upstream}' 2>/dev/null || true)" != origin/main ] ||
+   [ -n "$(git status --porcelain -- . ':!metrics/repo_state.jsonl')" ]; then
   echo "tree changed during verification; row retained locally"
   exit 1
 fi

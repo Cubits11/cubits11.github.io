@@ -44,7 +44,7 @@ class CadenceCycleTests(unittest.TestCase):
         self.git('add', '.')
         self.git('commit', '-qm', 'initial')
         self.git('remote', 'add', 'origin', str(self.remote))
-        self.git('push', '-q', 'origin', 'main')
+        self.git('push', '-qu', 'origin', 'main')
         self.initial = self.git('rev-parse', 'HEAD')
 
     def git(self, *args):
@@ -55,11 +55,17 @@ class CadenceCycleTests(unittest.TestCase):
                               capture_output=True, text=True).returncode
 
     def assert_local_only(self, expected=0):
+        before_index = self.git('write-tree')
+        before_owner = (self.root / 'owner.txt').read_bytes()
         self.assertEqual(self.cycle(), expected)
+        self.assertEqual(self.git('write-tree'), before_index)
+        if not (self.root / '_private/mutate').exists():
+            self.assertEqual((self.root / 'owner.txt').read_bytes(), before_owner)
+        self.assertFalse((self.root / '_private/queued').exists())
         self.assertEqual(self.git('rev-parse', 'HEAD'), self.initial)
         remote = subprocess.check_output(['git', '--git-dir', str(self.remote),
                                           'rev-parse', 'refs/heads/main'], text=True).strip()
-        self.assertEqual(remote, self.initial)
+        self.assertEqual(remote, getattr(self, 'remote_head', self.initial))
         self.assertIn('recorded', (self.root / 'metrics/repo_state.jsonl').read_text())
 
     def test_clean_main_publishes_only_record(self):
@@ -98,6 +104,59 @@ class CadenceCycleTests(unittest.TestCase):
         (self.root / '_private/mutate').touch()
         self.assert_local_only(1)
 
+    def test_detached_head_records_locally(self):
+        self.git('checkout', '--detach', '-q')
+        self.assert_local_only()
+
+    def test_dirty_tracked_file_is_preserved(self):
+        (self.root / 'owner.txt').write_text('unstaged owner work')
+        self.assert_local_only()
+
+    def test_untracked_owner_file_is_preserved(self):
+        p = self.root / 'untracked.txt'
+        p.write_text('owner draft')
+        self.assert_local_only()
+        self.assertEqual(p.read_text(), 'owner draft')
+
+    def test_ahead_main_is_not_published(self):
+        (self.root / 'owner.txt').write_text('local commit')
+        self.git('commit', '-qam', 'owner commit')
+        self.remote_head = self.initial
+        self.initial = self.git('rev-parse', 'HEAD')
+        self.assert_local_only()
+
+    def advance_remote(self):
+        old = self.initial
+        self.git('checkout', '-qb', 'remote-writer')
+        (self.root / 'remote.txt').write_text('remote work')
+        self.git('add', 'remote.txt')
+        self.git('commit', '-qm', 'remote commit')
+        self.remote_head = self.git('rev-parse', 'HEAD')
+        self.git('push', '-q', 'origin', 'HEAD:main')
+        self.git('checkout', '-q', 'main')
+        self.assertEqual(self.git('rev-parse', 'HEAD'), old)
+
+    def test_behind_main_is_not_pulled_or_published(self):
+        self.advance_remote()
+        self.assert_local_only()
+        self.assertFalse((self.root / 'remote.txt').exists())
+
+    def test_diverged_main_is_preserved(self):
+        self.advance_remote()
+        (self.root / 'owner.txt').write_text('local divergence')
+        self.git('commit', '-qam', 'local divergence')
+        self.initial = self.git('rev-parse', 'HEAD')
+        self.assert_local_only()
+
+    def test_mismatched_upstream_is_not_published(self):
+        self.git('push', '-q', 'origin', 'HEAD:other')
+        self.git('branch', '--set-upstream-to=origin/other')
+        self.assert_local_only()
+
+    def test_missing_upstream_is_not_published(self):
+        self.git('branch', '--unset-upstream')
+        self.assert_local_only()
+
     def test_other_cycle_holds_shared_lock(self):
         (self.root / '_private/cron/repository-cycle.lock').mkdir(parents=True)
         self.assertEqual(self.cycle(), 1)
@@ -111,7 +170,7 @@ class DistributionCycleTests(CadenceCycleTests):
         shutil.copy2(SCRIPT.with_name('distribute_cycle.sh'), self.root / 'scripts/distribute_cycle.sh')
         self.git('add', '.')
         self.git('commit', '-qm', 'distribution fixture')
-        self.git('push', '-q', 'origin', 'main')
+        self.git('push', '-qu', 'origin', 'main')
         self.initial = self.git('rev-parse', 'HEAD')
 
     def test_distribution_feature_branch_refuses_before_credentials(self):

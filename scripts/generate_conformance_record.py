@@ -162,11 +162,22 @@ def render() -> str:
              for n, e in d["plane"]["edges"].items() if e["status"] == "absent"]
 
     obs = snap["observations"]
-    stands_rows = sum(f["rows"] for f in obs["files"]
-                      if any(f["file"].startswith(f"experiments/{e['id'].lower()}/")
-                             for e in d["plane"]["founding_cohort"]
-                             if e["disposition"] == "STANDS"))
-    void_rows = obs["rows"] - stands_rows
+
+    def rows_where(keep) -> int:
+        return sum(f["rows"] for f in obs["files"]
+                   if any(f["file"].startswith(f"experiments/{e['id'].lower()}/")
+                          for e in d["plane"]["founding_cohort"] if keep(e["disposition"])))
+    # Three classes, counted separately. A row outside the founding cohort is
+    # not voided or rejected merely because the cohort does not list it; E9 was
+    # the first run to make that difference visible.
+    stands_rows = rows_where(lambda disp: disp == "STANDS")
+    void_rows = rows_where(lambda disp: disp in ("VOID", "REJECT"))
+    outside_rows = obs["rows"] - stands_rows - void_rows
+    outside_ids = sorted({f["file"].split("/")[1].upper() for f in obs["files"] if f["rows"]
+                          and not any(f["file"].startswith(f"experiments/{e['id'].lower()}/")
+                                      for e in d["plane"]["founding_cohort"])})
+    outside_note = (f" The other {outside_rows} ({', '.join(outside_ids)}) come from runs outside this "
+                    f"cohort and carry no disposition here." if outside_rows else "")
 
     return f'''<!doctype html>
 <!-- GENERATED FILE — do not edit by hand.
@@ -274,7 +285,7 @@ footer{{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;c
   {esc(sum(1 for c in d["plane"]["founding_cohort"] if c["disposition"] == "STANDS"))} of
   {esc(len(d["plane"]["founding_cohort"]))} valid is diagnostic evidence, not an estimate.
   Of {esc(obs["rows"])} observation rows, {esc(stands_rows)} stand and {esc(void_rows)}
-  belong to voided or rejected runs. Frozen inputs, estimators and outputs are unchanged in
+  belong to voided or rejected runs.{esc(outside_note)} Frozen inputs, estimators and outputs are unchanged in
   every case; {esc(n_preserved)} files are held in the preserved-byte manifest at baseline commit
   <code>{esc(baseline[:12])}</code>.</p>
 {"".join(cards)}
