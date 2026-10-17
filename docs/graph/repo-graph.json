@@ -4925,6 +4925,87 @@
    "to": "corrections/records/2026-09-10-preserved-inputs.json"
   },
   {
+   "basis": "PIN",
+   "from": "E9-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "2262983c6765a7f8fb6719c594852d82cab9efb5b40cf6ee4719a331e8c8226b",
+   "to": "experiments/e9/results/observations.jsonl"
+  },
+  {
+   "basis": "PIN",
+   "from": "E9-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "4ea9d46e68ac655f23add5b6ca0b257edefd98c6f79979b0d37bf05543fd07cb",
+   "to": "experiments/e9/results/analysis.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E9-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "6513df2ab4470aebca36169b5362bb4ccbc14665be1a281d5fae1d57278f729a",
+   "to": "experiments/e9/results/result.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E9-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "e7ff687745a10f905c84fad1afacb545ba6f0fab501b20595be38d275add9789",
+   "to": "experiments/e9/RESULT.md"
+  },
+  {
+   "basis": "PIN",
+   "from": "E9-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "171f9ebfff2cd195c6b1e3907f12993be2f02154a541d0e2318bd9c19e975f10",
+   "to": "experiments/e9/PREREG.md"
+  },
+  {
+   "basis": "PIN",
+   "from": "E9-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "43811798ae46e92eb14f933c96e855b625c3507230aac709ba510da4af69835b",
+   "to": "experiments/e9/contract.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E9-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "7823904703a406840c9cba37dba40942bc065a9c4d1c06b89a6e70c12ce416a5",
+   "to": "experiments/e9/freeze/freeze.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E9-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "ae51fb1df5a45e6414a53fe61663c25140ef56e2c5c4e082b0d3f67bc432d703",
+   "to": "experiments/e9/freeze/protocol.json"
+  },
+  {
+   "basis": "PIN",
+   "from": "E9-001",
+   "holds": true,
+   "inferred": false,
+   "rel": "pins",
+   "sha256": "bebd9f042edf2e41f1820ac3f2aa2ba4551bf2d2dbb615311f6ad9e887261375",
+   "to": "experiments/e9/run/analyze.py"
+  },
+  {
    "basis": "GIT",
    "from": "experiments/e2",
    "inferred": false,
@@ -5330,18 +5411,10 @@
  "findings": [
   {
    "detector": "D2",
-   "generator": "scripts/films/build_flagship.py",
+   "generator": "scripts/generate_sitemap.py",
    "severity": "FIX",
    "tail": [
-    "AssertionError: source-map.json stale: rebuild flagship"
-   ]
-  },
-  {
-   "detector": "D2",
-   "generator": "scripts/generate_conformance_record.py",
-   "severity": "FIX",
-   "tail": [
-    "Run: python3 scripts/generate_conformance_record.py"
+    "Run: python scripts/generate_sitemap.py"
    ]
   },
   {
@@ -5398,287 +5471,280 @@
   },
   {
    "ahead": 1,
-   "behind": 55,
+   "behind": 64,
    "branch": "backup/2026-10-17/agent-state",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 55,
+   "behind": 64,
    "branch": "backup/2026-10-17/cadence-publication",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 55,
+   "behind": 64,
    "branch": "backup/2026-10-17/discovery-only",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 55,
+   "behind": 64,
    "branch": "backup/2026-10-17/film-capture",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 7,
-   "behind": 55,
+   "behind": 64,
    "branch": "backup/2026-10-17/main-checkout",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 34,
+   "behind": 43,
    "branch": "backup/2026-10-17/site-repair-candidate",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 36,
+   "behind": 45,
    "branch": "census/candidates-2026-10",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 55,
+   "behind": 64,
    "branch": "claude/claim-succession-minimal",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 55,
+   "behind": 64,
    "branch": "claude/k1-hold",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 55,
+   "behind": 64,
    "branch": "claude/phone-width-a11y",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 5,
+   "ahead": 6,
    "behind": 0,
    "branch": "e9-001/register",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 5,
-   "behind": 0,
-   "branch": "site/empirical-repair",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
    "ahead": 1,
-   "behind": 36,
+   "behind": 45,
    "branch": "origin/census/candidates-2026-10",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/claim-succession-minimal",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 13,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/e9-result",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 2,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/eloquent-shannon-dlvcz3",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/falsifier-assessment-kernel",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/glassroot-handoff",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 2,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/homepage-epistemic-motion",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/k1-hold",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/lucid-franklin-jloow0",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/phone-width-a11y",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/temple-researcher-outreach-on2v73",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/verify-claims-refusal-unknown",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 2,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/claude/x-gate",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 5,
-   "behind": 0,
+   "behind": 9,
    "branch": "origin/e9-001/register",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 92,
+   "behind": 101,
    "branch": "origin/icloud-snapshot/2026-09-19",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 55,
+   "behind": 64,
    "branch": "origin/icloud-snapshot/2026-09-19-site",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 61,
+   "behind": 70,
    "branch": "origin/rescue/commit-01fea45b4e98",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 251,
+   "behind": 260,
    "branch": "origin/rescue/commit-119f257b763c",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 70,
+   "behind": 79,
    "branch": "origin/rescue/commit-2139046f7192",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 144,
+   "behind": 153,
    "branch": "origin/rescue/commit-22fa9f9a8456",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 136,
+   "behind": 145,
    "branch": "origin/rescue/commit-4a362b5d714f",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 156,
+   "behind": 165,
    "branch": "origin/rescue/commit-5e70a9df4626",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 281,
+   "behind": 290,
    "branch": "origin/rescue/commit-80250a3e7fc4",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 251,
+   "behind": 260,
    "branch": "origin/rescue/commit-93200984af16",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 148,
+   "behind": 157,
    "branch": "origin/rescue/commit-bd0c87d0f1ea",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 70,
+   "behind": 79,
    "branch": "origin/rescue/commit-c74849b7a928",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 136,
+   "behind": 145,
    "branch": "origin/rescue/commit-cec26e585b5a",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 143,
+   "behind": 152,
    "branch": "origin/rescue/commit-ea88d6552c2f",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 212,
+   "behind": 221,
    "branch": "origin/rescue/commit-f8e555738fc2",
    "detector": "D4",
    "severity": "TOPOLOGY"
@@ -5703,8 +5769,8 @@
   }
  ],
  "generated_from": {
-  "branch": "site/empirical-repair",
-  "head": "d6d8f36"
+  "branch": "e9-001/register",
+  "head": "a54a6bb"
  },
  "nodes": [
   {
@@ -6518,6 +6584,15 @@
    "type": "claim"
   },
   {
+   "consequence": "REJECT",
+   "days_left": 120,
+   "id": "E9-001",
+   "last_reviewed": "2026-10-17",
+   "review_due": "2027-02-14",
+   "support_url": "https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/results/observations.jsonl",
+   "type": "claim"
+  },
+  {
    "docs": {
     "PREREG.md": false,
     "RESULT.md": false,
@@ -6617,7 +6692,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 24,
+   "behind_origin_main": 33,
    "head": "2d462f9",
    "id": "agent-state/capsule",
    "last_commit": "2026-10-17",
@@ -6626,7 +6701,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "4612b11",
    "id": "backup/2026-10-17/agent-state",
    "last_commit": "2026-10-17",
@@ -6635,7 +6710,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "dcc9426",
    "id": "backup/2026-10-17/cadence-publication",
    "last_commit": "2026-10-17",
@@ -6644,7 +6719,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "840f597",
    "id": "backup/2026-10-17/discovery-only",
    "last_commit": "2026-10-17",
@@ -6653,7 +6728,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "3dfd171",
    "id": "backup/2026-10-17/film-capture",
    "last_commit": "2026-10-17",
@@ -6662,7 +6737,7 @@
   },
   {
    "ahead_of_origin_main": 7,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "62c0c0b",
    "id": "backup/2026-10-17/main-checkout",
    "last_commit": "2026-10-17",
@@ -6671,7 +6746,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 34,
+   "behind_origin_main": 43,
    "head": "ea84f0c",
    "id": "backup/2026-10-17/site-repair-candidate",
    "last_commit": "2026-10-17",
@@ -6680,7 +6755,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 36,
+   "behind_origin_main": 45,
    "head": "6a91961",
    "id": "census/candidates-2026-10",
    "last_commit": "2026-10-17",
@@ -6689,7 +6764,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "d1a09c5",
    "id": "claude/claim-succession-minimal",
    "last_commit": "2026-09-25",
@@ -6698,7 +6773,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 29,
+   "behind_origin_main": 38,
    "head": "a13b86d",
    "id": "claude/film-receipt-facts-subset",
    "last_commit": "2026-10-17",
@@ -6707,7 +6782,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 13,
+   "behind_origin_main": 22,
    "head": "e62476e",
    "id": "claude/friendly-babbage-5hro0x",
    "last_commit": "2026-10-17",
@@ -6716,7 +6791,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 1,
+   "behind_origin_main": 10,
    "head": "bc5bda8",
    "id": "claude/k-infra-calendar-weeks",
    "last_commit": "2026-10-17",
@@ -6725,7 +6800,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "1d44a13",
    "id": "claude/k1-hold",
    "last_commit": "2026-09-22",
@@ -6734,7 +6809,16 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 6,
+   "behind_origin_main": 15,
+   "head": "842e06d",
+   "id": "claude/keen-jemison-cfd59b",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": true,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 15,
    "head": "842e06d",
    "id": "claude/modest-poincare-28a127",
    "last_commit": "2026-10-17",
@@ -6743,7 +6827,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "057c7b1",
    "id": "claude/phone-width-a11y",
    "last_commit": "2026-09-21",
@@ -6751,9 +6835,9 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 5,
+   "ahead_of_origin_main": 6,
    "behind_origin_main": 0,
-   "head": "a8bfe8c",
+   "head": "a54a6bb",
    "id": "e9-001/register",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": false,
@@ -6761,7 +6845,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 7,
+   "behind_origin_main": 16,
    "head": "ee9617c",
    "id": "gv001/title-clarify",
    "last_commit": "2026-10-17",
@@ -6770,7 +6854,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 12,
+   "behind_origin_main": 21,
    "head": "81b9cc1",
    "id": "main",
    "last_commit": "2026-10-17",
@@ -6778,18 +6862,18 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 5,
-   "behind_origin_main": 0,
-   "head": "d6d8f36",
+   "ahead_of_origin_main": 0,
+   "behind_origin_main": 1,
+   "head": "8062f8c",
    "id": "site/empirical-repair",
    "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
+   "reachable_from_origin_main": true,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "50b2898",
+   "head": "506a8fa",
    "id": "origin",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": true,
@@ -6797,7 +6881,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 36,
+   "behind_origin_main": 45,
    "head": "6a91961",
    "id": "origin/census/candidates-2026-10",
    "last_commit": "2026-10-17",
@@ -6806,7 +6890,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "d1a09c5",
    "id": "origin/claude/claim-succession-minimal",
    "last_commit": "2026-09-25",
@@ -6815,7 +6899,7 @@
   },
   {
    "ahead_of_origin_main": 13,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "b50a9c6",
    "id": "origin/claude/e9-result",
    "last_commit": "2026-09-25",
@@ -6824,7 +6908,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "56a0cfc",
    "id": "origin/claude/eloquent-shannon-dlvcz3",
    "last_commit": "2026-09-22",
@@ -6833,7 +6917,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "c1b71f9",
    "id": "origin/claude/falsifier-assessment-kernel",
    "last_commit": "2026-09-27",
@@ -6842,7 +6926,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "2e9eeab",
    "id": "origin/claude/glassroot-handoff",
    "last_commit": "2026-09-27",
@@ -6851,7 +6935,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "91e31c5",
    "id": "origin/claude/homepage-epistemic-motion",
    "last_commit": "2026-09-25",
@@ -6860,7 +6944,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "1d44a13",
    "id": "origin/claude/k1-hold",
    "last_commit": "2026-09-22",
@@ -6869,7 +6953,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "d49480e",
    "id": "origin/claude/lucid-franklin-jloow0",
    "last_commit": "2026-09-26",
@@ -6878,7 +6962,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "057c7b1",
    "id": "origin/claude/phone-width-a11y",
    "last_commit": "2026-09-21",
@@ -6887,7 +6971,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "e40fd8c",
    "id": "origin/claude/temple-researcher-outreach-on2v73",
    "last_commit": "2026-09-19",
@@ -6896,7 +6980,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "3d5f743",
    "id": "origin/claude/verify-claims-refusal-unknown",
    "last_commit": "2026-09-27",
@@ -6905,7 +6989,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "1d59af6",
    "id": "origin/claude/x-gate",
    "last_commit": "2026-09-27",
@@ -6914,7 +6998,7 @@
   },
   {
    "ahead_of_origin_main": 5,
-   "behind_origin_main": 0,
+   "behind_origin_main": 9,
    "head": "a8bfe8c",
    "id": "origin/e9-001/register",
    "last_commit": "2026-10-17",
@@ -6923,7 +7007,7 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 7,
+   "behind_origin_main": 16,
    "head": "ee9617c",
    "id": "origin/gv001/title-clarify",
    "last_commit": "2026-10-17",
@@ -6932,7 +7016,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 92,
+   "behind_origin_main": 101,
    "head": "b9b7b1b",
    "id": "origin/icloud-snapshot/2026-09-19",
    "last_commit": "2026-09-19",
@@ -6941,7 +7025,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 55,
+   "behind_origin_main": 64,
    "head": "d0ac440",
    "id": "origin/icloud-snapshot/2026-09-19-site",
    "last_commit": "2026-09-19",
@@ -6951,7 +7035,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "50b2898",
+   "head": "506a8fa",
    "id": "origin/main",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": true,
@@ -6959,7 +7043,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 61,
+   "behind_origin_main": 70,
    "head": "79148e6",
    "id": "origin/rescue/commit-01fea45b4e98",
    "last_commit": "2026-09-17",
@@ -6968,7 +7052,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 251,
+   "behind_origin_main": 260,
    "head": "119f257",
    "id": "origin/rescue/commit-119f257b763c",
    "last_commit": "2026-08-29",
@@ -6977,7 +7061,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 70,
+   "behind_origin_main": 79,
    "head": "73e6691",
    "id": "origin/rescue/commit-2139046f7192",
    "last_commit": "2026-09-17",
@@ -6986,7 +7070,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 144,
+   "behind_origin_main": 153,
    "head": "22fa9f9",
    "id": "origin/rescue/commit-22fa9f9a8456",
    "last_commit": "2026-09-05",
@@ -6995,7 +7079,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 136,
+   "behind_origin_main": 145,
    "head": "4a362b5",
    "id": "origin/rescue/commit-4a362b5d714f",
    "last_commit": "2026-09-05",
@@ -7004,7 +7088,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 156,
+   "behind_origin_main": 165,
    "head": "38e1a09",
    "id": "origin/rescue/commit-5e70a9df4626",
    "last_commit": "2026-09-02",
@@ -7013,7 +7097,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 281,
+   "behind_origin_main": 290,
    "head": "1a17fe1",
    "id": "origin/rescue/commit-80250a3e7fc4",
    "last_commit": "2026-08-23",
@@ -7022,7 +7106,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 251,
+   "behind_origin_main": 260,
    "head": "9320098",
    "id": "origin/rescue/commit-93200984af16",
    "last_commit": "2026-08-29",
@@ -7031,7 +7115,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 148,
+   "behind_origin_main": 157,
    "head": "bd0c87d",
    "id": "origin/rescue/commit-bd0c87d0f1ea",
    "last_commit": "2026-09-05",
@@ -7040,7 +7124,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 70,
+   "behind_origin_main": 79,
    "head": "089f9b9",
    "id": "origin/rescue/commit-c74849b7a928",
    "last_commit": "2026-09-17",
@@ -7049,7 +7133,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 136,
+   "behind_origin_main": 145,
    "head": "cec26e5",
    "id": "origin/rescue/commit-cec26e585b5a",
    "last_commit": "2026-09-05",
@@ -7058,7 +7142,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 143,
+   "behind_origin_main": 152,
    "head": "ea88d65",
    "id": "origin/rescue/commit-ea88d6552c2f",
    "last_commit": "2026-09-05",
@@ -7067,7 +7151,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 212,
+   "behind_origin_main": 221,
    "head": "f8e5557",
    "id": "origin/rescue/commit-f8e555738fc2",
    "last_commit": "2026-08-31",
@@ -7084,5 +7168,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "a06bdd37aaf6e3be5661f801c901b04bf8b4a0e300cca2f4078d58a11138a851"
+ "stable_digest": "319edcfdbafd693d0c1468e1a7d7152b5d9e35e0a71b618d88c5fff9244d5d39"
 }

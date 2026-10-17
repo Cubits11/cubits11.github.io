@@ -2418,6 +2418,124 @@
       },
       "fw:verdict": "REJECTED AS STATED",
       "fw:verdictDate": "2026-09-10"
+    },
+    {
+      "@context": [
+        "https://schema.org",
+        {
+          "@version": 1.1,
+          "fw": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#",
+            "@prefix": true
+          },
+          "xsd": "http://www.w3.org/2001/XMLSchema#",
+          "fw:falsifier": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#falsifier"
+          },
+          "fw:consequence": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#consequence"
+          },
+          "fw:forbiddenRescue": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#forbiddenRescue",
+            "@container": "@list"
+          },
+          "fw:nonClaim": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#nonClaim",
+            "@container": "@list"
+          },
+          "fw:scopeStatement": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#scopeStatement"
+          },
+          "fw:evidentialStatus": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#evidentialStatus"
+          },
+          "fw:lastReviewed": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#lastReviewed",
+            "@type": "xsd:date"
+          },
+          "fw:reviewWindow": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#reviewWindow",
+            "@type": "xsd:duration"
+          },
+          "fw:warrantExpires": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#warrantExpires",
+            "@type": "xsd:date"
+          },
+          "fw:supportUrl": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#supportUrl",
+            "@type": "@id"
+          },
+          "fw:supportBinding": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#supportBinding",
+            "@type": "@id"
+          },
+          "fw:boundRevision": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#boundRevision"
+          },
+          "fw:verdict": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#verdict"
+          },
+          "fw:verdictDate": {
+            "@id": "https://cubits11.github.io/ns/falsifiable/v1/#verdictDate",
+            "@type": "xsd:date"
+          }
+        }
+      ],
+      "@type": "Claim",
+      "@id": "https://cubits11.github.io/claims/e9-001/#claim",
+      "identifier": "E9-001",
+      "name": "E9: both-miss measurement on 1,000 items",
+      "description": "E9-001: E9: both-miss measurement on 1,000 items. REJECT if any of the following is shown: recomputing from the committed rows yields any registered quantity…",
+      "text": "On the 1,000 measurement items of its admitted pool, the test split of Lakera/mosscap_prompt_injection at b7e495ff63373ff7f7dabc1e9390cf62b5838570, two open prompt-injection classifiers both miss 32.20% of items, where the independence plug-in from their own miss rates predicts 26.52%. G1 is protectai/deberta-v3-base-prompt-injection-v2 at revision 90c9989b1a342275dd0d1a95aad283c04e075671 and G2 is dcarpintero/pangolin-guard-base at revision eb220d9f8d75cfbc82cc9d430fa19f85d9764cef, each held at the frozen operating point: the lowest threshold whose false-positive rate is at most 0.05 on 800 first user turns from allenai/WildChat-1M at 7d6490e462285cf85d91eabea0f9a954fbddcd1f (G1 0.005912, G2 0.716629). Their miss rates are 0.337 and 0.787. The discrepancy is +0.0568 (exactly 56781/1000000; preregistered 95% item-bootstrap interval [+0.0472, +0.0669], B = 2000). The two miss rates alone leave the both-miss rate anywhere in [0.124, 0.337]. The preregistered verdict is DISCREPANT: the interval excludes zero and the point discrepancy reaches the 0.05 SESOI. The interval does not establish a discrepancy greater than 0.05.",
+      "url": "https://cubits11.github.io/claims/e9-001/",
+      "author": {
+        "@type": "Person",
+        "@id": "https://cubits11.github.io/#person",
+        "name": "Pranav Bhave",
+        "url": "https://cubits11.github.io/",
+        "sameAs": [
+          "https://github.com/Cubits11",
+          "https://www.linkedin.com/in/pranav-bhave-2a328721a/",
+          "https://x.com/PranavBhave_"
+        ]
+      },
+      "isPartOf": {
+        "@type": "Dataset",
+        "@id": "https://cubits11.github.io/ledger/#dataset",
+        "name": "Cubits11 claim registry",
+        "url": "https://cubits11.github.io/ledger/"
+      },
+      "dateModified": "2026-10-17",
+      "fw:scopeStatement": "Exactly the 1,000 rows committed at experiments/e9/results/observations.jsonl, set-equal to the frozen list freeze/items_measurement_mosscap-test.csv, under contract E9-2026-09-18 (frozen, sha256 43811798…). The freeze commit 6ac65de (2026-09-18) precedes the first E9 score commit. The verdict-rule limitation: the SESOI (0.05) and the equivalence margin are in the frozen contract, but the rule that combines them into DISCREPANT lives in run/analyze.py. That file was committed in the freeze commit and is byte-identical since, but the rule is neither declared in contract.json nor rendered into PREREG.md's prose. Correction C1 asks for claim-critical choices to live in the contract; this one does not, and the verdict stands on the committed code, not on the contract alone. Further limits, as RESULT.md states them: the pool was selected, as the widest scouting width among complete candidates, for intermediate marginals; scouting items are disjoint from measurement items, but the result describes a selected pool, not pools in general; the interval resamples measurement items with thresholds held fixed, and omits calibration uncertainty; the operating point is declared, not deployed: on 400 seemingly-toxic benign prompts G2's false-positive rate is 0.2675, reported and never deciding; G2's fine-tuning corpus could not be verified, and G2 has no licence file at the pinned revision (apache-2.0 is declared in card metadata only); run/admit.py appended a results block to freeze/protocol.json, so the file is not byte-immutable after freeze; the declared part still hashes to the frozen digest, and the repository graph records the append as a D5 STOP finding; one analyst ran every step, and re-running the committed scripts is replay, not reproduction. Both guards are under 1B, ungated and pinned, loaded under the 2026-09-06 host exemption. E2's guards were not loaded. This is not an E2 result and does not change CC-005.",
+      "fw:falsifier": "Any of the following is shown: recomputing from the committed rows yields any registered quantity different beyond 1e-9; the thresholds recomputed from the committed calibration scores by the contract rule differ from those recorded; the freeze commit 6ac65de does not precede the first E9 score commit; any measurement item overlaps a calibration, stress or scouting partition; the declared part of freeze/protocol.json no longer hashes to the digest freeze.json records; or the verdict run/analyze.py applied differs from the rule committed at 6ac65de.",
+      "fw:consequence": "REJECT",
+      "fw:forbiddenRescue": [
+        "do not re-threshold, re-calibrate, change the 0.05 budget or the comparator and direction, and report the new numbers as this result",
+        "do not state that a discrepancy greater than 0.05 is established; the interval's lower end is 0.0472",
+        "do not merge exploratory intervals (nested recalibration, level-cluster or operating-point sweeps) with the preregistered item-bootstrap interval, or substitute one for it",
+        "do not change the SESOI, the margin or the verdict rule in run/analyze.py and re-derive the verdict",
+        "do not add, swap or re-admit a pool after outcomes are known and report it as E9",
+        "do not carry these numbers to E2's guards, to a deployed stack, to either vendor, or to pools in general"
+      ],
+      "fw:nonClaim": [
+        "that guard pairs in general depart from independence, or in which direction",
+        "anything about a deployed stack, a routing policy, or either guard's vendor",
+        "that either guard, or the pair, is safe or unsafe",
+        "the size of the discrepancy on other pools, other thresholds or other benign populations",
+        "a discrepancy greater than the 0.05 SESOI; only one different from zero is established",
+        "an E2 result; CC-005's E2 remains untested"
+      ],
+      "fw:lastReviewed": "2026-10-17",
+      "fw:reviewWindow": "P120D",
+      "fw:warrantExpires": "2027-02-14",
+      "fw:evidentialStatus": "supported_within_scope",
+      "fw:supportUrl": {
+        "@id": "https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/results/observations.jsonl"
+      },
+      "fw:supportBinding": {
+        "@id": "https://github.com/Cubits11/cubits11.github.io/blob/592ed515dc78acd4034a055024a64003e93d4172/experiments/e9/results/observations.jsonl"
+      },
+      "fw:boundRevision": "592ed515dc78acd4034a055024a64003e93d4172"
     }
   ]
 }
