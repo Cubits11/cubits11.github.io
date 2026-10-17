@@ -90,7 +90,7 @@
         "The interval does not recover the true relationship between real guards or certify a stack as safe.",
         "The independence point is one assumption's selection, not an identified answer inside the interval."
       ],
-      "phone_composition": false
+      "phone_composition": true
     },
     "the-multiplication": {
       "synopsis": "A short insert isolating the independence assumption behind multiplying individual miss rates.",
