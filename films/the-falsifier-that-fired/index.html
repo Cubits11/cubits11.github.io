@@ -183,12 +183,13 @@ header.page{padding:6.8rem 0 1.2rem}h1.q{max-width:24ch;margin-bottom:.65rem}
 <p class="film-note">The census shipped with a falsifier written before the count; a qualifying row the search missed arrived on 2026-08-30; the consequence REJECT executed, the 19/13/4 envelope was struck and retained, 20/14/5 superseded it, and the declared sensitivities keep the old numbers under their own labels.</p>
 </div></header>
 <main id="main" class="container">
-<p class="film-phone-note">On a phone, <a href="#text-alternative">read the argument in text</a>. This film’s small labels have not yet been redesigned for a phone.</p>
-<video class="watch" id="film" controls playsinline preload="metadata" poster="/films/the-falsifier-that-fired/renders/the-falsifier-that-fired__master.poster.png" width="1920" height="1080" style="--ratio:1920/1080" aria-label="The Falsifier That Fired" aria-describedby="text-alternative">
+
+<video class="watch" id="film" controls playsinline preload="metadata" poster="/films/the-falsifier-that-fired/renders/the-falsifier-that-fired__master.poster.png" data-phone-poster="/films/the-falsifier-that-fired/renders/the-falsifier-that-fired__vertical.poster.png" width="1920" height="1080" style="--ratio:1920/1080;--phone-ratio:1080/1920" aria-label="The Falsifier That Fired" aria-describedby="text-alternative">
+<source media="(max-width:600px)" src="/films/the-falsifier-that-fired/renders/the-falsifier-that-fired__vertical.mp4" type="video/mp4">
 <source src="/films/the-falsifier-that-fired/renders/the-falsifier-that-fired__master.mp4" type="video/mp4">
 Your browser cannot play this video. <a href="/films/the-falsifier-that-fired/renders/the-falsifier-that-fired__master.mp4">Download the film</a> or read the text below.
 </video>
-
+<script>if(window.matchMedia('(max-width:600px)').matches){const film=document.getElementById('film');film.poster=film.dataset.phonePoster;}</script>
 <nav class="film-next" aria-label="Try or inspect this argument"><a class="btn primary" href="/try/">Try the 60-second proof <span aria-hidden="true">→</span></a><a class="u" href="/corrections/">Inspect or submit a correction <span aria-hidden="true">→</span></a></nav>
 <div class="film-meta"><a class="u" href="#text-alternative">Read the argument</a><a class="u" href="/films/the-falsifier-that-fired/renders/the-falsifier-that-fired__master.mp4" download>Download MP4</a><span>First published here 2026-09-06</span></div>
 <div class="film-body">
@@ -201,7 +202,7 @@ Your browser cannot play this video. <a href="/films/the-falsifier-that-fired/re
 <details id="full-manifest-limits"><summary>Full technical limits from the film manifest</summary>
 <p>The summary above groups these limits for reading. The original technical wording is retained here; exact duplicate lines appear once. <a class="u" href="/films/the-falsifier-that-fired/manifest.yaml">Inspect the complete manifest</a>.</p><ul><li>does not claim the corrected census is complete; a bounded search proves no universal absence</li><li>does not claim any evaluated guardrail or stack performs poorly; an unfilled column is a reporting fact</li><li>the sensitivities are declared alternatives, never replacements for 20/14/5</li><li>does not claim the correction machinery is novel or a standard</li></ul></details>
 <details><summary>Sources and render record</summary>
-<p><a class="u" href="/films/the-falsifier-that-fired/manifest.yaml">Film manifest</a> · <a class="u" href="/films/the-falsifier-that-fired/renders/the-falsifier-that-fired__master.receipt.json">Render receipt</a> · <a class="u" href="https://api.github.com/repos/Cubits11/cubits11.github.io/deployments/6289277346/statuses">First site deployment record</a></p>
+<p><a class="u" href="/films/the-falsifier-that-fired/manifest.yaml">Film manifest</a> · <a class="u" href="/films/the-falsifier-that-fired/renders/the-falsifier-that-fired__master.receipt.json">Render receipt</a> · <a class="u" href="/films/the-falsifier-that-fired/renders/the-falsifier-that-fired__vertical.receipt.json">Phone render receipt</a> · <a class="u" href="https://api.github.com/repos/Cubits11/cubits11.github.io/deployments/6289277346/statuses">First site deployment record</a></p>
 <p>Current render: 2026-10-17. The receipt records the rendered inputs and output hash. It checks provenance, not scientific validity.</p></details>
 </div></main>
 <footer>

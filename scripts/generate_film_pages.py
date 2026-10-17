@@ -234,7 +234,7 @@ def render_film(film: dict, curation: dict) -> str:
     phone_poster = (f' data-phone-poster="/{phone["poster"]}"' if phone else '')
     phone_setup = ('''<script>if(window.matchMedia('(max-width:600px)').matches){const film=document.getElementById('film');film.poster=film.dataset.phonePoster;}</script>''' if phone else '')
     phone_receipt_link = (f' · <a class="u" href="/films/{slug}/renders/{slug}__vertical.receipt.json">Phone render receipt</a>' if phone else '')
-    phone_note = '' if curation['films'][slug].get('phone_composition') else '<p class="film-phone-note">On a phone, <a href="#text-alternative">read the argument in text</a>. This film’s small labels have not yet been redesigned for a phone.</p>'
+    phone_note = '' if curation['films'][slug].get('phone_composition') else '<p class="film-phone-note">On a phone, <a href="#text-alternative">read the argument in text</a>. This film’s phone composition is not finished.</p>'
     evidence_ids = sorted({e['fact'].split('.')[0] for e in m.get('evidence', [])})
     evidence_links = []
     for cid in evidence_ids:
