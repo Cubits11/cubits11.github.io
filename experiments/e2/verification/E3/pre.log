@@ -1,0 +1,84 @@
+COMMAND: /opt/homebrew/opt/python@3.14/bin/python3.14 -B experiments/e2/run/test_e3_stop.py -v
+BASELINE: E2 9259091; E3 analyzer unchanged
+test_all_missing_is_structured_no_complete_cases_stop (__main__.StopGateTest.test_all_missing_is_structured_no_complete_cases_stop) ... E3 fixture witness: {"command": ["/opt/homebrew/opt/python@3.14/bin/python3.14", "-B", "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/analyze.py", "--rows", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-66cs6vdp/all-missing.jsonl", "--config", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-66cs6vdp/e2_config.json", "--freeze-record", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-66cs6vdp/e2_config.freeze.json", "--out", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-66cs6vdp/all-missing-out"], "deep_scan_leak_count": 0, "deep_scan_leaks": [], "exit_code": 1, "fixture": "all-missing", "report_count": 1, "stderr": "", "stdout": "[REAL] STOP \u2014 complete-case n = 0 < 600: the wave stops and the items are re-frozen. No estimate is reported.\n[REAL] the frozen stopping rule refuses this wave; no pair statistic is printed\n"}
+FAIL
+test_empty_input_is_structured_no_complete_cases_stop (__main__.StopGateTest.test_empty_input_is_structured_no_complete_cases_stop) ... E3 fixture witness: {"command": ["/opt/homebrew/opt/python@3.14/bin/python3.14", "-B", "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/analyze.py", "--rows", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-r14xj92f/empty.jsonl", "--config", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-r14xj92f/e2_config.json", "--freeze-record", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-r14xj92f/e2_config.freeze.json", "--out", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-r14xj92f/empty-out"], "deep_scan_leak_count": 0, "deep_scan_leaks": [], "exit_code": 1, "fixture": "empty", "report_count": 1, "stderr": "", "stdout": "[REAL] STOP \u2014 complete-case n = 0 < 600: the wave stops and the items are re-frozen. No estimate is reported.\n[REAL] the frozen stopping rule refuses this wave; no pair statistic is printed\n"}
+FAIL
+test_nonstop_wave_retains_unavailable_stratum_counts (__main__.StopGateTest.test_nonstop_wave_retains_unavailable_stratum_counts) ... E3 fixture witness: {"command": ["/opt/homebrew/opt/python@3.14/bin/python3.14", "-B", "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/analyze.py", "--rows", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-lektfqy9/nonstop-with-unavailable-stratum.jsonl", "--config", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-lektfqy9/e2_config.json", "--freeze-record", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-lektfqy9/e2_config.freeze.json", "--out", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-lektfqy9/nonstop-with-unavailable-stratum-out"], "deep_scan_leak_count": 0, "deep_scan_leaks": [], "exit_code": 0, "fixture": "nonstop-with-unavailable-stratum", "report_count": 1, "stderr": "", "stdout": "[REAL] precision HOLD \u2014 complete-case n = 600 < 1097, the CC-006 bar. This sentence leads every reading of this result.\n[REAL] harmful: complete-case n=600, items with missing cells=0\n[REAL]   lg4+lg3: \u0394=+0.00000 boot95=(-0.02022,+0.01938) perm95=(-0.02000,+0.02000)\n[REAL]   lg4+sg2b: \u0394=+0.00000 boot95=(-0.01993,+0.02068) perm95=(-0.02000,+0.02000)\n[REAL]   lg3+sg2b: \u0394=+0.00000 boot95=(-0.02001,+0.01917) perm95=(-0.02000,+0.02000)\n[REAL]   stack: all-event 0.12500 vs product 0.12500; Fr\u00e9chet counts [0, 300]; LOO exclusive {'lg4': 75, 'lg3': 75, 'sg2b': 75}\nok    all five controls executed; independent calculator agreed on every pair; report aa6154fc28267f90\n"}
+FAIL
+test_partial_observations_zero_complete_cases_is_structured_stop (__main__.StopGateTest.test_partial_observations_zero_complete_cases_is_structured_stop) ... E3 fixture witness: {"command": ["/opt/homebrew/opt/python@3.14/bin/python3.14", "-B", "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/analyze.py", "--rows", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-6un57xet/partial-zero-complete.jsonl", "--config", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-6un57xet/e2_config.json", "--freeze-record", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-6un57xet/e2_config.freeze.json", "--out", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-6un57xet/partial-zero-complete-out"], "deep_scan_leak_count": 0, "deep_scan_leaks": [], "exit_code": 1, "fixture": "partial-zero-complete", "report_count": 0, "stderr": "Traceback (most recent call last):\n  File \"/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/analyze.py\", line 762, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File \"/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/analyze.py\", line 725, in main\n    res = analyze_stratum(stratum, cc, per_item_all)\n  File \"/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/analyze.py\", line 221, in analyze_stratum\n    g: {\"p\": sum(v[g] for v in cc.values()) / n,\n             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nZeroDivisionError: division by zero\n", "stdout": ""}
+FAIL
+test_small_complete_case_stop_has_no_estimates (__main__.StopGateTest.test_small_complete_case_stop_has_no_estimates) ... E3 fixture witness: {"command": ["/opt/homebrew/opt/python@3.14/bin/python3.14", "-B", "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/analyze.py", "--rows", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-ml8nzm9l/two-complete-items.jsonl", "--config", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-ml8nzm9l/e2_config.json", "--freeze-record", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-ml8nzm9l/e2_config.freeze.json", "--out", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e3-regression-ml8nzm9l/two-complete-items-out"], "deep_scan_leak_count": 86, "deep_scan_leaks": ["strata.0.marginals", "strata.0.marginals.lg4.p", "numeric:strata.0.marginals.lg4.p", "strata.0.marginals.lg4.wilson95", "numeric:strata.0.marginals.lg4.wilson95.0", "numeric:strata.0.marginals.lg4.wilson95.1", "strata.0.marginals.lg3.p", "numeric:strata.0.marginals.lg3.p", "strata.0.marginals.lg3.wilson95", "numeric:strata.0.marginals.lg3.wilson95.0", "numeric:strata.0.marginals.lg3.wilson95.1", "strata.0.marginals.sg2b.p", "numeric:strata.0.marginals.sg2b.p", "strata.0.marginals.sg2b.wilson95", "numeric:strata.0.marginals.sg2b.wilson95.0", "numeric:strata.0.marginals.sg2b.wilson95.1", "strata.0.pairs", "strata.0.pairs.lg4+lg3.delta", "numeric:strata.0.pairs.lg4+lg3.delta", "strata.0.pairs.lg4+lg3.bootstrap95", "numeric:strata.0.pairs.lg4+lg3.bootstrap95.0", "numeric:strata.0.pairs.lg4+lg3.bootstrap95.1", "strata.0.pairs.lg4+lg3.independent_calculator", "numeric:strata.0.pairs.lg4+lg3.independent_calculator", "strata.0.pairs.lg4+lg3.permutation_null_95band", "numeric:strata.0.pairs.lg4+lg3.permutation_null_95band.0", "numeric:strata.0.pairs.lg4+lg3.permutation_null_95band.1", "strata.0.pairs.lg4+sg2b.delta", "numeric:strata.0.pairs.lg4+sg2b.delta", "strata.0.pairs.lg4+sg2b.bootstrap95", "numeric:strata.0.pairs.lg4+sg2b.bootstrap95.0", "numeric:strata.0.pairs.lg4+sg2b.bootstrap95.1", "strata.0.pairs.lg4+sg2b.independent_calculator", "numeric:strata.0.pairs.lg4+sg2b.independent_calculator", "strata.0.pairs.lg4+sg2b.permutation_null_95band", "numeric:strata.0.pairs.lg4+sg2b.permutation_null_95band.0", "numeric:strata.0.pairs.lg4+sg2b.permutation_null_95band.1", "strata.0.pairs.lg3+sg2b.delta", "numeric:strata.0.pairs.lg3+sg2b.delta", "strata.0.pairs.lg3+sg2b.bootstrap95", "numeric:strata.0.pairs.lg3+sg2b.bootstrap95.0", "numeric:strata.0.pairs.lg3+sg2b.bootstrap95.1", "strata.0.pairs.lg3+sg2b.independent_calculator", "numeric:strata.0.pairs.lg3+sg2b.independent_calculator", "strata.0.pairs.lg3+sg2b.permutation_null_95band", "numeric:strata.0.pairs.lg3+sg2b.permutation_null_95band.0", "numeric:strata.0.pairs.lg3+sg2b.permutation_null_95band.1", "strata.0.duplicate_column_control", "strata.0.duplicate_column_control.lg4.delta_self", "numeric:strata.0.duplicate_column_control.lg4.delta_self", "strata.0.duplicate_column_control.lg4.theoretical", "numeric:strata.0.duplicate_column_control.lg4.theoretical", "strata.0.duplicate_column_control.lg3.delta_self", "numeric:strata.0.duplicate_column_control.lg3.delta_self", "strata.0.duplicate_column_control.lg3.theoretical", "numeric:strata.0.duplicate_column_control.lg3.theoretical", "strata.0.duplicate_column_control.sg2b.delta_self", "numeric:strata.0.duplicate_column_control.sg2b.delta_self", "strata.0.duplicate_column_control.sg2b.theoretical", "numeric:strata.0.duplicate_column_control.sg2b.theoretical", "strata.0.stack_secondary", "strata.0.stack_secondary.all_event_rate", "numeric:strata.0.stack_secondary.all_event_rate", "strata.0.stack_secondary.product_of_event_rates", "numeric:strata.0.stack_secondary.product_of_event_rates", "strata.0.stack_secondary.frechet_set_counts", "numeric:strata.0.stack_secondary.frechet_set_counts.0", "numeric:strata.0.stack_secondary.frechet_set_counts.1", "strata.0.stack_secondary.loo_exclusive", "numeric:strata.0.stack_secondary.loo_exclusive.lg4", "numeric:strata.0.stack_secondary.loo_exclusive.lg3", "numeric:strata.0.stack_secondary.loo_exclusive.sg2b", "strata.0.label_noise_control", "numeric:strata.0.label_noise_control.0.01.lg4+lg3", "numeric:strata.0.label_noise_control.0.01.lg4+sg2b", "numeric:strata.0.label_noise_control.0.01.lg3+sg2b", "numeric:strata.0.label_noise_control.0.05.lg4+lg3", "numeric:strata.0.label_noise_control.0.05.lg4+sg2b", "numeric:strata.0.label_noise_control.0.05.lg3+sg2b", "strata.0.missingness_bounds", "numeric:strata.0.missingness_bounds.lg4+lg3.0", "numeric:strata.0.missingness_bounds.lg4+lg3.1", "numeric:strata.0.missingness_bounds.lg4+sg2b.0", "numeric:strata.0.missingness_bounds.lg4+sg2b.1", "numeric:strata.0.missingness_bounds.lg3+sg2b.0", "numeric:strata.0.missingness_bounds.lg3+sg2b.1"], "exit_code": 1, "fixture": "two-complete-items", "report_count": 1, "stderr": "", "stdout": "[REAL] STOP \u2014 complete-case n = 2 < 600: the wave stops and the items are re-frozen. No estimate is reported.\n[REAL] the frozen stopping rule refuses this wave; no pair statistic is printed\n"}
+FAIL
+
+======================================================================
+FAIL: test_all_missing_is_structured_no_complete_cases_stop (__main__.StopGateTest.test_all_missing_is_structured_no_complete_cases_stop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e3_stop.py", line 135, in test_all_missing_is_structured_no_complete_cases_stop
+    self.assert_stop(self.run_fixture("all-missing", rows), reason="no_complete_cases")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e3_stop.py", line 122, in assert_stop
+    self.assertEqual(actual, reason)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: None != 'no_complete_cases'
+
+======================================================================
+FAIL: test_empty_input_is_structured_no_complete_cases_stop (__main__.StopGateTest.test_empty_input_is_structured_no_complete_cases_stop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e3_stop.py", line 131, in test_empty_input_is_structured_no_complete_cases_stop
+    self.assert_stop(self.run_fixture("empty", []), reason="no_complete_cases")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e3_stop.py", line 122, in assert_stop
+    self.assertEqual(actual, reason)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: None != 'no_complete_cases'
+
+======================================================================
+FAIL: test_nonstop_wave_retains_unavailable_stratum_counts (__main__.StopGateTest.test_nonstop_wave_retains_unavailable_stratum_counts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e3_stop.py", line 154, in test_nonstop_wave_retains_unavailable_stratum_counts
+    self.assertIsNotNone(unavailable, "entirely missing strata must remain counted")
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : entirely missing strata must remain counted
+
+======================================================================
+FAIL: test_partial_observations_zero_complete_cases_is_structured_stop (__main__.StopGateTest.test_partial_observations_zero_complete_cases_is_structured_stop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e3_stop.py", line 140, in test_partial_observations_zero_complete_cases_is_structured_stop
+    self.assert_stop(self.run_fixture("partial-zero-complete", rows),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     reason="no_complete_cases")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e3_stop.py", line 114, in assert_stop
+    self.assertNotIn("Traceback", proc.stdout + proc.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'Traceback' unexpectedly found in 'Traceback (most recent call last):\n  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/analyze.py", line 762, in <module>\n    sys.exit(main())\n             ~~~~^^\n  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/analyze.py", line 725, in main\n    res = analyze_stratum(stratum, cc, per_item_all)\n  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/analyze.py", line 221, in analyze_stratum\n    g: {"p": sum(v[g] for v in cc.values()) / n,\n             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~\nZeroDivisionError: division by zero\n'
+
+======================================================================
+FAIL: test_small_complete_case_stop_has_no_estimates (__main__.StopGateTest.test_small_complete_case_stop_has_no_estimates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e3_stop.py", line 128, in test_small_complete_case_stop_has_no_estimates
+    self.assert_stop(self.run_fixture("two-complete-items", rows))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e3_stop.py", line 123, in assert_stop
+    self.assertEqual(leaks, [], "STOP disclosed estimate fields or values")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['strata.0.marginals', 'strata.0.marginals[4031 chars]b.1'] != []
+
+First list contains 86 additional elements.
+First extra element 0:
+'strata.0.marginals'
+
+Diff is 4341 characters long. Set self.maxDiff to None to see it. : STOP disclosed estimate fields or values
+
+----------------------------------------------------------------------
+Ran 5 tests in 3.641s
+
+FAILED (failures=5)
+
+EXIT_CODE: 1
