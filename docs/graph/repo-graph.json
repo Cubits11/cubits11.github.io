@@ -5410,22 +5410,6 @@
  },
  "findings": [
   {
-   "detector": "D2",
-   "generator": "scripts/generate_public_state.py",
-   "severity": "FIX",
-   "tail": [
-    "public state: drift"
-   ]
-  },
-  {
-   "detector": "D2",
-   "generator": "scripts/generate_sitemap.py",
-   "severity": "FIX",
-   "tail": [
-    "Run: python scripts/generate_sitemap.py"
-   ]
-  },
-  {
    "claim": "MC-002",
    "days_left": 3,
    "detector": "D3",
@@ -5476,6 +5460,13 @@
    ],
    "severity": "RECORD",
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
+  },
+  {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "claude/gv-001-hosted-re-review",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
@@ -5729,7 +5720,7 @@
  ],
  "generated_from": {
   "branch": "claude/gv-001-hosted-re-review",
-  "head": "e2cec7b"
+  "head": "8fc919c"
  },
  "nodes": [
   {
@@ -6650,12 +6641,12 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 0,
+   "ahead_of_origin_main": 1,
    "behind_origin_main": 0,
-   "head": "e2cec7b",
+   "head": "8fc919c",
    "id": "claude/gv-001-hosted-re-review",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": true,
+   "last_commit": "2026-10-24",
+   "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
