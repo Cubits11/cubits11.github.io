@@ -13,8 +13,10 @@ from __future__ import annotations
 
 import argparse
 import csv
+from datetime import datetime, timezone
 import hashlib
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -27,6 +29,7 @@ SEED = FROZEN_ANALYSIS["SEED"]
 GUARDS = ("lg4", "lg3", "sg2b")
 NORMALIZER = "h.miss.v1"
 MISS_CODES = ("timeout", "execution_error", "unparseable_output")
+from row_schema import RowValidationError, validate_row
 
 
 def h01(*parts: str) -> float:
@@ -36,7 +39,8 @@ def h01(*parts: str) -> float:
 
 def read_items(name: str, stratum: str) -> list[dict]:
     with open(FREEZE / name, newline="") as fh:
-        return [{"id": r["id"], "stratum": stratum}
+        return [{"id": r["id"], "stratum": stratum,
+                 "item_hash": r["text_sha256"]}
                 for r in csv.DictReader(fh)]
 
 
@@ -44,8 +48,21 @@ def emit_row(fh, *, run_id, item, guard, replicate, score, threshold,
              status, code, synthetic, configuration_hash=None):
     if configuration_hash is None:
         if not synthetic:
-            raise ConfigError("configuration_hash_required")
+            raise RowValidationError(json.dumps({"error": "row_conformance",
+                "violations": ["configuration_hash_required"]}))
         configuration_hash = synthetic_config()["config_hash"]
+    item_hash = item.get("item_hash")
+    raw_input_hash = item.get("raw_input_hash")
+    if synthetic:
+        item_hash = item_hash or hashlib.sha256(item["id"].encode()).hexdigest()
+        raw_input_hash = raw_input_hash or item_hash
+    if (not item_hash or not raw_input_hash or
+            (not synthetic and score is not None and not item.get("raw_output_hash"))):
+        raise RowValidationError(json.dumps({"error": "row_conformance",
+            "violations": ["real observation requires item_hash, raw_input_hash and observed raw_output_hash"]}))
+    if score is not None and (type(score) not in (int, float) or not math.isfinite(score)):
+        raise RowValidationError(json.dumps({"error": "row_conformance",
+            "violations": ["score must be a finite number or null"]}))
     flagged = None if score is None else bool(score >= threshold)
     if item["stratum"].startswith("harmful"):
         normalized = None if flagged is None else int(not flagged)  # miss
@@ -55,25 +72,38 @@ def emit_row(fh, *, run_id, item, guard, replicate, score, threshold,
         "schema_version": "cc.e2_observation_row.v1",
         "study_id": "MC-E2-PILOT-V1", "run_id": run_id,
         "item_id": item["id"],
-        "item_source": "SYNTHETIC" if synthetic else "per freeze sources.json",
+        "item_source": "SYNTHETIC" if synthetic else (
+            "AdvBench" if item["stratum"].startswith("harmful") else "OR-Bench"),
+        "item_source_version": "SYNTHETIC" if synthetic else (
+            "098262ed" if item["stratum"].startswith("harmful") else "e36d8b80"),
+        "item_hash": item_hash,
+        "raw_input_hash": raw_input_hash,
+        "policy_version": "SYNTHETIC" if synthetic else "unknown",
+        "shared_dependency_group": ("llama-guard-lineage" if guard in ("lg4", "lg3") else None),
         "guardrail_id": guard,
         "guardrail_version": "SYNTHETIC" if synthetic
-        else "pinned; see freeze sources.json + LG4_CONFIG.md",
+        else {"lg4": "87acb4b9", "lg3": "7327bd9f", "sg2b": "d1dffc9c"}.get(guard, "unknown"),
         "configuration_hash": configuration_hash,
-        "raw_outcome": None if score is None else round(score, 10),
-        "raw_outcome_detail": "score" if score is not None else None,
+        "raw_outcome": None if score is None else ("hard_block" if flagged else "allow"),
+        "raw_output_hash": None if score is None else item.get("raw_output_hash",
+            hashlib.sha256(json.dumps(score, allow_nan=False).encode()).hexdigest()),
+        "raw_outcome_detail": {"score": score, "threshold": threshold,
+                               "synthetic": synthetic},
         "normalized_outcome": normalized,
         "normalizer_version": NORMALIZER,
         "stratum": item["stratum"],
-        "execution_status": status, "missingness_code": code,
+        "execution_timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "execution_status": ("success" if status == "observed" else
+                             ("timeout" if code == "timeout" else "error")
+                             if status == "failed" else status),
+        "missingness_code": code,
         "predeclared_exclusion": False,
         "replicate_id": replicate,
-        "reference_label": ("harmful" if item["stratum"].startswith("harmful")
-                            else "benign"),
-        "reference_label_uncertainty": "none-recorded (declared limitation)",
-        "synthetic": synthetic,
+        "reference_label": int(item["stratum"].startswith("harmful")),
+        "reference_label_uncertainty": None,
     }
-    fh.write(json.dumps(row, sort_keys=True) + "\n")
+    validate_row(row)
+    fh.write(json.dumps(row, sort_keys=True, allow_nan=False) + "\n")
 
 
 def main() -> int:
@@ -143,7 +173,7 @@ def main() -> int:
     if not args.config:
         sys.exit("real mode needs --config from a frozen calibration")
     sys.path.insert(0, str(HERE))
-    from adapters import SCORERS  # gated: refuses off the authorized box
+    from adapters import SCORERS, OBSERVATIONS  # gated: refuses off the authorized box
     from items_text import benign_texts, harmful_texts
     assert cfg is not None
     texts = {**benign_texts("evaluation"), **harmful_texts()}
@@ -156,8 +186,14 @@ def main() -> int:
     with open(out / "rows.jsonl", "w") as fh:
         for item in items:
             for g in GUARDS:
+                OBSERVATIONS.pop(g, None)
                 score = SCORERS[g](texts[item["id"]])  # box-gated
-                emit_row(fh, run_id=run_id, item=item, guard=g, replicate=1,
+                observation = OBSERVATIONS.get(g)
+                if not observation:
+                    raise RowValidationError(json.dumps({"error": "row_conformance",
+                        "violations": [f"{g}: scorer did not preserve raw observation hashes"]}))
+                emit_item = dict(item, **observation)
+                emit_row(fh, run_id=run_id, item=emit_item, guard=g, replicate=1,
                          score=score, threshold=cfg["results"][g]["threshold"],
                          status="observed", code="observed", synthetic=False,
                          configuration_hash=cfg["config_hash"])
@@ -165,4 +201,8 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except RowValidationError as exc:
+        print(str(exc), file=sys.stderr)
+        sys.exit(1)

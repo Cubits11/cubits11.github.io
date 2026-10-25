@@ -1,0 +1,43 @@
+FFF
+======================================================================
+FAIL: test_invalid_row_never_written (__main__.RowEmissionTest.test_invalid_row_never_written)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e2_rows.py", line 43, in test_invalid_row_never_written
+    with self.assertRaises(ValueError) as caught:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_observed_and_missing_rows_conform (__main__.RowEmissionTest.test_observed_and_missing_rows_conform)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e2_rows.py", line 39, in test_observed_and_missing_rows_conform
+    self.assertEqual(violations, [])
+AssertionError: Lists differ: ["row 1: <row>: Additional properties are [2876 chars]ll'"] != []
+
+First list contains 42 additional elements.
+First extra element 0:
+"row 1: <row>: Additional properties are not allowed ('synthetic' was unexpected)"
+
+Diff is 3120 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_schema_valid_rows_load_in_analyzer (__main__.RowEmissionTest.test_schema_valid_rows_load_in_analyzer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e2_rows.py", line 54, in test_schema_valid_rows_load_in_analyzer
+    self.assertEqual(validator.schema_violations(rows, schema), [])
+AssertionError: Lists differ: ["row 1: <row>: Additional properties are [3274 chars]ll'"] != []
+
+First list contains 48 additional elements.
+First extra element 0:
+"row 1: <row>: Additional properties are not allowed ('synthetic' was unexpected)"
+
+Diff is 3542 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.028s
+
+FAILED (failures=3)
+E2 schema violations: 42 ["row 1: <row>: Additional properties are not allowed ('synthetic' was unexpected)", "row 1: <row>: 'item_source_version' is a required property", "row 1: <row>: 'item_hash' is a required property", "row 1: <row>: 'policy_version' is a required property", "row 1: <row>: 'raw_input_hash' is a required property", "row 1: <row>: 'execution_timestamp' is a required property", "row 1: <row>: 'raw_output_hash' is a required property", "row 1: execution_status: 'observed' is not one of ['success', 'error', 'timeout', 'skipped']", "row 1: execution_status: 'success' was expected", "row 1: raw_outcome: 0.99 is not of type 'string', 'null'", "row 1: raw_outcome: 0.99 is not one of ['allow', 'warn', 'soft_block', 'hard_block', 'error', None]", "row 1: raw_outcome: 0.99 is not of type 'string'", "row 1: raw_outcome_detail: 'score' is not of type 'object', 'null'", "row 1: reference_label: 'harmful' is not of type 'integer', 'null'", "row 1: reference_label: 'harmful' is not one of [0, 1, None]", "row 1: reference_label_uncertainty: 'none-recorded (declared limitation)' is not of type 'number', 'null'", "row 2: <row>: Additional properties are not allowed ('synthetic' was unexpected)", "row 2: <row>: 'item_source_version' is a required property", "row 2: <row>: 'item_hash' is a required property", "row 2: <row>: 'policy_version' is a required property", "row 2: <row>: 'raw_input_hash' is a required property", "row 2: <row>: 'execution_timestamp' is a required property", "row 2: <row>: 'raw_output_hash' is a required property", "row 2: execution_status: 'observed' is not one of ['success', 'error', 'timeout', 'skipped']", "row 2: execution_status: 'success' was expected", "row 2: raw_outcome: 0.99 is not of type 'string', 'null'", "row 2: raw_outcome: 0.99 is not one of ['allow', 'warn', 'soft_block', 'hard_block', 'error', None]", "row 2: raw_outcome: 0.99 is not of type 'string'", "row 2: raw_outcome_detail: 'score' is not of type 'object', 'null'", "row 2: reference_label: 'benign' is not of type 'integer', 'null'", "row 2: reference_label: 'benign' is not one of [0, 1, None]", "row 2: reference_label_uncertainty: 'none-recorded (declared limitation)' is not of type 'number', 'null'", "row 3: <row>: Additional properties are not allowed ('synthetic' was unexpected)", "row 3: <row>: 'item_source_version' is a required property", "row 3: <row>: 'item_hash' is a required property", "row 3: <row>: 'policy_version' is a required property", "row 3: <row>: 'raw_input_hash' is a required property", "row 3: <row>: 'execution_timestamp' is a required property", "row 3: execution_status: 'failed' is not one of ['success', 'error', 'timeout', 'skipped']", "row 3: reference_label: 'harmful' is not of type 'integer', 'null'", "row 3: reference_label: 'harmful' is not one of [0, 1, None]", "row 3: reference_label_uncertainty: 'none-recorded (declared limitation)' is not of type 'number', 'null'"]

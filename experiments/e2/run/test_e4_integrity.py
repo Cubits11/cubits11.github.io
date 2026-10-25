@@ -88,14 +88,24 @@ class FreezeIntegrityTest(unittest.TestCase):
     def collect(self, label):
         collector = load_script("collect")
         adapters = types.ModuleType("adapters")
-        adapters.SCORERS = {g: lambda text: 0.5 for g in GUARDS}
+        adapters.OBSERVATIONS = {}
+        def scorer(guard):
+            def score(text):
+                adapters.OBSERVATIONS[guard] = {
+                    "raw_input_hash": hashlib.sha256(text.encode()).hexdigest(),
+                    "raw_output_hash": hashlib.sha256(json.dumps(.5).encode()).hexdigest()}
+                return .5
+            return score
+        adapters.SCORERS = {g: scorer(g) for g in GUARDS}
         texts = types.ModuleType("items_text")
         texts.benign_texts = lambda split: {"fixture-benign": "synthetic benign"}
         texts.harmful_texts = lambda: {"fixture-harmful": "synthetic harmful"}
 
         def read_items(name, stratum):
             return [{"id": "fixture-harmful" if stratum == "harmful"
-                     else "fixture-benign", "stratum": stratum}]
+                     else "fixture-benign", "stratum": stratum,
+                     "item_hash": hashlib.sha256(("synthetic harmful" if stratum == "harmful"
+                                                  else "synthetic benign").encode()).hexdigest()}]
 
         out = self.scratch / label
         with patch.dict(sys.modules, {"adapters": adapters, "items_text": texts}), \
