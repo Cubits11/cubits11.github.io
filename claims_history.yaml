@@ -839,7 +839,7 @@ reconstruction:
     is declared here
   evidence_class: repository-internal (git objects, git dates, dated prose entries); no out-of-repository
     witness is asserted
-  preexisting_transition_count: 45
+  preexisting_transition_count: 46
   count_note: 44 as of 2026-09-15. The two additional events are the E6-001 and E7B-001 corrections committed
     at 48e98e44be87. Both are covered by existing contemporaneous declarations. The original genesis,
     transition entries and nine retrospective qualifying locators are unchanged. This aggregate includes
