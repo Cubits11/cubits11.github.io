@@ -20,7 +20,10 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 FREEZE = HERE.parent / "freeze"
-SEED = "MC-E2-PILOT-V1-FREEZE-2026-09-01"
+from config_integrity import (ConfigError, FROZEN_ANALYSIS, load_config,
+                              synthetic_config)
+
+SEED = FROZEN_ANALYSIS["SEED"]
 GUARDS = ("lg4", "lg3", "sg2b")
 NORMALIZER = "h.miss.v1"
 MISS_CODES = ("timeout", "execution_error", "unparseable_output")
@@ -38,7 +41,11 @@ def read_items(name: str, stratum: str) -> list[dict]:
 
 
 def emit_row(fh, *, run_id, item, guard, replicate, score, threshold,
-             status, code, synthetic):
+             status, code, synthetic, configuration_hash=None):
+    if configuration_hash is None:
+        if not synthetic:
+            raise ConfigError("configuration_hash_required")
+        configuration_hash = synthetic_config()["config_hash"]
     flagged = None if score is None else bool(score >= threshold)
     if item["stratum"].startswith("harmful"):
         normalized = None if flagged is None else int(not flagged)  # miss
@@ -52,7 +59,7 @@ def emit_row(fh, *, run_id, item, guard, replicate, score, threshold,
         "guardrail_id": guard,
         "guardrail_version": "SYNTHETIC" if synthetic
         else "pinned; see freeze sources.json + LG4_CONFIG.md",
-        "configuration_hash": "SYNTHETIC" if synthetic else "e2_config.json",
+        "configuration_hash": configuration_hash,
         "raw_outcome": None if score is None else round(score, 10),
         "raw_outcome_detail": "score" if score is not None else None,
         "normalized_outcome": normalized,
@@ -73,8 +80,25 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--synthetic", action="store_true")
     ap.add_argument("--config", help="e2_config json (real mode)")
+    ap.add_argument("--freeze-record", help="independently retained threshold-freeze record")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
+
+    cfg = None
+    if args.config:
+        try:
+            cfg = load_config(args.config, args.freeze_record)
+        except ConfigError as exc:
+            print(json.dumps({"error": "configuration_integrity", "reason": str(exc)}),
+                  file=sys.stderr)
+            return 1
+    elif not args.synthetic:
+        print(json.dumps({"error": "configuration_integrity",
+                          "reason": "config_required"}), file=sys.stderr)
+        return 1
+
+    if args.synthetic and cfg is None:
+        cfg = synthetic_config()
 
     out = Path(args.out).resolve()
     repo = HERE.parent.parent.parent
@@ -87,7 +111,7 @@ def main() -> int:
                   for i in range(800)] +
                  [{"id": f"synh-{i:04d}", "stratum": "harmful"}
                   for i in range(520)])
-        thresholds = {g: 0.95 for g in GUARDS}
+        thresholds = {g: cfg["results"][g]["threshold"] for g in GUARDS}
         run_id, path = "SYNTHETIC-SHAKEOUT", out / "rows.SYNTHETIC.jsonl"
         with open(path, "w") as fh:
             for item in items:
@@ -98,7 +122,8 @@ def main() -> int:
                         emit_row(fh, run_id=run_id, item=item, guard=g,
                                  replicate=1, score=None,
                                  threshold=thresholds[g],
-                                 status="failed", code=code, synthetic=True)
+                                 status="failed", code=code, synthetic=True,
+                                 configuration_hash=cfg["config_hash"])
                         continue
                     base = h01(SEED, "difficulty", item["id"])
                     score = min(1.0, max(0.0, 0.55 * base + 0.45 * h01(
@@ -109,7 +134,7 @@ def main() -> int:
                              replicate=1, score=score,
                              threshold=thresholds[g],
                              status="observed", code="observed",
-                             synthetic=True)
+                             synthetic=True, configuration_hash=cfg["config_hash"])
         print(f"ok    synthetic collection: {len(items)} items x "
               f"{len(GUARDS)} guards -> {path.name} (shared-difficulty "
               f"generator, seeded 1% coded missingness)")
@@ -120,7 +145,7 @@ def main() -> int:
     sys.path.insert(0, str(HERE))
     from adapters import SCORERS  # gated: refuses off the authorized box
     from items_text import benign_texts, harmful_texts
-    cfg = json.loads(Path(args.config).read_text())
+    assert cfg is not None
     texts = {**benign_texts("evaluation"), **harmful_texts()}
     items = (read_items("items_benign_evaluation.csv", "benign_eval") +
              read_items("items_harmful.csv", "harmful"))
@@ -134,7 +159,8 @@ def main() -> int:
                 score = SCORERS[g](texts[item["id"]])  # box-gated
                 emit_row(fh, run_id=run_id, item=item, guard=g, replicate=1,
                          score=score, threshold=cfg["results"][g]["threshold"],
-                         status="observed", code="observed", synthetic=False)
+                         status="observed", code="observed", synthetic=False,
+                         configuration_hash=cfg["config_hash"])
     return 0
 
 
