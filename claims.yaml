@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-10-17"
+last_owner_review: "2026-10-24"
 
 claims:
   - id: CC-001
@@ -1222,8 +1222,10 @@ claims:
       Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from
       deterministic sample rows, with an Evidence Mode for inspection.
     scope: >
-      The repository at the bound commit. Runs locally; there is no hosted
-      deployment, so the site links source, not a live demo.
+      The repository at the bound commit. Runs locally. A GitHub Pages build
+      of the repository is served at https://cubits11.github.io/ghost-visualizer/;
+      it deploys from the default branch, so it can run ahead of the bound
+      commit, and this claim covers only the bound commit.
     dimensions:
       visibility: public
       provenance: owner_authored
@@ -1231,24 +1233,26 @@ claims:
       evidential_status: supported_within_scope
       maturity: in_development
     support:
-      url: "https://github.com/Cubits11/ghost-visualizer/commit/bf8d87b2013c9827c4a37da920883e7e5d29af68"
-      commit: "bf8d87b2013c9827c4a37da920883e7e5d29af68"
+      url: "https://github.com/Cubits11/ghost-visualizer/commit/2ce5a962404bfa94150567d22c8879e38ab9ea02"
+      commit: "2ce5a962404bfa94150567d22c8879e38ab9ea02"
       note: >
         Re-reviewed 2026-08-23 when the public-readiness non-claim was
-        added; re-pinned 2026-10-17 when the owner retitled the essay. Entry
-        edits and review dates travel together.
-    last_reviewed: "2026-10-17"
+        added; re-pinned 2026-10-17 when the owner retitled the essay;
+        re-pinned 2026-10-24 to the commit the first GitHub Pages deploy was
+        built from (Actions run 40156629247). Entry edits and review dates
+        travel together.
+    last_reviewed: "2026-10-24"
     review_window_days: 120
     review_triggers:
       - type: remote_content_change
         enforcement: executable
         repo: Cubits11/ghost-visualizer
         path: README.md
-        bound_ref: "bf8d87b2013c9827c4a37da920883e7e5d29af68"
+        bound_ref: "2ce5a962404bfa94150567d22c8879e38ab9ea02"
         note: fires when the README on the default branch is reframed
       - type: manual
         enforcement: manual
-        event: hosted deployment added — the site may then link a live demo
+        event: the hosted build is removed, moves from https://cubits11.github.io/ghost-visualizer/, or stops serving the bound revision's Evidence Mode — the scope sentence is then wrong
     falsifier:
       condition: >
         A local run from the bound revision lacks the stated seven scenes,

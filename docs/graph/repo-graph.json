@@ -5410,30 +5410,22 @@
  },
  "findings": [
   {
-   "detector": "D2",
-   "generator": "scripts/generate_sitemap.py",
-   "severity": "FIX",
-   "tail": [
-    "Run: python scripts/generate_sitemap.py"
-   ]
-  },
-  {
    "claim": "MC-002",
-   "days_left": 10,
+   "days_left": 3,
    "detector": "D3",
    "review_due": "2026-10-27",
    "severity": "REVIEW"
   },
   {
    "claim": "MC-003",
-   "days_left": 12,
+   "days_left": 5,
    "detector": "D3",
    "review_due": "2026-10-29",
    "severity": "REVIEW"
   },
   {
    "claim": "MC-004",
-   "days_left": 13,
+   "days_left": 6,
    "detector": "D3",
    "review_due": "2026-10-30",
    "severity": "REVIEW"
@@ -5470,281 +5462,239 @@
    "sha256": "22e956020cdfdd43c328f02441f003c933ee4e7083d02d9d24e414e4b42ae2e6"
   },
   {
-   "ahead": 1,
-   "behind": 64,
-   "branch": "backup/2026-10-17/agent-state",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 64,
-   "branch": "backup/2026-10-17/cadence-publication",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 64,
-   "branch": "backup/2026-10-17/discovery-only",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 64,
-   "branch": "backup/2026-10-17/film-capture",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 7,
-   "behind": 64,
-   "branch": "backup/2026-10-17/main-checkout",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 3,
-   "behind": 43,
-   "branch": "backup/2026-10-17/site-repair-candidate",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 45,
-   "branch": "census/candidates-2026-10",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 4,
-   "behind": 64,
-   "branch": "claude/claim-succession-minimal",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 1,
-   "behind": 64,
-   "branch": "claude/k1-hold",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 4,
-   "behind": 64,
-   "branch": "claude/phone-width-a11y",
-   "detector": "D4",
-   "severity": "TOPOLOGY"
-  },
-  {
-   "ahead": 6,
+   "ahead": 5,
    "behind": 0,
-   "branch": "e9-001/register",
+   "branch": "claude/gv-001-hosted-re-review",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 45,
+   "behind": 58,
    "branch": "origin/census/candidates-2026-10",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/claim-succession-minimal",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 13,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/e9-result",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 2,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/eloquent-shannon-dlvcz3",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/falsifier-assessment-kernel",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/glassroot-handoff",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 2,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/homepage-epistemic-motion",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/k1-hold",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/lucid-franklin-jloow0",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/phone-width-a11y",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/temple-researcher-outreach-on2v73",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/verify-claims-refusal-unknown",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 2,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/claude/x-gate",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
-   "ahead": 5,
-   "behind": 9,
-   "branch": "origin/e9-001/register",
+   "ahead": 2,
+   "behind": 0,
+   "branch": "origin/codex/e2-e2",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 3,
+   "behind": 0,
+   "branch": "origin/codex/e2-e3",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 101,
+   "behind": 0,
+   "branch": "origin/codex/e2-e4",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 4,
+   "behind": 0,
+   "branch": "origin/codex/e2-e5",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 114,
    "branch": "origin/icloud-snapshot/2026-09-19",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 64,
+   "behind": 77,
    "branch": "origin/icloud-snapshot/2026-09-19-site",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 70,
+   "behind": 1,
+   "branch": "origin/publication/title-social-square",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 83,
    "branch": "origin/rescue/commit-01fea45b4e98",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 260,
+   "behind": 273,
    "branch": "origin/rescue/commit-119f257b763c",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 79,
+   "behind": 92,
    "branch": "origin/rescue/commit-2139046f7192",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 153,
+   "behind": 166,
    "branch": "origin/rescue/commit-22fa9f9a8456",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 3,
-   "behind": 145,
+   "behind": 158,
    "branch": "origin/rescue/commit-4a362b5d714f",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 165,
+   "behind": 178,
    "branch": "origin/rescue/commit-5e70a9df4626",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 290,
+   "behind": 303,
    "branch": "origin/rescue/commit-80250a3e7fc4",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 260,
+   "behind": 273,
    "branch": "origin/rescue/commit-93200984af16",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 157,
+   "behind": 170,
    "branch": "origin/rescue/commit-bd0c87d0f1ea",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 79,
+   "behind": 92,
    "branch": "origin/rescue/commit-c74849b7a928",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 4,
-   "behind": 145,
+   "behind": 158,
    "branch": "origin/rescue/commit-cec26e585b5a",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 152,
+   "behind": 165,
    "branch": "origin/rescue/commit-ea88d6552c2f",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
   {
    "ahead": 1,
-   "behind": 221,
+   "behind": 234,
    "branch": "origin/rescue/commit-f8e555738fc2",
    "detector": "D4",
    "severity": "TOPOLOGY"
@@ -5769,8 +5719,8 @@
   }
  ],
  "generated_from": {
-  "branch": "e9-001/register",
-  "head": "a54a6bb"
+  "branch": "claude/gv-001-hosted-re-review",
+  "head": "7a1061e"
  },
  "nodes": [
   {
@@ -6396,7 +6346,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 66,
+   "days_left": 59,
    "id": "CC-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -6405,7 +6355,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 66,
+   "days_left": 59,
    "id": "CC-002",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -6414,7 +6364,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 66,
+   "days_left": 59,
    "id": "CC-003",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -6423,7 +6373,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 66,
+   "days_left": 59,
    "id": "CC-004",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -6432,7 +6382,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 66,
+   "days_left": 59,
    "id": "CC-005",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -6441,7 +6391,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 80,
+   "days_left": 73,
    "id": "CC-006",
    "last_reviewed": "2026-09-07",
    "review_due": "2027-01-05",
@@ -6450,7 +6400,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 30,
+   "days_left": 23,
    "id": "REL-001",
    "last_reviewed": "2026-10-17",
    "review_due": "2026-11-16",
@@ -6459,7 +6409,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 27,
+   "days_left": 20,
    "id": "MC-001",
    "last_reviewed": "2026-09-14",
    "review_due": "2026-11-13",
@@ -6468,7 +6418,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 10,
+   "days_left": 3,
    "id": "MC-002",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-10-27",
@@ -6477,7 +6427,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 12,
+   "days_left": 5,
    "id": "MC-003",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-10-29",
@@ -6486,7 +6436,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 13,
+   "days_left": 6,
    "id": "MC-004",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-10-30",
@@ -6495,7 +6445,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 40,
+   "days_left": 33,
    "id": "AF-001",
    "last_reviewed": "2026-08-28",
    "review_due": "2026-11-26",
@@ -6504,7 +6454,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 66,
+   "days_left": 59,
    "id": "GA-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2026-12-22",
@@ -6515,14 +6465,14 @@
    "consequence": "NARROW",
    "days_left": 120,
    "id": "GV-001",
-   "last_reviewed": "2026-10-17",
-   "review_due": "2027-02-14",
-   "support_url": "https://github.com/Cubits11/ghost-visualizer/commit/bf8d87b2013c9827c4a37da920883e7e5d29af68",
+   "last_reviewed": "2026-10-24",
+   "review_due": "2027-02-21",
+   "support_url": "https://github.com/Cubits11/ghost-visualizer/commit/2ce5a962404bfa94150567d22c8879e38ab9ea02",
    "type": "claim"
   },
   {
    "consequence": "NARROW",
-   "days_left": 311,
+   "days_left": 304,
    "id": "GCE-001",
    "last_reviewed": "2026-08-24",
    "review_due": "2027-08-24",
@@ -6531,7 +6481,7 @@
   },
   {
    "consequence": "NARROW",
-   "days_left": 73,
+   "days_left": 66,
    "id": "SITE-001",
    "last_reviewed": "2026-08-31",
    "review_due": "2026-12-29",
@@ -6540,7 +6490,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 72,
+   "days_left": 65,
    "id": "SITE-002",
    "last_reviewed": "2026-08-30",
    "review_due": "2026-12-28",
@@ -6549,7 +6499,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 81,
+   "days_left": 74,
    "id": "E3-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
@@ -6558,7 +6508,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 81,
+   "days_left": 74,
    "id": "E3B-001",
    "last_reviewed": "2026-09-08",
    "review_due": "2027-01-06",
@@ -6567,7 +6517,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 83,
+   "days_left": 76,
    "id": "E6-001",
    "last_reviewed": "2026-09-10",
    "review_due": "2027-01-08",
@@ -6576,7 +6526,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 83,
+   "days_left": 76,
    "id": "E7B-001",
    "last_reviewed": "2026-09-10",
    "review_due": "2027-01-08",
@@ -6585,7 +6535,7 @@
   },
   {
    "consequence": "REJECT",
-   "days_left": 120,
+   "days_left": 113,
    "id": "E9-001",
    "last_reviewed": "2026-10-17",
    "review_due": "2027-02-14",
@@ -6691,171 +6641,18 @@
    "type": "experiment"
   },
   {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 33,
-   "head": "2d462f9",
-   "id": "agent-state/capsule",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 64,
-   "head": "4612b11",
-   "id": "backup/2026-10-17/agent-state",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 64,
-   "head": "dcc9426",
-   "id": "backup/2026-10-17/cadence-publication",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 64,
-   "head": "840f597",
-   "id": "backup/2026-10-17/discovery-only",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 64,
-   "head": "3dfd171",
-   "id": "backup/2026-10-17/film-capture",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 7,
-   "behind_origin_main": 64,
-   "head": "62c0c0b",
-   "id": "backup/2026-10-17/main-checkout",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 3,
-   "behind_origin_main": 43,
-   "head": "ea84f0c",
-   "id": "backup/2026-10-17/site-repair-candidate",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 45,
-   "head": "6a91961",
-   "id": "census/candidates-2026-10",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 4,
-   "behind_origin_main": 64,
-   "head": "d1a09c5",
-   "id": "claude/claim-succession-minimal",
-   "last_commit": "2026-09-25",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 38,
-   "head": "a13b86d",
-   "id": "claude/film-receipt-facts-subset",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 22,
-   "head": "e62476e",
-   "id": "claude/friendly-babbage-5hro0x",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 10,
-   "head": "bc5bda8",
-   "id": "claude/k-infra-calendar-weeks",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 1,
-   "behind_origin_main": 64,
-   "head": "1d44a13",
-   "id": "claude/k1-hold",
-   "last_commit": "2026-09-22",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 15,
-   "head": "842e06d",
-   "id": "claude/keen-jemison-cfd59b",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 15,
-   "head": "842e06d",
-   "id": "claude/modest-poincare-28a127",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 4,
-   "behind_origin_main": 64,
-   "head": "057c7b1",
-   "id": "claude/phone-width-a11y",
-   "last_commit": "2026-09-21",
-   "reachable_from_origin_main": false,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 6,
+   "ahead_of_origin_main": 5,
    "behind_origin_main": 0,
-   "head": "a54a6bb",
-   "id": "e9-001/register",
-   "last_commit": "2026-10-17",
+   "head": "7a1061e",
+   "id": "claude/gv-001-hosted-re-review",
+   "last_commit": "2026-10-24",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 16,
-   "head": "ee9617c",
-   "id": "gv001/title-clarify",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 21,
-   "head": "81b9cc1",
+   "behind_origin_main": 0,
+   "head": "e2cec7b",
    "id": "main",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": true,
@@ -6863,17 +6660,8 @@
   },
   {
    "ahead_of_origin_main": 0,
-   "behind_origin_main": 1,
-   "head": "8062f8c",
-   "id": "site/empirical-repair",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": true,
-   "type": "branch"
-  },
-  {
-   "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "506a8fa",
+   "head": "e2cec7b",
    "id": "origin",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": true,
@@ -6881,7 +6669,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 45,
+   "behind_origin_main": 58,
    "head": "6a91961",
    "id": "origin/census/candidates-2026-10",
    "last_commit": "2026-10-17",
@@ -6890,7 +6678,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "d1a09c5",
    "id": "origin/claude/claim-succession-minimal",
    "last_commit": "2026-09-25",
@@ -6899,7 +6687,7 @@
   },
   {
    "ahead_of_origin_main": 13,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "b50a9c6",
    "id": "origin/claude/e9-result",
    "last_commit": "2026-09-25",
@@ -6908,7 +6696,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "56a0cfc",
    "id": "origin/claude/eloquent-shannon-dlvcz3",
    "last_commit": "2026-09-22",
@@ -6917,7 +6705,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "c1b71f9",
    "id": "origin/claude/falsifier-assessment-kernel",
    "last_commit": "2026-09-27",
@@ -6926,7 +6714,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "2e9eeab",
    "id": "origin/claude/glassroot-handoff",
    "last_commit": "2026-09-27",
@@ -6935,7 +6723,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "91e31c5",
    "id": "origin/claude/homepage-epistemic-motion",
    "last_commit": "2026-09-25",
@@ -6944,7 +6732,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "1d44a13",
    "id": "origin/claude/k1-hold",
    "last_commit": "2026-09-22",
@@ -6953,7 +6741,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "d49480e",
    "id": "origin/claude/lucid-franklin-jloow0",
    "last_commit": "2026-09-26",
@@ -6962,7 +6750,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "057c7b1",
    "id": "origin/claude/phone-width-a11y",
    "last_commit": "2026-09-21",
@@ -6971,7 +6759,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "e40fd8c",
    "id": "origin/claude/temple-researcher-outreach-on2v73",
    "last_commit": "2026-09-19",
@@ -6980,7 +6768,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "3d5f743",
    "id": "origin/claude/verify-claims-refusal-unknown",
    "last_commit": "2026-09-27",
@@ -6989,7 +6777,7 @@
   },
   {
    "ahead_of_origin_main": 2,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "1d59af6",
    "id": "origin/claude/x-gate",
    "last_commit": "2026-09-27",
@@ -6997,26 +6785,44 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 5,
-   "behind_origin_main": 9,
-   "head": "a8bfe8c",
-   "id": "origin/e9-001/register",
-   "last_commit": "2026-10-17",
+   "ahead_of_origin_main": 2,
+   "behind_origin_main": 0,
+   "head": "9259091",
+   "id": "origin/codex/e2-e2",
+   "last_commit": "2026-10-24",
    "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 0,
-   "behind_origin_main": 16,
-   "head": "ee9617c",
-   "id": "origin/gv001/title-clarify",
-   "last_commit": "2026-10-17",
-   "reachable_from_origin_main": true,
+   "ahead_of_origin_main": 3,
+   "behind_origin_main": 0,
+   "head": "90328c0",
+   "id": "origin/codex/e2-e3",
+   "last_commit": "2026-10-24",
+   "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 101,
+   "behind_origin_main": 0,
+   "head": "a451d9b",
+   "id": "origin/codex/e2-e4",
+   "last_commit": "2026-10-24",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 4,
+   "behind_origin_main": 0,
+   "head": "1fe36e6",
+   "id": "origin/codex/e2-e5",
+   "last_commit": "2026-10-24",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 114,
    "head": "b9b7b1b",
    "id": "origin/icloud-snapshot/2026-09-19",
    "last_commit": "2026-09-19",
@@ -7025,7 +6831,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 64,
+   "behind_origin_main": 77,
    "head": "d0ac440",
    "id": "origin/icloud-snapshot/2026-09-19-site",
    "last_commit": "2026-09-19",
@@ -7035,7 +6841,7 @@
   {
    "ahead_of_origin_main": 0,
    "behind_origin_main": 0,
-   "head": "506a8fa",
+   "head": "e2cec7b",
    "id": "origin/main",
    "last_commit": "2026-10-17",
    "reachable_from_origin_main": true,
@@ -7043,7 +6849,16 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 70,
+   "behind_origin_main": 1,
+   "head": "5dd43af",
+   "id": "origin/publication/title-social-square",
+   "last_commit": "2026-10-17",
+   "reachable_from_origin_main": false,
+   "type": "branch"
+  },
+  {
+   "ahead_of_origin_main": 1,
+   "behind_origin_main": 83,
    "head": "79148e6",
    "id": "origin/rescue/commit-01fea45b4e98",
    "last_commit": "2026-09-17",
@@ -7052,7 +6867,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 260,
+   "behind_origin_main": 273,
    "head": "119f257",
    "id": "origin/rescue/commit-119f257b763c",
    "last_commit": "2026-08-29",
@@ -7061,7 +6876,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 79,
+   "behind_origin_main": 92,
    "head": "73e6691",
    "id": "origin/rescue/commit-2139046f7192",
    "last_commit": "2026-09-17",
@@ -7070,7 +6885,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 153,
+   "behind_origin_main": 166,
    "head": "22fa9f9",
    "id": "origin/rescue/commit-22fa9f9a8456",
    "last_commit": "2026-09-05",
@@ -7079,7 +6894,7 @@
   },
   {
    "ahead_of_origin_main": 3,
-   "behind_origin_main": 145,
+   "behind_origin_main": 158,
    "head": "4a362b5",
    "id": "origin/rescue/commit-4a362b5d714f",
    "last_commit": "2026-09-05",
@@ -7088,7 +6903,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 165,
+   "behind_origin_main": 178,
    "head": "38e1a09",
    "id": "origin/rescue/commit-5e70a9df4626",
    "last_commit": "2026-09-02",
@@ -7097,7 +6912,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 290,
+   "behind_origin_main": 303,
    "head": "1a17fe1",
    "id": "origin/rescue/commit-80250a3e7fc4",
    "last_commit": "2026-08-23",
@@ -7106,7 +6921,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 260,
+   "behind_origin_main": 273,
    "head": "9320098",
    "id": "origin/rescue/commit-93200984af16",
    "last_commit": "2026-08-29",
@@ -7115,7 +6930,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 157,
+   "behind_origin_main": 170,
    "head": "bd0c87d",
    "id": "origin/rescue/commit-bd0c87d0f1ea",
    "last_commit": "2026-09-05",
@@ -7124,7 +6939,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 79,
+   "behind_origin_main": 92,
    "head": "089f9b9",
    "id": "origin/rescue/commit-c74849b7a928",
    "last_commit": "2026-09-17",
@@ -7133,7 +6948,7 @@
   },
   {
    "ahead_of_origin_main": 4,
-   "behind_origin_main": 145,
+   "behind_origin_main": 158,
    "head": "cec26e5",
    "id": "origin/rescue/commit-cec26e585b5a",
    "last_commit": "2026-09-05",
@@ -7142,7 +6957,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 152,
+   "behind_origin_main": 165,
    "head": "ea88d65",
    "id": "origin/rescue/commit-ea88d6552c2f",
    "last_commit": "2026-09-05",
@@ -7151,7 +6966,7 @@
   },
   {
    "ahead_of_origin_main": 1,
-   "behind_origin_main": 221,
+   "behind_origin_main": 234,
    "head": "f8e5557",
    "id": "origin/rescue/commit-f8e555738fc2",
    "last_commit": "2026-08-31",
@@ -7168,5 +6983,5 @@
   }
  ],
  "schema": "repo-graph v0.1",
- "stable_digest": "319edcfdbafd693d0c1468e1a7d7152b5d9e35e0a71b618d88c5fff9244d5d39"
+ "stable_digest": "e54e1817f7c87033b51e5617132574ec0ed0cc9446fda9eb17b4f3df86189245"
 }

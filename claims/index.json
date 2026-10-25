@@ -76,7 +76,7 @@
       "https://x.com/PranavBhave_"
     ]
   },
-  "dateModified": "2026-10-17",
+  "dateModified": "2026-10-24",
   "dataFeedElement": [
     {
       "@context": [
@@ -1612,8 +1612,8 @@
         "name": "Cubits11 claim registry",
         "url": "https://cubits11.github.io/ledger/"
       },
-      "dateModified": "2026-10-17",
-      "fw:scopeStatement": "The repository at the bound commit. Runs locally; there is no hosted deployment, so the site links source, not a live demo.",
+      "dateModified": "2026-10-24",
+      "fw:scopeStatement": "The repository at the bound commit. Runs locally. A GitHub Pages build of the repository is served at https://cubits11.github.io/ghost-visualizer/; it deploys from the default branch, so it can run ahead of the bound commit, and this claim covers only the bound commit.",
       "fw:falsifier": "A local run from the bound revision lacks the stated seven scenes, deterministic sample-row computations, or Evidence Mode for inspection.",
       "fw:consequence": "NARROW",
       "fw:forbiddenRescue": [
@@ -1624,17 +1624,17 @@
         "not an AI-safety certificate; no deployment-readiness claim",
         "its own public-readiness review scores it for private serious-contact demo use; the site therefore links source rather than exhibiting its media as a flagship"
       ],
-      "fw:lastReviewed": "2026-10-17",
+      "fw:lastReviewed": "2026-10-24",
       "fw:reviewWindow": "P120D",
-      "fw:warrantExpires": "2027-02-14",
+      "fw:warrantExpires": "2027-02-21",
       "fw:evidentialStatus": "supported_within_scope",
       "fw:supportUrl": {
-        "@id": "https://github.com/Cubits11/ghost-visualizer/commit/bf8d87b2013c9827c4a37da920883e7e5d29af68"
+        "@id": "https://github.com/Cubits11/ghost-visualizer/commit/2ce5a962404bfa94150567d22c8879e38ab9ea02"
       },
       "fw:supportBinding": {
-        "@id": "https://github.com/Cubits11/ghost-visualizer/commit/bf8d87b2013c9827c4a37da920883e7e5d29af68"
+        "@id": "https://github.com/Cubits11/ghost-visualizer/commit/2ce5a962404bfa94150567d22c8879e38ab9ea02"
       },
-      "fw:boundRevision": "bf8d87b2013c9827c4a37da920883e7e5d29af68"
+      "fw:boundRevision": "2ce5a962404bfa94150567d22c8879e38ab9ea02"
     },
     {
       "@context": [

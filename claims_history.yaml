@@ -839,7 +839,7 @@ reconstruction:
     is declared here
   evidence_class: repository-internal (git objects, git dates, dated prose entries); no out-of-repository
     witness is asserted
-  preexisting_transition_count: 45
+  preexisting_transition_count: 46
   count_note: 44 as of 2026-09-15. The two additional events are the E6-001 and E7B-001 corrections committed
     at 48e98e44be87. Both are covered by existing contemporaneous declarations. The original genesis,
     transition entries and nine retrospective qualifying locators are unchanged. This aggregate includes
@@ -2788,3 +2788,53 @@ entries:
     records.'
   previous_transition_digest: 7a8b00629d225a7d021fe5619b759b6cc89851f3678c175056a5e46bb45ecf3a
   digest: 7f89e677169e6cbd49b27e9fe751bbc271912d141658ceb95f65145cb77aa07f
+- kind: transition
+  claim_id: GV-001
+  from_digest: 302c3ba34b681f251712b95ab9eea2905ea9a0b3e7a5c2809e75266a8d7f232c
+  to_digest: 7d0d9a4c3f59c7e3da9c0f21c7a8ba5eabc6e5edda06b6f6e2288c6ef8347c45
+  transition_type: CLARIFY
+  event_at: '2026-10-24'
+  recorded_at: '2026-10-24'
+  provenance_class: CONTEMPORANEOUS
+  direction_basis: DECLARED_HUMAN_JUDGMENT
+  evidence_refs:
+  - https://github.com/Cubits11/ghost-visualizer/pull/3
+  - https://github.com/Cubits11/ghost-visualizer/commit/2ce5a962404bfa94150567d22c8879e38ab9ea02
+  - https://github.com/Cubits11/ghost-visualizer/actions/runs/40156629247
+  reason: Ghost Visualizer's first GitHub Pages deploy went live on 2026-10-24 (03:01 UTC on 2026-10-25),
+    built from ghost-visualizer 2ce5a96. The scope sentence said there was no hosted deployment and that
+    the site links source, not a live demo; its first half stopped being true. The scope now says that
+    a Pages build is served at https://cubits11.github.io/ghost-visualizer/, that it deploys from the
+    default branch and so can run ahead of the bound commit, and that the claim covers only the bound
+    commit. The proposition, falsifier, forbidden rescues and non-claims are unchanged, and the claim
+    still rests on a local run from the bound revision. The removed clause was a statement about this
+    site's own links; this change adds no hyperlink to the hosted build on any page, since scope renders
+    as plain text. The support commit and the README trigger move to 2ce5a96; the README is byte-identical
+    to the one at bf8d87b.
+  previous_transition_digest: 7f89e677169e6cbd49b27e9fe751bbc271912d141658ceb95f65145cb77aa07f
+  to_commitment:
+    proposition: 'Ghost Visualizer is a seven-scene React/Vite visual essay ("What AI Guardrail Scores
+      Cannot Tell You"; titled "Why AI Safety Scores Lie" until 2026-10-17) that computes marginals, OR
+      composition, Fréchet–Hoeffding bounds, endpoint witnesses, and a receipt object from deterministic
+      sample rows, with an Evidence Mode for inspection.
+
+      '
+    scope: 'The repository at the bound commit. Runs locally. A GitHub Pages build of the repository is
+      served at https://cubits11.github.io/ghost-visualizer/; it deploys from the default branch, so it
+      can run ahead of the bound commit, and this claim covers only the bound commit.
+
+      '
+    falsifier:
+      condition: 'A local run from the bound revision lacks the stated seven scenes, deterministic sample-row
+        computations, or Evidence Mode for inspection.
+
+        '
+      consequence: NARROW
+    forbidden_rescues:
+    - do not count hard-coded or mocked screenshots as deterministic computations
+    - do not recast a local-only source project as a hosted interactive demo
+    non_claims:
+    - not an AI-safety certificate; no deployment-readiness claim
+    - its own public-readiness review scores it for private serious-contact demo use; the site therefore
+      links source rather than exhibiting its media as a flagship
+  digest: 75824d8644a0bd703f05f25fa4b773990a347ad6fbfa86aa40d115c9b595e939
