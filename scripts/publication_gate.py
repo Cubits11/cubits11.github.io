@@ -106,7 +106,7 @@ def title_check(root, ready, source_root=None):
     need(isinstance(revision,str) and re.fullmatch('[0-9a-f]{40}',revision) and revision!=t['base_revision'], 'published title needs a new immutable external revision')
     need(application['source_url']==f'https://github.com/Cubits11/ghost-visualizer/commit/{revision}', 'published title source URL is not bound to its revision')
     need(application['verified_title']==application['verified_h1']==TITLE, 'published document title and visible H1 need exact inspection records')
-    need(application['verified_source_sha256']=={k:t['source_sha256'][k] for k in ('index.html','src/components/CinematicShell.tsx')}, 'published title sources differ from the prepared title sources')
+    need(all(application['verified_source_sha256'].get(k)==t['source_sha256'][k] for k in ('index.html','src/components/CinematicShell.tsx')), 'published title sources differ from the prepared title sources')
     need(text(application['verified_by']) and dated(application['verified_on']), 'published title inspection needs a named owner attestation and date')
 
 
