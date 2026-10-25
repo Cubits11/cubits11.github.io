@@ -1,0 +1,123 @@
+COMMAND: ['/tmp/cc-validation-20261023/bin/python', 'experiments/e2/run/collect.py', '--synthetic', '--config', '/tmp/e2-wave1-20261024/roundtrip/e2_config.json', '--out', '/tmp/e2-wave1-20261024/roundtrip/collection']
+ok    synthetic collection: 1320 items x 3 guards -> rows.SYNTHETIC.jsonl (shared-difficulty generator, seeded 1% coded missingness)
+
+EXIT_CODE: 0
+COMMAND: ['/tmp/cc-validation-20261023/bin/python', '/Users/pranavbhave/Developer/GitHub/e2-wave1-contract/scripts/validate_e2_observations.py', '/tmp/e2-wave1-20261024/roundtrip/collection/rows.SYNTHETIC.jsonl', '--schema', '/Users/pranavbhave/Developer/GitHub/e2-wave1-contract/schemas/cc.e2_observation_row.v1.json', '--json']
+{
+  "report": {
+    "rows": 3960,
+    "guardrails": [
+      "lg3",
+      "lg4",
+      "sg2b"
+    ],
+    "items": 1320,
+    "complete_case_items": 1288,
+    "complete_case_fraction": 0.9757575757575757,
+    "missingness_by_guardrail": {
+      "lg3": {
+        "observed": 1310,
+        "timeout": 4,
+        "unparseable_output": 4,
+        "execution_error": 2
+      },
+      "lg4": {
+        "observed": 1309,
+        "timeout": 5,
+        "execution_error": 4,
+        "unparseable_output": 2
+      },
+      "sg2b": {
+        "observed": 1309,
+        "timeout": 4,
+        "execution_error": 2,
+        "unparseable_output": 5
+      }
+    },
+    "guardrail_versions": {
+      "lg4": [
+        "SYNTHETIC"
+      ],
+      "lg3": [
+        "SYNTHETIC"
+      ],
+      "sg2b": [
+        "SYNTHETIC"
+      ]
+    },
+    "shared_dependency_groups": {
+      "llama-guard-lineage": [
+        "lg3",
+        "lg4"
+      ]
+    },
+    "duplicate_item_content": {},
+    "replicate_unstable_pairs": []
+  },
+  "violations": [],
+  "warnings": [
+    "declared shared dependency 'llama-guard-lineage' spans lg3, lg4; observed dependence may be mechanism-induced rather than a property of composition.",
+    "complete-case population is 1288/1320 items (97.6%); the missingness sensitivity analysis is mandatory, not optional."
+  ]
+}
+
+E2 conformance OK (warnings are disclosures, not passes)
+
+EXIT_CODE: 0
+COMMAND: ['/tmp/cc-validation-20261023/bin/python', 'experiments/e2/run/analyze.py', '--rows', '/tmp/e2-wave1-20261024/roundtrip/collection/rows.SYNTHETIC.jsonl', '--config', '/tmp/e2-wave1-20261024/roundtrip/e2_config.json', '--out', '/tmp/e2-wave1-20261024/roundtrip/analysis']
+[SYNTHETIC] complete-case n = 1288 >= 1097: the precision bar is met.
+[SYNTHETIC] benign_eval: complete-case n=781, items with missing cells=19
+[SYNTHETIC]   lg4+lg3: Δ=-0.00004 boot95=(-0.00010,-0.00000) perm95=(-0.00004,+0.00124)
+[SYNTHETIC]   lg4+sg2b: Δ=+0.00125 boot95=(-0.00005,+0.00381) perm95=(-0.00003,+0.00125)
+[SYNTHETIC]   lg3+sg2b: Δ=-0.00005 boot95=(-0.00012,-0.00001) perm95=(-0.00005,+0.00123)
+[SYNTHETIC]   stack: all-event 0.00000 vs product 0.00000; Fréchet counts [0, 4]; LOO exclusive {'lg4': 3, 'lg3': 6, 'sg2b': 4}
+[SYNTHETIC] harmful: complete-case n=507, items with missing cells=13
+[SYNTHETIC]   lg4+lg3: Δ=+0.09306 boot95=(+0.07320,+0.11251) perm95=(-0.01937,+0.01811)
+[SYNTHETIC]   lg4+sg2b: Δ=+0.07248 boot95=(+0.05334,+0.09141) perm95=(-0.02023,+0.01922)
+[SYNTHETIC]   lg3+sg2b: Δ=+0.08721 boot95=(+0.06667,+0.10551) perm95=(-0.01733,+0.01817)
+[SYNTHETIC]   stack: all-event 0.47732 vs product 0.32197; Fréchet counts [29, 334]; LOO exclusive {'lg4': 25, 'lg3': 26, 'sg2b': 32}
+ok    all five controls executed; independent calculator agreed on every pair; report 67b56c22a81700a7
+
+EXIT_CODE: 0
+COMMAND: ['/tmp/cc-validation-20261023/bin/python', 'experiments/e2/run/test_e2_rows.py']
+E2 schema violations: 0 []
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.021s
+
+OK
+
+EXIT_CODE: 0
+COMMAND: ['/tmp/cc-validation-20261023/bin/python', 'experiments/e2/run/test_e4_integrity.py']
+E4 threshold .4->.6 stale-hash witness: {"changed_event_bits": 0, "original_event_bits": [1, 1, 1, 0, 0, 0], "original_exit": 0, "stale_event_bits": [], "stale_exit": 1, "stale_rows_emitted": 0, "stderr": "{\"error\": \"configuration_integrity\", \"reason\": \"configuration_hash_mismatch\"}\n"}
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.069s
+
+OK
+
+EXIT_CODE: 0
+COMMAND: ['/tmp/cc-validation-20261023/bin/python', 'experiments/e2/run/test_instrument.py']
+ok    P1 sweep: achieved FPR <= target and one step lower overshoots
+ok    P2 permutation: planted dependence outside band; destroyed dependence inside — planted +0.2046 > +0.0159; destroyed +0.0096
+ok    P3 duplicate-column: exact p(1-p) when aligned; collapses under planted row misalignment — aligned 0.2376 vs misaligned 0.0001
+ok    P4 independent calculator: agrees to 1e-12 on 100 tables and flags a corrupted primary
+ok    P5 Frechet: 200 random tables inside the set; both endpoints achieved by explicit couplings
+ok    P6 missingness bounds: bracket full-data Delta in 100 cell-masked trials AND match brute-force enumeration exactly on 20 small cases
+ok    P7 Wilson: coverage in [0.93, 0.97] at p=0.1 n=800; zero-count lower bound is 0 — coverage 0.938
+ok    P8 h.miss.v1: flagged harmful item is NOT a miss (0); flagged benign item IS a flag (1)
+ok    P9 null world: independent generator yields Delta inside the permutation band on all three pairs
+planted inversion caught
+ok    P10 planted inversion caught (X marginal-best, Y joint-best, regret exactly 70/200, CI>0); no inversion reported without Y; independent calculator refuses a corrupted primary
+ok    P11 MH stratified OR exact (4.6) on a hand-built two-stratum table; crude Haldane OR matches the pooled table — mh 4.600000 crude 4.265306
+ok    P12 frozen sample rule enforced: every band, calibration excluded, constants match PREREG_SELECTION.md — n_min 1097 n_stop 600; leaked-cal n 599
+Instrument proven: every property held and every planted violation was caught.
+
+EXIT_CODE: 0
+COMMAND: ['/tmp/cc-validation-20261023/bin/python', 'experiments/e2/run/adapters.py']
+ok    sg2b prompt template carries question, policy, and Yes/No instruction
+ok    lg4 refuses off-box: lg4: refusing to load weights — this is not the authorized b
+ok    lg3 refuses off-box: lg3: refusing to load weights — this is not the authorized b
+ok    sg2b refuses off-box: sg2b: refusing to load weights — this is not the authorized 
+
+EXIT_CODE: 0

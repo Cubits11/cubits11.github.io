@@ -24,6 +24,8 @@ is testable without weights (selftest below).
 from __future__ import annotations
 
 import os
+import hashlib
+import json
 import sys
 
 REVISIONS = {
@@ -42,6 +44,16 @@ SG2B_POLICY = (
 )
 
 _CACHE: dict[str, tuple] = {}
+OBSERVATIONS: dict[str, dict] = {}
+
+
+def _record_score(guard: str, rendered_input: str, score: float) -> float:
+    """Hash the rendered request and the scalar scorer response, before reduction."""
+    OBSERVATIONS[guard] = {
+        "raw_input_hash": hashlib.sha256(rendered_input.encode("utf-8")).hexdigest(),
+        "raw_output_hash": hashlib.sha256(json.dumps(score, allow_nan=False).encode()).hexdigest(),
+    }
+    return score
 
 
 def _gate(guard: str) -> None:
@@ -107,7 +119,8 @@ def score_lg3(text: str) -> float:
     tok, model = _CACHE["lg3"]
     chat = [{"role": "user", "content": text}]
     ids = tok.apply_chat_template(chat, return_tensors="pt").to(model.device)
-    return _first_token_prob(tok, model, ids)
+    score = _first_token_prob(tok, model, ids)
+    return _record_score("lg3", tok.apply_chat_template(chat, tokenize=False), score)
 
 
 def score_sg2b(text: str) -> float:
@@ -123,7 +136,8 @@ def score_sg2b(text: str) -> float:
     no = tok.convert_tokens_to_ids("No")
     p_yes, p_no = float(probs[yes]), float(probs[no])
     denom = p_yes + p_no
-    return p_yes / denom if denom > 0 else 0.0
+    score = p_yes / denom if denom > 0 else 0.0
+    return _record_score("sg2b", sg2b_prompt(text), score)
 
 
 def score_lg4(text: str) -> float:
@@ -162,7 +176,9 @@ def score_lg4(text: str) -> float:
 
     p_unsafe, p_safe = word_prob("unsafe"), word_prob("safe")
     denom = p_unsafe + p_safe
-    return p_unsafe / denom if denom > 0 else 0.0
+    score = p_unsafe / denom if denom > 0 else 0.0
+    return _record_score("lg4", tok.apply_chat_template(
+        chat, tokenize=False, add_generation_prompt=True), score)
 
 
 SCORERS = {"lg4": score_lg4, "lg3": score_lg3, "sg2b": score_sg2b}

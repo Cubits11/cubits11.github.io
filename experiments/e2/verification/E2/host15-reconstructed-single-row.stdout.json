@@ -1,0 +1,42 @@
+{
+  "report": {
+    "rows": 1,
+    "guardrails": [
+      "FX1"
+    ],
+    "items": 1,
+    "complete_case_items": 1,
+    "complete_case_fraction": 1.0,
+    "missingness_by_guardrail": {
+      "FX1": {
+        "observed": 1
+      }
+    },
+    "guardrail_versions": {
+      "FX1": [
+        "SYNTHETIC"
+      ]
+    },
+    "shared_dependency_groups": {},
+    "duplicate_item_content": {},
+    "replicate_unstable_pairs": []
+  },
+  "violations": [
+    "row 1: <row>: Additional properties are not allowed ('stratum', 'synthetic' were unexpected)",
+    "row 1: <row>: 'item_source_version' is a required property",
+    "row 1: <row>: 'item_hash' is a required property",
+    "row 1: <row>: 'policy_version' is a required property",
+    "row 1: <row>: 'raw_input_hash' is a required property",
+    "row 1: <row>: 'execution_timestamp' is a required property",
+    "row 1: <row>: 'raw_output_hash' is a required property",
+    "row 1: configuration_hash: 'SYNTHETIC' does not match '^[0-9a-f]{64}$'",
+    "row 1: raw_outcome: 0.25 is not of type 'string', 'null'",
+    "row 1: raw_outcome: 0.25 is not one of ['allow', 'warn', 'soft_block', 'hard_block', 'error', None]",
+    "row 1: raw_outcome: 0.25 is not of type 'string'",
+    "row 1: raw_outcome_detail: 'score' is not of type 'object', 'null'",
+    "row 1: reference_label: 'harmful' is not of type 'integer', 'null'",
+    "row 1: reference_label: 'harmful' is not one of [0, 1, None]",
+    "row 1: reference_label_uncertainty: 'none-recorded (declared limitation)' is not of type 'number', 'null'"
+  ],
+  "warnings": []
+}

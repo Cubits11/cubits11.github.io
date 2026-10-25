@@ -66,7 +66,8 @@ def load(path: Path):
     synthetic = False
     for line in path.read_text().splitlines():
         r = json.loads(line)
-        synthetic = synthetic or bool(r.get("synthetic"))
+        synthetic = synthetic or bool(r.get("synthetic")) or bool(
+            (r.get("raw_outcome_detail") or {}).get("synthetic"))
         s = r["stratum"]
         if r["missingness_code"] == "observed":
             events.setdefault(s, {}).setdefault(

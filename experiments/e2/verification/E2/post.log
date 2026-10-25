@@ -1,0 +1,7 @@
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.033s
+
+OK
+E2 schema violations: 0 []
+FT11: emitted valid synthetic row=1, invalid real call refused=1, violations=0

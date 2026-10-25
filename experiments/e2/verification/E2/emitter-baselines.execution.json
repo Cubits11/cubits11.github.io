@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      "/tmp/cc-validation-20261023/bin/python",
+      "/tmp/e2-wave1-20261024/historical-review/exact-emitter-fixtures/scripts/validate_e2_observations.py",
+      "/tmp/e2-wave1-20261024/historical-review/exact-emitter-fixtures/ft11-two-rows.jsonl",
+      "--schema",
+      "/tmp/e2-wave1-20261024/historical-review/exact-emitter-fixtures/schemas/cc.e2_observation_row.v1.json",
+      "--json"
+    ],
+    "exit_code": 1,
+    "stdout": "/tmp/e2-wave1-20261024/historical-review/exact-emitter-fixtures/ft11-two-rows.stdout.json",
+    "stderr": "/tmp/e2-wave1-20261024/historical-review/exact-emitter-fixtures/ft11-two-rows.stderr.txt",
+    "source_identity": "exact FT11 tests/test_ft_v2.py:131-139",
+    "violations": 30,
+    "row_counts": {
+      "1": 15,
+      "2": 15
+    }
+  },
+  {
+    "command": [
+      "/tmp/cc-validation-20261023/bin/python",
+      "/tmp/e2-wave1-20261024/historical-review/exact-emitter-fixtures/scripts/validate_e2_observations.py",
+      "/tmp/e2-wave1-20261024/historical-review/exact-emitter-fixtures/host15-reconstructed-single-row.jsonl",
+      "--schema",
+      "/tmp/e2-wave1-20261024/historical-review/exact-emitter-fixtures/schemas/cc.e2_observation_row.v1.json",
+      "--json"
+    ],
+    "exit_code": 1,
+    "stdout": "/tmp/e2-wave1-20261024/historical-review/exact-emitter-fixtures/host15-reconstructed-single-row.stdout.json",
+    "stderr": "/tmp/e2-wave1-20261024/historical-review/exact-emitter-fixtures/host15-reconstructed-single-row.stderr.txt",
+    "source_identity": "documented reconstruction from FT11 first row; not claimed exact host audit fixture identity",
+    "violations": 15,
+    "row_counts": {
+      "1": 15
+    }
+  }
+]
