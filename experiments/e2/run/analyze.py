@@ -49,6 +49,21 @@ N_STOP = FROZEN_ANALYSIS["N_STOP"]
 SHARED_STRATA = ("harmful", "benign_eval")
 
 
+class ControlError(ValueError):
+    """A named instrument check failed; estimation is withheld."""
+
+
+def require_control(name: str, condition: bool) -> None:
+    # Explicit raise keeps the gate binding even under python -O.
+    if not condition:
+        raise ControlError(name)
+
+
+def valid_interval(interval) -> bool:
+    return (all(math.isfinite(x) for x in interval) and
+            -.25 - 1e-12 <= interval[0] <= interval[1] <= .25 + 1e-12)
+
+
 def wilson(k: int, n: int, z: float = 1.959964) -> tuple[float, float]:
     if n == 0:
         return (0.0, 1.0)
@@ -225,19 +240,24 @@ def analyze_stratum(name: str, cc: dict, per_item_all: dict) -> dict:
     for a, b in PAIRS:
         d, pa, pb, _ = delta(cc, a, b)
         d2 = delta_independent(cc, a, b)
-        assert abs(d - d2) < 1e-12, "independent calculator disagrees"
+        require_control("independent_calculator (tolerance 1e-12)", abs(d - d2) < 1e-12)
         lo, hi = bootstrap_ci(cc, a, b)
+        require_control("bootstrap_interval", valid_interval((lo, hi)))
         rng = random.Random(f"{SEED}:perm:{name}:{a}:{b}")
         bvals = [v[b] for v in cc.values()]
         perms = []
         for _ in range(PERM):
             shuffled = bvals[:]
             rng.shuffle(shuffled)
+            require_control("permutation_marginal_preservation (exact)",
+                            len(shuffled) == len(bvals) and sum(shuffled) == sum(bvals))
             p11 = sum(x & y for x, y in
                       zip((v[a] for v in cc.values()), shuffled)) / n
             perms.append(p11 - out["marginals"][a]["p"]
                          * out["marginals"][b]["p"])
         perms.sort()
+        require_control("permutation_interval", len(perms) == PERM and
+                        valid_interval((perms[0], perms[-1])))
         note = ("llama-guard-lineage pair: dependence may be "
                 "mechanism-induced" if {a, b} == {"lg4", "lg3"} else None)
         prs[f"{a}+{b}"] = {
@@ -251,6 +271,9 @@ def analyze_stratum(name: str, cc: dict, per_item_all: dict) -> dict:
         g: {"delta_self": delta(cc, g, g)[0],
             "theoretical": out["marginals"][g]["p"]
             * (1 - out["marginals"][g]["p"])} for g in GUARDS}
+    for g, control in out["duplicate_column_control"].items():
+        require_control(f"duplicate_column:{g} (tolerance 1e-9)",
+                        abs(control["delta_self"] - control["theoretical"]) <= 1e-9)
     all_event = sum(all(v[g] for g in GUARDS) for v in cc.values())
     catches = {g: n - sum(v[g] for v in cc.values()) for g in GUARDS}
     out["stack_secondary"] = {
@@ -269,6 +292,10 @@ def analyze_stratum(name: str, cc: dict, per_item_all: dict) -> dict:
                        for g in GUARDS} for i, v in cc.items()}
         noise[str(rate)] = {f"{a}+{b}": delta(flipped, a, b)[0]
                             for a, b in PAIRS}
+        for a, b in PAIRS:
+            require_control(f"label_noise:{rate}:{a}+{b} (tolerance 1e-12)",
+                            abs(noise[str(rate)][f"{a}+{b}"] -
+                                delta_independent(flipped, a, b)) < 1e-12)
     out["label_noise_control"] = noise
     # Exact extremal bounds over the true completion space: every item
     # enters; observed cells stay fixed; only missing cells vary. The
@@ -278,6 +305,19 @@ def analyze_stratum(name: str, cc: dict, per_item_all: dict) -> dict:
     out["missingness_bounds"] = {
         f"{a}+{b}": missingness_delta_bounds(everything, a, b)
         for a, b in PAIRS}
+    for a, b in PAIRS:
+        lo, hi = out["missingness_bounds"][f"{a}+{b}"]
+        require_control(f"missingness_interval:{a}+{b}", valid_interval((lo, hi)))
+        for fill in (0, 1):
+            completion = {i: {a: v.get(a, fill), b: v.get(b, fill)}
+                          for i, v in everything.items()}
+            witness = delta_independent(completion, a, b)
+            require_control(f"missingness_completion:{a}+{b} (tolerance 1e-12)",
+                            lo - 1e-12 <= witness <= hi + 1e-12)
+        if all(a in v and b in v for v in everything.values()):
+            exact = delta_independent(everything, a, b)
+            require_control(f"missingness_complete_data:{a}+{b} (tolerance 1e-12)",
+                            abs(lo - exact) < 1e-12 and abs(hi - exact) < 1e-12)
     return out
 
 
@@ -739,11 +779,15 @@ def main() -> int:
         return 1
 
     report["strata"] = []
-    for count in counts:
-        stratum = count["stratum"]
-        cc, per_item_all = populations[stratum]
-        report["strata"].append(analyze_stratum(stratum, cc, per_item_all) if cc
-                                else dict(count, unavailable_reason="no_complete_cases"))
+    try:
+        for count in counts:
+            stratum = count["stratum"]
+            cc, per_item_all = populations[stratum]
+            report["strata"].append(analyze_stratum(stratum, cc, per_item_all) if cc
+                                    else dict(count, unavailable_reason="no_complete_cases"))
+    except ControlError as exc:
+        print(json.dumps({"error": "control_failure", "control": str(exc)}), file=sys.stderr)
+        return 1
 
     for res in report["strata"]:
         stratum = res["stratum"]

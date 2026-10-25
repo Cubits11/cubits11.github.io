@@ -1,0 +1,10 @@
+COMMAND: /opt/homebrew/opt/python@3.14/bin/python3.14 -O -B experiments/e2/run/test_e5_controls.py ControlsTest.test_01_planted_duplicate_column_fault_binds_gate -v
+test_01_planted_duplicate_column_fault_binds_gate (__main__.ControlsTest.test_01_planted_duplicate_column_fault_binds_gate) ... E5 main witness: {"command": ["analyze.py", "--rows", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-9l0_7wx4/rows.jsonl", "--config", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-9l0_7wx4/e2_config.json", "--freeze-record", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-9l0_7wx4/e2_config.freeze.json", "--out", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-9l0_7wx4/out"], "duplicate_abs_errors": [], "duplicate_fault": true, "exit_code": 1, "report_count": 0, "stderr": "{\"error\": \"control_failure\", \"control\": \"duplicate_column:lg4 (tolerance 1e-9)\"}\n", "stdout": "[SYNTHETIC] precision HOLD \u2014 complete-case n = 600 < 1097, the CC-006 bar. This sentence leads every reading of this result.\n"}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 3.212s
+
+OK
+
+EXIT_CODE: 0

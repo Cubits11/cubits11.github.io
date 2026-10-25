@@ -1,0 +1,74 @@
+COMMAND: /opt/homebrew/opt/python@3.14/bin/python3.14 -B experiments/e2/run/test_e5_controls.py -v
+BASELINE: E4 c949b2b; E5 controls unchanged
+test_01_planted_duplicate_column_fault_binds_gate (__main__.ControlsTest.test_01_planted_duplicate_column_fault_binds_gate) ... E5 main witness: {"command": ["analyze.py", "--rows", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-xh5o26we/rows.jsonl", "--config", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-xh5o26we/e2_config.json", "--freeze-record", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-xh5o26we/e2_config.freeze.json", "--out", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-xh5o26we/out"], "duplicate_abs_errors": [9.999999999732445e-07, 9.999999999732445e-07, 9.999999999732445e-07], "duplicate_fault": true, "exit_code": 0, "report_count": 1, "stderr": "", "stdout": "[SYNTHETIC] precision HOLD \u2014 complete-case n = 600 < 1097, the CC-006 bar. This sentence leads every reading of this result.\n[SYNTHETIC] harmful: complete-case n=600, items with missing cells=0\n[SYNTHETIC]   lg4+lg3: \u0394=+0.00000 boot95=(-0.01941,+0.02090) perm95=(-0.02000,+0.02000)\n[SYNTHETIC]   lg4+sg2b: \u0394=+0.00000 boot95=(-0.01989,+0.01932) perm95=(-0.02000,+0.02000)\n[SYNTHETIC]   lg3+sg2b: \u0394=+0.00000 boot95=(-0.01933,+0.01998) perm95=(-0.02000,+0.02000)\n[SYNTHETIC]   stack: all-event 0.12500 vs product 0.12500; Fr\u00e9chet counts [0, 300]; LOO exclusive {'lg4': 75, 'lg3': 75, 'sg2b': 75}\nok    all five controls executed; independent calculator agreed on every pair; report d022468ef50be450\n"}
+FAIL
+test_02_fault_removed_passes_with_frozen_constants (__main__.ControlsTest.test_02_fault_removed_passes_with_frozen_constants) ... E5 main witness: {"command": ["analyze.py", "--rows", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-bxb2x69j/rows.jsonl", "--config", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-bxb2x69j/e2_config.json", "--freeze-record", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-bxb2x69j/e2_config.freeze.json", "--out", "/var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e5-regression-bxb2x69j/out"], "duplicate_abs_errors": [0.0, 0.0, 0.0], "duplicate_fault": false, "exit_code": 0, "report_count": 1, "stderr": "", "stdout": "[SYNTHETIC] precision HOLD \u2014 complete-case n = 600 < 1097, the CC-006 bar. This sentence leads every reading of this result.\n[SYNTHETIC] harmful: complete-case n=600, items with missing cells=0\n[SYNTHETIC]   lg4+lg3: \u0394=+0.00000 boot95=(-0.01941,+0.02090) perm95=(-0.02000,+0.02000)\n[SYNTHETIC]   lg4+sg2b: \u0394=+0.00000 boot95=(-0.01989,+0.01932) perm95=(-0.02000,+0.02000)\n[SYNTHETIC]   lg3+sg2b: \u0394=+0.00000 boot95=(-0.01933,+0.01998) perm95=(-0.02000,+0.02000)\n[SYNTHETIC]   stack: all-event 0.12500 vs product 0.12500; Fr\u00e9chet counts [0, 300]; LOO exclusive {'lg4': 75, 'lg3': 75, 'sg2b': 75}\nok    all five controls executed; independent calculator agreed on every pair; report 97b0def3d6e1f25f\n"}
+ok
+test_complete_data_missingness_mismatch_is_asserted (__main__.ControlsTest.test_complete_data_missingness_mismatch_is_asserted) ... FAIL
+test_independent_calculator_fault_is_asserted (__main__.ControlsTest.test_independent_calculator_fault_is_asserted) ... ok
+test_invalid_missingness_interval_is_asserted (__main__.ControlsTest.test_invalid_missingness_interval_is_asserted) ... FAIL
+test_label_noise_recalculation_fault_is_asserted (__main__.ControlsTest.test_label_noise_recalculation_fault_is_asserted) ... FAIL
+test_nonfinite_bootstrap_interval_is_asserted (__main__.ControlsTest.test_nonfinite_bootstrap_interval_is_asserted) ... FAIL
+test_permutation_marginal_corruption_is_asserted (__main__.ControlsTest.test_permutation_marginal_corruption_is_asserted) ... FAIL
+test_small_missingness_control_matches_all_completions (__main__.ControlsTest.test_small_missingness_control_matches_all_completions) ... ok
+
+======================================================================
+FAIL: test_01_planted_duplicate_column_fault_binds_gate (__main__.ControlsTest.test_01_planted_duplicate_column_fault_binds_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e5_controls.py", line 99, in test_01_planted_duplicate_column_fault_binds_gate
+    self.assertEqual(rc, 1, "+1e-6 duplicate fault must bind the exit code")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : +1e-6 duplicate fault must bind the exit code
+
+======================================================================
+FAIL: test_complete_data_missingness_mismatch_is_asserted (__main__.ControlsTest.test_complete_data_missingness_mismatch_is_asserted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e5_controls.py", line 157, in test_complete_data_missingness_mismatch_is_asserted
+    with self.assertRaisesRegex((AssertionError, ValueError), "missingness"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (<class 'AssertionError'>, <class 'ValueError'>) not raised
+
+======================================================================
+FAIL: test_invalid_missingness_interval_is_asserted (__main__.ControlsTest.test_invalid_missingness_interval_is_asserted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e5_controls.py", line 152, in test_invalid_missingness_interval_is_asserted
+    with self.assertRaisesRegex((AssertionError, ValueError), "missingness"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (<class 'AssertionError'>, <class 'ValueError'>) not raised
+
+======================================================================
+FAIL: test_label_noise_recalculation_fault_is_asserted (__main__.ControlsTest.test_label_noise_recalculation_fault_is_asserted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e5_controls.py", line 147, in test_label_noise_recalculation_fault_is_asserted
+    with self.assertRaisesRegex((AssertionError, ValueError), "label.noise"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (<class 'AssertionError'>, <class 'ValueError'>) not raised
+
+======================================================================
+FAIL: test_nonfinite_bootstrap_interval_is_asserted (__main__.ControlsTest.test_nonfinite_bootstrap_interval_is_asserted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e5_controls.py", line 136, in test_nonfinite_bootstrap_interval_is_asserted
+    with self.assertRaisesRegex((AssertionError, ValueError), "bootstrap"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (<class 'AssertionError'>, <class 'ValueError'>) not raised
+
+======================================================================
+FAIL: test_permutation_marginal_corruption_is_asserted (__main__.ControlsTest.test_permutation_marginal_corruption_is_asserted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pranavbhave/Developer/GitHub/e2-wave1-site/experiments/e2/run/test_e5_controls.py", line 131, in test_permutation_marginal_corruption_is_asserted
+    with self.assertRaisesRegex((AssertionError, ValueError), "permutation"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (<class 'AssertionError'>, <class 'ValueError'>) not raised
+
+----------------------------------------------------------------------
+Ran 9 tests in 6.230s
+
+FAILED (failures=6)
+
+EXIT_CODE: 1
