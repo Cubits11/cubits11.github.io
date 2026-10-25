@@ -17,6 +17,8 @@ from pathlib import Path
 GUARDS = ("lg4", "lg3", "sg2b")
 FPR_TARGET = 0.05
 
+from config_integrity import FROZEN_ANALYSIS, config_digest
+
 
 def main() -> int:
     ap = argparse.ArgumentParser()
@@ -42,11 +44,17 @@ def main() -> int:
 
     cfg = {"study_id": "MC-E2-PILOT-V1", "fpr_target": FPR_TARGET,
            "calibrated": "on the frozen benign calibration half only",
-           "results": results, "config_hash": ""}
-    canon = json.dumps(cfg, sort_keys=True, separators=(",", ":"))
-    cfg["config_hash"] = hashlib.sha256(canon.encode()).hexdigest()
+           "results": results, "analysis": dict(FROZEN_ANALYSIS), "config_hash": ""}
+    cfg["config_hash"] = config_digest(cfg)
     out = indir / "e2_config.json"
-    out.write_text(json.dumps(cfg, indent=2))
+    record = indir / "e2_config.freeze.json"
+    if out.exists() or record.exists():
+        print(json.dumps({"error": "freeze_already_exists"}), file=sys.stderr)
+        return 1
+    with record.open("x") as fh:
+        fh.write(json.dumps({"config_hash": cfg["config_hash"]}, indent=2) + "\n")
+    with out.open("x") as fh:
+        fh.write(json.dumps(cfg, indent=2) + "\n")
     print(f"ok    e2_config.json written — config_hash "
           f"{cfg['config_hash'][:16]}")
     for g, r in results.items():

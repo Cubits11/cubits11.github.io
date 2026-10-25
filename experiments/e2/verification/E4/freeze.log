@@ -1,0 +1,21 @@
+ok    config_hash matches canonical content — 07b06deafcb92251
+ok    harmful count — 520
+ok    calibration count — 800
+ok    evaluation count — 800
+ok    calibration and evaluation are disjoint
+ok    split reproduces from the seed
+ok    sizing bar: n_harmful + n_benign_eval >= 1097 — 520 + 800 = 1320
+ok    id lists disjoint from the MSBench pin — msbench ids: 900
+ok    sources are not HarmBench or XSTest
+ok    no duplicate ids across lists
+ok    PREREG_SELECTION.md present
+ok    PREREG_SELECTION.md sha256 unchanged since the W2 freeze — 75c4b7953c6b0d1c
+ok    dedup_clusters.csv present
+ok    dedup_clusters.csv sha256 unchanged since the W2 freeze — b8f75976fc94b751
+ok    dedup map covers the harmful list exactly, in order — 520 rows
+ok    dedup c50: one representative per cluster, labels are member ids — 444 clusters
+ok    dedup c60: one representative per cluster, labels are member ids — 488 clusters
+ok    dedup c70: one representative per cluster, labels are member ids — 503 clusters
+ok    dedup at the primary threshold keeps n >= 1097 — 488 + 800 = 1288
+ok    dedup cluster counts increase with the threshold — 444 < 488 < 503
+Config-freeze verified: counts, split determinism, sizing bar, disjointness, config hash, the W2 preregistration sha and the near-duplicate map all hold.
