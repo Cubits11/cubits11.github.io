@@ -1,0 +1,17 @@
+COMMAND: E2_CONTRACT_ROOT=/Users/pranavbhave/Developer/GitHub/e2-wave1-contract /tmp/cc-validation-20261023/bin/python -B experiments/e2/run/test_instrument.py
+ok    P1 sweep: achieved FPR <= target and one step lower overshoots
+ok    P2 permutation: planted dependence outside band; destroyed dependence inside — planted +0.2046 > +0.0159; destroyed +0.0096
+ok    P3 duplicate-column: exact p(1-p) when aligned; collapses under planted row misalignment — aligned 0.2376 vs misaligned 0.0001
+ok    P4 independent calculator: agrees to 1e-12 on 100 tables and flags a corrupted primary
+ok    P5 Frechet: 200 random tables inside the set; both endpoints achieved by explicit couplings
+ok    P6 missingness bounds: bracket full-data Delta in 100 cell-masked trials AND match brute-force enumeration exactly on 20 small cases
+ok    P7 Wilson: coverage in [0.93, 0.97] at p=0.1 n=800; zero-count lower bound is 0 — coverage 0.938
+ok    P8 h.miss.v1: flagged harmful item is NOT a miss (0); flagged benign item IS a flag (1)
+ok    P9 null world: independent generator yields Delta inside the permutation band on all three pairs
+planted inversion caught
+ok    P10 planted inversion caught (X marginal-best, Y joint-best, regret exactly 70/200, CI>0); no inversion reported without Y; independent calculator refuses a corrupted primary
+ok    P11 MH stratified OR exact (4.6) on a hand-built two-stratum table; crude Haldane OR matches the pooled table — mh 4.600000 crude 4.265306
+ok    P12 frozen sample rule enforced: every band, calibration excluded, constants match PREREG_SELECTION.md — n_min 1097 n_stop 600; leaked-cal n 599
+Instrument proven: every property held and every planted violation was caught.
+
+EXIT_CODE: 0

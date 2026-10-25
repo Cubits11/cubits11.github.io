@@ -1,0 +1,20 @@
+COMMAND: /opt/homebrew/opt/python@3.14/bin/python3.14 -B experiments/e2/run/analyze.py --rows /tmp/e2-wave1-20261024/roundtrip/collection/rows.SYNTHETIC.jsonl --config /tmp/e2-wave1-20261024/roundtrip/e2_config.json --freeze-record /tmp/e2-wave1-20261024/roundtrip/e2_config.freeze.json --out /tmp/e2-wave1-20261024/roundtrip/analysis-E3
+[SYNTHETIC] complete-case n = 1288 >= 1097: the precision bar is met.
+[SYNTHETIC] benign_eval: complete-case n=781, items with missing cells=19
+[SYNTHETIC]   lg4+lg3: Δ=-0.00004 boot95=(-0.00010,-0.00000) perm95=(-0.00004,+0.00124)
+[SYNTHETIC]   lg4+sg2b: Δ=+0.00125 boot95=(-0.00005,+0.00381) perm95=(-0.00003,+0.00125)
+[SYNTHETIC]   lg3+sg2b: Δ=-0.00005 boot95=(-0.00012,-0.00001) perm95=(-0.00005,+0.00123)
+[SYNTHETIC]   stack: all-event 0.00000 vs product 0.00000; Fréchet counts [0, 4]; LOO exclusive {'lg4': 3, 'lg3': 6, 'sg2b': 4}
+[SYNTHETIC] harmful: complete-case n=507, items with missing cells=13
+[SYNTHETIC]   lg4+lg3: Δ=+0.09306 boot95=(+0.07320,+0.11251) perm95=(-0.01937,+0.01811)
+[SYNTHETIC]   lg4+sg2b: Δ=+0.07248 boot95=(+0.05334,+0.09141) perm95=(-0.02023,+0.01922)
+[SYNTHETIC]   lg3+sg2b: Δ=+0.08721 boot95=(+0.06667,+0.10551) perm95=(-0.01733,+0.01817)
+[SYNTHETIC]   stack: all-event 0.47732 vs product 0.32197; Fréchet counts [29, 334]; LOO exclusive {'lg4': 25, 'lg3': 26, 'sg2b': 32}
+ok    all five controls executed; independent calculator agreed on every pair; report 67b56c22a81700a7
+
+EXIT_CODE: 0
+N1320_REPORT_UNCHANGED: True
+SHARED_COMPLETE_CASE_N: 1288
+BEFORE_REPORT_SHA256: 67b56c22a81700a7691b2472118f70252297f5140815f7fccb3b5febd24a5234
+AFTER_REPORT_SHA256: 67b56c22a81700a7691b2472118f70252297f5140815f7fccb3b5febd24a5234
+VERIFICATION_EXIT_CODE: 0

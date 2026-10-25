@@ -717,27 +717,41 @@ def main() -> int:
 
     events, missing, synthetic = load(Path(args.rows))
     tag = "SYNTHETIC" if synthetic else "REAL"
-    report = {"mode": tag, "strata": []}
-    for stratum, per_item in sorted(events.items()):
+    populations, counts = {}, []
+    for stratum in sorted(set(events) | set(missing)):
+        per_item = events.get(stratum, {})
         only_missing = set(missing.get(stratum, {})) - set(per_item)
         per_item_all = {**{i: {} for i in only_missing}, **per_item}
         cc = complete_cases(per_item)
-        res = analyze_stratum(stratum, cc, per_item_all)
-        report["strata"].append(res)
+        populations[stratum] = (cc, per_item_all)
+        counts.append({"stratum": stratum, "complete_case_n": len(cc),
+                       "items_with_missing_cells": len(per_item_all) - len(cc)})
 
-    sizing = sizing_verdict(report["strata"])
-    report = {"mode": tag, "sizing": sizing, "strata": report["strata"]}
+    sizing = sizing_verdict(counts)
+    report = {"mode": tag, "sizing": sizing, "strata": counts}
     print(f"[{tag}] {sizing['leading_sentence']}")
     if sizing["verdict"] == "STOP":
+        report["reason"] = ("no_complete_cases" if not any(
+            row["complete_case_n"] for row in counts) else "insufficient_complete_cases")
         (out / f"analysis.{tag}.json").write_text(json.dumps(report, indent=2))
         print(f"[{tag}] the frozen stopping rule refuses this wave; "
               f"no pair statistic is printed")
         return 1
 
+    report["strata"] = []
+    for count in counts:
+        stratum = count["stratum"]
+        cc, per_item_all = populations[stratum]
+        report["strata"].append(analyze_stratum(stratum, cc, per_item_all) if cc
+                                else dict(count, unavailable_reason="no_complete_cases"))
+
     for res in report["strata"]:
         stratum = res["stratum"]
         print(f"[{tag}] {stratum}: complete-case n={res['complete_case_n']}, "
               f"items with missing cells={res['items_with_missing_cells']}")
+        if not res["complete_case_n"]:
+            print(f"[{tag}]   unavailable: no complete cases")
+            continue
         for pair, pr in res["pairs"].items():
             print(f"[{tag}]   {pair}: Δ={pr['delta']:+.5f} "
                   f"boot95=({pr['bootstrap95'][0]:+.5f},"
