@@ -112,7 +112,7 @@
     "name": "Cubits11 claim registry",
     "url": "https://cubits11.github.io/ledger/"
   },
-  "dateModified": "2026-08-31",
+  "dateModified": "2026-11-02",
   "fw:scopeStatement": "Exactly the six committed verdict files of the full_run directory at the bound commit: 400 harmful and 500 benign items, each stratum half text and half image, one Boolean `blocked` adapter bit per item per guard. Let L be the release's harmful/benign label, A_s each guard's native `unsafe` predicate, B_s the harness mapping of that predicate to `blocked`, and O = OR_s B_s. The bound arithmetic reports B and O conditional on L. Because the harness uses `blocked` items to suppress target generation, O is also a valid counterfactual harness-block decision for these released rows under a fixed block-on-any rule. It does not establish a source-defined translation from every A_s to one shared catch event E: Llama Guard 3 Vision is a multimodal prompt/response classifier, while ShieldGemma 2 is an image-only three-policy classifier, and the pipeline merely maps each native `unsafe` label to `blocked`. Counting arithmetic only, at the guards' released native operating rules (the Llama guards emit labels autoregressively; ShieldGemma 2 blocks above a 0.5 policy-violation probability; the source documents no matched operating-point calibration, so M-ladder threshold comparability is unchanged). ShieldGemma 2's text-item bits are deterministic passes as committed and documented upstream, which is why its text column is zero — an explicit released outcome, not missing data. Strata are computed exactly as released and never folded; file totals are sums of the bound strata and carry no additional content. Computed by scripts/reanalyze_msbench.py from scripts/mjgd_reference.py; the expected block below is what CI re-asserts against the downloaded, hash-verified files.",
   "fw:falsifier": "Recomputing from the bound, hash-verified files yields any count different from the expected block, or any pinned file no longer matches its recorded sha256, or any recomputed quantity that overlaps the release's printed metrics disagrees with the printed value, or the committed blocked columns are shown not to be the named guards' verdicts.",
   "fw:consequence": "REJECT",
@@ -133,9 +133,9 @@
     "the counts are about the committed verdict bytes; the release's own changelog documents that ShieldGemma 2's image scores are sensitive to the text-rendering stack, so nothing here predicts what any guard would do under a different rendering environment",
     "the zero three-guard image all-zero-bit count is a counting fact about these 200 released image items, not evidence of general image attack safety"
   ],
-  "fw:lastReviewed": "2026-08-31",
+  "fw:lastReviewed": "2026-11-02",
   "fw:reviewWindow": "P60D",
-  "fw:warrantExpires": "2026-10-30",
+  "fw:warrantExpires": "2027-01-01",
   "fw:evidentialStatus": "supported_within_scope",
   "fw:supportUrl": {
     "@id": "https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run"
@@ -254,7 +254,7 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
 </div>
 <header class="page">
   <div class="container">
-    <p class="eyebrow mono"><span>MC-004</span><span>Warrant reviewed 2026-08-31 · expires 2026-10-30</span></p>
+    <p class="eyebrow mono"><span>MC-004</span><span>Warrant reviewed 2026-11-02 · expires 2027-01-01</span></p>
     <h1 class="q">Multimodal Safeguard Bench, recomputed from per-item verdicts</h1>
     <p class="standfirst">On the per-item guard-verdict files publicly released with Multimodal Safeguard Bench&#x27;s full_run (pinned commit below; six verdict files and the release&#x27;s two printed-metric files hash-verified), the three guards — Llama Guard 4, Llama Guard 3 Vision, ShieldGemma 2 — have harness-normalized native `unsafe` labels whose static Boolean OR is 1 on 192 of 200 harmful-labelled text items (8 all-zero rows, 4.0%) and all 200 harmful-labelled image items (0 all-zero rows), while the same OR is 1 on 32 of 250 benign-labelled text items (12.8%) and every one of 250 benign-labelled image items. Llama Guard 3 Vision alone has a 1-bit on all 250 released benign image items. The complete 2^3 native-label pattern table, leave-one-out bit ORs, and unique bit contributions for each released stratum are bound below. The release prints per-guard metrics and two two-guard compositions; it prints no three-guard bit OR, no all-zero-row count, no leave-one-out table, and no pattern decomposition — and every recomputed quantity that overlaps what it does print is asserted equal to the printed value.</p>
   </div>
@@ -285,8 +285,8 @@ footer{border-top:1px solid var(--line);margin-top:3.5rem;padding:2rem 0 3rem;co
     <div class="glabel"><span class="gno">05</span><span class="gname">Binding and freshness</span></div>
     <dl class="meta-grid">
       <dt>Binding</dt><dd><a class="u" href="https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run"><code>PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run @ fb6f32e6</code></a><br><span class="empty-list">Six guard-verdict JSONL files are the data inputs; metrics.json and ensemble.json are additionally pinned because the reproduction script asserts agreement with every overlapping printed value. All eight sha256 hashes are recorded in scripts/reanalyze_msbench.py and verified before a single count is taken.</span></dd>
-      <dt>Reviewed</dt><dd>2026-08-31 · window 60 days</dd>
-      <dt>Expires</dt><dd>2026-10-30 — after this date the recorded review is overdue; this does not make the claim false</dd>
+      <dt>Reviewed</dt><dd>2026-11-02 · window 60 days</dd>
+      <dt>Expires</dt><dd>2027-01-01 — after this date the recorded review is overdue; this does not make the claim false</dd>
       <dt>Triggers</dt><dd><ul class="trg"><li><span class="mono tag tag-exec">executable</span> fires when a bound verdict file on the default branch changes (6 bound sources)</li><li><span class="mono tag tag-exec">executable</span> fires when the release&#x27;s printed per-guard metrics change</li><li><span class="mono tag tag-exec">executable</span> fires when the release&#x27;s printed composition metrics change</li><li><span class="mono tag tag-exec">executable</span> fires when the guards&#x27; native adapter semantics change</li><li><span class="mono tag tag-exec">executable</span> fires when the harness label-to-block action changes</li><li><span class="mono tag tag-exec">executable</span> fires when the stated route or operating-point semantics change</li><li><span class="mono tag tag-manual">manual</span> the authors publish a corrected or extended full_run, print their own three-guard joint statistics, document a matched operating-point calibration, or publish a source-defined translation from all native predicates to one shared catch event</li></ul></dd>
       <dt>Dimensions</dt><dd><span class="dims"><span class="dim"><span class="dim-k">visibility</span>Public</span><span class="dim"><span class="dim-k">provenance</span>Machine-generated, owner-executed</span><span class="dim"><span class="dim-k">support role</span>Executed output</span><span class="dim"><span class="dim-k">maturity</span>Experimental</span></span></dd>
     </dl>

@@ -50,7 +50,7 @@
 #                           explicit finding that no meaningful rescue applies
 
 version: "0.4"
-last_owner_review: "2026-10-24"
+last_owner_review: "2026-11-02"
 
 claims:
   - id: CC-001
@@ -659,7 +659,7 @@ claims:
         "11101": 18
         "11110": 0
         "11111": 9
-    last_reviewed: "2026-08-28"
+    last_reviewed: "2026-11-02"
     review_window_days: 60
     review_triggers:
       - type: remote_content_change
@@ -763,7 +763,7 @@ claims:
         langkit: [0, 3]
         nemo: [0, 21]
         llm_guard: [0, 0]
-    last_reviewed: "2026-08-30"
+    last_reviewed: "2026-11-02"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
@@ -938,7 +938,7 @@ claims:
           lg4+lg3v: 33
           lg3v+sg2: 15
           lg4+lg3v+sg2: 8
-    last_reviewed: '2026-08-31'
+    last_reviewed: '2026-11-02'
     review_window_days: 60
     review_triggers:
       - type: remote_content_change
