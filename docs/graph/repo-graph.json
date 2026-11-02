@@ -5410,14 +5410,6 @@
  },
  "findings": [
   {
-   "detector": "D2",
-   "generator": "scripts/generate_sitemap.py",
-   "severity": "FIX",
-   "tail": [
-    "Run: python scripts/generate_sitemap.py"
-   ]
-  },
-  {
    "claim": "REL-001",
    "days_left": 14,
    "detector": "D3",
@@ -5529,6 +5521,13 @@
    "ahead": 1,
    "behind": 84,
    "branch": "claude/k1-hold",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "claude/mc-002-004-review-2026-11-02",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -5840,7 +5839,7 @@
  ],
  "generated_from": {
   "branch": "claude/mc-002-004-review-2026-11-02",
-  "head": "9f617d1"
+  "head": "052aa29"
  },
  "nodes": [
   {
@@ -6905,12 +6904,12 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 0,
+   "ahead_of_origin_main": 1,
    "behind_origin_main": 0,
-   "head": "9f617d1",
+   "head": "052aa29",
    "id": "claude/mc-002-004-review-2026-11-02",
-   "last_commit": "2026-10-24",
-   "reachable_from_origin_main": true,
+   "last_commit": "2026-11-02",
+   "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
