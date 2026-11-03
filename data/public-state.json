@@ -26,14 +26,6 @@
       "kind": "publication-promise"
     },
     {
-      "id": "MC-001",
-      "title": "MC-001 evidence review",
-      "due": "2026-11-13",
-      "source": "/claims/mc-001/",
-      "kind": "claim-review",
-      "evidential_status": "supported_within_scope"
-    },
-    {
       "id": "REL-001",
       "title": "REL-001 evidence review",
       "due": "2026-11-16",
@@ -110,6 +102,14 @@
       "title": "SITE-001 evidence review",
       "due": "2026-12-29",
       "source": "/claims/site-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "MC-001",
+      "title": "MC-001 evidence review",
+      "due": "2027-01-01",
+      "source": "/claims/mc-001/",
       "kind": "claim-review",
       "evidential_status": "supported_within_scope"
     },

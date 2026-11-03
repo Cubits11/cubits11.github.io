@@ -2,8 +2,8 @@
  "film": "the-missing-column-census",
  "format": "vertical",
  "title": "The Missing Column, Counted",
- "rendered_from_head": "c8c85399f7ff2a83710c966a9096f93f69c0c106",
- "rendered_on": "2026-10-17",
+ "rendered_from_head": "87876952c52327ddfa30cc5ce42d3fe348e49c8f",
+ "rendered_on": "2026-11-02",
  "inputs": {
   "film.html": "556d2d45959e360ad9066ddb4f45d5fa97df4a701577f39a0a61dba2011f1db9",
   "films/lib/film.js": "62648bbc6b91a5b7f5748633cc38d691152005976a5c18b63463711c2c2ff5fb",
@@ -13,7 +13,7 @@
   "file": "films/data/facts.json",
   "over": "facts_used",
   "rule": "sha256 of canonical JSON {fact_id: value} over facts_used (sorted keys, separators ',' ':', ASCII)",
-  "sha256": "287a6bdb77d9ac3cee2c3af732d75b49a2ca367788590acab73296fbed130b26"
+  "sha256": "5511960340424c4215fe6557160a0d6efb50f040249bac0751401edacd51182d"
  },
  "capture": {
   "method": "canvas-png",
@@ -21,7 +21,7 @@
   "pixel_equivalent": true
  },
  "runtime": {
-  "chrome": "155.0.8059.82",
+  "chrome": "156.0.8078.80",
   "ffmpeg": "ffmpeg-macos-aarch64-v7.1",
   "crf": 20
  },
@@ -44,7 +44,7 @@
  },
  "width": 1080,
  "height": 1920,
- "frames_digest": "0802bccda9af7767381c3fd7fe70169a5bf371f231c6f2be011c5759ed1a2c2f",
+ "frames_digest": "86cff33e92f0973187381fca53b14544b965359930b396c232403736b5d1f81e",
  "determinism": {
   "sampled_frames": 5,
   "identical": true
@@ -72,8 +72,8 @@
  ],
  "outputs": {
   "master": "renders/the-missing-column-census__vertical.mp4",
-  "master_sha256": "ab5af813baa9e7d4d9074363812b7bbbcf8875cb0c772dc999665e7a877797c8",
-  "master_bytes": 717591,
+  "master_sha256": "e1ab8ce89182b22a4a6d7058aa14782ea606cc405b01dfdb1e42c0559491431e",
+  "master_bytes": 717705,
   "master_duration_probe_s": 40.03,
   "poster": "renders/the-missing-column-census__vertical.poster.png",
   "poster_t": 23.5,
@@ -115,5 +115,5 @@
    "renders/stills/phone-vertical-claim-03.jpg"
   ]
  },
- "render_seconds": 55.6
+ "render_seconds": 41.0
 }

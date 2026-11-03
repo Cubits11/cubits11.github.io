@@ -494,15 +494,21 @@ claims:
         shared_basis: 14
         threshold_not_contradicted: 12
         threshold_documented_full_exposure: 0
-    last_reviewed: "2026-09-14"
+    last_reviewed: "2026-11-02"
     review_window_days: 60
     review_triggers:
       - type: local_content_change
         enforcement: executable
         path: census.yaml
-        sha256: "68b14081b85e18ca1a7b5bce33bbf38fe3b8dafe876e7329057241404037b425"
+        sha256: "e392c61048ed6b15291661f68cc83d368713dd7bd67e1572beb598a41e828542"
         note: >-
           fires when the census changes without a claim re-review;
+          re-reviewed 2026-11-02 (America/New_York): the only change from the
+          previously pinned bytes is 33 appended entries under
+          unexamined_candidates (weekly sweeps discovered 2026-09-21 to
+          2026-11-02), transported unexamined. All classified content is
+          identical; verify_census.py confirms N/M/K 20/14/5 and M ladder
+          14/12/0. Transport, not verification: no candidate is examined.
           re-reviewed 2026-09-14 (America/New_York), confirming the owner
           report and independently comparing the bytes: the only change from the previously
           pinned bytes is one appended AgentDrift / DriftNet entry under

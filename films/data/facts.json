@@ -1,8 +1,8 @@
 {
  "_generated_by": "scripts/films/bind_facts.py — DO NOT EDIT; regenerate and re-inspect the films",
  "_inputs": {
-  "census.yaml": "68b14081b85e18ca1a7b5bce33bbf38fe3b8dafe876e7329057241404037b425",
-  "claims.yaml": "ebb5887be3009e73cb04e99a12a2d71e4ef9fa8da340b386ad7a1e824211febd"
+  "census.yaml": "e392c61048ed6b15291661f68cc83d368713dd7bd67e1572beb598a41e828542",
+  "claims.yaml": "8aba71177f5dfa3628e27e6e865934fd37a60f6cda31d45641a8e3e07c9243f3"
  },
  "_kinds": [
   "OBSERVED",
@@ -587,7 +587,7 @@
    "claim": "MC-001",
    "kind": "DERIVED",
    "source": "compute_counts: len(unexamined_candidates)",
-   "value": 25
+   "value": 58
   },
   "MC-002.all_miss": {
    "claim": "MC-002",
@@ -1154,10 +1154,10 @@
     {
      "evidential_status": "supported_within_scope",
      "id": "MC-001",
-     "last_reviewed": "2026-09-14",
+     "last_reviewed": "2026-11-02",
      "maturity": "experimental",
      "provenance": "owner_authored",
-     "review_due": "2026-11-13",
+     "review_due": "2027-01-01",
      "review_window_days": 60
     },
     {
