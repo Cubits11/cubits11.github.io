@@ -70,7 +70,8 @@
         "Coverage is limited to the examined set; 58 unexamined candidates remain unknown, not absent.",
         "Declared sensitivity counts remain labeled alternatives to the corrected 20/14/5 counts."
       ],
-      "phone_composition": true
+      "phone_composition": true,
+      "film_note": false
     },
     "what-the-seal-proves": {
       "heading": "What does a receipt actually prove?",
