@@ -76,7 +76,7 @@
       "https://x.com/PranavBhave_"
     ]
   },
-  "dateModified": "2026-10-24",
+  "dateModified": "2026-11-02",
   "dataFeedElement": [
     {
       "@context": [
@@ -1044,7 +1044,7 @@
         "name": "Cubits11 claim registry",
         "url": "https://cubits11.github.io/ledger/"
       },
-      "dateModified": "2026-08-28",
+      "dateModified": "2026-11-02",
       "fw:scopeStatement": "Exactly the released file at the bound commit: 170 of the evaluation's 990 non-adversarial prompts (the study's ~4,165 adversarial prompts have no per-item release), selected by the authors under an unstated rule. Counting arithmetic only, at the vendors' released binary verdicts; no population estimate, no uncertainty interval, and no claim about any system's true rates is offered or licensed. Computed by scripts/reanalyze_bells_subset.py from scripts/mjgd_reference.py; the expected block below is what CI re-asserts against the downloaded, hash-verified file.",
       "fw:falsifier": "Recomputing from the bound, hash-verified file yields any count different from the expected block, or the file at the pinned ref no longer matches the recorded sha256, or the released columns are shown not to be the labelled systems' verdicts.",
       "fw:consequence": "REJECT",
@@ -1061,9 +1061,9 @@
         "the release-recomputed-to-plug-in ratio describes this subset's arithmetic, not a general law of guardrail dependence",
         "not an observed deployed five-guard stack; interpreting this static OR aggregation as a stack requires the separate full-exposure, parallel, fixed-operating-point assumptions"
       ],
-      "fw:lastReviewed": "2026-08-28",
+      "fw:lastReviewed": "2026-11-02",
       "fw:reviewWindow": "P60D",
-      "fw:warrantExpires": "2026-10-27",
+      "fw:warrantExpires": "2027-01-01",
       "fw:evidentialStatus": "supported_within_scope",
       "fw:supportUrl": {
         "@id": "https://github.com/CentreSecuriteIA/bells_leaderboard/blob/507566c5a4606c8e3dec0bd59a5c5fde62594951/data/non_adversarial_prompts.csv"
@@ -1159,7 +1159,7 @@
         "name": "Cubits11 claim registry",
         "url": "https://cubits11.github.io/ledger/"
       },
-      "dateModified": "2026-08-30",
+      "dateModified": "2026-11-02",
       "fw:scopeStatement": "The mathematics is classical — Bonferroni for the lower endpoint, monotonicity for the upper, Fréchet for sharpness — and nothing here claims to have derived it. What is contributed is the application: pricing, in probability units, what marginal-only guardrail reporting leaves undetermined, and identifying leave-one-out unions as a compact privacy-preserving disclosure of exclusive full-stack coverage. They do not identify pairwise or higher-order overlap, Shapley values, or causal structure. Every statement is conditional on block-on-any composition, per-item decisions that are functions of the item alone, a fixed population, full exposure, and a fixed operating point; it says nothing about sequential routes where downstream measurement is censored by upstream blocks, agentic systems where an intervention changes the trajectory, or any vendor's product. The empirical half is one stratum of one author-selected subset: 82 harmful prompts, with 50 benign and 38 borderline held as separate strata and never folded in. It is a BELLS-specific reproduction, not an assertion that BELLS is the census's only per-item outcome release. scripts/reanalyze_bells_subset.py re-computes the BELLS counts from the hash-verified upstream file in CI; scripts/identification.py checks the stated identification transformations against that registered envelope.",
       "fw:falsifier": "A joint law with the stated marginals achieves an all-miss rate outside the interval; an exact finite catch-set arrangement lies outside the stated finite grid or exclusive-coverage bounds; or recomputing from the bound BELLS file yields any count different from the expected block.",
       "fw:consequence": "REJECT",
@@ -1178,9 +1178,9 @@
         "leave-one-out unions identify only exclusive full-stack coverage; they do not identify pairwise or higher-order overlap, Shapley values, or causal contribution",
         "says nothing about adversarial prompts, which dominate the full evaluation and have no per-item release"
       ],
-      "fw:lastReviewed": "2026-08-30",
+      "fw:lastReviewed": "2026-11-02",
       "fw:reviewWindow": "P60D",
-      "fw:warrantExpires": "2026-10-29",
+      "fw:warrantExpires": "2027-01-01",
       "fw:evidentialStatus": "supported_within_scope",
       "fw:supportUrl": {
         "@id": "https://github.com/Cubits11/cubits11.github.io/blob/main/scripts/identification.py"
@@ -1272,7 +1272,7 @@
         "name": "Cubits11 claim registry",
         "url": "https://cubits11.github.io/ledger/"
       },
-      "dateModified": "2026-08-31",
+      "dateModified": "2026-11-02",
       "fw:scopeStatement": "Exactly the six committed verdict files of the full_run directory at the bound commit: 400 harmful and 500 benign items, each stratum half text and half image, one Boolean `blocked` adapter bit per item per guard. Let L be the release's harmful/benign label, A_s each guard's native `unsafe` predicate, B_s the harness mapping of that predicate to `blocked`, and O = OR_s B_s. The bound arithmetic reports B and O conditional on L. Because the harness uses `blocked` items to suppress target generation, O is also a valid counterfactual harness-block decision for these released rows under a fixed block-on-any rule. It does not establish a source-defined translation from every A_s to one shared catch event E: Llama Guard 3 Vision is a multimodal prompt/response classifier, while ShieldGemma 2 is an image-only three-policy classifier, and the pipeline merely maps each native `unsafe` label to `blocked`. Counting arithmetic only, at the guards' released native operating rules (the Llama guards emit labels autoregressively; ShieldGemma 2 blocks above a 0.5 policy-violation probability; the source documents no matched operating-point calibration, so M-ladder threshold comparability is unchanged). ShieldGemma 2's text-item bits are deterministic passes as committed and documented upstream, which is why its text column is zero — an explicit released outcome, not missing data. Strata are computed exactly as released and never folded; file totals are sums of the bound strata and carry no additional content. Computed by scripts/reanalyze_msbench.py from scripts/mjgd_reference.py; the expected block below is what CI re-asserts against the downloaded, hash-verified files.",
       "fw:falsifier": "Recomputing from the bound, hash-verified files yields any count different from the expected block, or any pinned file no longer matches its recorded sha256, or any recomputed quantity that overlaps the release's printed metrics disagrees with the printed value, or the committed blocked columns are shown not to be the named guards' verdicts.",
       "fw:consequence": "REJECT",
@@ -1293,9 +1293,9 @@
         "the counts are about the committed verdict bytes; the release's own changelog documents that ShieldGemma 2's image scores are sensitive to the text-rendering stack, so nothing here predicts what any guard would do under a different rendering environment",
         "the zero three-guard image all-zero-bit count is a counting fact about these 200 released image items, not evidence of general image attack safety"
       ],
-      "fw:lastReviewed": "2026-08-31",
+      "fw:lastReviewed": "2026-11-02",
       "fw:reviewWindow": "P60D",
-      "fw:warrantExpires": "2026-10-30",
+      "fw:warrantExpires": "2027-01-01",
       "fw:evidentialStatus": "supported_within_scope",
       "fw:supportUrl": {
         "@id": "https://github.com/PatrickKollman/Multimodal-Safeguard-Bench/tree/fb6f32e6b50b6faad833b815ebcd80afd2068bff/results/full_run"

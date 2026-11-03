@@ -26,30 +26,6 @@
       "kind": "publication-promise"
     },
     {
-      "id": "MC-002",
-      "title": "MC-002 evidence review",
-      "due": "2026-10-27",
-      "source": "/claims/mc-002/",
-      "kind": "claim-review",
-      "evidential_status": "supported_within_scope"
-    },
-    {
-      "id": "MC-003",
-      "title": "MC-003 evidence review",
-      "due": "2026-10-29",
-      "source": "/claims/mc-003/",
-      "kind": "claim-review",
-      "evidential_status": "supported_within_scope"
-    },
-    {
-      "id": "MC-004",
-      "title": "MC-004 evidence review",
-      "due": "2026-10-30",
-      "source": "/claims/mc-004/",
-      "kind": "claim-review",
-      "evidential_status": "supported_within_scope"
-    },
-    {
       "id": "MC-001",
       "title": "MC-001 evidence review",
       "due": "2026-11-13",
@@ -134,6 +110,30 @@
       "title": "SITE-001 evidence review",
       "due": "2026-12-29",
       "source": "/claims/site-001/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "MC-002",
+      "title": "MC-002 evidence review",
+      "due": "2027-01-01",
+      "source": "/claims/mc-002/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "MC-003",
+      "title": "MC-003 evidence review",
+      "due": "2027-01-01",
+      "source": "/claims/mc-003/",
+      "kind": "claim-review",
+      "evidential_status": "supported_within_scope"
+    },
+    {
+      "id": "MC-004",
+      "title": "MC-004 evidence review",
+      "due": "2027-01-01",
+      "source": "/claims/mc-004/",
       "kind": "claim-review",
       "evidential_status": "supported_within_scope"
     },
