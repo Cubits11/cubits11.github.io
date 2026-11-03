@@ -20,9 +20,9 @@
     "sources": [
       {
         "path": "claims.yaml",
-        "sha256": "ebb5887be3009e73cb04e99a12a2d71e4ef9fa8da340b386ad7a1e824211febd",
-        "commit": "052aa29ec369cd4b302d3d3aea7ca1254df2204f",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/052aa29ec369cd4b302d3d3aea7ca1254df2204f/claims.yaml",
+        "sha256": "8aba71177f5dfa3628e27e6e865934fd37a60f6cda31d45641a8e3e07c9243f3",
+        "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/claims.yaml",
         "binding": "committed"
       },
       {
@@ -87,7 +87,7 @@
       "no automated replies"
     ],
     "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-    "revision": "830eb0591c46f6494ef20746c04a899831d4b667419ea24e0ce2395132eb2ee3"
+    "revision": "7e41adaa5e5de27239eed264cf6ee908407c5cc18a69c01eb76c5d9d6d8e867f"
   },
   {
     "id": "try-b",
@@ -111,9 +111,9 @@
     "sources": [
       {
         "path": "claims.yaml",
-        "sha256": "ebb5887be3009e73cb04e99a12a2d71e4ef9fa8da340b386ad7a1e824211febd",
-        "commit": "052aa29ec369cd4b302d3d3aea7ca1254df2204f",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/052aa29ec369cd4b302d3d3aea7ca1254df2204f/claims.yaml",
+        "sha256": "8aba71177f5dfa3628e27e6e865934fd37a60f6cda31d45641a8e3e07c9243f3",
+        "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/claims.yaml",
         "binding": "committed"
       },
       {
@@ -186,7 +186,7 @@
       "no automated replies"
     ],
     "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-    "revision": "a86242b325da2710f3025fa76f7c4231f25a6825d91ffb1d5129b2c4a441a34e"
+    "revision": "5f3f6974e2e7f69c8d1134232c0fbd0a159cfc38d25a3cc7311194ca90985c50"
   },
   {
     "id": "try-c",
@@ -206,9 +206,9 @@
     "sources": [
       {
         "path": "claims.yaml",
-        "sha256": "ebb5887be3009e73cb04e99a12a2d71e4ef9fa8da340b386ad7a1e824211febd",
-        "commit": "052aa29ec369cd4b302d3d3aea7ca1254df2204f",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/052aa29ec369cd4b302d3d3aea7ca1254df2204f/claims.yaml",
+        "sha256": "8aba71177f5dfa3628e27e6e865934fd37a60f6cda31d45641a8e3e07c9243f3",
+        "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/claims.yaml",
         "binding": "committed"
       },
       {
@@ -234,16 +234,16 @@
       },
       {
         "path": "census.yaml",
-        "sha256": "68b14081b85e18ca1a7b5bce33bbf38fe3b8dafe876e7329057241404037b425",
-        "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/census.yaml",
+        "sha256": "e392c61048ed6b15291661f68cc83d368713dd7bd67e1572beb598a41e828542",
+        "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/census.yaml",
         "binding": "committed"
       },
       {
         "path": "films/the-missing-column-census/manifest.yaml",
-        "sha256": "5abaf8574cb481bf2f29701853db1242d300b955ca77410e0f6e3e17f22f2760",
-        "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/the-missing-column-census/manifest.yaml",
+        "sha256": "b48ba2b47bee739eb884a6751a67de521a451605f42d952feeb6c9858a14aef7",
+        "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/films/the-missing-column-census/manifest.yaml",
         "binding": "committed"
       }
     ],
@@ -280,7 +280,7 @@
       "no automated replies"
     ],
     "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-    "revision": "524ebd0e48c04aea86154bd0ad11a5aa8a1ad4a6649b371ac3b967b89ac943ac"
+    "revision": "90f7f96d4f36b0d2ab720c3d69cdde6b390321f7e0cdcc4b9799fbb1491dcbcc"
   },
   {
     "id": "show-overlap",
@@ -319,9 +319,9 @@
     "sources": [
       {
         "path": "claims.yaml",
-        "sha256": "ebb5887be3009e73cb04e99a12a2d71e4ef9fa8da340b386ad7a1e824211febd",
-        "commit": "052aa29ec369cd4b302d3d3aea7ca1254df2204f",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/052aa29ec369cd4b302d3d3aea7ca1254df2204f/claims.yaml",
+        "sha256": "8aba71177f5dfa3628e27e6e865934fd37a60f6cda31d45641a8e3e07c9243f3",
+        "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/claims.yaml",
         "binding": "committed"
       },
       {
@@ -354,9 +354,9 @@
       },
       {
         "path": "corrections/index.html",
-        "sha256": "921d8ed980e56f96d9c352cf8a06efb775b5f1720fdff2b0297c3e58567f6335",
-        "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
-        "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/corrections/index.html",
+        "sha256": "86c6d1fbf0e9a15482f9d8693435424436d47e86b146133df1d593a73fced248",
+        "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+        "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/corrections/index.html",
         "binding": "committed"
       },
       {
@@ -393,6 +393,6 @@
     "scheduled_at": null,
     "attribution_url": "https://cubits11.github.io/overlap/",
     "rank_basis": "constructed example; no disputed empirical headline",
-    "revision": "8f77b7ec640f0de7e3392e082c620fbf84071ff289b0ad73a0dd55e543468dc7"
+    "revision": "5371c981c162397f6ff1af0a0e65cc8751b4fea38f660cdf2e6695a5375da3e6"
   }
 ]
