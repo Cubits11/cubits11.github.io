@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Queue a verified local cycle commit through protected-main review and CI.
 
-This never dispatches outreach or edits evidence. GitHub auto-merge is subject
-to the repository's existing required checks and review rules.
+This never dispatches outreach or edits evidence, and it never enables
+auto-merge: the owner merges after the repository's required checks.
 """
 import argparse
 import json
@@ -34,7 +34,7 @@ def request(path, payload):
     except urllib.error.HTTPError as exc:
         raise RuntimeError(f'GitHub refused repository update: HTTP {exc.code}') from None
     if result.get('errors'):
-        raise RuntimeError('GitHub refused auto-merge; pull request remains available for review')
+        raise RuntimeError('GitHub refused the pull request; the commit remains on its branch')
     return result
 
 
@@ -54,11 +54,8 @@ def queue(branch):
                 'The local verification manifest passed before this commit. '
                 'Missing observations remain missing. Required CI checks gate the merge.'})
     print('Queued repository update: ' + pr['html_url'])
-    # Preserve the merge commit: derived provenance may bind original commits.
-    request('/graphql', {'query': 'mutation($id:ID!){enablePullRequestAutoMerge(input:{pullRequestId:$id,mergeMethod:MERGE}){pullRequest{id}}}',
-                         'variables': {'id': pr['node_id']}})
     git('checkout', 'main')
-    print('Auto-merge requested subject to required checks; returned to main')
+    print('Pull request opened for the owner to merge; returned to main')
 
 
 if __name__ == '__main__':
