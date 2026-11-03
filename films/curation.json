@@ -67,7 +67,7 @@
       "limits": [
         "An unfilled reporting column does not show poor guardrail performance or establish that the unknown joint statistics would reveal dependence.",
         "The census records reporting fields, not the quality or scores of each per-system evaluation.",
-        "Coverage is limited to the examined set; 25 unexamined candidates remain unknown, not absent.",
+        "Coverage is limited to the examined set; 58 unexamined candidates remain unknown, not absent.",
         "Declared sensitivity counts remain labeled alternatives to the corrected 20/14/5 counts."
       ],
       "phone_composition": true

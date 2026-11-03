@@ -1,8 +1,8 @@
 {
  "_generated_by": "scripts/films/bind_facts.py — DO NOT EDIT; regenerate and re-inspect the films",
  "_inputs": {
-  "census.yaml": "68b14081b85e18ca1a7b5bce33bbf38fe3b8dafe876e7329057241404037b425",
-  "claims.yaml": "45790a72bbccd9bafb0d297d5128d59e357e3ef759e18f03733482cef621a004"
+  "census.yaml": "e392c61048ed6b15291661f68cc83d368713dd7bd67e1572beb598a41e828542",
+  "claims.yaml": "8aba71177f5dfa3628e27e6e865934fd37a60f6cda31d45641a8e3e07c9243f3"
  },
  "_kinds": [
   "OBSERVED",
@@ -587,7 +587,7 @@
    "claim": "MC-001",
    "kind": "DERIVED",
    "source": "compute_counts: len(unexamined_candidates)",
-   "value": 25
+   "value": 58
   },
   "MC-002.all_miss": {
    "claim": "MC-002",
@@ -1154,37 +1154,37 @@
     {
      "evidential_status": "supported_within_scope",
      "id": "MC-001",
-     "last_reviewed": "2026-09-14",
+     "last_reviewed": "2026-11-02",
      "maturity": "experimental",
      "provenance": "owner_authored",
-     "review_due": "2026-11-13",
+     "review_due": "2027-01-01",
      "review_window_days": 60
     },
     {
      "evidential_status": "supported_within_scope",
      "id": "MC-002",
-     "last_reviewed": "2026-08-28",
+     "last_reviewed": "2026-11-02",
      "maturity": "experimental",
      "provenance": "machine_generated_owner_executed",
-     "review_due": "2026-10-27",
+     "review_due": "2027-01-01",
      "review_window_days": 60
     },
     {
      "evidential_status": "supported_within_scope",
      "id": "MC-003",
-     "last_reviewed": "2026-08-30",
+     "last_reviewed": "2026-11-02",
      "maturity": "experimental",
      "provenance": "machine_generated_owner_executed",
-     "review_due": "2026-10-29",
+     "review_due": "2027-01-01",
      "review_window_days": 60
     },
     {
      "evidential_status": "supported_within_scope",
      "id": "MC-004",
-     "last_reviewed": "2026-08-31",
+     "last_reviewed": "2026-11-02",
      "maturity": "experimental",
      "provenance": "machine_generated_owner_executed",
-     "review_due": "2026-10-30",
+     "review_due": "2027-01-01",
      "review_window_days": 60
     },
     {
@@ -1291,7 +1291,7 @@
   "REGISTRY.last_owner_review": {
    "kind": "REGISTRY",
    "source": "claims.yaml:last_owner_review",
-   "value": "2026-10-24"
+   "value": "2026-11-02"
   },
   "REGISTRY.version": {
    "kind": "REGISTRY",

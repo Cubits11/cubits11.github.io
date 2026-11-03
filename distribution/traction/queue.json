@@ -29,9 +29,9 @@
       "sources": [
         {
           "path": "claims.yaml",
-          "sha256": "45790a72bbccd9bafb0d297d5128d59e357e3ef759e18f03733482cef621a004",
-          "commit": "8fc919c94548f48a5a4026a058e267377193c0a0",
-          "url": "https://github.com/Cubits11/cubits11.github.io/blob/8fc919c94548f48a5a4026a058e267377193c0a0/claims.yaml",
+          "sha256": "8aba71177f5dfa3628e27e6e865934fd37a60f6cda31d45641a8e3e07c9243f3",
+          "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/claims.yaml",
           "binding": "committed"
         },
         {
@@ -96,7 +96,7 @@
         "no automated replies"
       ],
       "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-      "revision": "119161f5c94be04883eacf74e0649956f4fe26d5dde785f05859adf2564dd875",
+      "revision": "7e41adaa5e5de27239eed264cf6ee908407c5cc18a69c01eb76c5d9d6d8e867f",
       "approval": null
     },
     {
@@ -121,9 +121,9 @@
       "sources": [
         {
           "path": "claims.yaml",
-          "sha256": "45790a72bbccd9bafb0d297d5128d59e357e3ef759e18f03733482cef621a004",
-          "commit": "8fc919c94548f48a5a4026a058e267377193c0a0",
-          "url": "https://github.com/Cubits11/cubits11.github.io/blob/8fc919c94548f48a5a4026a058e267377193c0a0/claims.yaml",
+          "sha256": "8aba71177f5dfa3628e27e6e865934fd37a60f6cda31d45641a8e3e07c9243f3",
+          "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/claims.yaml",
           "binding": "committed"
         },
         {
@@ -196,7 +196,7 @@
         "no automated replies"
       ],
       "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-      "revision": "068db07442ba1185d3ba315eaf47dff9ee5d3f3282249d9191908b00c917a680",
+      "revision": "5f3f6974e2e7f69c8d1134232c0fbd0a159cfc38d25a3cc7311194ca90985c50",
       "approval": null
     },
     {
@@ -217,9 +217,9 @@
       "sources": [
         {
           "path": "claims.yaml",
-          "sha256": "45790a72bbccd9bafb0d297d5128d59e357e3ef759e18f03733482cef621a004",
-          "commit": "8fc919c94548f48a5a4026a058e267377193c0a0",
-          "url": "https://github.com/Cubits11/cubits11.github.io/blob/8fc919c94548f48a5a4026a058e267377193c0a0/claims.yaml",
+          "sha256": "8aba71177f5dfa3628e27e6e865934fd37a60f6cda31d45641a8e3e07c9243f3",
+          "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/claims.yaml",
           "binding": "committed"
         },
         {
@@ -245,16 +245,16 @@
         },
         {
           "path": "census.yaml",
-          "sha256": "68b14081b85e18ca1a7b5bce33bbf38fe3b8dafe876e7329057241404037b425",
-          "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
-          "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/census.yaml",
+          "sha256": "e392c61048ed6b15291661f68cc83d368713dd7bd67e1572beb598a41e828542",
+          "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/census.yaml",
           "binding": "committed"
         },
         {
           "path": "films/the-missing-column-census/manifest.yaml",
-          "sha256": "5abaf8574cb481bf2f29701853db1242d300b955ca77410e0f6e3e17f22f2760",
-          "commit": "2949acd763693c5446ed3a54a6d1644f2af4be51",
-          "url": "https://github.com/Cubits11/cubits11.github.io/blob/2949acd763693c5446ed3a54a6d1644f2af4be51/films/the-missing-column-census/manifest.yaml",
+          "sha256": "b48ba2b47bee739eb884a6751a67de521a451605f42d952feeb6c9858a14aef7",
+          "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/films/the-missing-column-census/manifest.yaml",
           "binding": "committed"
         }
       ],
@@ -291,7 +291,7 @@
         "no automated replies"
       ],
       "rank_basis": "existing reproducible route; source order; no audience-performance evidence",
-      "revision": "baa408ffaa6666e6bbf13fad53a74ca370c7376f0256ea70e2f4c74010a21109",
+      "revision": "90f7f96d4f36b0d2ab720c3d69cdde6b390321f7e0cdcc4b9799fbb1491dcbcc",
       "approval": null
     },
     {
@@ -331,9 +331,9 @@
       "sources": [
         {
           "path": "claims.yaml",
-          "sha256": "45790a72bbccd9bafb0d297d5128d59e357e3ef759e18f03733482cef621a004",
-          "commit": "8fc919c94548f48a5a4026a058e267377193c0a0",
-          "url": "https://github.com/Cubits11/cubits11.github.io/blob/8fc919c94548f48a5a4026a058e267377193c0a0/claims.yaml",
+          "sha256": "8aba71177f5dfa3628e27e6e865934fd37a60f6cda31d45641a8e3e07c9243f3",
+          "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/claims.yaml",
           "binding": "committed"
         },
         {
@@ -366,9 +366,9 @@
         },
         {
           "path": "corrections/index.html",
-          "sha256": "921d8ed980e56f96d9c352cf8a06efb775b5f1720fdff2b0297c3e58567f6335",
-          "commit": "48e98e44be87497bcd0c4c650e8123efde98c625",
-          "url": "https://github.com/Cubits11/cubits11.github.io/blob/48e98e44be87497bcd0c4c650e8123efde98c625/corrections/index.html",
+          "sha256": "86c6d1fbf0e9a15482f9d8693435424436d47e86b146133df1d593a73fced248",
+          "commit": "5797caf73fcd7b7c5819cd97466413419ec980ac",
+          "url": "https://github.com/Cubits11/cubits11.github.io/blob/5797caf73fcd7b7c5819cd97466413419ec980ac/corrections/index.html",
           "binding": "committed"
         },
         {
@@ -405,7 +405,7 @@
       "scheduled_at": null,
       "attribution_url": "https://cubits11.github.io/overlap/",
       "rank_basis": "constructed example; no disputed empirical headline",
-      "revision": "6efe64e118fffd5e8bd7bf0d519fa6f0e9e182c416308bc07c3baddbc6bf0533",
+      "revision": "5371c981c162397f6ff1af0a0e65cc8751b4fea38f660cdf2e6695a5375da3e6",
       "approval": null
     }
   ]
