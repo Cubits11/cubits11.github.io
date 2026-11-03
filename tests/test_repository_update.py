@@ -9,7 +9,7 @@ import queue_repository_update as update
 
 
 class RepositoryUpdate(unittest.TestCase):
-    def test_queue_requests_merge_commit_and_returns_to_main(self):
+    def test_queue_opens_pull_request_without_auto_merge_and_returns_to_main(self):
         branch = 'claude/cycle-cadence-fixture'
         calls = []
         def git(*args):
@@ -18,12 +18,14 @@ class RepositoryUpdate(unittest.TestCase):
                     ('remote', 'get-url', '--push', 'origin'): 'https://github.com/Cubits11/cubits11.github.io.git',
                     ('log', '-1', '--format=%s'): 'cadence: fixture'}.get(args, '')
         with patch.object(update, 'git', git), patch.object(update, 'request') as request:
-            request.side_effect = [{'html_url': 'https://github.com/example/pr/1', 'node_id': 'PR_fixture'}, {}]
+            request.side_effect = [{'html_url': 'https://github.com/example/pr/1', 'node_id': 'PR_fixture'}]
             update.queue(branch)
         self.assertIn(('push', '-u', 'origin', 'HEAD:refs/heads/' + branch), calls)
         self.assertNotIn(('push', 'origin', 'main'), calls)
         self.assertEqual(calls[-1], ('checkout', 'main'))
-        self.assertIn('mergeMethod:MERGE', request.call_args.args[1]['query'])
+        self.assertEqual(request.call_count, 1)
+        self.assertEqual(request.call_args.args[0], '/repos/Cubits11/cubits11.github.io/pulls')
+        self.assertNotIn('enablePullRequestAutoMerge', repr(request.call_args_list))
 
     def test_wrong_branch_or_dirty_tree_refuses_without_network(self):
         for actual, status in [('main', ''), ('claude/cycle-fixture', ' M evidence')]:
