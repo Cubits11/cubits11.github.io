@@ -5410,14 +5410,6 @@
  },
  "findings": [
   {
-   "detector": "D2",
-   "generator": "scripts/generate_sitemap.py",
-   "severity": "FIX",
-   "tail": [
-    "Run: python scripts/generate_sitemap.py"
-   ]
-  },
-  {
    "claim": "REL-001",
    "days_left": 14,
    "detector": "D3",
@@ -5501,6 +5493,13 @@
    "ahead": 1,
    "behind": 69,
    "branch": "census/candidates-2026-10",
+   "detector": "D4",
+   "severity": "TOPOLOGY"
+  },
+  {
+   "ahead": 1,
+   "behind": 0,
+   "branch": "claude/census-transport-2026-11-02",
    "detector": "D4",
    "severity": "TOPOLOGY"
   },
@@ -5833,7 +5832,7 @@
  ],
  "generated_from": {
   "branch": "claude/census-transport-2026-11-02",
-  "head": "8787695"
+  "head": "5797caf"
  },
  "nodes": [
   {
@@ -6826,12 +6825,12 @@
    "type": "branch"
   },
   {
-   "ahead_of_origin_main": 0,
+   "ahead_of_origin_main": 1,
    "behind_origin_main": 0,
-   "head": "8787695",
+   "head": "5797caf",
    "id": "claude/census-transport-2026-11-02",
    "last_commit": "2026-11-02",
-   "reachable_from_origin_main": true,
+   "reachable_from_origin_main": false,
    "type": "branch"
   },
   {
