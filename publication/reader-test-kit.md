@@ -1,6 +1,6 @@
 # Five unfamiliar readers — owner-run test
 
-Status: NOT RUN. Publication remains blocked. No participant results have been supplied.
+Status: RETIRED 2026-11-13 by owner decision. This kit no longer gates publication, and nothing reads it. The site ships without a reader test; no replacement approval step exists. Zero participant records were collected under it. The `--bind` and `--template` commands named below were removed from `scripts/publication_gate.py` with the gate. The decision, the dates the rule was in force, and what it does not license are recorded under `reader_test` in `publication/readiness.json`. The text below is kept unchanged as the record of what the rule asked.
 
 The owner will recruit and run this test. Use five distinct people who have not seen this site, its films, this repair discussion, or the answer criteria. They must be humans; assistants and agents do not count. Keep all five results, including failures. Do not replace a failed reader after seeing an answer.
 
