@@ -1,7 +1,5 @@
 {
   "schema_version": 1,
-  "status": "BLOCKED",
-  "status_note": "Draft candidate. No unfamiliar-reader evidence has been collected and the external title has not been published.",
   "title": {
     "target": "What AI Guardrail Scores Cannot Tell You",
     "project": "Cubits11/ghost-visualizer",
@@ -33,49 +31,26 @@
       "inspection_note": "Merged to Cubits11/ghost-visualizer main as bf8d87b (PR #1) on 2026-10-17. index.html <title> and CinematicShell.tsx <h1> were read at that revision through the GitHub contents API, and all four title source files hash identically to the prepared sources above. GV-001 was re-pinned to it in cubits11.github.io PR #30 (842e06d). Owner attestation still required: set status to owner_verified_published, with verified_by and verified_on."
     }
   },
-  "protocol": {
-    "status": "CONFIRMED",
-    "confirmation_source": "Owner instructions in the active chat, 2026-10-17: \"fix the kit to Missing Column, Counted (not trailer)\", then \"Rewrite the criterion. Do not keep the trailer, and do not keep the shared-misses criterion on Counted.\" Supersedes the earlier trailer selection and the shared-misses task.",
-    "sample_size": 5,
-    "minimum_successes_per_task": 4,
-    "homepage_seconds": 20,
-    "film": "the-missing-column-census",
-    "film_selection": "The Missing Column, Counted (the census film, 40 s). It shows that most examined public evaluations do not record what happened to both guards on the same item: 14 of 20 lack the joint column, 5 of 20 keep some joint evidence, 0 at matched thresholds with full exposure. The film task tests that, not the shared-misses construction, which this film does not show.",
-    "tasks": [
-      "homepage_joint",
-      "film_missing_column",
-      "proof_activation"
+  "reader_test": {
+    "status": "retired",
+    "decided_by": "owner, 2026-11-13",
+    "decision": "The five-reader approval gate is removed. The updated site ships without a reader test. No replacement approval step is added.",
+    "rule": "Five distinct unfamiliar human readers, with at least four passing each of three tasks (homepage subject and contact within 20 seconds, the Missing Column, Counted film in one sentence, one activation of the proof link), recorded in publication/readers.json before scripts/publication_gate.py would let the deployment job publish.",
+    "in_force": "2026-10-17 (2949acd) to 2026-11-13. The last deployment that published is 50b2898 on 2026-10-17. Eleven pushes to main from 506a8fa to c1642d6 stopped at the deployment gate; from 7764a42 onward this rule was the only blocker.",
+    "participants_recorded": 0,
+    "protocol_sha256_at_retirement": "a7e6891cbb1824c6b3bbee70352624ad6801ae43589e000ca0bd9e579fd8e0ce",
+    "last_revision_with_rule": "c1642d6355b45a099d17ca263242cd46ca64d836",
+    "removed": [
+      "the readers check, --bind and --template in scripts/publication_gate.py",
+      "publication/readers.json (an empty study record)",
+      "the reader cases in tests/test_publication_gate.py"
     ],
-    "rater_criteria": {
-      "subject": "the answer identifies AI guardrails and the question of their shared failures, combined misses, or what separate scores leave unknown. Equivalent plain language counts. A generic answer such as \u201can AI website\u201d is insufficient.",
-      "contact": "the reader identifies the owner's working email link/address on the homepage. They need not send email. The homepage task passes only if both subject and contact succeed within the same 20-second window.",
-      "missing_column": "the sentence states both parts. (1) What is missing: the joint record, meaning what happened to both guards on the same item (equivalently, the joint column or joint evidence). (2) The scale: most evaluations lack it, or 14 of 20 lack it, or only 5 of 20 keep any. Exact numbers and specialist terms are unnecessary. Passing examples: \u201cMost evaluations don't record what happened to both guards on the same item.\u201d \u201c14 out of 20 evaluations don't have the joint column.\u201d \u201cOnly 5 of 20 keep any joint evidence, none at matched thresholds.\u201d Failing examples: \u201cGuards fail together sometimes.\u201d (no joint record, no scale; could be said without watching). \u201cIndividual scores don't tell you how often guards fail together.\u201d (true, but it is the shared-misses answer, not what this film counts). \u201cThe film was about AI safety.\u201d (no content). An answer missing either part fails.",
-      "proof": "one actual activation of the real post-player proof link reaches `/try/`. An instruction, a visible URL, or a facilitator's click is not a completed task."
-    },
-    "limits": "Exactly five distinct unfamiliar humans. Human authenticity, unfamiliarity and raw-answer fidelity are facilitator attestations; automation cannot verify them. The film explanation and proof task have no time cutoff."
-  },
-  "protocol_sha256": "a7e6891cbb1824c6b3bbee70352624ad6801ae43589e000ca0bd9e579fd8e0ce",
-  "artifact_sha256": {
-    "assets/check-status.js": "0e65f7a2e2edea55ed2a85330568c55dd0a6d9d5741e51df100eff6765d66664",
-    "assets/fonts/fragment-mono.woff2": "4f4dc27f4a770c0d02fde800daa836c8adc0d1e423b28da74baaf0d1cc3ab96c",
-    "assets/fonts/fraunces-italic.woff2": "4af9c759c8059b53923b4b50ba377ba51029876e1af1ea757efb07bc67d97896",
-    "assets/fonts/fraunces-roman.woff2": "48282a415ec22e31beaf0a0666e6fae0c8cbddcd0b1f6e729f27c3ade8a64e43",
-    "assets/fonts/instrument-sans-roman.woff2": "6219bc4bfdfc5d9b2201dcdf046218b122a758f932e25ed5f168f929b7ca2311",
-    "assets/site.css": "3fa7eec04ac845fb83c3f3994e7d6070cf0d1b94a07cca9a9ecb524b0e45213e",
-    "assets/site.js": "1083834b07b4b3cb3c5013bb31a4aadcc332ab04f4ca18dc62d9a26baabe3b3a",
-    "assets/status.css": "57518fadff67af7af1293db6eebf23731f39c28be686953c03e626e5bcb58193",
-    "assets/world.css": "46f52f4c04eb65c499b2519e886548fbeb87c14e0bb4871aa0ec88234f486cc6",
-    "films/same-scores-different-worlds/renders/same-scores-different-worlds__master.mp4": "ebeae99a0036fd97b25007ee3c9f3cc43cd96864c2d7aa8491ff7c8df82f01f8",
-    "films/same-scores-different-worlds/renders/same-scores-different-worlds__master.poster.png": "e658c99d776a65b50d0e9c3dc4ff8ea6322b5a010aeed1605b3f06385f167708",
-    "films/same-scores-different-worlds/renders/same-scores-different-worlds__vertical.mp4": "4ab8d50a81597be56c7bca18af1c862cd60d8c3040c3a1f5b642c92b45600806",
-    "films/same-scores-different-worlds/renders/same-scores-different-worlds__vertical.poster.png": "11ead959d46beee9911dc6147bac35945d8034f3581a9e3d3f40e24264ed545f",
-    "films/the-missing-column-census/index.html": "1056cc3a30d9e94ce8d145dc6eab0f88dd70c912cf61aafbe3a53e16067f0c7d",
-    "films/the-missing-column-census/renders/the-missing-column-census__master.mp4": "29849f294ffd2b3c94a6f64c65f86211cb61b35e9be620914b20394634fe4dd5",
-    "films/the-missing-column-census/renders/the-missing-column-census__master.poster.png": "489be85673af0f660833da4be6124c96f911c5fcd9a8c3691d928dc6012b676e",
-    "films/the-missing-column-census/renders/the-missing-column-census__vertical.mp4": "e1ab8ce89182b22a4a6d7058aa14782ea606cc405b01dfdb1e42c0559491431e",
-    "films/the-missing-column-census/renders/the-missing-column-census__vertical.poster.png": "f5252a5364030ad9ad2043bd9c9385176756df96220c94c9955e2630a359662b",
-    "index.html": "dd45ed6e74833a8e078d3d28d49d012c177a88b043e55fbf47a09eda909ba1f9",
-    "try/index.html": "b311c2897cbb52c65f8b94213482d1e8040eeec39be3ad740fdf1eaa8e299e91"
-  },
-  "readers_path": "publication/readers.json"
+    "kept": "publication/reader-test-kit.md, marked retired, as the record of what the rule asked. The title and phone-film checks still gate the deployment job, as do the claim, reproduction and deployed-site jobs.",
+    "not_changed": "The deployment step name in .github/workflows/verify.yml and one docstring sentence in scripts/verification_manifest.py still mention reader evidence. Both are trust-root files under security/evidence-policy.json and change only through a separate migration.",
+    "non_claims": [
+      "Shipping without the test does not establish that unfamiliar readers understand the site.",
+      "REL-001 (unfamiliar-reader effects) stays untested.",
+      "The film cold-viewer rule for feed releases (campaigns.yaml, distribution/launch-units.yaml) is a separate rule and is not changed by this decision."
+    ]
+  }
 }
