@@ -34,16 +34,18 @@ from pathlib import Path
 
 GUARDS = ("lg4", "lg3", "sg2b")
 PAIRS = list(itertools.combinations(GUARDS, 2))
-SEED = "MC-E2-PILOT-V1-FREEZE-2026-09-01"
-B = 2000
-PERM = 2000
+from config_integrity import ConfigError, FROZEN_ANALYSIS, load_config
+
+SEED = FROZEN_ANALYSIS["SEED"]
+B = FROZEN_ANALYSIS["B"]
+PERM = FROZEN_ANALYSIS["PERM"]
 
 # PREREG_SELECTION.md §3, frozen 2026-09-02. The shared population is the
 # harmful stratum plus the benign-evaluation stratum; the calibration half is
 # never part of it. These are enforced here, not left to whoever reads the
 # printout: a rule that lives only in prose is not a gate.
-N_MIN = 1097          # CC-006 precision bar; below it "precision HOLD" leads
-N_STOP = 600          # below it the wave stops and the items are re-frozen
+N_MIN = FROZEN_ANALYSIS["N_MIN"]
+N_STOP = FROZEN_ANALYSIS["N_STOP"]
 SHARED_STRATA = ("harmful", "benign_eval")
 
 
@@ -679,6 +681,8 @@ def selection_main(args) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--rows")
+    ap.add_argument("--config", help="hash-covered calibration and analysis config")
+    ap.add_argument("--freeze-record", help="independently retained threshold-freeze record")
     ap.add_argument("--out", required=True)
     ap.add_argument("--selection", action="store_true",
                     help="retrospective regret mode (§15/W1) on a pinned public matrix")
@@ -691,6 +695,19 @@ def main() -> int:
         return selection_main(args)
     if not args.rows:
         sys.exit("--rows is required outside --selection mode")
+    if not args.config:
+        print(json.dumps({"error": "configuration_integrity",
+                          "reason": "config_required"}), file=sys.stderr)
+        return 1
+    try:
+        cfg = load_config(args.config, args.freeze_record)
+        for line in Path(args.rows).read_text().splitlines():
+            if json.loads(line).get("configuration_hash") != cfg["config_hash"]:
+                raise ConfigError("row_configuration_hash_mismatch")
+    except ConfigError as exc:
+        print(json.dumps({"error": "configuration_integrity", "reason": str(exc)}),
+              file=sys.stderr)
+        return 1
     out = Path(args.out).resolve()
     repo = Path(__file__).resolve().parent.parent.parent.parent
     if repo in out.parents or out == repo:

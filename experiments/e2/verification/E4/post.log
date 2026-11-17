@@ -1,0 +1,6 @@
+E4 threshold .4->.6 stale-hash witness: {"changed_event_bits": 0, "original_event_bits": [1, 1, 1, 0, 0, 0], "original_exit": 0, "stale_event_bits": [], "stale_exit": 1, "stale_rows_emitted": 0, "stderr": "{\"error\": \"configuration_integrity\", \"reason\": \"configuration_hash_mismatch\"}\n"}
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.045s
+
+OK

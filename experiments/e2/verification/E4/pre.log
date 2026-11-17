@@ -1,0 +1,107 @@
+COMMAND: /opt/homebrew/opt/python@3.14/bin/python3.14 -B /tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py -v
+BASELINE: git show HEAD collector/analyzer snapshots, before E4 implementation
+test_01_stale_threshold_hash_refuses_before_emitting (__main__.FreezeIntegrityTest.test_01_stale_threshold_hash_refuses_before_emitting) ... E4 threshold .4->.6 stale-hash witness: {"changed_event_bits": 6, "original_event_bits": [1, 1, 1, 0, 0, 0], "original_exit": 0, "stale_event_bits": [0, 0, 0, 1, 1, 1], "stale_exit": 0, "stale_rows_emitted": 6, "stderr": ""}
+FAIL
+test_02_real_rows_carry_canonical_configuration_digest (__main__.FreezeIntegrityTest.test_02_real_rows_carry_canonical_configuration_digest) ... FAIL
+test_03_analyzer_rejects_freeze_record_hash_mismatch (__main__.FreezeIntegrityTest.test_03_analyzer_rejects_freeze_record_hash_mismatch) ... FAIL
+test_04_analyzer_rejects_stale_content_hash (__main__.FreezeIntegrityTest.test_04_analyzer_rejects_stale_content_hash) ... FAIL
+test_05_analysis_constants_are_hash_covered (__main__.FreezeIntegrityTest.test_05_analysis_constants_are_hash_covered) ... FAIL
+
+======================================================================
+FAIL: test_01_stale_threshold_hash_refuses_before_emitting (__main__.FreezeIntegrityTest.test_01_stale_threshold_hash_refuses_before_emitting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py", line 146, in test_01_stale_threshold_hash_refuses_before_emitting
+    self.assert_structured_refusal(*stale[:3])
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py", line 119, in assert_structured_refusal
+    self.assertNotEqual(rc, 0, "configuration mismatch must bind the exit code")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : configuration mismatch must bind the exit code
+
+======================================================================
+FAIL: test_02_real_rows_carry_canonical_configuration_digest (__main__.FreezeIntegrityTest.test_02_real_rows_carry_canonical_configuration_digest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py", line 153, in test_02_real_rows_carry_canonical_configuration_digest
+    self.assertEqual({r["configuration_hash"] for r in result[3]},
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     {digest(self.config)})
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the first set but not the second:
+'e2_config.json'
+Items in the second set but not the first:
+'a2b6a21114ab947520370012378d6bbc30f39a1f75b6fe3b121d774a1f1c9ccf'
+
+======================================================================
+FAIL: test_03_analyzer_rejects_freeze_record_hash_mismatch (__main__.FreezeIntegrityTest.test_03_analyzer_rejects_freeze_record_hash_mismatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py", line 122, in assert_structured_refusal
+    payload = json.loads(stderr.strip())
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/__init__.py", line 352, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py", line 158, in test_03_analyzer_rejects_freeze_record_hash_mismatch
+    self.assert_structured_refusal(*self.analyze("record-mismatch"))
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py", line 124, in assert_structured_refusal
+    self.fail("refusal stderr must be structured JSON: " + repr(stderr))
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: refusal stderr must be structured JSON: 'usage: analyze.py [-h] [--rows ROWS] --out OUT [--selection]\n                  [--source {alotaibi7,bells11,msbench}] [--cache CACHE]\nanalyze.py: error: unrecognized arguments: --config /var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e4-regression-by1kxyhr/e2_config.json --freeze-record /var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e4-regression-by1kxyhr/e2_config.freeze.json\n'
+
+======================================================================
+FAIL: test_04_analyzer_rejects_stale_content_hash (__main__.FreezeIntegrityTest.test_04_analyzer_rejects_stale_content_hash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py", line 122, in assert_structured_refusal
+    payload = json.loads(stderr.strip())
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/__init__.py", line 352, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py", line 163, in test_04_analyzer_rejects_stale_content_hash
+    self.assert_structured_refusal(*self.analyze("content-mismatch"))
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py", line 124, in assert_structured_refusal
+    self.fail("refusal stderr must be structured JSON: " + repr(stderr))
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: refusal stderr must be structured JSON: 'usage: analyze.py [-h] [--rows ROWS] --out OUT [--selection]\n                  [--source {alotaibi7,bells11,msbench}] [--cache CACHE]\nanalyze.py: error: unrecognized arguments: --config /var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e4-regression-4idg5tf5/e2_config.json --freeze-record /var/folders/nj/2c1_c61j3hn7h5fgv1gk0q2m0000gn/T/e2-e4-regression-4idg5tf5/e2_config.freeze.json\n'
+
+======================================================================
+FAIL: test_05_analysis_constants_are_hash_covered (__main__.FreezeIntegrityTest.test_05_analysis_constants_are_hash_covered)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py", line 174, in test_05_analysis_constants_are_hash_covered
+    self.assert_structured_refusal(*result[:3])
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/e2-wave1-20261024/baseline/site/experiments/e2/run/test_e4_integrity.py", line 119, in assert_structured_refusal
+    self.assertNotEqual(rc, 0, "configuration mismatch must bind the exit code")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : configuration mismatch must bind the exit code
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.062s
+
+FAILED (failures=5)
+
+EXIT_CODE: 1

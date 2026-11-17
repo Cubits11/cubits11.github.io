@@ -30,7 +30,9 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 FREEZE = HERE.parent / "freeze"
 FPR_TARGET = 0.05
-SEED = "MC-E2-PILOT-V1-FREEZE-2026-09-01"
+from config_integrity import FROZEN_ANALYSIS, config_digest
+
+SEED = FROZEN_ANALYSIS["SEED"]
 
 GUARDS = ("lg4", "lg3", "sg2b")
 
@@ -107,7 +109,11 @@ def main() -> int:
                 for i in ids:
                     w.writerow([i, g, f"{scores[i]:.10f}", "SYNTHETIC"])
         cfg = {"mode": "SYNTHETIC-SHAKEOUT — not a calibration",
-               "fpr_target": FPR_TARGET, "results": results}
+               "fpr_target": FPR_TARGET, "results": results,
+               "analysis": dict(FROZEN_ANALYSIS)}
+        cfg["config_hash"] = config_digest(cfg)
+        (out / "e2_config.freeze.json").write_text(
+            json.dumps({"config_hash": cfg["config_hash"]}, indent=2))
         (out / "e2_config.SYNTHETIC.json").write_text(json.dumps(cfg, indent=2))
         for g, r in results.items():
             print(f"ok    synthetic sweep {g}: threshold {r['threshold']:.6f} "
